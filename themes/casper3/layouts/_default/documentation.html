@@ -1,0 +1,34 @@
+{{ define "body_class" }} tag-template  {{ end }}
+
+{{ define "main" }}
+
+<header class="site-header leftnav" style="height: 64px;">
+    {{- partial "site-header.html" $ -}}
+</header>
+
+<main id="site-main" class="site-main documentation outer">
+    <div class="inner">
+        {{- partial "leftnav.html" $ -}}
+        
+        <article class="post-full post no-image no-image">
+            <header class="post-full-header">
+                <h1 class="post-full-title">{{.Title}}</h1>
+                {{ if .Param "subtitle" }}
+                    <p class="post-full-custom-excerpt"> {{ .Param "subtitle" }}</p>
+                {{ end }}
+            </header>
+            <section class="post-full-content">
+                {{ .Content }}
+            </section>
+        </article>
+        <!--div class="inner posts">
+            <div class="post-feed">
+                {{ range $index, $element := .Pages }}
+                    {{- partial "post-card.html" (dict "context" . "index" $index "home" $.IsHome) -}}
+                {{ end }}
+            </div>
+        </div-->
+    </div>
+</main>
+
+{{ end }}

@@ -1,0 +1,36 @@
+.post-content > div {
+    width: 100%;
+}
+a.btn {
+    box-shadow: none;
+}
+.btn-lg {
+    padding: 12px 18px;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    line-height: 1.33;
+}
+.btn-black {
+    border-color: #090a0b;
+    background: #090a0b;
+    color: #fff;
+    font-weight: bold;
+}
+.btn {
+    margin-bottom: 0;
+    padding: 9px 15px;
+    border: 1px solid #dfe1e3;
+    background: #fff;
+    border-radius: 4px;
+    color: #808284;
+    text-transform: uppercase;
+    text-shadow: none;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    font-size: 1.1rem;
+    line-height: 1.428571429;
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    font-family: "Open Sans", sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+}

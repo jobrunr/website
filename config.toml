@@ -1,0 +1,29 @@
+baseURL = "https://www.jobrunr.io"
+DefaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
+languageCode = "en"
+title = "JobRunr"
+theme = "casper3"
+
+[markup.goldmark.renderer]
+unsafe= true
+
+[params]
+  logo = "jobrunr-logo-white.png"
+
+[languages]
+  [languages.en]
+    weight = 1
+    contentDir = "content/en"
+  [languages.de]
+    weight = 2
+    contentDir = "content/de"
+  [languages.ch]
+    weight = 3
+    contentDir = "content/ch"
+  [languages.es]
+    weight = 4
+    contentDir = "content/es"
+  [languages.zh-cn]
+    weight = 5
+    contentDir = "content/zh-cn"

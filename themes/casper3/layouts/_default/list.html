@@ -1,0 +1,20 @@
+{{ define "body_class" }} tag-template  {{ end }}
+
+{{ define "main" }}
+
+<header class="site-header" style="height: 64px;">
+    {{- partial "site-header.html" $ -}}
+</header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner posts">
+        {{ .Content }}
+        <div class="post-feed" style="padding-top: 0;">
+            {{ range $index, $element := .Pages }}
+                {{- partial "post-card.html" (dict "context" . "index" $index "home" $.IsHome) -}}
+            {{ end }}
+        </div>
+    </div>
+</main>
+
+{{ end }}
