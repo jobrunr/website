@@ -1,7 +1,8 @@
 ---
 type: homepage-quote
+headless: true
 author: Pierre-Alexandre Losson
-author_description: Software architect and entrepeneur
+author_description: Software architect and entrepreneur
 author_url: https://www.linkedin.com/in/plosson/
 weight: 2
 ---

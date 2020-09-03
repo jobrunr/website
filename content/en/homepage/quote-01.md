@@ -1,5 +1,6 @@
 ---
 type: homepage-quote
+headless: true
 author: Alex Denisov
 author_description: Senior software engineer
 author_url: https://www.linkedin.com/in/alex-denisov-a29bab2a/

@@ -47,3 +47,6 @@ BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 
 ### And monitor them
 Using your browser, go to the JobRunr dashboard located at http://localhost:8000/dashboard
+
+## Credits
+JobRunr would not have existed without some other projects and I want to give them [credits]({{< ref "credits.md" >}}).

@@ -79,6 +79,14 @@ menu:
         text-align: center;
         margin: 0 auto;
     }
+    div.plan div.eco-friendly {
+        margin-top: 0;
+        padding-top: 0;
+    }
+
+    div.plan div.eco-friendly p a {
+        display: initial;
+    }
 
     div.plan ul li {
         margin: 0;
@@ -171,7 +179,10 @@ _per organization / year_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
 
-_includes 15 planted trees / year_
+<div class="eco-friendly">
+
+_[includes 80 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+</div>
 </div>
 </div>
 
@@ -207,7 +218,10 @@ _per organization / year_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
 
-_includes 50 planted trees / year_
+<div class="eco-friendly">
+
+_[includes 250 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+</div>
 </div>
 </div>
 </div>

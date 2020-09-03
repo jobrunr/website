@@ -1,0 +1,32 @@
+{{ define "main" }}
+
+<header class="site-home-header">
+    {{ .Scratch.Set "background" .Params.feature_image }}
+    {{- partial "header-background.html" . -}}
+        <div class="inner">
+            {{- partial "site-nav.html" . -}}
+            <div class="site-header-content">
+                <h1 class="site-title">
+                    {{ $.Site.Title }}
+                </h1>
+                <h2 class="site-description">{{ $.Site.Params.description }}</h2>
+
+            </div>
+        </div>
+    </div>
+</header>
+
+<main id="site-main" class="site-main outer">
+    <div class="inner posts">
+        <br />
+        <h1>{{ .Title }}</h1>
+        <p>I'm sorry but the content you're looking for has moved due to moving to a new CMS (the excellent <a href="https://gohugo.io/">Hugo</a> static file CMS)</p>
+        <p>All the content is still there, but will require a lit bit more digging. Below you can find the most important sections:</p>
+        <ul>
+            <li><a href="/en/documentation/">Here you can find all the documentation</a></li>
+            <li><a href="/en/blog/">All our blog posts</a></li>
+        </ul>
+    </div>
+</main>
+
+{{ end }}
