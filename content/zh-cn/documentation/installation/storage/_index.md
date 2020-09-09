@@ -43,8 +43,7 @@ JobRunr.configure()
 
 
 ## NoSQL databases
-- __ElasticSearch__ - JobRunr will create the necessary indices to save all Jobs and Recurring Jobs automatically for you. They will be prefixed with `jobrunr_`
-- __Mongo__ - JobRunr will create a database called `jobrunr` and all the necessary collection to save all Jobs and Recurring Jobs automatically for you
+- __Mongo__ - JobRunr will create the necessary collection to save all Jobs and Recurring Jobs automatically for you
 - __Redis__ - JobRunr will create all necessary datatypes (Strings, Sets, Hashes, ... ) automatically for you. You can choose out of two implementations: 
   - either the `JedisRedisStorageProvider` which uses Jedis.
   - and the `LettuceRedisStorageProvider` which uses Lettuce. If you use this `StorageProvider` you also need to add a dependency to `org.apache.commons:commons-dbcp2` as the Lettuce driver is not thread-safe when using Redis Transactions.

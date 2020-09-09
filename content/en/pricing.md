@@ -181,7 +181,7 @@ _per organization / year_
 
 <div class="eco-friendly">
 
-_[includes 80 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+_[includes 75 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
@@ -204,6 +204,7 @@ _for companies with more than 30 employees_
 - Access to source code
 
 ### Dedicated support
+- **Includes 2 days consulting to <br>kickstart your team/project**
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
 - Technical support
 
@@ -213,14 +214,14 @@ _for companies with more than 30 employees_
 
 <div class="buy">
 
-__5000 €__
+__4500 €__
 _per organization / year_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
 
 <div class="eco-friendly">
 
-_[includes 250 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+_[includes 225 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
@@ -228,4 +229,4 @@ _[includes 250 planted trees / year]({{< ref "about.md#eco-friendly-software" >}
 
 <br>
 
-Contact us for a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of Your own products.
+Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a non-profit organization with limited budgets? [Contact me](mailto:hello@jobrunr.io) and let's see what we can work out.
