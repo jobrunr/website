@@ -2,6 +2,7 @@
 title: "Extensible"
 type: homepage-feature
 weight: 6
+sitemapExclude: true
 ---
 Job filters allow you to add custom features to the background processing in a way similar to servlet filters.
 

@@ -7,6 +7,9 @@ menu:
   main: 
     parent: 'documentation'
     weight: 5
+sitemap:
+  priority: 0.7
+  changeFreq: monthly
 ---
 
 ## Take a look at our example projects:

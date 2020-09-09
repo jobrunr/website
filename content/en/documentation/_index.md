@@ -2,12 +2,16 @@
 title: "Documentation"
 translationKey: "documentation"
 subtitle: "The architecture and terminology behind JobRunr"
+description: "Find out all about the architecture and terminology behind JobRunr"
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
     identifier: documentation
     weight: 10
+sitemap:
+  priority: 0.9
+  changeFreq: monthly
 ---
 ## Architecture
 <figure>

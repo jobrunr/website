@@ -4,6 +4,9 @@ summary: "Learn how to scale JobRunr to have a whopping 869% speed increase"
 feature_image: /blog/balloons.jpg
 date: 2020-05-06T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
+  - tutorial
 ---
 In this new tutorial, we will build further upon on our [first tutorial]({{< ref "2020-04-23-jobrunr-long-running-jobs.md" >}}) - Easily process long-running jobs with JobRunr and deploy the JobRunr application to a Kubernetes cluster on the Google Cloud Platform (GCP) using Terraform. We then scale it up to 10 instances to have a __whopping 869% speed increase__ compared to only one instance!
 

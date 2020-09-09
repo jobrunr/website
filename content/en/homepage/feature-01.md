@@ -2,6 +2,7 @@
 title: "Simple"
 type: homepage-feature
 weight: 1
+sitemapExclude: true
 ---
 Easy to set up, easy to use. Add the jar from Maven Central and start creating jobs - no separate applications required.
 

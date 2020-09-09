@@ -4,6 +4,8 @@ summary: "We make sure JobRunr will run on all future JVM's to come"
 feature_image: /blog/balloons.jpg
 date: 2020-06-25T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
 ---
 I'm happy to announce that as of june 2020, JobRunr has joined the OpenJdk Quality Outreach program
 

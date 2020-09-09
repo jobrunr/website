@@ -2,6 +2,7 @@
 title: "Reliable"
 type: homepage-feature
 weight: 4
+sitemapExclude: true
 ---
 Once a background job was created without any exception, JobRunr takes the responsibility to process it _at least once_.
 

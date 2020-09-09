@@ -1,12 +1,16 @@
 ---
 title: "Java batch processing made easy..."
+translationKey: "2020-04-08-jobrunr-release"
 summary: "The birth of JobRunr - easy process long-running jobs!"
 feature_image: /blog/2020-04-08-get-shit-done.png
 date: 2020-04-08T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
+  - release
 ---
 
-Today all the hype is around the distributed real-time processing frameworks, like [Apache Hadoop](https://hadoop.apache.org/), [Apache Kafka](https://kafka.apache.org/) or [Apache Spark](https://spark.apache.org/). These frameworks are well-established and a necessity if you are a company like Facebook, Netflix or Linkedin but they are not developer friendly - the learning curve is high and managing the infrastructure they are running on is not a trivial task.
+Test Today all the hype is around the distributed real-time processing frameworks, like [Apache Hadoop](https://hadoop.apache.org/), [Apache Kafka](https://kafka.apache.org/) or [Apache Spark](https://spark.apache.org/). These frameworks are well-established and a necessity if you are a company like Facebook, Netflix or Linkedin but they are not developer friendly - the learning curve is high and managing the infrastructure they are running on is not a trivial task.
 
 And, let's face it - we are not all working for a company like the ones mentioned above - that process terabytes of data each day. Often we just need to solve some complex business processes with a moderate amount of data. I myself still need to meet my first customer who has more than one terabyte of relevant data within the same business process.
 

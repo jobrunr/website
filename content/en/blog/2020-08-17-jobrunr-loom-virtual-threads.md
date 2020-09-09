@@ -4,6 +4,9 @@ summary: "After integrating the Virtual Threads of Project Loom, it's time for a
 feature_image: /blog/jobrunr-loves-project-loom-1.jpeg
 date: 2020-08-17T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
+  - tutorial
 ---
 
 JDK 16 early access has a build available including Project Loom which is all about virtual, light-weight threads (also called Fibers) that can be created in large quantities, without worrying about exhausting system resources.

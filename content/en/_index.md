@@ -13,6 +13,9 @@ gallery: [
         ["/homepage/images/_u/1587456208983_571453.png","/documentation/dashboard/", "Recurring jobs overview"], 
         ["/homepage/images/_u/1587456208990_247553.png","/documentation/dashboard/", "Background job servers overview"], 
     ]
+sitemap:
+  priority: 1.0
+  changeFreq: monthly
 ---
 An easy way to perform background processing in Java.  
 Distributed and backed by persistent storage.  

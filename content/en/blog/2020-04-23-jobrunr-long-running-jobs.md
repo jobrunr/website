@@ -4,6 +4,9 @@ summary: "A tutorial on how to use JobRunr, Spring Data JPA and Docx-Stamper to 
 feature_image: /blog/2020-04-23-jobrunr-gets-jobs-done.jpeg
 date: 2020-04-23T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
+  - tutorial
 ---
 In this tutorial, we will be working for the fictional company Acme Corp and we need to generate the salary slips for all of Acme Corp's employees.
 

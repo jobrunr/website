@@ -2,6 +2,7 @@
 title: "Distributed"
 type: homepage-feature
 weight: 4
+sitemapExclude: true
 ---
 Background method calls and their arguments are serialized to JSON and can travel over JVM instances.
 

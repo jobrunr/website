@@ -4,6 +4,9 @@ summary: "A hands-on tutorial on how JobRunr is tested against 12 different JVM'
 feature_image: /blog/balloons.jpg
 date: 2020-06-01T11:12:23+02:00
 author: "Ronald Dehuysser"
+tags:
+  - blog
+  - tutorial
 ---
 Since JobRunr uses bytecode analysis to perform it's job (pun intended), I thought it was important to have a test where different job lambda's are compiled and executed on each different JVM instance.
 
@@ -102,7 +105,7 @@ public class E2EJDKTest {
 <figcaption>The test enqueues a job and then queries the rest API to see whether the job succeeded</figcaption>
 </figure>
 
-To run this test against 12 different JVM's, I then used TestContainers by Google:
+To run this test against 12 different JVM's, I then used TestContainers:
 
 <figure style="width: 100%; max-width: 100%">
 
