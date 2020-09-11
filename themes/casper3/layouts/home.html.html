@@ -22,7 +22,7 @@
                         {{.Content | replaceRE "<p>" "" | replaceRE "</p>" "" | safeHTML }}
                     </h2>
                 </div>
-                <div class="site-header-images" style="z-index: 999;">
+                <div class="site-header-images" style="z-index: 99;">
                     {{ $slider_css := resources.Get "scss/my-slider.css" | toCSS | minify | fingerprint }}
                     <link rel="stylesheet" href="{{ $slider_css.Permalink }}">
                     {{ $slider_js := resources.Get "js/ism-2-2.min.js" }}
@@ -114,7 +114,7 @@ a.btn {
             </style>
 			<a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener">
                 <svg viewBox="0 0 16 16" style="margin: -4px 10px 10px 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg> 
-                <span>Star us on GitHub!</span>
+                <span>{{i18n "star-us"}}</span>
             </a>
         </div>
 
@@ -197,7 +197,7 @@ a.btn {
             }
         </style>
         
-        <h2>Why JobRunr</h2>
+        <h2 id="why-jobrunr">{{ i18n "why-jobrunr" }}</h2>
         <section class="carousel" aria-label="Gallery">
             <ol class="carousel__viewport">
               {{ range $index, $value := where .Site.Pages.ByWeight "Params.type" "homepage-quote" }}

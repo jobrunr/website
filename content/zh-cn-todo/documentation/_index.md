@@ -50,7 +50,7 @@ The `JobScheduler` is responsible for analysing the lambda, collecting all the r
 ```java
 BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 ```
-<figcaption>Instead of calling the method immediately, JobRunr serializes the type (System), static field (out) and method name ( println, with all the parameter types to identify it later), and all the given arguments, and stores it as Json using a StorageProvider.<figcaption>
+<figcaption>Instead of calling the method immediately, JobRunr serializes the type (System), static field (out) and method name ( println, with all the parameter types to identify it later), and all the given arguments, and stores it as Json using a StorageProvider.</figcaption>
 </figure>
 
 ### BackgroundJobServer

@@ -20,3 +20,5 @@ sitemap:
 An easy way to perform background processing in Java.  
 Distributed and backed by persistent storage.  
 Open and free for commercial use.<span style="color:#1a1b1d">Alternative for Spring Batch and Quartz Scheduler. Hangfire for Java.</span>
+
+[//]: <> (To change any of the blocks on the homepage, go to https://github.com/jobrunr/website/tree/master/content/en/homepage)

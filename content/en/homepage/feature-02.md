@@ -1,5 +1,5 @@
 ---
-title: "Peristent"
+title: "Persistent"
 type: homepage-feature
 weight: 2
 sitemapExclude: true
