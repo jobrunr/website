@@ -16,7 +16,7 @@ sitemap:
 ## Architektur
 <figure>
 
-  ![Architecture](/documentation/architecture.png)
+  ![Architecture](/documentation/architecture.webp)
 
   <figcaption>Die Architektur</figcaption>
 </figure>

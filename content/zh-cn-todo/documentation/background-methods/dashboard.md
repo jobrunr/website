@@ -40,49 +40,49 @@ __Using Spring configuration__
 
 ## Screenshots
 <figure>
-<img src="/documentation/jobrunr-overview-1.png" class="kg-image">
+<img src="/documentation/jobrunr-overview-1.webp" class="kg-image">
 <figcaption>A complete overview of the amount of jobs that are being processed</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/jobs-enqueued.png" class="kg-image">
+<img src="/documentation/jobs-enqueued.webp" class="kg-image">
 <figcaption>An overview of all enqueued jobs</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/job-details-failed-2.png" class="kg-image">
+<img src="/documentation/job-details-failed-2.webp" class="kg-image">
 <figcaption>When a job failed, you see a detailed message why it did fail</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/job-details-succeeded.png" class="kg-image">
+<img src="/documentation/job-details-succeeded.webp" class="kg-image">
 <figcaption>A detailed overview of a succeeded job</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/recurring-jobs-1.png" class="kg-image">
+<img src="/documentation/recurring-jobs-1.webp" class="kg-image">
 <figcaption>
 An overview of all recurring jobs with the ability to trigger or delete them</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/job-servers.png" class="kg-image">
+<img src="/documentation/job-servers.webp" class="kg-image">
 <figcaption>An overview of all background job servers processing background jobs</figcaption>
 </figure>
 
 ## JobRunr pro comes with handy dashboard improvements
 
 <figure>
-<img src="/documentation/jobrunr-pro-enqueued.png" class="kg-image">
+<img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
 <figcaption>Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/jobrunr-pro-batches.png" class="kg-image">
+<img src="/documentation/jobrunr-pro-batches.webp" class="kg-image">
 <figcaption>The Pro version also gives an overview of all your batches</figcaption>
 </figure>
 
 <figure>
-<img src="/documentation/jobrunr-pro-batch-details.png" class="kg-image">
+<img src="/documentation/jobrunr-pro-batch-details.webp" class="kg-image">
 <figcaption>Follow up on your batch jobs thanks to the enhanced job details of a batch job</figcaption>
 </figure>

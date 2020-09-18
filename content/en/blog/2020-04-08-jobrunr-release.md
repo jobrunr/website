@@ -2,7 +2,7 @@
 title: "Java batch processing made easy..."
 translationKey: "2020-04-08-jobrunr-release"
 summary: "The birth of JobRunr - easy process long-running jobs!"
-feature_image: /blog/2020-04-08-get-shit-done.png
+feature_image: /blog/2020-04-08-get-shit-done.webp
 date: 2020-04-08T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

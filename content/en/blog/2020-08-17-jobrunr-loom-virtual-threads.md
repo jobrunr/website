@@ -101,17 +101,17 @@ All numbers are in seconds.
 What we can compare is the results from JVisualVM. And boy, are these worthwhile!
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk11-1.png" class="kg-image">
+<img src="/blog/2020-08-17-jvisualvm-jdk11-1.webp" class="kg-image">
 <figcaption>JDK 11.0.8</figcaption>
 </figure>
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk16.png" class="kg-image">
+<img src="/blog/2020-08-17-jvisualvm-jdk16.webp" class="kg-image">
 <figcaption>JDK Build 16-loom+5-54 without Virtual Threads</figcaption>
 </figure>
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk16-withloom.png" class="kg-image">
+<img src="/blog/2020-08-17-jvisualvm-jdk16-withloom.webp" class="kg-image">
 <figcaption>JDK Build 16-loom+5-54 with Virtual Threads</figcaption>
 </figure>
 

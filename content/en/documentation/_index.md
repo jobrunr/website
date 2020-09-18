@@ -16,7 +16,7 @@ sitemap:
 ## Architecture
 <figure>
 
-  ![Architecture](/documentation/architecture.png)
+  ![Architecture](/documentation/architecture.webp)
 
   <figcaption>JobRunr architecture</figcaption>
 </figure>

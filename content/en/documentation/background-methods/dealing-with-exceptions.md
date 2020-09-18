@@ -17,7 +17,7 @@ When JobRunr encounters external exception that occured during the execution of 
 
 
 <figure>
-<img src="/documentation/failed-job.png" class="kg-image">
+<img src="/documentation/failed-job.webp" class="kg-image">
 <figcaption>Detailed information why a job failed</figcaption>
 </figure>
 

@@ -93,7 +93,7 @@ The installation for these tools is well explained and differs for each OS. Foll
 We also need an account for Google Cloud. Using your browser navigate to https://console.cloud.google.com/  - when you first login to the Google Cloud Platform you get 300 € of free credit, more than enough for us. You can activate it on the top right.
 
 <figure style="width: 100%; max-width: 100%">
-<img src="/blog/2020-05-06-kubernetes-gcp-01.png" class="kg-image">
+<img src="/blog/2020-05-06-kubernetes-gcp-01.webp" class="kg-image">
 <figcaption>The Google console dashboard with the free trial at the top</figcaption>
 </figure>
 
@@ -552,7 +552,7 @@ Since the salary slip microservice is now available on the internet, we can test
 Now, visit the JobRunr dashboard - you can find it at http://${public-ip-from-the-service}:8000/dashboard. Navigate to the Recurring jobs tab and trigger the 'Generate and send salary slip to all employees' job. After about 15 seconds, you should have 10.000 enqueued jobs.
 
 <figure>
-<img src="/blog/2020-05-06-kubernetes-5-1.png" class="kg-image">
+<img src="/blog/2020-05-06-kubernetes-5-1.webp" class="kg-image">
 <figcaption>It takes _11.229 seconds_ or about 3 hours and 7 minutes to create all the salary slips.</figcaption>
 </figure>
 
@@ -585,7 +585,7 @@ We now apply this change again using the Terraform apply command:
 If you run the command `~/jobrunr/gcloud$ kubectl get pods` you will now see 10 pods running our JobRunr application. Let's trigger the 'Generate and send salary slip to all employees' recurring job again and wait for it to finish.
 
 <figure>
-<img src="/blog/2020-05-06-kubernetes-6.png" class="kg-image">
+<img src="/blog/2020-05-06-kubernetes-6.webp" class="kg-image">
 <figcaption>It only took _1.292 seconds_ or 21 minutes and 30 seconds!</figcaption>
 </figure>
 

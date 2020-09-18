@@ -94,6 +94,6 @@ Definieren Sie für die Spring-Konfiguration einfach eine zusätzliche Bean vom 
 
 Die Pro-Version von JobRunr verfügt über ein erweitertes Dashboard, das Ihnen die verschiedenen Warteschlangen anzeigt.
 <figure>
-<img src="/documentation/jobrunr-pro-enqueued.png" class="kg-image">
+<img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
 <figcaption> Dank Warteschlangen haben wir einen Überblick darüber, wie viele Jobs in der High-Prio-Warteschlange, der Standardwarteschlange und der Low-Prio-Warteschlange in die Warteschlange gestellt werden</figcaption>
 </figure>

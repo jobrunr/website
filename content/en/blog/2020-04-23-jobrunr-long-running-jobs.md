@@ -27,7 +27,7 @@ During this tutorial, we will generate the weekly salary slip of all of Acme Cor
   - send an email to the employee with his salary slip using an `EmailService`.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-report.png" class="kg-image">
+<img src="/blog/2020-04-23-tutorial-report.webp" class="kg-image">
 <figcaption>We will transform a Word template to PDF and replace all placeholders with actual values.</figcaption>
 </figure>
 
@@ -565,7 +565,7 @@ Time to use our new application!
 Once you start the SalarySlipMicroService application, you can open your browser using the url http://localhost:8000 and navigate to the Recurring jobs tab.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-01-recurring-job.png" class="kg-image">
+<img src="/blog/2020-04-23-tutorial-salary-slip-01-recurring-job.webp" class="kg-image">
 <figcaption>Our recurring job that will be triggered each Sunday.</figcaption>
 </figure>
 
@@ -573,13 +573,13 @@ Once you start the SalarySlipMicroService application, you can open your browser
 To test it, we trigger it now manually. The job is processed and schedules a new job to create the salary slip for each employee. Within 15 seconds the processing of these jobs start and we will see the generated PDF documents in our tmp folder.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-02.png" class="kg-image">
+<img src="/blog/2020-04-23-tutorial-salary-slip-02.webp" class="kg-image">
 </figure>
 
 We can inspect a Job and see them succeed - if it would fail for some reason, they will be automatically retried.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-04.png" class="kg-image">
+<img src="/blog/2020-04-23-tutorial-salary-slip-04.webp" class="kg-image">
 <figcaption>An overview of a succeeded job</figcaption>
 </figure>
 
