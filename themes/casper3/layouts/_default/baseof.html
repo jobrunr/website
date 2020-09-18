@@ -3,15 +3,27 @@
 <head>
     <meta charset="utf-8" />
     {{ template "_internal/google_analytics.html" . }}
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8486167.js"></script>
+    <!-- End of HubSpot Embed Code -->
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {{ $title := print .Title " · " .Site.Title }}
-    {{ if .IsHome }}{{ $title = .Site.Title }}{{ end }}
     <title>{{ $title }}</title>
 
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {{ if .Description }}
+    <meta name="description" content="{{ .Description }}">
+    {{ else if .Param "subtitle" }}
+    <meta name="description" content="{{ .Param "subtitle" }}">
+    {{ end }}
+    {{ if .Keywords }}
+      <meta name="keywords" content="{{ delimit .Keywords "," }}">
+    {{ end }}
+    
+    <meta name="author" content="Ronald Dehuysser, ronald@dehuysser.be">
 
     {{ template "partials/twitter.html" . }}
     {{ template "_internal/opengraph.html" . }}
@@ -31,7 +43,12 @@
 
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a> &copy; {{ .Date.Format "2006" }}</section>
+                <section class="copyright">
+                  <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a> &copy; {{ .Date.Format "2006" }}
+                </section>
+                <section class="love" style="opacity: 0.7;">
+                  Made with <strong style="color: red; font-size: large;">&hearts;</strong> in Belgium
+                </section>
                 <nav class="site-footer-nav">
                     <div><a href="/en/about/" rel="noopener" style="opacity: 0.5;">JobRunr by Ronald Dehuysser</a></div>
                     <a href="https://jonathanjanssens.com" target="_blank" rel="noopener" style="opacity: 0.5;">Hugo Casper3 by Jonathan Janssens</a>

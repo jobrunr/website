@@ -1,7 +1,7 @@
 ---
 title: "Spring Configuration"
 subtitle: "JobRunr integrates almost with any framework - also with Spring"
-date: 2020-04-30T11:12:23+02:00
+date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
@@ -74,7 +74,7 @@ public class WebApplication {
 ```
 __What happens here:__
 - a `BackgroundJobServer` bean is created using a `StorageProvider` and a `JobActivator`. This bean is responsible for the processing of all the background jobs.
-- the `JobRunrDashboardWebServer` which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper`
+- the `JobRunrDashboardWebServer` bean is defined which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper`
 - the `JobActivator` is defined and uses the Spring application context to find the correct bean on which to call the background job method.
 - the `JobScheduler` bean is defined which allows to enqueue jobs. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
 - a `StorageProvider` bean is created using a `DataSource` and a `JobMapper`
@@ -193,3 +193,28 @@ Here, three extra beans are defined:
 - the `JobRunrDashboardWebServer` which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper` which are defined in the shared configuration
 - the `BackgroundJobServer` is defined and consumes again the `StorageProvider` and the `JobActivator`
 - the `JobActivator` is defined and uses the Spring application context to find the correct bean on which to call the background job method.
+
+## Advanced Configuration
+
+The JobRunr configuration allows you to setup JobRunr completely to your liking. 
+
+### BackgroundJobServer
+You can configure the amount of worker threads and the different JobFilters that the `BackgroundJobServer` should run:
+
+```java
+BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator, usingStandardBackgroundJobServerConfiguration().andWorkerCount(workerCount));
+backgroundJobServer.setJobFilters(List.of(new RetryFilter(2)));
+backgroundJobServer.start();
+```
+
+### DashboardWebServer
+Also some options of the `DashboardWebServer` can be configured:
+
+```java
+int portOnWhichToRunDashboard = 8080;
+JobRunrDashboardWebServer dashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper, portOnWhichToRunDashboard);
+dashboardWebServer.start();
+```
+
+
+> For more options, check out the JobRunr JavaDoc.

@@ -9,4 +9,4 @@ menu:
     weight: 10
 ---
 
-You can choose to configure JobRunr using our [Fluent  API](/en/documentation/configuration/fluent) or either via [Spring Beans](/en/documentation/configuration/spring).
+You can choose to configure JobRunr using our [Fluent  API]({{<ref "/documentation/configuration/fluent/_index.md">}}) or either via [Spring Beans]({{<ref "/documentation/configuration/spring/_index.md">}}).

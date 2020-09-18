@@ -1,6 +1,6 @@
 ---
 title: "Contact us"
-summary: "Having doubts about JobRunr? Is it the right product for you? Contact us and we'll see together whether JobRunr can bring any value to your business"
+summary: "Considering a JobRunr Pro license? Contact us and we'll see together whether JobRunr can bring any value to your business"
 translationKey: "contact-us"
 skip_meta: true
 date: 2020-09-04T11:12:23+02:00

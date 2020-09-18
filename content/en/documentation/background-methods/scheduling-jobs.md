@@ -1,7 +1,8 @@
 ---
 title: "Scheduling jobs"
 subtitle: "Schedule jobs in the future and monitor them using the dashboard."
-date: 2020-04-30T11:12:23+02:00
+keywords: ["schedule", "java background job", "java schedule method", "java schedule background job"]
+date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 

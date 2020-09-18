@@ -1,7 +1,8 @@
 ---
 title: "Enqueueing jobs"
 subtitle: "Fire-and-forget method invocation has never been simpler thanks to JobRunr."
-date: 2020-04-30T11:12:23+02:00
+keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]
+date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 

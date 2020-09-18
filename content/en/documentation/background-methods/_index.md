@@ -33,17 +33,17 @@ Serialization is performed by the either Jackson, Gson or Json-B and the resulti
 
 ```json
 {
-    "lambdaType": "org.jobrunr.jobs.lambdas.JobLambda",
-    "className": "java.lang.System",
-    "staticFieldName": "out",
-    "methodName": "println",
-    "jobParameters": [
-      {
-        "className": "java.lang.String",
-        "object": "a test"
-      }
-    ]
-  }
+  "lambdaType": "org.jobrunr.jobs.lambdas.JobLambda",
+  "className": "java.lang.System",
+  "staticFieldName": "out",
+  "methodName": "println",
+  "jobParameters": [
+    {
+      "className": "java.lang.String",
+      "object": "a test"
+    }
+  ]
+}
 ```
 <figcaption>the serialized job details</figcaption>
 </figure>

@@ -5,7 +5,7 @@
 <header class="site-home-header">
     <style type="text/css">
         .responsive-header-img {
-            background-image: url(https://static.ghost.org/v3.0.0/images/publication-cover.png);
+            background-image: url(/publication-cover.png);
         }
     </style>
     <div class="outer site-header-background responsive-header-img">
@@ -15,7 +15,7 @@
             <div class="site-header-content">
                 <div class="site-header-description">
                     <h1 class="site-title">
-                        {{ $logo_img := resources.Get "images/jobrunr-logo-white.png" }}
+                        {{ $logo_img := resources.Get "images/jobrunr-logo-white.webp" }}
                         <img class="site-logo" src="{{ $logo_img.Permalink }}" alt="{{ .Site.Title }}" />
                     </h1>
                     <h2 class="site-description">

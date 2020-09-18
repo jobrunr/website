@@ -1,7 +1,8 @@
 ---
 title: "Recurring jobs"
 subtitle: "Schedule recurring jobs with a single line of code using any CRON expression."
-date: 2020-04-30T11:12:23+02:00
+keywords: ["java recurring job", "java cron job"]
+date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
@@ -27,7 +28,7 @@ The Cron class contains different methods and overloads to run jobs on a minute,
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly(() -> System.our.println("Powerful!), "0 12 * */2");
+BackgroundJob.scheduleRecurringly(() -> System.our.println("Powerful!"), "0 12 * */2");
 ```
 </figure>
 
@@ -40,7 +41,7 @@ All these methods are also available on the JobScheduler bean:
 @Inject
 private JobScheduler jobScheduler;
 
-jobScheduler.scheduleRecurringly(() -> System.our.println("Easy!), Cron.daily());
+jobScheduler.scheduleRecurringly(() -> System.our.println("Easy!"), Cron.daily());
 ```
 </figure>
 

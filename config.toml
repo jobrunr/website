@@ -10,14 +10,14 @@ googleAnalytics = "UA-5770953-9"
 unsafe= true
 
 [params]
-  logo = "jobrunr-logo-white.png"
-  images = ["/blog/2020-04-23-jobrunr-gets-jobs-done.jpeg"]
+  logo = "jobrunr-logo-white.webp"
+  images = ["/blog/2020-04-23-jobrunr-gets-jobs-done.webp"]
 
 
 [params.twitterCard]
     generate = true
     card = "summary"
-    image = "/blog/2020-04-23-jobrunr-gets-jobs-done.jpeg"
+    image = "/blog/2020-04-23-jobrunr-gets-jobs-done.webp"
     imageAlt = "JobRunr - get jobs done"
     site = "@jobrunr"
     creator = "@rdehuyss"

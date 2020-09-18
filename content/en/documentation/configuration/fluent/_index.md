@@ -1,7 +1,8 @@
 ---
 title: "Fluent API"
+keywords: ["JobRunr Configuration"]
 subtitle: "Use the Fluent API to configure JobRunr in your application within minutes."
-date: 2020-04-30T11:12:23+02:00
+date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
@@ -120,3 +121,23 @@ __What happens here?__
   - a `JobActivator` is defined which uses the `getBean` method of the Spring `ApplicationContext`
   - the `BackgroundJobServer` itself is started by means of the `useDefaultBackgroundJobServer` method
   - the Dashboard is also started
+
+## Advanced Configuration
+
+The JobRunr configuration allows you to setup JobRunr completely to your liking:
+
+```java
+boolean isBackgroundJobServerEnabled = true; // or get it via ENV variables
+boolean isDashboardEnabled = true; // or get it via ENV variables
+JobRunr.configure()
+            .useJobStorageProvider(jobStorageProvider)
+            .useJobActivator(jobActivator)
+            .withJobFilter(new RetryFilter(2)) // only do two retries by default
+            .useDefaultBackgroundJobServerIf(isBackgroundJobServerEnabled, 4)  // only use 4 worker threads
+            .useDashboardIf(isDashboardEnabled, 80) // start on port 80 instead of 8000
+            .useJmxExtensions()
+            .initialize();
+
+```
+
+> For more options, check out the JobRunr JavaDoc.

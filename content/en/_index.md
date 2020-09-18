@@ -1,17 +1,20 @@
 ---
-title: "Home"
+title: "Distributed Java Background Job Scheduler"
+keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "micro-service", "microservice"]
+description: "JobRunr · a distributed Java background job scheduler for your microservice architecture"
 translationKey: "home"
 menu: 
   main: 
+    name: Home
     identifier: home
     weight: 1
 gallery: [
-        ["/homepage/images/_u/1587456209086_72063.png"],
-        ["/homepage/images/_u/1587456209554_760158.png","/documentation/dashboard/", "An overview of all jobs"], 
-        ["/homepage/images/_u/1587456209311_393418.png","/documentation/dashboard/", "A succeeded job"], 
-        ["/homepage/images/_u/1587456209459_902570.png","/documentation/dashboard/", "A failed job"], 
-        ["/homepage/images/_u/1587456208983_571453.png","/documentation/dashboard/", "Recurring jobs overview"], 
-        ["/homepage/images/_u/1587456208990_247553.png","/documentation/dashboard/", "Background job servers overview"], 
+        ["/homepage/images/_u/1587456209086_72063.webp"],
+        ["/homepage/images/_u/1587456209554_760158.webp","/documentation/dashboard/", "An overview of all jobs"], 
+        ["/homepage/images/_u/1587456209311_393418.webp","/documentation/dashboard/", "A succeeded job"], 
+        ["/homepage/images/_u/1587456209459_902570.webp","/documentation/dashboard/", "A failed job"], 
+        ["/homepage/images/_u/1587456208983_571453.webp","/documentation/dashboard/", "Recurring jobs overview"], 
+        ["/homepage/images/_u/1587456208990_247553.webp","/documentation/dashboard/", "Background job servers overview"], 
     ]
 sitemap:
   priority: 1.0
