@@ -2,7 +2,7 @@
 <html lang="{{ .Site.LanguageCode }}">
 <head>
     <meta charset="utf-8" />
-    {{ template "_internal/google_analytics.html" . }}
+    {{ template "_internal/google_analytics_async.html" . }}
     <!-- Start of HubSpot Embed Code -->
     <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/8486167.js"></script>
     <!-- End of HubSpot Embed Code -->
@@ -73,6 +73,9 @@ window.cookieconsent.initialise({
       "border": "#fff",
       "text": "#fff"
     }
+  },
+  "content": {
+    "link": "Learn more about cookies"
   }
 });
 

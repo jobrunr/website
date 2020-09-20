@@ -1,7 +1,7 @@
 ---
 title: "JobRunr, Project Loom and Virtual Threads"
 summary: "After integrating the Virtual Threads of Project Loom, it's time for a showdown between Java 11, Java 16 without Virtual Threads and Java 16 with Virtual Threads."
-feature_image: /blog/jobrunr-loves-project-loom-1.jpeg
+feature_image: /blog/jobrunr-loves-project-loom-1.webp
 date: 2020-08-17T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

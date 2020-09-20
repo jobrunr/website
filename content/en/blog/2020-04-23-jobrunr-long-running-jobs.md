@@ -1,7 +1,7 @@
 ---
 title: "Easily process long-running jobs with JobRunr"
 summary: "A tutorial on how to use JobRunr, Spring Data JPA and Docx-Stamper to generate the salary slips for all employees of Acme Corp"
-feature_image: /blog/2020-04-23-jobrunr-gets-jobs-done.jpeg
+feature_image: /blog/2020-04-23-jobrunr-gets-jobs-done.webp
 date: 2020-04-23T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
