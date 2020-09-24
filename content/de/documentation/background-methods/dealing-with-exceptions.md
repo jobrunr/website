@@ -17,7 +17,7 @@ Wenn JobRunr auf eine externe Ausnahme stößt, die während der Ausführung des
 
 
 <figure>
-<img src = "/ documentation / failed-job.webp" class = "kg-image">
+<img src = "/documentation/failed-job.webp" class = "kg-image">
 <figcaption> Detaillierte Informationen, warum ein Job fehlgeschlagen ist </figcaption>
 </figure>
 

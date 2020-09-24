@@ -9,4 +9,4 @@ menu:
     weight: 10
 ---
 
-You can choose to configure JobRunr using our [Fluent  API]({{<ref "/documentation/configuration/fluent/_index.md">}}) or either via [Spring Beans]({{<ref "/documentation/configuration/spring/_index.md">}}).
+You can choose to configure JobRunr using our [Fluent  API]({{<ref "/documentation/configuration/fluent/_index.md">}}) or use the [Spring Starter]({{<ref "/documentation/configuration/spring/_index.md">}}). Ein Beispiel für [Quarkus] ({{<ref "/documentation/configuration/quarkus/_index.md">}}) ist ebenfalls verfügbar.

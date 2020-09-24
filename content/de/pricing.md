@@ -46,7 +46,7 @@ _für Unternehmen mit bis zu 30 Mitarbeitern_
 ### Lizenzierung
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- [Standard EULA](/en/licensing/standard-eula.md)
+- [Standard EULA](/en/licensing/standard-eula/)
 - Berechtigt bei bis zu 30 Mitarbeitern.
 - <a style="text-decoration: none; cursor: help" title = "Mit einer unbefristeten Lizenz kann der Kunde die lizenzierte Software unbegrenzt nutzen. Im ersten Jahr berechtigt die unbefristete Lizenz den Kunden auch, alle Updates auf herunterzuladen die Software und technischen Support zu erhalten.">Unbefristete Lizenz</a>
 - Zugriff auf das private Maven-Repository
@@ -86,7 +86,7 @@ _für Unternehmen mit mehr als 30 Mitarbeitern_
 ### Lizenzierung
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- [Standard EULA](/en/licensing/standard-eula.md)
+- [Standard EULA](/en/licensing/standard-eula/)
 - Berechtigt bei mehr als 30 Mitarbeitern.
 - <a style="text-decoration: none; cursor: help" title = "Mit einer unbefristeten Lizenz kann der Kunde die lizenzierte Software unbegrenzt nutzen. Im ersten Jahr berechtigt die unbefristete Lizenz den Kunden auch, alle Updates auf herunterzuladen die Software und technischen Support zu erhalten.">Unbefristete Lizenz</a>
 - Zugriff auf das private Maven-Repository

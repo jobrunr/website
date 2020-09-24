@@ -48,3 +48,13 @@ public void doWork() {
     ...
 }
 ```
+
+### I'm encountering a `java.lang.IllegalThreadStateException`
+While developing, you may encounter the following error:
+
+```java
+java.lang.IllegalThreadStateException: Job was too long in PROCESSING state without being updated.
+at org.jobrunr.server.JobZooKeeper.lambda$checkForOrphanedJobs$2(JobZooKeeper.java:134)
+```
+
+This is because you stopped a running JVM instance where a `BackgroundJobServer` was processing a job. When a job is being processed, it is regularly updated with a timestamp so that in case of a node failure, the job can be retried automatically on a different server. The error message you see here, is an example of such a case.

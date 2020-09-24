@@ -255,7 +255,7 @@ I hope you enjoyed this tutorial and you can see that for JobRun quality and tes
 
 To learn more, check out these guides:
 
-- [JobRunr - Java batch processing made easy...](https://www.jobrunr.io/en/blog/java-batch-processing-made-easy/)
+- [JobRunr - Java batch processing made easy...]({{< ref "2020-04-08-jobrunr-release.md" >}})
 - [TestContainers - Implementing Integration Tests using TestContainers](https://dzone.com/articles/implementing-integration-tests-using-testcontainer).
 
 If you liked this tutorial, feel free to [star us on GitHub](https://github.com/jobrunr/jobrunr/stargazers)!

@@ -1,6 +1,6 @@
 ---
-title: "Spring Configuration"
-subtitle: "JobRunr integrates almost with any framework - also with Spring"
+title: "Spring Boot Starter"
+subtitle: "JobRunr has excellent Spring support thanks to the jobrunr-spring-boot-starter"
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -8,213 +8,49 @@ menu:
     parent: 'configuration'
     weight: 10
 ---
-## Enqueueing and processing in the same JVM instance
-If you want to start with minimal server resources, this is the way to go: the application can enqueue jobs from a REST API and return without blocking the http call and the processing then takes place in different background threads but all within the same JVM instance.
+Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`!
 
-```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class WebApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
-    }
-
-    @Bean
-    public BackgroundJobServer backgroundJobServer(StorageProvider storageProvider, JobActivator jobActivator) {
-        final BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator);
-        backgroundJobServer.start();
-        return backgroundJobServer;
-    }
-
-    @Bean
-    public JobRunrDashboardWebServer dashboardWebServer(StorageProvider storageProvider, JsonMapper jsonMapper) {
-        final JobRunrDashboardWebServer jobRunrDashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper);
-        jobRunrDashboardWebServer.start();
-        return jobRunrDashboardWebServer;
-    }
-
-    @Bean
-    public JobActivator jobActivator(ApplicationContext applicationContext) {
-        return applicationContext::getBean;
-    }
-
-    @Bean
-    public JobScheduler jobScheduler(StorageProvider storageProvider) {
-        JobScheduler jobScheduler = new JobScheduler(storageProvider);
-        BackgroundJob.setJobScheduler(jobScheduler);
-        return jobScheduler;
-    }
-
-    @Bean
-    public StorageProvider storageProvider(DataSource dataSource, JobMapper jobMapper) {
-        final SqLiteStorageProvider sqLiteStorageProvider = new SqLiteStorageProvider(dataSource);
-        sqLiteStorageProvider.setJobMapper(jobMapper);
-        return sqLiteStorageProvider;
-    }
-
-    @Bean
-    public SQLiteDataSource dataSource() {
-        final SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:" + Paths.get(System.getProperty("java.io.tmpdir"), "jobrunr.db"));
-        return dataSource;
-    }
-
-    @Bean
-    public JobMapper jobMapper(JsonMapper jsonMapper) {
-        return new JobMapper(jsonMapper);
-    }
-
-    @Bean
-    public JsonMapper jsonMapper() {
-        return new JacksonJsonMapper();
-    }
-
-}
-```
-__What happens here:__
-- a `BackgroundJobServer` bean is created using a `StorageProvider` and a `JobActivator`. This bean is responsible for the processing of all the background jobs.
-- the `JobRunrDashboardWebServer` bean is defined which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper`
-- the `JobActivator` is defined and uses the Spring application context to find the correct bean on which to call the background job method.
-- the `JobScheduler` bean is defined which allows to enqueue jobs. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
-- a `StorageProvider` bean is created using a `DataSource` and a `JobMapper`
-- in this example a SQLiteDataSource is used
-- a `JobMapper` is defined using a `JsonMapper` which has the responsability to map the background jobs to Json
-- a `JsonMapper` is created, in this case it is a `JacksonJsonMapper`
-
-<br>
-
-## Enqueueing and processing in different JVM instances
-JobRunr can be configured like any other spring bean and in this example - where the application that enqueues background jobs is __not__ processing these jobs, a shared configuration is defined in a `JobRunrStorageConfiguration` class which is then imported later on.
-
-### Shared configuration
-
-```java
-@Configuration
-@ComponentScan(basePackageClasses = JobRunrStorageConfiguration.class)
-public class JobRunrStorageConfiguration {
-
-    @Bean
-    public StorageProvider storageProvider(DataSource dataSource, JobMapper jobMapper) {
-        final SqLiteStorageProvider sqLiteStorageProvider = new SqLiteStorageProvider(dataSource);
-        sqLiteStorageProvider.setJobMapper(jobMapper);
-        return sqLiteStorageProvider;
-    }
-
-    @Bean
-    public SQLiteDataSource dataSource() {
-        final SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:" + Paths.get(System.getProperty("java.io.tmpdir"), "jobrunr.db"));
-        return dataSource;
-    }
-
-    @Bean
-    public JobMapper jobMapper(JsonMapper jsonMapper) {
-        return new JobMapper(jsonMapper);
-    }
-
-    @Bean
-    public JsonMapper jsonMapper() {
-        return new JacksonJsonMapper();
-    }
-
-}
+## Add the dependency to the starter
+As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add the dependency:
+### Maven
+```xml
+<dependency> 
+    <groupId>org.jobrunr</groupId> 
+    <artifactId>jobrunr-spring-boot-starter</artifactId> 
+    <version>${jobrunr.version}</version> 
+</dependency>
 ```
 
-__What happens here:__
-- a `StorageProvider` bean is created using a `DataSource` and a `JobMapper`
-- in this example a SQLiteDataSource is used
-- a `JobMapper` is defined using a `JsonMapper` which has the responsability to map the background jobs to Json
-- a `JsonMapper` is created, in this case it is a `JacksonJsonMapper`
-
-
-### WebApp configuration
-In the WebApp configuration, the shared configuration is reused:
-
+### Gradle
 ```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class WebApplication {
+implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
+```
+<br/>
 
-    public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
-    }
+## Configure JobRunr
+JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:
 
-    @Bean
-    public JobScheduler jobScheduler(StorageProvider storageProvider) {
-        JobScheduler jobScheduler = new JobScheduler(storageProvider);
-        BackgroundJob.setJobScheduler(jobScheduler);
-        return jobScheduler;
-    }
-}
+```
+org.jobrunr.background_job_server=true
+org.jobrunr.dashboard=true
 ```
 
-The only extra bean defined here is the `JobScheduler` bean. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
+These are disabled by default so that your web application does not start processing jobs by accident.
 
-### Background job server configuration
-The Background job server configuration again reuses the shared configuration:
 
-```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class JobServerApplication implements CommandLineRunner {
-
-    public static void main(String[] args) {
-        SpringApplication.run(JobServerApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws InterruptedException {
-        Thread.currentThread().join(); // keep running forever
-    }
-
-    @Bean
-    public JobRunrDashboardWebServer dashboardWebServer(StorageProvider storageProvider, JsonMapper jsonMapper) {
-        final JobRunrDashboardWebServer jobRunrDashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper);
-        jobRunrDashboardWebServer.start();
-        return jobRunrDashboardWebServer;
-    }
-
-    @Bean
-    public BackgroundJobServer backgroundJobServer(StorageProvider storageProvider, JobActivator jobActivator) {
-        final BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator);
-        backgroundJobServer.start();
-        return backgroundJobServer;
-    }
-
-    @Bean
-    public JobActivator jobActivator(ApplicationContext applicationContext) {
-        return applicationContext::getBean;
-    }
-}
-```
-
-Here, three extra beans are defined:
-- the `JobRunrDashboardWebServer` which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper` which are defined in the shared configuration
-- the `BackgroundJobServer` is defined and consumes again the `StorageProvider` and the `JobActivator`
-- the `JobActivator` is defined and uses the Spring application context to find the correct bean on which to call the background job method.
+> The `jobrunr-spring-boot-starter` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB, `RestHighLevelClient` for ElasticSearch and `JedisPool` or `RedisClient` for Redis). <br/>
+> If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Advanced Configuration
+Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
-The JobRunr configuration allows you to setup JobRunr completely to your liking. 
-
-### BackgroundJobServer
-You can configure the amount of worker threads and the different JobFilters that the `BackgroundJobServer` should run:
-
-```java
-BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator, usingStandardBackgroundJobServerConfiguration().andWorkerCount(workerCount));
-backgroundJobServer.setJobFilters(List.of(new RetryFilter(2)));
-backgroundJobServer.start();
 ```
-
-### DashboardWebServer
-Also some options of the `DashboardWebServer` can be configured:
-
-```java
-int portOnWhichToRunDashboard = 8080;
-JobRunrDashboardWebServer dashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper, portOnWhichToRunDashboard);
-dashboardWebServer.start();
+org.jobrunr.job_scheduler=true
+org.jobrunr.background_job_server=false
+org.jobrunr.background_job_server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
+org.jobrunr.background_job_server.poll_interval=15 #check for new work every 15 seconds
+org.jobrunr.background_job_server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
+org.jobrunr.background_job_server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
+org.jobrunr.dashboard=false
+org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```
-
-
-> For more options, check out the JobRunr JavaDoc.
