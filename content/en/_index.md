@@ -10,11 +10,11 @@ menu:
     weight: 1
 gallery: [
         ["/homepage/images/_u/1587456209086_72063.webp"],
-        ["/homepage/images/_u/1587456209554_760158.webp","/en/documentation/dashboard/", "An overview of all jobs"], 
-        ["/homepage/images/_u/1587456209311_393418.webp","/en/documentation/dashboard/", "A succeeded job"], 
-        ["/homepage/images/_u/1587456209459_902570.webp","/en/documentation/dashboard/", "A failed job"], 
-        ["/homepage/images/_u/1587456208983_571453.webp","/en/documentation/dashboard/", "Recurring jobs overview"], 
-        ["/homepage/images/_u/1587456208990_247553.webp","/en/documentation/dashboard/", "Background job servers overview"], 
+        ["/homepage/images/_u/1587456209554_760158.webp","/en/documentation/background-methods/dashboard/", "An overview of all jobs"], 
+        ["/homepage/images/_u/1587456209311_393418.webp","/en/documentation/background-methods/dashboard/", "A succeeded job"], 
+        ["/homepage/images/_u/1587456209459_902570.webp","/en/documentation/background-methods/dashboard/", "A failed job"], 
+        ["/homepage/images/_u/1587456208983_571453.webp","/en/documentation/background-methods/dashboard/", "Recurring jobs overview"], 
+        ["/homepage/images/_u/1587456208990_247553.webp","/en/documentation/background-methods/dashboard/", "Background job servers overview"], 
     ]
 sitemap:
   priority: 1.0
