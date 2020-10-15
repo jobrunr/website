@@ -2,7 +2,7 @@
 ---
 title: "Download whitepaper"
 summary: "Considering a JobRunr Pro license? Contact us and we'll see together whether JobRunr can bring any value to your business"
-translationKey: "contact-us"
+translationKey: "download-whitepaper"
 skip_meta: true
 date: 2020-09-04T11:12:23+02:00
 ---

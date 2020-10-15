@@ -1,7 +1,7 @@
 ---
 title: "Warteschlangen"
 type: homepage-example
-link: 'documentation/pro/queues'
+link: 'documentation/pro/queues/'
 badge: PRO
 weight: 4
 sitemapExclude: true

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ .Site.LanguageCode }}">
+<html lang="{{ .Site.Language }}">
 <head>
     <meta charset="utf-8" />
     {{ template "_internal/google_analytics_async.html" . }}
@@ -12,10 +12,16 @@
     {{ $title := print .Title " · " .Site.Title }}
     <title>{{ $title }}</title>
 
+    {{ if .Param "sitemapExclude" }}
+    <meta name="robots" content="none" /> 
+    {{ end }}
+
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{ if .Description }}
     <meta name="description" content="{{ .Description }}">
+    {{ else if .Summary }}
+    <meta name="description" content="{{ .Summary }}">
     {{ else if .Param "subtitle" }}
     <meta name="description" content="{{ .Param "subtitle" }}">
     {{ end }}

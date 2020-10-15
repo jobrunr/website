@@ -1,7 +1,7 @@
 ---
 title: "Scheduled & delayed jobs"
 type: homepage-example
-link: 'documentation/background-methods/scheduling-jobs'
+link: 'documentation/background-methods/scheduling-jobs/'
 weight: 2
 sitemapExclude: true
 ---

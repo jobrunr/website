@@ -1,7 +1,7 @@
 ---
 title: "Fire-and-forget jobs"
 type: homepage-example
-link: 'documentation/background-methods/enqueueing-jobs'
+link: 'documentation/background-methods/enqueueing-jobs/'
 weight: 1
 sitemapExclude: true
 ---
