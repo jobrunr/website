@@ -45,12 +45,12 @@ Diese sind standardmäßig deaktiviert, damit Ihre Webanwendung nicht versehentl
 Jeder Aspekt von JobRunr kann über die `application.properties` konfiguriert werden. Nachfolgend finden Sie alle Einstellungen einschließlich des Standardwerts.
 
 ```
-org.jobrunr.job_scheduler=true
-org.jobrunr.background_job_server=false
-org.jobrunr.background_job_server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
-org.jobrunr.background_job_server.poll_interval=15 #check for new work every 15 seconds
-org.jobrunr.background_job_server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
-org.jobrunr.background_job_server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
-org.jobrunr.dashboard=false
+org.jobrunr.job-scheduler.enabled=true
+org.jobrunr.background-job-server.enabled=false
+org.jobrunr.background-job-server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
+org.jobrunr.background-job-server.poll_interval=15 #check for new work every 15 seconds
+org.jobrunr.background-job-server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
+org.jobrunr.background-job-server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
+org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```

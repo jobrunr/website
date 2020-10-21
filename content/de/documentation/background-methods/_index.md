@@ -25,7 +25,7 @@ Im Gegensatz zu üblichen Methodenaufrufen, die sofort ausgeführt werden, hande
 - Methodenname und seine Parametertypen.
 - Argument values.
 
-> Wichtig: Auf allen Servern muss dieselbe Version Ihres Codes ausgeführt werden. Wenn Ihr Webapp-Server eine neuere Version mit einer Methodensignatur hat, die nicht mit dem Server kompatibel ist, der Ihre Hintergrundjobs verarbeitet, wird eine NoSuchMethod-Ausnahme ausgelöst und die Jobverarbeitung schlägt fehl!
+> Wichtig: Auf allen Servern muss dieselbe Version Ihres Codes ausgeführt werden. Wenn Ihr Webapp-Server eine neuere Version mit einer Methodensignatur hat, die nicht mit dem Server kompatibel ist, der Ihre Hintergrundjobs verarbeitet, wird eine NoSuchMethod-Ausnahme ausgelöst und die Jobverarbeitung schlägt fehl! Ab JobRunr v1.1.0 zeigt das Dashboard einen Fehler an, wenn Jobs nicht gefunden werden können.
 
 Die Serialisierung wird entweder von Jackson, Gson oder Json-B durchgeführt, und der resultierende JSON, der wie im folgenden Snippet aussieht, wird in einem "StorageProvider" beibehalten, der ihn für andere Verarbeitungen in einem anderen Thread oder sogar einer anderen JVM verfügbar macht. Wie wir sehen können, wird alles als Wert übergeben, sodass auch schwere Datenstrukturen serialisiert werden und viele Bytes in der RDBMS- oder NoSQL-Datenbank verbrauchen.
 

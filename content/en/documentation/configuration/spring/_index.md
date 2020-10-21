@@ -31,8 +31,8 @@ implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
 JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:
 
 ```
-org.jobrunr.background_job_server=true
-org.jobrunr.dashboard=true
+org.jobrunr.background-job-server.enabled=true
+org.jobrunr.dashboard.enabled=true
 ```
 
 These are disabled by default so that your web application does not start processing jobs by accident.
@@ -45,12 +45,12 @@ These are disabled by default so that your web application does not start proces
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
 ```
-org.jobrunr.job_scheduler=true
-org.jobrunr.background_job_server=false
-org.jobrunr.background_job_server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
-org.jobrunr.background_job_server.poll_interval=15 #check for new work every 15 seconds
-org.jobrunr.background_job_server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
-org.jobrunr.background_job_server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
-org.jobrunr.dashboard=false
+org.jobrunr.job-scheduler.enabled=true
+org.jobrunr.background-job-server.enabled=false
+org.jobrunr.background-job-server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
+org.jobrunr.background-job-server.poll_interval=15 #check for new work every 15 seconds
+org.jobrunr.background-job-server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
+org.jobrunr.background-job-server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
+org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```
