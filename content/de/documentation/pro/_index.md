@@ -10,6 +10,7 @@ menu:
     weight: 50
 ---
 JobRunr Pro ist ein Ersatz für JobRunr, der unter einem [kostenpflichtigen Abonnement]({{< ref "/pricing.md" >}}) verfügbar ist und viele zusätzliche Funktionen zur Unterstützung Ihrer schwierigen Geschäftsprozesse bietet:
+- __Einfache Upgrades:__ Sie haben viele Jobs im `SCHEDULED` state und möchten diese aber umgestalten? JobRunr Pro hat Sie abgedeckt - machen Sie einfach Ihr altes Jobmethoden-Paket privat und JobRunr Pro führt sie weiterhin aus.
 - __[Warteschlangen]({{< ref "queues.md" >}}):__ Verarbeiten Sie viele Jobs und haben Sie kritische Geschäftsprozesse, die pünktlich abgeschlossen werden müssen? Warteschlangen zur Rettung! Planen Sie einfach Ihren Job mit einer höheren Priorität und alle anderen Jobs werden umgangen.
 - __[Job Chaining]({{< ref "job-chaining.md" >}}):__ Verwenden Sie vorhandene Servicemethoden und Chain-Jobs erneut, um saubereren Code und einen sofortigen Überblick über Ihren Geschäftsprozess zu erhalten.
 - __[Batches]({{< ref "batches.md" >}}):__ Mit Batches können Sie eine Reihe von Hintergrundjobs atomar erstellen und in Kombination mit [Job Chaining]({{< ref "job-chaining.md" >}}) komplexe Workflows vereinfachen!

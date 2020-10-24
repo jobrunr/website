@@ -10,6 +10,7 @@ menu:
     weight: 50
 ---
 JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/pricing.md" >}}) and adds a lot of extra functionality to support your difficult business processes:
+- __Easy upgrades:__ you have a lot of scheduled jobs but want to refactor? JobRunr Pro has you covered - just make your old job methods package private and JobRunr Pro will still execute them.
 - __[Queues]({{< ref "queues.md" >}}):__ are you processing a lot of jobs and do you have critical business processes that must finish on-time? Queues to the rescue! Just schedule your job with a higher priority and it will bypass all the other jobs.
 - __[Job Chaining]({{< ref "job-chaining.md" >}}):__ reuse existing service methods and chain jobs to have cleaner code and an immediate overview of your business process.
 - __[Batches]({{< ref "batches.md" >}}):__ batches allow you to create a bunch of background jobs atomically and combined with [Job Chaining]({{< ref "job-chaining.md" >}}) they can make complex workflows easy!
