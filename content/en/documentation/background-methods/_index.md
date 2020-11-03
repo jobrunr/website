@@ -25,7 +25,7 @@ Unlike usual method invocations which are run instantly, these methods are in fa
 - Method name and its parameter types.
 - Argument values.
 
-> Important: all your servers __must run the same version of your code__! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail! As of JobRunr v1.1.0, the dashboard shows an error if there are jobs which cannot be found.
+> Important: all your servers __must run the same version of your code__! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail! <br>As of JobRunr v1.1.0, the dashboard shows an error if there are jobs which cannot be found.
 
 Serialization is performed by the either Jackson, Gson or Json-B and the resulting JSON, that looks like in the following snippet, is persisted in a `StorageProvider` making it available for other processing in a different thread or even a different JVM. As we can see everything is passed by value, so heavy data structures will also be serialized and consume a lot of bytes in the RDBMS or NoSQL database.
 
@@ -50,6 +50,8 @@ Serialization is performed by the either Jackson, Gson or Json-B and the resulti
 
 ## Parameters
 You can pass parameters along to your background job methods but these should be kept as small as possible. A parameter must either be:
+- a type of java.lang like String, Integer, ...
+- a custom class with a default no argument constructor - this to deserialize it from the `StorageProvider`
 
-a type of java.lang like String, Integer, ...
-a custom class with a default no argument constructor - this to deserialize it from the `StorageProvider`
+## Method visibility
+JobRunr only runs methods with `public` visibility.

@@ -11,7 +11,7 @@ menu:
 Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`!
 
 ## Add the dependency to the starter
-As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add the dependency:
+As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
 ### Maven
 ```xml
 <dependency> 
@@ -26,6 +26,9 @@ As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need
 implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
 ```
 <br/>
+
+> Do note that if you are **not** working in a web environment, you also need to add either _Jackson_, _Gson_ or _Yasson_ for Json serialization. See the [installation]({{< ref "../../installation/_index.md" >}}) page for more info.
+
 
 ## Configure JobRunr
 JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:

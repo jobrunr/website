@@ -32,7 +32,7 @@ If the command succeeds, a confirmation message will be shown.
 - __MariaDB__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MariaDB specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
 - __DB2__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/db2/migrations).
 
-Once you created the tables, you must configure JobRunr as follows:
+Once you created the tables, you can configure JobRunr as follows (when using `jobrunr-spring-boot-starter`, this is not necessary):
 
 ```java
 JobRunr.configure()
@@ -44,8 +44,13 @@ JobRunr.configure()
 
 ## NoSQL databases
 - __ElasticSearch__ - JobRunr will create the necessary indices to save all Jobs and Recurring Jobs automatically for you. They will be prefixed with `jobrunr_`
+  - use the `ElasticSearchStorageProvider` together with a `RestHighLevelClient`
 - __Mongo__ - JobRunr will create a database called `jobrunr` and all the necessary collection to save all Jobs and Recurring Jobs automatically for you
+  - use the `MongoDBStorageProvider` - JobRunr supports all Mongo versions from Mongo 3.4 and up.
+- __Amazon DocumentDB__ - JobRunr will create a database called `jobrunr` and all the necessary collection to save all Jobs and Recurring Jobs automatically for you
+  - use the `AmazonDocumentDBStorageProvider`
 - __Redis__ - JobRunr will create all necessary datatypes (Strings, Sets, Hashes, ... ) automatically for you. You can choose out of two implementations: 
   - either the `JedisRedisStorageProvider` which uses Jedis.
   - and the `LettuceRedisStorageProvider` which uses Lettuce. If you use this `StorageProvider` you also need to add a dependency to `org.apache.commons:commons-dbcp2` as the Lettuce driver is not thread-safe when using Redis Transactions.
 - __InMemory__ - JobRunr comes with an InMemoryStorageProvider, which is ideal for lightweight tasks that are server-instance specific and where persistence is not important. Note that if you use the `InMemoryStorageProvider`, you can not scale horizontally as the storage is not shared.
+  - use the `InMemoryStorageProvider` for in-memory support

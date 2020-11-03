@@ -23,6 +23,11 @@ P.s.: tested with JobRunr v1.1.0
 
 ```xml
 <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-web</artifactId>
+    <version>2.3.4.RELEASE</version>
+</dependency>
+<dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-starter</artifactId>
     <version>1.1.0</version>
@@ -38,6 +43,17 @@ org.jobrunr.dashboard.enabled=true
 ```
 
 The first property tells JobRunr that we want to start an instance of a `BackgroundJobServer` which is responsible to process jobs. The second property tells JobRunr to start the embedded dashboard. More documentation is available on [jobrunr.io](https://www.jobrunr.io/en/documentation/configuration/spring/)
+
+
+By default, the jobrunr-spring-boot-starter will try to use your existing DataSource in case of a relational database to store all the job-related information. However, since we will use an in-memory data store, we need to provide a StorageProvider bean (the `JobMapper` bean will be provided by the `jobrunr-spring-boot-starter`):
+```java
+@Bean
+public StorageProvider storageProvider(JobMapper jobMapper) {
+    InMemoryStorageProvider storageProvider = new InMemoryStorageProvider();
+    storageProvider.setJobMapper(jobMapper);
+    return storageProvider;
+}
+```
 
 ## Usage
 ### Inject dependencies
