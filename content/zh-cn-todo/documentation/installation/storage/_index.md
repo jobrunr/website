@@ -37,7 +37,7 @@ Once you created the tables, you must configure JobRunr as follows:
 ```java
 JobRunr.configure()
     .useStorageProvider(new DefaultSqlStorageProvider(dataSource, DatabaseOptions.SKIP_CREATE))
-    .useDefaultBackgroundJobServer()
+    .useBackgroundJobServer()
     .initialize();
 ```
 

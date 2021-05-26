@@ -116,6 +116,21 @@ If we want to have recurrent jobs, we need to use the `scheduleRecurrently` meth
 jobScheduler.scheduleRecurrently(() -> sampleJobService.executeSampleJob(), Cron.hourly());
 ```
 
+### Annotating with the @Job Annotation
+To control all aspects of a job, we can annotate our service method with the `@Job` annotation. This allows setting the display name in the dashboard and configuring the number of retries in case a job fails.
+
+```java
+@Job(name = "The sample job with variable %0", retries = 2)
+public void executeSampleJob(String variable) {
+    ...
+}
+```
+
+We can even use variables that are passed to our job in the display name by means of the String.format() syntax.
+
+If we have very specific use cases where we would want to retry a specific job only on a certain exception, we can write our own ElectStateFilter where we have access to the Job and full control on how to proceed.
+
+
 ## Dashboard
 JobRunr comes with a built-in dashboard which allows us to monitor our jobs. If you visit [http://localhost:8000](http://localhost:8000), you will have the possibility to inspect all the jobs, including the recurrent jobs.
 
@@ -130,3 +145,7 @@ All of this is visible in the dashboard, including each retry with the exact err
 <img src="https://www.jobrunr.io/blog/jobrunr-java-mag-1024x498.png">
 </figure>
 
+## Conclusion
+In this article, we built a basic scheduler using JobRunr with the `jobrunr-spring-boot-starter`. The key takeaway from this tutorial is that we were able to create a job with just one line of code and without any XML-based configuration or the need to implement an interface.
+
+The complete source code for the example is available over on [GitHub](https://github.com/jobrunr/example-java-mag).

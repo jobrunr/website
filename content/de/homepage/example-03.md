@@ -8,7 +8,6 @@ sitemapExclude: true
 Wiederkehrende Jobs werden jedes Mal nach dem angegebenen CRON-Zeitplan ausgelöst.
 
 ```java
-BackgroundJob.scheduleRecurringly(
-  () -> service.doWork(), 
-  Cron.daily());
+BackgroundJob.scheduleRecurrently(Cron.daily(),
+  () -> service.doWork());
 ```

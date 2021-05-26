@@ -24,10 +24,10 @@ public class WebApplication {
     @Bean
     public JobScheduler initJobRunr(ApplicationContext applicationContext) {
         return JobRunr.configure()
+                .useJobActivator(applicationContext::getBean)
                 .useStorageProvider(SqlStorageProviderFactory
                           .using(applicationContext.getBean(DataSource.class)))
-                .useJobActivator(applicationContext::getBean)
-                .useDefaultBackgroundJobServer()
+                .useBackgroundJobServer()
                 .useJmxExtensions()
                 .useDashboard()
                 .initialize();
@@ -45,7 +45,7 @@ __Was geschieht hier:__
   - `JmxExtensions` are enabled
   - und das Dashboard wird ebenfalls gestartet
 
-In diesem Setup stellt die Anwendung neue Hintergrundjobs in die Warteschlange und verarbeitet sie auch aufgrund der aufgerufenen Methode `useDefaultBackgroundJobServer`.
+In diesem Setup stellt die Anwendung neue Hintergrundjobs in die Warteschlange und verarbeitet sie auch aufgrund der aufgerufenen Methode `useBackgroundJobServer`.
 
 <br>
 
@@ -103,10 +103,10 @@ public class JobServerApplication implements CommandLineRunner {
     @Bean
     public JobScheduler initJobRunr(ApplicationContext applicationContext) {
         return JobRunr.configure()
+                .useJobActivator(applicationContext::getBean)
                 .useStorageProvider(SqlStorageProviderFactory
                           .using(applicationContext.getBean(DataSource.class)))
-                .useJobActivator(applicationContext::getBean)
-                .useDefaultBackgroundJobServer()
+                .useBackgroundJobServer()
                 .useDashboard()
                 .initialize();
     }
@@ -119,7 +119,7 @@ __Was geschieht hier:__
   - Die Fluent-API wird mit JobRunr.configure () gestartet.
   - Danach wird ein StorageProvider mit einer DataSource erstellt, die in der Spring-Konfigurationsklasse JobRunrStorageConfiguration definiert ist.
   - Es wird ein JobActivator definiert, der die getBean-Methode des Spring ApplicationContext verwendet
-  - Der "BackgroundJobServer" selbst wird mit der "useDefaultBackgroundJobServer" -Methode gestartet
+  - Der "BackgroundJobServer" selbst wird mit der "useBackgroundJobServer" -Methode gestartet
   - Das Dashboard wird ebenfalls gestartet
 
 ## Erweiterte Konfiguration
@@ -130,10 +130,10 @@ Mit der JobRunr-Konfiguration können Sie JobRunr vollständig nach Ihren Wünsc
 boolean isBackgroundJobServerEnabled = true; // or get it via ENV variables
 boolean isDashboardEnabled = true; // or get it via ENV variables
 JobRunr.configure()
-            .useJobStorageProvider(jobStorageProvider)
             .useJobActivator(jobActivator)
+            .useJobStorageProvider(jobStorageProvider)
             .withJobFilter(new RetryFilter(2)) // only do two retries by default
-            .useDefaultBackgroundJobServerIf(isBackgroundJobServerEnabled, 4)  // only use 4 worker threads
+            .useBackgroundJobServerIf(isBackgroundJobServerEnabled, 4)  // only use 4 worker threads
             .useDashboardIf(isDashboardEnabled, 80) // start on port 80 instead of 8000
             .useJmxExtensions()
             .initialize();

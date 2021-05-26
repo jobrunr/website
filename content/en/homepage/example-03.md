@@ -8,7 +8,6 @@ sitemapExclude: true
 Recurring jobs fire each time on the specified CRON schedule.
 
 ```java
-BackgroundJob.scheduleRecurringly(
-  () -> service.doWork(), 
-  Cron.daily());
+BackgroundJob.scheduleRecurrently(Cron.daily(),
+  () -> service.doWork());
 ```

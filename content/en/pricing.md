@@ -10,12 +10,13 @@ menu:
     weight: 15
 ---
 <div class="plan-container">
+
 <div class="plan plan-open">
 
 ## Open
 <div class="no-margin">
 
-_free for everyone, including all companies_
+_free for everyone,<br>including all companies_
 </div>
 
 ### Licensing
@@ -35,12 +36,51 @@ _always and forever_
 </div>
 </div>
 
+<div class="plan plan-startup">
+
+## Startup
+<div class="no-margin">
+
+_tailored for <br>freelancers and startups_
+</div>
+
+### Licensing
+- [JobRunr]({{< ref "documentation/_index.md" >}})
+- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
+- Eligible if up to 5 employees.
+- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow you to use the licensed software indefinitely. ">Perpetual license</a>
+- Access to private Maven repository
+
+### Community support
+- [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
+- GitHub Issues
+
+### Purchasing
+- Credit Card / PayPal 
+- Invoice
+
+<div class="buy">
+
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>500 €</strong>
+_per organization / year<br/>(excl. VAT)_
+
+<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20Startup%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Startup%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
+
+<div class="eco-friendly">
+
+I care about the planet
+_[this includes <br/>25 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+</div>
+</div>
+</div>
+
 <div class="plan plan-business">
 
 ## SME
 <div class="no-margin">
 
-_for companies with up to 30 employees_
+_for companies with <br>up to 30 employees_
 </div>
 
 ### Licensing
@@ -48,7 +88,7 @@ _for companies with up to 30 employees_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if up to 30 employees.
-- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year, the perpetual license also entitles the customer to download all updates to the software and to receive technical support.">Perpetual license</a>
+- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year (or after a renewal of the license), the perpetual license also entitles you to receive technical support.">Perpetual license</a>
 - Access to private Maven repository
 - Access to source code
 
@@ -63,14 +103,14 @@ _for companies with up to 30 employees_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>1500 €</strong>
-_per organization / year_
+_per organization / year<br/>(excl. VAT)_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
 
 <div class="eco-friendly">
 
 I care about the planet
-_[this includes 75 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+_[this includes <br/>75 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
@@ -80,7 +120,7 @@ _[this includes 75 planted trees / year]({{< ref "about.md#eco-friendly-software
 ## Enterprise
 <div class="no-margin">
 
-_for companies with more than 30 employees_
+_for companies with <br>more than 30 employees_
 </div>
 
 ### Licensing
@@ -88,7 +128,7 @@ _for companies with more than 30 employees_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if more than 30 employees.
-- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year, the perpetual license also entitles the customer to download all updates to the software and to receive technical support.">Perpetual license</a>
+- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year (or after a renewal of the license), the perpetual license also entitles you to receive technical support.">Perpetual license</a>
 - Access to private Maven repository
 - Access to source code
 
@@ -104,14 +144,14 @@ _for companies with more than 30 employees_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>4500 €</strong>
-_per organization / year_
+_per organization / year<br/>(excl. VAT)_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
 
 <div class="eco-friendly">
 
 I care about the planet
-_[this includes 225 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+_[this includes <br/>225 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>

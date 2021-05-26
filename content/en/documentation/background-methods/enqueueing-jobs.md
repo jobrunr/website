@@ -31,7 +31,7 @@ UUID jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
 
 The enqueue method does not call the target method immediately, it runs the following steps instead:
 
-- Analyse the lambda to extraxt the method information and all its arguments.
+- Analyse the lambda to extract the method information and all its arguments.
 - Serialize the method information and all its arguments.
 - Create a new background job based on the serialized information.
 - Save background job to the configured `StorageProvider`.

@@ -15,7 +15,7 @@ menu:
 ## Open
 <div class="no-margin">
 
-kostenlos für alle, auch für alle Unternehmen
+_kostenlos für alle, auch für alle Unternehmen_
 </div>
 
 ### Lizenzierung
@@ -35,19 +35,58 @@ _für immer und ewig_
 </div>
 </div>
 
-<div class="plan plan-business">
+<div class="plan plan-startup">
 
-## SME
+## Startup
 <div class="no-margin">
 
-_für Unternehmen mit bis zu 30 Mitarbeitern_
+_für Freiberufler und Startups_
 </div>
 
 ### Lizenzierung
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA](/en/licensing/standard-eula/)
-- Berechtigt bei bis zu 30 Mitarbeitern.
+- Berechtigt bis zu 5 Mitarbeitern.
+- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow you to use the licensed software indefinitely. ">Unbefristete Lizenz</a>
+- Zugriff auf das private Maven-Repository
+
+### Community support
+- [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
+- GitHub Issues
+
+### Purchasing
+- Credit Card / PayPal 
+- Invoice
+
+<div class="buy">
+
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>500 €</strong>
+_pro Organisation / Jahr<br/>(ohne MWHST)_
+
+<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20Startup%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Startup%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>
+
+<div class="eco-friendly">
+
+Der Planet ist mir wichtig
+_[inclusiv 25<br/> gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software" >}})_
+</div>
+</div>
+</div>
+
+<div class="plan plan-business">
+
+## SME
+<div class="no-margin">
+
+_für Unternehmen mit bis<br/> zu 30 Mitarbeitern_
+</div>
+
+### Lizenzierung
+- [JobRunr]({{< ref "documentation/_index.md" >}})
+- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- [Standard EULA](/en/licensing/standard-eula/)
+- Berechtigt bis zu 30 Mitarbeitern.
 - <a style="text-decoration: none; cursor: help" title = "Mit einer unbefristeten Lizenz kann der Kunde die lizenzierte Software unbegrenzt nutzen. Im ersten Jahr berechtigt die unbefristete Lizenz den Kunden auch, alle Updates auf herunterzuladen die Software und technischen Support zu erhalten.">Unbefristete Lizenz</a>
 - Zugriff auf das private Maven-Repository
 - Zugriff auf den Quellcode
@@ -63,14 +102,14 @@ _für Unternehmen mit bis zu 30 Mitarbeitern_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>1500 €</strong>
-_pro Organisation / Jahr_
+_pro Organisation / Jahr<br/>(ohne MWHST)_
 
-<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
+<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>
 
 <div class="eco-friendly">
 
 Der Planet ist mir wichtig
-_[inclusiv 75 gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software" >}})_
+_[inclusiv 75<br/> gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
@@ -80,7 +119,7 @@ _[inclusiv 75 gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software"
 ## Enterprise
 <div class="no-margin">
 
-_für Unternehmen mit mehr als 30 Mitarbeitern_
+_für Unternehmen mit <br/>mehr als 30 Mitarbeitern_
 </div>
 
 ### Lizenzierung
@@ -104,14 +143,14 @@ _für Unternehmen mit mehr als 30 Mitarbeitern_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Sie können bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) sparen '> 4500 € </strong>
-_pro Organisation / Jahr_
+_pro Organisation / Jahr<br/>(ohne MWHST)_
 
-<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
+<a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>
 
 <div class="eco-friendly">
 
 Der Planet ist mir wichtig
-_[inclusiv 225 gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software" >}})_
+_[inclusiv 225 <br/>gepflanzte Bäume / Jahr]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>

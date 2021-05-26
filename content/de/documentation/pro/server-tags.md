@@ -39,7 +39,7 @@ Die Konfiguration ist sowohl in der fließenden API als auch in der Spring-Konfi
 ```java
 JobRunrPro
     .configure()
-    .useDefaultBackgroundJobServer(usingStandardBackgroundJobServerConfiguration().andTags(LINUX, MACOS))
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration().andTags(LINUX, MACOS))
     ...
 ```
 <figcaption> Geben Sie beim Konfigurieren von Server-Tags alle Server-Tags für diesen Server an. </figcaption>

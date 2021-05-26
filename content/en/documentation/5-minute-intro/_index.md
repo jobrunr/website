@@ -36,9 +36,9 @@ Using your RDBMS of choice, create a DataSource and pass it to JobRunr:
 
 ```java
 JobRunr.configure()
-        .useStorageProvider(SqlStorageProviderFactory.using(applicationContext.getBean(DataSource.class )))
         .useJobActivator(applicationContext::getBean)
-        .useDefaultBackgroundJobServer()
+        .useStorageProvider(SqlStorageProviderFactory.using(applicationContext.getBean(DataSource.class )))
+        .useBackgroundJobServer()
         .useDashboard()
         .initialize();
 ```

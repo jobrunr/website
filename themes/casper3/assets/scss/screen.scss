@@ -3592,7 +3592,7 @@ div.plan {
     border: 1px solid #e4eaed;
     border-radius: 8px;
     margin: 0 20px 20px 0;
-    flex: 32%;
+    flex: 22%;
 }
 
 /* On screens that are 992px wide or less, go from four columns to two columns */
@@ -3685,6 +3685,9 @@ div.plan a.button:hover {
 
 div.plan-open h2, div.plan-open a.button {
     background-color: #999;
+}
+div.plan-startup h2, div.plan-startup a.button {
+    background-color: #337ab7;
 }
 div.plan-business h2, div.plan-business a.button {
     background-color: #5cb85c;

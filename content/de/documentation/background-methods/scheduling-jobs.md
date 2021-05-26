@@ -15,8 +15,8 @@ Manchmal möchten Sie möglicherweise einen Methodenaufruf verschieben. Zum Beis
 <figure>
 
 ```java
-BackgroundJob.schedule<EmailService>(x -> x.sendNewlyRegisteredEmail(), 
-  Instant.now().plusHours(24));
+BackgroundJob.schedule<EmailService>(Instant.now().plusHours(24),
+  x -> x.sendNewlyRegisteredEmail());
 ```
 </figure>
 
@@ -39,8 +39,8 @@ Diese Planungsmethoden sind natürlich auch auf der JobScheduler-Bean verfügbar
 @Inject
 private JobScheduler jobScheduler;
 
-jobScheduler.schedule<EmailService>(x -> x.sendNewlyRegisteredEmail(), 
-  Instant.now().plusHours(24));
+jobScheduler.schedule<EmailService>(Instant.now().plusHours(24),
+  x -> x.sendNewlyRegisteredEmail());
 ```
-<figcaption> Planen Sie in Zukunft einen Hintergrundjob mit der JobScheduler-Bean </figcaption>
+<figcaption>Planen Sie in Zukunft einen Hintergrundjob mit der JobScheduler-Bean</figcaption>
 </figure>

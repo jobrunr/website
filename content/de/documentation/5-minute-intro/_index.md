@@ -36,16 +36,16 @@ Erstellen Sie mit dem RDBMS Ihrer Wahl eine DataSource und übergeben Sie sie an
 
 ```java
 JobRunr.configure ()
-        .useStorageProvider(SqlStorageProviderFactory.using(applicationContext.getBean(DataSource.class)))
         .useJobActivator(applicationContext::getBean)
-        .useDefaultBackgroundJobServer()
+        .useStorageProvider(SqlStorageProviderFactory.using(applicationContext.getBean(DataSource.class)))
+        .useBackgroundJobServer()
         .useDashboard()
         .intialize();
 ```
 
 ### Stellen Sie Jobs in die Warteschlange!
 ```java
-BackgroundJob.enqueue (() -> System.out.println ("Simple!"));
+BackgroundJob.enqueue(() -> System.out.println ("Simple!"));
 ```
 
 ### Und überwache die Jobs

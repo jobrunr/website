@@ -39,7 +39,7 @@ Using the fluent API, pass all the server tags as Strings (or string constants) 
 ```java
 JobRunrPro
     .configure()
-    .useDefaultBackgroundJobServer(usingStandardBackgroundJobServerConfiguration().andTags(LINUX, MACOS))
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration().andTags(LINUX, MACOS))
     ...
 ```
 <figcaption>When configuring server tags, specify all the server tags for that server.</figcaption>

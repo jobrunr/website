@@ -7,7 +7,7 @@ weight: 3
 周期性作业重复发生，并在指定的CRON时间表上每次触发。
 
 ```java
-BackgroundJob.scheduleRecurringly(
-  () -> service.doWork(), 
-  Cron.daily());
+BackgroundJob.scheduleRecurrently(
+  Cron.daily(),
+  () -> service.doWork());
 ```

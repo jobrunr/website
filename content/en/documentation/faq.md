@@ -34,6 +34,11 @@ The master is a `BackgroundJobServer` like all other nodes processing but it doe
 - it checks for orphaned jobs and reschedules them
 - it does some zookeeping like deleting all the succeeded jobs
 
+### My recurring jobs are not running nor available in the dashboard?
+To schedule your recurring jobs, you must make sure that the code scheduling these jobs is executed on startup of your application. See the examples in [Recurring jobs]({{<ref "background-methods/recurring-jobs.md#registering-your-recurring-jobs">}})
+
+
+
 <!-- ### How can I control the amount of workers per BackgroundJobServer? -->
 
 ## Job FAQ

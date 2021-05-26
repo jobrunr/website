@@ -15,7 +15,7 @@ Das Registrieren eines wiederkehrenden Jobs ist genauso einfach wie das Registri
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly(() -> System.our.println("Einfach!"), Cron.daily());
+BackgroundJob.scheduleRecurrently(Cron.daily(), () -> System.out.println("Einfach!"));
 ```
 </figure>
 
@@ -28,7 +28,7 @@ Die Cron-Klasse enthält verschiedene Methoden und Überladungen, um Jobs auf Mi
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly(() -> System.our.println("Stark!"), "0 12 * */2");
+BackgroundJob.scheduleRecurrently("0 12 * */2", () -> System.out.println("Stark!"));
 ```
 </figure>
 
@@ -41,7 +41,7 @@ Alle diese Methoden sind auch in der JobScheduler-Bean verfügbar:
 @Inject
 private JobScheduler jobScheduler;
 
-jobScheduler.scheduleRecurringly(() -> System.our.println("Einfach!"), Cron.daily());
+jobScheduler.scheduleRecurrently(Cron.daily(), () -> System.out.println("Einfach!"));
 ```
 </figure>
 
@@ -51,13 +51,13 @@ Jeder wiederkehrende Job hat eine eigene eindeutige Kennung. In den vorherigen B
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly("some-id", 
-  () -> System.our.println("Powerful!), "0 12 * */2");
+BackgroundJob.scheduleRecurrently("some-id", "0 12 * */2",
+  () -> System.out.println("Powerful!"));
 ```
 
-Der Aufruf der Methode `scheduleRecurringly` erstellt einen neuen wiederkehrenden Job, wenn kein wiederkehrender Job mit dieser ID vorhanden ist, oder aktualisiert den vorhandenen Job mit dieser Kennung.
+Der Aufruf der Methode `scheduleRecurrently` erstellt einen neuen wiederkehrenden Job, wenn kein wiederkehrender Job mit dieser ID vorhanden ist, oder aktualisiert den vorhandenen Job mit dieser Kennung.
 
 > Id's sollten eindeutig sein - verwenden Sie für jeden wiederkehrenden Job eindeutige Id's, andernfalls beenden Sie mit einem einzelnen Auftrag.
 
 ### Wiederkehrende Jobs bearbeiten
-Sie können einen vorhandenen wiederkehrenden Job entfernen, indem Sie die Methode `BackgroundJob.deleteRecurringly` aufrufen. Es wird keine Ausnahme ausgelöst, wenn es keinen solchen wiederkehrenden Job gibt.
+Sie können einen vorhandenen wiederkehrenden Job entfernen, indem Sie die Methode `BackgroundJob.delete` aufrufen. Es wird keine Ausnahme ausgelöst, wenn es keinen solchen wiederkehrenden Job gibt.

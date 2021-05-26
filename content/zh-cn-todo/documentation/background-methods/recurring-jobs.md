@@ -14,7 +14,7 @@ Registering a recurring job is just as simple as registering a background job â€
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly(() -> System.our.println("Easy!"), Cron.daily());
+BackgroundJob.scheduleRecurrently(() -> System.our.println("Easy!"), Cron.daily());
 ```
 </figure>
 
@@ -27,7 +27,7 @@ The Cron class contains different methods and overloads to run jobs on a minute,
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly(() -> System.our.println("Powerful!), "0 12 * */2");
+BackgroundJob.scheduleRecurrently(() -> System.our.println("Powerful!), "0 12 * */2");
 ```
 </figure>
 
@@ -40,7 +40,7 @@ All these methods are also available on the JobScheduler bean:
 @Inject
 private JobScheduler jobScheduler;
 
-jobScheduler.scheduleRecurringly(() -> System.our.println("Easy!), Cron.daily());
+jobScheduler.scheduleRecurrently(() -> System.our.println("Easy!), Cron.daily());
 ```
 </figure>
 
@@ -50,11 +50,11 @@ Each recurring job has its own unique identifier. In the previous examples it wa
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurringly("some-id", 
+BackgroundJob.scheduleRecurrently("some-id", 
   () -> System.our.println("Powerful!), "0 12 * */2");
 ```
 
-The call to the `scheduleRecurringly` method will create a new recurring job if no recurring job with that id exists or else update the existing job with that identifier.
+The call to the `scheduleRecurrently` method will create a new recurring job if no recurring job with that id exists or else update the existing job with that identifier.
 
 > Identifiers should be unique - use unique identifiers for each recurring job, otherwise youâ€™ll end with a single job.
 
