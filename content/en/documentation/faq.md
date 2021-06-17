@@ -1,7 +1,7 @@
 ---
 title: "Frequently Asked Questions"
 translationKey: "faq"
-subtitle: "Some frequently asked questions about JobRunr"
+subtitle: "Some frequently asked questions about JobRunr..."
 description: "Find out all about the architecture and terminology behind JobRunr"
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
@@ -60,6 +60,34 @@ While developing, you may encounter the following error:
 ```java
 java.lang.IllegalThreadStateException: Job was too long in PROCESSING state without being updated.
 at org.jobrunr.server.JobZooKeeper.lambda$checkForOrphanedJobs$2(JobZooKeeper.java:134)
+```
+
+This is because you stopped a running JVM instance where a `BackgroundJobServer` was processing a job. When a job is being processed, it is regularly updated with a timestamp so that in case of a node failure, the job can be retried automatically on a different server. The error message you see here, is an example of such a case.
+
+### I'm listening for jobs using Service Bus messages in a load-balanced environment and I want to schedule jobs only once.
+If you are in an environment using JMS or any other Service Bus Message and you are listening on multiple nodes for these messages to create jobs, you will probably enqueue the same job on each node. This is because each node that is listening, receive the JMS message and enqueue the same job.
+
+This can easily be solved using the following technique:
+
+```java
+public class JobMessageListener implements MessageListener {
+    private JobScheduled jobScheduler;
+    private MessageHandler messageHandler;
+ 
+    public ConsumerMessageListener(JobScheduled jobScheduler, MessageHandler messageHandler) {
+        this.jobScheduler = jobScheduler;
+        this.messageHandler = messageHandler;
+    }
+ 
+    public void onMessage(Message message) {
+        TextMessage textMessage = (TextMessage) message;
+        jobScheduler.enqueue(
+          message.getJMSCorrelationID(), // by passing the JMS correlation id, this will be the id of the job and thus unique.
+          () -> messageHandler.handleServiceBusMessage(textMessage.getText())
+        );
+
+    }
+}
 ```
 
 This is because you stopped a running JVM instance where a `BackgroundJobServer` was processing a job. When a job is being processed, it is regularly updated with a timestamp so that in case of a node failure, the job can be retried automatically on a different server. The error message you see here, is an example of such a case.
