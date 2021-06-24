@@ -16,7 +16,7 @@ Wie Sie bereits aus dem 5-minütigen Intro wissen, müssen Sie nur ein Lambda mi
 <figure>
 
 ```java
-UUID jobId = BackgroundJob.enqueue(() -> myService.doWork());
+JobId jobId = BackgroundJob.enqueue(() -> myService.doWork());
 ```
 <figcaption> Hiermit wird ein Hintergrundjob mithilfe einer Instanz von MyService in die Warteschlange gestellt, die während der Warteschlange verfügbar ist. </figcaption>
 </figure>
@@ -24,7 +24,7 @@ UUID jobId = BackgroundJob.enqueue(() -> myService.doWork());
 <figure>
 
 ```java
-UUID jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
+JobId jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
 ```
 <figcaption> Hiermit wird ein Hintergrundjob ohne Verweis auf eine Instanz von MyService in die Warteschlange gestellt. Während der Ausführung des Hintergrundjobs muss der IoC-Container eine Instanz vom Typ MyService bereitstellen. </figcaption>
 </figure>

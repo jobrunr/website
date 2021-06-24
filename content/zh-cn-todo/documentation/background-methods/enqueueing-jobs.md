@@ -14,7 +14,7 @@ As you already know from the 5 minute intro, you only need to pass a lambda with
 <figure>
 
 ```java
-UUID jobId = BackgroundJob.enqueue(() -> myService.doWork());
+JobId jobId = BackgroundJob.enqueue(() -> myService.doWork());
 ```
 <figcaption>This enqueues a background job using an instance of MyService which is available during enqueueing.</figcaption>
 </figure>
@@ -22,7 +22,7 @@ UUID jobId = BackgroundJob.enqueue(() -> myService.doWork());
 <figure>
 
 ```java
-UUID jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
+JobId jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
 ```
 <figcaption>This enqueues a background job without a reference to an instance of MyService. During execution of the background job, the IoC container will need to provide an instance of type MyService.</figcaption>
 </figure>

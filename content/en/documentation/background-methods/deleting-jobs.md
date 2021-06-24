@@ -15,7 +15,7 @@ Sometimes you may want to delete a job that is scheduled, enqueued or already pr
 <figure>
 
 ```java
-UUID jobId = BackgroundJob.enqueue(() -> myService.doWork());
+JobId jobId = BackgroundJob.enqueue(() -> myService.doWork());
 
 BackgroundJob.delete(jobId);
 ```
