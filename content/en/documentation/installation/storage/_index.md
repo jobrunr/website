@@ -27,10 +27,11 @@ If the command succeeds, a confirmation message will be shown.
 
 #### Apply the SQL scripts yourself
 - __Oracle__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/oracle/migrations).
-- __Postgres__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations).
 - __MySql__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MySql specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
-- __MariaDB__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MariaDB specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
+- - __MsSqlServer__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MsSqlServer specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/sqlserver/migrations).
+- __Postgres__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations).
 - __DB2__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/db2/migrations).
+- __MariaDB__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MariaDB specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
 
 Once you created the tables, you can configure JobRunr as follows (when using `jobrunr-spring-boot-starter`, this is not necessary):
 
