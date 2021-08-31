@@ -43,7 +43,19 @@ A `StorageProvider` is a place where JobRunr keeps all the information related t
 `BackgroundJob` is a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the BackgroundJob class or either directly on the JobScheduler class. It may help readability but can make things more difficult to test.
 
 ### JobScheduler
-The `JobScheduler` is responsible for analysing the lambda, collecting all the required job parameters, creating background jobs and saving them into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+The `JobScheduler` is responsible for analyzing the lambda, collecting all the required job parameters, creating background jobs and saving them into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+
+### BackgroundJobRequest
+`BackgroundJobRequest` is also a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobRequestScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the BackgroundJobRequest class or either directly on the JobRequestScheduler class. It may help readability but can make things more difficult to test.
+
+### JobRequestScheduler
+The `JobScheduler` is responsible for transforming a `JobRequest` together with its internal data to a background job and save it into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+
+### JobRequest
+A `JobRequest` is an interface that allows to create a background job. It can contain extra data that also will be serialized and will be saved into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+
+### JobRequestHandler
+A `JobRequestHandler` is an interface that that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
 
 <figure>
 

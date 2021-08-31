@@ -10,7 +10,7 @@ menu:
     parent: 'background-methods'
     weight: 30
 ---
-Registering a recurring job is just as simple as registering a background job – you only need to write a single line of code:
+Creating a recurring job is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`):
 
 <figure>
 
@@ -21,7 +21,8 @@ BackgroundJob.scheduleRecurrently(Cron.daily(), () -> System.out.println("Easy!"
 
 This line creates a new recurring job entry in the `StorageProvider`. A special component in `BackgroundJobServer` checks the recurring jobs on a minute-based interval and then enqueues them as fire-and-forget jobs. This enables you to track them as usual.
 
-> Remark: for recurring methods to work, at least one BackgroundJobServer should be running all the time and the jobs should be registered on startup of your application.
+> __Remark:__ for recurring methods to work, at least one BackgroundJobServer should be running all the time and the jobs should be registered on startup of your application.
+> Also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents to create recurring jobs every with cron values less than 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
 
 The Cron class contains different methods and overloads to run jobs on a minute, hourly, daily, weekly, monthly and yearly basis. You can also use standard CRON expressions to specify a more complex schedule:
 
@@ -33,7 +34,7 @@ BackgroundJob.scheduleRecurrently("0 12 * */2", () -> System.out.println("Powerf
 </figure>
 
 
-All these methods are also available on the JobScheduler bean:
+All these methods are also available on the `JobScheduler` and `JobRequestScheduler` bean:
 
 <figure>
 
@@ -44,6 +45,17 @@ private JobScheduler jobScheduler;
 jobScheduler.scheduleRecurrently(Cron.daily(), () -> System.out.println("Easy!"));
 ```
 </figure>
+
+<figure>
+
+```java
+@Inject
+private JobRequestScheduler jobRequestScheduler;
+
+jobRequestScheduler.scheduleRecurrently(Cron.daily(), new SysOutJobRequest("Easy!"));
+```
+</figure>
+
 
 ### Specifying identifiers
 Each recurring job has its own unique identifier. In the previous examples it was generated implicitly, using the type and method names of the given call expression (resulting in "`System.out.println`" as the identifier). The `BackgroundJob` and `JobScheduler` class contains overloads that take an explicitly defined job identifier. This way, you can refer to the job later on.
@@ -63,45 +75,56 @@ The call to the `scheduleRecurrently` method will create a new recurring job if 
 You can remove an existing recurring job by calling the `BackgroundJob.delete` method. It does not throw an exception when there is no such recurring job.
 
 ### Registering your recurring jobs
-To make sure that your recurring jobs are properly registered, you need to make sure that the code to register these jobs (e.g. the examples above), is run when your application starts (which can either be a webapp, a console app, ...). This is different for each application/environment. Here are some examples on how it could be done:
+To make sure that your recurring jobs are properly registered, you need to make sure that the code to register these jobs (e.g. the examples above), is run when your application starts (which can either be a webapp, a console app, ...). This is different for each application/environment. The easiest way to do so is via the `@Recurring` annotation that ships with the `jobrunr-spring-boot-starter`, the `quarkus-jobrunr` extension or the `jobrunr-micronaut-feature`. Here are some examples on how it could be done:
 
 ###### Spring Framework
-__Using Spring's @PostConstruct__
+__Using JobRunr's @Recurring annotation__
 ```java
-@Configuration
-public class MyConfiguration {
+@Service
+public class SampleService {
 
-    @PostConstruct
-    public void registerRecurrentlyJobs(JobScheduler jobScheduler) {
-        jobScheduler.<SampleJobService>scheduleRecurrently("recurring-sample-job", every5minutes(), x -> x.executeSampleJob("Hello from recurring job"));
+    @Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
+    @Job(name = "My recurring job")
+    public void executeSampleJob() {
+        // your business logic here
+        // you can also conditionally enqueue a new job - better visibility in the dashboard
     }
 }
 ```
 
-__Or, on start of your Spring Boot Application__
+
+###### Micronaut
+__Using JobRunr's @Recurring annotation__
 ```java
-@SpringBootApplication
-@Import(JobRunrExampleConfiguration.class)
-public class JobRunrApplication {
+@Singleton
+public class SampleService {
 
-    public static void main(String[] args) {
-        ConfigurableApplicationContext applicationContext = SpringApplication.run(JobRunrApplication.class, args);
-
-        JobScheduler jobScheduler = applicationContext.getBean(JobScheduler.class);
-        jobScheduler.<SampleJobService>scheduleRecurrently("recurring-sample-job", every5minutes(), x -> x.executeSampleJob("Hello from recurring job"));
+    @Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
+    @Job(name = "My recurring job")
+    public void executeSampleJob() {
+        // your business logic here
+        // you can also conditionally enqueue a new job - better visibility in the dashboard
     }
 }
 ```
+
 
 ###### Quarkus
+__Using JobRunr's @Recurring annotation__
 ```java
 @ApplicationScoped
-class CoolService {
-  @Inject
-  JobScheduler jobScheduler;
+@RegisterForReflection
+public class SampleService {
 
-  void startup(@Observes StartupEvent event) { 
-      jobScheduler.<SampleJobService>scheduleRecurrently("recurring-sample-job", every5minutes(), x -> x.executeSampleJob("Hello from recurring job"));
-  }
+    @Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
+    @Job(name = "My recurring job")
+    public void executeSampleJob() {
+        // your business logic here
+        // you can also conditionally enqueue a new job - better visibility in the dashboard
+    }
 }
 ```
+
+
+###### Other ways
+If you are not using an integration with a certain framework, you will need to register these scheduled jobs yourselves using Container Startup Event listeners.

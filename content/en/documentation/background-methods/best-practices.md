@@ -48,6 +48,8 @@ BackgroundJob.enqueue(reportService -> reportService.generateReport(reportReques
 ```
  <br>
 
+> Making the arguments to your job as simple as possible will allow caching of job details. This means that enqueueing jobs (e.g. via web requests) will finish a lot faster.
+
 ### Make your background methods re-entrant
 [Re-entrancy](https://en.wikipedia.org/wiki/Reentrant_(subroutine)) means that a method can be interrupted in the middle of its execution and then be safely called again. The interruption can be caused by many different things (i.e. exceptions, server shut-down), and JobRunr will attempt to retry processing many times until the job succeeded.
 

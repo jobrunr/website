@@ -7,7 +7,7 @@ menu:
   main: 
     identifier: queues
     parent: 'jobrunr-pro'
-    weight: 1
+    weight: 5
 ---
 Are you processing millions of jobs? Do you have some high-prio jobs that need to finish fast? Use JobRunr queues to make sure that critical jobs cut in front of already enqueued jobs.
 

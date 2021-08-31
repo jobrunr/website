@@ -1,116 +1,61 @@
 ---
-title: "Quarkus Configuration"
-subtitle: "JobRunr integrates almost with any framework - also with Quarkus"
-date: 2020-09-16T11:12:23+02:00
+title: "Quarkus Extension"
+subtitle: "JobRunr has excellent support for Quarkus thanks to the JobRunr Quarkus Extension"
+date: 2021-08-24T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
     parent: 'configuration'
-    weight: 15
+    weight: 20
 ---
-## Enqueueing and processing in the same JVM instance in Quarkus
-Here is an example on how to integrate JobRunr with Quarkus.
-
-```java
-public class JobRunrProvider {
-
-    @Produces
-    @Singleton
-    public BackgroundJobServer backgroundJobServer(StorageProvider storageProvider, JobActivator jobActivator) {
-        final BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator);
-        backgroundJobServer.start();
-        return backgroundJobServer;
-    }
-
-    @Produces
-    @Singleton
-    public JobRunrDashboardWebServer dashboardWebServer(StorageProvider storageProvider, JsonMapper jsonMapper) {
-        final JobRunrDashboardWebServer jobRunrDashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper);
-        jobRunrDashboardWebServer.start();
-        return jobRunrDashboardWebServer;
-    }
-
-    @Produces
-    @Singleton
-    public JobActivator jobActivator() {
-        return new JobActivator() {
-            @Override
-            public <T> T activateJob(Class<T> aClass) {
-                return CDI.current().select(aClass).get();
-            }
-        };
-    }
-
-    @Produces
-    @Singleton
-    public JobScheduler jobScheduler(StorageProvider storageProvider) {
-        JobScheduler jobScheduler = new JobScheduler(storageProvider);
-        BackgroundJob.setJobScheduler(jobScheduler);
-        return jobScheduler;
-    }
-
-    @Produces
-    @Singleton
-    public StorageProvider storageProvider(DataSource dataSource, JobMapper jobMapper) {
-        final SqLiteStorageProvider sqLiteStorageProvider = new SqLiteStorageProvider(dataSource);
-        sqLiteStorageProvider.setJobMapper(jobMapper);
-        return sqLiteStorageProvider;
-    }
-
-    @Bean
-    public SQLiteDataSource dataSource() {
-        final SQLiteDataSource dataSource = new SQLiteDataSource();
-        dataSource.setUrl("jdbc:sqlite:" + Paths.get(System.getProperty("java.io.tmpdir"), "jobrunr.db"));
-        return dataSource;
-    }
-
-    @Produces
-    @Singleton
-    public JobMapper jobMapper(JsonMapper jsonMapper) {
-        return new JobMapper(jsonMapper);
-    }
-
-    @Produces
-    @Singleton
-    public JsonMapper jsonMapper() {
-        return new JacksonJsonMapper();
-    }
-
-}
+## Add the dependency to the extension
+As the Quarkus Extension is available in Maven Central, all you need to do is add this dependency:
+### Maven
+```xml
+<dependency> 
+    <groupId>org.jobrunr</groupId> 
+    <artifactId>quarkus-jobrunr</artifactId> 
+    <version>${jobrunr.version}</version> 
+</dependency>
 ```
-__What happens here:__
-- a `BackgroundJobServer` bean is created using a `StorageProvider` and a `JobActivator`. This singleton is responsible for the processing of all the background jobs.
-- the `JobRunrDashboardWebServer` singleton is defined which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper`
-- the `JobActivator` is defined and uses the CDI to find the correct singleton on which to call the background job method.
-- the `JobScheduler` singleton is defined which allows to enqueue jobs. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
-- a `StorageProvider` singleton is created using a `DataSource` and a `JobMapper`
-- in this example a SQLiteDataSource is used
-- a `JobMapper` is defined using a `JsonMapper` which has the responsability to map the background jobs to Json
-- a `JsonMapper` is created, in this case it is a `JacksonJsonMapper`
 
-<br>
+### Gradle
+```java
+implementation 'org.jobrunr:quarkus-jobrunr:${jobrunr.version}'
+```
+<br/>
+
+> Do note that you also need to add either [Jackson](https://search.maven.org/artifact/io.quarkus/quarkus-jackson) or [Yasson](https://search.maven.org/artifact/io.quarkus/quarkus-jsonb) for Json serialization. See the [installation]({{< ref "../../installation/_index.md" >}}) page for more info.
+
+
+## Configure JobRunr
+JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:
+
+```
+quarkus.jobrunr.background-job-server.enabled=true
+quarkus.jobrunr.dashboard.enabled=true
+
+```
+
+These are disabled by default so that your web application does not start processing jobs by accident.
+
+
+> The `quarkus-jobrunr` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB and `RestHighLevelClient` for ElasticSearch. Redis is only supported by adding a custom Singleton that makes use of either Jedis or Lettuce). <br/>
+> If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Advanced Configuration
+Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
-The JobRunr configuration allows you to setup JobRunr completely to your liking. 
-
-### BackgroundJobServer
-You can configure the amount of worker threads and the different JobFilters that the `BackgroundJobServer` should run:
-
-```java
-BackgroundJobServer backgroundJobServer = new BackgroundJobServer(storageProvider, jobActivator, usingStandardBackgroundJobServerConfiguration().andWorkerCount(workerCount));
-backgroundJobServer.setJobFilters(List.of(new RetryFilter(2)));
-backgroundJobServer.start();
 ```
-
-### DashboardWebServer
-Also some options of the `DashboardWebServer` can be configured:
-
-```java
-int portOnWhichToRunDashboard = 8080;
-JobRunrDashboardWebServer dashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper, portOnWhichToRunDashboard);
-dashboardWebServer.start();
+quarkus.jobrunr.database.skip-create=false
+quarkus.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema for all tables)
+quarkus.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
+quarkus.jobrunr.job-scheduler.enabled=true
+quarkus.jobrunr.background-job-server.enabled=false
+quarkus.jobrunr.background-job-server.worker-count= #this value normally is defined by the amount of CPU's that are available
+quarkus.jobrunr.background-job-server.poll-interval=15 #check for new work every 15 seconds
+quarkus.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded jobs will go to the deleted state after 36 hours
+quarkus.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
+quarkus.jobrunr.dashboard.enabled=false
+quarkus.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```
-
-
-> For more options, check out the JobRunr JavaDoc.
