@@ -101,7 +101,7 @@ public class JobServerApplication implements CommandLineRunner {
     }
 
     @Bean
-    public JobScheduler initJobRunr(ApplicationContext applicationContext) {
+    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
         return JobRunr.configure()
                 .useJobActivator(applicationContext::getBean)
                 .useStorageProvider(SqlStorageProviderFactory
@@ -109,6 +109,16 @@ public class JobServerApplication implements CommandLineRunner {
                 .useBackgroundJobServer()
                 .useDashboard()
                 .initialize();
+    }
+
+    @Bean
+    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobScheduler();
+    }
+
+    @Bean
+    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobRequestScheduler();
     }
 }
 ```

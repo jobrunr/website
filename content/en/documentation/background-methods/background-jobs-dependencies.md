@@ -70,7 +70,7 @@ JobRunr supports the following patterns to inject dependencies intro background 
 - [Singletons](http://en.wikipedia.org/wiki/Singleton_pattern)
 
 ## IoC containers
-JobRunr supports all IoC containers via a simple abstraction layer - the `JobActivator`. The JobActivator is a Java 8 Functional Interface and gives JobRunr an abstraction over all kinds of IoC containers, including [Spring Framework](https://github.com/spring-projects/spring-framework) and [Guice](https://github.com/google/guice).
+JobRunr supports all IoC containers via a simple abstraction layer - the `JobActivator`. The JobActivator is a Java 8 Functional Interface and gives JobRunr an abstraction over all kinds of IoC containers, including [Spring Framework](https://github.com/spring-projects/spring-framework), [Micronaut](https://micronaut.io/), [Quarkus ARC dependency injection](https://quarkus.io/guides/cdi-reference) and [Guice](https://github.com/google/guice).
 
 The interface is as follows:
 
@@ -83,7 +83,7 @@ public interface JobActivator {
 }
 ```
 
-When a certain backgrond job needs to be executed, JobRunr will try to resolve the actual service instance via the `JobActivator`. This allows JobRunr to resolve a fully wired service bean that is ready to invoke it's background method.
+When a certain background job needs to be executed, JobRunr will try to resolve the actual service instance via the `JobActivator`. This allows JobRunr to resolve a fully wired service bean that is ready to invoke it's background method.
 
 Using a `JobActivator` is easy with some simple Spring configuration:
 

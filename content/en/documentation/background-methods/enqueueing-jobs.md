@@ -28,10 +28,18 @@ JobId jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
 <figcaption>This enqueues a background job without a reference to an instance of MyService. During execution of the background job, the IoC container will need to provide an instance of type MyService.</figcaption>
 </figure>
 
+<figure>
+
+```java
+JobId jobId = BackgroundJobRequest.enqueue(new MyJobRequest());
+```
+<figcaption>This enqueues a background job using an implementation of the JobRequest interface. The interface defines a handler that will be used to run the background job. During execution of the background job, the IoC container will need to provide an instance of that handler - in this case an instance of type MyJobRequestHandler.</figcaption>
+</figure>
+
 
 The enqueue method does not call the target method immediately, it runs the following steps instead:
 
-- Analyse the lambda to extract the method information and all its arguments.
+- Analyse the lambda to extract the method information and all its arguments or use the `JobRequest`.
 - Serialize the method information and all its arguments.
 - Create a new background job based on the serialized information.
 - Save background job to the configured `StorageProvider`.
@@ -64,6 +72,17 @@ jobScheduler.<MyService>enqueue(x -> x.doWork());
 <figcaption>Background job scheduling using the JobScheduler bean without a reference to the MyService instance. The MyService instance will be resolved using the IoC framework when the background job is started.</figcaption>
 </figure>
 
+<figure>
+
+```java
+@Inject
+private JobRequestScheduler jobRequestScheduler;
+ 
+jobRequestScheduler.enqueue(new MyJobRequest());
+```
+<figcaption>Background job scheduling using the JobRequestScheduler bean. The handler for `MyJobRequest` will be resolved using the IoC framework when the background job is started.</figcaption>
+</figure>
+
 
 ## Enqueueing background jobs in bulk
 Sometimes you want to enqueue a lot of jobs - for example send an email to all users. JobRunr can process a Java 8 Stream<T> of objects and for each item in that Stream, create a background job. The benefit of this is that it saves these jobs in bulk to the database - resulting in a big performance improvement.
@@ -86,9 +105,20 @@ BackgroundJob.enqueue<MailService, User>(userStream, (service, user) -> service.
 <figcaption>Enqueueing emails in bulk using the Stream API with an instance of the mailService not available</figcaption>
 </figure>
 
+<figure>
+
+```java
+Stream<SendMailJob> jobStream = userRepository
+    .getAllUsers()
+    .map(user -> new SendMailJob(user.getId(), "mail-template-key"));
+BackgroundJobRequest.enqueue(jobStream);
+```
+<figcaption>Enqueueing emails in bulk using the Stream API with an instance of the mailService not available</figcaption>
+</figure>
+
 This allows for nice integration with the Spring Data framework which can return Java 8 Streams - this way, items can be processed incrementally and the entire database must not be put into memory.
 
-Off-course the above two enqueueing methods can also be done using the JobScheduler bean.
+Off-course the above three enqueueing methods can also be done using the JobScheduler bean.
 
 <figure>
 
@@ -113,3 +143,14 @@ jobScheduler.enqueue<MailService, User>(userStream, (service, user) -> service.s
 ```
 <figcaption>Enqueueing background job methods in bulk using the JobScheduler bean</figcaption>
 </figure>
+
+```java
+Stream<SendMailJob> jobStream = userRepository
+    .getAllUsers()
+    .map(user -> new SendMailJob(user.getId(), "mail-template-key"));
+jobRequestScheduler.enqueue(jobStream);
+```
+<figcaption>Enqueueing emails in bulk using the Stream API by means of a JobRequest.</figcaption>
+</figure>
+
+Please also see the [best practices]({{<ref "/documentation/background-methods/best-practices.md">}}) for more information.

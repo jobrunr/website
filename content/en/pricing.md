@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro"
 translationKey: "jobrunr-pro"
-summary: "JobRunr is completely free, even for commercial use. The [Pro edition](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 50.000 €\n(107 days of development at a rate of 500€). ') allows you to use additional options while ensuring the project will stay here for years to come. I provide 30 day unconditional money back guarantee."
+summary: "JobRunr is completely free, even for commercial use. The [Pro edition](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 60.000 €\n(120 days of development at a rate of 500€). ') allows you to use additional options while ensuring the project will stay here for years to come. I provide 30 day unconditional money back guarantee."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
 menu: 
@@ -9,6 +9,8 @@ menu:
     identifier: pricing
     weight: 15
 ---
+I hope you are enjoying JobRunr and it makes your day to day life easier (if not, let me know via [Github Discussions](https://github.com/jobrunr/jobrunr/discussions) or a [Github issue](https://github.com/jobrunr/jobrunr/issues)). You would do me a big favor by buying a Pro license - it will help me to deliver new features. And, if you are already happy with JobRunr but do not decide over budgets, please help me convince your superior by providing some details [here](mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20License&body=Hi%2C%0A%0AI%20like%20JobRunr%20and%20need%20some%20help%20to%20convince%20my%20superior%20in%20getting%20a%20Pro%20License.%0A%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0AMy%20superior%20is%3A%20%3Cplease%20enter%20the%20name%20of%20your%20superior%20here%3E%0AMy%20superior%27s%20email%20address%20is%3A%20%3Cplease%20enter%20the%20email%20address%20of%20your%20superior%20here%3E%0A%0ARegards%21).
+
 <div class="plan-container">
 
 <div class="plan plan-open">
@@ -25,7 +27,7 @@ _free for everyone,<br>including all companies_
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
-- GitHub Issues
+- GitHub Discussions
 
 <div class="buy">
 
@@ -49,7 +51,7 @@ _tailored for <br>freelancers and startups_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if up to 5 employees.
-- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow you to use the licensed software indefinitely. ">Perpetual license</a>
+- Annual license
 - Access to private Maven repository
 
 ### Community support
@@ -88,9 +90,8 @@ _for companies with <br>up to 30 employees_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if up to 30 employees.
-- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year (or after a renewal of the license), the perpetual license also entitles you to receive technical support.">Perpetual license</a>
+- Annual license
 - Access to private Maven repository
-- Access to source code
 
 ### Dedicated support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
@@ -128,7 +129,7 @@ _for companies with <br>more than 30 employees_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if more than 30 employees.
-- <a style="text-decoration: none; cursor: help" title="A perpetual license will allow the customer to use the licensed software indefinitely. For the first year (or after a renewal of the license), the perpetual license also entitles you to receive technical support.">Perpetual license</a>
+- Annual license
 - Access to private Maven repository
 - Access to source code
 

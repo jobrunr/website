@@ -17,7 +17,7 @@ JobRunr stores the job details for each job using a `StorageProvider` and suppor
 By default, JobRunr will automatically create the necessary tables for your database. If however you do not want to give the JobRunr DataSource DDL rights, you can easily create the tables JobRunr uses yourself using one of the following methods:
 
 #### Run the DatabaseCreator
-The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user which has DDL rights.
+The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user that has DDL rights.
 
 ```
 java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
@@ -26,9 +26,10 @@ java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseC
 If the command succeeds, a confirmation message will be shown.
 
 #### Apply the SQL scripts yourself
-- __Oracle__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/oracle/migrations).
+- __Oracle__ -  apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding most of these sql scripts with the Oracle specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/oracle/migrations).
+- __Postgres__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations).
 - __MySql__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MySql specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
-- - __MsSqlServer__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MsSqlServer specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/sqlserver/migrations).
+- __MsSqlServer__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MsSqlServer specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/sqlserver/migrations).
 - __Postgres__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations).
 - __DB2__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/db2/migrations).
 - __MariaDB__ - apply all the sql scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/common/migrations) overriding some of these sql scripts with the MariaDB specific scripts found [here](https://github.com/jobrunr/jobrunr/tree/master/core/src/main/resources/org/jobrunr/storage/sql/mariadb/migrations).
@@ -41,6 +42,9 @@ JobRunr.configure()
     .useBackgroundJobServer()
     .initialize();
 ```
+
+### TablePrefix
+JobRunr also supports a table prefix which will prefix all tables with a custom prefix. This comes in handy if you want to specify a schema for your tables.
 
 
 ## NoSQL databases
