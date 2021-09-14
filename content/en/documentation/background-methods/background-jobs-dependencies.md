@@ -9,6 +9,13 @@ menu:
     parent: 'background-methods'
     weight: 50
 ---
+## TLDR;
+If you are using either the [JobRunr Spring Boot Starter]({{<ref "../configuration/spring/_index.md">}}), [Micronaut Integration]({{<ref "../configuration/micronaut/_index.md">}}) or [Quarkus Extension]({{<ref "../configuration/quarkus/_index.md">}}), you can just have beans or services injected into your background job (e.g. the service class that you are calling) and `JobRequestHandler`.
+
+
+## A long, long time ago...
+There was a background job that needed a certain dependency to fulfill it's work...
+
 In almost every job you’ll want to use other classes of your application to perform different work and keep your code clean and simple. An example:
 
 <figure>
@@ -58,7 +65,7 @@ public class MailService {
     
 }
 ```
-<figcaption>An example of a background job with three dependencies</figcaption>
+<figcaption>An example of a background job (mailService.sendMail()) with three dependencies</figcaption>
 </figure>
 Let’s call these classes as dependencies. How to pass these dependencies to methods that will be called in background?
 
@@ -85,7 +92,10 @@ public interface JobActivator {
 
 When a certain background job needs to be executed, JobRunr will try to resolve the actual service instance via the `JobActivator`. This allows JobRunr to resolve a fully wired service bean that is ready to invoke it's background method.
 
-Using a `JobActivator` is easy with some simple Spring configuration:
+The `JobActivator` is automatically created by the [JobRunr Spring Boot Starter]({{<ref "../configuration/spring/_index.md">}}), the [Micronaut Integration]({{<ref "../configuration/micronaut/_index.md">}}) and the [Quarkus Extension]({{<ref "../configuration/quarkus/_index.md">}}) - there is no need for you to create it normally.
+
+
+If you do need to create it manually, this can be done as follows (a Spring framework example):
 
 ```java
 @Bean

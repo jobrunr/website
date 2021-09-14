@@ -44,7 +44,7 @@ Consider doing this:
  
 ```java
 ReportRequestDto reportRequestDto =  dtoConversionService.toDto(new ReportRequest(Instant.now(), reportService.getPreviousReport()));
-BackgroundJob.enqueue(reportService -> reportService.generateReport(reportRequestDto));
+BackgroundJob.enqueue(() -> reportService.generateReport(reportRequestDto));
 ```
  <br>
 

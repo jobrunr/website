@@ -44,6 +44,9 @@ These are disabled by default so that your web application does not start proces
 > The `jobrunr-spring-boot-starter` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB, `RestHighLevelClient` for ElasticSearch and `JedisPool` or `RedisClient` for Redis). <br/>
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
+## Features
+The `jobrunr-spring-boot-starter` not only adds distributed background Job Processing to your application but also adds health actuators and micrometer performance counters.
+
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 

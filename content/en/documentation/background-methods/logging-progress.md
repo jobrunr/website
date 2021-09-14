@@ -31,6 +31,7 @@ The last logger will make sure that all info, warn and error statement will be s
 ## Progress bar
 Long running jobs take time - and sometimes you need to know how long a job will take. Thanks to the progress bar in JobRunr, you can now track progress from within the dashboard - a progress bar will appear automatically just below the 'Processing job' header and advance while work is progressing.
 
+### For Java 8 lambda's
 To use this feature, you will need to inject the `JobContext` into your job: 
 `BackgroundJob.enqueue(() -> myService.doWork(JobContext.Null))`.
 
@@ -51,3 +52,24 @@ public class MyService {
     }
 }
 ```
+
+### For JobRequestHandlers
+To use this feature, you will need to access the `JobContext` into your `JobRequestHandler`. It is a default method available on the `JobRequestHandler` interface and gives thread-safe access to the `JobContext`: 
+
+
+```java
+public class MySimpleJobRequestHandler implements JobRequestHandler<MySimpleJobRequest> {
+
+	public void run(MySimpleJobRequest jobRequest) {
+    	JobDashboardProgressBar progressBar = jobContext().progressBar(1000);
+        
+        for(int i = 0; i < 1000; i++) {
+        	//do actual work
+            progressBar.increaseByOne();
+            // or you can also use
+            progressBar.setValue(i);
+        }
+    }
+}
+```
+

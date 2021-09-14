@@ -31,6 +31,14 @@ sitemap:
 ### Job
 At the core of JobRunr, we have the `Job` entity - it contains the name, the signature, the `JobDetails` (the type, the method to execute and all arguments) and the history - including all states - of the background job itself. A `Job` is a unit of work that should be performed outside of the current execution context, e.g. in a background thread, other process, or even on different server – all is possible with JobRunr, without any additional configuration.
 
+<figure>
+
+```java
+BackgroundJob.enqueue(() -> System.out.println("Simple!"));
+```
+<figcaption>Instead of calling the method immediately, JobRunr serializes the type (System), static field (out) and method name (println, with all the parameter types to identify it later), and all the given arguments, and stores it as Json using a StorageProvider. It will then later be processed by a BackgroundJobServer<figcaption>
+</figure>
+
 ### RecurringJob
 A `RecurringJob` is in essence a `Job` with a CRON schedule. A special component within JobRunr checks the recurring jobs and then enqueues them as fire-and-forget jobs.
 
@@ -40,30 +48,28 @@ A `StorageProvider` is a place where JobRunr keeps all the information related t
 > This is the main decision you must make, and the only configuration required before you start using the framework.
 
 ### BackgroundJob
-`BackgroundJob` is a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the BackgroundJob class or either directly on the JobScheduler class. It may help readability but can make things more difficult to test.
+`BackgroundJob` is a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the `BackgroundJob` class or either directly on the `JobScheduler` class. It may help readability but can make things more difficult to test.
 
 ### JobScheduler
 The `JobScheduler` is responsible for analyzing the lambda, collecting all the required job parameters, creating background jobs and saving them into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
 
 ### BackgroundJobRequest
-`BackgroundJobRequest` is also a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobRequestScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the BackgroundJobRequest class or either directly on the JobRequestScheduler class. It may help readability but can make things more difficult to test.
+`BackgroundJobRequest` is also a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the `JobRequestScheduler`. You are again completely free to choose how to enqueue background jobs - either using the static helper methods in the `BackgroundJobRequest` class or either directly on the `JobRequestScheduler` class. It may help readability but can make things more difficult to test.
 
 ### JobRequestScheduler
 The `JobScheduler` is responsible for transforming a `JobRequest` together with its internal data to a background job and save it into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
 
 ### JobRequest
-A `JobRequest` is an interface that allows to create a background job. It can contain extra data that also will be serialized and will be saved into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+A `JobRequest` is an interface that allows to create a background job. It can contain extra data that also will be serialized and will be saved into the `StorageProvider`. When you implement this interface, you will need to provide the `JobRequestHandler`-class which will process your `JobRequest`.
+
+```java
+public interface JobRequest extends JobRunrJob {
+    Class<? extends JobRequestHandler> getJobRequestHandler();
+}
+```
 
 ### JobRequestHandler
 A `JobRequestHandler` is an interface that that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
-
-<figure>
-
-```java
-BackgroundJob.enqueue(() -> System.out.println("Simple!"));
-```
-<figcaption>Instead of calling the method immediately, JobRunr serializes the type (System), static field (out) and method name ( println, with all the parameter types to identify it later), and all the given arguments, and stores it as Json using a StorageProvider.<figcaption>
-</figure>
 
 ### BackgroundJobServer
 The `BackgroundJobServer` class processes background jobs by querying the StorageProvider. Roughly speaking, it’s a set of background threads that listen to the storage provider for new background jobs, and perform them by first de-serializing the stored type, method and arguments and then executing it.
@@ -105,7 +111,7 @@ The `JobFilter` allows you to extend and intervene with background jobs in JobRu
 This is a default filter of type `ElectStateFilter` and is automatically added for each job which is run by JobRunr. When a job fails, the `RetryFilter` will automatically retry the job 10 times with an exponential back-off policy. Is some API server down while processing jobs? No worries, JobRunr has you covered.
 
 ### JobContext
-If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple -  you pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method.
+If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambda's you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
 
 > Note: that this is best avoided as it couples your domain logic tightly with JobRunr.
 

@@ -37,11 +37,21 @@ The master is a `BackgroundJobServer` like all other nodes processing but it doe
 ### My recurring jobs are not running nor available in the dashboard?
 To schedule your recurring jobs, you must make sure that the code scheduling these jobs is executed on startup of your application. See the examples in [Recurring jobs]({{<ref "background-methods/recurring-jobs.md#registering-your-recurring-jobs">}})
 
+### JobRunr stops completely if my SQL / NoSQL database goes down
+JobRunr uses your database for a lot of things: 
+- Master node election for the `BackgroundJobServer`
+- Monitoring whether there are no zombie jobs (jobs that were being processed on a `BackgroundJobServer` node that crashed)
+- Optimistic locking so that a job will be only executed once
+- ... 
 
+The moment JobRunr loses it's connection to the database (or the database goes down), there will be a lot of threads that will try to write updates to the database but all of these writes will off-course fail. This will result in __a huge amount of logging__ and if JobRunr would try to continue job processing, it would flood the disks fast because of each attempt to process a job fails. That's why I decided that if there are too many exceptions because of the `StorageProvider`, JobRunr stops all background job processing. This can off-course be monitored via the dashboard and health endpoints.
+
+> JobRunr Pro improves this by monitoring if the `StorageProvider` comes up again and if so, automatically restarts processing on all the different `BackgroundJobServer`s.
 
 <!-- ### How can I control the amount of workers per BackgroundJobServer? -->
 
 ## Job FAQ
+
 ### What if I don't want to have 10 retries when a job fails?
 You can configure the amount of retries for all your jobs or per job.
 - To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just pass the filter to the `setJobFilters` method of the `BackgroundJobServer` class.

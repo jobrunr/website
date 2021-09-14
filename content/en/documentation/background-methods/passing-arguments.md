@@ -44,7 +44,7 @@ Also when using the `JobRequest` approach, you can easily pass arguments. These 
 
 ```java
 SendMailJobRequest sendMailJobRequest = new SendMailJobRequest("from", "to", "subject", "message");
-BackgroundJob.enqueue(sendMailJobRequest);
+BackgroundJobRequest.enqueue(sendMailJobRequest);
 ```
 <figcaption>Since the SendMailJobRequest class can be serialized with Jackson, Gson or JSON-B, it can be passed as an argument to a background job</figcaption>
 </figure>

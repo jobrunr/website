@@ -47,5 +47,16 @@ JobRunr.configure()
         System.out.println("I will only be retried two times ");
     }
 ```
-<figcaption>The number of retries can also be configured per job by using the @Job annotation.</figcaption>
+<figcaption>The number of retries can also be configured per job by using the @Job annotation on each service method.</figcaption>
+</figure>
+
+<figure>
+
+```java
+    @Job(name="Job Name", retries=2)
+    public void run(MyJobRequest myJobRequest) {
+        System.out.println("I will only be retried two times ");
+    }
+```
+<figcaption>This is off course also possible on the run method of a JobRequestHandler.</figcaption>
 </figure>

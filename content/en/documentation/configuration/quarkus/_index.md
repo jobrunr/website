@@ -40,8 +40,11 @@ quarkus.jobrunr.dashboard.enabled=true
 These are disabled by default so that your web application does not start processing jobs by accident.
 
 
-> The `quarkus-jobrunr` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB and `RestHighLevelClient` for ElasticSearch. Redis is only supported by adding a custom Singleton that makes use of either Jedis or Lettuce). <br/>
+> The `quarkus-jobrunr` extension will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB and `RestHighLevelClient` for ElasticSearch. Redis is only supported by adding a custom Singleton that makes use of either Jedis or Lettuce). <br/>
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
+
+## Features
+The JobRunr Quarkus extension not only adds distributed background Job Processing to your application but also adds Smallrye health checks and micrometer performance counters.
 
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.

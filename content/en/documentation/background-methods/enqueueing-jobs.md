@@ -108,9 +108,9 @@ BackgroundJob.enqueue<MailService, User>(userStream, (service, user) -> service.
 <figure>
 
 ```java
-Stream<SendMailJob> jobStream = userRepository
+Stream<SendMailJobRequest> jobStream = userRepository
     .getAllUsers()
-    .map(user -> new SendMailJob(user.getId(), "mail-template-key"));
+    .map(user -> new SendMailJobRequest(user.getId(), "mail-template-key"));
 BackgroundJobRequest.enqueue(jobStream);
 ```
 <figcaption>Enqueueing emails in bulk using the Stream API with an instance of the mailService not available</figcaption>
@@ -145,9 +145,9 @@ jobScheduler.enqueue<MailService, User>(userStream, (service, user) -> service.s
 </figure>
 
 ```java
-Stream<SendMailJob> jobStream = userRepository
+Stream<SendMailJobRequest> jobStream = userRepository
     .getAllUsers()
-    .map(user -> new SendMailJob(user.getId(), "mail-template-key"));
+    .map(user -> new SendMailJobRequest(user.getId(), "mail-template-key"));
 jobRequestScheduler.enqueue(jobStream);
 ```
 <figcaption>Enqueueing emails in bulk using the Stream API by means of a JobRequest.</figcaption>
