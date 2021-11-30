@@ -22,7 +22,7 @@ public class WebApplication {
     }
 
     @Bean
-    public JobScheduler initJobRunr(ApplicationContext applicationContext) {
+    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
         return JobRunr.configure()
                 .useJobActivator(applicationContext::getBean)
                 .useStorageProvider(SqlStorageProviderFactory
@@ -31,6 +31,16 @@ public class WebApplication {
                 .useJmxExtensions()
                 .useDashboard()
                 .initialize();
+    }
+    
+    @Bean
+    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobScheduler();
+    }
+
+    @Bean
+    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobRequestScheduler();
     }
 }
 ```
@@ -65,11 +75,21 @@ public class WebApplication {
     }
 
     @Bean
-    public JobScheduler initJobRunr(ApplicationContext applicationContext) {
+    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
         return JobRunr.configure()
                 .useStorageProvider(SqlStorageProviderFactory
                           .using(applicationContext.getBean(DataSource.class)))
                 .initialize();
+    }
+    
+    @Bean
+    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobScheduler();
+    }
+
+    @Bean
+    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
+        return jobRunrConfigurationResult.getJobRequestScheduler();
     }
 }
 ```
