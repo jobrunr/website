@@ -53,8 +53,10 @@ public class MyService {
 }
 ```
 
+<br/>
+
 ### For JobRequestHandlers
-To use this feature, you will need to access the `JobContext` into your `JobRequestHandler`. It is a default method available on the `JobRequestHandler` interface and gives thread-safe access to the `JobContext`: 
+To use this feature, you will need to access the `JobContext` from your `JobRequestHandler`. It is available via a default method available on the `JobRequestHandler` interface and gives thread-safe access to the `JobContext`: 
 
 
 ```java

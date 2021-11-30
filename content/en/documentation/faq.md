@@ -99,5 +99,3 @@ public class JobMessageListener implements MessageListener {
     }
 }
 ```
-
-This is because you stopped a running JVM instance where a `BackgroundJobServer` was processing a job. When a job is being processed, it is regularly updated with a timestamp so that in case of a node failure, the job can be retried automatically on a different server. The error message you see here, is an example of such a case.

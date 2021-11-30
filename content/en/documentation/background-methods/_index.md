@@ -125,3 +125,22 @@ When using a `JobRequest` to create jobs it is important to note that the `JobRe
 > Note that your `JobRequest` will be serialized and deserialized to/from Json. This also means that it needs a default no-arg constructor and that all fields must also be capable of being serialized/deserialized to/from Json.
 
 A `JobRequestHandler` is a regular service (e.g. a Spring bean / a Micronaut singleton / a Quarkus singleton) where you can inject other services and must be resolvable by your IoC container. When your job will be invoked, JobRunr asks the IoC container for the relevant `JobRequestHandler`, calls the `run` method of the instance and passes the `JobRequest` as an argument. You can then use all the data from your `JobRequest` inside your `JobRequestHandler` to bring your job to a good end.
+
+<figure>
+
+```java
+@Component
+public class MyJobRequestHandler implements JobRequestHandler {
+
+  @Inject
+  private SomeService someService; // you can inject other services (or constructor-injection)
+
+  @Override
+  @Job(name = "Some neat Job Display Name", retries = 2)
+  public void run(MyJobRequest jobRequest) {
+      // do your background work here
+  }
+}
+```
+<figcaption>This JobRequestHandler handles all MyJobRequests. As it is a regular bean, you can inject other services.</figcaption>
+</figure>

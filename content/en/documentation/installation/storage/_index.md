@@ -16,6 +16,10 @@ JobRunr stores the job details for each job using a `StorageProvider` and suppor
 ## SQL databases
 By default, JobRunr will automatically create the necessary tables for your database. If however you do not want to give the JobRunr DataSource DDL rights, you can easily create the tables JobRunr uses yourself using one of the following methods:
 
+
+> Running MySQL or MariaDB? Make sure [your connection string]() is setup that it [UTC timestamps correctly](https://stackoverflow.com/questions/1646171/mysql-datetime-fields-and-daylight-savings-time-how-do-i-reference-the-extra).
+
+
 #### Run the DatabaseCreator
 The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user that has DDL rights.
 

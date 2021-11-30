@@ -93,9 +93,9 @@ _for companies with <br>up to 30 employees_
 - Annual license
 - Access to private Maven repository
 
-### Dedicated support
+### Basic support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
-- Technical support
+- Technical support<br>(max 4 hours)
 
 ### Purchasing
 - Credit Card / PayPal 
@@ -133,10 +133,10 @@ _for companies with <br>more than 30 employees_
 - Access to private Maven repository
 - Access to source code
 
-### Dedicated support
-- **Includes 2 days consulting to <br>kickstart your team/project**
+### Priority support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
 - Technical support
+- Priority handling for bugs
 
 ### Purchasing
 - Credit Card / PayPal 

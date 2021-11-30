@@ -8,6 +8,8 @@ menu:
     parent: 'configuration'
     weight: 20
 ---
+Integration with Quarkus cannot be easier using the `quarkus-jobrunr` extension! There is even a complete example project available at [https://github.com/jobrunr/example-quarkus]
+
 ## Add the dependency to the extension
 As the Quarkus Extension is available in Maven Central, all you need to do is add this dependency:
 ### Maven

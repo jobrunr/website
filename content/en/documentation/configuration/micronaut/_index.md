@@ -8,6 +8,9 @@ menu:
     parent: 'configuration'
     weight: 15
 ---
+Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut]
+
+
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:
 ### Maven

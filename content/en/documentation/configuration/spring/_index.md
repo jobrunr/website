@@ -8,7 +8,7 @@ menu:
     parent: 'configuration'
     weight: 10
 ---
-Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`!
+Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring]
 
 ## Add the dependency to the starter
 As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
