@@ -24,7 +24,8 @@ JobRunr supports logging to the dashboard - new messages will appear as they're 
 - you can use the JobContext and use it's logger:<br>
 `jobContext.logger().info('this will appear in the dashboard');`
 - or - even easier - wrap your existing Logger as follows:<br>
-`new JobRunrDashboardLogger(LoggerFactory.getLogger(MyService.class))`
+`Logger log = new JobRunrDashboardLogger(LoggerFactory.getLogger(MyService.class))`<br>
+where `log` is now a SL4J logger which still continue to log in the original logger but also in the dashboard.
 
 The last logger will make sure that all info, warn and error statement will be shown in the dashboard for each job. Debug logging is not supported as I want to prevent to spam the various browsers.
 
