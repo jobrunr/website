@@ -47,8 +47,13 @@ JobRunr.configure()
 ```
 
 ### TablePrefix
-JobRunr also supports a table prefix which will prefix all tables with a custom prefix. This comes in handy if you want to specify a schema for your tables.
+JobRunr also supports a table prefix which will prefix all tables with a custom prefix. This comes in handy if you want to specify a schema for your tables. Please notice the delimiter between your schema and table has to be added manually.
 
+Example configuration for a Spring Boot Starter:
+
+```
+org.jobrunr.database.tablePrefix: MY_SCHEMA.
+```
 
 ## NoSQL databases
 - __ElasticSearch__ - JobRunr will create the necessary indices to save all Jobs and Recurring Jobs automatically for you. They will be prefixed with `jobrunr_`
