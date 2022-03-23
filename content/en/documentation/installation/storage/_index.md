@@ -65,5 +65,6 @@ org.jobrunr.database.tablePrefix: MY_SCHEMA.
 - __Redis__ - JobRunr will create all necessary datatypes (Strings, Sets, Hashes, ... ) automatically for you. You can choose out of two implementations: 
   - either the `JedisRedisStorageProvider` which uses Jedis.
   - and the `LettuceRedisStorageProvider` which uses Lettuce. If you use this `StorageProvider` you also need to add a dependency to `org.apache.commons:commons-dbcp2` as the Lettuce driver is not thread-safe when using Redis Transactions.
+  > Note: the Redis StorageProvider is still in BETA and not yet recommended for production use.
 - __InMemory__ - JobRunr comes with an InMemoryStorageProvider, which is ideal for lightweight tasks that are server-instance specific and where persistence is not important. Note that if you use the `InMemoryStorageProvider`, you can not scale horizontally as the storage is not shared.
   - use the `InMemoryStorageProvider` for in-memory support

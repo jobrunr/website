@@ -12,6 +12,8 @@ menu:
 ---
 Creating a recurring job is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`):
 
+
+## Using a Cron expression
 <figure>
 
 ```java
@@ -22,7 +24,7 @@ BackgroundJob.scheduleRecurrently(Cron.daily(), () -> System.out.println("Easy!"
 This line creates a new recurring job entry in the `StorageProvider`. A special component in `BackgroundJobServer` checks the recurring jobs on a minute-based interval and then enqueues them as fire-and-forget jobs. This enables you to track them as usual.
 
 > __Remark:__ for recurring methods to work, at least one BackgroundJobServer should be running all the time and the jobs should be registered on startup of your application.
-> Also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents to create recurring jobs every with cron values less than 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
+> Also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents creating recurring jobs every with cron values less than 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
 
 The Cron class contains different methods and overloads to run jobs on a minute, hourly, daily, weekly, monthly and yearly basis. You can also use standard CRON expressions to specify a more complex schedule:
 
@@ -55,6 +57,19 @@ private JobRequestScheduler jobRequestScheduler;
 jobRequestScheduler.scheduleRecurrently(Cron.daily(), new SysOutJobRequest("Easy!"));
 ```
 </figure>
+
+## Using a Duration 
+Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting the moment the recurring job was scheduled.
+
+<figure>
+
+```java
+BackgroundJob.scheduleRecurrently(Duration.parse("P5D"), () -> System.out.println("Easy!"));
+```
+</figure>
+
+
+All the examples above create a new recurring job entry in the `StorageProvider`. A special component in `BackgroundJobServer` checks the recurring jobs on a minute-based interval and then enqueues them as fire-and-forget jobs. This enables you to track them as usual.
 
 
 ### Specifying identifiers

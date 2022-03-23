@@ -3,6 +3,9 @@
 <head>
     <meta charset="utf-8" />
     {{ template "_internal/google_analytics_async.html" . }}
+    {{ if .Site.Params.GoogleAnalyticsID }}
+    {{ partial "analytics-gtag.html" . }}
+    {{ end }}
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 

@@ -28,6 +28,7 @@ This filter is applied globally to all methods and has 10 retry attempts by defa
 ### Configuration
 You can off-course configure how many retries JobRunr will do by default.
 
+#### Default retry policy configuration
 <figure>
 
 ```java
@@ -39,6 +40,11 @@ JobRunr.configure()
 <figcaption>Jobs will only be retried 2 times instead of 10 times as the default RetryFilter is overriden.</figcaption>
 </figure>
 
+This is also configurable by means of a property setting (`default-number-of-retries` and `retry-back-off-time-seed`) if you are using the [Spring]({{< ref "../configuration/spring/_index.md#advanced-configuration" >}}), [Micronaut]({{< ref "../configuration/micronaut/_index.md#advanced-configuration" >}}) or [Quarkus]({{< ref "../configuration/quarkus/_index.md#advanced-configuration" >}}) integration.
+
+
+#### Per job
+You can configure the amount of retries per job by means of the `@Job` annotation.
 <figure>
 
 ```java

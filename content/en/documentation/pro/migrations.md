@@ -63,3 +63,5 @@ public ScheduledJobThatDoNotExistAnymoreMigrations scheduledJobThatDoNotExistAny
 Updating existing jobs is possible in Spring, Micronaut and Quarkus by creating a ScheduledJobThatDoNotExistAnymoreMigrations bean.
 </figcaption>
 </figure>
+
+> Note that the above example is just using a fraction of the API - the actual API to update jobs is much more extensive.

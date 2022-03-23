@@ -25,9 +25,21 @@ JobRunr supports logging to the dashboard - new messages will appear as they're 
 `jobContext.logger().info('this will appear in the dashboard');`
 - or - even easier - wrap your existing Logger as follows:<br>
 `Logger log = new JobRunrDashboardLogger(LoggerFactory.getLogger(MyService.class))`<br>
-where `log` is now a SL4J logger which still continue to log in the original logger but also in the dashboard.
+where `log` is now an SL4J logger which will still continue to log to the original SLF4J logger but also to the dashboard.
 
 The last logger will make sure that all info, warn and error statement will be shown in the dashboard for each job. Debug logging is not supported as I want to prevent to spam the various browsers.
+
+### Mapped Diagnostic Context (MDC)
+JobRunr also supports the mapped diagnostic context or MDC of SLF4J. This means that any variables you have put in the MDC will also be available when the actual job is being processed and if you log from your job, this will thus also include the variables from your MDC. This is ideal in a distributed system where you have a correlation id generated when the request comes in and you can thus track everything (including your jobs) using this correlation id.
+
+You can even have MDC variables in the display name of a job - this comes in handy with the [JobRunr Pro dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) where you can then search for a job using that correlation id. To do so, you need to annote your job as follows:
+
+```java
+@Job(name="Job related to %X{request.correlationId}", retries=2)
+public void runJob() { ... }
+```
+<br/>
+
 
 ## Progress bar
 Long running jobs take time - and sometimes you need to know how long a job will take. Thanks to the progress bar in JobRunr, you can now track progress from within the dashboard - a progress bar will appear automatically just below the 'Processing job' header and advance while work is progressing.

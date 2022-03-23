@@ -167,6 +167,7 @@ JobRunr.configure()
                 usingStandardBackgroundJobServerConfiguration().andWorkerCount(4))  // only use 4 worker threads (extra options available)
             .useDashboardIf(isDashboardEnabled, 80) // start on port 80 instead of 8000
             .useJmxExtensions()
+            .useMicroMeter(new JobRunrMicroMeterIntegration(meterRegistry))
             .initialize();
 
 ```

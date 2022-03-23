@@ -8,7 +8,7 @@ menu:
     parent: 'configuration'
     weight: 15
 ---
-Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut]
+Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut](https://github.com/jobrunr/example-micronaut)
 
 
 ## Add the dependency to the extension
@@ -58,6 +58,10 @@ jobrunr:
     skip-create: false
     table_prefix: # allows to set a table prefix (e.g. schema for all tables)
     datasource: # allows to specify a DataSource specifically for JobRunr
+    type: # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
+  jobs:
+    default-number-of-retries:10 #the default number of retries for a failing job
+    retry-back-off-time-seed:3 #the default time seed for the exponential back-off policy.
   background-job-server:
     enabled: false
     worker-count: #this value normally is defined by the amount of CPU's that are available

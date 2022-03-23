@@ -8,7 +8,7 @@ menu:
     parent: 'configuration'
     weight: 20
 ---
-Integration with Quarkus cannot be easier using the `quarkus-jobrunr` extension! There is even a complete example project available at [https://github.com/jobrunr/example-quarkus]
+Integration with Quarkus cannot be easier using the `quarkus-jobrunr` extension! There is even a complete example project available at [https://github.com/jobrunr/example-quarkus](https://github.com/jobrunr/example-quarkus)
 
 ## Add the dependency to the extension
 As the Quarkus Extension is available in Maven Central, all you need to do is add this dependency:
@@ -55,6 +55,9 @@ Every aspect of JobRunr can be configured via the `application.properties`. Belo
 quarkus.jobrunr.database.skip-create=false
 quarkus.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema for all tables)
 quarkus.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
+quarkus.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
+quarkus.jobs.default-number-of-retries=10 #the default number of retries for a failing job
+quarkus.jobs.retry-back-off-time-seed=3 #the default time seed for the exponential back-off policy.
 quarkus.jobrunr.job-scheduler.enabled=true
 quarkus.jobrunr.background-job-server.enabled=false
 quarkus.jobrunr.background-job-server.worker-count= #this value normally is defined by the amount of CPU's that are available

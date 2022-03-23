@@ -13,6 +13,7 @@ unsafe= true
 [params]
   logo = "jobrunr-logo-white.webp"
   images = ["/blog/2020-04-23-jobrunr-gets-jobs-done.webp"]
+  googleAnalyticsID = "G-J3K00HKL9D"
 
 
 [params.twitterCard]

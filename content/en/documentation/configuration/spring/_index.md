@@ -8,7 +8,7 @@ menu:
     parent: 'configuration'
     weight: 10
 ---
-Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring]
+Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
 ## Add the dependency to the starter
 As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
@@ -52,14 +52,17 @@ Every aspect of JobRunr can be configured via the `application.properties`. Belo
 
 ```
 org.jobrunr.database.skip_create=false
-org.jobrunr.database.table_prefix= # allows to set a table prefix (e.g. schema for all tables)
+org.jobrunr.database.table_prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
 org.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
+org.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
+org.jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job
+org.jobrunr.jobs.retry-back-off-time-seed=3 #the default time seed for the exponential back-off policy.
 org.jobrunr.job-scheduler.enabled=true
 org.jobrunr.background-job-server.enabled=false
-org.jobrunr.background-job-server.worker_count= #this value normally is defined by the amount of CPU's that are available
-org.jobrunr.background-job-server.poll_interval=15 #check for new work every 15 seconds
-org.jobrunr.background-job-server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
-org.jobrunr.background-job-server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
+org.jobrunr.background-job-server.worker-count= #this value normally is defined by the amount of CPU's that are available
+org.jobrunr.background-job-server.poll-interval=15 #check for new work every 15 seconds
+org.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded jobs will go to the deleted state after 36 hours
+org.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
 org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```
