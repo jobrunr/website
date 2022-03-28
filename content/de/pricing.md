@@ -55,13 +55,12 @@ _für Freiberufler und Startups_
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
 - GitHub Issues
 
-### Purchasing
-- Credit Card / PayPal 
-- Invoice
+### Ankaufen
+- PayPal
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>500 €</strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>600 €</strong>
 _pro Organisation / Jahr<br/>(ohne MWHST)_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20Startup%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Startup%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>
@@ -87,9 +86,8 @@ _für Unternehmen mit bis<br/> zu 30 Mitarbeitern_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA](/en/licensing/standard-eula/)
 - Berechtigt bis zu 30 Mitarbeitern.
-- <a style="text-decoration: none; cursor: help" title = "Mit einer unbefristeten Lizenz kann der Kunde die lizenzierte Software unbegrenzt nutzen. Im ersten Jahr berechtigt die unbefristete Lizenz den Kunden auch, alle Updates auf herunterzuladen die Software und technischen Support zu erhalten.">Unbefristete Lizenz</a>
+- Jahreslizenz
 - Zugriff auf das private Maven-Repository
-- Zugriff auf den Quellcode
 
 ### Engagierter Support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
@@ -101,7 +99,7 @@ _für Unternehmen mit bis<br/> zu 30 Mitarbeitern_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>1500 €</strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Kann bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) einsparen'>1800 €</strong>
 _pro Organisation / Jahr<br/>(ohne MWHST)_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>
@@ -127,14 +125,14 @@ _für Unternehmen mit <br/>mehr als 30 Mitarbeitern_
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
 - [Standard EULA](/en/licensing/standard-eula/)
 - Berechtigt bei mehr als 30 Mitarbeitern.
-- <a style="text-decoration: none; cursor: help" title = "Mit einer unbefristeten Lizenz kann der Kunde die lizenzierte Software unbegrenzt nutzen. Im ersten Jahr berechtigt die unbefristete Lizenz den Kunden auch, alle Updates auf herunterzuladen die Software und technischen Support zu erhalten.">Unbefristete Lizenz</a>
+- Jahreslizenz
 - Zugriff auf das private Maven-Repository
 - Zugriff auf den Quellcode
 
 ### Engagierter Support
-- **Beinhaltet 2 Tage Beratung, um Ihr Team / Projekt zu starten**
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
 - Technischer Support
+- Priority Support
 
 ### Ankaufen
 - Kreditkarte / PayPal
@@ -142,7 +140,7 @@ _für Unternehmen mit <br/>mehr als 30 Mitarbeitern_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Sie können bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) sparen '> 4500 € </strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Sie können bis zu 50.000 € (107 Entwicklungstage bei einer Rate von 500 €) sparen '> 4800 € </strong>
 _pro Organisation / Jahr<br/>(ohne MWHST)_
 
 <a class="button" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">ANKAUFEN</a>

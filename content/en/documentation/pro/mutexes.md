@@ -9,6 +9,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 25
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex` is free.
 
 
@@ -59,3 +65,9 @@ public void osSpecificVirusScan(String os, String file) {
 
 ## Configuration
 Mutexes don't require any configuration.
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

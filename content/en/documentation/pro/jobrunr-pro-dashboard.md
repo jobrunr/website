@@ -10,8 +10,14 @@ menu:
     weight: 3
 ---
 
+<div style="text-align: center; margin-top: 1rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 ## Job search
-Are you processing millions of jobs? Do you need to find that one job and find out if it succeeded? JobRunr Pro has you covered - thanks to a new feature called Job Filters.
+Are you processing millions of jobs? Do you need to find that one job and find out if it succeeded? JobRunr Pro has you covered - thanks to a new feature called Job Search.
 
 <figure>
 <img src="/documentation/job-filters.gif" class="kg-image">
@@ -45,3 +51,9 @@ The JobRunr Pro dashboard also includes some usability improvements that save yo
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.
 
 Once configured, JobRunr will work with the contentpath configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

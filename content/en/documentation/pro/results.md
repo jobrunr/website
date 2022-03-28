@@ -10,6 +10,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 26
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 If your job returns a result, JobRunr serializes it and stores it via the `StorageProvider` in the database of your choice.
 
 You can then fetch the result of that job using the id of the job.
@@ -86,3 +92,9 @@ public class WeatherPredictionRequestHandler implements JobResultRequestHandler<
 ```
 <figcaption>For a JobRequest, just use the JobRequestHandler and return the result in the runAndReturn method.</figcaption>
 </figure>
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

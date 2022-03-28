@@ -27,16 +27,14 @@ __Using Spring configuration__
 <figure>
 
 ```java
-    @Bean
-    public JobRunrDashboardWebServer dashboardWebServer(StorageProvider storageProvider, JsonMapper jsonMapper, int port) {
-        final JobRunrDashboardWebServer jobRunrDashboardWebServer = new JobRunrDashboardWebServer(storageProvider, jsonMapper, port);
-        jobRunrDashboardWebServer.start();
-        return jobRunrDashboardWebServer;
-    }
+org.jobrunr.dashboard.enabled=true 
+org.jobrunr.dashboard.port=8000
 ```
-<figcaption>The dashboard will be started on the given port which can be provided by an environment variable or a property file.</figcaption>
+<figcaption>Using the application.properties you can enable the dashboard which will be started on the given port</figcaption>
 </figure>
 
+
+> Do you want a more powerful dashboard? Do you need to configure a context path to support a proxy? Have a look at the [JobRunr Pro Dashboard]({{<ref "jobrunr-pro-dashboard.md">}})!
 
 ## Screenshots
 <figure>

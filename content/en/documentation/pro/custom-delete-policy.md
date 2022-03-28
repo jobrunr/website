@@ -9,6 +9,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 30
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 Do you have a recurring job that triggers every 5 minutes and only does a small check to see whether something needs to be processed? 95% of the time there is probably nothing to do and the job succeeds immediately. But, all these recurring jobs fill up your JobRunr Dashboard (a huge amount of succeeded and deleted jobs) and also fill up your database. 
 
 JobRunr already allows you to configure the deletion policy for all jobs in the JobRunr configuration. By default, succeeded jobs will go to the deleted state after 36 hours and they will then be permanently deleted after 72 hours.
@@ -45,3 +51,9 @@ Below is a table with some examples:
 | `!PT2H`      | Immediately                               | After 2 hours                                          |
 
 As you can specify both `deleteOnSuccess` and `deleteOnFailure`, this means you can keep failed jobs around longer (to see what went wrong). If you don't specify `deleteOnFailure`, it falls back to JobRunr's default which means the job will stay in the `Failed` state until manual action is taken.
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

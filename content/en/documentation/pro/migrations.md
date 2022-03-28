@@ -9,6 +9,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 27
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 Do you have a lot of scheduled jobs planned in the future? And you need to do some refactoring? Just migrate your existing jobs to your new API and continue delivering working jobs with each deploy.
 
 A job migration could not have been easier with the new migrations API.
@@ -65,3 +71,9 @@ Updating existing jobs is possible in Spring, Micronaut and Quarkus by creating 
 </figure>
 
 > Note that the above example is just using a fraction of the API - the actual API to update jobs is much more extensive.
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

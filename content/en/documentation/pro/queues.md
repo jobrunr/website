@@ -9,6 +9,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 5
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 Are you processing millions of jobs? Do you have some high-prio jobs that need to finish fast? Use JobRunr queues to make sure that critical jobs cut in front of already enqueued jobs.
 
 ## Usage
@@ -97,3 +103,9 @@ The Pro version of JobRunr comes with an enhanced dashboard that shows you the d
 <img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
 <figcaption>Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue</figcaption>
 </figure>
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>

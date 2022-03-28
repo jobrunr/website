@@ -35,8 +35,10 @@
     {{ template "_internal/opengraph.html" . }}
 
     <!-- scss by Ronald-->
-    {{ $styles := resources.Get "scss/screen.scss"  | postCSS  | toCSS | minify | fingerprint }}
-    <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}" media="screen">
+    {{ $stylesCustom := resources.Get "scss/custom.scss"  | postCSS  | toCSS | minify | fingerprint }}
+    {{ $stylesScreen := resources.Get "scss/screen.scss"  | postCSS  | toCSS | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ $stylesCustom.Permalink }}" integrity="{{ $stylesCustom.Data.Integrity }}" media="screen">
+    <link rel="stylesheet" href="{{ $stylesScreen.Permalink }}" integrity="{{ $stylesScreen.Data.Integrity }}" media="screen">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />

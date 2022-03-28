@@ -25,6 +25,9 @@ Do you want to scale and get the processing done faster? In this example we use 
 There are also other example projects available - you can find them here: https://github.com/jobrunr?q=example
 
 ## Or follow along!
+
+The complete example below can be found here: [https://github.com/jobrunr/example-fluent](https://github.com/jobrunr/example-fluent/blob/master/src/main/java/org/jobrunr/example/Main.java)
+
 ### Add the dependency to JobRunr
 Using your build tool of choice, add the dependency to the following artifact:
 - groupId: `org.jobrunr`
@@ -32,12 +35,12 @@ Using your build tool of choice, add the dependency to the following artifact:
 - version: `${jobrunr.version}`
 
 ### Choose your storage system and configure JobRunr
-Using your RDBMS of choice, create a DataSource and pass it to JobRunr:
+Use the `InMemoryStorageProvider` (or any other [DataSource or supported StorageProvider](/en/documentation/installation/storage/)) and pass it to JobRunr:
 
 ```java
 JobRunr.configure()
         .useJobActivator(applicationContext::getBean)
-        .useStorageProvider(SqlStorageProviderFactory.using(applicationContext.getBean(DataSource.class )))
+        .useStorageProvider(new InMemoryStorageProvider())
         .useBackgroundJobServer()
         .useDashboard()
         .initialize();
@@ -49,7 +52,7 @@ BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 ```
 
 ### And monitor them
-Using your browser, go to the JobRunr dashboard located at http://localhost:8000/dashboard
+Using your browser, go to the JobRunr dashboard located at [http://localhost:8000/dashboard](http://localhost:8000/dashboard).
 
 ## Credits
 JobRunr would not have existed without some other projects and I want to give them [credits]({{< ref "credits.md" >}}).

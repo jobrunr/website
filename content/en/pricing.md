@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro"
 translationKey: "jobrunr-pro"
-summary: "JobRunr is completely free, even for commercial use. The [Pro edition](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 60.000 €\n(120 days of development at a rate of 500€). ') allows you to use additional options while ensuring the project will stay here for years to come. I provide 30 day unconditional money back guarantee."
+summary: "JobRunr is completely free, even for commercial use. The [Pro edition](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 60.000 $\n(120 days of development at a rate of 500$). ') allows you to use additional options while ensuring the project will stay here for years to come. Not sure? Try out JobRunr Pro for free [during a month](/en/try-jobrunr-pro)."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
 menu: 
@@ -59,12 +59,11 @@ _tailored for <br>freelancers and startups_
 - GitHub Issues
 
 ### Purchasing
-- Credit Card / PayPal 
-- Invoice
+- PayPal 
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>500 €</strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>650 $</strong>
 _per organization / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_startup' });" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20Startup%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Startup%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
@@ -103,7 +102,7 @@ _for companies with <br>up to 30 employees_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>1500 €</strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>1950 $</strong>
 _per organization / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_sme' });" href="mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20SME%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20SME%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>
@@ -144,7 +143,7 @@ _for companies with <br>more than 30 employees_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 € (107 days of development at a rate of 500€)'>4500 €</strong>
+<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>4950 $</strong>
 _per organization / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_enterprise' });" href="mailto:hello@jobrunr.io?subject=JobRunr%20Enterprise%20Pro%20License&body=Hi%2C%0D%0A%0D%0Awe're%20interested%20in%20a%20JobRunr%20Pro%20Enterprise%20License.%0D%0A%0D%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0D%0AOur%20VAT%20number%20is%3A%20%3Cplease%20enter%20your%20VAT%20number%20here%3E%0D%0AOur%20address%20is%3A%20%3Cplease%20enter%20your%20address%20here%3E%0D%0A%0D%0ARegards!" target="_blank">BUY NOW</a>

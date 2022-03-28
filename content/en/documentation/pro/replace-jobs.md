@@ -10,6 +10,12 @@ menu:
     parent: 'jobrunr-pro'
     weight: 26
 ---
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 Do you need to replace an already enqueued job? Or a job that is already being processed? Thanks to the JobRunr Pro `enqueueOrReplace` and `scheduleOrReplace` you can update the existing job easily.
 
 <figure>
@@ -26,3 +32,9 @@ BackgroundJob.enqueueOrReplace(myId, () -> weatherService.predictWeather(cityId,
 </figure>
 
 > By default, JobRunr ignores jobs with an id that already exist in the JobRunr database. The reason for this is that JobRunr allows to create jobs from [JMS messages in a load-balanced environment]({{<ref "faq.md#im-listening-for-jobs-using-service-bus-messages-in-a-load-balanced-environment-and-i-want-to-schedule-jobs-only-once">}}). By ignoring a job that already exists, we're sure to run the job only once.
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
