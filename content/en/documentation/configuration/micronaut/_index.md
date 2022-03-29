@@ -10,6 +10,18 @@ menu:
 ---
 Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut](https://github.com/jobrunr/example-micronaut)
 
+__To add JobRunr to your Micronaut project, these are the steps you need to take:__
+1. Add the `jobrunr-micronaut-feature` dependency to your project
+2. Configure JobRunr via the Micronaut `application.yml` file
+3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
+
+> Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
 
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:

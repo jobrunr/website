@@ -11,6 +11,15 @@ menu:
 ---
 I hope you are enjoying JobRunr and it makes your day to day life easier (if not, let me know via [Github Discussions](https://github.com/jobrunr/jobrunr/discussions) or a [Github issue](https://github.com/jobrunr/jobrunr/issues)). You would do me a big favor by buying a Pro license - it will help me to deliver new features. And, if you are already happy with JobRunr but do not decide over budgets, please help me convince your superior by providing some details [here](mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20License&body=Hi%2C%0A%0AI%20like%20JobRunr%20and%20need%20some%20help%20to%20convince%20my%20superior%20in%20getting%20a%20Pro%20License.%0A%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0AMy%20superior%20is%3A%20%3Cplease%20enter%20the%20name%20of%20your%20superior%20here%3E%0AMy%20superior%27s%20email%20address%20is%3A%20%3Cplease%20enter%20the%20email%20address%20of%20your%20superior%20here%3E%0A%0ARegards%21).
 
+<div style="text-align: center; margin: 1rem 0 5rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="margin-right: 2rem">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+    <a href="/en/contact/" class="btn btn-black btn-lg">
+        <span>Contact me!</span>
+    </a>
+</div>
+
 <div class="plan-container">
 
 <div class="plan plan-open">

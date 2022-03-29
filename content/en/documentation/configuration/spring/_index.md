@@ -10,6 +10,19 @@ menu:
 ---
 Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
+__To add JobRunr to your Spring project, these are the steps you need to take:__
+1. Add the `jobrunr-spring-boot-starter` dependency to your project
+2. Configure JobRunr via the Spring `application.properties` file
+3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
+
+> Do you want to create jobs that automatically participate in the transactions managed by Spring? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
+
+<div style="text-align: center; margin: 1rem 0 3rem;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
+        <span>Try JobRunr Pro for free!</span>
+    </a>
+</div>
+
 ## Add the dependency to the starter
 As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
 ### Maven
@@ -51,8 +64,8 @@ The `jobrunr-spring-boot-starter` not only adds distributed background Job Proce
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
 ```
-org.jobrunr.database.skip_create=false
-org.jobrunr.database.table_prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
+org.jobrunr.database.skip-create=false
+org.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
 org.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
 org.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
 org.jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job

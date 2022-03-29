@@ -52,9 +52,16 @@ The moment JobRunr loses it's connection to the database (or the database goes d
 
 ## Job FAQ
 
+### How does JobRunr make sure to only process a job once?
+JobRunr uses [optimistic locking](https://en.wikipedia.org/wiki/Optimistic_concurrency_control) to make sure that a job is only processed once. 
+Concretely, this means that when a `BackgroundJob` server starts processing a job, it first changes the state to `PROCESSING` and tries to save that to the `StorageProvider`. If that fails, it means that the job is already processing by another `BackgroundJob` server and the current `BackgroundJob` server will not process it again. 
+If it succeeds, it means that the job is not being processed by another `BackgroundJob` server and the current `BackgroundJob` server can process it.
+
+
+
 ### What if I don't want to have 10 retries when a job fails?
 You can configure the amount of retries for all your jobs or per job.
-- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just pass the filter to the `setJobFilters` method of the `BackgroundJobServer` class.
+- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just change the `org.jobrunr.jobs.default-number-of-retries` property.
 - To change the amount of retries on a single Job, just use the `@Job` annotation:
 
 ```java
