@@ -55,7 +55,7 @@
     <div class="inner">
         <div class="homepage-overview">
             {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
-                <article class="post-card">
+                <article class="post-card small">
                     <div class="post-card-content">
                         <a class="post-card-content-link" href="{{ .Param "link"}}">
                             <header class="post-card-header">
@@ -75,15 +75,25 @@
             {{ end }}
         </div>
 
-        <div style="text-align: center; margin-top: 1rem;">
-			<a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener">
-                <svg viewBox="0 0 16 16" style="margin: -4px 10px 10px 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
+        <div style="text-align: center; margin-top: 0.75rem;">
+            <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 48px; margin-right: 1rem;">
+                <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
                 <span>{{i18n "star-us"}}</span>
             </a>
 
-            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="margin-left: 2rem">
+            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 48px;">
                 <span>Try JobRunr Pro for free!</span>
             </a>
+        </div>
+
+        <div class="homepage-logos">
+            <!--center><em style="font-size: 2em;">Trusted by</em></center-->
+            <div class="logos">
+                <img src="/logos/Amazon-logo.webp" alt="Amazon" height="30px" style="display:inline-block; margin-top: 20px;"/>
+                <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks" height="30px" style="display:inline-block;" />
+                <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase" height="35px" style="display:inline-block;"/>
+                <img src="/logos/Capgemini-logo.webp" alt="Capgemini" height="30px" style="display:inline-block; margin-top: 10px;"/>
+            </div>
         </div>
 
         <style>

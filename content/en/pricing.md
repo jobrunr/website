@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro"
 translationKey: "jobrunr-pro"
-summary: "JobRunr is completely free, even for commercial use. The [Pro edition](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 60.000 $\n(120 days of development at a rate of 500$). ') allows you to use additional options while ensuring the project will stay here for years to come. Not sure? Try out JobRunr Pro for free [during a month](/en/try-jobrunr-pro)."
+summary: "Save months of development time with [JobRunr Pro](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 99.000 $\n(180 days of development at a rate of 500$). ') so you can handle the most difficult background job workflow challenges. Not sure yet? Try out JobRunr Pro for free [during a month](/en/try-jobrunr-pro)."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
 menu: 
@@ -9,16 +9,18 @@ menu:
     identifier: pricing
     weight: 15
 ---
-I hope you are enjoying JobRunr and it makes your day to day life easier (if not, let me know via [Github Discussions](https://github.com/jobrunr/jobrunr/discussions) or a [Github issue](https://github.com/jobrunr/jobrunr/issues)). You would do me a big favor by buying a Pro license - it will help me to deliver new features. And, if you are already happy with JobRunr but do not decide over budgets, please help me convince your superior by providing some details [here](mailto:hello@jobrunr.io?subject=JobRunr%20Pro%20License&body=Hi%2C%0A%0AI%20like%20JobRunr%20and%20need%20some%20help%20to%20convince%20my%20superior%20in%20getting%20a%20Pro%20License.%0A%0AOur%20company%20is%3A%20%3Cplease%20enter%20your%20company%20name%20here%3E%0AMy%20superior%20is%3A%20%3Cplease%20enter%20the%20name%20of%20your%20superior%20here%3E%0AMy%20superior%27s%20email%20address%20is%3A%20%3Cplease%20enter%20the%20email%20address%20of%20your%20superior%20here%3E%0A%0ARegards%21).
 
-<div style="text-align: center; margin: 1rem 0 5rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="margin-right: 2rem">
+Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
+
+<div style="text-align: center; margin: -2rem 0 3rem 0;">
+    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin-right: 1rem; height: 48px;">
         <span>Try JobRunr Pro for free!</span>
     </a>
-    <a href="/en/contact/" class="btn btn-black btn-lg">
+    <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 48px;">
         <span>Contact me!</span>
     </a>
 </div>
+
 
 <div class="plan-container">
 

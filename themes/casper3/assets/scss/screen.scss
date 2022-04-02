@@ -909,9 +909,21 @@ body {
     -ms-overflow-scrolling: touch;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.site-nav-left::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.site-nav-left {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 body.tag-template .site-nav .site-nav-left {
     padding: 10px 0 10px;
 }
+
 
 .site-nav-left .nav li:last-of-type {
     padding-right: 20px;
@@ -1207,6 +1219,10 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
     min-height: 220px;
     border-bottom: 1px solid color-mod(var(--lightgrey) l(+12%));
     background-size: cover;
+}
+
+.post-card.small {
+    min-height: 180px;
 }
 
 .post-card-image-link {
@@ -2947,20 +2963,38 @@ pre[class*="language-"] > code {
 }
 
 .homepage-overview {
-    margin-top: 2vw;
+    margin-top: 1.5vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .homepage-overview article.post-card {
-    padding: 0 1vw 0 0;
+    padding: 0 1.5vw 0 0;
     border-bottom: none;
     min-width: 330px;
-    margin-bottom: 1vw;
+    margin-bottom: 0.5vw;
 }
 
-@media only screen and (max-width: 600px) and (min-width: 300px) {
+.homepage-logos {
+    width: 100%; 
+    margin-top: 1.5vw;
+}
+
+.homepage-logos div.logos {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 600px) {
+    .homepage-logos div.logos {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 660px) and (min-width: 300px) {
     nav.site-nav {
         opacity: initial !important;
     }
@@ -3694,4 +3728,13 @@ div.plan-business h2, div.plan-business a.button {
 }
 div.plan-enterprise h2, div.plan-enterprise a.button {
     background-color: #f0ad4e;
+}
+
+span.sub-title {
+    color:#1a1b1d
+}
+@media (min-width: 600px) and (max-width: 745px) {
+    span.sub-title {
+        display: none;
+    }
 }
