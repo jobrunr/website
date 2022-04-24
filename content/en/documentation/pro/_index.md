@@ -31,6 +31,7 @@ JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscr
 - __[Job Migrations]({{< ref "migrations.md" >}}):__ easily migrate existing scheduled jobs via job migrations - CI/CD for your background jobs is now easier than ever. Or, you can just make your old job methods package private and JobRunr Pro will still execute them.
 - __[Custom delete policy]({{< ref "custom-delete-policy.md" >}}):__ You probably like clean code? Then you also like a clean dashboard. Using a custom delete policy, you can delete jobs faster and keep dashboard and database clean.
 - __Pause recurring jobs:__ Do you want to pause your recurring jobs? Just pause them from the dashboard and resume them whenever you are ready.
+- __Start & Stop Background Job Processing:__ Do you want to stop background job processing for a while? Just stop the background job servers from the dashboard and start them whenever you are ready.
 - __Database fault-tolerance:__ is your SQL / NoSQL database sometimes going down? Are you having connection troubles from your application to your database? JobRunr Pro has you covered and it will automatically stop job processing temporarily in this case. The moment your database is back online, JobRunr will start processing jobs again as if nothing ever happened.
 
 ### Upcoming features

@@ -1,23 +1,23 @@
 ---
-title: "JobRunr Pro Trial"
-translationKey: "jobrunr-pro-trial"
-summary: "Are you interested in a trial of JobRunr Pro? Fill in the form below and we will send you all the necessary information to get started!"
+title: "JobRunr Pro Subscription"
+translationKey: "get-jobrunr-pro"
+summary: "Ready to get a JobRunr Pro Subscription? Fill in the form below and all the necessary information to get started will be sent to you!"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
 menu:
 main:
-identifier: trial
-weight: 15
+identifier: pro-subscription
+weight: 18
 ---
 
 <style>
-    #trial-form {
+    #subscription-form {
         font-size: 90%;
     }
-    #trial-form dl {
+    #subscription-form dl {
         margin: 0 0 1em;
     }
-    #trial-form dl input[type="text"] {
+    #subscription-form dl input[type="text"] {
         width: 50%;
     }
 </style>
@@ -28,7 +28,7 @@ weight: 15
     });
 
     function submitForm() {
-        gtag('event', 'get_pro_trial', {'event_category': 'ecommerce', 'event_label' : 'request_trial' });
+        gtag('event', 'get_pro_subscription', {'event_category': 'ecommerce', 'event_label' : 'request_subscription' });
         const firstNameField = document.getElementById('firstName');
         const lastNameField = document.getElementById('lastName');
         const emailField = document.getElementById('email');
@@ -42,9 +42,9 @@ weight: 15
         const company = companyField.value;
         
         if(!firstName || !lastName || !email || !company || !email.includes('@') || !(linkedIn.startsWith('https://linkedin') || linkedIn.startsWith('https://www.linkedin'))) {
-            document.getElementById('trial-form-error').style.display = 'block';
+            document.getElementById('subscription-form-error').style.display = 'block';
         } else {
-            document.getElementById('trial-form-error').style.display = 'none';
+            document.getElementById('subscription-form-error').style.display = 'none';
             
             firstNameField.disabled = true;
             lastNameField.disabled = true;
@@ -52,26 +52,26 @@ weight: 15
             linkedInField.disabled = true;
             companyField.disabled = true;
             document.getElementById('submit-btn').disabled = true;
-            const trialData = {
+            const subscriptionData = {
                 firstName: firstName,
                 lastName: lastName,
                 email: email,
                 linkedIn: linkedIn,
                 company: company
             };
-            fetch('https://trial.jobrunr.io/api/request-trial', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
+            fetch('https://trial.jobrunr.io/api/sales/request-subscription', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(subscriptionData)})
                 .then(resp => {
                     if(resp.status === 200) {
-                        document.getElementById('trial-form').style.display = 'none';
-                        document.getElementById('trial-success-response').style.display = 'block';
+                        document.getElementById('subscription-form').style.display = 'none';
+                        document.getElementById('subscription-success-response').style.display = 'block';
                     } else {
-                        document.getElementById('trial-form').style.display = 'none';
-                        document.getElementById('trial-error-response').style.display = 'block';
+                        document.getElementById('subscription-form').style.display = 'none';
+                        document.getElementById('subscription-error-response').style.display = 'block';
                 }
                 })
                 .catch(error => {
-                    document.getElementById('trial-form').style.display = 'none';
-                    document.getElementById('trial-error-response').style.display = 'block';
+                    document.getElementById('subscription-form').style.display = 'none';
+                    document.getElementById('subscription-error-response').style.display = 'block';
                 });
         }
         return false;
@@ -82,11 +82,11 @@ weight: 15
 
 <div style="display: flex; justify-content: center;">
     <div style="background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem;">
-        <div id="trial-form">
+        <div id="subscription-form">
             <form novalidate="">
-                <h2 style="margin: 0 0 .5em;">Start your free trial now</h2>
+                <h2 style="margin: 0 0 .5em;">Get your JobRunr Pro Subscription today</h2>
                 <p style="margin-bottom: 0">
-                    Use JobRunr Pro for free during 1 month. (No risk. No credit card required.)<br/>
+                    We're here to help. Fill in the details below and we'll get back to you as soon as possible.<br/>
                 </p>
                 <br />
                 <div>
@@ -110,7 +110,7 @@ weight: 15
                         <dt style="text-align: right"><label for="company">Company</label></dt> 
                         <dd><input type="text" value="" name="company" class="" id="company" /></dd>
                     </dl>
-                    <dl id="trial-form-error" style="display: none">
+                    <dl id="subscription-form-error" style="display: none">
                         <dt style="text-align: right">&nbsp;</dt> 
                         <dd>
                             <div class="response" style="color:red;">All fields are required.</div>
@@ -126,8 +126,8 @@ weight: 15
             </form>
         </div>
         <div id="mce-responses" class="clear">
-            <div class="response" id="trial-error-response" style="display:none; color:red;">Error submitting your request for a trial. Please try again later.</div>
-            <div class="response" id="trial-success-response" style="display:none">Thanks for requesting a trial. I will get back to you as soon as possible.</div>
+            <div class="response" id="subscription-error-response" style="display:none; color:red;">Error submitting your request for a trial. Please try again later.</div>
+            <div class="response" id="subscription-success-response" style="display:none">Thanks for requesting a JobRunr Pro Subscription. We will get back to you as soon as possible.</div>
         </div> 
     </div>
     

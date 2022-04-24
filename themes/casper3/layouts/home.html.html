@@ -75,19 +75,18 @@
             {{ end }}
         </div>
 
-        <div style="text-align: center; margin-top: 0.75rem;">
-            <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 48px; margin-right: 1rem;">
+        <div style="text-align: center;">
+            <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 45px; margin-right: 1rem;">
                 <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
                 <span>{{i18n "star-us"}}</span>
             </a>
 
-            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 48px;">
+            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
                 <span>Try JobRunr Pro for free!</span>
             </a>
         </div>
 
         <div class="homepage-logos">
-            <!--center><em style="font-size: 2em;">Trusted by</em></center-->
             <div class="logos">
                 <img src="/logos/Amazon-logo.webp" alt="Amazon" height="30px" style="display:inline-block; margin-top: 20px;"/>
                 <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks" height="30px" style="display:inline-block;" />
@@ -175,7 +174,7 @@
             }
         </style>
         
-        <h2 id="why-jobrunr">{{ i18n "why-jobrunr" }}</h2>
+        <h2 id="why-jobrunr" style="margin-top: 1.2em;">{{ i18n "why-jobrunr" }}</h2>
         <section class="carousel" aria-label="Gallery">
             <ol class="carousel__viewport">
               {{ range $index, $value := where .Site.Pages.ByWeight "Params.type" "homepage-quote" }}
