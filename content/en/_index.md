@@ -1,6 +1,6 @@
 ---
 title: "Distributed Java Background Job Scheduler"
-keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "micro-service", "microservice", "java scheduler"]
+keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "micro-service", "microservice", "java scheduler", "java cron"]
 description: "JobRunr · a distributed Java background job scheduler for your microservice architecture"
 translationKey: "home"
 menu: 

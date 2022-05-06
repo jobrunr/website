@@ -10,11 +10,7 @@ menu:
     weight: 50
 ---
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/pricing.md" >}}) and adds a lot of extra functionality to support your difficult business processes:
 - __[JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}):__ are you processing a lot of jobs and do you quickly need to find that one job? Thanks to the Job Filter feature in the JobRunr Pro dashboard you will quickly find any job by name, method signature or any other filters.

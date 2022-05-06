@@ -17,11 +17,7 @@ __To add JobRunr to your Spring project, these are the steps you need to take:__
 
 > Do you want to create jobs that automatically participate in the transactions managed by Spring? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 ## Add the dependency to the starter
 As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
@@ -78,4 +74,5 @@ org.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded jobs
 org.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
 org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
+org.jobrunr.miscellaneous.allow-anonymous-data-usage: true #this sends the amount of succeeded jobs for marketing purposes
 ```

@@ -1,5 +1,5 @@
 ---
-title: "Job Migrations"
+title: "CI / CD & Job Migrations"
 subtitle: "Easier continuous delivery thanks to job migrations "
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
@@ -9,12 +9,26 @@ menu:
     parent: 'jobrunr-pro'
     weight: 27
 ---
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
+### Prevent JobNotFoundExceptions thanks to the JobRegressionGuard
+Are you applying some of Uncle Bob's tips and tricks from his great book **Clean Code**? It probably also means you're sometimes refactoring... but what about your existing jobs in production? Won't they break? Will you know if they break?
+
+JobRunr Pro has you covered thanks to the `JobRegressionGuard`:
+<figure>
+
+```java
+@Test
+void validateExistingJobs() {
+    JobRegressionGuard jobRegressionGuard = new JobRegressionGuard();
+    jobRegressionGuard.validateJobs("<url to your staging/production dashboard>");
+}
+```
+<figcaption>This simple unit test will notify you if you did some refactorings that are not compatible with the jobs in production.</figcaption>
+</figure>
+
+
+### Migrate your jobs with ease
 Do you have a lot of scheduled jobs planned in the future? And you need to do some refactoring? Just migrate your existing jobs to your new API and continue delivering working jobs with each deploy.
 
 A job migration could not have been easier with the new migrations API.
@@ -72,8 +86,4 @@ Updating existing jobs is possible in Spring, Micronaut and Quarkus by creating 
 
 > Note that the above example is just using a fraction of the API - the actual API to update jobs is much more extensive.
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}

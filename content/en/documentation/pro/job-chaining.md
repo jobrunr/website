@@ -9,11 +9,7 @@ menu:
     parent: 'jobrunr-pro'
     weight: 10
 ---
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 JobRunr Pro allows you to chain jobs using a fluent API style. This gives you an immediate overview of your business process.
 
@@ -45,8 +41,4 @@ The notification will only be send once the archive was created successfully (an
 
 > This comes in really handy when using [Batches]({{< ref "batches.md" >}}) - start a new step in your business process when a whole bunch of related jobs have finished.
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}

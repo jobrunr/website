@@ -9,11 +9,7 @@ menu:
     parent: 'jobrunr-pro'
     weight: 20
 ---
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 Do you have some jobs that can only be run on certain servers (e.g. jobs tied to a specific OS like Linux, Max and Windows)? Or do you want to run a job only on the server that created the job? JobRunr has you covered with Server Tags!
 
@@ -69,8 +65,4 @@ JobRunrPro
 ### Spring configuration
 For the Spring configuration, you can use the `org.jobrunr.background-job-server.tags` property to set the different server tags.
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}

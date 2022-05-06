@@ -18,7 +18,12 @@ weight: 15
         margin: 0 0 1em;
     }
     #trial-form dl input[type="text"] {
-        width: 50%;
+        width: 60%;
+    }
+    @media only screen and (max-width: 1140px) {
+        #like-a-pro {
+            display: none;
+        }
     }
 </style>
 
@@ -59,7 +64,7 @@ weight: 15
                 linkedIn: linkedIn,
                 company: company
             };
-            fetch('https://trial.jobrunr.io/api/request-trial', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
+            fetch('https://api.jobrunr.io/api/request-trial', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
                 .then(resp => {
                     if(resp.status === 200) {
                         document.getElementById('trial-form').style.display = 'none';
@@ -79,14 +84,13 @@ weight: 15
 
 </script>
 
-
-<div style="display: flex; justify-content: center;">
-    <div style="background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem;">
+<div style="display: flex; column-gap: 100px;">
+    <div style="flex: 0.8; background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem;">
         <div id="trial-form">
             <form novalidate="">
                 <h2 style="margin: 0 0 .5em;">Start your free trial now</h2>
                 <p style="margin-bottom: 0">
-                    Use JobRunr Pro for free during 1 month. (No risk. No credit card required.)<br/>
+                    Use JobRunr Pro for free during 14 days.<br />(No risk. No credit card required.)<br/>
                 </p>
                 <br />
                 <div>
@@ -130,5 +134,11 @@ weight: 15
             <div class="response" id="trial-success-response" style="display:none">Thanks for requesting a trial. I will get back to you as soon as possible.</div>
         </div> 
     </div>
-    
+    <div id="like-a-pro" style="flex: 1;">
+        <h2 style="margin: 1em 0 .5em 0;">Run all your Java jobs, like a Pro.</h2>
+        <figure style="margin: 0em 0 1.5em 0">
+            <img src="/try-jobrunr-pro.png" class="kg-image" style="max-height: 450px; border-radius: 10px">
+            <figcaption>Use JobRunr Pro to launch millions of jobs and make your<br>development life hassle-free!</figcaption>
+        </figure>
+    </div>
 </div>

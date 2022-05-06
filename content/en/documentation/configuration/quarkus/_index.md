@@ -66,4 +66,5 @@ quarkus.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded 
 quarkus.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
 quarkus.jobrunr.dashboard.enabled=false
 quarkus.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
+quarkus.jobrunr.miscellaneous.allow-anonymous-data-usage: true #this sends the amount of succeeded jobs for marketing purposes
 ```

@@ -59,7 +59,7 @@ weight: 18
                 linkedIn: linkedIn,
                 company: company
             };
-            fetch('https://trial.jobrunr.io/api/sales/request-subscription', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(subscriptionData)})
+            fetch('https://api.jobrunr.io/api/sales/request-subscription', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(subscriptionData)})
                 .then(resp => {
                     if(resp.status === 200) {
                         document.getElementById('subscription-form').style.display = 'none';

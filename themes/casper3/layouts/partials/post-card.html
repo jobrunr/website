@@ -1,7 +1,7 @@
 <article class="post-card post
 {{ if not (.context.Param "feature_image") }} no-image
 {{ else }}
-{{ if (eq (mod .index 6) 0) }} post-card-large {{ end }}
+{{ if (eq (.index) 0) }} post-card-large {{ end }}
 {{ end }} ">
 
         {{ if .context.Param "feature_image" }}

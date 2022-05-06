@@ -1,7 +1,7 @@
 ---
 title: "Recurring jobs"
 subtitle: "Schedule recurring jobs with a single line of code using any CRON expression."
-keywords: ["java recurring job", "java cron job"]
+keywords: ["java recurring job", "java cron job", "cron", "crontab", "java cron"]
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -10,8 +10,9 @@ menu:
     parent: 'background-methods'
     weight: 30
 ---
-Creating a recurring job is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`):
+Creating a recurring job (also known as a CRON or crontab job) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`):
 
+> Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds.
 
 ## Using a Cron expression
 <figure>
@@ -21,12 +22,12 @@ BackgroundJob.scheduleRecurrently(Cron.daily(), () -> System.out.println("Easy!"
 ```
 </figure>
 
-This line creates a new recurring job entry in the `StorageProvider`. A special component in `BackgroundJobServer` checks the recurring jobs on a minute-based interval and then enqueues them as fire-and-forget jobs. This enables you to track them as usual.
+This line creates a new recurring CRON job entry in the `StorageProvider`. A special component in `BackgroundJobServer` checks the recurring jobs on a minute-based interval and then enqueues them as fire-and-forget jobs. This enables you to track them as usual.
 
 > __Remark:__ for recurring methods to work, at least one BackgroundJobServer should be running all the time and the jobs should be registered on startup of your application.
 > Also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents creating recurring jobs every with cron values less than 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
 
-The Cron class contains different methods and overloads to run jobs on a minute, hourly, daily, weekly, monthly and yearly basis. You can also use standard CRON expressions to specify a more complex schedule:
+The `Cron` class contains different methods and overloads to run jobs on a minute, hourly, daily, weekly, monthly and yearly basis. You can also use a standard CRON expressions to specify a more complex schedule:
 
 <figure>
 

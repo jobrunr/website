@@ -80,10 +80,11 @@
                 <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
                 <span>{{i18n "star-us"}}</span>
             </a>
-
-            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-                <span>Try JobRunr Pro for free!</span>
-            </a>
+            {{ if eq $.Page.Site.Params.enableTrialButton true }}
+                <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
+                    <span>Try JobRunr Pro for free!</span>
+                </a>
+            {{ end }}
         </div>
 
         <div class="homepage-logos">

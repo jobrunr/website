@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro"
 translationKey: "jobrunr-pro"
-summary: "Save months of development time with [JobRunr Pro](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 99.000 $\n(180 days of development at a rate of 500$). ') so you can handle the most difficult background job workflow challenges. Not sure yet? Try out JobRunr Pro for free [during a month](/en/try-jobrunr-pro)."
+summary: "Save months of development time with [JobRunr Pro](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 119.400 $\n(190 days of development at a rate of 600$). ') so you can handle the most difficult background job workflow challenges."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
 menu: 
@@ -13,9 +13,7 @@ menu:
 Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
 
 <div style="text-align: center; margin: -2rem 0 3rem 0;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin-right: 1rem; height: 45px;">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
+    {{< trial-button >}}
     <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
         <span>Contact me!</span>
     </a>

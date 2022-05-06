@@ -9,11 +9,7 @@ menu:
     parent: 'jobrunr-pro'
     weight: 15
 ---
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 Batches allow you to create a bunch of background jobs atomically. This means that if there was an exception during the creation of background jobs, none of them will be processed. Consider you want to send 1000 emails to your clients, and they really want to receive these emails. Here is the old way:
 
@@ -163,8 +159,4 @@ Thanks to the enhanced dashboard that comes with JobRunr Pro, you have an in-dep
 <figcaption>The processing tab within a batch job shows which child jobs are being processed</figcaption>
 </figure>
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}

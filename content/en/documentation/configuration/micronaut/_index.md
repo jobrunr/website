@@ -17,11 +17,7 @@ __To add JobRunr to your Micronaut project, these are the steps you need to take
 
 > Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:
@@ -83,4 +79,6 @@ jobrunr:
   dashboard:
     enabled: false
     port: 8000 #the port on which to start the dashboard
+  miscellaneous:
+    allow-anonymous-data-usage: true #this sends the amount of succeeded jobs for marketing purposes
 ```

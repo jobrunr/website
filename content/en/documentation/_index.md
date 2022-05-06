@@ -52,11 +52,7 @@ sitemap:
 - One or more background job servers poll the storage provider for new enqueued jobs and process them
 - When finished, it updates the state in the storage provider and fetches the next job to perform
 
-<div style="text-align: center; margin: 1rem 0 3rem;">
-    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg">
-        <span>Try JobRunr Pro for free!</span>
-    </a>
-</div>
+{{< trial-button >}}
 
 ## Terminology
 ### Job
