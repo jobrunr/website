@@ -2,6 +2,7 @@
 title: "Recurring jobs"
 subtitle: "Schedule recurring jobs with a single line of code using any CRON expression."
 keywords: ["java recurring job", "java cron job", "cron", "crontab", "java cron"]
+description: "Create a CRON job in Java using JobRunr with only one line of code."
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 

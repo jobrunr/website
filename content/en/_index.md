@@ -1,6 +1,6 @@
 ---
 title: "Distributed Java Background Job Scheduler"
-keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "micro-service", "microservice", "java scheduler", "java cron"]
+keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "java scheduler", "java cron", "job runner", "jobrunner"]
 description: "JobRunr · a distributed Java background job scheduler for your microservice architecture"
 translationKey: "home"
 menu: 
@@ -20,8 +20,8 @@ sitemap:
   priority: 1.0
   changeFreq: monthly
 ---
-An easy way to perform background processing in Java.  
+The ultimate library for background processing in Java.<br/>
 Distributed and backed by persistent storage.  
-Open-source and free for commercial use.<span class="sub-title">Alternative for Spring Batch and Quartz Scheduler. Hangfire for Java. Java scheduler.</span>
+Open-source and free for commercial use.<span class="sub-title">Alternative for Spring Batch and Quartz Scheduler. Hangfire for Java. Java CRON scheduler. JobRunner. Job Runner</span>
 
 [//]: <> (To change any of the blocks on the homepage, go to https://github.com/jobrunr/website/tree/master/content/en/homepage)

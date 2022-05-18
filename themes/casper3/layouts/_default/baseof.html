@@ -20,10 +20,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {{ if .Description }}
     <meta name="description" content="{{ .Description }}">
+    {{ else if .Params.subtitle }}
+    <meta name="description" content="{{ .Params.subtitle }}">
     {{ else if .Summary }}
     <meta name="description" content="{{ .Summary }}">
-    {{ else if .Param "subtitle" }}
-    <meta name="description" content="{{ .Param "subtitle" }}">
     {{ end }}
     {{ if .Keywords }}
       <meta name="keywords" content="{{ delimit .Keywords "," }}">

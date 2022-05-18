@@ -1,6 +1,7 @@
 ---
 title: "Documentation"
 translationKey: "documentation"
+keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "java scheduler", "java cron", "job runner", "jobrunner"]
 subtitle: "The architecture and terminology behind JobRunr"
 description: "Find out all about the architecture and terminology behind JobRunr"
 date: 2020-04-30T11:12:23+02:00
