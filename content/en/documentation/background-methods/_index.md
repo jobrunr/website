@@ -130,7 +130,7 @@ A `JobRequestHandler` is a regular service (e.g. a Spring bean / a Micronaut sin
 
 ```java
 @Component
-public class MyJobRequestHandler implements JobRequestHandler {
+public class MyJobRequestHandler implements JobRequestHandler<MyJobRequest> {
 
   @Inject
   private SomeService someService; // you can inject other services (or constructor-injection)
