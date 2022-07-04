@@ -33,6 +33,8 @@ As first line support analysts are not always technical savvy, it's best to supp
 
 As this company gave first line support access to the JobRunr Pro Dashboard and made sure to add the customer name in the job name, they can now easily find out if a job for a certain customer succeeded or failed. In case of a failure, they simply requeue the failed job and that often solves the issue for the customer. Thanks to this simple workflow, the developers are not being interrupted that much anymore and have more time to create new and awesome features!
 
+Is your application internal only? Even then the JobRunr Pro dashboard helps developers to be more productive as they can quickly find all the jobs they are interested in thanks to the searching capabilities. Are there a lot of failed jobs? Instead of queueing them one by one, they can reschedule them all saving precious time.
+
 ### Are you still running your own Job Scheduling Framework?
 Use JobRunr Pro and give back time to your developers.
 
