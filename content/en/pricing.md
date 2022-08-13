@@ -24,7 +24,7 @@ Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pr
 
 <div class="plan plan-open">
 
-## Open
+## OSS
 <div class="no-margin">
 
 _free for everyone,<br>including all companies_
@@ -33,59 +33,25 @@ _free for everyone,<br>including all companies_
 ### Licensing
 - [JobRunr under LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.html)
 - Commercial use
+<br><br><br><br><br><br><br><br>
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
 - GitHub Discussions
 
+<span style="display: block; height: 120px"></span>
+
 <div class="buy">
 
 __free__
 _always and forever_
+<br>
 
 <a class="button">DOWNLOAD</a>
 </div>
 </div>
 
 <div class="plan plan-startup">
-
-## Startup
-<div class="no-margin">
-
-_tailored for <br>freelancers and startups_
-</div>
-
-### Licensing
-- [JobRunr]({{< ref "documentation/_index.md" >}})
-- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Eligible if up to 5 employees.
-- Annual license
-- Access to private Maven repository
-
-### Community support
-- [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
-- GitHub Issues
-
-### Purchasing
-- PayPal 
-
-<div class="buy">
-
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>650 $</strong>
-_per organization / year<br/>(excl. VAT)_
-
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_startup' });" href="/en/get-jobrunr-pro">BUY NOW</a>
-
-<div class="eco-friendly">
-
-I care about the planet
-_[this includes <br/>25 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
-</div>
-</div>
-</div>
-
-<div class="plan plan-business">
 
 ## SME
 <div class="no-margin">
@@ -100,10 +66,12 @@ _for companies with <br>up to 30 employees_
 - Eligible if up to 30 employees.
 - Annual license
 - Access to private Maven repository
+- No access to source code
 
 ### Basic support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
-- Technical support
+- Basic Technical support
+<br><br>
 
 ### Purchasing
 - Credit Card / PayPal 
@@ -112,7 +80,7 @@ _for companies with <br>up to 30 employees_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>1950 $</strong>
-_per organization / year<br/>(excl. VAT)_
+_per cluster (or project) / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_sme' });" href="/en/get-jobrunr-pro">BUY NOW</a>
 
@@ -124,7 +92,7 @@ _[this includes <br/>75 planted trees / year]({{< ref "about.md#eco-friendly-sof
 </div>
 </div>
 
-<div class="plan plan-enterprise">
+<div class="plan plan-business">
 
 ## Enterprise
 <div class="no-margin">
@@ -153,7 +121,7 @@ _for companies with <br>more than 30 employees_
 <div class="buy">
 
 <strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>4950 $</strong>
-_per organization / year<br/>(excl. VAT)_
+_per cluster (or project) / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_enterprise' });" href="/en/get-jobrunr-pro">BUY NOW</a>
 
@@ -164,6 +132,48 @@ _[this includes <br/>225 planted trees / year]({{< ref "about.md#eco-friendly-so
 </div>
 </div>
 </div>
+
+<div class="plan plan-enterprise">
+
+## Platinum
+<div class="no-margin">
+
+_for companies who use JobRunr in many projects_
+</div>
+
+### Licensing
+- [JobRunr]({{< ref "documentation/_index.md" >}})
+- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
+- Eligible if more than 30 employees.
+- Annual license
+- Access to private Maven repository
+- Access to source code
+
+### Priority support
+- [Email / HelpDesk](mailto:hello@jobrunr.io)
+- Technical support
+- Priority handling for bugs
+
+### Purchasing
+- Credit Card / PayPal 
+- Invoice
+
+<div class="buy">
+
+_unlimited clusters,<br/>unlimited installations,<br/>priority feature development_
+
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro">CONTACT SALES</a>
+
+<div class="eco-friendly">
+
+I care about the planet
+_[this includes <br/>a lot of planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+</div>
+</div>
+</div>
+
+
 </div>
 
 <br>
