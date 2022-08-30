@@ -35,6 +35,7 @@ To generate the sql scripts for your database so you can apply them yourself, us
 ```
 java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
+>Note: need to provide the slf4j-api.jar while executing the jar
 
 Once you created the tables, you can configure JobRunr as follows (when using `jobrunr-spring-boot-starter`, this is not necessary):
 
