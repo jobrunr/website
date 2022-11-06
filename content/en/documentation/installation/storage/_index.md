@@ -24,7 +24,7 @@ By default, JobRunr will automatically create the necessary tables for your data
 The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user that has DDL rights.
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
+java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
 ```
 
 If the command succeeds, a confirmation message will be shown.
@@ -33,7 +33,7 @@ If the command succeeds, a confirmation message will be shown.
 To generate the sql scripts for your database so you can apply them yourself, use the following command (the files will be generated in the current directory): 
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
+java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
 
 Once you created the tables, you can configure JobRunr as follows (when using `jobrunr-spring-boot-starter`, this is not necessary):

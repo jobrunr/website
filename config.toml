@@ -30,9 +30,6 @@ unsafe= true
   [languages.en]
     weight = 1
     contentDir = "content/en"
-  [languages.de]
-    weight = 2
-    contentDir = "content/de"
   [languages.ch]
     weight = 3
     contentDir = "content/ch"

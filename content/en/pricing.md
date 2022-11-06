@@ -30,10 +30,16 @@ Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pr
 _free for everyone,<br>including all companies_
 </div>
 
+### Features
+- [JobRunr]({{< ref "documentation/_index.md" >}})
+- Up to 100 recurring jobs<br>
+(depends on DB speed)
+<br>
+
 ### Licensing
 - [JobRunr under LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.html)
 - Commercial use
-<br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
@@ -59,11 +65,14 @@ _always and forever_
 _for companies with <br>up to 30 employees_
 </div>
 
-### Licensing
+### Features
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- Up to 1000 recurring jobs
+
+### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Eligible if up to 30 employees.
+- Eligible for up to 30 employees.
 - Annual license
 - Access to private Maven repository
 - No access to source code
@@ -100,9 +109,12 @@ _[this includes <br/>75 planted trees / year]({{< ref "about.md#eco-friendly-sof
 _for companies with <br>more than 30 employees_
 </div>
 
-### Licensing
+### Features
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- Up to 5000 recurring jobs
+
+### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
 - Eligible if more than 30 employees.
 - Annual license
@@ -141,14 +153,18 @@ _[this includes <br/>225 planted trees / year]({{< ref "about.md#eco-friendly-so
 _for companies who use JobRunr in many projects_
 </div>
 
-### Licensing
+### Features
 - [JobRunr]({{< ref "documentation/_index.md" >}})
 - [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
+- Up to 5000 recurring jobs
+
+### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Eligible if more than 30 employees.
+- Unlimited projects and installations
 - Annual license
 - Access to private Maven repository
 - Access to source code
+<br>
 
 ### Priority support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)

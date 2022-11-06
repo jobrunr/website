@@ -18,6 +18,8 @@ JobRunr already allows you to configure the deletion policy for all jobs in the 
 Thanks to the `deleteOnSuccess` and `deleteOnFailure` attributes on the `@Job` annotation you know have fine-grained control per Job on when it will move from the `Succeeded` state to the `Deleted` state and when the `Job` will be deleted permanently.
 
 ## Usage
+
+### Using Java 8 lambda's
 Specifying a custom delete policy for a job is easy thanks to the `Job` annotation. Just add it to your service method and specify when you want your job to be deleted.
 <figure>
 
@@ -30,6 +32,38 @@ public void startImportingFilesIfPresent() {
 }
 ```
 </figure>
+
+### Using JobRequest and JobRequestHandler
+When you are using a `JobRequest` and a `JobRequestHandler`, just add the `@Job` annotation to the run method of the handler.
+<figure>
+
+```java
+public class ImportFilesJobRequest implements JobRequest {
+
+    public final String folder;
+
+    public ImportFilesJobRequest(String folder) {
+        this.folder = folder;
+    }
+
+    @Override
+    public Class<? extends JobRequestHandler> getJobRequestHandler() {
+        return ImportFilesJobRequestHandler.class;
+    }
+}
+
+@Component
+public class ImportJobRequestHandler implements JobRequestHandler<ImportFilesJobRequest> {
+
+    @Job(deleteOnSuccess="PT10M!PT10M")
+    public void run(ImportFilesJobRequest importFiles) {
+        // business logic here
+    }
+}
+
+```
+</figure>
+
 <br>
 
 The `deleteOnSuccess` and `deleteOnFailure` attribute accept the following string format: `duration1!duration2`:

@@ -1,8 +1,8 @@
 ---
-title: "JobRunr video by Alex Gutjahr"
-summary: "I was contacted by Alex Gutjahr who made a video about JobRunr!"
+title: "JobRunr 5.2.0"
+summary: "Another release - speedy"
 feature_image: /blog/2022-08-10-alex-gutjahr.jpeg
-date: 2022-08-10T11:12:23+02:00
+date: 2022-09-20T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
   - blog
