@@ -66,6 +66,6 @@ The following tables provides an overview of each approach’s features.
 
 #### JobRunr gets a __5/5 score for developer friendliness__ as it:
 - comes out-of-the-box with a __web dashboard__ to present past, present and future jobs, along with execution statistics and management controls
-- has great Spring Boot, Micronaut and Quartz integration
+- has great Spring Boot, Micronaut and Quarkus integration
 - auto generates all SQL Tables / NoSQL data structures on first launch
 - allows to start and schedule jobs in a __1-liner using nothing more than a Java 8 lambda__
