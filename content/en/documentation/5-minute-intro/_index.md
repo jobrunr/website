@@ -28,7 +28,7 @@ There are also other example projects available - you can find them here: https:
 
 The complete example below can be found here: [https://github.com/jobrunr/example-fluent](https://github.com/jobrunr/example-fluent/blob/master/src/main/java/org/jobrunr/example/Main.java)
 
-### Add the dependency to JobRunr
+### Add the JobRunr dependency to your project
 Using your build tool of choice, add the dependency to the following artifact:
 - groupId: `org.jobrunr`
 - artifactId: `jobrunr`

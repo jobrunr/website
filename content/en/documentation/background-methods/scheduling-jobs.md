@@ -20,7 +20,20 @@ BackgroundJob.schedule<EmailService>(Instant.now().plusHours(24),
 ```
 </figure>
 
-JobRunr's BackgroundJobServer periodically checks all scheduled jobs and enqueues them when it is time to run them, allowing workers to execute them. By default, the check interval is equal to 15 seconds, but you can change it by passing the relevant argument to the `BackgroundJobServer` constructor.
+You can also use the `JobBuilder` to achieve the same result:
+<figure>
+
+```java
+
+BackgroundJob.create(aJob()
+    .withName("Send welcome email to newly registered users")
+    .scheduleIn(Duration.ofDays(1))
+    .<EmailService>withDetails(x -> x.sendNewlyRegisteredEmail()));
+```
+<figcaption>Scheduling emails is also possible using the JobBuilder pattern</figcaption>
+</figure>
+
+JobRunr's BackgroundJobServer periodically checks all scheduled jobs and enqueues them when it is time to run them, allowing workers to execute them. By default, the poll interval is equal to 15 seconds, but you can change it by passing the relevant argument to the `BackgroundJobServer` constructor or by changing the properties for your preferred framework.
 
 The `BackgroundJob.schedule` methods has overloads and accepts:
 
@@ -31,7 +44,7 @@ The `BackgroundJob.schedule` methods has overloads and accepts:
 
 All DateTime objects are converted to an `Instant` - in case of the `LocalDateTime`, the systemDefault zoneId is used to convert it.
 
-These scheduling methods are also off-course available on the `JobScheduler` bean and the `JobRequestScheduler`.
+All of the above methods are off-course also available on the `JobScheduler` bean and the `JobRequestScheduler`.
 
 <figure>
 
@@ -42,7 +55,7 @@ private JobScheduler jobScheduler;
 jobScheduler.schedule<EmailService>(Instant.now().plusHours(24), 
   x -> x.sendNewlyRegisteredEmail());
 ```
-<figcaption>Scheduling a background job in future using the JobScheduler bean</figcaption>
+<figcaption>Scheduling a background job in the future using the JobScheduler bean</figcaption>
 </figure>
 
 <figure>
@@ -54,5 +67,20 @@ private JobRequestScheduler jobRequestScheduler;
 jobRequestScheduler.schedule(Instant.now().plusHours(24), 
   new SendNewlyRegisteredEmailJobRequest());
 ```
-<figcaption>Scheduling a background job in future using the JobScheduler bean</figcaption>
+<figcaption>Scheduling a background job in the future using the JobRequestScheduler bean</figcaption>
 </figure>
+
+<figure>
+
+```java
+@Inject
+private JobRequestScheduler jobRequestScheduler;
+
+jobRequestScheduler.create(aJob()
+  .scheduleIn(Duration.ofDays(1))
+  .withJobRequest(new SendNewlyRegisteredEmailJobRequest()));
+```
+<figcaption>Scheduling a background job in the future using the JobBuilder pattern</figcaption>
+</figure>
+
+> Note that scheduled jobs may not be executed on the exact moment you specified: whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro]({{< ref "documentation/pro/real-time-scheduling.md" >}}).

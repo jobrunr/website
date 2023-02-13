@@ -1,6 +1,6 @@
 ---
-title: "JobRunr 5.2.0"
-summary: "Another release - speedy"
+title: "JobRunr Intro Video"
+summary: "An intro to JobRunr by Alex Gutjahr"
 feature_image: /blog/2022-08-10-alex-gutjahr.jpeg
 date: 2022-09-20T11:12:23+02:00
 author: "Ronald Dehuysser"

@@ -1,4 +1,5 @@
 ---
+version: "business"
 title: "Mutexes"
 subtitle: "Mutexes in JobRunr will postpone jobs until a shared mutex is free"
 date: 2020-08-27T11:12:23+02:00
@@ -14,7 +15,7 @@ menu:
 A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex` is free.
 
 
-## Usage
+## Usage via `@Job` annotation
 Using a mutex is as easy as using Queues and Server Tags, again thanks to the `Job` annotation. Just add it to your service method and specify the mutex to use
 <figure>
 
@@ -24,6 +25,17 @@ public void onlyProcessOneJobAtTheSameTime() {
     System.out.println("This will not run parallel as it is guarded by a mutex");
 }
 ```
+
+## Usage via `JobBuilder` pattern
+When you are using the `JobBuilder` pattern, you can pass the serverTag via the `JobBuilder`.
+<figure>
+
+```java
+jobScheduler.create(aJob()
+        .withMutex("virus-scanner")
+        .withDetails(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
+```
+</figure>
 
 <br>
 

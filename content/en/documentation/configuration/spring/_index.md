@@ -11,7 +11,7 @@ menu:
 Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
 __To add JobRunr to your Spring project, these are the steps you need to take:__
-1. Add the `jobrunr-spring-boot-starter` dependency to your project
+1. Depending on your version of Spring Boot, add the `jobrunr-spring-boot-2-starter` or `jobrunr-spring-boot-3-starter` dependency to your project
 2. Configure JobRunr via the Spring `application.properties` file
 3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
 
@@ -20,19 +20,19 @@ __To add JobRunr to your Spring project, these are the steps you need to take:__
 {{< trial-button >}}
 
 ## Add the dependency to the starter
-As the `jobrunr-spring-boot-starter` is available in Maven Central, all you need to do is add this dependency:
+As the `jobrunr-spring-boot-2-starter` and `jobrunr-spring-boot-3-starter` are available in Maven Central, all you need to do is add this dependency:
 ### Maven
 ```xml
 <dependency> 
     <groupId>org.jobrunr</groupId> 
-    <artifactId>jobrunr-spring-boot-starter</artifactId> 
+    <artifactId>jobrunr-spring-boot-x-starter</artifactId> <!-- replace x with your Spring Boot version -->
     <version>${jobrunr.version}</version> 
 </dependency>
 ```
 
 ### Gradle
 ```java
-implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-spring-boot-x-starter:${jobrunr.version}' // replace x with your Spring Boot version
 ```
 <br/>
 
@@ -54,7 +54,7 @@ These are disabled by default so that your web application does not start proces
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Features
-The `jobrunr-spring-boot-starter` not only adds distributed background Job Processing to your application but also adds health actuators and micrometer performance counters.
+The `jobrunr-spring-boot-2-starter` and `jobrunr-spring-boot-3-starter` not only add distributed background Job Processing to your application but also add health actuators and micrometer performance counters.
 
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.

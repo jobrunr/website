@@ -1,4 +1,5 @@
 ---
+version: "professional"
 title: "Custom delete policy"
 subtitle: "You probably like clean code - then you also like a clean JobRunr Dashboard."
 date: 2021-06-24T11:12:23+02:00
@@ -61,6 +62,18 @@ public class ImportJobRequestHandler implements JobRequestHandler<ImportFilesJob
     }
 }
 
+```
+</figure>
+
+### Using the `JobBuilder` pattern
+If you prefer the `JobBuilder` pattern, you can again pass the `deleteOnSuccess` and `deleteOnFailure` to the builder.
+<figure>
+
+```java
+jobScheduler.create(aJob()
+        .withDeleteOnSuccess(Duration.ofHours(1))
+        .withDeleteOnFailure(Duration.ofHours(8))
+        .withDetails(() -> System.out.println("This job will move to the deleted state after 1 hour if it succeeded and after 8 hours if it failed."));
 ```
 </figure>
 

@@ -1,4 +1,5 @@
 ---
+version: "business"
 title: "Server Tags"
 subtitle: "Server Tags allow you to filter jobs by certain tags so that they are only run on specific servers."
 date: 2020-08-27T11:12:23+02:00
@@ -17,7 +18,7 @@ A `BackgroundJobServer` can have multiple server tags and a job can specify only
 
 > Each `BackgroundJobServer` and each `Job` is by default tagged with the `DEFAULT` tag - this makes sure that if you do not specify a tag on the `Job`, it gets executed anyway.
 
-## Usage
+## Usage via `@Job` annotation
 Using server tags is as easy as using Queues, again thanks to the `Job` annotation. Just add it to your service method and specify on which server your background job should run.
 <figure>
 
@@ -26,6 +27,17 @@ Using server tags is as easy as using Queues, again thanks to the `Job` annotati
 public void doWorkOnLinuxServers() {
     System.out.println("This will only run on a server tagged with LINUX");
 }
+```
+</figure>
+
+## Usage via `JobBuilder` pattern
+When you are using the `JobBuilder` pattern, you can pass the serverTag via the `JobBuilder`.
+<figure>
+
+```java
+jobScheduler.create(aJob()
+        .withServerTag(LINUX)
+        .withDetails(() -> System.out.println("This will only run on a server tagged with LINUX"));
 ```
 </figure>
 <br>

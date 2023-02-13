@@ -33,8 +33,7 @@ org.jobrunr.dashboard.port=8000
 <figcaption>Using the application.properties you can enable the dashboard which will be started on the given port</figcaption>
 </figure>
 
-
-> Do you want a more powerful dashboard? Do you need to configure a context path to support a proxy? Have a look at the [JobRunr Pro Dashboard]({{<ref "jobrunr-pro-dashboard.md">}})!
+> Do you want a more powerful dashboard with authentication, configurable context path or even embedded within Spring, Micronaut or Quarkus? Then have a look at the [JobRunr Pro Dashboard]({{<ref "jobrunr-pro-dashboard.md">}})!
 
 ## Screenshots
 <figure>
@@ -68,7 +67,7 @@ An overview of all recurring jobs with the ability to trigger or delete them</fi
 <figcaption>An overview of all background job servers processing background jobs</figcaption>
 </figure>
 
-## JobRunr pro comes with handy dashboard improvements
+## JobRunr Pro comes with handy dashboard improvements
 
 <figure>
 <img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">

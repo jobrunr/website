@@ -10,12 +10,25 @@ menu:
     weight: 15
 ---
 
+<script type="text/javascript">
+    fetch('https://ipapi.co/currency/')
+        .then(resp => resp.text())
+        .then(data => {
+            if(data === 'EUR') {
+                const currencyHolders = document.getElementsByClassName('currency-holder');
+                for (let i = 0; i < currencyHolders.length; i++) {
+                    currencyHolders[i].innerHTML = "€";
+                }
+            }
+        });
+</script>
+
 Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
 
 <div style="text-align: center; margin: -2rem 0 3rem 0;">
     {{< trial-button >}}
     <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-        <span>Contact me!</span>
+        <span>Contact us!</span>
     </a>
 </div>
 
@@ -31,15 +44,18 @@ _free for everyone,<br>including all companies_
 </div>
 
 ### Features
-- [JobRunr]({{< ref "documentation/_index.md" >}})
-- Up to 100 recurring jobs<br>
-(depends on DB speed)
-<br>
+JobRunr OSS with:
+- Up to [100 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}}) (depends on DB)
+- [Simple dashboard]({{< ref "documentation/background-methods/dashboard.md" >}})
+- [Enqueueing of jobs]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}})
+- [Scheduling of jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}})
+- [Automatic retry handling]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}})
+<br><br><br><br>
 
 ### Licensing
 - [JobRunr under LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.html)
 - Commercial use
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
@@ -53,26 +69,32 @@ __free__
 _always and forever_
 <br>
 
-<a class="button">DOWNLOAD</a>
+<a class="button" target="_blank" href="https://search.maven.org/artifact/org.jobrunr/jobrunr">DOWNLOAD</a>
 </div>
 </div>
 
 <div class="plan plan-startup">
 
-## SME
+## Professional
 <div class="no-margin">
 
-_for companies with <br>up to 30 employees_
+_for companies with more<br>advanced job processing needs_
 </div>
 
 ### Features
-- [JobRunr]({{< ref "documentation/_index.md" >}})
-- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- Up to 1000 recurring jobs
+Everything in OSS, plus:
+- Up to [1000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
+- [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
+- [Priority queues]({{< ref "documentation/pro/queues.md" >}})
+- [Replace jobs]({{< ref "documentation/pro/replace-jobs.md" >}})
+- [Custom extensions]({{< ref "documentation/pro/job-filters.md" >}})
+- [Database Fault Tolerance]({{< ref "documentation/pro/database-fault-tolerance.md" >}})
+- [CI / CD Integration]({{< ref "documentation/pro/migrations.md" >}})
+<br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Eligible for up to 30 employees.
 - Annual license
 - Access to private Maven repository
 - No access to source code
@@ -88,35 +110,41 @@ _for companies with <br>up to 30 employees_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>1950 $</strong>
-_per cluster (or project) / year<br/>(excl. VAT)_
+<strong style='color: #3eb0ef;text-decoration: none;'>2950 <span class="currency-holder">$</span></strong>
+_per PRD cluster / year<br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_sme' });" href="/en/get-jobrunr-pro">BUY NOW</a>
 
 <div class="eco-friendly">
 
-I care about the planet
-_[this includes <br/>75 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+We care about our planet:
+_[your subscription includes <br/>150 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
 
 <div class="plan plan-business">
 
-## Enterprise
+## Business
 <div class="no-margin">
 
-_for companies with <br>more than 30 employees_
+_streamline your workflows<br>and background jobs_
 </div>
 
 ### Features
-- [JobRunr]({{< ref "documentation/_index.md" >}})
-- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- Up to 5000 recurring jobs
+Everything in Professional, plus:
+- Up to [5000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- [Workflow management]({{< ref "documentation/pro/job-chaining.md" >}})
+- Instant job processing
+- [Real-time scheduling]({{< ref "documentation/pro/real-time-scheduling.md" >}})   
+- [Batches]({{< ref "documentation/pro/batches.md" >}})
+- [Server Tags]({{< ref "documentation/pro/server-tags.md" >}})
+- [Mutexes]({{< ref "documentation/pro/mutexes.md" >}})
+- [Job Results]({{< ref "documentation/pro/results.md" >}})
+<br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Eligible if more than 30 employees.
 - Annual license
 - Access to private Maven repository
 - Access to source code
@@ -132,39 +160,39 @@ _for companies with <br>more than 30 employees_
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none; cursor: help' title='Can save you up to 50.000 $ (107 days of development at a rate of 500$)'>4950 $</strong>
-_per cluster (or project) / year<br/>(excl. VAT)_
+<strong style='color: #3eb0ef;text-decoration: none;'>4950 <span class="currency-holder">$</span></strong>
+_per PRD cluster / year<br/>(excl. VAT)_
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_enterprise' });" href="/en/get-jobrunr-pro">BUY NOW</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro">BUY NOW</a>
 
 <div class="eco-friendly">
 
-I care about the planet
-_[this includes <br/>225 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+We care about our planet:
+_[your subscription includes <br/>250 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
 
-<div class="plan plan-enterprise">
+<div class="plan plan-enterprise" style="width: 100%">
 
-## Platinum
+## Enterprise
 <div class="no-margin">
 
-_for companies who use JobRunr in many projects_
+_our most powerful offering with security and much more_
 </div>
 
 ### Features
-- [JobRunr]({{< ref "documentation/_index.md" >}})
-- [JobRunr Pro]({{< ref "documentation/pro/_index.md" >}})
-- Up to 5000 recurring jobs
+Everything in Business plus:
+- [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- [Dashboard security]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}})
+- [GDPR compliant dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}})
+<br><br><br><br><br><br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Unlimited projects and installations
 - Annual license
 - Access to private Maven repository
 - Access to source code
-<br>
 
 ### Priority support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
@@ -183,15 +211,14 @@ _unlimited clusters,<br/>unlimited installations,<br/>priority feature developme
 
 <div class="eco-friendly">
 
-I care about the planet
-_[this includes <br/>a lot of planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
+We care about our planet:
+_[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
 </div>
 </div>
 </div>
-
 
 </div>
 
 <br>
 
-Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a freelancer or a non-profit organization with limited budgets? [Contact me](mailto:hello@jobrunr.io) and let's see what we can work out.
+Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a freelancer or a non-profit organization with limited budgets? [Contact us](mailto:hello@jobrunr.io) and let's see what we can work out.

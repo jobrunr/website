@@ -41,7 +41,7 @@ weight: 18
         const linkedIn = linkedInField.value;
         const company = companyField.value;
         
-        if(!firstName || !lastName || !email || !company || !email.includes('@') || !(linkedIn.startsWith('https://linkedin') || linkedIn.startsWith('https://www.linkedin'))) {
+        if(!firstName || !lastName || !email || !company || !email.includes('@') || !(linkedIn.startsWith('https://linkedin') || linkedIn.startsWith('https://www.linkedin') || linkedIn.startsWith('linkedin.com') || linkedIn.startsWith('www.linkedin.com'))) {
             document.getElementById('subscription-form-error').style.display = 'block';
         } else {
             document.getElementById('subscription-form-error').style.display = 'none';

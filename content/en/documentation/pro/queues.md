@@ -1,4 +1,5 @@
 ---
+version: "professional"
 title: "Queues"
 subtitle: "Queues will make sure your critical business processes finish on-time."
 date: 2020-08-27T11:12:23+02:00
@@ -14,6 +15,7 @@ menu:
 Are you processing millions of jobs? Do you have some high-prio jobs that need to finish fast? Use JobRunr queues to make sure that critical jobs cut in front of already enqueued jobs.
 
 ## Usage
+### Using the Job Annotation
 Using queues could not have been easier thanks to the `Job` annotation. Just add it to your service method and specify on which queue you want to run it.
 
 ```java
@@ -44,6 +46,18 @@ public void startJobOnLowPrioQueue() {
 
 ```
 
+
+### Using the Job Builder
+If you are using the `JobBuilder`, queues are also really easy to use and you can even pass the queues at runtime using a variable:
+
+```java
+public void startJobOnQueue(JobQueue jobQueue) { // JobQueue can be an enum value
+    jobScheduler.create(aJob()
+        .withQueue(jobQueue)
+        .withDetails(() -> System.out.println("This job will start on the given queue"));
+}
+```
+
 <br/>
 
 ## Configuration
@@ -63,8 +77,24 @@ JobRunrPro
 <figcaption>When configuring queues, specify the default queue for all jobs first and then specify all the queues, going from highest priority to lowest priority. Using constants keeps the code readable.</figcaption>
 </figure>
 
-### Spring configuration
-For the Spring configuration, just define an extra bean of type `Queues` and pass it to the `JobRunrDashboardWebServer` and the `JobScheduler`.
+### Framework configuration using property file
+For the Spring / Micronaut / Quarkus, you can just define the queues in your configuration file. Below you can find the example for Spring.
+
+<figure>
+
+```
+org.jobrunr.queues.default-queue-name=Default
+org.jobrunr.queues.names=HighPrio, Default, LowPrio
+#org.jobrunr.queues.from-enum=org.jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
+  
+```
+<figcaption>Just define the default queue name and the other queue names using your configuration.</figcaption>
+</figure>
+
+
+
+### Framework configuration using beans
+You can also configure the Queues using beans by means of an extra bean of type `Queues`. This bean must then be passed to the `JobRunrDashboardWebServer` and the `JobScheduler`.
 
 <figure>
 
@@ -91,6 +121,8 @@ For the Spring configuration, just define an extra bean of type `Queues` and pas
 ```
 <figcaption>Create a Queues bean with the different queues and pass it to the JobRunrDashboardWebServer and the JobScheduler</figcaption>
 </figure>
+
+
 
 ## Dashboard
 

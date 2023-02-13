@@ -71,6 +71,22 @@ public void doWork() {
 }
 ```
 
+### What if my job is in a state where I do not want to retry up to 10 times?
+In case you encounter a state where it does not make sense anymore to retry, you can throw a `JobRunrException`:
+
+```java
+@Job(name = "Doing some work", retries = 20)
+public void doWork() {
+    if(itsBeerOClockTime()) {
+      throw new JobRunrException("It's beer o'clock time!", true);
+    }
+    ...
+}
+```
+
+Notice the true value in the constructor of the `JobRunrException`: passing true there means do not retry. For more info, see the [JavaDoc](https://javadoc.io/doc/org.jobrunr/jobrunr/latest/org/jobrunr/JobRunrException.html).
+
+
 ### I'm encountering a `java.lang.IllegalThreadStateException`
 While developing, you may encounter the following error:
 

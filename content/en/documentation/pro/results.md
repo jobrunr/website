@@ -1,4 +1,5 @@
 ---
+version: "business"
 title: "Job Result"
 subtitle: "Do you need to get the result of a job? This is now easier than ever with JobRunr JobResults"
 keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]

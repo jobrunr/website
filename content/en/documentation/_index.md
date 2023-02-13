@@ -68,7 +68,7 @@ BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 </figure>
 
 ### RecurringJob
-A `RecurringJob` is in essence a `Job` with a CRON schedule. A special component within JobRunr checks the recurring jobs and then enqueues them as fire-and-forget jobs.
+A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
 
 ### Storage Provider
 A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to Json and placed into storage, no data is kept in a process’ memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for RDBMS and NoSQL solutions.
@@ -98,6 +98,12 @@ public interface JobRequest extends JobRunrJob {
 
 ### JobRequestHandler
 A `JobRequestHandler` is an interface that that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
+
+### Job annotation
+The `@Job` annotation allows you to manage certain aspects from a Job like the name and the label (visible in the dashboard), the amount of retries and various other aspects like the `queue`, the `server tag` and the `mutex` if you are using JobRunr Pro.
+
+### JobBuilder
+The `JobBuilder` is an alternative to the `@Job` annotation and also allows you to configure all the different aspects from a Job. The difference is that using the `JobBuilder` certain aspects can be set at runtime which is not possible via the `@Job` annotation.
 
 ### BackgroundJobServer
 The `BackgroundJobServer` class processes background jobs by querying the StorageProvider. Roughly speaking, it’s a set of background threads that listen to the storage provider for new background jobs, and perform them by first de-serializing the stored type, method and arguments and then executing it.

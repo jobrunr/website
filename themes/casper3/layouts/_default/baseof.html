@@ -48,7 +48,6 @@
     <div class="site-wrapper">
         {{- block "main" . }}{{- end }}
 
-
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright">
@@ -66,6 +65,7 @@
     </div>
 
     {{ $jobrunr_version_js := resources.Get "js/jobrunr-version.js" }}
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="{{ $jobrunr_version_js.Permalink }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js"></script>
@@ -95,5 +95,60 @@ for (var i = 0; i < links.length; i++) {
   }
 }
 </script>
+{{ if eq $.Site.Params.enableWebinarPopup true }}
+  <div class="popup">
+    <button id="close">&times;</button>
+    <a href="/en/webinar">
+      <img src="/2023-01-19-jobrunr-webinar.jpeg" width="100%" height="100%"/>
+    </a>
+  </div>
+
+  <script type="text/javascript">
+    window.addEventListener("load", (event) => {
+        const webinarDate = new Date("2023-01-25T00:00:00.000Z");
+        const timesShown = parseInt(Cookies.get('jobrunr-webinar')) || 0;
+        const webinarShownToday = Cookies.get('jobrunr-webinar-shown-today') || false;
+        if(!webinarShownToday && timesShown <= 3) {
+          setTimeout(
+            function open(event){
+                document.querySelector(".popup").style.display = "block";
+                Cookies.set('jobrunr-webinar', (timesShown + 1), { expires: webinarDate })
+                Cookies.set('jobrunr-webinar-shown-today', true, { expires: 1 })
+            },
+            2000);
+        }
+    });
+    document.querySelector("#close").addEventListener("click", () => {
+        document.querySelector(".popup").style.display = "none";
+    });
+  </script>
+  <style>
+    .popup{
+        background-color: #000;
+        width: 450px;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        top: 50%;
+        border-radius: 8px;
+        font-family: "Poppins",sans-serif;
+        display: none;
+        text-align: center;
+        z-index: 2000;
+    }
+    .popup button{
+        position: absolute;
+        float: right;
+        left: 93%;
+        background-color: transparent;
+        font-size: 30px;
+        color: #c5c5c5;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        z-index: 2010;
+    }
+  </style>
+{{ end }}
 </body>
 </html>

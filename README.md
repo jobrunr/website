@@ -13,3 +13,22 @@ Run
 - npm install cssnano
 - npm install postcss-custom-properties
 - npm install postcss-easy-import
+
+
+##### TODO:
+- [x] remove webinar popup
+- [ ] Update all content related to v6 and the blog post
+   - [ ] Job Builder
+   - [ ] deleteOnSuccess
+   - [ ] deleteOnFailure
+   - [ ] labels
+   - [ ] job continuations
+   - [ ] workflow
+   - [ ] createOrReplace
+   - [ ] Authentication
+- [ ] Update pricing with listing all features
+- [ ] buy trees
+- [ ] Add management page on the homepage
+  - [ ] different page for developer / manager
+- [ ] Add contact me section via gmail schedule <- lead generation
+

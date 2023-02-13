@@ -1,4 +1,5 @@
 ---
+version: "professional"
 title: "Transaction plugin"
 subtitle: "Enjoy support for @Transactional out of the box in your preferred development framework"
 date: 2020-08-27T11:12:23+02:00
@@ -7,10 +8,9 @@ menu:
   main: 
     identifier: transactions
     parent: 'jobrunr-pro'
-    weight: 4
+    weight: 2
 ---
 {{< trial-button >}}
-
 
 The JobRunr [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}) and [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}}) come with an `@Transactional` plugin that makes sure your jobs join the transaction created by the framework.
 <figure>

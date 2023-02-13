@@ -9,10 +9,11 @@ menu:
     parent: 'documentation'
     weight: 15
 ---
-JobRunr supports 2 ways to easily generate background jobs:
+JobRunr supports 3 ways to easily generate background jobs:
 
 - [Using only a Java 8 lambda](#java-8-lambdas)
 - [Using JobRequests](#via-a-jobrequest)
+- [Using a JobBuilder](#via-a-jobbuilder) that uses either a Java 8 lambda or a JobRequest
 
 ## Java 8 lambda's
 Background jobs using Java 8 lambda's in JobRunr look like regular method calls. Background jobs can use both instance and static method calls as in the following example.
@@ -117,7 +118,7 @@ public class MyJobRequest implements JobRequest {
 
 JobId jobId = BackgroundJobRequest.enqueue(new MyJobRequest(id));
 ```
-<figcaption>This enqueues a background job using a JobRequest. The JobRequest can contain data and will the actual job will be invoked, the JobRequest object will be provided to the run method of the JobRequestHandler.</figcaption>
+<figcaption>This enqueues a background job using a JobRequest. The JobRequest can contain data and when the actual job will be invoked, the JobRequest object will be provided to the run method of the JobRequestHandler.</figcaption>
 </figure>
 
 When using a `JobRequest` to create jobs it is important to note that the `JobRequest` itself is nothing more than a __data transfer object__. You should not pass services or beans with it. The smaller the `JobRequest` is, the better as it will be serialized to Json and stored in your StorageProvider.
@@ -143,4 +144,21 @@ public class MyJobRequestHandler implements JobRequestHandler<MyJobRequest> {
 }
 ```
 <figcaption>This JobRequestHandler handles all MyJobRequests. As it is a regular bean, you can inject other services.</figcaption>
+</figure>
+
+
+## Via a JobBuilder
+
+Since JobRunr 6.0.0, a new way to create jobs is supported: a `JobBuilder`. The `JobBuilder` accepts either a `JobLambda` or a `JobRequest` but allows you to configure a lot of properties (like Job name and amount of retries) at runtime without the use of an annotation.
+<figure>
+
+```java
+jobScheduler.create(aJob()
+  .withName("A job requested for " + name)
+  .withAmountOfRetries(3)
+  .withLabels("tenant-A", "from-rest-api")
+  .withDetails(() -> sampleService.executeExampleJob(name)));
+
+```
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder still needs the actual job info, either via the withDetails() method where you can pass a lambda or via the withJobRequest() method where you can pass the JobRequest.</figcaption>
 </figure>

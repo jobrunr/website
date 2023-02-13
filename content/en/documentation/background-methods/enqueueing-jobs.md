@@ -36,16 +36,27 @@ JobId jobId = BackgroundJobRequest.enqueue(new MyJobRequest());
 <figcaption>This enqueues a background job using an implementation of the JobRequest interface. The interface defines a handler that will be used to run the background job. During execution of the background job, the IoC container will need to provide an instance of that handler - in this case an instance of type MyJobRequestHandler.</figcaption>
 </figure>
 
+<figure>
 
-The enqueue method does not call the target method immediately, it runs the following steps instead:
+```java
 
-- Analyse the lambda to extract the method information and all its arguments or use the `JobRequest`.
-- Serialize the method information and all its arguments.
-- Create a new background job based on the serialized information.
-- Save background job to the configured `StorageProvider`.
-- After these steps were performed, the `BackgroundJob.enqueue` method immediately returns to the caller. Another JobRunr component, called `BackgroundJobServer`, checks the persistent storage for enqueued background jobs and performs them in a reliable way.
+JobId jobId = BackgroundJob.create(aJob()
+    .withName("Generate sales report")
+    .<SalesReportService>withDetails(service -> service.generateSalesReport()));
+```
+<figcaption>This enqueues a background job using the JobBuilder. All Job properties are properties are configurable when using the JobBuilder, including the name and the amount of retries.</figcaption>
+</figure>
 
-Instead of the static method call `BackgroundJob.enqueue` you can also use the `JobScheduler` bean. It has exactly the same methods as the `BackgroundJob` class. To use it, just let your dependency injection framework inject an instance of the `JobScheduler` bean and continue as before:
+
+The methods above do not call the target method immediately but instead run the following steps:
+
+- Either the `JobRequest` is used or the lambda is analyzed to extract the method information and all its arguments.
+- The method information and all its arguments are serialized to JSON.
+- A new background job is created based on the serialized information.
+- The background job is saved to the configured `StorageProvider`.
+- After these steps were performed, the `BackgroundJob.enqueue` or `BackgroundJob.create` method immediately returns to the caller. Another JobRunr component, called `BackgroundJobServer`, checks the persistent storage for enqueued background jobs and performs them in a reliable way.
+
+Instead of the static methods on the `BackgroundJob` class, you can also use the `JobScheduler` bean. It has exactly the same methods as the `BackgroundJob` class. To use it, just let your dependency injection framework inject an instance of the `JobScheduler` bean and continue as before:
 
 
 <figure>
@@ -56,7 +67,7 @@ private JobScheduler jobScheduler;
  
 jobScheduler.enqueue(() -> myService.doWork());
 ```
-<figcaption>Background job scheduling using the JobScheduler bean</figcaption>
+<figcaption>Enqueueing background jobs using the JobScheduler bean</figcaption>
 </figure>
  
 As before, you also do not need an instance of the myService available if the `MyService` class is know by your dependency injection framework.
@@ -69,7 +80,7 @@ private JobScheduler jobScheduler;
  
 jobScheduler.<MyService>enqueue(x -> x.doWork());
 ```
-<figcaption>Background job scheduling using the JobScheduler bean without a reference to the MyService instance. The MyService instance will be resolved using the IoC framework when the background job is started.</figcaption>
+<figcaption>Enqueueing background jobs using the JobScheduler bean without a reference to the MyService instance. The MyService instance will be resolved using the IoC framework when the background job is started.</figcaption>
 </figure>
 
 <figure>
@@ -80,7 +91,23 @@ private JobRequestScheduler jobRequestScheduler;
  
 jobRequestScheduler.enqueue(new MyJobRequest());
 ```
-<figcaption>Background job scheduling using the JobRequestScheduler bean. The handler for `MyJobRequest` will be resolved using the IoC framework when the background job is started.</figcaption>
+<figcaption>Enqueueing background jobs using the JobRequestScheduler bean. The handler for `MyJobRequest` will be resolved using the IoC framework when the background job is started.</figcaption>
+</figure>
+
+<figure>
+
+```java
+@Inject
+private JobScheduler jobScheduler;
+
+@Inject
+private SalesReportService salesReportService;
+ 
+jobScheduler.create(aJob()
+    .withName("Generate sales report")
+    .withDetails(() -> salesReportService.generateSalesReport()));
+```
+<figcaption>Enqueueing background jobs scheduling using the JobBuilder pattern.</figcaption>
 </figure>
 
 
@@ -116,9 +143,20 @@ BackgroundJobRequest.enqueue(jobStream);
 <figcaption>Enqueueing emails in bulk using the Stream API with an instance of the mailService not available</figcaption>
 </figure>
 
+<figure>
+
+```java
+Stream<JobBuilder> jobStream = userRepository
+    .getAllUsers()
+    .map(user -> aJob().withName("Send email").withJobRequest(new SendMailJobRequest(user.getId(), "mail-template-key")));
+BackgroundJobRequest.create(jobStream);
+```
+<figcaption>Enqueueing emails in bulk using the Stream API by means of the JobBuilder pattern</figcaption>
+</figure>
+
 This allows for nice integration with the Spring Data framework which can return Java 8 Streams - this way, items can be processed incrementally and the entire database must not be put into memory.
 
-Off-course the above three enqueueing methods can also be done using the JobScheduler bean.
+Off-course the above methods to enqueue jobs can also be done using the JobScheduler bean.
 
 <figure>
 
@@ -151,6 +189,19 @@ Stream<SendMailJobRequest> jobStream = userRepository
 jobRequestScheduler.enqueue(jobStream);
 ```
 <figcaption>Enqueueing emails in bulk using the Stream API by means of a JobRequest.</figcaption>
+</figure>
+
+<figure>
+
+```java
+Stream<JobBuilder> jobStream = userRepository
+    .getAllUsers()
+    .map(user -> aJob()
+        .withName("Send email")
+        .withJobRequest(new SendMailJobRequest(user.getId(), "mail-template-key")));
+jobRequestScheduler.create(jobStream);
+```
+<figcaption>Enqueueing emails in bulk using the Stream API by means of the JobBuilder pattern</figcaption>
 </figure>
 
 Please also see the [best practices]({{<ref "/documentation/background-methods/best-practices.md">}}) for more information.

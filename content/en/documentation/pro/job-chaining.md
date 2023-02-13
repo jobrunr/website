@@ -1,6 +1,7 @@
 ---
-title: "Job Chaining"
-subtitle: "Reuse existing service methods and chain jobs for cleaner code and and immediate overview of your business process"
+version: "business"
+title: "Workflows using Job Chains"
+subtitle: "Reuse existing service methods and chain jobs for cleaner code and an immediate overview of your business process"
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -13,6 +14,7 @@ menu:
 
 JobRunr Pro allows you to chain jobs using a fluent API style. This gives you an immediate overview of your business process.
 
+### Job chaining via `continueWith`
 <figure>
 
 ```java
@@ -25,6 +27,35 @@ public void createArchiveAndNotify(String folder) {
     BackgroundJob
         .enqueue(() -> archiveService.createArchive(folder))
         .continueWith(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder))
+}
+
+```
+<figcaption>
+
+The notification will only be send once the archive was created successfully (and thus the `archiveService.createArchive(String folder)` job succeeded
+</figcaption>
+</figure>
+
+### Job chaining when using the  `JobBuilder`
+If you are using the `JobBuilder` pattern, this is also possible by means of the `runAfter` method.
+
+<figure>
+
+```java
+@Inject
+private ArchiveService archiveService;
+@Inject
+private NotifyService notifyService;
+
+public void createArchiveAndNotify(String folder) {
+    JobId createArchiveJobId = BackgroundJob
+        .create(aJob()
+            .withDetails(() -> archiveService.createArchive(folder)));
+
+    JobId notifyViaSlackJobId = BackgroundJob
+        .create(aJob()
+            .runAfter(createArchiveJobId)
+            .withDetails(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
 }
 
 ```
