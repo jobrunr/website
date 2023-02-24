@@ -8,7 +8,7 @@ menu:
   main: 
     identifier: job-filters
     parent: 'jobrunr-pro'
-    weight: 26
+    weight: 27
 ---
 {{< trial-button >}}
 
@@ -16,7 +16,7 @@ A `Job Filter` can be used to extend the functionality of JobRunr with extra bus
 
 
 ## Usage
-To create a Job Filter, just implement a bean with the interface `JobClientFilter` or `JobServerFilter`.
+To create a Job Filter, just implement a bean with the interface [`JobClientFilter`](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/org/jobrunr/jobs/filters/JobClientFilter.html) or [`JobServerFilter`](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/org/jobrunr/jobs/filters/JobServerFilter.html). Other filters are also available like the [`ApplyStateFilter`](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/org/jobrunr/jobs/filters/ApplyStateFilter.html) and the [`ElectStateFilter`](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/org/jobrunr/jobs/filters/ElectStateFilter.html).
 <figure>
 
 ```java
@@ -35,15 +35,23 @@ public class NotifyJobCreatedFilter implements JobClientFilter, JobServerFilter 
         }
     }
 
-    void onProcessed(Job job) {
+    void onProcessingSucceeded(Job job) {
         if("Monthly Stripe Report".equals(job.getJobName())) {
-            if(job.hasState(SUCCEEDED)) {
-                slackNotificationService.sendNotification("#accounting-team", "Monthly Stripe Report is generated.");
-            } else if(job.hasState(FAILED)) {
-                Optional<FailedState> lastJobStateOfType = job.getLastJobStateOfType(FailedState.class);
-                String exceptionMessage = lastJobStateOfType.map(s -> s.getException().getMessage()).orElse("Unknown exception");
-                slackNotificationService.sendNotification("#support-team", "Error generating Monthly Stripe Report." + exceptionMessage);
-            }
+            slackNotificationService.sendNotification("#accounting-team", "Monthly Stripe Report is generated.");
+        }
+    }
+
+    void onProcessingFailed(Job job, Exception e) {
+        if("Monthly Stripe Report".equals(job.getJobName())) {
+            // optional logging that the job failed. Not sending a notification as Job will still be retried
+        }
+    }
+
+    void onFailedAfterRetries(Job job) {
+        if("Monthly Stripe Report".equals(job.getJobName())) {
+            Optional<FailedState> lastJobStateOfType = job.getLastJobStateOfType(FailedState.class);
+            String exceptionMessage = lastJobStateOfType.map(s -> s.getException().getMessage()).orElse("Unknown exception");
+            slackNotificationService.sendNotification("#support-team", "Error generating Monthly Stripe Report." + exceptionMessage);
         }
     }
 }

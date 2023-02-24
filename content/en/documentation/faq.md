@@ -34,6 +34,11 @@ The master is a `BackgroundJobServer` like all other nodes processing but it doe
 - it checks for orphaned jobs and reschedules them
 - it does some zookeeping like deleting all the succeeded jobs
 
+### What happens to my scheduled and recurring jobs if my `BackgroundJobServer` is down
+All scheduled jobs will run again at their scheduled time as soon as the server is up again. However, all scheduled jobs that have a scheduled time in the past (because they were not executed during downtime), will run as soon as the server is started.
+
+Recurring jobs that were missed during downtime will not be scheduled again in JobRunr OSS once your `BackgroundJobServer` is up again. **JobRunr Pro** does have a feature to schedule the jobs that were skipped during downtime.
+
 ### My recurring jobs are not running nor available in the dashboard?
 To schedule your recurring jobs, you must make sure that the code scheduling these jobs is executed on startup of your application. See the examples in [Recurring jobs]({{<ref "background-methods/recurring-jobs.md#registering-your-recurring-jobs">}})
 
@@ -49,6 +54,16 @@ The moment JobRunr loses it's connection to the database (or the database goes d
 > JobRunr Pro improves this by monitoring if the `StorageProvider` comes up again and if so, automatically restarts processing on all the different `BackgroundJobServer`s.
 
 <!-- ### How can I control the amount of workers per BackgroundJobServer? -->
+
+### I'm seeing an exception regarding a version check
+I'm seeing the following exception in my logs:
+```
+Unable to check for new JobRunr version: api.github.com
+```
+
+In the past (and even now), too many GitHub issues are created with people not running the latest JobRunr version (so their issue is often already resolved in a later version). This version check polls GitHub to see whether there is a new version and shows a notification in the dashboard if that's the case. 
+
+You cannot disable it in the free version.
 
 ## Job FAQ
 
@@ -72,7 +87,7 @@ public void doWork() {
 ```
 
 ### What if my job is in a state where I do not want to retry up to 10 times?
-In case you encounter a state where it does not make sense anymore to retry, you can throw a `JobRunrException`:
+In case you encounter a state where it does not make sense anymore to retry, you can throw a `JobRunrException` with as second parameter `true` (= `doNotRetry`):
 
 ```java
 @Job(name = "Doing some work", retries = 20)

@@ -8,7 +8,7 @@ menu:
   main: 
     identifier: job-migrations
     parent: 'jobrunr-pro'
-    weight: 27
+    weight: 34
 ---
 {{< trial-button >}}
 

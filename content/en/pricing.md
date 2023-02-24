@@ -89,6 +89,7 @@ Everything in OSS, plus:
 - [Priority queues]({{< ref "documentation/pro/queues.md" >}})
 - [Replace jobs]({{< ref "documentation/pro/replace-jobs.md" >}})
 - [Custom extensions]({{< ref "documentation/pro/job-filters.md" >}})
+- [Custom retry policy]({{< ref "documentation/pro/job-filters.md" >}})
 - [Database Fault Tolerance]({{< ref "documentation/pro/database-fault-tolerance.md" >}})
 - [CI / CD Integration]({{< ref "documentation/pro/migrations.md" >}})
 <br><br>
@@ -141,6 +142,7 @@ Everything in Professional, plus:
 - [Server Tags]({{< ref "documentation/pro/server-tags.md" >}})
 - [Mutexes]({{< ref "documentation/pro/mutexes.md" >}})
 - [Job Results]({{< ref "documentation/pro/results.md" >}})
+- [Flyway & Liquibase support]({{< ref "documentation/pro/database-migrations.md" >}})
 <br><br>
 
 ### Licensing

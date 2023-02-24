@@ -8,7 +8,7 @@ menu:
   main: 
     identifier: database-fault-tolerance
     parent: 'jobrunr-pro'
-    weight: 29
+    weight: 31
 ---
 {{< trial-button >}}
 
