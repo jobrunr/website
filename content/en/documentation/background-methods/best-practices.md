@@ -113,7 +113,7 @@ public void sendWelcomeEmail(Long userId) throws Exception {
     try {
         User user = userRepository.getUserById(userId);
         emailService.Send(user.getEmailAddress(), "Hello!");
-    } catch (Exception e) { // the exception is catched and re-thrown allowing JobRunr to reschedule it.
+    } catch (Exception e) { // the exception is caught and re-thrown allowing JobRunr to reschedule it.
         logger.error("Error running job", e);
         throw e;
     }
