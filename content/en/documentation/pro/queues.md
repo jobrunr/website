@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Queues"
 subtitle: "Queues will make sure your critical business processes finish on-time."
 date: 2020-08-27T11:12:23+02:00

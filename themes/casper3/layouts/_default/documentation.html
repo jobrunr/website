@@ -12,10 +12,8 @@
         
         <article class="post-full post no-image no-image">
             <header class="post-full-header">
-                {{ if eq .Params.version "professional"}}
-                    <div style="margin-bottom: 0.75em;"><span class="label professional"><span>JobRunr Pro Professional</span></span></div>
-                {{ else if eq .Params.version "business"}}
-                    <div style="margin-bottom: 0.75em;"><span class="label business"><span>JobRunr Pro Business</span></span></div>
+                {{ if eq .Params.version "pro"}}
+                    <div style="margin-bottom: 0.75em;"><span class="label professional"><span>JobRunr Pro</span></span></div>
                 {{ else if eq .Params.version "enterprise"}}
                     <div style="margin-bottom: 0.75em;"><span class="label enterprise"><span>JobRunr Pro Enterprise</span></span></div>
                 {{ end }}

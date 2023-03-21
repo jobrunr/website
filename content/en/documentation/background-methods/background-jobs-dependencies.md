@@ -13,9 +13,7 @@ menu:
 If you are using either the [JobRunr Spring Boot Starter]({{<ref "../configuration/spring/_index.md">}}), [Micronaut Integration]({{<ref "../configuration/micronaut/_index.md">}}) or [Quarkus Extension]({{<ref "../configuration/quarkus/_index.md">}}), you can just have beans or services injected into your background job (e.g. the service class that you are calling) and `JobRequestHandler`.
 
 
-## A long, long time ago...
-There was a background job that needed a certain dependency to fulfill it's work...
-
+## How to deal with dependencies on other beans and/or services?
 In almost every job you’ll want to use other classes of your application to perform different work and keep your code clean and simple. An example:
 
 <figure>

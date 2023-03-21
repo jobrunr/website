@@ -21,8 +21,8 @@ On this page you can learn about:
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
 - [Important remarks!](#important-remarks)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Concurrent recurring jobs](#concurrent-recurring-jobs)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Concurrent recurring jobs](#concurrent-recurring-jobs)
 
 
 > Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in JobRunr Pro!
@@ -175,11 +175,11 @@ You can remove an existing recurring job either via the dashboard or by calling 
 
 
 ## Recurring jobs missed during downtime
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} 
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 
 If for some reason all of your servers are down (e.g. deploying a new version / scheduled down time / ...), JobRunr OSS skips these recurring jobs: as there is no background job server running, it will not be able to schedule these recurring jobs.
 
-__JobRunr Pro Enterprise improves this and adds the capability to catch up all of the skipped recurring jobs__: for each run that was skipped during the downtime for a certain recurring job, it will schedule a job.
+__JobRunr Pro improves this and adds the capability to catch up all of the skipped recurring jobs__: for each run that was skipped during the downtime for a certain recurring job, it will schedule a job.
 
 This feature is disabled by default and can be enabled using the following setting:
 
@@ -208,7 +208,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 
 
 ## Concurrent recurring jobs
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} 
+{{< label version="professional" >}}JobRunr Pro{{< /label >}}
 
 JobRunr by default does not allow recurring jobs - the reason being is that if your recurring jobs for some reason take longer than the given CRON expression or interval, you may create more jobs than you can process.
 So, if a job instance created by a recurring job is still in state `SCHEDULED`, `ENQUEUED` or `PROCESSING` and it's time to again queue a new instance of the recurring job then this last instance will not be created.

@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Job Filters"
 subtitle: "Extend JobRunr with extra business processes using Job Filter Beans"
 date: 2020-08-27T11:12:23+02:00

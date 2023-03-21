@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "CI / CD & Job Migrations"
 subtitle: "Easier continuous delivery thanks to job migrations "
 date: 2020-08-27T11:12:23+02:00

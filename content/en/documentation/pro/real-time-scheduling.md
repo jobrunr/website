@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Real-time scheduling and enqueueing"
 subtitle: "Do you have strict timing requirements? JobRunr Pro has you covered!"
 date: 2020-08-27T11:12:23+02:00

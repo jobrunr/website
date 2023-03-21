@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Database Fault Tolerance"
 subtitle: "Keep your jobs running - even in a volatile infrastructure landscape."
 date: 2021-06-24T11:12:23+02:00

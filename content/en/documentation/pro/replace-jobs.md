@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Replacing jobs"
 subtitle: "Is your job running with outdated information? Then just replace it..."
 keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]

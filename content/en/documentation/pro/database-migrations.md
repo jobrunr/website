@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Database Migrations"
 subtitle: "Use Flyway or Liquibase to migrate your JobRunr related tables"
 date: 2021-06-24T11:12:23+02:00
@@ -24,9 +24,7 @@ org.jobrunr.database.skip-create=true
 Let's go over the different options to migrate your database:
 
 #### Setup a custom user only for the Database Migrations
-{{< label version="business" >}}JobRunr Pro Business{{< /label >}}
-
-In JobRunr Pro Business, you can setup a different user that will only be used during the database setup and migrations. As soon as the migrations are done, it will not be used anymore. This user can be configured in a property or in an environment variable.
+In JobRunr Pro, you can setup a different user that will only be used during the database setup and migrations. As soon as the migrations are done, it will not be used anymore. This user can be configured in a property or in an environment variable.
 
 To do so in Spring Boot, use the following `application.properties`:
 
@@ -37,9 +35,7 @@ org.jobrunr.database.migration.password={ddl-user-password}
 ```
 
 #### Generate Flyway or Liquibase migrations
-{{< label version="business" >}}JobRunr Pro Business{{< /label >}}
-
-Another option in JobRunr Pro Business, is to export the SQL Scripts in Flyway or Liquibase compatible format. You can then add these migrations to your existing managed sql scripts and do the JobRunr related database changes using your tool of choice.
+Another option in JobRunr Pro, is to export the SQL Scripts in Flyway or Liquibase compatible format. You can then add these migrations to your existing managed sql scripts and do the JobRunr related database changes using your tool of choice.
 
 To do so, use the `DatabaseSqlMigrationFileProvider`:
 

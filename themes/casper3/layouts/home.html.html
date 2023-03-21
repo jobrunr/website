@@ -419,18 +419,47 @@
 </main>
 
 <script type="text/javascript">
-    document.getElementById('homepage-selector-manager').addEventListener('click', () => {
+    function showManagerTab() {
         document.getElementById('homepage-selector-developer').classList.remove("active");
         document.getElementById('homepage-selector-manager').classList.add("active");
         document.getElementById('homepage-content-developer').style.display = 'none';
         document.getElementById('homepage-content-manager').style.display = 'block';
-    });
-    document.getElementById('homepage-selector-developer').addEventListener('click', () => {
+    }
+
+    function showDeveloperTab() {
         document.getElementById('homepage-selector-manager').classList.remove("active");
         document.getElementById('homepage-selector-developer').classList.add("active");
         document.getElementById('homepage-content-manager').style.display = 'none';
         document.getElementById('homepage-content-developer').style.display = 'block';
+    }
+
+    document.getElementById('homepage-selector-manager').addEventListener('click', () => {
+        showManagerTab();
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('tab', 'manager');
+            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+            history.pushState(null, '', newRelativePathQuery);
+        }
     });
+    document.getElementById('homepage-selector-developer').addEventListener('click', () => {
+        showDeveloperTab();
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('tab', 'developer');
+            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+            history.pushState(null, '', newRelativePathQuery);
+        }
+    });
+
+    if ('URLSearchParams' in window) {
+        const searchParams = new URLSearchParams(window.location.search)
+        if('developer' == searchParams.get("tab")) {
+            showDeveloperTab();
+        } else if('manager' == searchParams.get("tab")) {
+            showDeveloperTab();
+        }
+    }
 </script>
 
 {{ end }}

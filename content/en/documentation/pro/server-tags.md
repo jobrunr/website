@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Server Tags"
 subtitle: "Server Tags allow you to filter jobs by certain tags so that they are only run on specific servers."
 date: 2020-08-27T11:12:23+02:00

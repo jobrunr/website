@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Transaction plugin"
 subtitle: "Enjoy support for @Transactional out of the box in your preferred development framework"
 date: 2020-08-27T11:12:23+02:00

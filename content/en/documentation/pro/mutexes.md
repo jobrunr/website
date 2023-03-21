@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Mutexes"
 subtitle: "Mutexes in JobRunr will postpone jobs until a shared mutex is free"
 date: 2020-08-27T11:12:23+02:00

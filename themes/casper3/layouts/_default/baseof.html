@@ -44,21 +44,28 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
 </head>
 <body class="{{ block "body_class" . }} {{ end }}">
-
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+      <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MX5H2KM" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+      <!-- End Google Tag Manager (noscript) -->
     <div class="site-wrapper">
         {{- block "main" . }}{{- end }}
 
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
-                <section class="copyright">
+                <section class="copyright" style="align-self: start;">
                   &copy; <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
                 </section>
-                <section class="love" style="opacity: 0.7;">
+                <section class="love" style="align-self: start; opacity: 0.7;">
                   Made with <strong style="color: red; font-size: large;">&hearts;</strong> in Belgium
                 </section>
                 <nav class="site-footer-nav">
-                    <div><a href="/en/about/" rel="noopener" style="opacity: 0.5;">JobRunr by Ronald Dehuysser</a></div>
-                    <a href="https://jonathanjanssens.com" target="_blank" rel="noopener" style="opacity: 0.5;">Hugo Casper3 by Jonathan Janssens</a>
+                  <div>
+                    <div><a href="/en/about/" rel="noopener" style="opacity: 0.5;">JobRunr by Rosoco BV (BE 0807596165)</a></div>
+                    <div><a href="/en/licensing/info/" rel="noopener" style="opacity: 0.5;">Terms of use</a></div>
+                    <div><a href="/en/privacy/" rel="noopener" style="opacity: 0.5;">Privacy</a></div>
+                  </div>
                 </nav>
             </div>
         </footer>

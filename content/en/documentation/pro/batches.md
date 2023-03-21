@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Batches"
 subtitle: "Batches allow you to create a bunch of background jobs atomically"
 date: 2020-08-27T11:12:23+02:00

@@ -1,5 +1,5 @@
 ---
-version: "business"
+version: "pro"
 title: "Workflows using Job Chains"
 subtitle: "Reuse existing service methods and chain jobs for cleaner code and an immediate overview of your business process"
 date: 2020-08-27T11:12:23+02:00

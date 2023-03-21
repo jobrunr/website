@@ -50,12 +50,12 @@ JobRunr OSS with:
 - [Enqueueing of jobs]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}})
 - [Scheduling of jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}})
 - [Automatic retry handling]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}})
-<br><br><br><br>
+<br><br><br><br><br>
 
 ### Licensing
 - [JobRunr under LGPL 3.0](https://www.gnu.org/licenses/lgpl-3.0.html)
 - Commercial use
-<br><br><br><br>
+<br><br><br>
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
@@ -73,57 +73,6 @@ _always and forever_
 </div>
 </div>
 
-<div class="plan plan-startup">
-
-## Professional
-<div class="no-margin">
-
-_for companies with more<br>advanced job processing needs_
-</div>
-
-### Features
-Everything in OSS, plus:
-- Up to [1000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
-- [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
-- [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
-- [Priority queues]({{< ref "documentation/pro/queues.md" >}})
-- [Replace jobs]({{< ref "documentation/pro/replace-jobs.md" >}})
-- [Custom extensions]({{< ref "documentation/pro/job-filters.md" >}})
-- [Custom retry policy]({{< ref "documentation/pro/job-filters.md" >}})
-- [Database Fault Tolerance]({{< ref "documentation/pro/database-fault-tolerance.md" >}})
-- [CI / CD Integration]({{< ref "documentation/pro/migrations.md" >}})
-<br><br>
-
-### Licensing
-- [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Annual license
-- Access to private Maven repository
-- No access to source code
-
-### Basic support
-- [Email / HelpDesk](mailto:hello@jobrunr.io)
-- Basic Technical support
-<br><br>
-
-### Purchasing
-- Credit Card / PayPal 
-- Invoice
-
-<div class="buy">
-
-<strong style='color: #3eb0ef;text-decoration: none;'>2950 <span class="currency-holder">$</span></strong>
-_per PRD cluster / year<br/>(excl. VAT)_
-
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_sme' });" href="/en/get-jobrunr-pro">BUY NOW</a>
-
-<div class="eco-friendly">
-
-We care about our planet:
-_[your subscription includes <br/>150 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
-</div>
-</div>
-</div>
-
 <div class="plan plan-business">
 
 ## Business
@@ -133,16 +82,15 @@ _streamline your workflows<br>and background jobs_
 </div>
 
 ### Features
-Everything in Professional, plus:
+Everything in JobRunr OSS, plus:
 - Up to [5000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
+- [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
+- [Priority queues]({{< ref "documentation/pro/queues.md" >}})
 - [Workflow management]({{< ref "documentation/pro/job-chaining.md" >}})
-- Instant job processing
 - [Real-time scheduling]({{< ref "documentation/pro/real-time-scheduling.md" >}})   
 - [Batches]({{< ref "documentation/pro/batches.md" >}})
-- [Server Tags]({{< ref "documentation/pro/server-tags.md" >}})
-- [Mutexes]({{< ref "documentation/pro/mutexes.md" >}})
-- [Job Results]({{< ref "documentation/pro/results.md" >}})
-- [Flyway & Liquibase support]({{< ref "documentation/pro/database-migrations.md" >}})
+- [And much more...]({{< ref "documentation/pro/_index.md" >}})
 <br><br>
 
 ### Licensing
@@ -186,9 +134,10 @@ _our most powerful offering with security and much more_
 ### Features
 Everything in Business plus:
 - [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- Unlimited clusters
 - [Dashboard security]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}})
 - [GDPR compliant dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}})
-<br><br><br><br><br><br><br>
+<br><br><br><br><br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
@@ -223,4 +172,6 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 
 <br>
 
-Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a freelancer or a non-profit organization with limited budgets? [Contact us](mailto:hello@jobrunr.io) and let's see what we can work out.
+Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a freelancer, a startup or a non-profit organization with limited budgets? [Contact us]({{< ref "contact" >}}) and let's see what we can work out.
+
+**Important note for our valued existing customers**: Your current pricing will remain unchanged and locked in as a token of our appreciation for your loyalty and support 🙏. Rest assured, you will continue to enjoy the same great service at the original price you signed up for.

@@ -52,6 +52,8 @@ You agree to be identified as a customer of ours and You agree that We may refer
 
 You may not assign this License Agreement without Our prior written consent, which will not be unreasonably withheld. This License Agreement will inure to the benefit of Our successors and assigns.
 
+The Software is, by default, set to report actual usage periodically. During the actual usage reporting the Software transfers only this information to JobRunr API servers: the cluster id, the root package name, the version installed, the storage provider used, the environment, the features used and the amount of succeeded jobs. No other information is being transmitted to JobRunr nor does JobRunr has any access to information stored in the Software.
+
 You acknowledge that this License Agreement is complete and is the exclusive representation of our agreement. No oral or written information given by Us or on our behalf shall create a warranty or collateral contract, or in any way increase the scope of this License Agreement in any way, and You may not rely on any such oral or written information. No term or condition contained in any purchase order shall apply unless expressly accepted by Us in writing.
 
 There are no implied licenses or other implied rights granted under this License Agreement, and all rights, save for those expressly granted hereunder, shall remain with Us and our licensors. In addition, no licenses or immunities are granted to the combination of the Software and/or Modifications, as applicable, with any other software or hardware not delivered by Us to You under this License Agreement.

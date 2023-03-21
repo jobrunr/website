@@ -1,5 +1,5 @@
 ---
-version: "professional"
+version: "pro"
 title: "Custom delete policy"
 subtitle: "You probably like clean code - then you also like a clean JobRunr Dashboard."
 date: 2021-06-24T11:12:23+02:00
