@@ -90,4 +90,6 @@ public class WeatherPredictionRequestHandler implements JobResultRequestHandler<
 <figcaption>For a JobRequest, just use the JobRequestHandler and return the result in the runAndReturn method.</figcaption>
 </figure>
 
+> __Important:__ a Job can only have one result. When a `SUCCEEDED` job with a Job Result is retried, only the last result is kept.
+
 {{< trial-button >}}
