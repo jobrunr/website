@@ -1,0 +1,29 @@
+<article class="post-card use-case post
+{{ if not (.context.Param "feature_image") }} no-image {{ end }} ">
+    
+        <div class="post-card-content">
+    
+            <a class="post-card-content-link" href="{{ .context.Permalink }}">
+    
+                <header class="post-card-header">
+                    {{ with .context.Params.tags }}
+                        {{ $primaryTag := (index . 0) }}
+                        <div class="post-card-primary-tag">{{ $primaryTag }}</div>
+                    {{ end }}
+
+                    <h2 class="post-card-title">{{ .context.Title }}</h2>
+                </header>
+    
+                <section class="post-card-excerpt">
+                    {{ if .context.Param "feature_image" }}
+                    {{ $image := resources.Get (.context.Param "feature_image") }}
+                        <img class="post-card-image" src="{{ $image.RelPermalink }}" alt="{{ $image.Title }}" />
+                    {{ end }}
+                    <p>{{ .context.Summary }}</p>
+                </section>
+    
+            </a>
+        </div>
+
+</article>
+    
