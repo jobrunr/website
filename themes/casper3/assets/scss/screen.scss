@@ -1221,6 +1221,30 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
     background-size: cover;
 }
 
+.post-card.use-case {
+    flex: 1 1 49%;
+}
+
+.post-card.use-case section.post-card-excerpt {
+    max-width: initial;
+}
+
+.post-card.use-case img.post-card-image {
+    width: 10em;
+    height: auto;
+    float: left;
+    margin: 0.5em 1em 0 0;
+}
+
+.post-full-image.use-case img {
+    aspect-ratio: 1;
+}
+
+.post-full-image.blog img {
+    aspect-ratio: 2 / 1;
+}
+
+
 .post-card.small {
     min-height: 180px;
 }

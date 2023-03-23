@@ -11,7 +11,12 @@
         {{ .Content }}
         <div class="post-feed" style="padding-top: 0;">
             {{ range $index, $element := .Pages }}
-                {{- partial "post-card.html" (dict "context" . "index" $index "home" $.IsHome) -}}
+                {{ if eq .Section "blog" }}
+                    {{- partial "post-card.html" (dict "context" . "index" $index "home" $.IsHome) -}}
+                {{ end }}
+                {{ if eq .Section "use-case" }}
+                    {{- partial "use-case.html" (dict "context" . "index" $index "home" $.IsHome) -}}
+                {{ end }}
             {{ end }}
         </div>
     </div>

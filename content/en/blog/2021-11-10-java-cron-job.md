@@ -2,6 +2,7 @@
 title: "Java Cron Jobs"
 summary: "Need to run a CRON Job in Java? Try out JobRunr for all your recurring java CRON jobs!"
 feature_image: /blog/2021-09-14-cron-job.webp
+aspect_ratio: 1;
 keywords: ["java recurring job", "java cron job", "cron", "crontab", "java cron"]
 date: 2021-11-10T08:00:00+02:00
 author: "Ronald Dehuysser"

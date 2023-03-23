@@ -51,8 +51,15 @@
             </header>
 
             {{ if .Param "feature_image" }}
+            {{ $image := resources.Get (.Param "feature_image") }}
+            {{ if .Param "aspect_ratio" }}
             <figure class="post-full-image">
-                <img src="{{ .Param "feature_image" }}" alt="{{ .Title }}" />
+            {{ else if eq .Section "use-case" }}
+            <figure class="post-full-image use-case">
+            {{ else if eq .Section "blog" }}
+            <figure class="post-full-image blog">
+            {{ end }}
+                <img src="{{ $image.RelPermalink }}" alt="{{ $image.Title }}"/>
             </figure>
             {{ end }}
 
