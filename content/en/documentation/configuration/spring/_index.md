@@ -62,6 +62,7 @@ Every aspect of JobRunr can be configured via the `application.properties`. Belo
 ```
 org.jobrunr.database.skip-create=false
 org.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
+org.jobrunr.database.database-name=jobrunr # Override the default database name to use (e.g. use main application database)
 org.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
 org.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
 org.jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job
@@ -74,5 +75,5 @@ org.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded jobs
 org.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
 org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
-org.jobrunr.miscellaneous.allow-anonymous-data-usage: true #this sends the amount of succeeded jobs for marketing purposes
+org.jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
 ```
