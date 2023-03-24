@@ -137,3 +137,30 @@ public class JobMessageListener implements MessageListener {
     }
 }
 ```
+
+## Other
+### The method `StorageProvider.getJobStats()` is slow
+__Symptoms__<br/>
+This is manifested as follows:
+- on SQL servers, the query `select * from jobrunr_job_stats` is taking a long time and takes a lot of CPU from the database
+- on MongoDB, the aggregation by `state` takes a lot of time
+
+__Cause__<br/>
+There are a couple of possible causes for this:
+- Before JobRunr 6 and only if you're using a framework integration (the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`), these integrations automatically make sure that each background job server is also participating in MicroMeter reporting. The query to do this reporting however is quite heavy on you database.
+- You are using the `fluent` configuration and use the `.useMicroMeterIntegration(new JobRunrMicroMeterIntegration(...))` on each `BackgroundJobServer`
+- You are running multiple instances of the dashboard (e.g. on each `BackgroundJobServer`). 
+- Your code is calling the `StorageProvider.getJobStats()` method a lot.
+
+__Solution__<br/>
+- If you are running JobRunr 5 (so JobRunr 5.x.x and lower) and use a framework integration, please make sure to disable the micrometer integration which is enabled by default (in v5.x.x and lower it is enabled by default, as of v6, it is disabled by default). You can do so by means of the following setting (here is the `jobrunr-spring-boot-starter` example):
+<figure style="margin-left: 2em">
+
+```java
+org.jobrunr.background-job-server.metrics.enabled=false
+```
+</figure>
+
+- if you have configured MicroMeter integration by means of the fluent API, only do so one server.
+- Only enable the dashboard on one server. You can do so by means of the properties if you are using a framework integration (the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`) or by means of the `useDashboardIf(guard, ...)` method of the fluent API.
+- Do not call the `StorageProvider.getJobStats()` method too many times.
