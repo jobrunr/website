@@ -151,6 +151,7 @@ There are a couple of possible causes for this:
 - You are using the `fluent` configuration and use the `.useMicroMeterIntegration(new JobRunrMicroMeterIntegration(...))` on each `BackgroundJobServer`
 - You are running multiple instances of the dashboard (e.g. on each `BackgroundJobServer`). 
 - Your code is calling the `StorageProvider.getJobStats()` method a lot.
+- You are using the JobRunr JMX Extension on each `BackgroundJobServer`. 
 
 __Solution__<br/>
 - If you are running JobRunr 5 (so JobRunr 5.x.x and lower) and use a framework integration, please make sure to disable the micrometer integration which is enabled by default (in v5.x.x and lower it is enabled by default, as of v6, it is disabled by default). You can do so by means of the following setting (here is the `jobrunr-spring-boot-starter` example):
@@ -163,4 +164,18 @@ org.jobrunr.background-job-server.metrics.enabled=false
 
 - if you have configured MicroMeter integration by means of the fluent API, only do so one server.
 - Only enable the dashboard on one server. You can do so by means of the properties if you are using a framework integration (the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`) or by means of the `useDashboardIf(guard, ...)` method of the fluent API.
+- Do not enable the JobRunr JMX Extension on each `BackgroundJobServer`. Or use it as follows:
+
+<figure style="margin-left: 2em">
+
+```java
+JobRunr
+    .configure()
+    ...
+    .useJmxExtensions(false) // disable the reporting of job statistics (available as of JobRunr 6.1.3)
+    ...
+    .initialize();
+```
+</figure>
+
 - Do not call the `StorageProvider.getJobStats()` method too many times.
