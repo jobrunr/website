@@ -76,6 +76,8 @@ jobrunr:
     poll-interval: 15 #check for new work every 15 seconds
     delete-succeeded-jobs-after: 36
     permanently-delete-deleted-jobs-after: 72
+    metrics:
+      enabled: false #Micrometer integration - this was true in v5.
   dashboard:
     enabled: false
     port: 8000 #the port on which to start the dashboard

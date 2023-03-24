@@ -73,6 +73,7 @@ org.jobrunr.background-job-server.worker-count= #this value normally is defined 
 org.jobrunr.background-job-server.poll-interval-in-seconds=15 #check for new work every 15 seconds
 org.jobrunr.background-job-server.delete-succeeded-jobs-after=36 #succeeded jobs will go to the deleted state after 36 hours
 org.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72 #deleted jobs will be deleted permanently after 72 hours
+org.jobrunr.background-job-server.metrics.enabled=false #Micrometer integration - this was true in v5.
 org.jobrunr.dashboard.enabled=false
 org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 org.jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
