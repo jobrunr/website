@@ -14,6 +14,8 @@ menu:
 
 Are you processing millions of jobs? Do you have some high-prio jobs that need to finish fast? Use JobRunr queues to make sure that critical jobs cut in front of already enqueued jobs.
 
+> Note: JobRunr Pro supports up to 5 different queues.
+
 ## Usage
 ### Using the Job Annotation
 Using queues could not have been easier thanks to the `Job` annotation. Just add it to your service method and specify on which queue you want to run it.

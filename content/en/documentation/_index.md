@@ -110,6 +110,10 @@ The `BackgroundJobServer` class processes background jobs by querying the Storag
 
 You can place this `BackgroundJobServer` in any process you want - even if you terminate a process, your background jobs will be retried automatically after restart. So in a basic configuration for a web application, you don’t need to use any Windows services for background processing anymore.
 
+> <u>**IMPORTANT:**</u>
+> <br/>**Remark 1**: You should have always 1 `BackgroundJobServer` running as it is responsible to see whether any jobs need to be processed.
+> <br/>**Remark 2**: You should have only 1 `BackgroundJobServer` per application / JVM instance. If you want to process more jobs or you want to distribute the jobs over multiple JVM's, you must launch a complete new instance of your application. **Starting multiple `BackgroundJobServers` within the same JVM instance is bad practice and should NOT be done.**
+
 ### JobActivator
 Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we off course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
 

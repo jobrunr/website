@@ -12,145 +12,98 @@ menu:
 ## Enqueueing and processing in the same JVM instance
 JobRunr can easily be configured using the Fluent API to enqueue and process jobs within the same application:
 
+> **Note**: although this example uses Spring, you 
+
 ```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class WebApplication {
+public class Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
-    }
-
-    @Bean
-    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
-        return JobRunr.configure()
-                .useJobActivator(applicationContext::getBean)
-                .useStorageProvider(SqlStorageProviderFactory
-                          .using(applicationContext.getBean(DataSource.class)))
+        JobScheduler jobScheduler = JobRunr.configure()
+                .useStorageProvider(new InMemoryStorageProvider())
                 .useBackgroundJobServer()
-                .useJmxExtensions()
                 .useDashboard()
-                .initialize();
-    }
-    
-    @Bean
-    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobScheduler();
-    }
+                .initialize()
+                .getJobScheduler();
 
-    @Bean
-    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobRequestScheduler();
+        jobScheduler.enqueue(() -> System.out.println("Up & Running from a background Job"));
     }
 }
 ```
 
 __What happens here?__
-- first a Spring Application is created, this can either be a CommandLineRunner application or a WebApplication
-- the important method here is the initJobRunr method:
+- a simple Java class called `Application` with a `main` method is created
+- the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created with a DataSource that is defined in the `JobRunrStorageConfiguration` Spring configuration class.
-  - a `JobActivator` is defined which uses the `getBean` method of the Spring `ApplicationContext`
-  - the `BackgroundJobServer` itself is started
-  - `JmxExtensions` are enabled
-  - and the Dashboard is also started
-
-In this setup, the application enqueues new background jobs and also processes them because of the method `useBackgroundJobServer` that is called.
-
-<br>
+  - after that, a `StorageProvider` is created - in this case an `InMemoryStorageProvider`.
+  - we enable the `BackgroundJobServer` which will process the actual jobs
+  - wen enable the `Dashboard`
+  - the Fluent API is ended with the initialize method call from which the `JobScheduler` is retrieved.
+- after that, you can start to create Background Jobs!
 
 ## Enqueueing and processing in different JVM instances
-In the setup below, the application that enqueues background jobs, typical the web application, only schedules new jobs and does not process any background jobs. 
+As we want to enqueue jobs in one JVM and process jobs in another JVM, we will need to use a `StorageProvider` can be shared (so not the `InMemoryStorageProvider`). This can be a SQL Database or a NoSQL Database like MongoDB.
 
-### Enqueueing background jobs:
-To enqueue background jobs, the configuration is again done using the Fluent API:
-
-```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class WebApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(WebApplication.class, args);
-    }
-
-    @Bean
-    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
-        return JobRunr.configure()
-                .useStorageProvider(SqlStorageProviderFactory
-                          .using(applicationContext.getBean(DataSource.class)))
-                .initialize();
-    }
-    
-    @Bean
-    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobScheduler();
-    }
-
-    @Bean
-    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobRequestScheduler();
-    }
-}
-```
-
-__What happens here?__
-- first a Spring Application is created, in this case a Spring WebApplication
-- the important method here is again the initJobRunr method:
-  - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created with a DataSource that is defined in the `JobRunrStorageConfiguration` Spring configuration class.
-  - the Fluent API is ended with the initialize method call which returns a `JobScheduler`.
-
-> You can choose to autowire the JobScheduler bean in classes where you want to enqueue background jobs, or you can use the static methods on BackgroundJob.
-
-### Processing background jobs:
-In the application that processes background jobs (this can be a Spring command line runner application packaged within a Docker container using Jib) the Fluent API is used again and speaks for itself:
+### 1. Enqueueing background jobs via the `EnqueueingApplication`:
+In the application that enqueues background jobs, the Fluent API is used again and speaks for itself. The important thing to not is that we will not add the `useBackgroundJobServer()` method as we do not want to process jobs in this JVM instance. Omitting this line results in the fact that no `BackgroundJobServer` will be started.
 
 ```java
-@SpringBootApplication
-@Import(JobRunrStorageConfiguration.class)
-public class JobServerApplication implements CommandLineRunner {
+public class EnqueueingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JobServerApplication.class, args);
-    }
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("<your jdbc url>");
+        config.setUsername("<your database username>");
+        config.setPassword("<your database password>");
+        HikariDataSource dataSource = new HikariDataSource(config);
 
-    @Override
-    public void run(String... args) throws InterruptedException {
-        Thread.currentThread().join();
-    }
-
-    @Bean
-    public JobRunrConfigurationResult initJobRunr(ApplicationContext applicationContext) {
-        return JobRunr.configure()
-                .useJobActivator(applicationContext::getBean)
-                .useStorageProvider(SqlStorageProviderFactory
-                          .using(applicationContext.getBean(DataSource.class)))
-                .useBackgroundJobServer()
+        JobScheduler jobScheduler = JobRunr.configure()
+                .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
                 .useDashboard()
+                .initialize()
+                .getJobScheduler();
+
+        jobScheduler.enqueue(() -> System.out.println("Up & Running from a background Job"));
+    }
+}
+```
+__What happens here?__
+- a simple Java class called `EnqueueingApplication` with a `main` method is created. It will only create jobs but will not process them.
+- the important things to note about the configuration are:
+  - the Fluent API is started using JobRunr.configure()
+  - after that, a `StorageProvider` is created - in this case an instance of a `SqlStorageProvider`.
+  - wen enable the `Dashboard` again
+  - the Fluent API is ended with the initialize method call from which the `JobScheduler` is retrieved.
+- after that, you can start to create Background Jobs! But ... they will not be processed in this JVM. See the chapter below on how to process the actual jobs.
+
+### 2. Processing background jobs via the `ProcessingApplication`:
+In the application that processes background jobs, the Fluent API is used again and speaks for itself:
+
+```java
+public class ProcessingApplication {
+
+    public static void main(String[] args) {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("<your jdbc url>");
+        config.setUsername("<your database username>");
+        config.setPassword("<your database password>");
+        HikariDataSource dataSource = new HikariDataSource(config);
+
+        JobRunrPro.configure()
+                .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
+                .useBackgroundJobServer()
+                .useJmxExtensions()
                 .initialize();
-    }
-
-    @Bean
-    public JobScheduler initJobScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobScheduler();
-    }
-
-    @Bean
-    public JobRequestScheduler initJobRequestScheduler(JobRunrConfigurationResult jobRunrConfigurationResult) {
-        return jobRunrConfigurationResult.getJobRequestScheduler();
     }
 }
 ```
 
 __What happens here?__
-- first a Spring Application is created, in this case a Spring Command Line application
-- the important method here is again the `initJobRunr` method:
+- a simple Java class called `ProcessingApplication` with a `main` method is created. It will only process jobs in this case.
+- the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created with a DataSource that is defined in the `JobRunrStorageConfiguration` Spring configuration class.
-  - a `JobActivator` is defined which uses the `getBean` method of the Spring `ApplicationContext`
-  - the `BackgroundJobServer` itself is started by means of the `useBackgroundJobServer` method
-  - the Dashboard is also started
+  - after that, a `StorageProvider` is created - in this case an instance of a `SqlStorageProvider`. It must use the same database settings as the `EnqueueingApplication`
+  - the Fluent API is ended with the initialize method call
+- after that, jobs created in the `EnqueueingApplication` (running in JVM instance A) will automatically be processed in `ProcessingApplication` (running in JVM instance B).
 
 ## Advanced Configuration
 
@@ -172,4 +125,4 @@ JobRunr.configure()
 
 ```
 
-> For more options, check out the JobRunr JavaDoc.
+> For more options, check out the [JobRunr JavaDocs](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/index.html).
