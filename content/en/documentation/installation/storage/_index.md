@@ -14,13 +14,18 @@ JobRunr stores the job details for each job using a `StorageProvider` and suppor
 > __Important__: you will need to add the correct dependency (jdbc-driver) for each of the databases below.
 
 ## SQL databases
-By default, JobRunr will automatically create the necessary tables for your database. If however you do not want to give the JobRunr DataSource DDL rights, you can easily create the tables JobRunr uses yourself using one of the following methods:
-
+Setting up an SQL database is easy-peasy because you probably don't need to do a thing!
 
 > Running MySQL or MariaDB? Make sure [your connection string]() is setup that it [UTC timestamps correctly](https://stackoverflow.com/questions/1646171/mysql-datetime-fields-and-daylight-savings-time-how-do-i-reference-the-extra).
 
+#### Sit back, relax and let JobRunr do the work for you!
+By default, **JobRunr will automatically create the necessary tables** for your database. Just like Liquibase and Flyway, it comes with a database migration manager that manages the database for you.
 
-#### Run the DatabaseCreator
+#### Setting up the database yourself
+If however you do not want to give the JobRunr DataSource DDL rights, you can easily create the tables JobRunr uses yourself using one of the following methods:
+
+
+###### Run the DatabaseCreator
 The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user that has DDL rights.
 
 ```
@@ -29,7 +34,7 @@ java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.co
 
 If the command succeeds, a confirmation message will be shown.
 
-#### Apply the SQL scripts yourself
+###### Apply the SQL scripts yourself
 To generate the sql scripts for your database so you can apply them yourself, use the following command (the files will be generated in the current directory): 
 
 ```

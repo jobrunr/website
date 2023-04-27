@@ -210,7 +210,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 ## Concurrent recurring jobs
 {{< label version="professional" >}}JobRunr Pro{{< /label >}}
 
-JobRunr by default does not allow recurring jobs - the reason being is that if your recurring jobs for some reason take longer than the given CRON expression or interval, you may create more jobs than you can process.
+JobRunr by default does not allow concurrent recurring jobs - the reason being is that if your recurring jobs for some reason take longer than the given CRON expression or interval, you may create more jobs than you can process.
 So, if a job instance created by a recurring job is still in state `SCHEDULED`, `ENQUEUED` or `PROCESSING` and it's time to again queue a new instance of the recurring job then this last instance will not be created.
 
 Sometimes the business requirements define that recurring jobs may not be skipped in any case and your recurring job runs very fast in 95% of the cases. But you have some outliers (e.g. due to a lot of work to process) that may take longer than the given CRON expression or interval. **JobRunr Pro comes to the rescue** with the option `maxConcurrentJobs` to create a certain amount of job instances of that recurring job that will run concurrently.
