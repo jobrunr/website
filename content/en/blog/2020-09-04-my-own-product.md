@@ -86,7 +86,7 @@ Currently, there are quite some questions lingering in my mind:
 - **_do developers and companies want to pay for freemium software?_** <br>
   this might also be a problem - we all got used to excellent software libraries without paying for it - it's part of the open-source movement which I off-course like. I could also perhaps setup some consulting around JobRunr but I don't think that will make me a living either.
 - **_does the Pro version add enough value for the money? Is the annual licensing a good choice?_** <br>
-  this is something I do not know for the moment and since I did not get any feedback on licensing yet (neither positive nor negative) it is something that only time will tell. I do think that the different features of JobRunr Pro like [Queues]({{< ref "documentation/pro/queues.md" >}}), [Batches]({{< ref "documentation/pro/batches.md" >}}) and [Job Chaining]({{< ref "documentation/pro/job-chaining.md" >}}) add a lot of value. And, if I compare it to the time spent developing these features combined with my rate as a freelance developer, I think the price is more than reasonable.
+  this is something I do not know for the moment and since I did not get any feedback on licensing yet (neither positive nor negative) it is something that only time will tell. I do think that the different features of JobRunr Pro like [Queues]({{< ref "documentation/pro/priority-queues.md" >}}), [Batches]({{< ref "documentation/pro/batches.md" >}}) and [Job Chaining]({{< ref "documentation/pro/job-chaining.md" >}}) add a lot of value. And, if I compare it to the time spent developing these features combined with my rate as a freelance developer, I think the price is more than reasonable.
 
 
 

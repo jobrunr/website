@@ -35,6 +35,34 @@ org.jobrunr.dashboard.port=8000
 
 > Do you want a more powerful dashboard with authentication, configurable context path or even embedded within Spring, Micronaut or Quarkus? Then have a look at the [JobRunr Pro Dashboard]({{<ref "jobrunr-pro-dashboard.md">}})!
 
+<br/>
+
+__Readable Job Names thanks to the `@Job` annotation or the `JobBuilder`__<br/>
+You can easily configure your Job Name and some Job Labels for the dashboard by means of the `@Job` annotation:
+<figure>
+
+```java
+@Job(name = "Sending email to %2 (requestId: %X{request.id})", labels = {"tenant:%0", "email"})
+public void sendEmail(String tenant, String from, String to, String subject, String body) {
+    // business code here
+}
+```
+<figcaption>We can use the @Job annotation to provide the dashboard with a readable Job name and some labels.<br/>These properties support parameter substitution. In the example above, %2 will be replaced with the `to` parameter. You can also access the SLF4J Mapped Diagnostic Context (see %X{request.id}).<br/>The same is also possible for labels.</figcaption>
+</figure>
+
+This is of-course also possible using the `JobBuilder` pattern:
+<figure>
+
+```java
+jobScheduler.create(aJob()
+    .withName("Sending email to " + to)
+    .withLabels("tenant:" + tenant, "email")
+    .withDetails(() -> emailService.sendEmail(tenant, from, to, subject, body)))
+```
+<figcaption>We can use the JobBuilder pattern to provide the dashboard with a readable Job name and some labels.</figcaption>
+</figure>
+
+
 ## Screenshots
 <figure>
 <img src="/documentation/jobrunr-overview-1.webp" class="kg-image">

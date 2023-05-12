@@ -10,7 +10,7 @@ menu:
     weight: 50
 ---
 JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription](todo) and adds a lot of extra functionality to support your difficult business processes:
-- __[Queues]({{< ref "queues.md" >}}):__ are you processing a lot of jobs and do you have critical business processes that must finish on-time? Queues to the rescue! Just schedule your job with a higher priority and it will bypass all the other jobs.
+- __[Queues]({{< ref "priority-queues.md" >}}):__ are you processing a lot of jobs and do you have critical business processes that must finish on-time? Queues to the rescue! Just schedule your job with a higher priority and it will bypass all the other jobs.
 - __[Job Chaining]({{< ref "job-chaining.md" >}}):__ reuse existing service methods and chain jobs to have cleaner code and an immediate overview of your business process.
 - __[Batches]({{< ref "batches.md" >}}):__ batches allow you to create a bunch of background jobs atomically and combined with [Job Chaining]({{< ref "job-chaining.md" >}}) they can make complex workflows easy!
 - __[Server Tags]({{< ref "server-tags.md" >}}):__ do you have jobs that can only run on certain servers (e.g. Jobs that should only run on Windows, Linux, ...)? Server Tags let you filter jobs by certain tags so that they are only run on certain servers.

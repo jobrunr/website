@@ -23,7 +23,7 @@ menu:
         });
 </script>
 
-Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
+Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "priority-queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
 
 <div style="text-align: center; margin: -2rem 0 3rem 0;">
     {{< trial-button >}}
@@ -86,7 +86,7 @@ Everything in JobRunr OSS, plus:
 - Up to [5000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
 - [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
-- [Priority queues]({{< ref "documentation/pro/queues.md" >}})
+- [Priority queues]({{< ref "documentation/pro/priority-queues.md" >}})
 - [Workflow management]({{< ref "documentation/pro/job-chaining.md" >}})
 - [Real-time scheduling]({{< ref "documentation/pro/real-time-scheduling.md" >}})   
 - [Batches]({{< ref "documentation/pro/batches.md" >}})
