@@ -48,10 +48,11 @@ sitemap:
 </figure>
 
 ## How does it all work?
-- When enqueueing a background job, the lambda is decomposed and saved into the storage provider as Json.
+- You can enqueue, schedule or schedule a recurring background [Job](#job) the [JobScheduler](#jobscheduler).
+- The [JobScheduler](#jobscheduler) analyses and decomposes the lambda to a JSON object and saves it into the [StorageProvider](#storage-provider).
 - JobRunr returns immediately to the caller so that it is not blocking
-- One or more background job servers poll the storage provider for new enqueued jobs and process them
-- When finished, it updates the state in the storage provider and fetches the next job to perform
+- One or more [BackgroundJobServers](#backgroundjobserver) poll the [StorageProvider](#storage-provider) for new enqueued jobs and process them
+- When a job has been processed, it updates the state in the [StorageProvider](#storage-provider) and fetches the next job to perform
 
 {{< trial-button >}}
 

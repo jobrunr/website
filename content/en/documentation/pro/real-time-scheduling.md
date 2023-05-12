@@ -8,7 +8,7 @@ menu:
   main: 
     identifier: real-time-scheduling
     parent: 'jobrunr-pro'
-    weight: 4.5
+    weight: 3
 ---
 {{< trial-button >}}
 

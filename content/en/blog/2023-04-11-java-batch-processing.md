@@ -131,7 +131,7 @@ For more configuration options, feel free to check [the docs]({{< ref "documenta
 
 
 ### 6.2. Job prioritization
-Using JobRunr Pro, you can assign [different priorities]({{< ref "queues.md" >}}) to jobs, ensuring that higher-priority jobs are executed before lower-priority ones:
+Using JobRunr Pro, you can assign [different priorities]({{< ref "priority-queues.md" >}}) to jobs, ensuring that higher-priority jobs are executed before lower-priority ones:
 <figure style="width: 80%; margin: 0 auto 2em 0">
 
 ```java

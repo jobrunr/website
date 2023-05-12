@@ -1,7 +1,7 @@
 ---
 version: "pro"
-title: "Queues"
-subtitle: "Queues will make sure your critical business processes finish on-time."
+title: "Priority Queues"
+subtitle: "Priority Queues will make sure your critical business processes finish on-time."
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -12,9 +12,9 @@ menu:
 ---
 {{< trial-button >}}
 
-Are you processing millions of jobs? Do you have some high-prio jobs that need to finish fast? Use JobRunr queues to make sure that critical jobs cut in front of already enqueued jobs.
+Are you processing millions of jobs? Do you have some high priority jobs that need to finish fast? Use JobRunr priority queues to make sure that critical jobs cut in front of already enqueued jobs.
 
-> Note: JobRunr Pro supports up to 5 different queues.
+> **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/dynamic-queues.md" >}}).
 
 ## Usage
 ### Using the Job Annotation

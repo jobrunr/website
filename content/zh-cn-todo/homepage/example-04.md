@@ -1,7 +1,7 @@
 ---
 title: "队列"
 type: homepage-example
-link: 'documentation/pro/queues'
+link: 'documentation/pro/priority-queues/'
 badge: PRO
 weight: 4
 ---
