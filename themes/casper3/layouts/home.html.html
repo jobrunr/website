@@ -218,7 +218,7 @@
             </div>
         </div>
         <div id="homepage-content-developer" class="homepage-content" style="display: none;">
-            <p style="margin-top: 2em;">Creating, scheduling and monitoring jobs just became a whole lot easier!</p>
+            <p style="margin-top: 2em;"><span id="developer-referrer"></span><span id="developer-no-referrer">Creating, scheduling and monitoring jobs just became a whole lot easier!</span></p>
             <div class="homepage-overview">
                 {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
                     <article class="post-card small">
@@ -457,7 +457,22 @@
         if('developer' == searchParams.get("tab")) {
             showDeveloperTab();
         } else if('manager' == searchParams.get("tab")) {
+            showManagerTab();
+        } else if (document.referrer && (document.referrer.includes('github.com') || document.referrer.includes('ycombinator.com') || document.referrer.includes('infoq.com') || document.referrer.includes('localhost'))) {
+            console.log(`Hi there, I'm Ronald - the creator of JobRunr. Nice meeting you!`);
             showDeveloperTab();
+            document.getElementById('developer-no-referrer').style.display = 'none';
+            
+            const developerRefererSpan = document.getElementById('developer-referrer');
+            if(document.referrer.includes('github.com')) {
+                developerRefererSpan.innerHTML = `Since you're coming from GitHub, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
+            } else if(document.referrer.includes('ycombinator.com')) {
+                developerRefererSpan.innerHTML = `Since you're coming from Hacker News, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
+            } else if(document.referrer.includes('infoq.com')) {
+                developerRefererSpan.innerHTML = `Since you're coming from InfoQ, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
+            } else if(document.referrer.includes('localhost')) {
+                developerRefererSpan.innerHTML = `Since you're coming from Hacker News, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
+            }
         }
     }
 </script>

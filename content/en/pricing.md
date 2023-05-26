@@ -61,7 +61,7 @@ JobRunr OSS with:
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
 - GitHub Discussions
 
-<span style="display: block; height: 120px"></span>
+<span style="display: block; height: 125px"></span>
 
 <div class="buy">
 
@@ -82,7 +82,7 @@ _streamline your workflows<br>and background jobs_
 </div>
 
 ### Features
-Everything in JobRunr OSS, plus:
+Everything in JobRunr OSS plus:
 - Up to [5000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
 - [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
@@ -133,11 +133,12 @@ _our most powerful offering with security and much more_
 
 ### Features
 Everything in Business plus:
+- Enterprise hardened <a class="tooltip" data-title="Enterprise hardened releases are designed for production environments where the least amount of disruption is the goal. Each release goes through a stress test in addition to a full suite of unit/functional/full-system tests. CPU, memory and performance benchmarks are compared to previous releases for regressions. Additionally, extra external security auditing is performed for maximum security."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0"/></a>
 - [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - Unlimited clusters
 - [Dashboard security]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}})
 - [GDPR compliant dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}})
-<br><br><br><br><br><br>
+<br><br><br><br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
@@ -171,6 +172,13 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 </div>
 
 <br>
+
+<h3>Our preferred reseller</h3>
+<a href="https://www.softwareone.com/en" target="_blank" rel="noreferrer" style="box-shadow: none; margin-right: auto;"><img width="200px" src="https://sc102-prod-cd.azurewebsites.net/-/media/images/logos/softwareone-logo-blk.svg?iar=0&hash=6A277FF39328B4D79A071F4A9F95F301"/></a>
+<small style="margin-right: auto;"><a href="mailto:hello@jobrunr.io" target="_blank" rel="noreferrer">Let us know</a> if you need to get a contact from any of the above resellers, or if you want to work with a different reseller.</small>
+<br/><br/>
+
+<h3>Startup or Non Profit?</h3>
 
 Do you want a [Royalty-Free license]({{< ref "licensing/royalty-free-eula.md" >}}) where you may redistribute JobRunr as part of your own products? Are you a freelancer, a startup or a non-profit organization with limited budgets? [Contact us]({{< ref "contact" >}}) and let's see what we can work out.
 

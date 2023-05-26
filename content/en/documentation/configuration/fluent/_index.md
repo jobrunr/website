@@ -44,7 +44,7 @@ __What happens here?__
 As we want to enqueue jobs in one JVM and process jobs in another JVM, we will need to use a `StorageProvider` can be shared (so not the `InMemoryStorageProvider`). This can be a SQL Database or a NoSQL Database like MongoDB.
 
 ### 1. Enqueueing background jobs via the `EnqueueingApplication`:
-In the application that enqueues background jobs, the Fluent API is used again and speaks for itself. The important thing to not is that we will not add the `useBackgroundJobServer()` method as we do not want to process jobs in this JVM instance. Omitting this line results in the fact that no `BackgroundJobServer` will be started.
+In the application that enqueues background jobs, the Fluent API is used again and speaks for itself. The important thing to note is that we will not add the `useBackgroundJobServer()` method as we do not want to process jobs in this JVM instance. Omitting this line results in the fact that no `BackgroundJobServer` will be started.
 
 ```java
 public class EnqueueingApplication {
