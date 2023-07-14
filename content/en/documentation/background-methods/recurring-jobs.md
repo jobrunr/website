@@ -249,4 +249,4 @@ BackgroundJob.createRecurrently(aRecurringJob()
 
 > __Remark 3:__ please note that the __cron interval__ or __duration__ for your recurring jobs __must be more than your `pollIntervalInSeconds`__. If your `pollIntervalInSeconds` is greater than your cron interval or duration of your recurring jobs, JobRunr will launch multiple instances of the same recurring job to keep up. This means that the same recurring job will be launched multiple times at the same moment.
 
-> __Remark 4:__ also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents creating recurring jobs every with cron values less than 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
+> __Remark 4:__ also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents creating recurring jobs with cron values less than every 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).

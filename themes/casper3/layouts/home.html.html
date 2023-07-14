@@ -424,6 +424,13 @@
         document.getElementById('homepage-selector-manager').classList.add("active");
         document.getElementById('homepage-content-developer').style.display = 'none';
         document.getElementById('homepage-content-manager').style.display = 'block';
+
+        if ('URLSearchParams' in window) {
+            const searchParams = new URLSearchParams(window.location.search)
+            searchParams.set('tab', 'manager');
+            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
+            history.pushState(null, '', newRelativePathQuery);
+        }
     }
 
     function showDeveloperTab() {
@@ -431,35 +438,30 @@
         document.getElementById('homepage-selector-developer').classList.add("active");
         document.getElementById('homepage-content-manager').style.display = 'none';
         document.getElementById('homepage-content-developer').style.display = 'block';
-    }
 
-    document.getElementById('homepage-selector-manager').addEventListener('click', () => {
-        showManagerTab();
-        if ('URLSearchParams' in window) {
-            const searchParams = new URLSearchParams(window.location.search)
-            searchParams.set('tab', 'manager');
-            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-            history.pushState(null, '', newRelativePathQuery);
-        }
-    });
-    document.getElementById('homepage-selector-developer').addEventListener('click', () => {
-        showDeveloperTab();
         if ('URLSearchParams' in window) {
             const searchParams = new URLSearchParams(window.location.search)
             searchParams.set('tab', 'developer');
             const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
             history.pushState(null, '', newRelativePathQuery);
         }
+    }
+
+    document.getElementById('homepage-selector-manager').addEventListener('click', () => {
+        showManagerTab();
+    });
+    document.getElementById('homepage-selector-developer').addEventListener('click', () => {
+        showDeveloperTab();
     });
 
     if ('URLSearchParams' in window) {
+        console.log(`Hi there, I'm Ronald - the creator of JobRunr. Nice meeting you!`);
         const searchParams = new URLSearchParams(window.location.search)
         if('developer' == searchParams.get("tab")) {
             showDeveloperTab();
         } else if('manager' == searchParams.get("tab")) {
             showManagerTab();
-        } else if (document.referrer && (document.referrer.includes('github.com') || document.referrer.includes('ycombinator.com') || document.referrer.includes('infoq.com') || document.referrer.includes('localhost'))) {
-            console.log(`Hi there, I'm Ronald - the creator of JobRunr. Nice meeting you!`);
+        } else if (document.referrer && (document.referrer.includes('github.com') || document.referrer.includes('ycombinator.com') || document.referrer.includes('infoq.com') || document.referrer.includes('baeldung.com') || document.referrer.includes('localhost'))) {
             showDeveloperTab();
             document.getElementById('developer-no-referrer').style.display = 'none';
             
@@ -470,6 +472,8 @@
                 developerRefererSpan.innerHTML = `Since you're coming from Hacker News, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
             } else if(document.referrer.includes('infoq.com')) {
                 developerRefererSpan.innerHTML = `Since you're coming from InfoQ, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
+            } else if(document.referrer.includes('baeldung.com')) {
+                developerRefererSpan.innerHTML = `Since you're coming from Baeldung, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
             } else if(document.referrer.includes('localhost')) {
                 developerRefererSpan.innerHTML = `Since you're coming from Hacker News, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
             }

@@ -15,6 +15,7 @@ menu:
 JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/pricing.md" >}}) and adds a lot of extra functionality to support your difficult business processes. 
 
 - __[JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}):__ are you processing a lot of jobs and do you quickly need to find that one job? Thanks to the Job Search feature in the JobRunr Pro dashboard you will quickly find any job by name, method signature or any other fields.
+- __[Built-in Obserability]({{< ref "observability.md" >}}):__ keep track on how your jobs are doing over time. Corelate failures easily thanks to built-in observability using your existing observability provider like [Jaeger](https://www.jaegertracing.io/) or [New Relic](https://newrelic.com/).
 - __[Transaction plugin]({{< ref "transactions.md" >}}):__ are you using the [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}) or the [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}})? Enjoy out of the box integration with their transactions using the `@Transactional` annotation thanks to the Transaction plugin.
 - __Instant job processing:__ Are you in a hurry? JobRunr Pro starts processing your enqueued jobs instantly.
 - __[Real-time scheduling]({{< ref "real-time-scheduling.md" >}}):__ Are you very punctually? JobRunr Pro has support for real-time scheduling and enqueueing and makes sure your jobs run at the exact moment you specified!
@@ -35,6 +36,7 @@ JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscr
 - __[CI/CD integration and Job Migrations]({{< ref "migrations.md" >}}):__ test whether your recent refactoring did not break any job and easily migrate existing scheduled jobs via job migrations. CI/CD for your background jobs is now easier than ever. Or, you can just make your old job methods package private and JobRunr Pro will still execute them.
 - __Pause recurring jobs:__ Do you want to pause your recurring jobs? Just pause them from the dashboard and resume them whenever you are ready.
 - __Start & Stop Background Job Processing:__ Do you want to stop background job processing for a while? Just stop the background job servers from the dashboard and start them whenever you are ready.
+- __[Issue tracking Integration]({{< ref "issuetracking-integration.md" >}}):__ Save time by integrating JobRunr with your issue tracking software.
 
 
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}<br> 
