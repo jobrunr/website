@@ -15,7 +15,7 @@ Sometimes you may want to postpone a method invocation; for example, to send an 
 <figure>
 
 ```java
-BackgroundJob.schedule<EmailService>(Instant.now().plusHours(24), 
+BackgroundJob.schedule<EmailService>(Instant.now().plus(24, ChronoUnit.HOURS), 
   x -> x.sendNewlyRegisteredEmail());
 ```
 </figure>
@@ -52,7 +52,7 @@ All of the above methods are off-course also available on the `JobScheduler` bea
 @Inject
 private JobScheduler jobScheduler;
 
-jobScheduler.schedule<EmailService>(Instant.now().plusHours(24), 
+jobScheduler.schedule<EmailService>(Instant.now().plus(24, ChronoUnit.HOURS), 
   x -> x.sendNewlyRegisteredEmail());
 ```
 <figcaption>Scheduling a background job in the future using the JobScheduler bean</figcaption>
@@ -64,7 +64,7 @@ jobScheduler.schedule<EmailService>(Instant.now().plusHours(24),
 @Inject
 private JobRequestScheduler jobRequestScheduler;
 
-jobRequestScheduler.schedule(Instant.now().plusHours(24), 
+jobRequestScheduler.schedule(Instant.now().plus(24, ChronoUnit.HOURS), 
   new SendNewlyRegisteredEmailJobRequest());
 ```
 <figcaption>Scheduling a background job in the future using the JobRequestScheduler bean</figcaption>
