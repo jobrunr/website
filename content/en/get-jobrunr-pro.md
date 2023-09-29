@@ -28,7 +28,6 @@ weight: 18
     });
 
     function submitForm() {
-        gtag('event', 'get_pro_subscription', {'event_category': 'ecommerce', 'event_label' : 'request_subscription' });
         const firstNameField = document.getElementById('firstName');
         const lastNameField = document.getElementById('lastName');
         const emailField = document.getElementById('email');
