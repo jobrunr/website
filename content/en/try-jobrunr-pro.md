@@ -33,7 +33,6 @@ weight: 15
     });
 
     function submitForm() {
-        gtag('event', 'get_pro_trial', {'event_category': 'ecommerce', 'event_label' : 'request_trial' });
         const firstNameField = document.getElementById('firstName');
         const lastNameField = document.getElementById('lastName');
         const emailField = document.getElementById('email');

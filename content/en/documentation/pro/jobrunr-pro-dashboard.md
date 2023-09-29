@@ -85,12 +85,12 @@ Using JobRunr Pro Enterprise, you can also embed the dashboard within your exist
 <br />
 
 ## GDPR compliant dashboard
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp; {{< label >}}est: Q2 2023{{< /label >}}&nbsp;
+{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp; {{< label >}}est: Q4 2023{{< /label >}}&nbsp;
 
 Is your company operating in the medical or financial world and is your dashboard showing sensitive information? Do you still want your developers to quickly resolve any bugs and provide great support? 
 
 Thanks to the GDPR toggle, any sensitive information will not be accessible in the dashboard anymore while still providing enough information to resolve bugs and provide support in case of unexpected exceptions.
 
-> This feature is planned for end of Q2 2023.
+> This feature is planned for end of Q4 2023.
 
 <br />

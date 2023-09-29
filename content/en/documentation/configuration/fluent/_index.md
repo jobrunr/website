@@ -12,7 +12,8 @@ menu:
 ## Enqueueing and processing in the same JVM instance
 JobRunr can easily be configured using the Fluent API to enqueue and process jobs within the same application:
 
-> **Note**: although this example uses Spring, you 
+> **Note**: although most of the examples use Spring, this is not a prerequisite as shown below. JobRunr can also work fine without any framework. Important is that the `jobScheduler` should be a **singleton** in all cases.
+
 
 ```java
 public class Application {
@@ -71,7 +72,7 @@ __What happens here?__
 - the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
   - after that, a `StorageProvider` is created - in this case an instance of a `SqlStorageProvider`.
-  - wen enable the `Dashboard` again
+  - we enable the `Dashboard` again
   - the Fluent API is ended with the initialize method call from which the `JobScheduler` is retrieved.
 - after that, you can start to create Background Jobs! But ... they will not be processed in this JVM. See the chapter below on how to process the actual jobs.
 
