@@ -12,7 +12,7 @@ menu:
     weight: 30
 ---
 
-Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the `jobrunr-spring-boot-starter`, `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`).
+Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the [`jobrunr-spring-boot-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}), [`jobrunr-micronaut-feature`]({{<ref "/documentation/configuration/micronaut/_index.md">}}) or the [`jobrunr-quarkus-extension`]({{<ref "/documentation/configuration/quarkus/_index.md">}}) ).
 
 On this page you can learn about:
 
