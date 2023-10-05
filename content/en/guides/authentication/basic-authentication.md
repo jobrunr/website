@@ -13,7 +13,7 @@ draft: true
 - You already know how to configure JobRunr
 
 ## What is a `BasicAuthenticationProvider`
-`BasicAuthenticationProvider` handles requests and authenticates users using the basic authentication scheme. When configured, users will be prompted to provide their credentials, i.e., `username` and `password`. The credentials are validated before allowing access to the [Dashboard]({{< ref "/" >}} "Dashboard documentation") and the `REST API` backing it. This provider allows to define multiple users and their associated authorization rules.
+`BasicAuthenticationProvider` handles requests and authenticates users using the basic authentication scheme. When configured, users will be prompted to provide their credentials, i.e., `username` and `password`. The credentials are validated before allowing access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and the `REST API` backing it. This provider allows to define multiple users and their associated authorization rules.
 
 You may use this provider if you're in a multi-user setting with different privileges. It's also handy for logging user activities. However, only use this authentication provider if your dashboard can only be accessed by trusted individuals.
 
