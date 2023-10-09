@@ -1,6 +1,9 @@
 ---
 title: Anonymous Authentication
 description: This guide will help you easily restrict access to your JobRunr dashboard using an anonymous authentication provider.
+tags:
+    - Auth
+    - JobRunr Pro
 draft: true
 ---
 JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and the `REST API` backing it. In this guide, you will learn how to use `AnonymousAuthenticationProvider` to set authorization rules without the need for defining users.

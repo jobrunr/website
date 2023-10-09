@@ -1,0 +1,16 @@
+<a class="guide-card" href="{{ .context.Permalink }}">
+
+    <header class="guide-card-header">
+        <h2 class="guide-card-title">{{ .context.Title }}</h2>
+    </header>
+
+    <section class="guide-card-summary">
+        <p>{{ .context.Description }}</p>
+    </section>
+    
+    <footer class="guide-card-footer"> 
+        {{ range $index, $tag := .context.Params.tags }}
+            <div class="guide-card-tag">{{ $tag }}</div>
+        {{ end }}
+    </footer>
+</a>    

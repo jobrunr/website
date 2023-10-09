@@ -189,3 +189,64 @@ a.tooltip {
     position: absolute;
     z-index: 99;
 }
+
+.guides {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 12px;
+}
+
+.guides-list-description {
+    color: var(--midgrey);
+    font-family: Georgia, serif;
+    font-size: 2.3rem;
+    line-height: 1.4em;
+    font-weight: 300;
+}
+
+@media (max-width: 500px) {
+    .guides-list-description {
+        font-size: 1.9rem;
+        line-height: 1.5em;
+    }
+}
+
+.guides .guide-card {
+    display: flex;
+    flex-direction: column; 
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--whitegrey); border-radius: 4px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.guides .guide-card .guide-card-title {
+    margin: 0;
+}
+
+.guides .guide-card .guide-card-summary {
+    p {
+        margin: 0;
+    }
+}
+
+.guides .guide-card .guide-card-footer {
+    margin-top: auto;
+    display: flex;
+    gap: 4px;
+    font-size: 14px;
+}
+
+.guides .guide-card .guide-card-footer .guide-card-tag {
+    background-color: var(--whitegrey);
+    padding: 4px 16px;
+    border-radius: 16px;
+}
+
+@media (max-width: 768px) {
+    .guides {
+        grid-template-columns: 1fr;
+    }
+}

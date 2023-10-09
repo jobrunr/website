@@ -40,8 +40,9 @@
                                 <h4 class="author-name">{{ .Param "author" }}</h4>
                             {{ end }}
                             <div class="byline-meta-content">
-                                <time class="byline-meta-date" datetime="{{.Date.Format "2006-31-01"}}">{{.Date.Format "2 January 2006"}}</time>
-                                <span class="byline-reading-time"><span class="bull">&bull;</span> {{ .ReadingTime }} min read</span>
+                                {{ if ne .Section "guides" }}
+                                    <time class="byline-meta-date" datetime="{{.Date.Format "2006-31-01"}}">{{.Date.Format "2 January 2006"}}</time>
+                                <span class="byline-reading-time"><span class="bull">&bull;</span>{{ end }} {{ .ReadingTime }} min read</span>
                             </div>
                         </section>
 

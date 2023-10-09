@@ -1,6 +1,9 @@
 ---
 title: Basic Authentication
 description: This guide will help you configure basic authentication and define authorization rules for each user to restrict access to your JobRunr dashboard.
+tags:
+    - Auth
+    - JobRunr Pro
 draft: true
 ---
 
