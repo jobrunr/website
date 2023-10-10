@@ -1,0 +1,8 @@
+{{ if not (.Parent.Scratch.Get "tabs") }}
+	{{ .Parent.Scratch.Set "tabs" slice }}
+{{ end }}
+{{ $.Parent.Scratch.Add "tabs" (dict "type" (.Get "type") "label" (.Get "label")) }}
+<div class="tabpanel" data-type="{{ .Get "type" }}" aria-label="{{ .Get "label" }}">  
+    {{ "java" | highlight .Inner }}
+</div>  
+

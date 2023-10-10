@@ -1,0 +1,14 @@
+{{- $tabs := .Scratch.Get "tabs" -}}
+
+<div class="tab-container">
+    <ul class="nav-tabs">
+        {{- range $i, $e := $tabs -}}
+        <li data-type="{{.type}}" role="button">
+            <span class="tab" href="#" role="button">{{.label}}</span>
+        </li>
+        {{- end -}}
+    </ul>
+    <div class="tab-content">
+        {{ .Inner }}  
+    </div>
+</div>

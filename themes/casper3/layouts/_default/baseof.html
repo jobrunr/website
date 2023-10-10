@@ -23,6 +23,9 @@
       })(window, document, "clarity", "script", "gndsmglzod");
     </script>
 
+    {{ $slider_js := resources.Get "js/ism-2-2.min.js" }}
+    <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {{ $title := print .Title " · " .Site.Title }}

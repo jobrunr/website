@@ -250,3 +250,49 @@ a.tooltip {
         grid-template-columns: 1fr;
     }
 }
+
+.tab-container {
+    width: 100%;
+    border-radius: 4px;
+    margin-bottom: 16px;
+}
+
+.tab-container .nav-tabs {
+    display: flex;
+    position: relative;
+    gap: 8px;
+    margin: 0;
+    list-style-type: none;
+    padding: 0;
+}
+
+.tab-container .nav-tabs li {
+    margin: 0;
+    border: 1px solid var(--whitegrey);
+    border-bottom: none;
+    border-radius: 4px 4px 0 0;
+    cursor: pointer;
+}
+
+.tab-container .nav-tabs .tab {
+    padding: 4px 8px;
+}
+
+.tab-container .nav-tabs li:hover,
+.tab-container .nav-tabs li:focus,
+.tab-container .nav-tabs li.active  {
+    background-color: var(--whitegrey);
+}
+
+.tab-container .tab-content {
+    padding: 12px;
+    border: 1px solid var(--whitegrey);
+}
+
+.tab-container  .tab-content .tabpanel:not(.active) {
+    display: none;
+}
+
+.tab-container .tab-content pre {
+    margin: 0;
+}
