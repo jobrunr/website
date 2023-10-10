@@ -6,32 +6,34 @@ tags:
     - JobRunr Pro
 draft: true
 ---
-JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and the `REST API` backing it. In this guide, you will learn how to use `AnonymousAuthenticationProvider` to set authorization rules without the need for defining users.
+JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and nd its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
 
 ## Prerequisites
 - JobRunr Pro 6.2.4
 - You already know how to configure JobRunr
 
 ## What is an `AnonymousAuthenticationProvider`
-We created a simple authentication provider that defines a `null` user but allows to define authorization rules that are checked for every access to the endpoint of `REST API`. The provider is named `AnonymousAuthenticationProvider`. We use it internally for backward compatibility, indeed the previous behavior gives unrestricted access to any user (authenticated or not).
+The `AnonymousAuthenticationProvider` is a simple authentication provider that defines a `null` user but allows you to specify authorization rules that are checked for every access to the REST API endpoints. This provider is primarily used for backward compatibility, as the previous behavior granted unrestricted access to all users, whether authenticated or not.
 
-You may use this authentication provider to easily restrict access to certain resources. For instance, your dashboard is only accessible by trusted individuals but you want to forbid read access to jobs for confidentiality reasons. Or your dashboard is publicly available in which case you probably want to forbid updates (e.g., requeue or delete jobs, pause or trigger recurring jobs, etc.).
+You may use this authentication provider to easily restrict access to specific resources. A good use-case is when your dashboard is only accessible by trusted users but you want to restrict read access to jobs for confidentiality reasons. It could also be that your dashboard is publicly available in which case you probably want to forbid updates (e.g., requeue or delete jobs, pause or trigger recurring jobs, etc.).
 
 ## Setting authorization rules using `AnonymousAuthenticationProvider`
-When no authentication provider is configured, JobRunr sets all authorization rules to `true`. If what you desire, you don't need to make further changes.
+JobRunr Pro's default setting is an `AnonymousAuthenticationProvider` with `allowAll` authorization rules. If this aligns with your requirements, no further action is needed.
 
-> Note: you can also deny all access using `AnonymousAuthenticationProvider` but this only makes sense for a multi-user setting. Instead you should disable the dashboard.
+> Note: you can also `denyAll` access using `AnonymousAuthenticationProvider` but this is typically more suitable for a multi-user setting. Instead you should disable the dashboard.
 
-Next, we'll configure JobRunr
-1. to only allow read access,
-2. and to only allow viewing and controlling recurring jobs, i.e., `pause`, `resume`, `trigger`, and `edit schedule expression`.
+Now, let's configure JobRunr to:
 
-### Making the dashboard read only
-To make your JobRunr dashboard read only, modify your configuration as follows: 
+1. Allow `read-only` access to the dashboard.
+2. Allow viewing and controlling recurring jobs (e.g., `pause`, `resume`, `trigger`, and `edit schedule expressions`).
+
+### Making the dashboard read-only
+To make your JobRunr dashboard read-only, modify your configuration as follows:
 
 > This configuration is only suitable when your jobs do not expose confidential data.
 
-```java
+{{< codetabs >}}
+{{< codetab type="fluent-api" label="Fluent API" >}}
 // ...
 import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
 import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRules.readOnly;
@@ -44,9 +46,24 @@ JobRunrPro
             .andAuthentication(new AnonymousAuthenticationProvider(readOnly()))
         )
         // ...
-```
+{{< /codetab >}}
+{{< codetab type="spring" label="Spring">}}
+// ... Spring
+import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
+import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRules.readOnly;
+// ...
+JobRunrPro
+        .configure()
+        // ...
+        .useDashboard(usingStandardDashboardConfiguration()
+            // ...
+            .andAuthentication(new AnonymousAuthenticationProvider(readOnly()))
+        )
+        // ...
+{{< /codetab >}}
+{{< /codetabs >}}
 
-In the above code snippet, we imported the `AnonymousAuthenticationProvider` class and the static method `readOnly` from `JobRunrUserAuthorizationRules`. The method is used to obtain an instance `JobRunrUserAuthorizationRules` where only read access rules are set to `true`. We use this instance to set the authorization rules of the authentication provider.
+In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the `readOnly` method from `JobRunrUserAuthorizationRules` to set the authorization rules of the authentication provider. Launching the application with this configuration will result in a `403` for any access to endpoints that change the state of jobs, recurring jobs, or servers.
 
 Launching the application with this configuration, any access to an endpoint that changes the state of `jobs`, `recurring jobs` or `servers` will result in a `403`.
 
@@ -55,7 +72,8 @@ JobRunr allows for more flexible authorization rules configurations. Here, we'll
 
 > This essentially forbids access to any other resources, including deleting recurring jobs! But should only be used if the dashboard is not publicly accessible.
 
-```java
+{{< codetabs >}}
+{{< codetab type="fluent-api" label="Fluent API" >}}
 // ...
 import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
 import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRulesBuilder.denyAll;
@@ -72,10 +90,37 @@ JobRunrPro
             )
         )
         // ...
-```
+{{< /codetab >}}
+{{< codetab type="spring" label="Spring">}}
+// ... Spring
+import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
+import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRulesBuilder.denyAll;
+// ...
+JobRunrPro
+        .configure()
+        // ...
+        .useDashboard(usingStandardDashboardConfiguration()
+            // ...
+            .andAuthentication(new AnonymousAuthenticationProvider(denyAll()
+                .canAccessRecurringJobs(true)
+                .canControlRecurringJobs(true)
+                .build())
+            )
+        )
+        // ...
+{{< /codetab >}}
+{{< /codetabs >}}
 
-In the above code snippet, we imported the `AnonymousAuthenticationProvider` class and the static method `denyAll` from `JobRunrUserAuthorizationRulesBuilder`. We use this method to create a builder of `JobRunrUserAuthorizationRules` where all rules are initially `false`. Then, we set the desired rules (`canAccessRecurringJobs`, i.e., `read` and `canControlRecurringJobs`, i.e. `pause`, `resume`, `trigger` and `edit`) to `true`.
+In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the `denyAll` method from `JobRunrUserAuthorizationRulesBuilder` to set the desired rules for accessing and controlling recurring jobs. Launching the application with this configuration will restrict access to any other resources besides those explicitly enabled.
 
 > If `canAccessRecurringJobs` is set to `false` the recurring jobs page will no longer be accessible, you'll need to use tools such as `curl` to perform changes to the recurring jobs.
 
-Launching the application with this configuration, any access to an endpoint that does anything besides the enabled authorizations will result in a `403`.
+## Limitations
+
+It's important to be aware of a limitation when using Anonymous Authentication with JobRunr Pro. The setup discussed in this guide requires that the JobRunr instance be restarted to update the authorization rules. This means that if you need to modify or fine-tune the access control rules dynamically, you will need to restart your JobRunr application.
+
+While this limitation may not be a significant issue for many scenarios, it's essential to plan accordingly if your application requires frequent changes to authorization rules. Restarting the JobRunr instance may lead to brief downtime or disruption in background job processing.
+
+## Conclusion
+
+In this guide, we've learned how to use `AnonymousAuthenticationProvider` in JobRunr Pro. With `AnonymousAuthenticationProvider`, you can set authorization rules without user authentication. This offers you precise control over access to your JobRunr dashboard and REST API.
