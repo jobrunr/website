@@ -1,15 +1,15 @@
 ---
-title: Anonymous Authentication
-description: This guide will help you easily restrict access to your JobRunr dashboard using an anonymous authentication provider.
+title: Secure your JobRunr Dashboard with Anonymous Authentication
+description: This guide will help you restrict access to your JobRunr dashboard using an anonymous authentication. Easily and quickly define authorization rules.  
 tags:
     - Auth
     - JobRunr Pro
 draft: true
 ---
-JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and nd its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
+JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
 
 ## Prerequisites
-- JobRunr Pro 6.2.4
+- JobRunr Pro 6.2.4 or later
 - You already know how to configure JobRunr
 
 ## What is an `AnonymousAuthenticationProvider`
@@ -117,7 +117,7 @@ In the code snippet above, we imported the `AnonymousAuthenticationProvider` cla
 
 ## Limitations
 
-It's important to be aware of a limitation when using Anonymous Authentication with JobRunr Pro. The setup discussed in this guide requires that the JobRunr instance be restarted to update the authorization rules. This means that if you need to modify or fine-tune the access control rules dynamically, you will need to restart your JobRunr application.
+It's important to be aware of a limitation when using Anonymous Authentication with JobRunr Pro. The setup discussed in this guide requires that the JobRunr instance be restarted to update the authorization rules. This means that if you need to modify or fine-tune the access control rules, you will need to restart your JobRunr application.
 
 While this limitation may not be a significant issue for many scenarios, it's essential to plan accordingly if your application requires frequent changes to authorization rules. Restarting the JobRunr instance may lead to brief downtime or disruption in background job processing.
 
