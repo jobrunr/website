@@ -1,36 +1,40 @@
 ---
-title: Secure your JobRunr Dashboard with Anonymous Authentication
-description: This guide will help you restrict access to your JobRunr dashboard using an anonymous authentication. Easily and quickly define authorization rules.  
+title: Create and schedule jobs with JobRunr using only a Java lambda
+description: This guide will explain you how to setup JobRunr and explore how to enqueue and schedule jobs using only a Java 8 lambda.  
+weight: 20
 tags:
-    - Auth
-    - JobRunr Pro
+    - JobRunr
+    - Java 8 lambda
 draft: true
 ---
-JobRunr Pro allows to define a set of rules to restrict the access to the [Dashboard]({{< ref "/dashboard" >}} "Dashboard documentation") and its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
+In this guide, we will learn how to:
+- setup JobRunr
+- learn how to enqueue and schedule a job in vanilla Java or your favorite web framework
+- monitor your jobs using the built-in dashboard
+
 
 ## Prerequisites
 - JobRunr Pro 6.4.0 or later
-- You already know how to configure JobRunr
 
-## What is an `AnonymousAuthenticationProvider`
-The `AnonymousAuthenticationProvider` is a simple authentication provider that defines a `null` user but allows you to specify authorization rules that are checked when visiting the dashboard and for every access to the REST API endpoints. This provider is primarily used for backward compatibility, as the previous behavior granted unrestricted access to all users, whether authenticated or not.
+## What is JobRunr
+[JobRunr](https://github.com/jobrunr/jobrunr) is a library that we can embed in our application and which allows us to schedule background jobs using a Java 8 lambda. We can use any existing method of our Spring services to create a job without the need to implement an interface. A job can be a short or long-running process, and it will be automatically offloaded to a background thread so that the current web request is not blocked.
 
-You may use this authentication provider to easily restrict access to specific resources. A good use-case is when your dashboard is only accessible in your internal network but you want to restrict read access to jobs for security reasons. It could also be that your dashboard is publicly available in which case you probably want to forbid updates (e.g., requeue or delete jobs, pause or trigger recurring jobs, etc.).
+To do its job (pun intended 😅), JobRunr analyses the Java 8 lambda. It serializes it as JSON, and stores it into either a relational database or a NoSQL data store.
 
-## Setting authorization rules using `AnonymousAuthenticationProvider`
-JobRunr Pro's default setting is an `AnonymousAuthenticationProvider` with `allowAll` authorization rules. If this aligns with your requirements, no further action is needed.
+## Setup
+### Maven dependency
+Let’s jump straight to the Java code. But before that, we need to have the following Maven dependency declared in our pom.xml file:
 
-> Note: you can also `denyAll` access using `AnonymousAuthenticationProvider` but this is typically more suitable for a multi-user setting. Instead you should disable the dashboard.
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr-spring-boot-starter</artifactId>
+    <version>6.4.0</version>
+</dependency>
+```
 
-Now, let's configure JobRunr to:
-
-1. Allow `read-only` access to the dashboard.
-2. Allow viewing and controlling recurring jobs (e.g., `pause`, `resume`, `trigger`, and `edit schedule expressions`).
-
-### Making the dashboard read-only
-To make your JobRunr dashboard read-only, modify your configuration as follows:
-
-> This configuration is only suitable when your jobs do not expose confidential data.
+### JobRunr Configuration
+Before we jump straight to how to create background jobs, we need to initialize JobRunr. As we’re using the jobrunr-spring-boot-starter dependency, this is easy. We only need to add some properties to the application.properties:
 
 {{< codetabs >}}
 {{< codetab type="fluent-api" label="Fluent API" >}}
@@ -62,6 +66,22 @@ JobRunrPro
         // ...
 {{< /codetab >}}
 {{< /codetabs >}}
+
+JobRunr Pro's default setting is an `AnonymousAuthenticationProvider` with `allowAll` authorization rules. If this aligns with your requirements, no further action is needed.
+
+> Note: you can also `denyAll` access using `AnonymousAuthenticationProvider` but this is typically more suitable for a multi-user setting. Instead you should disable the dashboard.
+
+Now, let's configure JobRunr to:
+
+1. Allow `read-only` access to the dashboard.
+2. Allow viewing and controlling recurring jobs (e.g., `pause`, `resume`, `trigger`, and `edit schedule expressions`).
+
+### Making the dashboard read-only
+To make your JobRunr dashboard read-only, modify your configuration as follows:
+
+> This configuration is only suitable when your jobs do not expose confidential data.
+
+
 
 In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the `readOnly` method from `JobRunrUserAuthorizationRules` to set the authorization rules of the authentication provider. Launching the application with this configuration will result in a `403` for any access to endpoints that change the state of jobs, recurring jobs, or servers.
 

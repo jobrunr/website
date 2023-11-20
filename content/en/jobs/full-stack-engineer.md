@@ -3,7 +3,7 @@ title: "Junior Full Stack Engineer at JobRunr"
 summary: "Help shape us the future of JobRunr and contribute to open-source software!"
 translationKey: "java-developer"
 skip_meta: true
-date: 2023-08-11T11:12:23+02:00
+date: 2025-08-11T11:12:23+02:00
 ---
 
 ## Job Description

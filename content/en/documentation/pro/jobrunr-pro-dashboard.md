@@ -64,13 +64,11 @@ Once configured, JobRunr will work with the contentpath configured by you - e.g.
 ## Restrict access using OpenID authentication
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} {{< label >}}Preview{{< /label >}}
 
-JobRunr Pro Enterprise adds the possibility to protect the dashboard using OpenId authentication and is currently available for a select number of customers as it is in preview.
+JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...). It is currently available for a select number of customers as it is in preview.
 
 To configure it, use the following settings:
 ```
-org.jobrunr.dashboard.openid-authentication.provider=keycloak # one of keycloak, google, okta or springauthorizationserver
 org.jobrunr.dashboard.openid-authentication.openid-configuration-url=http://localhost:8080/realms/master/.well-known/openid-configuration
-org.jobrunr.dashboard.openid-authentication.openid-base-url=http://localhost:8000/
 org.jobrunr.dashboard.openid-authentication.client-id=client-id # the clientId that is configured in your OpenID Authorization server
 org.jobrunr.dashboard.openid-authentication.client-secret=client-secret # the client secret that is configured in your OpenID Authorization server
 ```
