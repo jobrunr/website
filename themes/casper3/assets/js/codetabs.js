@@ -1,4 +1,5 @@
-document.addEventListener('DOMContentLoaded', () => {  
+document.addEventListener('DOMContentLoaded', () => {
+    const tabsContainer = document.querySelectorAll(".tab-container");
     const contents = document.querySelectorAll(".tab-container .tabpanel");
     const tabs = document.querySelectorAll(".tab-container .nav-tabs li");
 
@@ -11,12 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }); 
     }
 
+    const removeActive = (nextTabType) => {
+        tabsContainer.forEach(tabContainer => {
+            const activeTab = tabContainer.querySelector(".nav-tabs li.active");
+            if(!activeTab) return;
+            const nextActiveTab = tabContainer.querySelector(`.nav-tabs li[data-type="${nextTabType}`);
+            if(!nextActiveTab) return;
+            activeTab.classList.remove("active");
+            tabContainer.querySelector(".tabpanel.active")?.classList.remove("active");
+        })
+    }
+
     tabs.forEach((tab) => {  
         tab.addEventListener('click', () => {  
             const tabType = tab.getAttribute('data-type');
             
-            tabs.forEach(t => t.classList.remove('active'));  
-            contents.forEach(c => c.classList.remove('active'));
+            removeActive(tabType);
             
             setActive(tabType);
         });  
