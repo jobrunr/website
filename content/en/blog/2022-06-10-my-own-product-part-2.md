@@ -105,7 +105,7 @@ Thanks [Sazzadul](https://github.com/sazzad16), for helping me with the Redis in
 Thanks [Dat](https://github.com/datnguyen293), [Pat](https://github.com/patkujawa-wf) and [David](https://github.com/dmurphy-ambra), for believing in the product and your awesome feedback.<br/>
 
 
-__And off-course all the contributors:__<br>
+__And of course all the contributors:__<br>
 Thanks [Eddú](https://github.com/eddumelendez), for the help with the awesome TestContainers!<br/>
 Thanks [Gilberto](https://github.com/gilberto-p-matos), for the great discussion and PR you created.<br/>
 Thanks [Dawie](https://github.com/dawiemalan), for adding support for interval in the `@Recurring` annotation.<br/>

@@ -156,7 +156,7 @@ BackgroundJobRequest.create(jobStream);
 
 This allows for nice integration with the Spring Data framework which can return Java 8 Streams - this way, items can be processed incrementally and the entire database must not be put into memory.
 
-Off-course the above methods to enqueue jobs can also be done using the JobScheduler bean.
+Of course the above methods to enqueue jobs can also be done using the JobScheduler bean.
 
 <figure>
 

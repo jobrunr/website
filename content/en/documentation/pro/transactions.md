@@ -39,6 +39,6 @@ Thanks to the @Transactional support, the whole method - including the job sched
 - if one is present, it is used and the whole method is transactional.
 - if not, JobRunr creates it's own transaction to make sure the job is saved to the database. 
 
-> This off-course only works for the SQL `StorageProvider`s.
+> This of course only works for the SQL `StorageProvider`s.
 
 {{< trial-button >}}

@@ -30,6 +30,6 @@ public void startImportingFilesIfPresent() {
 <figcaption>All of the above jobs will be gone from your database 20 minutes after they succeeded!</figcaption>
 </figure>
 
-Off-course, you can read all about it in the [JobRunr Pro documentation]({{<ref "/documentation/pro/custom-delete-policy.md">}}).
+Of course, you can read all about it in the [JobRunr Pro documentation]({{<ref "/documentation/pro/custom-delete-policy.md">}}).
 
 Stay tuned as there will be quite some new [JobRunr Pro]({{<ref "/documentation/pro/_index.md">}}) features coming up...

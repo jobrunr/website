@@ -11,7 +11,7 @@ menu:
 ---
 JobRunr includes a built-in dashboard which gives helpful insights into your background job methods. The dashboard allows you to see and control any aspect of background job processing - you have a detailed view on any exception that occurred and you can see the complete background job history.
 
-By default, it is available on the following url: [http://localhost:8000](http://localhost:8000). Off-course, this is configurable:
+By default, it is available on the following url: [http://localhost:8000](http://localhost:8000). Of course, this is configurable:
 
 __Using fluent configuration__
 <figure>

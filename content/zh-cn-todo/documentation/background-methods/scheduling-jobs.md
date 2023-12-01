@@ -30,7 +30,7 @@ The `BackgroundJob.schedule` methods has overloads and accepts:
 
 All DateTime objects are converted to an `Instant` - in case of the `LocalDateTime`, the systemDefault zoneId is used to convert it.
 
-These scheduling methods are also off-course available on the `JobScheduler` bean.
+These scheduling methods are also of course available on the `JobScheduler` bean.
 
 <figure>
 

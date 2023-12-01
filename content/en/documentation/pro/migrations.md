@@ -54,7 +54,7 @@ JobRunrPro
 ```
 <figcaption>
 
-You can easily update jobs that do not exist anymore in your code via the scheduledJobUpdater class. Off-course, you can also add, remove and even update parameters from your old jobs.
+You can easily update jobs that do not exist anymore in your code via the scheduledJobUpdater class. Of course, you can also add, remove and even update parameters from your old jobs.
 </figcaption>
 </figure>
 

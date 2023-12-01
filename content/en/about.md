@@ -24,4 +24,4 @@ VAT BE 0807596165<br />
 TEL <a href="tel:+32487717535">+32 487 717 535</a><br />
 
 ## Credits
-JobRunr would not have existed without some other projects and I off-course want to give them [credit where credit is due]({{< ref "credits.md" >}}).
+JobRunr would not have existed without some other projects and I of course want to give them [credit where credit is due]({{< ref "credits.md" >}}).

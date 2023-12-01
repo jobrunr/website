@@ -80,7 +80,7 @@ public void sendWelcomeEmail(Long userId) {
 <br/>
 
 ### Do not catch Throwable!
-If your background job method catches `java.lang.Exception` or `java.lang.Throwable` and this exception is not rethrown, JobRunr is off-course not aware that something went wrong and thinks the job finished successfully. 
+If your background job method catches `java.lang.Exception` or `java.lang.Throwable` and this exception is not rethrown, JobRunr is of course not aware that something went wrong and thinks the job finished successfully. 
 
 > Never catch `Exception` or `Throwable` - JobRunr will take care of it for you!
 
