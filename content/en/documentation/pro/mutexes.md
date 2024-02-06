@@ -48,13 +48,13 @@ Mutexes can also take into account job parameters. In the example below, we have
 <figure>
 
 ```java
-public void scanForVirusses(File folder) {
+public void scanForViruses(File folder) {
     for(String f : folder.list()) {
-        scanForVirusses(f);
+        scanForViruses(f);
     }
 }
 
-public void scanForVirusses(String file) {
+public void scanForViruses(String file) {
     BackgroundJob.enqueue(() -> osSpecificVirusScan("LINUX", file));
     BackgroundJob.enqueue(() -> osSpecificVirusScan("WINDOWS", file));
     BackgroundJob.enqueue(() -> osSpecificVirusScan("MACOS", file));
