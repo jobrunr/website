@@ -12,7 +12,7 @@ menu:
 ---
 {{< trial-button >}}
 
-A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex` is free.
+A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex`.
 
 
 ## Usage via `@Job` annotation
