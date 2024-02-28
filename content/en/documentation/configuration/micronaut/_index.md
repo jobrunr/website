@@ -73,7 +73,7 @@ jobrunr:
   background-job-server:
     enabled: false
     worker-count: #this value normally is defined by the amount of CPU's that are available
-    poll-interval: 15 #check for new work every 15 seconds
+    poll-interval-in-seconds: 15 #check for new work every 15 seconds
     delete-succeeded-jobs-after: 36
     permanently-delete-deleted-jobs-after: 72
     metrics:
