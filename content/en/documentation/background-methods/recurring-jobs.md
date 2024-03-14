@@ -20,9 +20,12 @@ On this page you can learn about:
 - [Create a recurring job using an Interval](#using-an-interval)
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
-- [Important remarks!](#important-remarks)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Advanced Cron Expressions](#advanced-cron-expressions)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom Recurring Job Schedules](#custom-recurring-job-schedules)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Concurrent recurring jobs](#concurrent-recurring-jobs)
+- [Important remarks!](#important-remarks)
 
 
 > Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in JobRunr Pro!
@@ -173,11 +176,61 @@ The methods above will create a new recurring job if no recurring job with that 
 ## Deleting recurring jobs
 You can remove an existing recurring job either via the dashboard or by calling the `BackgroundJob.delete` method with the id of the recurring job. It does not throw an exception when there is no such recurring job.
 
+## Pause and Resume recurring jobs
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
+
+## Advanced CRON Expressions
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+Do you need to run recurring jobs on some special moments like the first business day of the month or the last business day of the month? JobRunr Pro has a CRON expression parser on steroids and supports your really complex schedule requirements.
+
+### `L` character
+`L` stands for "last". When used in the day-of-week field, it allows specifying constructs such as "the last Friday" (`5L`) of a given month. In the day-of-month field, it specifies the last day of the month.
+
+__Some examples:__
+- `0 0 * * 5L`: midnight the last Friday of each month
+- `0 0 * 2 1L`: midnight the last Monday of each February
+- `0 0 L *  *`: midnight the last day of each month
+- `0 0 L 2  *`: midnight the last day of each February
+
+### `#` character
+`#` is allowed for the day-of-week field, and must be followed by a number between one and five. It allows specifying constructs such as "the second Friday" of a given month.
+
+__Some examples:__
+- `0 0 * * 1#1`: midnight the first Monday of each month
+- `0 0 * 1 1#1`: midnight the first Monday of each January
+- `0 0 * * 5#3`: midnight the third Friday of each month
+
+### `W` character
+The `W` character is allowed for the day-of-month field. This character is used to specify the weekday (Monday-Friday) nearest the given day. As an example, if "15W" is specified as the value for the day-of-month field, the meaning is: "the nearest weekday to the 15th of the month." So, if the 15th is a Saturday, the trigger fires on Friday the 14th. If the 15th is a Sunday, the trigger fires on Monday the 16th. If the 15th is a Tuesday, then it fires on Tuesday the 15th. However, if "1W" is specified as the value for day-of-month, and the 1st is a Saturday, the trigger fires on Monday the 3rd, as it does not 'jump' over the boundary of a month's days. The 'W' character can be specified only when the day-of-month is a single day, not a range or list of days.
+
+__Some examples:__
+- `0 0 1W * *`: midnight the first Monday of each month
+- `0 0 1W+2 * *`: midnight 2 days after the first Monday of each month
+- `0 0 20W * *`: midnight on the 20th or the closest workday to the 20th
+
+## Custom Recurring Job Schedules
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+
+Do you have really complex recurring job schedule? Just extend the class `org.jobrunr.scheduling.custom.CustomSchedule` and implement one method where you provide the next `java.time.Instant` your job should run. For example:
+
+<figure>
+
+```java
+@Recurring(id = "my-recurring-job", customSchedule = "com.project.services.MySchedule(2025-01-01T01:00:00.000Z,2026-01-01T01:00:00.000Z,2027-01-01T01:00:00.000Z)")
+public void myRecurringMethod(JobContext jobContext) {
+    System.out.print("My recurring job method");
+}
+```
+<figcaption>JobRunr will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.</figcaption>
+</figure>
+
 
 ## Recurring jobs missed during downtime
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 
 If for some reason all of your servers are down (e.g. deploying a new version / scheduled down time / ...), JobRunr OSS skips these recurring jobs: as there is no background job server running, it will not be able to schedule these recurring jobs.
+
 
 __JobRunr Pro improves this and adds the capability to catch up all of the skipped recurring jobs__: for each run that was skipped during the downtime for a certain recurring job, it will schedule a job.
 
