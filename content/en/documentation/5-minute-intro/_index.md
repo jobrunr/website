@@ -1,6 +1,7 @@
 ---
 title: "5 minute intro"
 subtitle: "Get started quickly using these easy examples and our comprehensive documentation!"
+keywords: ["projects", "backend module", "spring integration", "background job", "setup cluster", "jobs background", "fronted module", "enqueue"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

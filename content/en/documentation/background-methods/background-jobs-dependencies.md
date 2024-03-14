@@ -1,6 +1,7 @@
 ---
 title: "Background job dependencies"
 subtitle: "Use any IoC container to inject dependencies into your background job service classes."
+keywords: ["tldr", "ioc container", "inject dependencies", "dependencies", "dependencies", "dependency in java", "dependency injection example"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

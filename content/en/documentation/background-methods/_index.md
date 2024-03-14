@@ -1,6 +1,7 @@
 ---
 title: "Background methods"
 subtitle: "Background jobs in JobRunr are just Java 8 lambda's - easy peasy!"
+keywords: ["dashboard", "best practices", "scheduling jobs", "recurring jobs", "free job scheduler", "jobrunr dashboard", "java function as parameter", "java args"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

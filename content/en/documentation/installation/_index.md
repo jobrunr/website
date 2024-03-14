@@ -1,6 +1,7 @@
 ---
 title: "Installation"
 subtitle: "Installation in your application is simple as JobRunr is published on Maven Central"
+keywords: ["jobrunr instalation", "maven central", "jobrunr via maven", "spring framework", "sql databases", "spring boot", "java spring boot", "java spring", "spring boot versions", "java springboot", "java springboot"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

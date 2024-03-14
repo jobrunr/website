@@ -2,6 +2,8 @@
 
 If you see a typo, do not hesitate to create a pull request.
 
+## How to run locally
+hugo server -D
 
 
 #### How to get scss working in Hugo

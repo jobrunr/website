@@ -1,6 +1,7 @@
 ---
 title: "JobRunr Pro"
 subtitle: "Add some steroids to JobRunr to support your difficult business processes."
+keywords: ["observability", "batches", "server tags", "dynamic queues", "priority queues", "Workflows using Job Chains", "Advanced CRON expressions", "Server Tags", "real time scheduling", "enqueueing", "workflows"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
