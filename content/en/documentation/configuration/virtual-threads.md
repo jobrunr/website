@@ -8,9 +8,8 @@ menu:
     parent: 'configuration'
     weight: 21
 ---
-{{< trial-button >}}
 
-[Virtual threads](https://openjdk.org/jeps/444) are lightweight threads finalized in JDK 21. The introduction of virtual threads allows programs to use a large number of threads, by abstracting the physical limitations.
+[Virtual threads](https://openjdk.org/jeps/444) are lightweight threads finalized in JDK 21. The introduction of virtual threads allows programs to use a large number of threads as the physical limitations are abstracted by the JVM.
 
 A virtual thread only consumes an OS thread while performing calculations on the CPU, the OS thread is freed when performing a blocking I/O operation. This allows for an increased throughput as other virtual threads can execute while some are waiting due to I/O operations.
 
@@ -26,5 +25,3 @@ Below are different ways to configure JobRunr to use either of those type of thr
 org.jobrunr.background-job-server.thread-type=PlatformThreads
 #or org.jobrunr.background-job-server.thread-type=VirtualThreads
 ```
-
-{{< trial-button >}}
