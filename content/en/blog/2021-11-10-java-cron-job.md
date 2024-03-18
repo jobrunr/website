@@ -30,7 +30,7 @@ The CRON time string format exists of five fields that the CRON scheduler conver
 
 ### How to run a CRON job in Java?
 Today, you have several possibilities to run CRON jobs in Java: 
-- there is off-course Quartz Scheduler
+- there is of course Quartz Scheduler
 - Spring framework has support for scheduled jobs using the `@Scheduled` annotation
 - and since JobRunr is now also in the picture, you can use JobRunr to run CRON jobs in Java.
 

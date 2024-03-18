@@ -2,6 +2,7 @@
 version: "pro"
 title: "Server Tags"
 subtitle: "Server Tags allow you to filter jobs by certain tags so that they are only run on specific servers."
+keywords: ["server tags", "filter jobs", "spring configuration", "tag server", "spring config"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

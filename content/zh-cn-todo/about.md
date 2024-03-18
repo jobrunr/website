@@ -16,4 +16,4 @@ With JobRunr, I hope to solve all that.
 <img src="/eco-friendly.webp" style="float: left; height: 120px; margin: 5px 20px 0 0"/>As I live by the mindset *__we only borrow the world from our children__*, I want to make sure that JobRunr is as eco-friendly as possible. Thats why all the power that runs the build server and website is powered by my own PV installation and for each license JobRunr sells, I will make sure that some extra trees are planted via *[#teamtrees](https://teamtrees.org/)* in the hope to keep our planet as beautiful as it was when I entered on it. I challenge other companies to also spend 5% of their revenue to charitable causes.
 
 ## Credits
-JobRunr would not have existed without some other projects and I off-course want to give them [credit where credit is due]({{< ref "credits.md" >}}).
+JobRunr would not have existed without some other projects and I of course want to give them [credit where credit is due]({{< ref "credits.md" >}}).

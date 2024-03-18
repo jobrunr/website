@@ -2,6 +2,7 @@
 version: "pro"
 title: "Issue Tracking Integration"
 subtitle: "JobRunr Pro integrates with your existing issue tracking software so your developer can save time and do what they do best"
+keywords: ["issue tracking", "issue tracking software", "github issues", "jira issues", "job failure", "issue tracking system", "jira issue tracking", "best issue tracking software", "jira issue tracking system", "it issue tracking software", "github bug tracking", "jira bug tracking", "issue tracking in jira", "jira and github issues", "jira to github issues", "github issue time tracking"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

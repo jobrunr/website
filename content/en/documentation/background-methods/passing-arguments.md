@@ -1,6 +1,7 @@
 ---
 title: "Passing arguments"
 subtitle: "Pass arguments to background jobs - just like any other normal method invocation."
+keywords: ["passing arguments", "jobrequest", "java function as parameter", "java args parameters", "java args", "pass arguments to background jobs", "java passing arguments"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

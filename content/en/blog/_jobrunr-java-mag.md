@@ -4,7 +4,7 @@ translationKey: "2020-10-22-jobrunr-java-mag"
 summary: "A guide on how to run background jobs in Spring with JobRunr"
 feature_image: /blog/2020-04-08-get-shit-done.webp
 aspect_ratio: 1;
-date: 2020-10-22T11:12:23+02:00
+date: 2120-10-22T11:12:23+02:00
 author: "Ronald Dehuysser"
 draft: true
 tags:
@@ -77,7 +77,7 @@ Now that we have our dependencies injected, we can create fire-and-forget jobs u
 jobScheduler.enqueue(() -> sampleJobService.executeSampleJob());
 ```
 
-Jobs can off-course have parameters, just like any other lambda.
+Jobs can of course have parameters, just like any other lambda.
 
 ```java
 jobScheduler.enqueue(() -> sampleJobService.executeSampleJob("some string"));

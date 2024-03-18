@@ -1,6 +1,7 @@
 ---
 title: "Dealing with exceptions"
 subtitle: "Bad things happen - but JobRunr has everything covered thanks to the RetryFilter!"
+keywords: ["exceptions", "programming errors", "exception handling in java", "exception handling example in java", "exception java example", "exception in java example", "dealing with exceptions"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -26,7 +27,7 @@ In the previous paragraph it is mentioned that JobRunr will __try__ to change th
 This filter is applied globally to all methods and has 10 retry attempts by default. So, your methods will be retried in case of exception automatically, and you receive warning log messages on every failed attempt. If retry attempts exceeded their maximum, the job will stay in the Failed state (with an error log message), and you will be able to retry it manually.
 
 ## Configuration
-You can off-course configure how many retries JobRunr will do by default.
+You can of course configure how many retries JobRunr will do by default.
 
 - [Default retry policy configuration](#default-retry-policy-configuration)
 - [Per Job](#per-job)

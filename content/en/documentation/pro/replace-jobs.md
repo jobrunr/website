@@ -2,7 +2,7 @@
 version: "pro"
 title: "Replacing jobs"
 subtitle: "Is your job running with outdated information? Then just replace it..."
-keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]
+keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk", "outdated information", "replacing jobs", "running with outdated information"]
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 

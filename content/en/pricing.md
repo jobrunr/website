@@ -23,7 +23,7 @@ menu:
         });
 </script>
 
-Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "priority-queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in faster time to market.
+Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "priority-queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in [cost reductions](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos) and faster time to market.
 
 <div style="text-align: center; margin: -2rem 0 3rem 0;">
     {{< trial-button >}}
@@ -31,7 +31,6 @@ Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pr
         <span>Contact us!</span>
     </a>
 </div>
-
 
 <div class="plan-container">
 
@@ -110,7 +109,7 @@ Everything in JobRunr OSS plus:
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none;'>4950 <span class="currency-holder">$</span></strong>
+<strong style='color: #3eb0ef;text-decoration: none;'>7950 <span class="currency-holder">$</span></strong>
 _per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro">BUY NOW</a>
@@ -173,6 +172,21 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 </div>
 
 <br>
+
+<h3>Why get a Pro license?</h3>
+
+Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Is your business building infrastructure or *user functionality*? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To found out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
+
+JobRunr Pro has lots of **really valuable, well-documented, well-tested** features. You can reproduce some of this functionality with 3rd party open source libraries but:
+
+- Will they be supported years from now?
+- Will they work with newer versions of Java, or Spring Boot?
+- Will they get a steady stream of updates to fix bugs? What about security fixes?
+- How many days or weeks will it take you to integrate everything together and test it?
+
+All of the JobRunr Pro and Enterprise functionality is designed to integrate and work well together. You can spend days or weeks integrating various OSS gems or you can take a Pro license for more features and be up & running in minutes.
+
+
 
 <h3>Our preferred reseller</h3>
 <a href="https://www.softwareone.com/en" target="_blank" rel="noreferrer" style="box-shadow: none; margin-right: auto;"><img width="200px" src="https://sc102-prod-cd.azurewebsites.net/-/media/images/logos/softwareone-logo-blk.svg?iar=0&hash=6A277FF39328B4D79A071F4A9F95F301"/></a>

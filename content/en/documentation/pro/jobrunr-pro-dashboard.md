@@ -2,6 +2,7 @@
 version: "pro"
 title: "JobRunr Pro Dashboard"
 subtitle: "The backoffice to your code!"
+keywords: ["proxy", "set proxy in spring boot application", "spring boot set proxy", "dashboard server", "gdpr compliant", "openid authentication"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

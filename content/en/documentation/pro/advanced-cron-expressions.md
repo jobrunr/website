@@ -2,6 +2,7 @@
 version: "pro"
 title: "Advanced CRON expressions"
 subtitle: "The advanced CRON expression parser of JobRunr Pro supports your most difficult scheduling requirements."
+keywords: ["cron", "cron expression", "cron job expression", "cron job scheduling", "cron format", "cron examples", "cron examples", "a cron job", "cron expression example", "cron schedule expressions", "cron exp"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

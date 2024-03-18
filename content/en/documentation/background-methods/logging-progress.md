@@ -1,6 +1,7 @@
 ---
 title: "Logging & job progress"
 subtitle: "Watch your job progress thanks to live updates"
+keywords: ["logging jobs", "job progress", "job logging", "mapped diagnostic context", "mdc", "progress bar", "job logger"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

@@ -74,7 +74,7 @@ Now that we have our dependencies injected, we can create fire-and-forget jobs u
 jobScheduler.enqueue(() -> sampleJobService.executeSampleJob());
 ```
 
-Jobs can off-course have parameters, just like any other lambda.
+Jobs can of course have parameters, just like any other lambda.
 
 ```java
 jobScheduler.enqueue(() -> sampleJobService.executeSampleJob("some string"));

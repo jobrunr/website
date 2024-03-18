@@ -19,7 +19,7 @@ tags:
 </style>
 
 ### We're so proud!
-As a proud developer of JobRunr (🙏 and off-course thank you to all the different contributors 🙏), I am thrilled to announce that our open-source SDK has processed more than **10 billion jobs successfully** in less than a year! This remarkable achievement is a testament to the power, flexibility, and battle-tested reliability of JobRunr. 
+As a proud developer of JobRunr (🙏 and of course thank you to all the different contributors 🙏), I am thrilled to announce that our open-source SDK has processed more than **10 billion jobs successfully** in less than a year! This remarkable achievement is a testament to the power, flexibility, and battle-tested reliability of JobRunr. 
 
 ### But, how do you know this?
 But before we dive into the impressive numbers, let's discuss the motivations behind JobRunr's anonymous usage data collection. Since the release of JobRunr 5.1, we have started capturing anonymous usage data. While it may seem like an invasion of privacy, the only reason for this is marketing. We hope that by sharing these impressive usage statistics, users will not only appreciate the work that goes into maintaining and improving JobRunr as an open-source library (and all the support we provide with it) but also are encouraged to upgrade to the Pro version, supporting the continued development of this fantastic tool 🙌.

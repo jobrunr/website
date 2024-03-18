@@ -486,7 +486,7 @@ org.jobrunr.dashboard.enabled=true # if you want to enable the dashboard
 Now you can inject the `JobScheduler` bean and create or schedule any job!
 
 ## Ooh yeah, there is one more thing... an awesome dashboard!
-Did you know that JobRunr also comes with a built-in dashboard that allows you to monitor all your jobs and the servers that participate in Job Processing? Well, off-course there is! 
+Did you know that JobRunr also comes with a built-in dashboard that allows you to monitor all your jobs and the servers that participate in Job Processing? Well, of course there is! 
 
 <figure>
 <img src="/documentation/jobs-enqueued.webp" class="kg-image">

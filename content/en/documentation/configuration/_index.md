@@ -1,5 +1,6 @@
 ---
 title: "Configuration"
+keywords: ["configuration", "fluent api", "spring boot starter", "quarkus extension", "processing jobs", "managing jobs", "spring starter", "configuration java", "configure spring boot", "spring boot configuration", "spring boot java configuration", "spring application configuration", "spring server configuration"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

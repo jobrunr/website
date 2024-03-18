@@ -1,7 +1,7 @@
 ---
 title: "Scheduling jobs"
 subtitle: "Schedule jobs in the future and monitor them using the dashboard."
-keywords: ["schedule", "java background job", "java schedule method", "java schedule background job"]
+keywords: ["schedule", "scheduling", "scheduler", "java schedule method", "java schedule background job", "monitor jobs", "execute jobs", "by default", "job scheduling system", "batch scheduler", "batch scheduling", "best job scheduler", "task scheduling system", "task scheduler", "cron job", "task scheduling system"]
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -44,7 +44,7 @@ The `BackgroundJob.schedule` methods has overloads and accepts:
 
 All DateTime objects are converted to an `Instant` - in case of the `LocalDateTime`, the systemDefault zoneId is used to convert it.
 
-All of the above methods are off-course also available on the `JobScheduler` bean and the `JobRequestScheduler`.
+All of the above methods are of course also available on the `JobScheduler` bean and the `JobRequestScheduler`.
 
 <figure>
 

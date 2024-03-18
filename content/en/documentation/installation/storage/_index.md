@@ -28,18 +28,24 @@ If however you do not want to give the JobRunr DataSource DDL rights, you can ea
 ###### Run the DatabaseCreator
 The DatabaseCreator class allows you to create the necessary tables using a terminal. You must provide a user that has DDL rights.
 
+<div class="terminal">
+
 ```
-java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
+java -cp jobrunr-${jobrunr.version}.jar:slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
 ```
+</div>
 
 If the command succeeds, a confirmation message will be shown.
 
 ###### Apply the SQL scripts yourself
 To generate the sql scripts for your database so you can apply them yourself, use the following command (the files will be generated in the current directory): 
 
+<div class="terminal">
+
 ```
-java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
+java -cp jobrunr-${jobrunr.version}.jar:slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
+</div>
 
 Once you created the tables, you can configure JobRunr as follows (when using `jobrunr-spring-boot-starter`, this is not necessary):
 
@@ -72,3 +78,12 @@ org.jobrunr.database.tablePrefix: MY_SCHEMA.
   > Note: the Redis StorageProvider is still in BETA and not yet recommended for production use.
 - __InMemory__ - JobRunr comes with an InMemoryStorageProvider, which is ideal for lightweight tasks that are server-instance specific and where persistence is not important. Note that if you use the `InMemoryStorageProvider`, you can not scale horizontally as the storage is not shared.
   - use the `InMemoryStorageProvider` for in-memory support
+
+<script type="text/javascript">
+  if (window.navigator.userAgent.indexOf("Win") != -1) {
+    const nodeList = document.querySelectorAll("div.terminal");
+    for (let i = 0; i < nodeList.length; i++) {
+      nodeList[i].innerHTML = nodeList[i].innerHTML.replace(':', ';');
+    }
+  }
+</script>

@@ -2,6 +2,7 @@
 version: "pro"
 title: "Transaction plugin"
 subtitle: "Enjoy support for @Transactional out of the box in your preferred development framework"
+keywords: ["Transactional", "database transaction", "transaction it", "transaction in a database", "transaction sql"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -39,6 +40,6 @@ Thanks to the @Transactional support, the whole method - including the job sched
 - if one is present, it is used and the whole method is transactional.
 - if not, JobRunr creates it's own transaction to make sure the job is saved to the database. 
 
-> This off-course only works for the SQL `StorageProvider`s.
+> This of course only works for the SQL `StorageProvider`s.
 
 {{< trial-button >}}

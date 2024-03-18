@@ -2,6 +2,7 @@
 version: "pro"
 title: "Job Filters"
 subtitle: "Extend JobRunr with extra business processes using Job Filter Beans"
+keywords: ["job filters", "filters", "job filter beans", "sprig job filter", "micronaut job filter", "quarkus job filter"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

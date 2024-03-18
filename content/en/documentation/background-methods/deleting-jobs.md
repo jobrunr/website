@@ -1,7 +1,7 @@
 ---
 title: "Deleting jobs"
 subtitle: "Cancel any job, whether it is scheduled, enqueued or already processing"
-keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]
+keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk", "job cancellation", "deleting jobs", "cancel job"]
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 

@@ -2,6 +2,7 @@
 version: "pro"
 title: "Batches"
 subtitle: "Batches allow you to create a bunch of background jobs atomically"
+keywords: ["batches", "complex workflows", "batch chain"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

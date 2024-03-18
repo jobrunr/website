@@ -67,6 +67,7 @@ org.jobrunr.database.datasource= # allows to specify a DataSource specifically f
 org.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
 org.jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job
 org.jobrunr.jobs.retry-back-off-time-seed=3 #the default time seed for the exponential back-off policy.
+org.jobrunr.jobs.metrics.enabled=false #Micrometer integration - this was true in v5.
 org.jobrunr.job-scheduler.enabled=true
 org.jobrunr.background-job-server.enabled=false
 org.jobrunr.background-job-server.worker-count= #this value normally is defined by the amount of CPU's that are available
