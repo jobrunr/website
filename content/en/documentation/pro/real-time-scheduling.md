@@ -2,6 +2,7 @@
 version: "pro"
 title: "Real-time scheduling and enqueueing"
 subtitle: "Do you have strict timing requirements? JobRunr Pro has you covered!"
+keywords: ["real time scheduling", "sheduling", "real time enqueueing", "enqueueing", "strict timing requirements", "fetch jobs", "fetch all jobs"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

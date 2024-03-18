@@ -2,6 +2,7 @@
 version: "pro"
 title: "Database Fault Tolerance"
 subtitle: "Keep your jobs running - even in a volatile infrastructure landscape."
+keywords: ["database fault tolerance", "fault tolerance", "master node", "zombie jobs", "fault tolerance server", "availability and fault tolerance", database fault"]
 date: 2021-06-24T11:12:23+02:00
 layout: "documentation"
 menu: 

@@ -1,6 +1,7 @@
 ---
 title: "Dealing with exceptions"
 subtitle: "Bad things happen - but JobRunr has everything covered thanks to the RetryFilter!"
+keywords: ["exceptions", "programming errors", "exception handling in java", "exception handling example in java", "exception java example", "exception in java example", "dealing with exceptions"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

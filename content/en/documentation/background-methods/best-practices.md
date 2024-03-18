@@ -1,6 +1,7 @@
 ---
 title: "Best practices"
 subtitle: "These tips will help you keep background processing running smoothly and efficiently"
+keywords: ["background processing", "tips", "throwable", "spring boot tips"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 

@@ -2,6 +2,7 @@
 version: "pro"
 title: "Dynamic Queues"
 subtitle: "Dynamic Queues - also knows as load-balancing or multi-tenancy support - guarantees some fair-use!"
+keywords: ["dynamic queues", "load balancing", "multi tenancy support", "priority queues", "multi tenant application", "types of load balancing", "multitenant application", "multi tenant system", "example of multi tenant application", "multitenant applications", "weighted round robin load balancing", "load balancer spring boot", "load balancer spring", "loadbalancing"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

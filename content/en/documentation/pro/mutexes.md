@@ -2,6 +2,7 @@
 version: "pro"
 title: "Mutexes"
 subtitle: "Mutexes in JobRunr will postpone jobs until a shared mutex is free"
+keywords: ["mutexes", "shared mutex", "shared mutexes", "mutex", "mutex in os", "postpone jobs", "mutexes job parameters"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

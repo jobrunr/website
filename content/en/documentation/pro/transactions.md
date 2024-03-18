@@ -2,6 +2,7 @@
 version: "pro"
 title: "Transaction plugin"
 subtitle: "Enjoy support for @Transactional out of the box in your preferred development framework"
+keywords: ["Transactional", "database transaction", "transaction it", "transaction in a database", "transaction sql"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

@@ -2,7 +2,7 @@
 version: "pro"
 title: "Job Result"
 subtitle: "Do you need to get the result of a job? This is now easier than ever with JobRunr JobResults"
-keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk"]
+keywords: ["enqueue", "background job", "fire and forget", "enqueue jobs in bulk", "job result", "jobresults", "return jobs", "result jobs"]
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 

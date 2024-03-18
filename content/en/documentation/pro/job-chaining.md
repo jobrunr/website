@@ -2,6 +2,7 @@
 version: "pro"
 title: "Workflows using Job Chains"
 subtitle: "Reuse existing service methods and chain jobs for cleaner code and an immediate overview of your business process"
+keywords: ["workflows", "job chains", "process workflow", "process management software", "creating workflows", "business workflow", "business workflow", "business process workflow", "workflow example", "it workflow", "example of workflow process", "workflow pro"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 

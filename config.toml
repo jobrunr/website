@@ -16,7 +16,7 @@ unsafe= true
   googleAnalyticsID = "G-J3K00HKL9D"
   gtmID = "GTM-MX5H2KM"
   enableTrialButton = false
-  enableWebinarPopup = true
+  enableWebinarPopup = false
 
 
 [params.twitterCard]
