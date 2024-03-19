@@ -7,7 +7,7 @@ date: 2020-08-27T11:12:23+02:00
 menu: 
   main: 
     identifier: pricing
-    weight: 15
+    weight: 3
 ---
 
 <script type="text/javascript">

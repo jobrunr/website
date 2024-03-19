@@ -1,9 +1,9 @@
 ---
-title: Create and schedule jobs with JobRunr using only a Java lambda
-description: This guide will explain you how to setup JobRunr and explore how to enqueue and schedule jobs using only a Java 8 lambda.  
-weight: 20
+title: Create and schedule jobs with JobRunr using a JobRequest and JobRequestHandler
+description: This guide will explain you how to setup JobRunr and explore how to enqueue and schedule jobs using the JobRequest / JobRequestHandler pattern.  
+weight: 25
 tags:
-    - Java 8 lambda
+    - JobRequest
     - Spring Boot
     - Quarkus
     - Micronaut
@@ -11,41 +11,59 @@ draft: true
 ---
 In this guide, we will learn how to:
 - setup JobRunr
-- learn how to enqueue and schedule a job in vanilla Java or your favorite web framework using only a Java 8 lambda
+- learn how to enqueue and schedule a job in vanilla Java or your favorite web framework using the `JobRequest` / `JobRequestHandler` pattern.
 - monitor your jobs using the built-in dashboard
 
 ## What is JobRunr
 ### Introduction
 [JobRunr](https://github.com/jobrunr/jobrunr) is a library that we can embed in our application and which allows us to schedule background jobs using a Java 8 lambda. We can use any existing method of our Spring services to create a job without the need to implement an interface. A job can be a short or long-running process, and it will be automatically offloaded to a background thread so that the current web request is not blocked.
 
-To do its job (pun intended 😅), JobRunr analyses the Java 8 lambda. It serializes it as JSON, and stores it into either a relational database or a NoSQL data store.
+To do its job (pun intended 😅), JobRunr can not only use a Java 8 lambda but it can also use the [`Command`](https://en.wikipedia.org/wiki/Command_pattern) / [`CommandHandler`](https://en.wikipedia.org/wiki/Command_pattern) pattern, in this case an implementation of a `JobRequest` and a `JobRequestHandler`. It serializes the `JobRequest` (consider it as a DTO) as JSON, and stores it into either a relational database or a NoSQL data store.
 
-### Creating jobs using a Job Lambda
-When we create a job by means of a Java 8 lambda, JobRunr analyzes it and finds the class, the method and all the arguments we've passed to it. Given the following class:
+### Creating jobs using the JobRequest and JobRequestHandler pattern
+When we want to enqueue or schedule a job by means of a `JobRequest` we will need to create two classes, one implementing the `JobRequest` interface and one implementing the `JobRequestHandler` interface:
+
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```java
 package com.demo.jobrunr.services;
 
-public class EmailService {
+public record SendEmailJobRequest(String to, String from, String subject, String body) implements JobRequest {
 
-    public void sendEmail(String to, String from, String subject, String body) {
-        // here you send the actual email using services like SendGrid or the SMTP service of your choice
+    @Override
+    public Class<SendEmailJobRequestHandler> getJobRequestHandler() {
+        return SendEmailJobRequestHandler.class;
     }
 
 }
 ```
 </figure>
 
-And the following lambda:
+<figure style="width: 100%; max-width: 100%; margin: 0">
+
+```java
+package com.demo.jobrunr.services;
+
+public class SendEmailJobRequestHandler implements JobRequestHandler<SendEmailJobRequest> {
+
+    @Override
+    public void run(SendEmailJobRequest jobRequest) throws InterruptedException {
+        // here you send the actual email using services like SendGrid or the SMTP service of your choice
+        // all the data will be available on the JobRequest record
+    }
+
+}
+```
+</figure>
+
+We can now create a job as follows:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```java
 public void onboardCustomer(Customer customer) {
     // ... other code like saving customer in DB
-    // send the email via a BackgroundJob
-    String customerEmail = customer.getEmailAddress();
-    BackgroundJob.enqueue(() -> emailService.sendEmail(customerEmail, "hello@jobrunr.io", "Happy you joined us!", "the email body..."));
+    // send the email via a BackgroundJobRequest
+    BackgroundJobRequest.enqueue(new SendEmailJobRequest(customer.getEmailAddress(), "hello@jobrunr.io", "Happy you joined us!", "the email body..."));
 }
 ```
 </figure>
@@ -56,25 +74,18 @@ Then JobRunr will analyze this lambda and create a JSON representation of it whi
 ```json
 {
     "cacheable": true,
-    "className": "com.demo.jobrunr.services.EmailService",
+    "className": "com.demo.jobrunr.services.SendEmailJobRequestHandler",
     "staticFieldName": null,
-    "methodName": "sendEmail",
+    "methodName": "run",
     "jobParameters": [
       {
-        "className": "java.lang.String",
-        "object": "great@customer.com"
-      },
-      {
-        "className": "java.lang.String",
-        "object": "hello@jobrunr.io"
-      },
-      {
-        "className": "java.lang.String",
-        "object": "Happy you joined us!"
-      },
-      {
-        "className": "java.lang.String",
-        "object": "the email body..."
+        "className": "com.demo.jobrunr.services.SendEmailJobRequest",
+        "object": {
+            "to": "great@customer.com",
+            "from": "hello@jobrunr.io",
+            "subject": "Happy you joined us!",
+            "body": "the email body..."
+        } 
       }
     ]
 }
@@ -201,30 +212,28 @@ We can now start using JobRunr by means of the `BackgroundJob`:
 public class Main {
     public static void main(String[] args) throws Exception {
         // ... 
-        BackgroundJob.enqueue(() -> System.out.println("This is a background job!"));
+        BackgroundJobRequest.enqueue(new SysOutJobRequest("This is a background job!")); // you will also need a SysOutJobRequestHandler to run the actual job
     }
 }
 ```
 {{< /framework >}}
 {{< framework type="spring-boot" >}}
-When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Spring service containing the method for which we want to create jobs, in this case, the `SampleJobService`:
+When we want to create jobs, we’ll need to inject the `JobRequestScheduler` so we can pass it an implementation of a `JobRequest`, in this case a `MyJobRequest`:
 
 ```java
 @RestController
 public class JobController {
 
-    private final JobScheduler jobScheduler;
-    private final SampleJobService sampleService;
+    private final JobRequestScheduler jobRequestScheduler;
 
-    public JobController(JobScheduler jobScheduler, SampleJobService sampleService) {
-        this.jobScheduler = jobScheduler;
-        this.sampleService = sampleService;
+    public JobController(JobRequestScheduler jobRequestScheduler) {
+        this.jobRequestScheduler = jobRequestScheduler;
     }
 
     @GetMapping("/enqueue-example-job")
     public String enqueueExampleJob(@RequestParam(value = "name", defaultValue = "World") String name) {
-        final JobId enqueuedJobId = jobScheduler.enqueue(() -> sampleService.executeSampleJob("Hello " + name));
-        return "Job Enqueued: " + enqueuedJobId.toString();
+        final JobId enqueuedJobId = jobRequestScheduler.enqueue(new MyJobRequest(name));
+        return "Job Request Enqueued: " + enqueuedJobId;
     }
 }
 ```
@@ -232,46 +241,40 @@ public class JobController {
 
 {{< /framework >}}
 {{< framework type="quarkus" >}}
-When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Quarkus bean containing the method for which we want to create jobs, in this case, an actual instance of the `MyServiceInterface` interface:
+When we want to create jobs, we’ll need to inject the `JobRequestScheduler` so we can pass it an implementation of a `JobRequest`, in this case a `MyJobRequest`:
 
 ```java
 @Path("jobs")
 @ApplicationScoped
 public class JobResource {
-
     @Inject
-    MyServiceInterface myService;
-    @Inject
-    JobScheduler jobScheduler;
+    JobRequestScheduler jobRequestScheduler;
 
     @GET
     @Path("/simple-job")
     @Produces(MediaType.TEXT_PLAIN)
     public String simpleJob(@DefaultValue("Hello world") @QueryParam("value") String value) {
-        final JobId enqueuedJobId = jobScheduler.enqueue(() -> myService.doSimpleJob(value));
-        return "Job Enqueued: " + enqueuedJobId;
+        final JobId enqueuedJobId = jobRequestScheduler.enqueue(new MyJobRequest(value));
+        return "Job Request Enqueued: " + enqueuedJobId;
     }
 }
 ```
 {{< /framework >}}
 {{< framework type="micronaut" >}}
-When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Micronaut service containing the method for which we want to create jobs, in this case, an actual instance of the `MyServiceInterface` interface:
+When we want to create jobs, we’ll need to inject the `JobRequestScheduler` so we can pass it an implementation of a `JobRequest`, in this case a `MyJobRequest`:
 
 ```java
 @Controller("/jobs")
 public class JobController {
 
     @Inject
-    private JobScheduler jobScheduler;
-
-    @Inject
-    private MyServiceInterface myService;
+    private JobRequestScheduler jobRequestScheduler;
 
     @Get("/simple-job")
     @Produces(MediaType.TEXT_PLAIN)
     public String simpleJob(@QueryValue(value = "value", defaultValue = "Hello world") String value) {
-        final JobId enqueuedJobId = jobScheduler.enqueue(() -> myService.doSimpleJob(value));
-        return "Job Enqueued: " + enqueuedJobId;
+        final JobId enqueuedJobId = jobRequestScheduler.enqueue(new MyJobRequest(value));
+        return "Job Request Enqueued: " + enqueuedJobId;
     }
 }
 ```
@@ -285,7 +288,7 @@ We can also schedule jobs in the future using the schedule method:
 public class Main {
     public static void main(String[] args) throws Exception {
         // ... 
-        BackgroundJob.schedule(LocalDateTime.now().plusHours(5), () -> System.out.println("This is a background job!"));
+        BackgroundJob.schedule(LocalDateTime.now().plusHours(5), new SysOutJobRequest("This is a background job!"));
     }
 }
 ```
@@ -301,8 +304,8 @@ public class JobController {
     public String scheduleExampleJob(
             @RequestParam(value = "name", defaultValue = "World") String name,
             @RequestParam(value = "when", defaultValue = "PT3H") String when) {
-        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> sampleService.executeSampleJob("Hello " + name));
-        return "Job Scheduled: " + scheduledJobId.toString();
+        final JobId scheduledJobId = jobRequestScheduler.schedule(now().plus(Duration.parse(when)), new MyJobRequest(name));
+        return "Job Request Scheduled: " + scheduledJobId.toString();
     }
 }
 ```
@@ -321,8 +324,8 @@ public class JobResource {
     public String scheduleSimpleJob(
             @DefaultValue("Hello world") @QueryParam("value") String value,
             @DefaultValue("PT3H") @QueryParam("when") String when) {
-        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> myService.doSimpleJob(value));
-        return "Job Scheduled: " + scheduledJobId;
+        final JobId scheduledJobId = jobRequestScheduler.schedule(now().plus(Duration.parse(when)), new MyJobRequest(value));
+        return "Job Request Scheduled: " + scheduledJobId.toString();
     }
 }
 ```
@@ -339,8 +342,8 @@ public class JobController {
     public String scheduleSimpleJob(
             @QueryValue(value = "value", defaultValue = "Hello world") String value,
             @QueryValue(value = "when", defaultValue = "PT3H") String when) {
-        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> myService.doSimpleJob(value));
-        return "Job Scheduled: " + scheduledJobId;
+        final JobId scheduledJobId = jobRequestScheduler.schedule(now().plus(Duration.parse(when)), new MyJobRequest(value));
+        return "Job Request Scheduled: " + scheduledJobId.toString();
     }
 }
 ```
@@ -365,4 +368,4 @@ All of this is visible in the dashboard, including each retry with the exact err
 </figure>
 
 ## Conclusion
-In this guide, we've learned how to effortlessly set up and use JobRunr to create and schedule jobs using a Java 8 lambda and we also learned how to monitor jobs with its user-friendly dashboard.
+In this guide, we've learned how to effortlessly set up and use JobRunr to create and schedule jobs using a `JobRequest` and `JobRequestHandler` and we also learned how to monitor jobs with its user-friendly dashboard.

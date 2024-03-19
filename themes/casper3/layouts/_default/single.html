@@ -46,7 +46,7 @@
                                 {{ end }} 
                                 <span class="byline-reading-time">{{ .ReadingTime }} min read</span>
 
-                                {{ if eq .Section "guides" }}
+                                {{ if and (eq .Section "guides") (not (eq $.Params.hideFrameworkSelector true)) }}
                                     <div class="framework-container" style="float: right; position: -webkit-sticky; position: sticky; z-index: 1000;">
                                         <div class="nav-tabs">
                                             <li class="framework-button active" data-type="fluent-api">Fluent API</li>

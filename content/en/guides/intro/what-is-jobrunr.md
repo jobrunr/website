@@ -5,8 +5,9 @@ weight: 10
 tags:
     - JobRunr
 draft: true
+hideFrameworkSelector: true
 ---
-For Java developers struggling with asynchronous task execution—from __sending emails in bulk__ to crunching numbers or processing files, JobRunr offers a compelling solution. This developer-centric guide dives into JobRunr, an [open-source Java library](https://github.com/jobrunr/jobrunr) that significantly simplifies background job processing. We'll explore its core features, how it integrates into Java projects, and why it could be a game-changer for your development workflow.
+For Java developers struggling with asynchronous task execution—from __sending emails in bulk__ to crunching numbers or __processing large files__, JobRunr offers a compelling solution. This developer-centric introduction dives into JobRunr, an [open-source Java library](https://github.com/jobrunr/jobrunr) that significantly simplifies background job processing. We'll explore its core features, how it integrates into Java projects, and why it could be a game-changer for your development workflow.
 
 ## Dive Into JobRunr
 **JobRunr:** An open-source marvel that eases background task execution in Java apps. It leverages Java 8 lambda expressions, method references, or JobRequests for job scheduling and even supports CRON expressions for complex timing needs. With JobRunr, managing a vast number of background jobs becomes streamlined, ensuring high reliability with minimal performance hit.
