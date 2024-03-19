@@ -12,10 +12,6 @@ In this guide, we will learn how to:
 - learn how to enqueue and schedule a job in vanilla Java or your favorite web framework
 - monitor your jobs using the built-in dashboard
 
-
-## Prerequisites
-- JobRunr Pro 6.4.0 or later
-
 ## What is JobRunr
 [JobRunr](https://github.com/jobrunr/jobrunr) is a library that we can embed in our application and which allows us to schedule background jobs using a Java 8 lambda. We can use any existing method of our Spring services to create a job without the need to implement an interface. A job can be a short or long-running process, and it will be automatically offloaded to a background thread so that the current web request is not blocked.
 
@@ -23,124 +19,285 @@ To do its job (pun intended 😅), JobRunr analyses the Java 8 lambda. It serial
 
 ## Setup
 ### Maven dependency
-Let’s jump straight to the Java code. But before that, we need to have the following Maven dependency declared in our pom.xml file:
+Let’s jump straight to the Java code. But before that, we need to have the following Maven dependency declared in our `pom.xml` file:
+{{< framework type="fluent-api" label="Fluent API" >}}
 
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
-    <artifactId>jobrunr-spring-boot-starter</artifactId>
-    <version>6.4.0</version>
+    <artifactId>jobrunr</artifactId>
+    <version>{{< param "JobRunrVersion" >}}</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.17.0</version> <!-- use latest version -->
 </dependency>
 ```
+As JobRunr also needs a library for JSON handling, we also include [Jackson](https://github.com/FasterXML/jackson) as a dependency.
+{{< /framework >}}
+{{< framework type="spring-boot" label="Spring Boot" >}}
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr-spring-boot-3-starter</artifactId>
+    <version>{{< param "JobRunrVersion" >}}</version>
+</dependency>
+```
+JobRunr also needs a library for JSON handling, but as Spring Boot by default comes with Jackson support this is already covered.
+{{< /framework >}}
+{{< framework type="quarkus" label="Quarkus" >}}
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>quarkus-jobrunr</artifactId>
+    <version>{{< param "JobRunrVersion" >}}</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.17.0</version> <!-- use latest version -->
+</dependency>
+```
+JobRunr also needs a library for JSON handling and just like Quarkus, JobRunr both supports Jackson and JSON-B.
+{{< /framework >}}
+{{< framework type="micronaut" label="Micronaut" >}}
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr-micronaut-feature</artifactId>
+    <version>{{< param "JobRunrVersion" >}}</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.17.0</version> <!-- use latest version -->
+</dependency>
+```
+JobRunr also needs a library for JSON handling - for Micronaut we recommend [Jackson](https://github.com/FasterXML/jackson).
+{{< /framework >}}
+
+
 
 ### JobRunr Configuration
-Before we jump straight to how to create background jobs, we need to initialize JobRunr. As we’re using the jobrunr-spring-boot-starter dependency, this is easy. We only need to add some properties to the application.properties:
+Before we jump straight to how to create background jobs, we need to initialize JobRunr. In this guide, we will enable both the `BackgroundJobServer` so that jobs get processed and the dashboard.
+{{< framework type="fluent-api" >}}
+Configuring JobRunr using the Fluent API is really easy, we only need a bit of code to configure JobRunr:
 
-{{< codetabs >}}
-{{< codetab type="fluent-api" label="Fluent API" >}}
-// ...
-import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
-import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRules.readOnly;
-// ...
-JobRunrPro
-        .configure()
-        // ...
-        .useDashboard(usingStandardDashboardConfiguration()
-            // ...
-            .andAuthentication(new AnonymousAuthenticationProvider(readOnly()))
-        )
-        // ...
-{{< /codetab >}}
-{{< codetab type="spring" label="Spring">}}
-// ... Spring
-import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
-import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRules.readOnly;
-// ...
-JobRunrPro
-        .configure()
-        // ...
-        .useDashboard(usingStandardDashboardConfiguration()
-            // ...
-            .andAuthentication(new AnonymousAuthenticationProvider(readOnly()))
-        )
-        // ...
-{{< /codetab >}}
-{{< /codetabs >}}
+```java
 
-JobRunr Pro's default setting is an `AnonymousAuthenticationProvider` with `allowAll` authorization rules. If this aligns with your requirements, no further action is needed.
+public class Main {
+    public static void main(String[] args) throws Exception {
+        JobRunr
+            .configure()
+            .useStorageProvider(new InMemoryStorageProvider())
+            .useDashboard()
+            .useBackgroundJobServer()
+            .initialize();
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="spring-boot" >}}
+As we’re using the `jobrunr-spring-boot-3-starter` dependency, this is easy. We only need to add some properties to the `application.properties`:
 
-> Note: you can also `denyAll` access using `AnonymousAuthenticationProvider` but this is typically more suitable for a multi-user setting. Instead you should disable the dashboard.
+```properties
+org.jobrunr.background-job-server.enabled=true
+org.jobrunr.dashboard.enabled=true
+```
+{{< /framework >}}
+{{< framework type="quarkus" >}}
+As we’re using the `quarkus-jobrunr` extension, this is easy. We only need to add some properties to the `application.properties`:
 
-Now, let's configure JobRunr to:
+```properties
+quarkus.jobrunr.background-job-server.enabled=true
+quarkus.jobrunr.dashboard.enabled=true
+```
+{{< /framework >}}
+{{< framework type="micronaut" >}}
+As we’re using the `jobrunr-micronaut-feature`, this is easy. We only need to add some properties to the `application.yml`:
 
-1. Allow `read-only` access to the dashboard.
-2. Allow viewing and controlling recurring jobs (e.g., `pause`, `resume`, `trigger`, and `edit schedule expressions`).
-
-### Making the dashboard read-only
-To make your JobRunr dashboard read-only, modify your configuration as follows:
-
-> This configuration is only suitable when your jobs do not expose confidential data.
-
+```yml
+jobrunr:
+  background-job-server:
+    enabled: true
+  dashboard:
+    enabled: true
+```
+{{< /framework >}}
 
 
-In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the `readOnly` method from `JobRunrUserAuthorizationRules` to set the authorization rules of the authentication provider. Launching the application with this configuration will result in a `403` for any access to endpoints that change the state of jobs, recurring jobs, or servers.
+## Enqueueing one-off jobs
+Now, let’s find out how to create some fire-and-forget background jobs using JobRunr.
+{{< framework type="fluent-api" >}}
+We can now start using JobRunr by means of the `BackgroundJob`:
 
-Launching the application with this configuration, any access to an endpoint that changes the state of `jobs`, `recurring jobs` or `servers` will result in a `403`.
+```java
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // ... 
+        BackgroundJob.enqueue(() -> System.out.println("This is a background job!"));
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="spring-boot" >}}
+When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Spring service containing the method for which we want to create jobs, in this case, the `SampleJobService`:
 
-### Allowing to view and control recurring jobs
-JobRunr allows for more flexible authorization rules configurations. Here, we'll configure the application to only allow `read`, `pause`, `resume`, `trigger` and `edit` of recurring jobs. 
+```java
+@RestController
+public class JobController {
 
-> This essentially forbids access to any other resources, including deleting recurring jobs! But should only be used if the dashboard is not publicly accessible.
+    private final JobScheduler jobScheduler;
+    private final SampleJobService sampleService;
 
-{{< codetabs >}}
-{{< codetab type="fluent-api" label="Fluent API" >}}
-// ...
-import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
-import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRulesBuilder.denyAll;
-// ...
-JobRunrPro
-        .configure()
-        // ...
-        .useDashboard(usingStandardDashboardConfiguration()
-            // ...
-            .andAuthentication(new AnonymousAuthenticationProvider(denyAll()
-                .canAccessRecurringJobs(true)
-                .canControlRecurringJobs(true)
-                .build())
-            )
-        )
-        // ...
-{{< /codetab >}}
-{{< codetab type="spring" label="Spring">}}
-// ... Spring
-import org.jobrunr.dashboard.server.security.AnonymousAuthenticationProvider;
-import static org.jobrunr.dashboard.server.security.JobRunrUserAuthorizationRulesBuilder.denyAll;
-// ...
-JobRunrPro
-        .configure()
-        // ...
-        .useDashboard(usingStandardDashboardConfiguration()
-            // ...
-            .andAuthentication(new AnonymousAuthenticationProvider(denyAll()
-                .canAccessRecurringJobs(true)
-                .canControlRecurringJobs(true)
-                .build())
-            )
-        )
-        // ...
-{{< /codetab >}}
-{{< /codetabs >}}
+    public JobController(JobScheduler jobScheduler, SampleJobService sampleService) {
+        this.jobScheduler = jobScheduler;
+        this.sampleService = sampleService;
+    }
 
-In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the `denyAll` method from `JobRunrUserAuthorizationRulesBuilder` to set the desired rules for accessing and controlling recurring jobs. Launching the application with this configuration will restrict access to any other resources besides those explicitly enabled.
+    @GetMapping("/enqueue-example-job")
+    public String enqueueExampleJob(@RequestParam(value = "name", defaultValue = "World") String name) {
+        final JobId enqueuedJobId = jobScheduler.enqueue(() -> sampleService.executeSampleJob("Hello " + name));
+        return "Job Enqueued: " + enqueuedJobId.toString();
+    }
+}
+```
 
-> If `canAccessRecurringJobs` is set to `false` the recurring jobs page will no longer be accessible, you'll need to use tools such as `curl` to perform changes to the recurring jobs.
 
-## Limitations
+{{< /framework >}}
+{{< framework type="quarkus" >}}
+When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Quarkus bean containing the method for which we want to create jobs, in this case, an actual instance of the `MyServiceInterface` interface:
 
-It's important to be aware of a limitation when using Anonymous Authentication with JobRunr Pro. The setup discussed in this guide requires that the JobRunr instance be restarted to update the authorization rules. This means that if you need to modify or fine-tune the access control rules, you will need to restart your JobRunr application.
+```java
+@Path("jobs")
+@ApplicationScoped
+public class JobResource {
 
-While this limitation may not be a significant issue for many scenarios, it's essential to plan accordingly if your application requires frequent changes to authorization rules. Restarting the JobRunr instance may lead to brief downtime or disruption in background job processing.
+    @Inject
+    MyServiceInterface myService;
+    @Inject
+    JobScheduler jobScheduler;
+
+    @GET
+    @Path("/simple-job")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String simpleJob(@DefaultValue("Hello world") @QueryParam("value") String value) {
+        final JobId enqueuedJobId = jobScheduler.enqueue(() -> myService.doSimpleJob(value));
+        return "Job Enqueued: " + enqueuedJobId;
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="micronaut" >}}
+When we want to create jobs, we’ll need to inject the `JobScheduler` and our existing Micronaut service containing the method for which we want to create jobs, in this case, an actual instance of the `MyServiceInterface` interface:
+
+```java
+@Controller("/jobs")
+public class JobController {
+
+    @Inject
+    private JobScheduler jobScheduler;
+
+    @Inject
+    private MyServiceInterface myService;
+
+    @Get("/simple-job")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String simpleJob(@QueryValue(value = "value", defaultValue = "Hello world") String value) {
+        final JobId enqueuedJobId = jobScheduler.enqueue(() -> myService.doSimpleJob(value));
+        return "Job Enqueued: " + enqueuedJobId;
+    }
+}
+```
+{{< /framework >}}
+
+
+## Scheduling jobs
+We can also schedule jobs in the future using the schedule method:
+{{< framework type="fluent-api" >}}
+```java
+public class Main {
+    public static void main(String[] args) throws Exception {
+        // ... 
+        BackgroundJob.schedule(LocalDateTime.now().plusHours(5), () -> System.out.println("This is a background job!"));
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="spring-boot" >}}
+```java
+@RestController
+public class JobController {
+
+    // ...
+
+    @GetMapping("/schedule-example-job")
+    public String scheduleExampleJob(
+            @RequestParam(value = "name", defaultValue = "World") String name,
+            @RequestParam(value = "when", defaultValue = "PT3H") String when) {
+        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> sampleService.executeSampleJob("Hello " + name));
+        return "Job Scheduled: " + scheduledJobId.toString();
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="quarkus" >}}
+```java
+@Path("jobs")
+@ApplicationScoped
+public class JobResource {
+
+    // ...
+
+    @GET
+    @Path("/schedule-simple-job")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String scheduleSimpleJob(
+            @DefaultValue("Hello world") @QueryParam("value") String value,
+            @DefaultValue("PT3H") @QueryParam("when") String when) {
+        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> myService.doSimpleJob(value));
+        return "Job Scheduled: " + scheduledJobId;
+    }
+}
+```
+{{< /framework >}}
+{{< framework type="micronaut" >}}
+```java
+@Controller("/jobs")
+public class JobController {
+
+    // ...
+
+    @Get("/schedule-simple-job")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String scheduleSimpleJob(
+            @QueryValue(value = "value", defaultValue = "Hello world") String value,
+            @QueryValue(value = "when", defaultValue = "PT3H") String when) {
+        final JobId scheduledJobId = jobScheduler.schedule(now().plus(Duration.parse(when)), () -> myService.doSimpleJob(value));
+        return "Job Scheduled: " + scheduledJobId;
+    }
+}
+```
+{{< /framework >}}
+
+
+
+## Monitoring jobs using the built-in dashboard
+JobRunr comes with a built-in dashboard that allows us to monitor our jobs. We can find it at http://localhost:8000 and inspect all the jobs, including all recurring jobs and an estimation of how long it will take until all the enqueued jobs are processed:
+
+<figure>
+<img src="/documentation/jobrunr-overview-1.webp" class="kg-image">
+<figcaption>A complete overview of the amount of jobs that are being processed</figcaption>
+</figure>
+
+Bad things can happen, for example, an SSL certificate expired, or a disk is full. JobRunr, by default, will reschedule the background job with an exponential back-off policy. If the background job continues to fail ten times, only then will it go to the Failed state. You can then decide to re-queue the failed job when the root cause has been solved.
+
+All of this is visible in the dashboard, including each retry with the exact error message and the complete stack trace of why a job failed:
+<figure>
+<img src="/documentation/job-details-failed-2.webp" class="kg-image">
+<figcaption>When a job failed, you see a detailed message why it did fail</figcaption>
+</figure>
 
 ## Conclusion
-
-In this guide, we've learned how to use `AnonymousAuthenticationProvider` in JobRunr Pro. With `AnonymousAuthenticationProvider`, you can set authorization rules without user authentication. This offers you precise control over access to your JobRunr dashboard and REST API.
+In this guide, we've learned how to effortlessly set up and use JobRunr to create, schedule, and monitor jobs with its user-friendly dashboard, showcasing the ease of integrating background job processing into Java applications.

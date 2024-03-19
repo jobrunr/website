@@ -876,12 +876,16 @@ body {
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     margin-right: 10px;
-    padding: 10px 0 80px;
+    padding: 10px 0;
     font-weight: 500;
     letter-spacing: 0.2px;
     text-transform: uppercase;
     white-space: nowrap;
     -ms-overflow-scrolling: touch;
+}
+
+.home-template .site-nav-left {
+    padding: 10px 0 80px;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */

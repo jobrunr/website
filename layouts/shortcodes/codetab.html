@@ -2,7 +2,11 @@
 	{{ .Parent.Scratch.Set "tabs" slice }}
 {{ end }}
 {{ $.Parent.Scratch.Add "tabs" (dict "type" (.Get "type") "label" (.Get "label")) }}
-<div class="tabpanel" data-type="{{ .Get "type" }}" aria-label="{{ .Get "label" }}">  
-    {{ "java" | highlight (trim .Inner "\n") }}
-</div>  
 
+<div class="tabpanel" data-type="{{ .Get "type" }}" aria-label="{{ .Get "label" }}">
+    {{ if (.Get "style") }}
+        {{ (.Get "style") | highlight (trim .Inner "\n") }}
+    {{ else }}
+        {{ .Inner }}
+    {{ end }}
+</div>

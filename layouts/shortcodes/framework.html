@@ -1,0 +1,7 @@
+<div class="framework-content" data-type="{{ .Get "type" }}" aria-label="{{ .Get "label" }}">
+    {{ if (.Get "style") }}
+        {{ (.Get "style") | highlight (trim .Inner "\n") }}
+    {{ else }}
+        {{ .Inner | markdownify }}
+    {{ end }}
+</div>

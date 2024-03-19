@@ -24,7 +24,6 @@
     </script>
 
     {{ $slider_js := resources.Get "js/ism-2-2.min.js" }}
-    <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -93,6 +92,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
+    <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
+    <script src='{{ (resources.Get "js/framework.js").Permalink }}'></script>
 <script>
 window.addEventListener("load", (event) => {
   setTimeout(() => {

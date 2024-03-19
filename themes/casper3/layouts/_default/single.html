@@ -35,17 +35,29 @@
                             {{- partial "post-author.html" . -}}
                         {{ end }}
 
-                        <section class="post-full-byline-meta">
+                        <section class="post-full-byline-meta" style="width: 100%">
                             {{ if .Param "author" }}
                                 <h4 class="author-name">{{ .Param "author" }}</h4>
                             {{ end }}
                             <div class="byline-meta-content">
                                 {{ if ne .Section "guides" }}
                                     <time class="byline-meta-date" datetime="{{.Date.Format "2006-31-01"}}">{{.Date.Format "2 January 2006"}}</time>
-                                <span class="byline-reading-time"><span class="bull">&bull;</span>{{ end }} {{ .ReadingTime }} min read</span>
+                                    <span class="bull">&bull;</span>
+                                {{ end }} 
+                                <span class="byline-reading-time">{{ .ReadingTime }} min read</span>
+
+                                {{ if eq .Section "guides" }}
+                                    <div class="framework-container" style="float: right; position: -webkit-sticky; position: sticky; z-index: 1000;">
+                                        <div class="nav-tabs">
+                                            <li class="framework-button active" data-type="fluent-api">Fluent API</li>
+                                            <li class="framework-button" data-type="spring-boot">Spring Boot</li>
+                                            <li class="framework-button" data-type="quarkus">Quarkus</li>
+                                            <li class="framework-button" data-type="micronaut">Micronaut</li>
+                                        </div>
+                                    </div>
+                                {{ end }} 
                             </div>
                         </section>
-
                     </section>
                 </div>
                 {{ end }}

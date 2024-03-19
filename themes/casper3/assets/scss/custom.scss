@@ -296,3 +296,34 @@ a.tooltip {
 .tab-container .tab-content pre {
     margin: 0;
 }
+
+.framework-button {
+    margin-left: 10px;
+    border: 1px solid #26a6ed; /* blue */;
+    border-radius: 4px;
+    color: #26a6ed; /* blue */;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+}
+
+.framework-button.active {
+    background-color: #26a6ed; /* blue */
+    border: none;
+    color: white;
+}
+
+.framework-button:hover {
+    cursor: pointer;
+}
+
+.framework-content {
+    display: none;
+    width: 100%;
+}
+
+.framework-content.active {
+    display: block;
+}

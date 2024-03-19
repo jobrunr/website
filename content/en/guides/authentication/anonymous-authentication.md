@@ -9,7 +9,7 @@ draft: true
 JobRunr Pro allows to define a set of rules to restrict the access to the [JobRunr Pro Dashboard]({{< ref "/documentation/pro/jobrunr-pro-dashboard" >}} "Dashboard documentation") and its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
 
 ## Prerequisites
-- JobRunr Pro 6.4.0 or later
+- JobRunr Pro 7.0.0 or later
 - You already know how to configure JobRunr
 
 ## What is an `AnonymousAuthenticationProvider`
