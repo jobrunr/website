@@ -78,7 +78,7 @@ public AuthenticationProvider authenticationProvider() {
 ```
 {{< /framework >}}
 
-In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the static `readOnly` method from `JobRunrUserAuthorizationRules` to set the authorization rules of the authentication provider. Launching the application with this configuration will result in a `403` for any access to endpoints that change the state of jobs, recurring jobs, or servers.
+In the code snippet above, we imported the `AnonymousAuthenticationProvider` class and the static `readOnly` method from `JobRunrUserAuthorizationRules` to set the authorization rules of the authentication provider. Launching the application with this configuration will result in a `HTTP Forbidden (403)` for any access to endpoints that change the state of jobs, recurring jobs, or servers.
 
 ### 2. Only allow viewing and controlling of recurring jobs
 JobRunr allows more flexible authorization rules configurations. In this example, we'll configure the JobRunr Dashboard to only allow `read`, `pause`, `resume`, `trigger` and `edit` of recurring jobs. 
