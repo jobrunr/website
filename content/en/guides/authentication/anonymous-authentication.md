@@ -1,6 +1,7 @@
 ---
 title: Secure your JobRunr Dashboard with Anonymous Authentication
 description: This guide will help you restrict access to your JobRunr dashboard using an anonymous authentication. Easily and quickly define authorization rules.  
+weight: 5
 tags:
     - Auth
     - JobRunr Pro

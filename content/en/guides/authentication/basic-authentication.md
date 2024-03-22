@@ -1,6 +1,7 @@
 ---
 title: Secure your JobRunr Dashboard with Basic Authentication
 description: This guide will help you enhance the security of your JobRunr dashboard by setting up Basic Authentication. Control user access and authorization rules effectively.
+weight: 10
 tags:
     - Auth
     - JobRunr Pro
