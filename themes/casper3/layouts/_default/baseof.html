@@ -122,22 +122,24 @@ for (var i = 0; i < links.length; i++) {
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-  <div class="popup">
-    <button id="close">&times;</button>
-    <a href="/en/webinar">
-      <img src="/2023-01-19-jobrunr-webinar.jpeg" width="100%" height="100%"/>
-    </a>
+  <div class="popup-container">
+    <div class="popup">
+      <button id="close">&times;</button>
+      <a href="/en/webinar">
+        <img src="/2024-03-22-jobrunr-webinar.png" alt="Join our webinar on April 9!" width="100%" height="100%"/>
+      </a>
+    </div>
   </div>
 
   <script type="text/javascript">
     window.addEventListener("load", (event) => {
-        const webinarDate = new Date("2023-01-25T00:00:00.000Z");
+        const webinarDate = new Date("2024-04-31T00:00:00.000Z");
         const timesShown = parseInt(Cookies.get('jobrunr-webinar')) || 0;
         const webinarShownToday = Cookies.get('jobrunr-webinar-shown-today') || false;
-        if(!webinarShownToday && timesShown <= 3) {
+        if(!webinarShownToday && timesShown <= 5) {
           setTimeout(
             function open(event){
-                document.querySelector(".popup").style.display = "block";
+                document.querySelector(".popup-container").style.display = "block";
                 Cookies.set('jobrunr-webinar', (timesShown + 1), { expires: webinarDate })
                 Cookies.set('jobrunr-webinar-shown-today', true, { expires: 1 })
             },
@@ -149,16 +151,25 @@ for (var i = 0; i < links.length; i++) {
     });
   </script>
   <style>
+    .popup-container{
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color:rgba(0,0,0,0.6);
+      z-index: 1000;
+      display: none;
+    }
     .popup{
         background-color: #000;
-        width: 450px;
+        width: 650px;
         position: absolute;
         transform: translate(-50%,-50%);
         left: 50%;
         top: 50%;
         border-radius: 8px;
         font-family: "Poppins",sans-serif;
-        display: none;
         text-align: center;
         z-index: 2000;
     }
