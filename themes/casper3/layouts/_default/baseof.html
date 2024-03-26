@@ -125,7 +125,7 @@ for (var i = 0; i < links.length; i++) {
   <div class="popup-container">
     <div class="popup">
       <button id="close">&times;</button>
-      <a href="/en/webinar">
+      <a href="/en/webinar-v7">
         <img src="/2024-03-22-jobrunr-webinar.png" alt="Join our webinar on April 9!" width="100%" height="100%"/>
       </a>
     </div>
@@ -143,7 +143,7 @@ for (var i = 0; i < links.length; i++) {
                 Cookies.set('jobrunr-webinar', (timesShown + 1), { expires: webinarDate })
                 Cookies.set('jobrunr-webinar-shown-today', true, { expires: 1 })
             },
-            2000);
+            100);
         }
     });
     document.querySelector("#close").addEventListener("click", () => {
