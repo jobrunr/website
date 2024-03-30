@@ -122,11 +122,11 @@ for (var i = 0; i < links.length; i++) {
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-  <div class="popup-container">
+  <div class="popup-container webinar">
     <div class="popup">
       <button id="close">&times;</button>
       <a href="/en/webinar-v7">
-        <img src="/2024-03-22-jobrunr-webinar.png" alt="Join our webinar on April 9!" width="100%" height="100%"/>
+        <img src="/2024-03-22-jobrunr-webinar.webp" alt="Join our webinar on April 9!"  />
       </a>
     </div>
   </div>
@@ -150,42 +150,6 @@ for (var i = 0; i < links.length; i++) {
         document.querySelector(".popup-container").style.display = "none";
     });
   </script>
-  <style>
-    .popup-container{
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color:rgba(0,0,0,0.6);
-      z-index: 1000;
-      display: none;
-    }
-    .popup{
-        background-color: #000;
-        width: 650px;
-        position: absolute;
-        transform: translate(-50%,-50%);
-        left: 50%;
-        top: 50%;
-        border-radius: 8px;
-        font-family: "Poppins",sans-serif;
-        text-align: center;
-        z-index: 2000;
-    }
-    .popup button{
-        position: absolute;
-        float: right;
-        left: 93%;
-        background-color: transparent;
-        font-size: 30px;
-        color: #c5c5c5;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        z-index: 2010;
-    }
-  </style>
 {{ end }}
 </body>
 </html>
