@@ -32,7 +32,7 @@
                             <ol style="max-width: initial; width: 600%; perspective: 1000px; backface-visibility: hidden; transform: translateX(0px);" class="ism-slides">
                                 {{ range $index,  $element := .Params.gallery }}
                                     <li class="ism-slide ism-slide-{{$index}}">
-                                        <div class="ism-img-frame"><div class="ism-img-frame"><img src="{{ index . 0 }}" class="ism-img" loading="lazy"></div></div>
+                                        <div class="ism-img-frame"><div class="ism-img-frame"><img src="{{ index . 0 }}" class="ism-img" loading="lazy" alt="The JobRunr Dashboard"></div></div>
                                         {{ if( index . 1 ) }}
                                             <a class="ism-caption ism-caption-0" href="{{ index . 1 }}" target="_blank" rel="noopener" style="visibility: hidden;">{{ index . 2 }}</a>
                                         {{ end }}

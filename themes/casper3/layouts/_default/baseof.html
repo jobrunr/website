@@ -11,18 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" rel="preload" as="script" />
     <link href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" rel="preload" as="script" />
 
-    {{ if .Site.Params.GtmID }}
-    {{ partial "analytics-gtag.html" . }}
-    {{ end }}
-
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "gndsmglzod");
-    </script>
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {{ $title := print .Title " · " .Site.Title }}
@@ -55,9 +43,12 @@
     {{ $stylesScreen := resources.Get "scss/screen.scss"  | postCSS  | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $stylesCustom.Permalink }}" integrity="{{ $stylesCustom.Data.Integrity }}" media="screen">
     <link rel="stylesheet" href="{{ $stylesScreen.Permalink }}" integrity="{{ $stylesScreen.Data.Integrity }}" media="screen">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css"></noscript>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"></noscript>
 </head>
 <body class="{{ block "body_class" . }} {{ end }}">
     <!-- Google Tag Manager (noscript) -->
@@ -151,5 +142,16 @@ for (var i = 0; i < links.length; i++) {
     });
   </script>
 {{ end }}
+{{ if .Site.Params.GtmID }}
+{{ partial "analytics-gtag.html" . }}
+{{ end }}
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "gndsmglzod");
+</script>
 </body>
 </html>
