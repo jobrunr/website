@@ -7,6 +7,9 @@ date: 2021-08-10T11:12:23+02:00
 tags:
   - use-case
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 ## Introduction
 Property management companies handle an extensive range of tasks, from updating property sales ads on various online marketplaces to ensuring timely rental payments and document contract signings. With a growing portfolio, the complexity of managing these tasks can increase significantly. This use case article explores how a property management company successfully used JobRunr Pro to automate these tasks, simplifying their software architecture and streamlining operations.

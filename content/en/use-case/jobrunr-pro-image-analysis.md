@@ -7,6 +7,9 @@ date: 2022-03-10T11:12:23+02:00
 tags:
   - use-case
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 ## Introduction
 Medical image analysis plays a critical role in the diagnosis, monitoring, and treatment of various diseases. With the rapid growth of medical imaging data, the need for efficient and secure processing has become paramount. In this article, we will explore how a med-tech company successfully implemented JobRunr Pro, a powerful background job library, to manage its medical image analysis process. We will discuss how the SDK allowed for secure grouping, batch processing, and monitoring of sensitive image data, while ensuring data privacy.

@@ -10,6 +10,19 @@ menu:
     parent: 'background-methods'
     weight: 15
 ---
+
+Creating a background job with JobRunr is really easy. On this page you will learn how to:
+- [create a single job using a Java 8 lambda](#enqueueing-a-job-using-a-java-8-lambda) 
+- [create a single job using a JobRequest](#enqueueing-a-job-using-a-jobrequest) 
+- [create many jobs using a Java 8 lambda](#enqueueing-many-jobs-using-a-java-8-lambda) 
+- [create many jobs using a JobRequest](#enqueueing-many-jobs-using-a-jobrequest) 
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Prevent duplicate jobs by an identifier](#prevent-duplicate-jobs-thanks-to-the-jobidentifier)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Replace existing jobs](#pause-and-resume-recurring-jobs)
+
+
+## Enqueueing a single background job
+### Enqueueing a job using a Java 8 lambda
+
 As you already know from the 5 minute intro, you only need to pass a lambda with the corresponding method and its arguments to enqueue a background job:
 
 <figure>
@@ -27,6 +40,9 @@ JobId jobId = BackgroundJob.<MyService>enqueue(x -> x.doWork());
 ```
 <figcaption>This enqueues a background job without a reference to an instance of MyService. During execution of the background job, the IoC container will need to provide an instance of type MyService.</figcaption>
 </figure>
+
+### Enqueueing a job using a JobRequest
+JobRunr also offers the possibility to enqueue jobs using a [JobRequest and a JobRequestHandler]({{< ref "./_index.md#via-a-jobrequest" >}}).
 
 <figure>
 
@@ -72,6 +88,9 @@ jobScheduler.enqueue(() -> myService.doWork());
  
 As before, you also do not need an instance of the myService available if the `MyService` class is know by your dependency injection framework.
 
+
+### Enqueueing a job using the JobScheduler and a Java 8 lambda
+
 <figure>
 
 ```java
@@ -83,6 +102,7 @@ jobScheduler.<MyService>enqueue(x -> x.doWork());
 <figcaption>Enqueueing background jobs using the JobScheduler bean without a reference to the MyService instance. The MyService instance will be resolved using the IoC framework when the background job is started.</figcaption>
 </figure>
 
+### Enqueueing a job using the JobRequestScheduler and a JobRequest
 <figure>
 
 ```java
@@ -114,6 +134,7 @@ jobScheduler.create(aJob()
 ## Enqueueing background jobs in bulk
 Sometimes you want to enqueue a lot of jobs - for example send an email to all users. JobRunr can process a Java 8 Stream<T> of objects and for each item in that Stream, create a background job. The benefit of this is that it saves these jobs in bulk to the database - resulting in a big performance improvement.
 
+### Enqueueing many jobs using a Java 8 lambda
 <figure>
 
 ```java
@@ -134,6 +155,7 @@ BackgroundJob.enqueue<MailService, User>(userStream, (service, user) -> service.
 
 <figure>
 
+### Enqueueing many jobs using a JobRequest
 ```java
 Stream<SendMailJobRequest> jobStream = userRepository
     .getAllUsers()
@@ -158,6 +180,7 @@ This allows for nice integration with the Spring Data framework which can return
 
 Of course the above methods to enqueue jobs can also be done using the JobScheduler bean.
 
+### Enqueueing many jobs using the JobScheduler and a Java 8 lambda
 <figure>
 
 ```java
@@ -182,6 +205,7 @@ jobScheduler.enqueue<MailService, User>(userStream, (service, user) -> service.s
 <figcaption>Enqueueing background job methods in bulk using the JobScheduler bean</figcaption>
 </figure>
 
+### Enqueueing many jobs using the JobRequestScheduler and a JobRequest
 ```java
 Stream<SendMailJobRequest> jobStream = userRepository
     .getAllUsers()
@@ -203,5 +227,39 @@ jobRequestScheduler.create(jobStream);
 ```
 <figcaption>Enqueueing emails in bulk using the Stream API by means of the JobBuilder pattern</figcaption>
 </figure>
+
+## Prevent duplicate jobs thanks to the `JobIdentifier`
+Sometimes you want to limit how many times a job is created. JobRunr Pro helps you with the `JobIdentifier` which will only create the job if no job with that identifier exists. 
+
+### Creating a job only once using a `JobIdentifier` 
+
+<figure>
+
+```java
+@Inject
+private JobScheduler jobScheduler;
+ 
+
+jobScheduler.<MyService>enqueue(JobId.fromIdentifier("my identifier"), x -> x.doWork());
+```
+<figcaption>Enqueueing this job will happen only once as it is identified.</figcaption>
+</figure>
+
+
+### Replacing an existing job using a `JobIdentifier` 
+If you need to replace an existing job with an identifier, this can be done as follows:
+
+<figure>
+
+```java
+@Inject
+private JobScheduler jobScheduler;
+ 
+
+jobScheduler.<MyService>enqueueOrReplace(JobId.fromIdentifier("my identifier"), x -> x.doWork());
+```
+<figcaption>Only the last job identified by 'my identifier' will be kept as previous jobs will be replaced.</figcaption>
+</figure>
+
 
 Please also see the [best practices]({{<ref "/documentation/background-methods/best-practices.md">}}) for more information.

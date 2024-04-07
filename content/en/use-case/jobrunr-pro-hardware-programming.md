@@ -7,6 +7,9 @@ date: 2021-08-10T11:12:23+02:00
 tags:
   - use-case
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 ## Introduction
 As the demand for Voice over IP (VoIP) solutions continues to rise, telecom solution providers face the challenge of integrating, programming, and deploying software on the hardware for these systems. One of the main issues faced by these providers is that the hardware is not always available or online when programming is needed. JobRunr Pro, a powerful background job processing library, offers an effective solution to this problem by automatically retrying until the programming of the hardware is successful. Furthermore, its dashboard enables providers to keep track of deployment progress in large VoIP installations. This article explores the use case of JobRunr Pro for a telecom solution provider.
