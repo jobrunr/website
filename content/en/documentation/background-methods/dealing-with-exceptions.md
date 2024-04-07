@@ -100,7 +100,9 @@ With JobRunr Pro, this is now also possible:
         return new PerJobRetryPolicy(
             new ExponentialBackoffRetryPolicy(), // default policy if no per job policy matches
             new CustomRetryPolicy(3, 4).ifJob(job -> job.getLabels().contains("tenant-A")),
-            new CustomRetryPolicy(9, 10).ifJob(job -> job.getLabels().contains("tenant-B"))
+            new CustomRetryPolicy(9, 10).ifJob(job -> job.getLabels().contains("tenant-B")),
+            new CustomRetryPolicy(60, 60, 60, 180).ifException(e -> e instanceof TimeoutException),
+            new DoNotRetryPolicy().ifException(e -> e instanceof OptimisticLockingException))
         );
     }
 ```

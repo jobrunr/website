@@ -11,20 +11,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" rel="preload" as="script" />
     <link href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" rel="preload" as="script" />
 
-    {{ if .Site.Params.GtmID }}
-    {{ partial "analytics-gtag.html" . }}
-    {{ end }}
-
-    <script type="text/javascript">
-      (function(c,l,a,r,i,t,y){
-          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-      })(window, document, "clarity", "script", "gndsmglzod");
-    </script>
-
-    {{ $slider_js := resources.Get "js/ism-2-2.min.js" }}
-
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
     {{ $title := print .Title " · " .Site.Title }}
@@ -57,9 +43,12 @@
     {{ $stylesScreen := resources.Get "scss/screen.scss"  | postCSS  | toCSS | minify | fingerprint }}
     <link rel="stylesheet" href="{{ $stylesCustom.Permalink }}" integrity="{{ $stylesCustom.Data.Integrity }}" media="screen">
     <link rel="stylesheet" href="{{ $stylesScreen.Permalink }}" integrity="{{ $stylesScreen.Data.Integrity }}" media="screen">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism.min.css"></noscript>
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css"></noscript>
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" as="style" onload="this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"></noscript>
 </head>
 <body class="{{ block "body_class" . }} {{ end }}">
     <!-- Google Tag Manager (noscript) -->
@@ -126,59 +115,45 @@ for (var i = 0; i < links.length; i++) {
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-  <div class="popup">
-    <button id="close">&times;</button>
-    <a href="/en/webinar">
-      <img src="/2023-01-19-jobrunr-webinar.jpeg" width="100%" height="100%"/>
-    </a>
+  <div class="popup-container webinar">
+    <div class="popup">
+      <button id="close">&times;</button>
+      <a href="/en/webinar-v7">
+        <img src="/2024-03-22-jobrunr-webinar.webp" alt="Join our webinar on April 9!"  />
+      </a>
+    </div>
   </div>
 
   <script type="text/javascript">
     window.addEventListener("load", (event) => {
-        const webinarDate = new Date("2023-01-25T00:00:00.000Z");
+        const webinarDate = new Date("2024-04-31T00:00:00.000Z");
         const timesShown = parseInt(Cookies.get('jobrunr-webinar')) || 0;
         const webinarShownToday = Cookies.get('jobrunr-webinar-shown-today') || false;
-        if(!webinarShownToday && timesShown <= 3) {
+        if(!webinarShownToday && timesShown <= 5) {
           setTimeout(
             function open(event){
-                document.querySelector(".popup").style.display = "block";
+                document.querySelector(".popup-container").style.display = "block";
                 Cookies.set('jobrunr-webinar', (timesShown + 1), { expires: webinarDate })
                 Cookies.set('jobrunr-webinar-shown-today', true, { expires: 1 })
             },
-            2000);
+            100);
         }
     });
     document.querySelector("#close").addEventListener("click", () => {
-        document.querySelector(".popup").style.display = "none";
+        document.querySelector(".popup-container").style.display = "none";
     });
   </script>
-  <style>
-    .popup{
-        background-color: #000;
-        width: 450px;
-        position: absolute;
-        transform: translate(-50%,-50%);
-        left: 50%;
-        top: 50%;
-        border-radius: 8px;
-        font-family: "Poppins",sans-serif;
-        display: none;
-        text-align: center;
-        z-index: 2000;
-    }
-    .popup button{
-        position: absolute;
-        float: right;
-        left: 93%;
-        background-color: transparent;
-        font-size: 30px;
-        color: #c5c5c5;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        z-index: 2010;
-    }
-  </style>
 {{ end }}
+{{ if .Site.Params.GtmID }}
+{{ partial "analytics-gtag.html" . }}
+{{ end }}
+
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+      c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "gndsmglzod");
+</script>
 </body>
 </html>

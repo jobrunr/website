@@ -39,4 +39,4 @@ JobRunr was featured in [CoffeeJug](https://www.coffeejug.org/) by [Oleh Melnyk]
 <br /><br />
 
 ### JobRunr release 6 coming up!
-Did you know that JobRunr 6 is coming up? It will unlock quite some new features, dashboard improvements and bugfixes. Do you want to learn more? Then join us for our [webinar on the 19th of January 2023]({{< ref "webinar.md" >}}) where we will show you what's new. Or join us to ask some technical questions you've always had about JobRunr.
+Did you know that JobRunr 6 is coming up? It will unlock quite some new features, dashboard improvements and bugfixes. Do you want to learn more? Then join us for our [webinar on the 19th of January 2023]({{< ref "webinar-v7.md" >}}) where we will show you what's new. Or join us to ask some technical questions you've always had about JobRunr.

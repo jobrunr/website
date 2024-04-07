@@ -32,7 +32,7 @@
                             <ol style="max-width: initial; width: 600%; perspective: 1000px; backface-visibility: hidden; transform: translateX(0px);" class="ism-slides">
                                 {{ range $index,  $element := .Params.gallery }}
                                     <li class="ism-slide ism-slide-{{$index}}">
-                                        <div class="ism-img-frame"><div class="ism-img-frame"><img src="{{ index . 0 }}" class="ism-img"></div></div>
+                                        <div class="ism-img-frame"><div class="ism-img-frame"><img src="{{ index . 0 }}" class="ism-img" loading="lazy" alt="The JobRunr Dashboard"></div></div>
                                         {{ if( index . 1 ) }}
                                             <a class="ism-caption ism-caption-0" href="{{ index . 1 }}" target="_blank" rel="noopener" style="visibility: hidden;">{{ index . 2 }}</a>
                                         {{ end }}
@@ -82,7 +82,7 @@
             </div>
             <div class="homepage-reason image-left">
                 <div class="image-container">
-                    <img style="border: 1px solid #838284;" src="/homepage/homepage-JobRunr-thoughtworks.webp" alt="JobRunr's blip on the ThoughtWorks Technology Radar."/>
+                    <img style="border: 1px solid #838284;" src="/homepage/homepage-JobRunr-thoughtworks.webp" loading="lazy" alt="JobRunr's blip on the ThoughtWorks Technology Radar."/>
                 </div>
                 <div class="content">
                     <br />
@@ -122,12 +122,12 @@
                     </div>
                 </div>
                 <div class="image-container">
-                    <img src="/homepage/homepage-dreams.webp" alt="Scale beyond your dreams using JobRunr."/>
+                    <img src="/homepage/homepage-dreams.webp" loading="lazy" alt="Scale beyond your dreams using JobRunr."/>
                 </div>
             </div>
             <div class="homepage-reason image-left">
                 <div class="image-container">
-                    <img src="/homepage/homepage-clockwork-cropped.webp" alt="Make sure your code is executed on time, even in the most volatile environment."/>
+                    <img src="/homepage/homepage-clockwork-cropped.webp" loading="lazy" alt="Make sure your code is executed on time, even in the most volatile environment."/>
                 </div>
                 <div class="content">
                     <h3>Runs like a Swiss watch.</h3>
@@ -183,12 +183,12 @@
                     </div>
                 </div>
                 <div class="image-container">
-                    <img src="/homepage/homepage-operations.webp" alt="JobRunr is loved by your operations team. Why? Well, they don't have to do anything..."/>
+                    <img src="/homepage/homepage-operations.webp" loading="lazy" alt="JobRunr is loved by your operations team. Why? Well, they don't have to do anything..."/>
                 </div>
             </div>
             <div class="homepage-reason image-left" style="margin-bottom: 8em;">
                 <div class="image-container">
-                    <img src="/homepage/homepage-legal.webp" alt="Don't bother your legal team - JobRunr is not a SaaS and we do not have access to your data."/>
+                    <img src="/homepage/homepage-legal.webp" loading="lazy" alt="Don't bother your legal team - JobRunr is not a SaaS and we do not have access to your data."/>
                 </div>
                 <div class="content">
                     <h3>Don't bother your legal team.</h3>
