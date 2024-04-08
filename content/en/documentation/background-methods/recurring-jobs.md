@@ -178,10 +178,12 @@ You can remove an existing recurring job either via the dashboard or by calling 
 
 ## Pause and Resume recurring jobs
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+
 Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
 
 ## Advanced CRON Expressions
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+
 Do you need to run recurring jobs on some special moments like the first business day of the month or the last business day of the month? JobRunr Pro has a CRON expression parser on steroids and supports your really complex schedule requirements.
 
 ### `L` character

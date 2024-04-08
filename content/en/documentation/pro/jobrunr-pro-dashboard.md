@@ -17,9 +17,9 @@ menu:
 The JobRunr Pro dashboard offers a lot of improvements that save your engineering teams a lot of time:
 - [Find any Job using the search functionality](#find-any-job-using-the-search-functionality)
 - [Save time thanks to usability improvements](#save-time-thanks-to-some-usability-improvements)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Restrict access using OpenID Authentication](#restrict-access-using-openid-authentication)
+- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Restrict access using Single Sign On authentication](#restrict-access-using-single-sign-on-authentication)
 - {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [GDPR compliant Dashboard](#gdpr-compliant-dashboard)
+- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
 
 
 ## Find any Job using the search functionality
@@ -62,8 +62,8 @@ Once configured, JobRunr will work with the contentpath configured by you - e.g.
 
 {{< trial-button >}}
 
-## Restrict access using OpenID authentication
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} {{< label >}}Preview{{< /label >}}
+## Restrict access using Single Sign On authentication
+{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}
 
 JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...). It is currently available for a select number of customers as it is in preview.
 
@@ -83,13 +83,11 @@ Using JobRunr Pro Enterprise, you can also embed the dashboard within your exist
 
 <br />
 
-## GDPR compliant dashboard
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp; {{< label >}}est: Q4 2023{{< /label >}}&nbsp;
+## GDPR and HIPAA compliant dashboard
+{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;
 
 Is your company operating in the medical or financial world and is your dashboard showing sensitive information? Do you still want your developers to quickly resolve any bugs and provide great support? 
 
-Thanks to the GDPR toggle, any sensitive information will not be accessible in the dashboard anymore while still providing enough information to resolve bugs and provide support in case of unexpected exceptions.
-
-> This feature is planned for end of Q4 2023.
+Thanks to the GDPR / HIPAA feature, any sensitive information will not be accessible in the dashboard anymore while still providing enough information to resolve bugs and provide support in case of unexpected exceptions.
 
 <br />
