@@ -6,7 +6,6 @@ menu:
         identifier: guides
         weight: 11
         name: guides
-draft: true
 ---
 
 # JobRunr Guides

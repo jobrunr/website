@@ -8,7 +8,6 @@ tags:
     - Spring Boot
     - Quarkus
     - Micronaut
-draft: true
 ---
 
 [Basic authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) is an HTTP standard used for access control. Basic authentication is already available to both JobRunr OSS and JobRunr Pro. JobRunr Pro provides enhanced security by configuring the `BasicAuthenticationProvider`, allowing you to set up authorization rules for each user. In this guide, we'll show you how to leverage the `BasicAuthenticationProvider` to secure your dashboard with customized access control.

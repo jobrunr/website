@@ -17,7 +17,7 @@ unsafe= true
   gtmID = "GTM-MX5H2KM"
   jobRunrVersion = "7.0.0"
   enableTrialButton = false
-  enableWebinarPopup = true
+  enableWebinarPopup = false
 
 
 [params.twitterCard]

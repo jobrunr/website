@@ -7,7 +7,6 @@ tags:
     - Spring Boot
     - Quarkus
     - Micronaut
-draft: true
 ---
 In this guide, we will learn how to:
 - setup JobRunr

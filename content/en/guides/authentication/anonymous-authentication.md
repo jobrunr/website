@@ -8,7 +8,6 @@ tags:
     - Spring Boot
     - Quarkus
     - Micronaut
-draft: true
 ---
 JobRunr Pro allows to define a set of rules to restrict the access to the [JobRunr Pro Dashboard]({{< ref "/documentation/pro/jobrunr-pro-dashboard" >}} "Dashboard documentation") and its underlying `REST API`. In this guide, you will learn how to utilize the `AnonymousAuthenticationProvider` to implement authorization rules without the need for user authentication.
 

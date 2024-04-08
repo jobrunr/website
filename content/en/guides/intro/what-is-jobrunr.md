@@ -4,7 +4,6 @@ description: Learn about what JobRunr can do for you and how it can improve your
 weight: 10  
 tags:
     - JobRunr
-draft: true
 hideFrameworkSelector: true
 ---
 For Java developers struggling with asynchronous task execution—from __sending emails in bulk__ to crunching numbers or __processing large files__, JobRunr offers a compelling solution. This developer-centric introduction dives into JobRunr, an [open-source Java library](https://github.com/jobrunr/jobrunr) that significantly simplifies background job processing. We'll explore its core features, how it integrates into Java projects, and why it could be a game-changer for your development workflow.
