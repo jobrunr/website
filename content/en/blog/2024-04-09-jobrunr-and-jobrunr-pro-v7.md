@@ -27,6 +27,9 @@ We are excited to announce the release of JobRunr v7.0.0 and JobRunr Pro v7.0.0.
 
 # What is new?
 ## Pro Version:
+
+> Please note that we also added license verification as of JobRunr Pro v7.0.0. If you're a JobRunr Pro customer and ready to update to v7.0.0, please <a href="mailto:hello@jobrunr.io">reach out to us</a> and we will provide you with a valid license key.
+
 ### New Features
 - JobRunr Pro now has builtin support for Virtual Threads! They are enabled by default for JDK 21 and higher. [PR #906](https://github.com/jobrunr/jobrunr/pull/906)
 - Improved OpenId authentication with authorization - add authorization support in the dashboard based on extensive rule-set. [PR #188](https://github.com/jobrunr/jobrunr-pro/pull/188)
@@ -90,8 +93,10 @@ We are excited to announce the release of JobRunr v7.0.0 and JobRunr Pro v7.0.0.
 - `JobDashboardProgressBar.setValue(...)` has been renamed to `JobDashboardProgressBar.setProgress(long succeededAmount)`
 - Overall `BatchJob`s logic has been rewritten, make sure `MigrateFromV6toV7Task` is run
 
-## OSS version:
+If as an JobRunr OSS user you are interested in JobRunr Pro, you can find all the pricing information [here]({{< ref "pricing.md" >}}).
 
+
+## OSS version:
 ### New features
 - JobRunr now has builtin support for Virtual Threads! They are enabled by default for JDK 21 and higher. [PR #906](https://github.com/jobrunr/jobrunr/pull/906)
 - InMemoryStorageProvider now allows for a pollInterval as small as 200ms (useful for testing purposes). [PR #909](https://github.com/jobrunr/jobrunr/pull/909)  (fixes [#619](https://github.com/jobrunr/jobrunr/issues/619))
