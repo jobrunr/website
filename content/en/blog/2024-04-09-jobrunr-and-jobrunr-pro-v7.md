@@ -93,7 +93,7 @@ We are excited to announce the release of JobRunr v7.0.0 and JobRunr Pro v7.0.0.
 - `JobDashboardProgressBar.setValue(...)` has been renamed to `JobDashboardProgressBar.setProgress(long succeededAmount)`
 - Overall `BatchJob`s logic has been rewritten, make sure `MigrateFromV6toV7Task` is run
 
-If as an JobRunr OSS user you are interested in JobRunr Pro, you can find all the pricing information [here]({{< ref "pricing.md" >}}).
+If you are a JobRunr OSS user and you are interested in JobRunr Pro, you can find all the pricing information [here]({{< ref "pricing.md" >}}).
 
 
 ## OSS version:
