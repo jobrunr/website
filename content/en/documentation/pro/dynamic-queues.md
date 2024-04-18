@@ -65,8 +65,8 @@ You can also enable the round robin dynamic queues easily via Spring properties:
 <figure>
 
 ```java
-org.jobrunr.jobs.dynamic-queues.type=round-robin
-org.jobrunr.jobs.dynamic-queues.label-prefix=tenant:
+org.jobrunr.jobs.dynamic-queue.round-robin.label-prefix=tenant: 
+org.jobrunr.jobs.dynamic-queue.round-robin.title=Tenants
 ```
 </figure>
 
