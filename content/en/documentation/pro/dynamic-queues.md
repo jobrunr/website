@@ -22,10 +22,11 @@ Are you running a multi-tenant application? Or do you have diverse types of jobs
 - In a **diverse workload environment**, certain jobs, such as mass mailings, could potentially trigger surges by generating millions of subsidiary child jobs that require processing. However, it's crucial that other types of jobs remain unaffected by these spikes and continue to be processed smoothly.
 
 
-## Load-balancing types
-JobRunr supports two different types of load-balancing:
-- **Round Robin Dynamic Queues**: here, each dynamic queue receives the same amount of resource usage
-- **Weighted Round Robin Dynamic Queues**: : here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
+## Dynamic Queue Types
+JobRunr supports three different types of dynamic queues:
+- **[Round Robin Dynamic Queues](#round-robin-dynamic-queues)**: using this dynamic queue type, each dynamic queue receives the same amount of resource usage
+- **[Weighted Round Robin Dynamic Queues](#weighted-round-robin-dynamic-queues)**: : this dynamic queue type allows certain dynamic queues to be configured with an optional weight. A dynamic queue with a weight of 2 will be checked twice as often as a dynamic queue with a weight of 1.
+- **[Fixed Size Worker Pool Dynamic Queues](#fixed-size-worker-pool-dynamic-queues)**: this dynamic queue type allows you to configure a fixed size of workers per dynamic queue. It guarantees that each dynamic queue always has a given amount of workers but probably will result in lower overall throughput.
 
 
 ## Dashboard
@@ -102,6 +103,41 @@ public DynamicQueuePolicy weightedRoundRobinDynamicQueuePolicy() {
 }
 ```
 <figcaption>A DynamicQueuePolicy bean is created where we again add the label prefix 'tenant:'.<br/>'Tenant-A' is configured with a weight of 5 meaning that it will get 5 times more resources than other tenants.</figcaption>
+</figure>
+
+###### Fixed Size Worker Pool Dynamic Queues
+The fixed size worker pool with dynamic queues feature enables you to specify the number of workers per dynamic queue. When a particular tenant has a substantial number of jobs to process, JobRunr will restrict the number of workers for that specific queue to the defined quantity. This functionality ensures that a predetermined number of jobs can be processed simultaneously, enhancing parallel processing capabilities while also guaranteeing available workers for other tenants.
+
+_Configuring the Fixed Size Worker Pool Dynamic Queues by means of the Fluent API_:<br/>
+You can again easily configure your fixed size worker pool dynamic queues by means of the Fluent API:
+
+<figure>
+
+```java
+JobRunrPro.configure()
+    .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+            .andWorkerCount(100)
+            .andDynamicQueuePolicy(new FixedSizeWorkerPoolDynamicQueuePolicy("tenant:", Map.of("Tenant-A", 5, "Tenant-B", 2))))
+    .useDashboard(usingStandardDashboardConfiguration()
+            .andDynamicQueueConfiguration("Tenants", "tenant:"))
+    .initialize();
+```
+<figcaption>Notice the FixedSizeWorkerPoolDynamicQueuePolicy where we add the label prefix 'tenant:'.<br/>'Tenant-A' is configured with a fixed size worker pool of 5 meaning that it will have 5 workers available on the current BackgroundJobServer for processing jobs.</figcaption>
+</figure>
+
+_Configuring Weighted Round Robin Dynamic Queues by means of Spring Boot Properties_:<br/>
+You can also enable the weighted round robin dynamic queues easily via Spring Bean:
+
+<figure>
+
+```java
+@Bean(name = "dynamicQueuePolicy")
+public DynamicQueuePolicy fixedSizeWorkerPoolDynamicQueuePolicy() {
+    return new FixedSizeWorkerPoolDynamicQueuePolicy(labelPrefix, Map.of("Tenant-A", 5));
+}
+```
+<figcaption>A DynamicQueuePolicy bean is created where we again add the label prefix 'tenant:'.<br/>'Tenant-A' is configured with a fixed size worker pool of 5 meaning that it will have 5 workers available on the current BackgroundJobServer for processing jobs.</figcaption>
 </figure>
 
 
