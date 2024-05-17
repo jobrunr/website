@@ -19,7 +19,7 @@ tags:
 </style>
 
 ## Join Spring Builders with us!
-Spring Builders is a place for developers to create a community for anyone interested in Spring Framework. To work, lear, share and grow together. Its a great place to connect with fellow developers and grow this community together.
+Spring Builders is a place for developers to create a community for anyone interested in Spring Framework. To work, learn, share and grow together. Its a great place to connect with fellow developers and grow this community together.
 
 We just posted our first blog on Spring Builders (Excited)! Check it out and join together with us to create and grow with this community. Take a chance to explore various interesting articles from fellow developers 😉
 
