@@ -34,7 +34,7 @@ In April 2021 I released JobRunr 2.0.0 - it was a breaking release as I added su
 
 But I noticed something changing: the amount of downloads from JobRunr kept on rising month after month and I had 2800 unique downloads in July 2021!
 <figure>
-<img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-july2021.png" />
+{{< img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-july2021.png" >}}
 <figcaption>2800 unique downloads of JobRunr in July 2021!</figcaption>
 </figure>
 
@@ -60,30 +60,30 @@ The crazy ride continued and I was invited to speak at [Spring.io Barcelona](htt
 ### Where are we in June 2022
 On June 10, I received 1000 GitHub stars!
 <figure>
-<img src="/blog/2022-06-10-my-own-product-part2-github-stars.png" />
+{{< img src="/blog/2022-06-10-my-own-product-part2-github-stars.png" >}}
 <figcaption>1000 GitHub stars JobRunr in June 2022!</figcaption>
 </figure>
 
 If I compare my Google analytics from 2020 to 2022, there also definitely an increase:
 <figure>
-<img src="/blog/2022-06-10-my-own-product-part2-google-analytics.png" />
+{{< img src="/blog/2022-06-10-my-own-product-part2-google-analytics.png" >}}
 <figcaption>The google analytics for the <a href="https://www.jobrunr.io/">jobrunr.io</a> website.</figcaption>
 </figure>
 
 And the unique downloads via Maven Central has also boomed:
 <figure>
-<img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-growth.png" />
+{{< img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-growth.png" >}}
 <figcaption>The growth of JobRunr over the last 12 months.</figcaption>
 </figure>
 
 JobRunr tends to work well for long projects as JobRunr 1.x is about 10% of the unique downloads today:
 <figure>
-<img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-may2022.png" />
+{{< img src="/blog/2022-06-10-my-own-product-part2-unique-downloads-may2022.png" >}}
 <figcaption>JobRunr downloads in May 2022</figcaption>
 </figure>
 
 ### Going forward
-<img src="/blog/2022-06-10-my-own-product-part2-bus-factor.png" style="margin: 1.5em 1.5em 1.5em 0"/>
+{{< img src="/blog/2022-06-10-my-own-product-part2-bus-factor.png" style="margin: 1.5em 1.5em 1.5em 0">}}
 
 
 As the project is growing, it's time to do some governance. I don't want to be a project where the bus factor is 1. That's why I have recently onboarded [Renaud Bernon](https://github.com/RenaudBernon), another great developer who will be maintaining JobRunr and JobRunr Pro together with me. Welcome [Renaud](https://github.com/RenaudBernon)!

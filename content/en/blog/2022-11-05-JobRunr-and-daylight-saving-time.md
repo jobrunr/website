@@ -23,7 +23,7 @@ In this blog post, I want to go deeper and find out the root cause on why JobRun
 And this blog post is also about me saying sorry 😢.
 
 
-<img src="/blog/2022-11-05-irony.gif" />
+{{< img src="/blog/2022-11-05-irony.gif" >}}
 
 
 ## When you write a blog post how things wont go wrong but do go wrong...
@@ -43,7 +43,7 @@ There it is, in writing! It even has **97 Upvotes** so it must be correct! But, 
 **54 Upvotes!** That is even more proof!! Alright, problem solved - it must be related to MySQL. On top of that, JobRunr only relies on [Instants](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html) - the new date and time API that was added in Java 8. So, it must be really related to MySQL, no? Yes, I can safely [close the issue](https://github.com/jobrunr/jobrunr/issues/248#issuecomment-982072478). 
 
 
-<img src="/blog/2022-11-05-what-a-mistake.gif" />
+{{< img src="/blog/2022-11-05-what-a-mistake.gif" >}}
 
 
 ## So, what happened?
@@ -127,7 +127,7 @@ Back to the code: what happens when a [Java 8 Instant](https://docs.oracle.com/j
 That looks correct to me, no? Hmm, let's Google and Stackoverflow again!
 
 <figure>
-  <img src="/blog/2022-11-05-no-stackoverflow-for-you.png">
+  {{< img src="/blog/2022-11-05-no-stackoverflow-for-you.png" >}}
 
   <figcaption>This is going to be fun...</figcaption>
 </figure>
@@ -139,7 +139,7 @@ So, after resetting my pc's date and time correct again, I find the following [s
 Just for fun, I open the `java.sql.Timestamp` class:
 
 <figure>
-  <img src="/blog/2022-11-05-oooh-noooo.png">
+  {{< img src="/blog/2022-11-05-oooh-noooo.png" >}}
 
   <figcaption>java.sql.Timestamp extends java.util.Data? This is really going to be fun...</figcaption>
 </figure>
@@ -155,7 +155,7 @@ Further down in the [stackoverflow.com post](https://stackoverflow.com/a/5456484
 Alright, this is going to be an easy fix! I just need to change the code snippet from above to `preparedStatement.setObject(i, instant);`, run the tests and call it a day!
 
 <figure>
-  <img style="width:60%; margin: 0 auto;" src="/blog/2022-11-05-oooh-noooo-tests.png">
+  {{< img style="width:60%; margin: 0 auto;" src="/blog/2022-11-05-oooh-noooo-tests.png" >}}
 
   <figcaption>Perhaps the fix is not going to be so easy...</figcaption>
 </figure>
@@ -193,7 +193,7 @@ org.postgresql.util.PSQLException: Cannot cast an instance of java.time.Instant 
 The [stackoverflow.com post](https://stackoverflow.com/a/54564844/1005124) also has a nice picture explaining everything, let's review it again:
 
 <figure>
-  <img src="/blog/2022-11-05-jdbc-types.png">
+  {{< img src="/blog/2022-11-05-jdbc-types.png" >}}
 
   <figcaption>java.sql.Timestamp extends java.util.Data? This is really going to be fun...</figcaption>
 </figure>
@@ -201,7 +201,7 @@ The [stackoverflow.com post](https://stackoverflow.com/a/54564844/1005124) also 
 I read all the [different](https://stackoverflow.com/a/22470650/1005124) [stackoverflow](https://stackoverflow.com/a/50668272/1005124) posts but none if works. They say that either the above should work (🤥) by passing `java.time.*` Objects or using the `Timestamp.from(instant)`.
 
 <figure>
-  <img src="/blog/2022-11-05-stackoverflow-has-no-answer.webp">
+  {{< img src="/blog/2022-11-05-stackoverflow-has-no-answer.webp" >}}
 
   <figcaption>When Stackoverflow does not provide an answer...</figcaption>
 </figure>
@@ -227,7 +227,7 @@ Originally, when I created JobRunr I used `TIMESTAMP(6)` for the `lastHeartbeat`
 But - my gut feeling (Batman) did not like this approach my brain (Robin) proposed.
 
 <figure>
-  <img src="/blog/2022-11-05-batman.jpeg">
+  {{< img src="/blog/2022-11-05-batman.jpeg" >}}
 
   <figcaption>My gut feeling slapping my brain...</figcaption>
 </figure>
@@ -244,7 +244,7 @@ The code from above then become  `preparedStatement.setObject(i, LocalDateTime.o
 Jeeej! Only one failing test per database! And, if I go back in time to Sunday October 30th at 2:59 and test the original bug again all is well! The failing test is easily solved (I should then also fetch the `java.sql.Timestamp` as a `java.time.LocalDateTime` and transform it back to an `java.time.Instant`) and I start testing it for each database. There is light at the end of the tunnel!
 
 <figure>
-  <img src="/blog/2022-11-05-db2.jpeg">
+  {{< img src="/blog/2022-11-05-db2.jpeg" >}}
 
   <figcaption>Apparently, DB2 does not support JDBC 4.2</figcaption>
 </figure>
@@ -256,7 +256,7 @@ Well, bad luck for those DB2 people, no? Who uses DB2 anyways?
 ### A solution no-where to be found on the internet
 Then, by sheer luck, I suddenly saw the following: 
 <figure>
-  <img src="/blog/2022-11-05-intellij-to-the-rescue.png">
+  {{< img src="/blog/2022-11-05-intellij-to-the-rescue.png" >}}
 
   <figcaption>Wait - what is that Calendar I can pass as an extra option?</figcaption>
 </figure>

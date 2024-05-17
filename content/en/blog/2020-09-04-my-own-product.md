@@ -35,7 +35,7 @@ On the website, I also explicitly mention [StackOverflow with a custom tag](http
 Since I'd loved to get the word out about JobRunr, I used some free Google Ads credit and monitored the visitors on the website. The number of visitors increased significantly but for some reason, the ads where mostly only shown to Indian visitors and it did not have a big effect on the amount of JobRunr users. Even after changing the regional settings for my ads, nothing really happened and I did not notice an increase in the amount of users for JobRunr (there were no extra questions in Gitter nor any new bugs or feature requests on GitHub). Since I did not want to spend any money on Google Ads, I stopped the Google Ads campaign.
 
 <figure>
-<img src="/blog/2020-09-04-my-own-product-google-analytics.webp" />
+{{< img src="/blog/2020-09-04-my-own-product-google-analytics.webp" >}}
 <figcaption>The google analytics for the <a href="https://www.jobrunr.io/">jobrunr.io</a> website.</figcaption>
 </figure>
 
@@ -47,17 +47,17 @@ When publishing a Jar on Maven Central, you can also see some basic statistics a
 <div style="display: flex; padding: 5px;">
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-05-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-05-2020.webp" >}}
 <figcaption>19 unique downloads of JobRunr v0.9.7</figcaption>
 </figure>
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-06-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-06-2020.webp" >}}
 <figcaption>62 unique downloads of JobRunr in total<br>v0.9.7 = 26; v0.9.8 = 16; v0.9.9 = 14; <br>v0.9.10 = 11; v0.9.11 = 20</figcaption>
 </figure>
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-07-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-07-2020.webp" >}}
 <figcaption>110 unique download of JobRunr in total<br>v0.9.7 = 17; v0.9.8 = 20; v0.9.9 = 25; <br>v0.9.10 = 21; v0.9.11 = 52; v0.9.12 = 17; v0.9.13 = 10</figcaption>
 </figure>
 </div>

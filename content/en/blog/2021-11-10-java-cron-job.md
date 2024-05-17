@@ -52,12 +52,12 @@ public class SampleService {
 ```
 - it comes with a great UI where you have an overview of all your CRON jobs and where you check whether your CRON task / method finished successfully.
 <figure>
-<img src="/documentation/recurring-jobs-1.webp" class="kg-image">
+{{< img src="/documentation/recurring-jobs-1.webp" class="kg-image" >}}
 <figcaption>
 An overview of all recurring jobs with the ability to trigger or delete them</figcaption>
 </figure>
 
 <figure>
-<img src="/blog/2021-09-14-cron-job-succeeded.png" class="kg-image">
+{{< img src="/blog/2021-09-14-cron-job-succeeded.png" class="kg-image" >}}
 <figcaption>A detailed overview of a succeeded CRON job</figcaption>
 </figure>
