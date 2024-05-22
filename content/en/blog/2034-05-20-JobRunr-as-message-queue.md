@@ -2,8 +2,9 @@
 title: "JobRunr: An Alternative to Message Queueing"
 summary: "Do you really need a message queue?"
 feature_image: /blog/2024-05-20-jobrunr-message-queue.png
-date: 2024-05-20T09:00:00+02:00
+date: 2034-05-20T09:00:00+02:00
 author: "Ronald Dehuysser"
+draft: true
 tags:
   - blog
   - meta
@@ -19,7 +20,7 @@ tags:
 </style>
 
 
-In the world of software development, background job processing and message queueing are crucial components for building scalable and efficient systems. Traditionally, message queueing systems like [RabbitMQ](https://www.rabbitmq.com/) and even [Apache Kafka](https://kafka.apache.org/) have been the go-to solutions for managing background tasks, ensuring reliability, and maintaining system performance. However, as technology evolves, so do the alternatives. One such powerful alternative is JobRunr, a distributed background job processing framework for Java. In this blog post, we'll explore how JobRunr can serve as an effective alternative to traditional message queueing systems like RabbitMQ.
+In the world of software development, background job processing and message queueing are crucial components for building scalable and efficient systems. Traditionally, message queueing systems like [RabbitMQ](https://www.rabbitmq.com/) and even [Apache Kafka](https://kafka.apache.org/) have been the go-to solutions for keeping, ensuring reliability, and maintaining system performance. However, as technology evolves, so do the alternatives. One such powerful alternative is JobRunr, a distributed background job processing framework for Java. In this blog post, we'll explore how JobRunr can serve as an effective alternative to traditional message queueing systems like RabbitMQ.
 
 ## The Case for Message Queueing
 Message queueing systems like RabbitMQ are widely used for their ability to handle asynchronous communication between services. They offer several advantages:
