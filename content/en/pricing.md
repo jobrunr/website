@@ -49,7 +49,7 @@ JobRunr OSS with:
 - [Enqueueing of jobs]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}})
 - [Scheduling of jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}})
 - [Automatic retry handling]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}})
-<br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 
 ### Licensing
 - [JobRunr under LGPL 3.0]({{< ref "licensing/info.md" >}})
@@ -72,73 +72,28 @@ _always and forever_
 </div>
 </div>
 
-<div class="plan plan-business">
+<div class="plan plan-enterprise" style="width: 100%">
 
-## Business
+## Enterprise
 <div class="no-margin">
 
-_streamline your workflows<br>and background jobs_
+_our most powerful offering<br>with security and much more_
 </div>
 
 ### Features
 Everything in JobRunr OSS plus:
-- Up to [5000 recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
+- [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - [Enhanced dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}})
 - [Transaction plugin]({{< ref "documentation/pro/transactions.md" >}})
 - [Priority queues]({{< ref "documentation/pro/priority-queues.md" >}})
 - [Workflow management]({{< ref "documentation/pro/job-chaining.md" >}})
 - [Real-time scheduling]({{< ref "documentation/pro/real-time-scheduling.md" >}})   
 - [Batches]({{< ref "documentation/pro/batches.md" >}})
-- [And much more...]({{< ref "documentation/pro/_index.md" >}})
-<br><br>
-
-### Licensing
-- [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
-- Annual license
-- Access to private Maven repository
-- Access to source code
-
-### Priority support
-- [Email / HelpDesk](mailto:hello@jobrunr.io)
-- Technical support
-- Priority handling for bugs
-
-### Purchasing
-- Credit Card / PayPal 
-- Invoice
-
-<div class="buy">
-
-<strong style='color: #3eb0ef;text-decoration: none;'>7950 <span class="currency-holder">$</span></strong>
-_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_
-
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro">BUY NOW</a>
-
-<div class="eco-friendly">
-
-We care about our planet:
-_[your subscription includes <br/>250 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
-</div>
-</div>
-</div>
-
-<div class="plan plan-enterprise" style="width: 100%">
-
-## Enterprise
-<div class="no-margin">
-
-_our most powerful offering with security and much more_
-</div>
-
-### Features
-Everything in Business plus:
 - Enterprise hardened <a class="tooltip" data-title="Enterprise hardened releases are designed for production environments where the least amount of disruption is the goal. Each release goes through a stress test in addition to a full suite of unit/functional/full-system tests. CPU, memory and performance benchmarks are compared to previous releases for regressions. Additionally, extra external security auditing is performed for maximum security."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [Dashboard SSO]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}}) <a class="tooltip" data-title="Allow your engineers and developers connect to the dashboard with Single Sign On thanks to our OpenId integration"><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [GDPR / HIPAA compliant dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}})
 - <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}">Panic Button (1 / year)</a> <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}" class="tooltip" data-title="The panic button allows to notify me instantaneously, Ronald Dehuysser, in case of a production incident."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
-- [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
-- Unlimited clusters
-<br><br><br><br>
+- [And much more...]({{< ref "documentation/pro/_index.md" >}})
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
