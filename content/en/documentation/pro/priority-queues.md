@@ -22,9 +22,9 @@ Are you processing millions of jobs? Do you have some high priority jobs that ne
 Using queues could not have been easier thanks to the `Job` annotation. Just add it to your service method and specify on which queue you want to run it.
 
 ```java
-public static final String HighPrioQueue = "high-prio";
-public static final String DefaultQueue = "default";
-public static final String LowPrioQueue = "low-prio";
+public static final String HighPrioQueue = "HighPrio";
+public static final String DefaultQueue = "Default";
+public static final String LowPrioQueue = "LowPrio";
 
 public void runJobs() {
     BackgroundJob.enqueue(this::startJobOnLowPrioQueue);
