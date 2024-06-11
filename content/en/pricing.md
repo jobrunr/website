@@ -135,7 +135,7 @@ Open Source software is great, why should you pay money for JobRunr Pro Business
 JobRunr Pro has lots of **really valuable, well-documented, well-tested** features. You can reproduce some of this functionality with 3rd party open source libraries but:
 
 - Will they be supported years from now?
-- Will they work with newer versions of Java, or Spring Boot?
+- Will they work with newer versions of Java, Spring Boot or Quarkus?
 - Will they get a steady stream of updates to fix bugs? What about security fixes?
 - How many days or weeks will it take you to integrate everything together and test it?
 
