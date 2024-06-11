@@ -130,7 +130,7 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 
 <h3>Why get a Pro license?</h3>
 
-Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Is your business building infrastructure or *user functionality*? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To find out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
+Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Well, the actual question is: "is your business building infrastructure or *user functionality*"? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To find out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
 
 JobRunr Pro has lots of **really valuable, well-documented, well-tested** features. You can reproduce some of this functionality with 3rd party open source libraries but:
 
