@@ -15,7 +15,7 @@ menu:
 
 Are you running a multi-tenant application? Or do you have diverse types of jobs where certain types of jobs could potentially trigger peak workloads? Use JobRunr's built-in dynamic queues to make sure that there is some fair-use and all jobs get a fair amount of resources!
 
-> **Note**: JobRunr Pro supports unlimited dynamic queues and they can be used together with the [priority queues]({{< ref "/priority-queues.md" >}}).
+> **Note**: JobRunr Pro supports unlimited dynamic queues and they can be used together with the [priority queues]({{< ref "/documentation/pro/priority-queues.md" >}}).
 
 ## Example Use Cases
 - In a **multi-tenant application** where each tenant can initiate their own jobs, JobRunr ensures fair-use processing. Regardless of whether one tenant generates millions of jobs, the system guarantees that jobs from other tenants are also duly processed.

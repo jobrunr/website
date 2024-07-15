@@ -15,7 +15,7 @@ menu:
 
 Are you processing millions of jobs? Do you have some high priority jobs that need to finish fast? Use JobRunr priority queues to make sure that critical jobs cut in front of already enqueued jobs.
 
-> **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/dynamic-queues.md" >}}).
+> **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/documentation/pro/dynamic-queues.md" >}}).
 
 ## Usage
 ### Using the Job Annotation
