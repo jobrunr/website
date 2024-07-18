@@ -7,6 +7,6 @@
     {{ if (.Get "style") }}
         {{ (.Get "style") | highlight (trim .Inner "\n") }}
     {{ else }}
-        {{ .Inner }}
+        {{ .Inner | markdownify }}
     {{ end }}
 </div>
