@@ -12,7 +12,14 @@ hideFrameworkSelector: true
 ---
 
 [Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used to dynamically adjust the resources allocated to the cloud application based on some metrics. Typically, scaling is done based on CPU or memory usage, but in the context of task scheduling and background job processing, we may be interested in scaling based on the number of jobs in the queue, the time they spend in the queue, etc. JobRunr Pro provides the advanced metrics to enable efficient autoscaling of your application.  
-In this guide, we'll show you how to set up a [Kubernetes](https://kubernetes.io/) autoscaler [KEDA](https://keda.sh/) using JobRunr Pro metrics to achieve an efficient scaling of your application.
+In this guide, we'll show you how to autoscale your [Kubernetes](https://kubernetes.io/)-managed JobRunr Pro applications using [KEDA](https://keda.sh/), a K8s-based event driven autoscaler.
+
+## What you will learn
+You will learn how to set up [KEDA](https://keda.sh/) to enable autoscaling of your JobRunr Pro applications on Kubernetes. You will also configure autoscaling triggers based on JobRunr Pro metrics such as workers' usage, job queue latency, and scheduled jobs count. 
+
+## Why you should use JobRunr metrics to autoscale
+Using JobRunr metrics for autoscaling ensures that your application scales dynamically based on real-time job processing needs. Unlike traditional autoscaling methods that rely solely on CPU or memory usage, JobRunr metrics allow you to scale based on specific workload factors such as workers' usage, job queue latency, and scheduled job count.  
+This approach leads to more efficient resource utilization, faster job processing, and improved application performance, ultimately resulting in cost savings and a better user experience.
 
 ## Prerequisites
 - JobRunr Pro 8.0.0 or later
@@ -20,196 +27,43 @@ In this guide, we'll show you how to set up a [Kubernetes](https://kubernetes.io
 - Basic knowledge of Kubernetes
 - A working Kubernetes cluster
 
-> In this guide we will be working locally using [Minikube](https://minikube.sigs.k8s.io/). If you use a different Kubernetes setup, some steps might differ and you may skip any `minikube` commands.
+> In this guide, we will be working locally using [Minikube](https://minikube.sigs.k8s.io/). If you use a different Kubernetes setup, some steps might differ, and you may skip any `minikube` commands.
 
 ## Setup
-You can follow this guide step by step to deploy your existing JobRunr application. If you want to learn how to include and use JobRunr in your project, follow [this guide]({{<ref "guides/intro/java-lambda.md">}}) first.  
+You can follow this guide step-by-step to deploy your existing JobRunr application. If you want to learn how to include and use JobRunr in your project, follow [this guide]({{<ref "guides/intro/java-lambda.md">}}) first.  
+We assume you already know how to deploy your application on Kubernetes.  
 In case you prefer to get straight to the solution, you can view the code from this guide [here]({{<ref "#finished-example">}}).
 
-### Building the container image
-To deploy the application in Kubernetes we need to build and load the image into Docker.  
-> If you already know how to create a Docker image, you can skip this part.
-
-1. Open terminal in your project's root directory.
-2. Set environment variables to point our docker client to Minikube's Docker daemon with the following command:
-    ```
-    eval $(minikube docker-env)
-    ```
-3. Build the container image to the Docker daemon:  
-If your project uses Spring Boot, the easiest way to create an [OCI image](https://github.com/opencontainers/image-spec) is to use [build tool plugin](https://docs.spring.io/spring-boot/build-tool-plugin/index.html) provided by Spring Boot which is available for Maven and Gradle. Executing the command below will create an image using [Cloud Native Buildpacks](https://buildpacks.io/features/#comparison).
-{{< codetabs >}}
-    {{< codetab type="gradle" label="Gradle">}}
-    gradle bootBuildImage --imageName=jobrunr-autoscaling-example:1.0
-    {{< /codetab >}}
-    {{< codetab type="maven" label="Maven">}}
-    mvm command spring-boot:build-image --Dspring-boot.build-image.imageName=jobrunr-autoscaling-example:1.0
-    {{< /codetab >}}
-{{< /codetabs >}}
-> There are other ways to build an image for your application. Feel free to use your preferred tools such as [Jib](https://github.com/GoogleContainerTools/jib) or building with the [Dockerfile](https://docs.docker.com/reference/dockerfile/).
-
-After the build finished you should have a jobrunr-autoscaling-example image in Docker. You can check it by running:
-```
-docker images -f reference=jobrunr-autoscaling-example
-```
-It should output something similar to this:
-```
-REPOSITORY                    TAG       IMAGE ID       CREATED          SIZE
-jobrunr-autoscaling-example   1.0       20cfff6c943e   26 seconds ago   350MB
-```
-
-### Creating k8s deployment
-To run your application in the cluster with the autoscaling capability we will need to deploy several services:
+### Kubernetes deployment
+To run your application in the cluster with the autoscaling capability, we will need to deploy several services:
 - [KEDA](https://keda.sh/) for autoscaling functionality,
 - any [database supported by JobRunr]({{<ref "documentation/installation/storage/_index.md">}}),
 - your application running JobRunr dashboard and your application running JobRunr `BackgroundJobServer`.
 
-Besides that, we will create a [ScaledObject](https://keda.sh/docs/latest/concepts/scaling-deployments/#scaledobject-spec) which lets us configure the autoscaling behaviour.  
-Let's create the k8s folder inside your project's root directory.  
-Then deploy KEDA in your Kubernetes cluster by following the [official guide](https://keda.sh/docs/2.14/deploy).  
+Besides that, we will create a [ScaledObject](https://keda.sh/docs/latest/concepts/scaling-deployments/#scaledobject-spec), which lets us configure the autoscaling behavior.  
 
-Now we are going to deploy the database, we will use the [PostgreSQL](https://www.postgresql.org/). Inside the k8s folder, we create `postgres.yaml` file:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+First deploy KEDA in your Kubernetes cluster by executing the following command:
+```
+kubectl apply --server-side -f https://github.com/kedacore/keda/releases/download/v2.14.0/keda-2.14.0-core.yaml
+```
 
-```yaml
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: postgres
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: postgres
-  template:
-    metadata:
-      labels:
-        app: postgres
-    spec:
-      containers:
-        - name: postgres
-          image: postgres:16.3
-          ports:
-            - containerPort: 5432
-          env:
-            - name: POSTGRES_DB
-              value: jobrunr-db
-            - name: POSTGRES_USER
-              value: jobrunr-user
-            - name: POSTGRES_PASSWORD
-              value: jobrunr-pass
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: postgres
-spec:
-  selector:
-    app: postgres
-  type: NodePort
-  ports:
-    - port: 5432
-```
-</figure>
+> For other options to deploy KEDA, follow the [official guide](https://keda.sh/docs/latest/deploy).
 
-This specifies a deployment of PostgreSQL visible on port `5432` with admin credentials `jobrunr-user` and `jobrunr-pass`. To deploy it, execute:
-```
-kubectl apply -f k8s/postgres.yaml
-```
-Next, let's deploy our application running JobRunr dashboard and one running `BackgroundJobServer`. The difference is in the configuration, here we use separate Spring profiles for dashboard and workers, which enable or disable dashboard or `BackgroundJobServer`. To learn more about JobRunr configuration see [this document]({{<ref "documentation/configuration/_index.md">}}).  
-Inside k8s folder, we create `jobrunr-autoscaling-example.yaml`:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+Next, deploy your JobRunr application. For the purposes of this guide, we've deployed a simple Spring Boot application that allows us to schedule mock jobs via the `/schedule-example-jobs` endpoint.  
+Our setup consists of 2 deployments:
+- **jobrunr-dashboard** - which has enabled JobRunr dashboard exposed on the port `8000` and exposes job scheduling api on port `8080`
+- **jobrunr-example** - which has JobRunr dashboard disabled and has background job server enabled
 
-```yaml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: datasource-config
-data:
-  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/jobrunr-db
-  SPRING_DATASOURCE_USERNAME: jobrunr-user
-  SPRING_DATASOURCE_PASSWORD: jobrunr-pass
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: jobrunr-dashboard
-spec:
-  selector:
-    matchLabels:
-      app: jobrunr-dashboard
-  template:
-    metadata:
-      labels:
-        app: jobrunr-dashboard
-    spec:
-      containers:
-        - name: jobrunr-dashboard
-          image: jobrunr-autoscaling-example:1.0
-          ports:
-            - name: dashboard-svc
-              containerPort: 8000
-            - name: job-enqueue-svc
-              containerPort: 8080
-          envFrom:
-            - configMapRef:
-                name: datasource-config
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: 'dashboard'
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: jobrunr-service
-spec:
-  selector:
-    app: jobrunr-dashboard
-  type: NodePort
-  ports:
-    - name: jobrunr-dashboard
-      protocol: TCP
-      port: 8000
-      targetPort: dashboard-svc
-    - name: job-enqueue
-      protocol: TCP
-      port: 8080
-      targetPort: job-enqueue-svc
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: jobrunr-example
-spec:
-  selector:
-    matchLabels:
-      app: jobrunr-example
-  template:
-    metadata:
-      labels:
-        app: jobrunr-example
-    spec:
-      containers:
-        - name: jobrunr-example
-          image: jobrunr-autoscaling-example:1.0
-          envFrom:
-            - configMapRef:
-                name: datasource-config
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: 'worker'
-```
-<figcaption> jobrunr-autoscaling-example.yaml </figcaption>
-</figure>
+> The separation of the **dashboard** and the **background job server** is there to enable us to scale those two different parts separately. The dashboard deployment can be scaled independently to handle varying levels of user traffic without affecting the job processing capabilities. Similarly, the BackgroundJobServer can scale based on job queue metrics, ensuring optimal job processing efficiency.  
+This separation also allows us to schedule jobs when no BackgroundJobServers are running, which together with the configured autoscaling will start a BackgroundJobServer on demand.
 
-And just as before, let's deploy it in Kubernetes:
-```
-kubectl apply -f k8s/jobrunr-autoscaling-example.yaml
-```
-After this section, in our Minikube cluster we have running JobRunr dashboard and `BackgroundJobServer` connected to PostgreSQL database. There is also KEDA operator running in `keda` namespace.
+There is also a service called `jobrunr-service` that exposes ports of **jobrunr-dashboard**.  
+We also chose to deploy PostgreSQL for our database.  
+<!-- TODO: change github url -->
+You can see all the deployment files we used [here](https://github.com/dumnicki/example-k8s-scaling/tree/main/k8s).
 
-### Configuring autoscaling
-To configure scaling of our application we define a [ScaledObject](https://keda.sh/docs/latest/concepts/scaling-deployments/#scaledobject-spec). Create the `keda-scaling.yaml` file in the k8s directory:
+## Configuring autoscaling
+To configure the scaling of our application, we define a [ScaledObject](https://keda.sh/docs/latest/concepts/scaling-deployments/#scaledobject-spec). Create the `keda-scaling.yaml` file in the k8s directory:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -228,19 +82,22 @@ spec:
 </figure>
 
 Let's take a look at the specification inside the `spec` section.  
-Property `scaleTargetRef` points to the name of deployment we want to scale.  
+The property `scaleTargetRef` points to the name of the deployment we want to scale.  
 We can specify how often KEDA should fetch metrics from JobRunr by changing the `pollingInterval`.  
-The `cooldownPeriod` property defines after how many seconds of all metrics being 0, scaling to `minReplicaCount` should happen.  
-Properties `minReplicaCount` and `maxReplicaCount` specify minimal and maximal number of replicas our app can scale to.
+The `cooldownPeriod` property defines, after how many seconds of all metrics being 0, scaling to `minReplicaCount` should happen.  
+Properties `minReplicaCount` and `maxReplicaCount` specify the minimal and maximal number of replicas our app can scale to.
 
-> Warning! Be careful setting `minReplicaCount` to 0 as it might cause problems with executing recurring jobs. See [considerations section]({{<ref "#limitations-and-considerations">}}).
+> Warning! Be careful setting `minReplicaCount` to 0, as it might cause problems with executing recurring jobs. See the [considerations section]({{<ref "#limitations-and-considerations">}}).
 
-Next we define [triggers](https://keda.sh/docs/latest/concepts/scaling-deployments/#triggers) inside the spec section. Each `trigger` specify which metrics trigger scaling.  
-<!-- TODO: introduce the scenario -->
-Let's assume ... :some usecase: ...
+Next, we define [triggers](https://keda.sh/docs/latest/concepts/scaling-deployments/#triggers) inside the spec section. Each `trigger` specifies which metrics trigger scaling.  
 
-Our first trigger is based on the workers usage. The specification below says that our target is 80% utilization of workers. If it's more, we want to scale up, if it's less we want to scale down.  
-We get the workers usage metric from [JobRunr Pro metrics api]({{<ref "#jobrunr-pro-metrics-api">}}).
+### Workers' usage
+Imagine you are running an e-commerce platform that processes a large number of background tasks, such as order processing, email notifications, and data synchronization. During peak shopping hours, the number of tasks increases dramatically, leading to high demand on your job processing infrastructure. Conversely, during off-peak hours, the workload significantly decreases.
+
+By configuring an autoscaling trigger based on workers' usage, you can dynamically adjust the number of job processing instances in your Kubernetes cluster. When the workers' usage exceeds a certain threshold (e.g., 80%), indicating that the system is under heavy load, KEDA will automatically scale up the number of instances to handle the increased workload. Conversely, when the workers' usage drops below the threshold, indicating reduced demand, the system will scale down to conserve resources.
+
+We want to specify the target utilization of workers to be 80%.  
+We get the workers' usage metrics from [JobRunr Pro metrics api]({{<ref "#jobrunr-pro-metrics-api">}}) and so we use the specific enpoint in our configuration below. 
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -259,17 +116,21 @@ spec:
 ```
 </figure>
 
-Let's shortly explain what this config means.  
-We are using REST endpoints to fetch our metrics so we use `metrics-api` type of trigger.  
-Property `metricType: Value` specifies this is the total value i.e. the target value is independent of number of pods.  
-In the `metadata` section we specify:  
+Let's briefy explain what this config means.  
+We are using REST endpoints to fetch our metrics, so we use the `metrics-api` type of trigger.  
+The property `metricType: Value` specifies this is the total value, i.e. the target value is independent of the number of pods.  
+In the `metadata` section, we specify:  
 `targetValue` - the optimal value of the metric,  
 `activationTargetValue` - threshold on which to scale to and from 0 replicas,  
-`format` - format of the response from specified url,  
+`format` - format of the response from the specified url,  
 `url` - endpoint from which we fetch the metric,  
 `valueLocation` - location of the metrics property inside the json response that we are interested in.
 
-The next trigger is based on scheduled jobs metrics.
+### Scheduled jobs metrics
+Consider a data analytics platform that processes large batches of data at scheduled intervals. For instance, an organization might collect and process sales data from various sources every hour to generate real-time sales reports for management. By configuring an autoscaling trigger based on the number of scheduled jobs, you can ensure that your Kubernetes cluster scales up in anticipation of these data processing tasks. If a significant number of jobs are scheduled to run soon, the system can proactively allocate more resources to handle the increased workload efficiently, ensuring timely and accurate reporting.
+
+Conversely, when there are fewer scheduled data processing jobs, the system can scale down to conserve resources and reduce operational costs. This dynamic scaling based on scheduled jobs metrics ensures that your data processing pipeline remains responsive and efficient, regardless of workload fluctuations. This approach helps maintain optimal performance and cost-efficiency, ensuring critical tasks are completed on time and improving overall system reliability.  
+Let's configure the trigger as below.
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -285,12 +146,17 @@ The next trigger is based on scheduled jobs metrics.
 ```
 </figure>
 
-It specifies that we are targetting to have 8 scheduled jobs per pod. We are interested in jobs that will run in the next 2 minutes.  
-Here we use `metricType: AverageValue` to specify that the `targetVaue` is per pod (e.g. having 2 pods and 10 scheduled jobs we get value 5 per pod so we are below the targetValue of 8).
+It specifies that we are targeting having 8 scheduled jobs per pod. We are interested in jobs that will run in the next 2 minutes.  
+Here we use `metricType: AverageValue` to specify that the `targetVaue` is per pod (e.g., having 2 pods and 10 scheduled jobs, we get value 5 per pod, so we are below the targetValue of 8).
 
-> Using the scheduled jobs metrics can be useful in the situation if we want to quickly process a big batch of jobs that are scheduled in some time in the future. We look 2 minutes ahead and already start creating pods to be ready when those jobs execute. Afterwards we scale down to save resources.  
+> Using the scheduled jobs metrics can be useful in a situation where we want to quickly process a large batch of jobs that are scheduled for some time in the future. We look 2 minutes ahead, and we already start creating pods to be ready when those jobs execute. Afterward, we scale down to save resources.  
 
-The last trigger we add to `triggers` section is based on latency of the enqueued jobs:
+### Enqueued jobs metrics
+Consider a financial services platform that processes real-time transactions and updates user accounts. Ensuring quick task completion is critical for accurate balances and timely confirmations. By configuring an autoscaling trigger based on enqueued jobs latency, you can dynamically scale your Kubernetes cluster to reduce processing delays. If job latency exceeds a threshold (e.g., 5 minutes), the system scales up to handle the backlog efficiently.
+
+Conversely, when job latency is low, the system scales down to conserve resources and cut costs. This dynamic scaling ensures your platform remains responsive and efficient, even during peak periods, preventing bottlenecks and optimizing resource use for critical financial operations.
+
+The last trigger we add to the `triggers` section is based on the latency of the enqueued jobs:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -306,77 +172,29 @@ The last trigger we add to `triggers` section is based on latency of the enqueue
 ```
 </figure>
 
-This trigger defines that we want to scale up if there are jobs that are waiting in queue for more than 5 minutes.  
+This trigger is defining that we want to scale up if there are jobs that are waiting in queue for more than 5 minutes.  
 
-> Beware the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the queue you are interested in by adding the `queue` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics api]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
+> Beware of the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the queue you are interested in by adding the `queue` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics api]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
 
-Now all is left to do is to apply our autoscaling configuration in the Kubernetes cluster:
+Now all that is left to do is apply our autoscaling configuration in the Kubernetes cluster:
 ```
 kubectl apply -f k8s/keda-scaling.yaml
 ```
-Congratulations, your app is now autoscaling based on the 3 metrics we specified!  
+Congratulations! Your app is now autoscaling based on the 3 metrics we specified!  
 Let's verify it in the next section.
 
-> To learn more about KEDA autoscaling and see more advanced options visit the [KEDA documentation](https://keda.sh/docs/latest/concepts/scaling-deployments/).
+> To learn more about KEDA autoscaling and see more advanced options, visit the [KEDA documentation](https://keda.sh/docs/latest/concepts/scaling-deployments/).
 
-
-<!-- ## Scheduling sample jobs
-Our example application exposes an endpoint that allows us to schedule sample jobs. This is useful if we want to play with autoscaling configuration and observe how our deployment scales depending on the jobs load.
-By calling 
-```shell
-ENQUEUE_URL/schedule-example-jobs
-```
-we will schedule sample jobs. This endpoint also takes the following parameters:
-- **name** - the name we want to give to our sample jobs `default: SampleJob`
-- **count** - number of jobs we want to schedule `default: 100`
-- **executionTimeMs** - how long should the execution of each job be in milliseconds `default: 15000`
-- `optional` **runIn** - duration in ISO-8601 format specyfing time in which the jobs will be scheduled
-
-Let's call:
-```shell
-ENQUEUE_URL/schedule-example-jobs?count=40&runIn=PT1M
-```
-this will schedule 40 jobs to run in 1 minute. -->
 
 ## Testing the autoscaling
 It's time to see the autoscaler in action!  
-<!-- ### Accessing the application
-To access the application running within Minikube we can get the urls to our service with the following command:
-```
-minikube service jobrunr-service
-```
-This will display the urls to JobRunr dashboard and to the api for enqueuing sample jobs. Depending on your setup, minikube will also open a tunnel forwarding the application ports to your localhost.  
-You'll see an output like this:
-```
-|-----------|-----------------|------------------------|---------------------------|
-| NAMESPACE |      NAME       |      TARGET PORT       |            URL            |
-|-----------|-----------------|------------------------|---------------------------|
-| default   | jobrunr-service | jobrunr-dashboard/8000 | http://192.168.49.2:30924 |
-|           |                 | job-enqueue/8080       | http://192.168.49.2:31660 |
-|-----------|-----------------|------------------------|---------------------------|
-🏃  Starting tunnel for service jobrunr-service.
-|-----------|-----------------|-------------|------------------------|
-| NAMESPACE |      NAME       | TARGET PORT |          URL           |
-|-----------|-----------------|-------------|------------------------|
-| default   | jobrunr-service |             | http://127.0.0.1:43447 |
-|           |                 |             | http://127.0.0.1:36337 |
-|-----------|-----------------|-------------|------------------------|
-[default jobrunr-service  http://127.0.0.1:43447
-http://127.0.0.1:36337]
-❗  Because you are using a Docker driver on linux, the terminal needs to be open to run it.
-```
-
-We are interested in the last two urls that are displayed, we will refer to them as follows:
-- `DASHBOARD_URL` - targeting `jobrunr-dashboard/8000` port
-- `ENQUEUE_URL` - targeting `job-enqueue/8080` port -->
-
-Before we start let us forward our application ports to localhost by executing this command:
+Before we start, let us forward our application ports to localhost by executing this command:
 ```
 kubectl port-forward svc/jobrunr-service 8000 8080
 ```
-Now the JobRunr dashboard and metrics api is available at [http://localhost:8000/](http://localhost:8000/) and our api for scheduling sample jobs is located at [http://localhost:8080/](http://localhost:8080/).
+Now the JobRunr dashboard and metrics api are available at [http://localhost:8000/](http://localhost:8000/), and our api for scheduling sample jobs is located at [http://localhost:8080/](http://localhost:8080/).
 
-Let's open the JobRunr dashboard in the web browser [http://localhost:8000/dashboard](http://localhost:8000/dashboard).
+Let's open the JobRunr dashboard in the web browser: [http://localhost:8000/dashboard](http://localhost:8000/dashboard).
 
 <!-- You will be prompt to login with the username and password that is specified in `k8s/2-jobrunr-example.yaml`.
 - **username**: dashboard-user
@@ -384,15 +202,15 @@ Let's open the JobRunr dashboard in the web browser [http://localhost:8000/dashb
 
 You will be promped to input your JobRunr Pro license key.
 
-First look at the servers list on the dashboard [http://localhost:8000/dashboard/servers](http://localhost:8000/dashboard/servers).  
+First, look at the servers list on the dashboard [http://localhost:8000/dashboard/servers](http://localhost:8000/dashboard/servers).  
 You should see no servers found. This is because we specified `minReplicaCount` to be 0. There are no pods running `BackgroundJobServers`. 
 
 Now let's schedule 40 jobs to run in 2 minutes by calling [http://localhost:8080/schedule-example-jobs?count=40&runIn=PT2M](http://localhost:8080/schedule-example-jobs?count=40&runIn=PT2M).  
-With the configuration we specified our target is 8 jobs per pod. KEDA will scale up our deployment to match it. We can see the current pods with the following command:
+With the configuration we specified, our target is 8 jobs per pod. KEDA will scale up our deployment to match it. We can see the current pods with the following command:
 ```
 kubectl get pods
 ```
-We will get an output simmilar to this:
+We will get an output similar to this:
 ```
 NAME                                 READY   STATUS              RESTARTS   AGE
 jobrunr-dashboard-74db64f488-spv5g   1/1     Running             0          121m
@@ -404,15 +222,15 @@ jobrunr-example-854f975c57-vbdjr     0/1     ContainerCreating   0          1s
 postgres-f879f4c78-6xhpg             1/1     Running             0          121m
 ```
 Great! We see there are 5 new pods being created.  
-After around 1 minute the servers should announce themselves and will be visible in JobRunr dashboard.
+After around 1 minute, the servers should announce themselves and will be visible in the JobRunr dashboard.
 
-Once it's time for our scheduled jobs to execute, they'll become enqueued and then processed. Now the workers usage metric kicks in! As we have 40 jobs and only 20 total workers, we will see 100% workers usage throughout the processing of all the jobs. After 30 seconds (poll interval) we can observe another pod being created to match our specified 80% workers usage target.
+Once it's time for our scheduled jobs to execute, they'll be queued and then processed. Now the workers' usage metric kicks in! As we have 40 jobs and only 20 total workers, we will see 100% workers' usage throughout the processing of all the jobs. After 30 seconds (poll interval), we can observe another pod being created to match our specified 80% workers' usage target.
 
 If we wait 5 minutes and don't schedule any new jobs, our deployment will scale back to 0.
 
 ## Optional - secure your JobRunr dashboard
-Securing your JonRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics api but it requieres some additional configuration. In this section we will show how to set up a basic authorization of our JobRunr dashboard and api, and enable KEDA to access it.  
-First inside the `jobrunr-autoscaling-example.yaml` file add the `Secret` which will store our username and password: 
+Securing your JonRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics api, but it requieres some additional configuration. In this section, we will show how to set up a basic authorization for our JobRunr dashboard and api, and enable KEDA to access it.  
+First, inside the `jobrunr-autoscaling-example.yaml` file add the `Secret` which will store our username and password: 
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -461,7 +279,7 @@ spec:
 ```
 </figure>
 
-Now your JobRunr dashboard is secured with basic authentication but KEDA can't fetch any metrics. We have to configure our autoscaler to authenticate using our username and password. To do this, let's edit the `keda-scaling.yaml` file and add this `TriggerAuthentication` object at the end:
+Now, your JobRunr dashboard is secured with basic authentication, but KEDA can't fetch any metrics. We have to configure our autoscaler to authenticate using our username and password. To do this, let's edit the `keda-scaling.yaml` file and add this `TriggerAuthentication` object at the end:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -499,32 +317,32 @@ This specifies an authentication details that can be used in our triggers as fol
 ```
 </figure>
 
-Add it to all 3 of our triggers. Now the autoscaling should work with the secured JobRunr endpoints.
+Add it to all 3 of our triggers. Now, the autoscaling should work with the secured JobRunr endpoints.
 
 ## Finished example
 <!-- TODO: Change the github url -->
-The example app together with k8s deployment files that we created in this guide is available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
+The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
 
 ## Limitations and considerations
-Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage).  
+Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage).  
 No recurring jobs can be executed if no `BackgroundJobServers` are running. We recommend having always 1 `BackgroundJobServer` running.  
 
-The workers usage is updated every [background job server poll interval](documentation/configuration/spring#advanced-configuration). 
+The workers' usage is updated at every [background job server poll interval](documentation/configuration/spring#advanced-configuration). Therefore, setting a higher poll interval in KEDA when using only workers' usage metric is not recommended.
 
 
 ## Conclusion
-In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use JobRunr Pro metrics api to create the scaling triggers.
+In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use the JobRunr Pro metrics api to create the scaling triggers.
 
 ---
 
 <!-- TODO: This API reference should be moved to documentation -->
 ## JobRunr Pro metrics api
-JobRunr Pro allows us to access useful metrics that can be used for autoscaling. This is the overview of them:
+JobRunr Pro allows us to access useful metrics that can be used for autoscaling. This is an overview of them:
 ### Get Enqueued Jobs Metrics
 `GET /api/metrics/jobs/enqueued?queue=[string]`
 
 **Query parameters**: 
-- `queue` get metrics only for jobs from the queue with specified name.
+- `queue` get metrics only for jobs from the queue with a specified name.
 
 #### Response content example
 <figure style="width: 100%; max-width: 100%; margin: 0">
@@ -545,8 +363,8 @@ JobRunr Pro allows us to access useful metrics that can be used for autoscaling.
 `GET /api/metrics/jobs/scheduled?runInMax=[string]&queue=[string]` 
 
 **Query parameters**: 
-- `runInMax` ISO-8601 duration format, get metrics for jobs scheduled to run in specified time at the latest. By default we only count jobs that are scheduled to run not later than 1 minute from now.
-- `queue` get metrics only for jobs from the queue with specified name.
+- `runInMax` ISO-8601 duration format, get metrics for jobs scheduled to run in specified time at the latest. By default, we only count jobs that are scheduled to run no later than 1 minute from now.
+- `queue` get metrics only for jobs from the queue with a specified name.
 
 #### Response content example
 <figure style="width: 100%; max-width: 100%; margin: 0">
