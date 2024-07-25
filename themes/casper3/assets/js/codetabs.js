@@ -10,10 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         document.querySelectorAll(`.framework-content[data-type="${tabType}"]`)?.forEach(function(content) {
             content.classList.add('active'); 
-        }); 
-        document.querySelectorAll(`.tabpanel[data-type="${tabType}"]`).forEach(function(tab) {
-            tab.classList.add('active'); 
-        })
+        });
     }
 
     const removeActive = (nextTabType) => {
@@ -24,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if(!nextActiveTab) return;
             activeTab.classList.remove("active");
             tabContainer.querySelector(".framework-content.active")?.classList.remove("active");
-            tabContainer.querySelector(".tabpanel.active")?.classList.remove("active");
         })
     }
 
