@@ -72,7 +72,7 @@ metadata:
   name: jobrunr-scaling
 spec:
   scaleTargetRef:
-    name: jobrunr-example
+    name: workers
   pollingInterval:  30
   cooldownPeriod:   300
   minReplicaCount:  0
@@ -168,9 +168,7 @@ In this case, our example includes a trigger that monitors when the latency of e
 
 This trigger is defining that we want to scale up if there are jobs that are waiting in queue for more than 5 minutes.  
 
-> Beware of the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the queue you are interested in by adding the `queue` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics api]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
-
-We have defined three triggers, and when any of these triggers meet the criteria, KEDA will start scaling. The Horizontal Pod Autoscaler (HPA), which drives the scaling, will calculate proposed replica counts for each trigger and use the highest one to scale the workload to.
+> Beware of the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the priority of the queue you are interested in by adding the `priority` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
 
 ### Applying the autoscaling configuration
 Now all that is left to do is apply our autoscaling configuration in the Kubernetes cluster:
@@ -183,7 +181,9 @@ Congratulations! Your app is now autoscaling based on the 3 metrics we specified
 
 
 ## Testing the autoscaling
-It's time to see the autoscaler in action! Before we start, let us forward our application ports to localhost by executing this command:
+It's time to see the autoscaler in action! We have defined three triggers, and when any of these triggers meet the criteria, KEDA will start scaling. The Horizontal Pod Autoscaler ([HPA](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/)), which drives the scaling, will process the proposed replica counts for each trigger and use the highest one to scale the workload to. 
+
+Before we start, let us forward our application ports to localhost by executing this command:
 ```
 kubectl port-forward svc/jobrunr-service 8000 8080
 ```
@@ -191,11 +191,7 @@ Now the JobRunr dashboard and metrics API are available at [http://localhost:800
 
 Let's open the JobRunr dashboard in the web browser: [http://localhost:8000/dashboard](http://localhost:8000/dashboard).
 
-<!-- You will be prompt to login with the username and password that is specified in `k8s/2-jobrunr-example.yaml`.
-- **username**: dashboard-user
-- **password**: dashboard-password -->
-
-You will be promped to input your JobRunr Pro license key.
+If it's your first time running the application, you will be promped to input your JobRunr Pro license key.
 
 First, look at the servers list on the dashboard [http://localhost:8000/dashboard/servers](http://localhost:8000/dashboard/servers). You should see `no servers found`. This is because we specified `minReplicaCount` to be 0. There are no pods running `BackgroundJobServers`. 
 
@@ -206,13 +202,13 @@ kubectl get pods
 We will get an output similar to this:
 ```
 NAME                                 READY   STATUS              RESTARTS   AGE
-jobrunr-dashboard-74db64f488-spv5g   1/1     Running             0          121m
-jobrunr-example-854f975c57-2pmds     0/1     ContainerCreating   0          1s
-jobrunr-example-854f975c57-fgrlz     0/1     ContainerCreating   0          1s
-jobrunr-example-854f975c57-n49bx     0/1     ContainerCreating   0          2s
-jobrunr-example-854f975c57-t9wvw     0/1     ContainerCreating   0          1s
-jobrunr-example-854f975c57-vbdjr     0/1     ContainerCreating   0          1s
 postgres-f879f4c78-6xhpg             1/1     Running             0          121m
+web-74db64f488-spv5g                 1/1     Running             0          121m
+workers-854f975c57-2pmds             0/1     ContainerCreating   0          1s
+workers-854f975c57-fgrlz             0/1     ContainerCreating   0          1s
+workers-854f975c57-n49bx             0/1     ContainerCreating   0          2s
+workers-854f975c57-t9wvw             0/1     ContainerCreating   0          1s
+workers-854f975c57-vbdjr             0/1     ContainerCreating   0          1s
 ```
 Great! We see there are 5 new pods being created. After around 1 minute, the servers should announce themselves and will be visible in the JobRunr dashboard.
 
@@ -225,19 +221,22 @@ Once it's time for our scheduled jobs to execute, they'll be queued and then pro
 
 If we wait 5 minutes and don't schedule any new jobs, our deployment will scale back to 0.
 
-## Autoscaling your secured JobRunr dashboard
-Securing your JonRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics api, but it requieres some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
-
 ## Finished example
 <!-- TODO: Change the github url -->
 The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
 
 ## Limitations and considerations
-Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). No recurring jobs can be executed if no `BackgroundJobServers` are running. You should have always 1 `BackgroundJobServer` running in.  
+Deploying a ditributed application with enabled autoscaling might be tricky. There are some corner cases that are not be obvious at first. Moreover, Kubernetes comes with some limitations that we should be aware of.
 
-The workers' usage is updated at every [background job server poll interval](documentation/configuration/spring#advanced-configuration). Therefore, setting a shorter poll interval in KEDA when using only workers' usage metric is not recommended.
+### Minimum replica count
+Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). No recurring jobs can be executed if no `BackgroundJobServers` are running. You should always have 1 `BackgroundJobServer` running in your cluster, as it is responsible for checking if any jobs need to be processed.
 
-If you are planning to run jobs with long execution times, you might want to prevent Kubernetes from terminating your replicas that are still processing a long-running job. To do that, you can modify the grace period for your pods in Kubernetes by setting the `terminationGracePeriodSeconds` property in your Pod `spec`. You'll also have to configure the duration to wait before interrupting jobs in JobRunr configuration. Imagine your longest running job takes 1 hour to complete. Then your grace period should be greater than the execution time of that job, for example 1.5 hours. You can configure your deployment as follows:
+### Long-running jobs
+If you are planning to run jobs with long execution times, you might want to prevent Kubernetes from terminating your replicas that are still processing a long-running job. To do that, you can modify the graceful termination period for your pods in Kubernetes. This can be done by setting the `terminationGracePeriodSeconds` property in your Pod `spec`. You'll also have to configure the duration to wait before interrupting jobs in JobRunr. 
+
+The termination period of both Kubernetes and JobRunr can be determined by the maximum expected runtime of your jobs. Imagine your longest running job takes 1 hour to complete. Then your graceful period should be greater than the execution time of that job, for example an 1 hour and 30 minutes.
+
+You can configure your deployment as follows:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
@@ -254,7 +253,7 @@ spec:
 ```
 </figure>
 
-Similar wait period would also have to be configured in JobRunr. There are multiple different options to [configure JobRunr](/documentation/configuration/). Since we are using the `jobrunr-pro-spring-boot-3-starter` dependency, we can add the following property to the `application.properties`:
+Similarly, a termination period would also have to be configured for JobRunr. There are multiple different options to [configure JobRunr](/documentation/configuration/). Since we are using the `jobrunr-pro-spring-boot-3-starter` dependency, we can add the following property to the `application.properties`:
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```properties
@@ -262,21 +261,27 @@ org.jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
 ```
 </figure>
 
-> If you are curious about how Kubernetes terminates the Pods, you can follow [this link](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+> Important thing to note here, is that the Kubernetes termination period should match or be larger than the JobRunr one. This will ensure a safe interruption of the jobs and graceful termination of the JobRunr. If you are curious about how Kubernetes terminates the Pods, you can follow [this link](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
+
+### Poll interval
+The workers' usage is updated at every [background job server poll interval](documentation/configuration/spring#advanced-configuration). Therefore, setting a shorter poll interval in HPA when using only workers' usage metric is not going to increase the frequency of workers' usage updates.
+
+## Autoscaling your secured JobRunr dashboard
+Securing your JonRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requieres some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
 
 ## Conclusion
-In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use the JobRunr Pro metrics api to create the scaling triggers.
+In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use the JobRunr Pro metrics API to create the scaling triggers.
 
 ---
 
 <!-- TODO: This API reference should be moved to documentation -->
-## JobRunr Pro metrics api
+## JobRunr Pro metrics API
 JobRunr Pro allows us to access useful metrics that can be used for autoscaling. This is an overview of them:
 ### Get Enqueued Jobs Metrics
-`GET /api/metrics/jobs/enqueued?queue=[string]`
+`GET /api/metrics/jobs/enqueued?priority=[integer]`
 
 **Query parameters**: 
-- `queue` get metrics only for jobs from the queue with a specified name.
+- `priority` get metrics only for jobs with a specified priority.
 
 #### Response content example
 <figure style="width: 100%; max-width: 100%; margin: 0">
@@ -294,11 +299,11 @@ JobRunr Pro allows us to access useful metrics that can be used for autoscaling.
 - `count` - number of jobs in the queue
 
 ### Get Scheduled Jobs Metrics
-`GET /api/metrics/jobs/scheduled?scheduledIn=[string]&queue=[string]` 
+`GET /api/metrics/jobs/scheduled?scheduledIn=[string]&priority=[integer]` 
 
 **Query parameters**: 
 - `scheduledIn` ISO-8601 duration format, get metrics for jobs scheduled to run in specified time at the latest. By default, we only count jobs that are scheduled to run no later than 1 minute from now.
-- `queue` get metrics only for jobs from the queue with a specified name.
+- `priority` get metrics only for jobs with a specified priority.
 
 #### Response content example
 <figure style="width: 100%; max-width: 100%; margin: 0">
