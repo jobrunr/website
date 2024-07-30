@@ -24,7 +24,7 @@ In this guide, we'll show you how to autoscale your [Kubernetes](https://kuberne
 - A working Kubernetes cluster
 
 ## Why you should use JobRunr metrics to autoscale
-Using JobRunr metrics for autoscaling ensures that your application scales dynamically based on real-time job processing needs. Unlike traditional autoscaling methods that rely solely on CPU or memory usage, JobRunr metrics allow you to scale based on specific workload factors such as workers' usage, job queue latency, and scheduled job count.  
+Using JobRunr metrics for autoscaling ensures that your application scales dynamically based on real-time job processing needs. Unlike traditional autoscaling methods that rely solely on CPU or memory usage, JobRunr metrics allow you to scale based on specific workload factors such as workers' usage, job queue latency, and scheduled jobs count.  
 If configured properly, this approach helps ensure efficient resource utilization and faster job processing, leading to better application performance and potential cost savings.
 
 ## Setup
@@ -79,7 +79,7 @@ spec:
 ```
 </figure>
 
-Let's take a look at the specification inside the `spec` section. The property `scaleTargetRef` points to the name of the deployment we want to scale. We can specify how often KEDA should fetch metrics from JobRunr by changing the `pollingInterval`. The `cooldownPeriod` property defines, after how many seconds of all metrics being 0, scaling to `minReplicaCount` should happen. Finally, the `minReplicaCount` and `maxReplicaCount` properties specify the minimal and maximal number of replicas our app can scale to.
+Let's take a look at the specification inside the `spec` section. The property `scaleTargetRef` points to the name of the deployment we want to scale. We can specify how often KEDA should fetch metrics from JobRunr by changing the `pollingInterval`. The `cooldownPeriod` property defines, after how many seconds of all triggers being inactive (based on `activationTargetValue`), scaling to 0 should happen (takes effect only when `minReplicaCount` is set to 0). Finally, the `minReplicaCount` and `maxReplicaCount` properties specify the minimal and maximal number of replicas our app can scale to.
 
 > Warning! Be careful setting `minReplicaCount` to 0, as it might cause problems with executing recurring jobs. See the [considerations section]({{<ref "#limitations-and-considerations">}}).
 
@@ -145,7 +145,7 @@ spec:
 ```
 </figure>
 
-It specifies that we are targeting to have 8 scheduled jobs per pod. We are interested in jobs that will run in the next 2 minutes. Here we use `metricType: AverageValue` to specify that the `targetVaue` is per pod (e.g., having 2 pods and 10 scheduled jobs, we get value 5 per pod, so we are below the targetValue of 8).
+It specifies that we are targeting to have 8 scheduled jobs per pod. We are interested in jobs that will run in the next 2 minutes. Here we use `metricType: AverageValue` to specify that the `targetVaue` is per pod (e.g., having 2 pods and 10 scheduled jobs, we get value 5 per pod, so we are below the `targetValue` of 8).
 
 > Using the scheduled jobs metrics can be useful in a situation where we want to quickly process a large batch of jobs that are scheduled for some time in the future. We look 2 minutes ahead, and we already start creating pods to be ready when those jobs execute. Afterward, we scale down to save resources.  
 
@@ -179,7 +179,7 @@ This trigger is defining that we want to scale up if there are jobs that are wai
 > Beware of the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the priority of the queue you are interested in by adding the `priority` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
 
 ### Applying the autoscaling configuration
-Now all that is left to do is apply our autoscaling configuration in the Kubernetes cluster:
+Now, all that is left to do is apply our autoscaling configuration to the Kubernetes cluster:
 ```
 kubectl apply -f k8s/keda-scaling.yaml
 ```
@@ -306,9 +306,9 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 ```
 </figure>
 
-- `latency` - time the oldest Job has spent in the queue in milliseconds.
+- `latency` - time the oldest Job has spent in the queue in seconds.
 
-- `count` - number of jobs in the queue
+- `count` - number of jobs in the queue.
 
 ### Get Scheduled Jobs Metrics
 `GET /api/metrics/jobs/scheduled?scheduledIn=[string]&priority=[integer]` 
@@ -327,7 +327,7 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 ```
 </figure>
 
-- `count` - number of jobs scheduled to run in max `scheduledIn` time
+- `count` - number of jobs scheduled to run in max `scheduledIn` time.
 
 ### Get Workers Metrics
 `GET /api/metrics/workers` 
@@ -344,8 +344,8 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 ```
 </figure>
 
-- `usage` - percentage value of total usage of workers
+- `usage` - percentage value of total usage of workers.
 
-- `totalWorkers` - total number of workers across all `BackgroundJobServers`
+- `totalWorkers` - total number of workers across all `BackgroundJobServers`.
 
-- `occupiedWorkers` - number of occupied workers
+- `occupiedWorkers` - number of occupied workers.
