@@ -12,7 +12,7 @@ hideFrameworkSelector: true
 draft: true
 ---
 
-[Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used to dynamically adjust the resources allocated to the cloud application based on some metrics. Typically, scaling is done based on CPU or memory usage, but in the context of task scheduling and background job processing, we may be interested in scaling based on the number of jobs in the queue, the time they spend in the queue, etc. JobRunr Pro provides the advanced metrics to enable efficient autoscaling of your application.  
+[Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used to dynamically adjust the resources allocated to a cloud application based on some metrics. Typically, scaling is done based on CPU or memory usage, but in the context of task scheduling and background job processing, we may be interested in scaling based on the number of jobs in the queue, the time they spend in the queue, etc. JobRunr Pro provides the advanced metrics to enable efficient autoscaling of your application.  
 
 In this guide, we'll show you how to autoscale your [Kubernetes](https://kubernetes.io/)-managed JobRunr Pro applications using [KEDA](https://keda.sh/), a K8s-based event driven autoscaler. You will learn 
 - how to set up KEDA to enable autoscaling of your JobRunr Pro applications on Kubernetes
@@ -46,7 +46,7 @@ Our setup consists of 2 deployments:
 - `web` - which exposes the JobRunr dashboard on port `8000` and an API to schedule jobs on port `8080`
 - `workers` - which enables background job server for background task processing
 
-> The separation of the `web` and the `workers` is there to enable us to scale those two different parts separately. The dashboard deployment can be scaled independently to handle varying levels of user traffic without affecting the job processing capabilities. Similarly, the BackgroundJobServer can scale based on job queue metrics, ensuring optimal job processing efficiency.  This separation ensures that even if no BackgroundJobServers are currently running, scheduled jobs will still be processed as the autoscaling configuration will start a new BackgroundJobServer on demand.
+> The separation of the `web` and the `workers` is there to enable us to scale those two different parts separately. The dashboard deployment can be scaled independently to handle varying levels of user traffic without affecting the job processing capabilities. Similarly, the `BackgroundJobServer` can scale based on job queue metrics, ensuring optimal job processing efficiency.  This separation ensures that even if no `BackgroundJobServers` are currently running, scheduled jobs will still be processed as the autoscaling configuration will start a new `BackgroundJobServer` on demand.
 
 We have also created a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) object called `jobrunr-service` that exposes ports of the `web` deployment, enabling access to the dashboard and API from outside of the cluster. Additionally, we deployed [PostgreSQL](https://www.postgresql.org/) as our database.  
 <!-- TODO: change github url -->
@@ -93,14 +93,15 @@ Imagine you are running an e-commerce platform that processes a large number of 
 
 By configuring an autoscaling trigger based on workers' usage, you can dynamically adjust the number of job processing instances in your Kubernetes cluster. When the workers' usage exceeds a certain threshold (e.g., 80%), indicating that the system is under heavy load, KEDA will automatically scale up the number of instances to handle the increased workload. Conversely, when the workers' usage drops below the threshold, indicating reduced demand, the system will scale down to conserve resources.
 
-To handle such a case, we can configure KEDA to scale based on the workers' usage metric. In this example, we set the target utilization of workers to be 80%. The workers' usage is exposed by [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}), we can use the provided enpoint in our configuration below.
+To handle such a case, we can configure KEDA to scale based on the workers' usage metric. In this example, we set the target utilization of workers to be 80%. The workers' usage is exposed by [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}), we can use the provided endpoint in our configuration below.
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
-...
+# ... your other configs
 spec:
-  ...
+  # ... your other specs
   triggers:
+    # ... your other triggers
     - type: metrics-api
       metricType: Value
       metadata:
@@ -115,9 +116,9 @@ spec:
 Let's briefy explain what this config means.  
 In this setup, we are using REST endpoints to fetch our metrics, so we use the `metrics-api` type of trigger. The property `metricType: Value` specifies that the target value is independent of the number of pods. What is the most interesting to us is the `metadata` section. There we specify:  
 - `targetValue` - the desired value of the metric,  
-- `activationTargetValue` - threshold on which to scale to and from 0 replicas,  
-- `format` - format of the response from the specified url,  
-- `url` - endpoint from which to fetch the metric,  
+- `activationTargetValue` - the threshold on which to scale from and to 0 replicas,  
+- `format` - the format of the response from the specified url,  
+- `url` - the endpoint from which to fetch the metric,  
 - `valueLocation` - the field name of the metric of interest in the retrieved JSON object.
 
 ### Scheduled jobs metrics
@@ -129,7 +130,11 @@ For this example we configure the mentioned trigger to ensure that there are on 
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
-...
+# ... your other configs
+spec:
+  # ... your other specs
+  triggers:
+    # ... your other triggers
     - type: metrics-api
       metricType: AverageValue
       metadata:
@@ -154,7 +159,11 @@ In this case, our example includes a trigger that monitors when the latency of e
 <figure style="width: 100%; max-width: 100%; margin: 0">
 
 ```yaml
-...
+# ... your other configs
+spec:
+  # ... your other specs
+  triggers:
+    # ... your other triggers
     - type: metrics-api
       metricType: Value
       metadata:
@@ -228,10 +237,6 @@ If we wait 5 minutes and don't schedule any new jobs, our deployment will scale 
 ## Autoscaling your secured JobRunr dashboard
 Securing your JonRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics api, but it requieres some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
 
-## Finished example
-<!-- TODO: Change the github url -->
-The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
-
 ## Limitations and considerations
 Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). No recurring jobs can be executed if no `BackgroundJobServers` are running. You should have always 1 `BackgroundJobServer` running in.  
 
@@ -243,13 +248,13 @@ If you are planning to run jobs with long execution times, you might want to pre
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
-...
+# ... your other configs
 spec:
-    ...
+    # ... your other specs
     template:
-        ...
+        # ... your other templates configs
         spec:
-            ...
+            # ... your other template specs
             terminationGracePeriodSeconds: 5400
 ```
 </figure>
@@ -266,6 +271,10 @@ org.jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
 
 ## Conclusion
 In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use the JobRunr Pro metrics api to create the scaling triggers.
+
+### Finished example
+<!-- TODO: Change the github url -->
+The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
 
 ---
 
