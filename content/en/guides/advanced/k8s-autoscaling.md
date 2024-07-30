@@ -179,7 +179,7 @@ This trigger is defining that we want to scale up if there are jobs that are wai
 > Beware of the artificial latency that might be introduced by using [mutexes]({{<ref "documentation/pro/mutexes/_index.md">}}) or [priority queues]({{<ref "documentation/pro/priority-queues/_index.md">}}). You can always specify the priority of the queue you are interested in by adding the `priority` parameter in the enqueued jobs metrics url, see [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}) for more info.
 
 ### Applying the autoscaling configuration
-Now, all that is left to do is apply our autoscaling configuration to the Kubernetes cluster:
+Now, all that is left to do is applying our autoscaling configuration to the Kubernetes cluster:
 ```
 kubectl apply -f k8s/keda-scaling.yaml
 ```
