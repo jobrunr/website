@@ -234,7 +234,7 @@ If we wait 5 minutes and don't schedule any new jobs, our deployment will scale 
 Securing your JobRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requires some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
 
 ## Limitations and considerations
-Deploying a distributed application with enabled autoscaling might be tricky. There are some corner cases that are not be obvious at first. Moreover, Kubernetes comes with some limitations that we should be aware of.
+Deploying a distributed application with enabled autoscaling might be tricky. There are some corner cases that may not be obvious at first. Moreover, Kubernetes comes with some limitations that we should be aware of.
 
 ### Minimum replica count
 Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). No recurring jobs can be executed if no `BackgroundJobServers` are running. You should always have 1 `BackgroundJobServer` running in your cluster, as it is responsible for checking if any jobs need to be processed.
