@@ -1,6 +1,6 @@
 ---
 title: Autoscale your JobRunr application deployed on Kubernetes
-description: This guide will help you use Jobrunr Pro features to create a Kubernetes deployment of your application that autoscales based on JobRunr provided metrics.
+description: This guide will help you to create a Kubernetes deployment of your application that autoscales based on metrics provided by JobRunr Pro.
 weight: 10
 tags:
     - Autoscaling
@@ -45,7 +45,7 @@ Our setup consists of 2 deployments:
 - `web` - which exposes the JobRunr dashboard on port `8000` and an API to schedule jobs on port `8080`
 - `workers` - which enables background job server for background task processing
 
-> The separation of the `web` and the `workers` is there to enable us to scale those two different parts separately. The dashboard deployment can be scaled independently to handle varying levels of user traffic without affecting the job processing capabilities. Similarly, the `BackgroundJobServer` can scale based on job queue metrics, ensuring optimal job processing efficiency.  This separation ensures that even if no `BackgroundJobServers` are currently running, scheduled jobs will still be processed as the autoscaling configuration will start a new `BackgroundJobServer` on demand.
+> The separation of the `web` and the `workers` is there to enable us to scale the number of replicas responsible for processing jobs, while maintaining only one instance of the dashboard. The `BackgroundJobServer` can scale based on job queue metrics, ensuring optimal job processing efficiency. This separation ensures that even if no `BackgroundJobServers` are currently running, scheduled jobs will still be processed as the autoscaling configuration will start a new `BackgroundJobServer` on demand.
 
 We have also created a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) object called `jobrunr-service` that exposes ports of the `web` deployment, enabling access to the dashboard and API from outside of the cluster. Additionally, we deployed [PostgreSQL](https://www.postgresql.org/) as our database.  
 <!-- TODO: change github url -->
