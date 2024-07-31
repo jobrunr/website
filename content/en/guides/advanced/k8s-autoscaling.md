@@ -237,7 +237,7 @@ Securing your JobRunr dashboard is explained in detail in the [authentication gu
 Deploying a distributed application with enabled autoscaling might be tricky. There are some corner cases that may not be obvious at first. Moreover, Kubernetes comes with some limitations that we should be aware of.
 
 ### Minimum replica count
-Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). No recurring jobs can be executed if no `BackgroundJobServers` are running. You should always have 1 `BackgroundJobServer` running in your cluster, as it is responsible for checking if any jobs need to be processed.
+Pay an extra attention when setting `minReplicaCount` property to 0. When no pods are running, workers' usage will always be 0 so to scale from 0 this metric has to be used with at least one additional metric (e.g. latency of enqueued jobs + workers usage). Additionally, no recurring jobs can be executed if no `BackgroundJobServers` are running. You should always have 1 `BackgroundJobServer` running in your cluster, as it is responsible for checking if any jobs need to be processed.
 
 ### Long-running jobs
 If you are planning to run jobs with long execution times, you might want to prevent Kubernetes from terminating your replicas that are still processing a long-running job. To do that, you can modify the graceful termination period for your pods in Kubernetes. This can be done by setting the `terminationGracePeriodSeconds` property in your Pod `spec`. You'll also have to configure the duration to wait before interrupting jobs in JobRunr. 
