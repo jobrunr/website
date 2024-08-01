@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         document.querySelectorAll(`.framework-content[data-type="${tabType}"]`)?.forEach(function(content) {
             content.classList.add('active'); 
-        }); 
+        });
     }
 
     const removeActive = (nextTabType) => {
