@@ -23,7 +23,13 @@
                     <p class="post-full-custom-excerpt"> {{ .Param "subtitle" }}</p>
                 {{ end }}
             </header>
-            <section class="post-full-content">
+            <section class="post-full-content" data-pagefind-body>
+                <div id="search"></div>
+                <script>
+                    window.addEventListener('DOMContentLoaded', (event) => {
+                        new PagefindUI({ element: "#search", showImages: false, showSubResults: true });
+                    });
+                </script>
                 {{ .Content }}
             </section>
         </article>

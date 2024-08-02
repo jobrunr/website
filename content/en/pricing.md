@@ -1,6 +1,6 @@
 ---
 title: "JobRunr Pro"
-translationKey: "jobrunr-pro"
+translationKey: "pricing"
 summary: "Save months of development time with [JobRunr Pro](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 119.400 $\n(190 days of development at a rate of 600$). ') so you can handle the most difficult background job workflow challenges."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
