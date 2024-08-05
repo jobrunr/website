@@ -59,7 +59,6 @@
       <!-- End Google Tag Manager (noscript) -->
     <div class="site-wrapper">
         {{- block "main" . }}{{- end }}
-
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright" style="align-self: start;">
@@ -79,12 +78,36 @@
         </footer>
     </div>
 
+    <dialog id="search-modal">
+      <div class="dialog__container">
+        <section class="dialog__content">
+          <div id="pagefind-search"></div>
+        </section>
+        <footer class="dialog__footer">
+          <button class="btn" onclick="closeDialog('#search-modal')">Close</button>
+        </footer>
+      </div>
+    </dialog>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
     <script src="/pagefind/pagefind-ui.js"></script>  
     <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
     <script src='{{ (resources.Get "js/framework.js").Permalink }}'></script>
+    <script>
+      const openDialogAsModal = (dialogId) => {
+        document.querySelector(dialogId).showModal();
+      }
+      const closeDialog = (dialogId) => {
+        document.querySelector(dialogId).close();
+      }
+      window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true });
+
+        document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
+      });
+  </script>
 <script>
 window.addEventListener("load", (event) => {
   setTimeout(() => {
