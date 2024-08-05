@@ -9,15 +9,17 @@
 <main id="site-main" class="site-main documentation outer">
     <div class="inner">
         {{- partial "leftnav.html" $ -}}
+
+        <template data-pagefind-filter="type:Documentation"></template>
         
         <article class="post-full post no-image no-image">
             <header class="post-full-header">
                 {{ if eq .Params.version "pro"}}
-                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="documentation:JobRunr Pro"><span class="label professional"><span>JobRunr Pro</span></span></div>
+                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="tag:JobRunr Pro"><span class="label professional"><span>JobRunr Pro</span></span></div>
                 {{ else if eq .Params.version "enterprise"}}
-                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="documentation:JobRunr Pro"><span class="label enterprise"><span>JobRunr Pro Enterprise</span></span></div>
+                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="tag:JobRunr Pro"><span class="label enterprise"><span>JobRunr Pro Enterprise</span></span></div>
                 {{ else }}
-                    <template data-pagefind-filter="documentation:JobRunr"></template>
+                    <template data-pagefind-filter="tag:JobRunr"></template>
                 {{ end }}
 
                 <h1 class="post-full-title">{{.Title}}</h1>

@@ -24,7 +24,11 @@
                 {{ end }}
 
                 {{ range $index, $tag := .Params.tags }}
-                    <template data-pagefind-filter="{{$section}}:{{strings.FirstUpper $tag}}">{{ $tag }}</template>
+                    <template data-pagefind-filter="tag:{{strings.FirstUpper $tag}}">{{ $tag }}</template>
+                {{ end }}
+
+                {{ if $searchable }}
+                    <template data-pagefind-filter="type:{{strings.FirstUpper $section}}">{{ $section }}</template>
                 {{ end }}
 
                 <h1 class="post-full-title">{{ .Title }}</h1>

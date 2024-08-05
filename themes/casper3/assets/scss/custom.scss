@@ -397,11 +397,7 @@ dialog .dialog__content {
 }
 
 dialog .dialog__footer {
-    padding-top: 8px;
-}
-
-html:has(dialog[open][modal-mode="mega"]) {
-    overflow: hidden;
+    padding-top: 16px;
 }
 
 dialog#search-modal {

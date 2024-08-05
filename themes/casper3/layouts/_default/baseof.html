@@ -103,7 +103,7 @@
         document.querySelector(dialogId).close();
       }
       window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true });
+        new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true, openFilters: ['Type'] });
 
         document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
       });
