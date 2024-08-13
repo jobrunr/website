@@ -402,7 +402,7 @@ dialog .dialog__footer {
 
 dialog#search-modal {
     &::backdrop {
-        backdrop-filter: blur(2px);
+        backdrop-filter: grayscale(50%);;
     }
 }
 
