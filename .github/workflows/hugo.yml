@@ -55,7 +55,6 @@ jobs:
         run: |
           hugo \
             --minify \
-            --logLevel debug \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
       - name: Index with Pagefind
         run: npx -y pagefind --site public

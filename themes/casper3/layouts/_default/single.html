@@ -72,9 +72,6 @@
                 {{ else if eq .Section "blog" }}
                 <figure class="post-full-image blog">
                 {{ end }}
-                    {{ if not $image }}
-                        {{ errorf "Couldn't resolve asset %s" (.Param "feature_image") }}
-                    {{ end }}
                     <img src="{{ $image.RelPermalink }}" alt="{{ $image.Title }}"/>
                 </figure>
             {{ end }}
