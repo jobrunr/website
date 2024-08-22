@@ -400,12 +400,6 @@ dialog .dialog__footer {
     padding-top: 16px;
 }
 
-dialog#search-modal {
-    &::backdrop {
-        backdrop-filter: grayscale(50%);;
-    }
-}
-
 dialog #pagefind-search {
     width: 80vw;
     max-width: 900px;

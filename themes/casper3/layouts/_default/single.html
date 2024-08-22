@@ -10,7 +10,7 @@
     <div class="inner">
 
         {{ $section := .Section }}
-        {{ $searchable := in (slice "guides" "use-case" "blog") $section }}
+        {{ $searchable := in (slice "guides" "blog") $section }}
 
         <article class="post-full post {{ if not (.Param "feature_image") }} no-image {{ end }}"{{if $searchable}}data-pagefind-body{{end}}>
 
