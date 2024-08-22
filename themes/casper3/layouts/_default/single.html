@@ -9,15 +9,26 @@
 <main id="site-main" class="site-main outer">
     <div class="inner">
 
-        <article class="post-full post {{ if not (.Param "feature_image") }} no-image {{ end }}">
+        {{ $section := .Section }}
+        {{ $searchable := in (slice "guides" "blog") $section }}
+
+        <article class="post-full post {{ if not (.Param "feature_image") }} no-image {{ end }}"{{if $searchable}}data-pagefind-body{{end}}>
 
             <header class="post-full-header">
 
                 {{ with .Params.tags }}
                     {{ $primaryTag := (index . 0) }}
-                    <section class="post-full-tags">
+                    <section class="post-full-tags" data-pagefind-ignore>
                         <a href="{{ "/tags/" | relLangURL }}{{ $primaryTag | urlize }}">{{ $primaryTag }}</a>
                     </section>
+                {{ end }}
+
+                {{ range $index, $tag := .Params.tags }}
+                    <template data-pagefind-filter="tag:{{strings.FirstUpper $tag}}">{{ $tag }}</template>
+                {{ end }}
+
+                {{ if $searchable }}
+                    <template data-pagefind-filter="type:{{strings.FirstUpper $section}}">{{ $section }}</template>
                 {{ end }}
 
                 <h1 class="post-full-title">{{ .Title }}</h1>
@@ -35,7 +46,7 @@
                             {{- partial "post-author.html" . -}}
                         {{ end }}
 
-                        <section class="post-full-byline-meta" style="width: 100%">
+                        <section class="post-full-byline-meta" style="width: 100%" data-pagefind-ignore>
                             {{ if .Param "author" }}
                                 <h4 class="author-name">{{ .Param "author" }}</h4>
                             {{ end }}

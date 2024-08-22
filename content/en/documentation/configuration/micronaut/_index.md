@@ -55,7 +55,7 @@ These are disabled by default so that your web application does not start proces
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Features
-The JobRunr Quarkus extension not only adds distributed background Job Processing to your application but also adds health endpoints and micrometer performance counters to the metrics endpoint.
+The JobRunr Micronaut integration not only adds distributed background Job Processing to your application but also adds health endpoints and micrometer performance counters to the metrics endpoint.
 
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.yaml`. Below you will find all settings including their default value.
