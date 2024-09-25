@@ -138,7 +138,8 @@ Everything in Business plus:
 - <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}">Panic Button (1 / year)</a> <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}" class="tooltip" data-title="The panic button allows to notify me instantaneously, Ronald Dehuysser, in case of a production incident."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - Unlimited clusters
-<br><br><br><br>
+- [SBOM](https://www.cisa.gov/sbom) included
+<br><br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
