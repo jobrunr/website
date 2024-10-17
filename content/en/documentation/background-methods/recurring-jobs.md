@@ -21,6 +21,7 @@ On this page you can learn about:
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs with limited lifetime](#recurring-jobs-with-limited-lifetime)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Advanced Cron Expressions](#advanced-cron-expressions)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom Recurring Job Schedules](#custom-recurring-job-schedules)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
@@ -181,6 +182,38 @@ You can remove an existing recurring job either via the dashboard or by calling 
 
 Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
 
+## Recurring jobs with limited lifetime
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+
+By default, a `RecurringJob` is active for the entire lifetime of an application (unless [paused](#pause-and-resume-recurring-jobs)).
+
+__With JobRunr Pro you can provide an end time__: each `RecurringJob` with a `deleteAt` in the passed will stop scheduling new jobs. JobRunr will also automatically remove the `RecurringJob` from the DB.
+
+You can enable the feature using `@Job`:
+
+<figure>
+
+```java
+    @Recurring(id = "my-recurring-job", interval = "P2D8H", deleteAt = "2025-06-01T14:00:00Z")
+    @Job(name = "My recurring job")
+    public void executeSampleJob() {
+        // your business logic here
+    }
+```
+</figure>
+
+If you are using the `JobBuilder`, this is also possible:
+<figure>
+
+```java
+BackgroundJob.createRecurrently(aRecurringJob()
+    .withId("some-id")
+    .withCron(Cron.daily())
+    .withDeleteAt(Instant.parse("2025-06-01T14:00:00Z"))
+    .withDetails(() -> System.out.println("Schedule me up to the 2025-06-01T14:00:00Z")));
+```
+</figure>
+
 ## Advanced CRON Expressions
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 
@@ -226,7 +259,6 @@ public void myRecurringMethod(JobContext jobContext) {
 ```
 <figcaption>JobRunr will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.</figcaption>
 </figure>
-
 
 ## Recurring jobs missed during downtime
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
