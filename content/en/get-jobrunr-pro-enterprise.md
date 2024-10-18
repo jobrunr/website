@@ -1,7 +1,7 @@
 ---
-title: "JobRunr Pro Subscription"
-translationKey: "get-jobrunr-pro"
-summary: "Ready to get a JobRunr Pro Subscription? Fill in the form below and all the necessary information to get started will be sent to you!"
+title: "Ready to get a JobRunr Pro Enterprise Subscription?"
+translationKey: "get-jobrunr-pro-enterprise"
+summary: "Fill in the form below and all the necessary information to get started will be sent to you!"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
 menu:
@@ -81,55 +81,12 @@ weight: 18
 </script>
 
 
-<div style="display: flex; justify-content: center;">
-    <div style="background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem;">
-        <div id="subscription-form">
-            <form novalidate="">
-                <h2 style="margin: 0 0 .5em;">Get your JobRunr Pro Subscription today</h2>
-                <p style="margin-bottom: 0">
-                    We're here to help. Fill in the details below and we'll get back to you as soon as possible.<br/>
-                </p>
-                <br />
-                <div>
-                    <dl>
-                        <dt style="text-align: right"><label for="firstName">First name </label></dt> 
-                        <dd><input type="text" value="" name="firstName" class="" id="firstName" /></dd>
-                    </dl>
-                    <dl>
-                        <dt style="text-align: right"><label for="lastName">Last name </label></dt> 
-                        <dd><input type="text" value="" name="lastName" class="" id="lastName" /></dd>
-                    </dl>
-                    <dl>
-                        <dt style="text-align: right"><label for="email">Email </label></dt> 
-                        <dd><input type="text" value="" name="email" class="" id="email" /></dd>
-                    </dl>
-                    <dl>
-                        <dt style="text-align: right"><label for="linkedIn">LinkedIn url</label></dt> 
-                        <dd><input type="text" value="" name="linkedIn" class="" id="linkedIn" /></dd>
-                    </dl>
-                    <dl>
-                        <dt style="text-align: right"><label for="company">Company</label></dt> 
-                        <dd><input type="text" value="" name="company" class="" id="company" /></dd>
-                    </dl>
-                    <dl id="subscription-form-error" style="display: none">
-                        <dt style="text-align: right">&nbsp;</dt> 
-                        <dd>
-                            <div class="response" style="color:red;">All fields are required.</div>
-                        </dd>
-                    </dl>
-                    <dl>
-                        <dt style="text-align: right">&nbsp;</dt> 
-                        <dd>
-                            <input id="submit-btn" type="button" value="Submit" onclick="submitForm();" />
-                        </dd>
-                    </dl>
-                </div>
-            </form>
-        </div>
-        <div id="mce-responses" class="clear">
-            <div class="response" id="subscription-error-response" style="display:none; color:red;">Error submitting your request for a trial. Please try again later.</div>
-            <div class="response" id="subscription-success-response" style="display:none">Thanks for requesting a JobRunr Pro Subscription. We will get back to you as soon as possible.</div>
-        </div> 
-    </div>
-    
+<div style="align-self: flex-start; height: 500px; width:600px; max-width: 100%;">
+    <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+    <script>
+        hbspt.forms.create({
+            portalId: "145458105",
+            formId: "24d88222-5ce6-4a93-82b2-19bf630d7248"
+        });
+    </script>
 </div>

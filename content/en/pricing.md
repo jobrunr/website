@@ -109,10 +109,12 @@ Everything in JobRunr OSS plus:
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none;'>14.950,00 <span class="currency-holder">$</span></strong>
-_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_
+_one prod cluster,<br/>priority support<br/><br/>_
+<!-- <strong style='color: #3eb0ef;text-decoration: none;'>14.950,00 <span class="currency-holder">$</span></strong>
+_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_ -->
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro">BUY NOW</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">CONTACT SALES</a>
+<!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
 
 <div class="eco-friendly">
 
@@ -160,7 +162,7 @@ Everything in Business plus:
 
 _unlimited clusters,<br/>unlimited installations,<br/>priority feature development_
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro">CONTACT SALES</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-enterprise">CONTACT SALES</a>
 
 <div class="eco-friendly">
 
