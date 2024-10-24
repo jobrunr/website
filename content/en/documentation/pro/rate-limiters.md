@@ -16,6 +16,9 @@ A `rate limiter` allows to control the execution rate of `Jobs` to avoid overwhe
 
 You can configure different rate limiters to be used within your system and rate limiters can be shared by different job types, however each job can only use one `rate limiter`.
 
+> When using a rate limiter there may be a latency of `pollIntervalInSeconds` before a rate-limited `Job` can start processing due an extra state change from `AWAITING` to `ENQUEUED`.<br>
+> Please also note that you cannot use both a rate limiter and a [`mutex`]({{< ref "/documentation/pro/mutexes" >}}) on the same `Job`.
+
 On this page you will learn how to:
 - [configure a concurrent rate limiter](#concurrent-rate-limiters) 
 - [configure a sliding time window rate limiter](#sliding-time-window-rate-limiters) 
