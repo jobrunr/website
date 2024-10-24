@@ -8,6 +8,7 @@ menu:
 main:
 identifier: trial
 weight: 15
+draft: true
 ---
 
 <style>
