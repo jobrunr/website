@@ -260,6 +260,8 @@ public void myRecurringMethod(JobContext jobContext) {
 <figcaption>JobRunr will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.</figcaption>
 </figure>
 
+> Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
+
 ## Recurring jobs missed during downtime
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 

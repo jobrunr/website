@@ -1701,10 +1701,12 @@ make sure this only happens on large viewports / desktop-ish devices.
     box-shadow: var(--blue) 0 -1px 0 inset;
 }
 
+/*
+TODO: this makes usage of strong stand-out too much and the color is differs from the rest of the sentence in the paragraph...
 .post-full-content strong,
 .post-full-content em {
     color: color-mod(var(--darkgrey) l(-5%));
-}
+}*/
 
 .post-full-content small {
     display: inline-block;
