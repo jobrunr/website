@@ -1,7 +1,7 @@
 ---
-title: "Ready to get a JobRunr Pro Enterprise Subscription?"
+title: "Get started with JobRunr Pro Enterprise"
 translationKey: "get-jobrunr-pro-enterprise"
-summary: "Fill in the form below and all the necessary information to get started will be sent to you!"
+description: "Fill in the form and all the necessary information to get JobRunr Pro under an Enterprise license will be sent to you!"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
 menu:
@@ -11,82 +11,109 @@ weight: 18
 ---
 
 <style>
-    #subscription-form {
-        font-size: 90%;
+    .post-full-header {
+        margin: 40px 0 48px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    #subscription-form dl {
-        margin: 0 0 1em;
+
+    .post-full-title {
+        font-size: 45px;
+        text-align: center;
+        font-weight: 500;
     }
-    #subscription-form dl input[type="text"] {
-        width: 50%;
+
+    .payload-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        font-size: 16px;
+    }
+
+    .copy .copy-title, .copy .copy-subtitle {
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .copy .copy-title {
+        font-size: 20px;
+    }
+
+    .copy .copy-subtitle {
+        font-size: 18px;
+    }
+
+    .form-container {
+        background-color: #F5F5F5;
+        padding: 24px;
+    }
+
+    .trusted-by {
+        margin-top: 40px;
+        width: 100%;
+    }
+
+    .trusted-by .trusted-by-title {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .trusted-by .companies {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .trusted-by .companies img {
+        height: 25px;
+        max-width: 160px;
+    }
+
+    @media only screen and (max-width: 1171px) {
+        .payload-container {
+            display: block;
+        }
     }
 </style>
 
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(event) {
-        document.getElementById('firstName').focus();
-    });
-
-    function submitForm() {
-        const firstNameField = document.getElementById('firstName');
-        const lastNameField = document.getElementById('lastName');
-        const emailField = document.getElementById('email');
-        const linkedInField = document.getElementById('linkedIn');
-        const companyField = document.getElementById('company');
-
-        const firstName = firstNameField.value;
-        const lastName = lastNameField.value;
-        const email = emailField.value;
-        const linkedIn = linkedInField.value;
-        const company = companyField.value;
-        
-        if(!firstName || !lastName || !email || !company || !email.includes('@') || !(linkedIn.startsWith('https://linkedin') || linkedIn.startsWith('https://www.linkedin') || linkedIn.startsWith('linkedin.com') || linkedIn.startsWith('www.linkedin.com'))) {
-            document.getElementById('subscription-form-error').style.display = 'block';
-        } else if(linkedIn.includes('sabahat-alikhan')) {
-            alert("Hey, you prick! Stop spamming this form.");
-        } else {
-            document.getElementById('subscription-form-error').style.display = 'none';
-            
-            firstNameField.disabled = true;
-            lastNameField.disabled = true;
-            emailField.disabled = true;
-            linkedInField.disabled = true;
-            companyField.disabled = true;
-            document.getElementById('submit-btn').disabled = true;
-            const subscriptionData = {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                linkedIn: linkedIn,
-                company: company
-            };
-            fetch('https://api.jobrunr.io/api/sales/request-subscription', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(subscriptionData)})
-                .then(resp => {
-                    if(resp.status === 200) {
-                        document.getElementById('subscription-form').style.display = 'none';
-                        document.getElementById('subscription-success-response').style.display = 'block';
-                    } else {
-                        document.getElementById('subscription-form').style.display = 'none';
-                        document.getElementById('subscription-error-response').style.display = 'block';
-                }
-                })
-                .catch(error => {
-                    document.getElementById('subscription-form').style.display = 'none';
-                    document.getElementById('subscription-error-response').style.display = 'block';
-                });
-        }
-        return false;
-    }
-
-</script>
-
-
-<div style="align-self: flex-start; height: 500px; width:600px; max-width: 100%;">
-    <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
-    <script>
-        hbspt.forms.create({
-            portalId: "145458105",
-            formId: "24d88222-5ce6-4a93-82b2-19bf630d7248"
-        });
-    </script>
+<div class="payload-container">
+    <section class="copy">
+        <article>
+            <h3 class="copy-title">Empower your enterprise with JobRunr Pro!</h3>
+            <p>Built for the largest organizations, JobRunr Pro Enterprise provides unmatched performance, scalability, and compliance to handle mission-critical background jobs. Scale seamlessly, secure your processes, and gain visibility into complex workflows with confidence.</p>
+        </article>
+        <article>
+            <h4 class="copy-subtitle">Here's what you can expect when you reach out to us:</h4>
+            <ul>
+                <li><strong>Personalized Quote</strong>: Once you contact us, we’ll reach out to discuss your usage needs and send you a customized quote based on your requirements.</li>
+                <li><strong>Unconstrained Scalability</strong>: Manage unlimited recurring jobs and clusters with advanced tools for priority queuing, batch processing, and distributed scheduling.</li>
+                <li><strong>Enhanced Security & Compliance</strong>: Enjoy enterprise-grade security, including SSO, GDPR and HIPAA-compliant dashboards, and robust data governance, ensuring your jobs meet the highest standards.</li>
+                <li><strong>Dedicated Enterprise Support</strong>: Access premium, priority support with fast response times, technical assistance, and custom feature development to keep your operations running smoothly.</li>
+            </ul>
+        </article>
+    </section>
+    <section class="form-container">
+        <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+        <script>
+            hbspt.forms.create({
+                portalId: "145458105",
+                formId: "24d88222-5ce6-4a93-82b2-19bf630d7248"
+            });
+        </script>
+    </section>
 </div>
+<footer class="trusted-by">
+    <h3 class="trusted-by-title">Join industry leaders who trust JobRunr</h3>
+    <div class="companies">
+        <img src="/logos/Capgemini-logo.webp" alt="Capgemini"/>
+        <img src="/logos/intuit-logo.svg" alt="Intuit"/>
+        <img src="/logos/Amazon-logo.webp" alt="Amazon"/>
+        <img src="/logos/decathlon-logo.svg" alt="Decathlon"/>
+        <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase"/>
+        <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks"/>
+    </div>
+<footer>

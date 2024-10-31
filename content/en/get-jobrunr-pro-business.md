@@ -1,7 +1,7 @@
 ---
 title: "Get started with JobRunr Pro Business"
 translationKey: "get-jobrunr-pro-business"
-description: "Fill in the form below and all the necessary information to get started will be sent to you!"
+description: "Fill in the form and all the necessary information to get JobRunr Pro under a Business license will be sent to you!"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
 menu:
