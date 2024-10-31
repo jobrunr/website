@@ -69,7 +69,7 @@ weight: 18
     }
 
     .trusted-by .companies img {
-        height: 40px;
+        height: 25px;
         max-width: 160px;
     }
 
@@ -114,6 +114,6 @@ weight: 18
         <img src="/logos/intuit-logo.svg" alt="Intuit"/>
         <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks"/>
         <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase"/>
-        <img src="/logos/decathlon-logo.svg" alt="Decathlon" style="height:40px"/>
+        <img src="/logos/decathlon-logo.svg" alt="Decathlon"/>
     </div>
 <footer>

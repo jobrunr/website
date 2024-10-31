@@ -8,6 +8,8 @@ menu:
   main: 
     identifier: pricing
     weight: 3
+aliases:
+    ./try-jobrunr-pro
 ---
 
 <script type="text/javascript">
