@@ -71,7 +71,7 @@ A feature of JobRunr that neither Quartz nor db-scheduler provide out of the box
 
 Used and trusted by industry leaders, the open source version of **JobRunr provides the essential features you need to schedule tasks in Java**. You can expect features similar to those in the Quartz Scheduler, but much easier to use. The JobRunr team also develop and maintain JobRunr Pro which offers Enterprise grade features, making JobRunr Pro the best job scheduling library in Java!
 
-[Get started with JobRunr](http://localhost:1313/en/documentation/5-minute-intro/) or [watch Ronald present the motivation, design and code of JobRunr at Spring I/O 2022!](https://www.youtube.com/watch?v=2KFeeFuM9og)
+[Get started with JobRunr](/documentation/5-minute-intro/) or [watch Ronald present the motivation, design and code of JobRunr at Spring I/O 2022!](https://www.youtube.com/watch?v=2KFeeFuM9og)
 
 <figure>
 <img src="/documentation/jobs-enqueued.webp" class="kg-image" style="height: 400px">
