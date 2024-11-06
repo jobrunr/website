@@ -8,7 +8,9 @@ menu:
     parent: 'configuration'
     weight: 10
 ---
-Integration with Spring cannot be easier using the `jobrunr-spring-boot-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
+Integration with Spring cannot be easier using the ~`jobrunr-spring-boot-starter`~, `jobrunr-spring-boot-2-starter` or `jobrunr-spring-boot-3-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
+
+> **Important**: the `jobrunr-spring-boot-starter` is deprecated since JobRunr v6, please use `jobrunr-spring-boot-2-starter` or `jobrunr-spring-boot-3-starter` instead!
 
 __To add JobRunr to your Spring project, these are the steps you need to take:__
 1. Depending on your version of Spring Boot, add the `jobrunr-spring-boot-2-starter` or `jobrunr-spring-boot-3-starter` dependency to your project
