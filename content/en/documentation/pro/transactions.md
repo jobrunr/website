@@ -33,8 +33,11 @@ public void createUserAndSendWelcomeEmail(User user) {
 <figcaption>
 
 Thanks to the @Transactional support, the whole method - including the job scheduling - is transactional.
+
 </figcaption>
 </figure>
+
+> Also works with Exposed's transaction block!
 
 #### How does it work?
 - the JobRunr Spring Boot Starter and Micronaut Integration, Quarkus Extension, Exposed Plugin check whether they can participate in a transaction created by that framework.  
