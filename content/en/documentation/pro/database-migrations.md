@@ -41,7 +41,7 @@ Another option in JobRunr Pro, is to export the SQL Scripts in Flyway or Liquiba
 To do so, use the `DatabaseSqlMigrationFileProvider`:
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} (-DtablePrefix=...) (-DdatabaseManager=...) (-Doutput=...)
+java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} (-DtablePrefix=...) (-DdatabaseManager=...) (-Doutput=...)
   where:
     - databaseType is one of 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
     - databaseManager is one of 'none', 'liquibase', 'flyway' (defaults to none)
