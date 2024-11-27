@@ -18,6 +18,7 @@ JobRunr will by default perform all database related migrations automatically fo
 If you are not allowed to have a user using DDL rights at runtime or if due to company policies, you cannot have JobRunr do the migrations for you, there are several options which we will discuss below. If you manually take control of your migrations, please note that we may introduce changes with a new to the database schema. It is then up to you to make sure that all the necessary database changes are applied.
 
 If you do your migrations by hand or using an 3th party tool like Flyway or Liquibase, you will need to tell JobRunr it should not perform the migrations for you. This can again be done via a property:
+
 ```
 org.jobrunr.database.skip-create=true
 ```
@@ -52,7 +53,7 @@ java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseS
 You can always apply the scripts yourself by means of the `DatabaseSqlMigrationFileProvider`:
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
+java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
 
 This will generate all database related scripts and allows you to manually setup and update your database.
