@@ -83,7 +83,12 @@ If you're using the Fluent API, you can configure a `ConnectionProvider` as foll
 ```java
 JobRunrPro.configure()
   // ...
-  .useStorageProvider(SqlStorageProviderFactory.using(dataSource, null, new ExposedTransactionAwareConnectionProvider(), new DatabaseOptions(false)))
+  .useStorageProvider(SqlStorageProviderFactory.using(
+    dataSource, 
+    null,
+    new ExposedTransactionAwareConnectionProvider(),
+    new DatabaseOptions(false)
+  ))
   // ...
   .initialize();
 ```
