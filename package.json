@@ -5,7 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "cssnano": "^7.0.5",
+    "cssnano": "^7.0.6",
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0",
     "postcss-color-mod-function": "3.0.3"
@@ -14,5 +14,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "postcss-color-function": "^4.1.0",
+    "postcss-custom-properties": "^14.0.4",
+    "postcss-easy-import": "^4.0.0"
+  }
 }
