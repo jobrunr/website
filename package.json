@@ -5,7 +5,7 @@
   "main": "index.js",
   "devDependencies": {
     "autoprefixer": "^10.4.20",
-    "cssnano": "^7.0.5",
+    "cssnano": "^7.0.6",
     "postcss": "^8.4.41",
     "postcss-cli": "^11.0.0",
     "postcss-color-mod-function": "3.0.3"
