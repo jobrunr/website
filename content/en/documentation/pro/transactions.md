@@ -99,6 +99,6 @@ This example shows how to provide `ExposedTransactionAwareConnectionProvider` to
 </figcaption>
 </figure>
 
-> Similarly you can provided a `ConnectionProvider` for Micronaut, Quarkus and Spring. JobRunr Pro comes with the following transaction aware connections: `ExposedTransactionAwareConnectionProvider`, `MicronautTransactionAwareConnectionProvider`, `QuarkusTransactionAwareConnectionProvider`, and `SpringTransactionAwareConnectionProvider`.
+> Similarly you can provide a `ConnectionProvider` for Micronaut, Quarkus and Spring. JobRunr Pro comes with the following transaction aware connections: `ExposedTransactionAwareConnectionProvider`, `MicronautTransactionAwareConnectionProvider`, `QuarkusTransactionAwareConnectionProvider`, and `SpringTransactionAwareConnectionProvider`.
 
 {{< trial-button >}}
