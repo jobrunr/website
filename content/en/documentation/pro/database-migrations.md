@@ -28,7 +28,7 @@ org.jobrunr.database.migration.username={ddl-user-name}
 org.jobrunr.database.migration.password={ddl-user-password}
 ```
 
-## User managed Database Migrations
+## Take full control over Database Migrations
 
 If you are not allowed to have a user using DDL rights at runtime or if due to company policies, you cannot have JobRunr do the migrations for you, there are several options which we will discuss below. If you manually take control of your migrations, please note that new releases of JobRunr may introduce changes to the database schema. It is then up to you to make sure that all the necessary database changes are applied.
 
