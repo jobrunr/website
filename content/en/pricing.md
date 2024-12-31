@@ -54,7 +54,7 @@ JobRunr OSS with:
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
-- GitHub Discussions
+- [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions)
 
 <span style="display: block; height: 125px"></span>
 
