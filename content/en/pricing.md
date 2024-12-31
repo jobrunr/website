@@ -27,12 +27,6 @@ aliases:
 
 Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "priority-queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in [cost reductions](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos) and faster time to market.
 
-<div style="text-align: center; margin: -2rem 0 3rem 0;">
-    {{< trial-button >}}
-    <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-        <span>Contact us!</span>
-    </a>
-</div>
 
 <div class="plan-container">
 
