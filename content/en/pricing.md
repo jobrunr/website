@@ -100,16 +100,21 @@ Everything in JobRunr OSS plus:
 - Priority handling for bugs
 
 ### Purchasing
-- Credit Card / PayPal 
-- Invoice
+- Credit Card  
 
 <div class="buy">
 
 _one prod cluster,<br/>priority support<br/><br/>_
-<!-- <strong style='color: #3eb0ef;text-decoration: none;'>14.950,00 <span class="currency-holder">$</span></strong>
-_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_ -->
+ <strong style='color: #3eb0ef;text-decoration: none;'>9.000,00 <span class="currency-holder">$</span></strong>
+_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
+_or_
+ <strong style='color: #3eb0ef;text-decoration: none;font-size:1.25em;'>850,00 <span class="currency-holder">$</span></strong>
+_per PRD cluster / month <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
+_(excl. VAT)_ 
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">CONTACT SALES</a>
+
+
 <!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
 
 <div class="eco-friendly">
@@ -148,11 +153,13 @@ Everything in Business plus:
 ### Priority support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
 - Technical support
+- Escalation support via phone and video call for critical technical issues
 - Priority handling for bugs
 
 ### Purchasing
-- Credit Card / PayPal 
+- Credit Card 
 - Invoice
+- Flexible support for custom procurement processes as needed
 
 <div class="buy">
 

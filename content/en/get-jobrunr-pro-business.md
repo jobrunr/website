@@ -89,12 +89,23 @@ weight: 18
         <article>
             <h4 class="copy-subtitle">Here's what you can expect when you reach out to us:</h4>
             <ul>
-                <li><strong>Personalized Quote</strong>: Once you contact us, we’ll reach out to discuss your usage needs and send you a customized quote based on your requirements.</li>
+                <li><strong>Quote with Self-Checkout</strong>: After discussing your usage needs, we’ll provide you with a personalized quote that includes a secure self-checkout payment link for easy payment.</li>
                 <li><strong>Scale Up with Ease</strong>: Handle up to 5,000 recurring jobs, and easily manage complex workflows, priority queues, and batch processes.</li>
                 <li><strong>Workflow Optimization</strong>: Leverage advanced features like real-time scheduling, transaction plugins, enhanced dashboards with emphasis on productivity, and batching to optimize your background processes.</li>
                 <li><strong>Priority Support</strong>: Enjoy access to premium support, including technical assistance and priority handling for bugs, ensuring smooth operation.</li>
             </ul>
         </article>
+        <footer class="trusted-by">
+    <h3 class="trusted-by-title">Join industry leaders who trust JobRunr</h3>
+    <div class="companies">
+        <img src="/logos/Capgemini-logo.webp" alt="Capgemini"/>
+        <img src="/logos/Amazon-logo.webp" alt="Amazon"/>
+        <img src="/logos/intuit-logo.svg" alt="Intuit"/>
+        <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks"/>
+        <!--<img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase"/>
+        <img src="/logos/decathlon-logo.svg" alt="Decathlon"/>-->
+    </div>
+<footer>
     </section>
     <section class="form-container">
         <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
@@ -106,14 +117,3 @@ weight: 18
         </script>
     </section>
 </div>
-<footer class="trusted-by">
-    <h3 class="trusted-by-title">Join industry leaders who trust JobRunr</h3>
-    <div class="companies">
-        <img src="/logos/Capgemini-logo.webp" alt="Capgemini"/>
-        <img src="/logos/Amazon-logo.webp" alt="Amazon"/>
-        <img src="/logos/intuit-logo.svg" alt="Intuit"/>
-        <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks"/>
-        <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase"/>
-        <img src="/logos/decathlon-logo.svg" alt="Decathlon"/>
-    </div>
-<footer>
