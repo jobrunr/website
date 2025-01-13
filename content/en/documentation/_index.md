@@ -48,7 +48,7 @@ sitemap:
 </figure>
 
 ## How does it all work?
-- You can enqueue, schedule or schedule a recurring background [Job](#job) the [JobScheduler](#jobscheduler).
+- You can enqueue, schedule or schedule a recurring background [Job](#job) using the [JobScheduler](#jobscheduler).
 - The [JobScheduler](#jobscheduler) analyses and decomposes the lambda to a JSON object and saves it into the [StorageProvider](#storage-provider).
 - JobRunr returns immediately to the caller so that it is not blocking
 - One or more [BackgroundJobServers](#backgroundjobserver) poll the [StorageProvider](#storage-provider) for new enqueued jobs and process them
