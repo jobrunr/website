@@ -50,7 +50,7 @@ sitemap:
 ## How does it all work?
 - You can enqueue, schedule or schedule a recurring background [Job](#job) using the [JobScheduler](#jobscheduler).
 - The [JobScheduler](#jobscheduler) analyses and decomposes the lambda to a JSON object and saves it into the [StorageProvider](#storage-provider).
-- JobRunr returns immediately to the caller so that it is not blocking
+- JobRunr immediately returns to the caller so that it is not blocking
 - One or more [BackgroundJobServers](#backgroundjobserver) poll the [StorageProvider](#storage-provider) for new enqueued jobs and process them
 - When a job has been processed, it updates the state in the [StorageProvider](#storage-provider) and fetches the next job to perform
 
@@ -69,7 +69,7 @@ BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 </figure>
 
 ### RecurringJob
-A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
+A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr called the `ProcessRecurringJobsTask` checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
 
 ### Storage Provider
 A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to Json and placed into storage, no data is kept in a process’ memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for RDBMS and NoSQL solutions.
@@ -116,7 +116,7 @@ You can place this `BackgroundJobServer` in any process you want - even if you t
 > <br/>**Remark 2**: You should have only 1 `BackgroundJobServer` per application / JVM instance. If you want to process more jobs or you want to distribute the jobs over multiple JVM's, you must launch a complete new instance of your application. **Starting multiple `BackgroundJobServers` within the same JVM instance is bad practice and should NOT be done.**
 
 ### JobActivator
-Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we off course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
+Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we of course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
 
 <figure>
 

@@ -80,7 +80,7 @@ You can configure the amount of retries per job by means of the `@Job` annotatio
         System.out.println("I will only be retried two times ");
     }
 ```
-<figcaption>This is off course also possible on the run method of a JobRequestHandler.</figcaption>
+<figcaption>Of course, this is also possible on the run method of a JobRequestHandler.</figcaption>
 </figure>
 
 ### Custom `RetryPolicy` configuration

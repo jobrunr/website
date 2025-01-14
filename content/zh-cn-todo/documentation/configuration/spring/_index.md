@@ -76,7 +76,7 @@ __What happens here:__
 - a `BackgroundJobServer` bean is created using a `StorageProvider` and a `JobActivator`. This bean is responsible for the processing of all the background jobs.
 - the `JobRunrDashboardWebServer` which visualizes the processing of all jobs and consumes the `StorageProvider` and `JsonMapper`
 - the `JobActivator` is defined and uses the Spring application context to find the correct bean on which to call the background job method.
-- the `JobScheduler` bean is defined which allows to enqueue jobs. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
+- the `JobScheduler` bean is defined which allows to enqueue jobs. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued---of course this is a matter of taste.
 - a `StorageProvider` bean is created using a `DataSource` and a `JobMapper`
 - in this example a SQLiteDataSource is used
 - a `JobMapper` is defined using a `JsonMapper` which has the responsability to map the background jobs to Json
@@ -149,7 +149,7 @@ public class WebApplication {
 }
 ```
 
-The only extra bean defined here is the `JobScheduler` bean. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued - this is off course a matter of taste.
+The only extra bean defined here is the `JobScheduler` bean. By adding the `JobScheduler` also to the `BackgroundJob` class, the static methods on `BackgroundJob` can be called directly and there is no need to inject the `JobScheduler` in classes where background jobs are enqueued---of course this is a matter of taste.
 
 ### Background job server configuration
 The Background job server configuration again reuses the shared configuration:
