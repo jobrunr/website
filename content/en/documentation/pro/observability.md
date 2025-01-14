@@ -38,20 +38,11 @@ You can also integrate JobRunr with your observability platform thanks to [OpenT
 
 Using the integration of your choice will not only show you the TraceId within the JobRunr Pro Dashboard but it will also show detailed job information in your observability platform.
 
-<figure>
-<img src="/documentation/jobrunr-pro-traceid.png" class="kg-image">
-<figcaption>Jaeger - the duration and all the different API interactions over multiple microservices are automatically available</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-traceid.png "Jaeger - the duration and all the different API interactions over multiple microservices are automatically available")
 
-<figure>
-<img src="/documentation/jobrunr-pro-jaeger-succeeded-job.png" class="kg-image">
-<figcaption>Jaeger - the duration and all the different API interactions over multiple microservices are automatically available</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-jaeger-succeeded-job.png "Jaeger - the duration and all the different API interactions over multiple microservices are automatically available")
 
-<figure>
-<img src="/documentation/jobrunr-pro-jaeger-failed-job.png" class="kg-image">
-<figcaption>Jaeger - if a job failed, you can easily see what is happening</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-jaeger-failed-job.png "Jaeger - if a job failed, you can easily see what is happening")
 
 ### Configuration
 You can easily enable observability in Spring Boot, Micronaut and Quarkus using your existing configuration:

@@ -15,11 +15,7 @@ JobRunr handles all exceptions that occur both in internal (belonging to JobRunr
 
 When JobRunr encounters external exception that occured during the execution of the job, it will automatically try to change the state of the `Job` to `Failed`, and you always can find this job in the Dashbord UI (it will not expire unless you delete it explicitly).
 
-
-<figure>
-<img src="/documentation/failed-job.webp" class="kg-image">
-<figcaption>Detailed information why a job failed</figcaption>
-</figure>
+![](/documentation/failed-job.webp "Detailed information why a job failed")
 
 In the previous paragraph it is mentioned that JobRunr will __try__ to change the state of the `Job` to failed, because state transition is one of places where job filters can intercept and change the state transition. The `RetryFilter` class is one of them, that reschedules the failed job to be automatically retried after increasing delay.
 

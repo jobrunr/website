@@ -17,12 +17,7 @@ Some jobs may fail due to downtime of an external system, some unforeseen circum
 
 JobRunr Pro integrates with GitHub issues and Jira so you can easily create an issue in case of a job failure. It will prefill all fields so you can save time and do what you do best: create excelling software without bugs 😊.
 
-
-<figure>
-<img src="/documentation/jobrunr-pro-issue-tracking-integration.png" class="kg-image">
-<figcaption>Create an issue for failed jobs with 1 click in your issue tracking software.</figcaption>
-</figure>
-
+![](/documentation/jobrunr-pro-issue-tracking-integration.png "Create an issue for failed jobs with 1 click in your issue tracking software.")
 
 ## Configuration
 You can easily enable the issue tracking integration in Spring Boot, Micronaut and Quarkus using your existing configuration:

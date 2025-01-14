@@ -31,10 +31,7 @@ JobRunr supports two different types of load-balancing:
 ## Dashboard
 If you're using this feature, you can also enable an extra Dynamic Queues view in the dashboard. This view gives an immediate overview of the amount of jobs per dynamic queue.
 
-<figure>
-<img src="/documentation/dynamic-queues.png" class="kg-image">
-<figcaption>An overview of all the different dynamic queues</figcaption>
-</figure>
+![](/documentation/dynamic-queues.png "An overview of all the different dynamic queues")
 
 ## Usage
 Using dynamic queues is as easy as adding a label to your job! 

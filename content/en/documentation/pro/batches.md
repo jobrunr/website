@@ -146,19 +146,11 @@ public void step1() {
 ## Dashboard
 
 Thanks to the enhanced dashboard that comes with JobRunr Pro, you have an in-depth overview of all your different batch jobs.
-<figure>
-<img src="/documentation/jobrunr-pro-batches.webp" class="kg-image">
-<figcaption>The Pro version also gives an overview of all your batches</figcaption>
-</figure>
 
-<figure>
-<img src="/documentation/jobrunr-pro-batch-details.webp" class="kg-image">
-<figcaption>Follow up on your batch jobs thanks to the enhanced job details of a batch job</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-batches.webp "The Pro version also gives an overview of all your batches")
 
-<figure>
-<img src="/documentation/jobrunr-pro-batch-details-processing.webp" class="kg-image">
-<figcaption>The processing tab within a batch job shows which child jobs are being processed</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-batch-details.webp "Follow up on your batch jobs thanks to the enhanced job details of a batch job")
+
+![](/documentation/jobrunr-pro-batch-details-processing.webp "The processing tab within a batch job shows which child jobs are being processed")
 
 {{< trial-button >}}

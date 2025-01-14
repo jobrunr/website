@@ -25,10 +25,7 @@ The JobRunr Pro dashboard offers a lot of improvements that save your engineerin
 ## Find any Job using the search functionality
 Are you processing millions of jobs? Do you need to find that one job and find out if it succeeded? JobRunr Pro has you covered - thanks to a new feature called Job Search.
 
-<figure>
-<img src="/documentation/job-filters.gif" class="kg-image">
-<figcaption>Thanks to the search filter, you can quickly find the job(s) you are interested in.</figcaption>
-</figure>
+![](/documentation/job-filters.gif "Thanks to the search filter, you can quickly find the job(s) you are interested in.")
 
 > Note that users using __Redis__ as StorageProvider can only filter on State, Job Signature, Queue and ServerTag.
 
@@ -50,10 +47,7 @@ To see a complete demo of JobRunr Pro with job filtering, have a look at this [b
 ## Save time thanks to some usability improvements
 The JobRunr Pro dashboard also includes some usability improvements that save you a lot of time. Just requeue all your failed jobs with one click.
 
-<figure>
-<img src="/documentation/jobrunr-pro-failed-requeue.png" class="kg-image">
-<figcaption>Thanks to some usability features, you can quickly requeue or delete all jobs.</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-failed-requeue.png "Thanks to some usability features, you can quickly requeue or delete all jobs.")
 
 ## Easier support to Proxy
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.

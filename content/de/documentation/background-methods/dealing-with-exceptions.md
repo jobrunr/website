@@ -15,11 +15,8 @@ JobRunr behandelt alle Ausnahmen, die sowohl in internen (zu JobRunr selbst geh�
 
 Wenn JobRunr auf eine externe Ausnahme stößt, die während der Ausführung des Jobs aufgetreten ist, wird automatisch versucht, den Status des Jobs in "Fehlgeschlagen" zu ändern, und Sie können diesen Job immer in der Dashbord-Benutzeroberfläche finden (er läuft nur ab, wenn Sie dies tun explizit löschen).
 
+![](/documentation/failed-job.webp "Detaillierte Informationen, warum ein Job fehlgeschlagen ist")
 
-<figure>
-<img src = "/documentation/failed-job.webp" class = "kg-image">
-<figcaption> Detaillierte Informationen, warum ein Job fehlgeschlagen ist </figcaption>
-</figure>
 
 Im vorherigen Absatz wurde erwähnt, dass JobRunr __versucht__, den Status des "Jobs" in "fehlgeschlagen" zu ändern, da der Statusübergang einer der Orte ist, an denen Jobfilter den Statusübergang abfangen und ändern können. Die `RetryFilter`-Klasse ist eine davon, die den fehlgeschlagenen Job neu plant, damit er nach zunehmender Verzögerung automatisch wiederholt wird.
 

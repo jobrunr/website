@@ -69,7 +69,7 @@ You cannot disable it in the free version.
 
 ### How does JobRunr make sure to only process a job once?
 JobRunr uses [optimistic locking](https://en.wikipedia.org/wiki/Optimistic_concurrency_control) to make sure that a job is only processed once. 
-Concretely, this means that when a `BackgroundJob` server starts processing a job, it first changes the state to `PROCESSING` and tries to save that to the `StorageProvider`. If that fails, it means that the job is already processing by another `BackgroundJob` server and the current `BackgroundJob` server will not process it again. 
+Concretely, this means that when a `BackgroundJob` server starts processing a job, it first changes the state to `PROCESSING` and tries to save that with the `StorageProvider`. If that fails, it means that the job is already processing by another `BackgroundJob` server and the current `BackgroundJob` server will not process it again. 
 If it succeeds, it means that the job is not being processed by another `BackgroundJob` server and the current `BackgroundJob` server can process it.
 
 

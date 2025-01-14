@@ -23,11 +23,7 @@ On this page you will learn how to:
 ## How to monitor your failed jobs
 When JobRunr encounters external exception that occured during the execution of the job, it will automatically change the state of the `Job` to `FAILED`, and you always can find this job in the Dashbord UI under the `FAILED` jobs sections (it will not expire unless you delete it explicitly).
 
-
-<figure>
-<img src="/documentation/failed-job.webp" class="kg-image">
-<figcaption>Detailed information why a job failed</figcaption>
-</figure>
+![](/documentation/failed-job.webp "Detailed information why a job failed")
 
 ## How does JobRunr handle exceptions?
 In the previous paragraph it is mentioned that JobRunr will change the state of the `Job` to `FAILED` but thanks to `JobFilters` that are triggered by state transitions, we can intercept these state changes and update the job. The `RetryFilter` is one of them and it reschedules the failed job to be automatically retried after increasing delay.

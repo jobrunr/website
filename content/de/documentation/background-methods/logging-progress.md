@@ -13,10 +13,7 @@ Einige Jobs dauern sehr lange - sie generieren Tausende von E-Mails, führen ein
 
 Begrüßen Sie die Jobprotokollierung und den Jobfortschrittsbalken.
 
-<figure>
-<img src="/documentation/job-progress.gif" class="kg-image">
-<figcaption> Beobachten Sie die Protokollierung live von Ihrem eigentlichen Job </figcaption>
-</figure>
+![](/documentation/job-progress.gif "Beobachten Sie die Protokollierung live von Ihrem eigentlichen Job")
 
 ## Logging
 JobRunr unterstützt die Protokollierung im Dashboard. Neue Nachrichten werden angezeigt, sobald sie protokolliert werden. Es ist, als würden Sie eine echte Konsole betrachten. Um etwas im Dashboard zu protokollieren, haben Sie zwei Möglichkeiten:

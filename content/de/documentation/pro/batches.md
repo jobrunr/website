@@ -142,17 +142,10 @@ public void step1() {
 
 ## Dashboard
 Dank des erweiterten Dashboards, das mit JobRunr Pro geliefert wird, haben Sie einen detaillierten Überblick über alle Ihre verschiedenen Stapeljobs.
-<figure>
-<img src="/documentation/jobrunr-pro-batches.webp" class="kg-image">
-<figcaption> Die Pro-Version bietet auch einen Überblick über alle Ihre Stapel </figcaption>
-</figure>
 
-<figure>
-<img src="/documentation/jobrunr-pro-batch-details.webp" class="kg-image">
-<figcaption> Verfolgen Sie Ihre Stapeljobs dank der erweiterten Jobdetails eines Stapeljobs </figcaption>
-</figure>
+![](/documentation/jobrunr-pro-batches.webp "Die Pro-Version bietet auch einen Überblick über alle Ihre Stapel ")
 
-<figure>
-<img src="/documentation/jobrunr-pro-batch-details-processing.webp" class="kg-image">
-<figcaption> Die Registerkarte Verarbeitung in einem Stapeljob zeigt an, welche untergeordneten Jobs verarbeitet werden </figcaption>
-</figure>
+![](/documentation/jobrunr-pro-batch-details.webp "Verfolgen Sie Ihre Stapeljobs dank der erweiterten Jobdetails eines Stapeljobs")
+
+![](/documentation/jobrunr-pro-batch-details-processing.webp "Die Registerkarte Verarbeitung in einem Stapeljob zeigt an, welche untergeordneten Jobs verarbeitet werden")
+

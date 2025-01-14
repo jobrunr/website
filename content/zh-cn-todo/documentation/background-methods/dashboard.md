@@ -39,50 +39,23 @@ __Using Spring configuration__
 
 
 ## Screenshots
-<figure>
-<img src="/documentation/jobrunr-overview-1.webp" class="kg-image">
-<figcaption>A complete overview of the amount of jobs that are being processed</figcaption>
-</figure>
 
-<figure>
-<img src="/documentation/jobs-enqueued.webp" class="kg-image">
-<figcaption>An overview of all enqueued jobs</figcaption>
-</figure>
+![](/documentation/jobrunr-overview-1.webp "A complete overview of the amount of jobs that are being processed")
 
-<figure>
-<img src="/documentation/job-details-failed-2.webp" class="kg-image">
-<figcaption>When a job failed, you see a detailed message why it did fail</figcaption>
-</figure>
+![](/documentation/jobs-enqueued.webp "An overview of all enqueued jobs")
 
-<figure>
-<img src="/documentation/job-details-succeeded.webp" class="kg-image">
-<figcaption>A detailed overview of a succeeded job</figcaption>
-</figure>
+![](/documentation/job-details-failed-2.webp "When a job failed, you see a detailed message why it did fail")
 
-<figure>
-<img src="/documentation/recurring-jobs-1.webp" class="kg-image">
-<figcaption>
-An overview of all recurring jobs with the ability to trigger or delete them</figcaption>
-</figure>
+![](/documentation/job-details-succeeded.webp "A detailed overview of a succeeded job")
 
-<figure>
-<img src="/documentation/job-servers.webp" class="kg-image">
-<figcaption>An overview of all background job servers processing background jobs</figcaption>
-</figure>
+![](/documentation/recurring-jobs-1.webp "An overview of all recurring jobs with the ability to trigger or delete them")
 
-## JobRunr pro comes with handy dashboard improvements
+![](/documentation/job-servers.webp "An overview of all background job servers processing background jobs")
 
-<figure>
-<img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
-<figcaption>Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue</figcaption>
-</figure>
+## JobRunr Pro comes with handy dashboard improvements
 
-<figure>
-<img src="/documentation/jobrunr-pro-batches.webp" class="kg-image">
-<figcaption>The Pro version also gives an overview of all your batches</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-enqueued.webp "Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue")
 
-<figure>
-<img src="/documentation/jobrunr-pro-batch-details.webp" class="kg-image">
-<figcaption>Follow up on your batch jobs thanks to the enhanced job details of a batch job</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-batches.webp "The Pro version also gives an overview of all your batches")
+
+![](/documentation/jobrunr-pro-batch-details.webp "Follow up on your batch jobs thanks to the enhanced job details of a batch job")

@@ -130,9 +130,7 @@ You can also configure the Queues using beans by means of an extra bean of type 
 ## Dashboard
 
 The Pro version of JobRunr comes with an enhanced dashboard that shows you the different queues.
-<figure>
-<img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
-<figcaption>Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue</figcaption>
-</figure>
+
+![](/documentation/jobrunr-pro-enqueued.webp "Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue")
 
 {{< trial-button >}}
