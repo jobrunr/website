@@ -35,11 +35,11 @@ __What happens here?__
 - a simple Java class called `Application` with a `main` method is created
 - the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created - in this case an `InMemoryStorageProvider`.
+  - after that, a `StorageProvider` is created---in this case an `InMemoryStorageProvider`.
   - we enable the `BackgroundJobServer` which will process the actual jobs
-  - wen enable the `Dashboard`
+  - we enable the `Dashboard`
   - the Fluent API is ended with the initialize method call from which the `JobScheduler` is retrieved.
-- after that, you can start to create Background Jobs!
+- after that, you can start to create background Jobs!
 
 ## Enqueueing and processing in different JVM instances
 As we want to enqueue jobs in one JVM and process jobs in another JVM, we will need to use a `StorageProvider` can be shared (so not the `InMemoryStorageProvider`). This can be a SQL Database or a NoSQL Database like MongoDB.
@@ -71,10 +71,10 @@ __What happens here?__
 - a simple Java class called `EnqueueingApplication` with a `main` method is created. It will only create jobs but will not process them.
 - the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created - in this case an instance of a `SqlStorageProvider`.
-  - we enable the `Dashboard` again
+  - after that, a `StorageProvider` is created---in this case an instance of a `SqlStorageProvider`.
+  - we again enable the `Dashboard`
   - the Fluent API is ended with the initialize method call from which the `JobScheduler` is retrieved.
-- after that, you can start to create Background Jobs! But ... they will not be processed in this JVM. See the chapter below on how to process the actual jobs.
+- after that, you can start to create background Jobs! But ... they will not be processed in this JVM. See the section below on how to process the actual jobs.
 
 ### 2. Processing background jobs via the `ProcessingApplication`:
 In the application that processes background jobs, the Fluent API is used again and speaks for itself:
@@ -102,7 +102,9 @@ __What happens here?__
 - a simple Java class called `ProcessingApplication` with a `main` method is created. It will only process jobs in this case.
 - the important things to note about the configuration are:
   - the Fluent API is started using JobRunr.configure()
-  - after that, a `StorageProvider` is created - in this case an instance of a `SqlStorageProvider`. It must use the same database settings as the `EnqueueingApplication`
+  - after that, a `StorageProvider` is created---in this case an instance of a `SqlStorageProvider`. It must use the same database settings as the `EnqueueingApplication`
+  - we enable the `BackgroundJobServer` which will process the actual jobs on this JVM instance
+  - we enable JMX extensions to better monitor the server
   - the Fluent API is ended with the initialize method call
 - after that, jobs created in the `EnqueueingApplication` (running in JVM instance A) will automatically be processed in `ProcessingApplication` (running in JVM instance B).
 

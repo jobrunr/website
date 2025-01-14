@@ -37,7 +37,7 @@ WeatherPrediction getWeatherPrediction(UUID cityId) {
 </figure>
 
 ## How to return jobs from your Jobs?
-### Returning jobs from Java 8 lambda's
+### Returning jobs from Java 8 lambdas
 <figure>
 
 ```java

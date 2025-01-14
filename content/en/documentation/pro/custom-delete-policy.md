@@ -21,7 +21,7 @@ Thanks to the `deleteOnSuccess` and `deleteOnFailure` attributes on the `@Job` a
 
 ## Usage
 
-### Using Java 8 lambda's
+### Using Java 8 lambdas
 Specifying a custom delete policy for a job is easy thanks to the `Job` annotation. Just add it to your service method and specify when you want your job to be deleted.
 <figure>
 

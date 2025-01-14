@@ -1,6 +1,6 @@
 ---
 title: "Background methods"
-subtitle: "Background jobs in JobRunr are just Java 8 lambda's - easy peasy!"
+subtitle: "Background jobs in JobRunr are just Java 8 lambdas - easy peasy!"
 keywords: ["dashboard", "best practices", "scheduling jobs", "recurring jobs", "free job scheduler", "jobrunr dashboard", "java function as parameter", "java args"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
@@ -16,11 +16,11 @@ JobRunr supports 3 ways to easily generate background jobs:
 - [Using JobRequests](#via-a-jobrequest)
 - [Using a JobBuilder](#via-a-jobbuilder) that uses either a Java 8 lambda or a JobRequest
 
-## Java 8 lambda's
-Background jobs using Java 8 lambda's in JobRunr look like regular method calls. Background jobs can use both instance and static method calls as in the following example.
+## Java 8 lambdas
+Background jobs using Java 8 lambdas in JobRunr look like regular method calls. Background jobs can use both instance and static method calls as in the following example.
 
 ```java
-BackgroundJob.enqueue<EmailSender>(x -> x.send("jobrunr@example.com"));
+BackgroundJob.<EmailSender>enqueue(x -> x.send("jobrunr@example.com"));
 ```
 
 ```java
@@ -35,7 +35,7 @@ Unlike usual method invocations which are run instantly, these methods are in fa
 
 > Important: all your servers __must run the same version of your code__! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail! <br>As of JobRunr v1.1.0, the dashboard shows an error if there are jobs which cannot be found.
 
-Serialization is performed by the either Jackson, Gson or Json-B and the resulting JSON, that looks like in the following snippet, is persisted in a `StorageProvider` making it available for other processing in a different thread or even a different JVM. As we can see everything is passed by value, so heavy data structures will also be serialized and consume a lot of bytes in the RDBMS or NoSQL database.
+Serialization is performed by the either Jackson, Gson or Json-B and the resulting JSON, that looks like in the following snippet, is persisted using a `StorageProvider` making it available for processing in a different thread or even a different JVM. As we can see everything is passed by value, so heavy data structures will also be serialized and consume a lot of bytes in the RDBMS or NoSQL database.
 
 <figure>
 
@@ -53,7 +53,7 @@ Serialization is performed by the either Jackson, Gson or Json-B and the resulti
   ]
 }
 ```
-<figcaption>the serialized job details</figcaption>
+<figcaption>the serialized job details of the above enqueue example.</figcaption>
 </figure>
 
 ### Parameters
@@ -64,7 +64,7 @@ You can pass parameters along to your background job methods but these should be
 ### Method visibility
 JobRunr only runs methods with `public` visibility.
 
-### Constraints for Java 8 lambda's
+### Constraints for Java 8 lambdas
 JobRunr uses some ASM magic to analyse the Job Lambda and covers most use cases. It is important to note the following:
 
 ###### Only one method to enqueue is supported
@@ -84,17 +84,26 @@ BackgroundJob.enqueue(() -> {
 You can not enqueue the following job as the reference to the `MyService` instance is used as parameter to the lambda and thus not an instance during the analysis of the job lambda.
 <figure>
 
-<figure>
-
 ```java
 BackgroundJob.<MyService>enqueue(x -> doWork(x));
 ```
 <figcaption>As the bean `MyService` is only retrieved from the IoC container when the job is about to run (so not during the scheduling phase), you cannot pass it as a parameter to the job.<br/>The above will fail with a NullPointerException thrown by JobRunr as x is null during the analysis.</figcaption>
 </figure>
 
+However, calling the method on `x` instead of passing `x` as a parameter will work:
+
+<figure>
+
+```java
+BackgroundJob.<MyService>enqueue(x -> x.doWork());
+```
+<figcaption>Now x no longer needs to be retrieved from the IoC container when executing the job.</figcaption>
+</figure>
+
+
 ## Via a JobRequest
 
-Since JobRunr 4.0.0, a new way to create jobs is supported: a `JobRequest`. A `JobRequest` follows the command/command handler pattern.
+Since JobRunr 4.0.0, a new way to create jobs is supported: a `JobRequest`. A `JobRequest` follows the command/commandHandler pattern.
 <figure>
 
 ```java
@@ -151,6 +160,9 @@ public class MyJobRequestHandler implements JobRequestHandler<MyJobRequest> {
 ## Via a JobBuilder
 
 Since JobRunr 6.0.0, a new way to create jobs is supported: a `JobBuilder`. The `JobBuilder` accepts either a `JobLambda` or a `JobRequest` but allows you to configure a lot of properties (like Job name and amount of retries) at runtime without the use of an annotation.
+
+With a `JobLambda`:
+
 <figure>
 
 ```java
@@ -161,5 +173,20 @@ jobScheduler.create(aJob()
   .withDetails(() -> sampleService.executeExampleJob(name)));
 
 ```
-<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder still needs the actual job info, either via the withDetails() method where you can pass a lambda or via the withJobRequest() method where you can pass the JobRequest.</figcaption>
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withDetails() lambda.</figcaption>
+</figure>
+
+With a `JobRequest`:
+
+<figure>
+
+```java
+jobScheduler.create(aJob()
+  .withName("A job requested for " + name)
+  .withAmountOfRetries(3)
+  .withLabels("tenant-A", "from-rest-api")
+  .withJobRequest(new MyJobRequest(id));
+
+```
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withJobRequest() JobRequest.</figcaption>
 </figure>

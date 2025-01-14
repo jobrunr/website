@@ -21,7 +21,7 @@ Yes, there is Spring Batch or Quartz, but these frameworks all make you implemen
 
 So, presenting __JobRunr__ - a port of the excellent [Hangfire framework](https://www.hangfire.io/) in the .NET world written by Sergey Odinokov to Java!
 
-JobRunr allows you to create background jobs using just Java 8 lambda's! An example:
+JobRunr allows you to create background jobs using just Java 8 lambdas! An example:
 
 <figure style="width: 100%; max-width: 100%">
 

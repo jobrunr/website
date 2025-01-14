@@ -10,7 +10,7 @@ menu:
     parent: 'background-methods'
     weight: 40
 ---
-JobRunr supports the passing of arguments to background jobs, both for jobs being created with Java 8 lambda's and for jobs being created with the `JobRequest` interface.
+JobRunr supports the passing of arguments to background jobs, both for jobs being created with Java 8 lambdas and for jobs being created with the `JobRequest` interface.
 
 
 Since these arguments are serialized, **consider their values carefully** as they can blow up your `StorageProvider`. Most of the time it is more efficient to store concrete values in an application database and pass only their identifiers to your background jobs.
@@ -18,7 +18,7 @@ Since these arguments are serialized, **consider their values carefully** as the
 Remember that background jobs may be processed days or weeks after they were enqueued. If you use data that is subject to change in your arguments, it may become stale – database records may be deleted, the text of an article may be changed, etc. Plan for these changes and design your background jobs accordingly.
 
 
-### Java 8 lambda's
+### Java 8 lambdas
 You can pass object to the background job lambda just like any other normal lambda method invocation. These arguments can be any of type `java.lang` or even custom objects.
 
 > Take the following into account if you are using custom objects:<br>

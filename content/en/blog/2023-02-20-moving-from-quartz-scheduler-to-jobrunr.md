@@ -399,7 +399,7 @@ public class JobRunrExampleRecurringJob {
 ```
 </figure>
 
-### But I do not want to use Java 8 lambda's...
+### But I do not want to use Java 8 lambdas...
 No worries, also in this case, we have your back. You can also create a Job using a `JobRequest` and `JobRequestHandler` (which is based on the command & command handler pattern):
 
 <figure style="width: 80%; margin: 0 auto 2em 0">

@@ -150,7 +150,7 @@ The `JobFilter` allows you to extend and intervene with background jobs in JobRu
 This is a default filter of type `ElectStateFilter` and is automatically added for each job which is run by JobRunr. When a job fails, the `RetryFilter` will automatically retry the job 10 times with an exponential back-off policy. Is some API server down while processing jobs? No worries, JobRunr has you covered.
 
 ### JobContext
-If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambda's you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
+If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambdas you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
 
 > Note: that this is best avoided as it couples your domain logic tightly with JobRunr.
 

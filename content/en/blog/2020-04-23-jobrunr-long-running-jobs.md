@@ -15,7 +15,7 @@ In this tutorial, we will be working for the fictional company Acme Corp and we 
 
 
 To do so, we will be using 3 open-source components:
-- [JobRunr](https://github.com/jobrunr/jobrunr): JobRunr allows to easily schedule and process background jobs using Java 8 lambda's. It is backed by persistent storage and can process jobs in a parallel and distributed manner. Thanks to the built-in dashboard we have an in-depth overview into all our background jobs.
+- [JobRunr](https://github.com/jobrunr/jobrunr): JobRunr allows to easily schedule and process background jobs using Java 8 lambdas. It is backed by persistent storage and can process jobs in a parallel and distributed manner. Thanks to the built-in dashboard we have an in-depth overview into all our background jobs.
 - [Spring Data Jpa](https://docs.spring.io/spring-data/): If you want to easily access data in a relational database, Spring Data Jpa is here to help. You can create repositories using nothing more than a simple interface
 - [Docx-Stamper](https://github.com/thombergs/docx-stamper): Docx-Stamper allows to easily generate Word (.docx) documents backed by templates
 Architecture
@@ -587,5 +587,5 @@ We can inspect a Job and see them succeed - if it would fail for some reason, th
 
 
 ### Conclusion:
-- JobRunr and Spring Data integrate very well and both are very easy to use. Being able to schedule Java 8 lambda's and have them run in a background process is a really nice feature of JobRunr.
+- JobRunr and Spring Data integrate very well and both are very easy to use. Being able to schedule Java 8 lambdas and have them run in a background process is a really nice feature of JobRunr.
 - To convert the Word document to PDF, there is some nasty stuff in the word template (like white text) to have an OK-layout. Docx-Stamper is a great library and depends on Docx4J. Docx4J allows to convert Word documents to PDF but it still requires some work as a couple of hacks were done to get the layout right.
