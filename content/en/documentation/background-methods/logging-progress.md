@@ -14,7 +14,7 @@ Some jobs take a very long time to complete - generating 1000's of emails, do a 
 
 Say hello to job logging and the job progress bar.
 
-![](/documentation/job-progress.gif "Beobachten Sie die Protokollierung live von Ihrem eigentlichen Job")
+![](/documentation/job-progress.gif "The Job History progress bar is updated live as you schedule jobs.")
 
 ## Logging
 JobRunr supports logging to the dashboard - new messages will appear as they're logged, it is as if you're looking at a real console. To log something in the dashboard, you have two options:
