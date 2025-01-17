@@ -43,6 +43,7 @@ Without idempotence, retries or duplicate executions could result in errors, dup
 ### Example of Non-Idempotent Behavior
 
 Imagine a job that processes a payment:
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId) {
@@ -55,6 +56,9 @@ public void processOrder(Long userId, Long orderId) {
     emailService.send(user.getEmail(), renderOrder(orderId));
 }
 ```
+
+</figure>
+
 
 If this job runs multiple times, the customer might be charged multiple times for the same order, leading to serious issues. Now let’s explore how to make such jobs idempotent.
 
@@ -74,7 +78,10 @@ JobRunr relies on exceptions to identify failed jobs and reschedule them. Catchi
 
 ### Example:
 
+<br/>
+
 **Avoid:**
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId) {
@@ -89,7 +96,11 @@ public void processOrder(Long userId, Long orderId) {
 }
 ```
 
+</figure>
+
 **Prefer:**
+
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId) throws Exception { 
@@ -101,6 +112,8 @@ public void processOrder(Long userId, Long orderId) throws Exception {
 }
 ```
 
+</figure>
+
 If a job fails and an exception is thrown, then the exception is logged via your logging framework and on top of that, the exception and stacktrace will be visible in the JobRunr dashboard.
 
 ### 2. Make Methods Re-entrant
@@ -110,7 +123,11 @@ Re-entrancy means a method can safely resume or retry execution after being inte
 
 ### Example:
 
+<br/>
+
 **Avoid:**
+
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId) {
@@ -122,7 +139,11 @@ public void processOrder(Long userId, Long orderId) {
 }
 ```
 
+</figure>
+
 **Prefer:**
+
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId) {
@@ -138,16 +159,18 @@ public void processOrder(Long userId, Long orderId) {
 }
 ```
 
-<figure>
-<img src="/blog/idempotence-diagram.svg" class="kg-image" style="height: 400px">
-<figcaption>Re-entrant and idempotent diagram of examples below </figcaption>
 </figure>
+
+<img src="/blog/idempotence-diagram.svg">
+
 
 If your external API doesn’t offer a built-in method to verify whether a transaction has already occurred, you can leverage JobRunr's Job Context to track the transaction's status. By saving metadata within the Job Context, you can implement custom safeguards against duplication.
 
 However, it’s important to acknowledge a rare edge case: if JobRunr experiences a crash immediately after calling the external API but before updating the Job Context, there could be a potential for inconsistency. While this scenario is highly unlikely, understanding this limitation is key to planning for maximum fault tolerance.
 
 **Option with Job Context:**
+
+<figure style="width: 100%;">
 
 ```java
 public void processOrder(Long userId, Long orderId, JobContext jobContext) {
@@ -172,6 +195,8 @@ public void processOrder(Long userId, Long orderId, JobContext jobContext) {
     emailService.send(user.getEmail(), renderOrder(orderId));
 }
 ```
+
+</figure>
 
 Re-entrancy ensures that retries don’t cause duplicate emails or inconsistent states.
 
