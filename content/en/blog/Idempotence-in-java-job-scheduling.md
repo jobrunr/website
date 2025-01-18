@@ -26,8 +26,6 @@ abs(abs(abs(-10))) == abs(-10) // Result is always 10
 
 Idempotence in background jobs means that executing a job multiple times will not alter the system's state beyond the initial execution. This property ensures consistency and prevents unintended consequences when jobs are retried or executed more than once.
 
----
-
 ## Why is Idempotence Important in Job Scheduling?
 
 In any sufficiently complex system, failures and retries are inevitable. Here are some scenarios that highlight the importance of idempotence:
@@ -38,7 +36,6 @@ In any sufficiently complex system, failures and retries are inevitable. Here ar
 
 Without idempotence, retries or duplicate executions could result in errors, duplicate data, or inconsistent states. By designing idempotent jobs, you make your system resilient and easier to maintain.
 
----
 
 ### Example of Non-Idempotent Behavior
 
@@ -62,7 +59,6 @@ public void processOrder(Long userId, Long orderId) {
 
 If this job runs multiple times, the customer might be charged multiple times for the same order, leading to serious issues. Now let’s explore how to make such jobs idempotent.
 
----
 
 ## Re-entrancy: A Companion to Idempotence
 
@@ -202,8 +198,6 @@ public void processOrder(Long userId, Long orderId, JobContext jobContext) {
 
 Re-entrancy ensures that retries don’t cause duplicate emails or inconsistent states.
 
----
-
 ## How JobRunr is Designed to Enhance Reliability
 
 JobRunr is built to ensure the reliability of background job processing with features that support fault tolerance, observability, and advanced workflows. Below are some of the key features, both free and Pro, that help enhance reliability.
@@ -231,5 +225,3 @@ For workflows requiring sequential execution, [JobRunr Pro](https://www.jobrunr.
 Idempotence and re-entrancy are vital for ensuring robust and reliable background jobs in JobRunr. By simplifying arguments, ensuring re-entrant behavior, and allowing exceptions to propagate, you can design background jobs that are efficient, fault-tolerant, and scalable.
 
 Additionally, [JobRunr Pro](https://www.jobrunr.io/en/documentation/pro/) enhances reliability with features like custom retry policies, job timeouts, and observability tools.
-
-Want to unlock advanced features? Check out [JobRunr Pro.](https://www.jobrunr.io/en/pricing/)

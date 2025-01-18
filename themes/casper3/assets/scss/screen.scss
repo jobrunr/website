@@ -1220,9 +1220,12 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .post-full-image.blog img {
-    aspect-ratio: 2 / 1;
+    max-width: 100%;
 }
 
+.post-full .blog-figure{
+    margin-top: 0px;
+}
 
 .post-card.small {
     min-height: 180px;
