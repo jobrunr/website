@@ -3,7 +3,7 @@ title: "Why is Idempotence Important in Java Job Scheduling?"
 summary: "Understanding the critical role of idempotence in ensuring reliable and fault-tolerant background job scheduling in modern distributed systems."
 feature_image: /blog/FeaturedImage-Idempotence.webp
 date: 2025-01-17T16:00:00+02:00
-author: "Nicholas"
+author: "Nicholas D'hondt"
 tags:
   - blog
   - job scheduling
