@@ -25,7 +25,6 @@ These new versions are built to make your Java background job scheduling even sm
 
 ## 🌟 **Notable Highlights**
 
-
 **Compatibility updates**
 
 - **Support for JDK 24:** Future-proof your applications with support for the latest Java version.
@@ -40,7 +39,7 @@ These new versions are built to make your Java background job scheduling even sm
 
 JobRunr v7.4.0 and JobRunr Pro v7.4.0 deliver multiple improvements to optimize your job scheduling and monitoring processes:
 
-- **JDK 24 Support** https://github.com/jobrunr/jobrunr/pull/1171
+- **JDK 24 Support** [PR #1171](https://github.com/jobrunr/jobrunr/pull/1171)
 - Wait until Spring Boot is ready before starting the `BackgroundJobServer`. [PR #1183](https://github.com/jobrunr/jobrunr/pull/1183)
 - **Enhanced Logging with jobSignature in MDC** (thanks @mhdatie). [PR #1159](https://github.com/jobrunr/jobrunr/pull/1159)
 - **Consistent SQL Syntax Enforcement** [PR #1163](https://github.com/jobrunr/jobrunr/pull/1163) and [PR #1165](https://github.com/jobrunr/jobrunr/pull/1165)
