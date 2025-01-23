@@ -1,0 +1,4 @@
+<figure style="width: 100%;">
+    {{ .Inner | markdownify }}
+    {{ with .Get "title" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
