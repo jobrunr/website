@@ -2,13 +2,17 @@
 title: "JobRunr & JobRunr Pro v7.4.0"
 summary: "New release packed with enhancements, compatibility updates, and bug fixes!"
 feature_image: /blog/JobRunr740.webp
+images:
+- /blog/JobRunr740.webp
 date: 2025-01-17T09:00:00+02:00
 author: "Nicholas D'hondt"
 tags:
   - blog
   - meta
 ---
-{{< trial-button >}}
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 <div style="text-align: center;margin: -2em 0 2em;">
 <small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'></a></small>

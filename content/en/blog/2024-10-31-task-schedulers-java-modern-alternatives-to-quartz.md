@@ -1,12 +1,17 @@
 ---
 title: "Task schedulers in Java: modern alternatives to Quartz Scheduler"
 summary: "Quartz is often considered the standard job scheduling library in Java, which can lead developers to overlook more modern alternatives."
+images:
+- /blog/modern-alternatives-to-quartz.png
 feature_image: /blog/modern-alternatives-to-quartz.png
 date: 2024-10-31T16:00:00+02:00
 author: "Ismaila Abdoulahi"
 tags:
   - blog
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 For a long time, Quartz, also known as Quartz Scheduler, was the only viable open source task scheduler in Java. In fact, the official Quartz documentation still suggests that there is [no real alternative](https://www.quartz-scheduler.org/documentation/2.3.1-SNAPSHOT/faq.html). In this article, we will list a few different **Quartz Scheduler alternatives that offer a similar set of features while being easier and more enjoyable to use**.
 
 ## The Quartz Scheduler: how good is it really?

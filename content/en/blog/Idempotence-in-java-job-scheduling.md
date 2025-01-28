@@ -1,6 +1,8 @@
 ---
 title: "Why is Idempotence Important in Java Job Scheduling?"
 summary: "Understanding the critical role of idempotence in ensuring reliable and fault-tolerant background job scheduling in modern distributed systems."
+images:
+- /blog/FeaturedImage-Idempotence.webp
 feature_image: /blog/FeaturedImage-Idempotence.webp
 date: 2025-01-17T16:00:00+02:00
 author: "Nicholas D'hondt"
@@ -9,6 +11,9 @@ tags:
   - job scheduling
   - idempotence
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 In modern Java web and enterprise applications, background jobs have become an integral part of the system architecture. These jobs handle tasks that are time-intensive or unnecessary to execute in real-time, such as generating reports, processing large data sets, sending scheduled emails, or cleaning up old records. The advantage of background jobs is that they allow the main application to provide quick feedback to users while deferring heavier operations.
 
