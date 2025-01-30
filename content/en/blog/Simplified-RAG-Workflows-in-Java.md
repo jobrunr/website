@@ -185,14 +185,18 @@ We’ve prepared a full example project demonstrating:
 - Using JobRunr to automate and monitor embedding updates.
 - A Console application to talk to your RAG model.
 
-👉 **Download the project here and get hands-on with JobRunr.**
-<div class="hs-cta-embed hs-cta-simple-placeholder hs-cta-embed-205806169308"
-  style="max-width:100%; max-height:100%; width:700px;height:225.5px" data-hubspot-wrapper-cta-id="205806169308">
-  <a href="https://cta-eu1.hubspot.com/web-interactives/public/v1/track/redirect?encryptedPayload=AVxigLL4I9aAUfFWIoQrif77Vjz%2B%2BWWTfHnEyXk2tedai6if9v0LxBOfYXFISLNdTzLpjfNLpCBLB1UHjbbosgE1kaXO34%2BOKvPzku1vWNtj8jv%2Fxjc%3D&webInteractiveContentId=205806169308&portalId=145458105" target="_blank" rel="noopener" crossorigin="anonymous">
-    <img alt="FREE CODE EXAMPLE RAG With JobRunr A fullly working example project to demonsrate how to set-up a RAG workflow with JobRunr &nbsp;" loading="lazy" src="https://hubspot-no-cache-eu1-prod.s3.amazonaws.com/cta/default/145458105/interactive-205806169308.png" style="height: 100%; width: 100%; object-fit: fill"
-      onerror="this.style.display='none'" />
-  </a>
-</div>
+👇 **Download the project here and get hands-on with JobRunr and RAG workflows.**
+
+<button class="hs-cta-trigger-button hs-cta-trigger-button-205897841901 btn btn-black btn-lg go26732895" style="
+    background: #090a0b !important;
+    border-color: #090a0b !important;
+    color: #fff !important;
+    font-weight: 700;
+    line-height: 3em;
+    /* margin-left: auto; */
+    /* margin-right: auto; */
+    /* align-items: center; */
+">Download the example project!</button>
 
 
 ## RAG in Action!
