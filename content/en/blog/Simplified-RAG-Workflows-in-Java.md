@@ -39,9 +39,7 @@ Java developers are fortunate to have good frameworks to ease the integration of
 
 A naive approach would be to running the entire RAG workflow at query time as illustrated below:
 
-<figure>
 ![](/blog/RAGTraditional.webp "Running the entire RAG workflow at query")
-</figure>
 
 This obviously will not work well beyond very simple applications. One issue is the important wait time for users. Another issue is that the same document may be processed multiple times resulting in wasting resources, unless developers implement a complex resource contention mechanism. Perhaps more importantly, the system may not be able to handle the load as it’s already occupied with other heavy work, a user request at such a time can lead to crashes.
 
@@ -65,9 +63,8 @@ Ronald Dehuysser’s inspiration to connect JobRunr with RAG workflows came from
 Ronald saw this as a natural fit for RAG systems, where tasks like embedding updates can take time but don’t need to hold everything else up. With JobRunr, you get a setup that works reliably and takes some of the heavy lifting off your plate.
 
 Here’s how JobRunr solves these challenges:
-<figure>
+
 ![](/blog/RAG-JobRunr.png "Overview of JobRunr Architecture to run RAG workflows")
-</figure>
 
 ## Real-world example: Synchronizing embeddings with JobRunr
 
@@ -172,9 +169,8 @@ org.jobrunr.background-job-server.worker-count=10
 {{</ codeblock >}}
 
 If a single machine is not able to handle the workload imposed by your application, you can easily scale to distributed processing by connecting another instance of your application. The only requirement is that all the instances share the same database!
-<figure>
+
 ![](/blog/RAG-Dashboard.webp "JobRunr Dashboard")
-</figure>
 
 The built-in dashboard provides a clear view of queued, running, and completed jobs. You can manually trigger, requeue, or delete jobs as needed.
 
