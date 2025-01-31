@@ -1,12 +1,11 @@
 {{ $image := resources.Get .Destination }}
-
 {{ if $image }}
     <figure>
         <a href="{{ with $image }}{{ $image.Permalink }}{{ end }}">
             <img src="{{ with $image }}{{ $image.Permalink }}{{ end }}" class="kg-image" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
         </a>
+        {{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
     </figure>
-    {{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
 {{ else }}
 <figure>
     <a href="{{ .Destination }}">
@@ -15,5 +14,3 @@
     {{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
 </figure>
 {{ end }}
-
-

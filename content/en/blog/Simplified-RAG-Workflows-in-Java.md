@@ -4,14 +4,14 @@ summary: "Learn how to streamline Retrieval-Augmented Generation (RAG) workflows
 tags: ["blog", "Java", "AI", "JobRunr", "RAG"]
 categories: ["AI", "Development"]
 images: 
-- "/blog/FeaturedImage-RAG.webp"
+    - "/blog/FeaturedImage-RAG.webp"
 feature_image: "/blog/FeaturedImage-RAG.webp"
 date: 2025-01-30T16:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "efficient-job-scheduling-for-rag"
 twitter:
-- card: "Streamlining AI in Java: Efficient Job Scheduling for Retrieval-Augmented Generation (RAG) with JobRunr"
-- image: "https://www.jobrunr.io/blog/FeaturedImage-RAG.webp"
+    - card: "Streamlining AI in Java: Efficient Job Scheduling for Retrieval-Augmented Generation (RAG) with JobRunr"
+    - image: "https://www.jobrunr.io/blog/FeaturedImage-RAG.webp"
 ---
 <div style="text-align: center;margin: -2em 0 2em;">
 <small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
@@ -24,23 +24,21 @@ In this blog post, we’ll simplify these concepts with a [sample project](#code
 Whether you're a beginner or an advanced developer, this example will demonstrate best practices for automating and scaling RAG-based systems.
 If you’re curious whether RAG works or not, we provide an example with and without a RAG system at the end of this article.
 
-
 ## The Challenges of RAG
 RAG’s value is clear. AI models like ChatGPT or LLama have a hard time accurately answering questions about data they haven't been trained on (which is most likely the case for any proprietary data). RAG has proven to be a simple technique to alleviate this limitation by providing the relevant context to answer a question.
 
 Although the benefits of using RAG are clear, implementing the workflow is not without challenges. Here, we highlight a few:
 
 - **Keeping embeddings up-to-date**: Knowledge bases are rarely static, they are regularly updated, with addition, update or deletion of documents. Unless providing outdated information to users is acceptable, the embeddings will need to be in sync with the most recent data in the knowledge base.
-- **Cleaning documents**: Some documents contain special syntax used by internal tools, for instance Hugo shortcodes, which makes retrieval and generation more difficult.
+- **Cleaning documents**: Some documents contain special syntax used by internal tools, for instance [Hugo](https://gohugo.io/) shortcodes, which makes retrieval and generation more difficult.
 - **Enriching the data**: For better accuracy, document enrichment may be used. This can be done before (adding metadata, or creating a summary) or after (merging a small chunk with surrounding context) retrieval. 
 - **Determining a good chunking strategy**:  Embeddings are generated from chunks of a document. RAG may fail, if the chunking strategy is not suitable. 
-- **Fine-tuning retrieval process**: There are several hyper-parameters to tune such as the similarity threshold between user input and documents in the store or the number relevant documents to send to the LLM. These parameters have a non-negligible impact on accuracy.
+- **Fine-tuning retrieval process**: There are several hyper-parameters to tune such as the similarity threshold between user input and documents in the store or the number of relevant documents to send to the LLM. These parameters have a non-negligible impact on accuracy.
 - **Evaluating model accuracy**: Depending on the enterprise policy, the development team may have to design an evaluation process of the model to ensure that it is safe to release.
 
-Java developers are fortunate to have good frameworks to ease the integration of LLMs into their applications. For example, Spring AI and LangChain4j provide the building blocks for implementing robust RAG and along with other features. However, these tools may not be enough, as issues such as keeping embeddings in sync with knowledge base changes are best handled by job schedulers.
+Java developers are fortunate to have good frameworks to ease the integration of LLMs into their applications. For example, [Spring AI](https://spring.io/projects/spring-ai) and [LangChain4j](https://docs.langchain4j.dev/) provide the building blocks for implementing robust RAG, along with other features. However, these tools may not be enough, as issues such as keeping embeddings in sync with knowledge base changes are best handled by job schedulers.
 
-A naive approach would be to running the entire RAG workflow at query time as illustrated below:
-
+A naive approach would be running the entire RAG workflow at query time as illustrated below:
 ![](/blog/RAGTraditional.webp "Running the entire RAG workflow at query")
 
 This obviously will not work well beyond very simple applications. One issue is the important wait time for users. Another issue is that the same document may be processed multiple times resulting in wasting resources, unless developers implement a complex resource contention mechanism. Perhaps more importantly, the system may not be able to handle the load as it’s already occupied with other heavy work, a user request at such a time can lead to crashes.
@@ -49,8 +47,8 @@ As one improves on this approach, it may start looking more and more like a job 
 - **Scalability issues**: When big tasks slow down your app.
 - **Missed jobs**: Missed updates or failed jobs can break the system.
 - **Debugging headaches**: Tracking down issues can take longer than expected due to lack of proper monitoring.
-These issues take focus away from solving the business problems at hand: ensuring that the LLM accurately answers a user query. JobRunr takes the job scheduling burden away from RAG developers.
 
+These issues take focus away from solving the business problems at hand: ensuring that the LLM accurately answers a user query. **JobRunr takes the job scheduling burden away** from RAG developers.
 
 ## How JobRunr helps with RAG workflows
 Ronald Dehuysser’s inspiration to connect JobRunr with RAG workflows came from conversations with members of the Spring community. They pointed out that tasks like training large language models and updating embeddings often slow things down when handled synchronously. These challenges naturally aligned with what JobRunr does best: managing long-running tasks in the background.
@@ -65,7 +63,6 @@ Ronald Dehuysser’s inspiration to connect JobRunr with RAG workflows came from
 Ronald saw this as a natural fit for RAG systems, where tasks like embedding updates can take time but don’t need to hold everything else up. With JobRunr, you get a setup that works reliably and takes some of the heavy lifting off your plate.
 
 Here’s how JobRunr solves these challenges:
-
 ![](/blog/RAG-JobRunr.png "Overview of JobRunr Architecture to run RAG workflows")
 
 ## Real-world example: Synchronizing embeddings with JobRunr
@@ -75,12 +72,12 @@ In a RAG workflow, keeping embeddings synchronized with document updates is crit
 Let’s walk through an example where JobRunr manages embedding synchronization. To this end, we implement a RAG workflow that manages files in a directory located on the user’s computer, the directory could be a shared one to enable distributed processing.
 
 The project involves two main tasks:
-- First, we implement a job that will process a document and update its embeddings. If the document is found to be deleted, the embeddings are removed from the vector store. These tasks will be processed in parallel by the JobRunr workers for efficient embedding synchronisation.
+- First, we implement a job that will process a document and update its embeddings. If the document is found to be deleted, the embeddings are removed from the vector store. These tasks will be processed in parallel by the JobRunr workers for efficient embedding synchronization.
 - Second, we implement a job to scan our knowledge base, the directory. This task delegates to the document processing task for every modified document it finds in the knowledge base. This task is scheduled recurrently, for example everyday if the directory is expected to change daily. Note: to know when a document is new, updated or deleted, we keep files metadata (relative path, last modified date) in the DB. 
 
-Our implementation is modular and can be easily extended, for example to retrieve documents over HTTP.
+Our implementation is modular and can be extended, for example to retrieve documents over HTTP.
 
-For testing purposes, we used JobRunr’s documentation files but the code is designed to work on any directory on your computer.
+> For testing purposes, we used JobRunr’s documentation files but the code is designed to work on any directory on your computer.
 
 ### Step 1: Setup of the example
 Our sample project uses the following frameworks and tools:
@@ -94,7 +91,7 @@ Our sample project uses the following frameworks and tools:
 Follow instructions on Spring AI to initialize a [Spring AI](https://docs.spring.io/spring-ai/reference/getting-started.html) project. Spring Initializr will allow you to download a project with of the dependencies we listed above.
 
 If you chose Maven as build tool, you can add JobRunr as follows:
-{{< codeblock title="Adding JobRunr dependency in Maven" >}}
+{{< codeblock >}}
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
@@ -104,9 +101,9 @@ If you chose Maven as build tool, you can add JobRunr as follows:
 {{</ codeblock >}}
 
 ### Step 2: Update Embeddings with Fault Tolerance
-The `EmbeddingManager` is responsible for processing documents and updating their embeddings. If an embedding exists, it deletes the old data before saving new embeddings. This prevents duplicates we have recently written an article on [idempotence highlighting the importance of this logic](https://www.jobrunr.io/en/blog/idempotence-in-java-job-scheduling/).
+The `EmbeddingManager` is responsible for processing documents and updating their embeddings. If an embedding exists, it deletes the old data before saving new embeddings. This prevents duplicates we have recently written an article on [idempotence highlighting the importance of this logic]({{<ref "/blog/Idempotence-in-java-job-scheduling.md">}}).
 
-{{< codeblock title="Embedding Management" >}}
+{{< codeblock >}}
 ```java
 @Job(name = "Manage embeddings for file %0")
 @Transactional
@@ -119,13 +116,15 @@ public void manage(String relativePath, Status status) {
 {{</ codeblock >}}
 
 This snippet demonstrates:
-- **JobRunr-powered automatic retries:** If a job fails due to a temporary issue (e.g., network downtime), JobRunr will automatically reattempt execution. By default the job retried 10 times with an exponential backoff policy.
+- **JobRunr-powered automatic retries:** If a job fails due to a temporary issue (e.g., network downtime), JobRunr will automatically reattempt execution. By default the job is retried 10 times with an exponential backoff policy.
 - **Error handling**: Ensures embeddings are updated even if jobs fail intermittently.
+
+> This task delegates to [Spring AI's ETL pipeline](https://docs.spring.io/spring-ai/reference/api/etl-pipeline.html) for embedding generation and storage.
 
 ### Step 3: Automate Directory Scanning and Job Scheduling
 The `DirectoryManager` class scans a directory for document updates, identifies changes, and schedules jobs to update embeddings—as we have seen this includes deleting them permanently—by delegating to the `EmbeddingManager`.
 
-{{< codeblock title="Directory Scanning and Job Scheduling" >}}
+{{< codeblock >}}
 ```java
 @Recurring(id = "embedding-synchronization", cron = "${app.embedding-synchronization.cron}")
 @Job(name = "Browse content directory and initiate embedding synchronization")
@@ -170,7 +169,7 @@ org.jobrunr.background-job-server.worker-count=10
 ```
 {{</ codeblock >}}
 
-If a single machine is not able to handle the workload imposed by your application, you can easily scale to distributed processing by connecting another instance of your application. The only requirement is that all the instances share the same database!
+> If a single machine is not able to handle the workload imposed by your application, you can easily scale to distributed processing by connecting another instance of your application. The only requirement is that all the instances share the same database!
 
 ![](/blog/RAG-Dashboard.webp "JobRunr Dashboard")
 
@@ -180,7 +179,7 @@ This snippet demonstrates:
 - **Optimized resource utilization**: Configurable worker pools ensure jobs run efficiently without overloading the system.
 - **JobRunr-powered observability**: The dashboard allows developers to monitor, retry, and debug jobs with real-time status updates.
 <span id="code-example">
-### Code Example Download
+## Code example download
 We’ve prepared a full example project demonstrating:
 - Setting up a directory manager.
 - Processing documents with content-specific processors (e.g., PDF support via `PdfProcessor`).
@@ -200,14 +199,13 @@ We’ve prepared a full example project demonstrating:
     /* align-items: center; */
 ">Download the example project!</button>
 
-
-## RAG in Action!
-Let’s ask our local small LLM, Llama 3.2, a questions related to JobRunr. We ask the questions with and without RAG.
+## RAG in action!
+Let’s ask our local small LLM, Llama 3.2, a question related to JobRunr. We ask the question with and without RAG.
 
 ### Prompt: Give me an example of a mutex usage in JobRunr Pro
 #### Answer without RAG (code snippet only):
 
-{{< codeblock title="Incorrect Mutex Usage in JobRunr" >}}
+{{< codeblock title="Incorrect `mutex` usage in JobRunr" >}}
 ```java
 import io.github.cdimascio.jobrunrJob;
 public class MyJob extends Job {
@@ -227,7 +225,7 @@ public class MyJob extends Job {
 
 #### Answer with RAG:
 
-{{< codeblock title="Correct Mutex Usage in JobRunr" >}}
+{{< codeblock title="Correct `mutex` usage in JobRunr" >}}
 ```java
 jobScheduler.create(aJob()
         .withMutex("virus-scanner")
@@ -244,8 +242,7 @@ Anyone who knows a little bit of Java would know that the first answer wouldn’
 
 The second answer shows the power of RAG, the answer is directly extracted from the JobRunr documentation. It gives the two flavors for configuring a `Job` using either the `JobBuilder`, or the `@Job`. The answer lacks a bit of an explanation though. But the documentation for these usage examples also lacks explanation…
 
-
-### Why Choose JobRunr for Your AI Workflows?
+## Why choose JobRunr for your AI workflows?
 JobRunr is an ideal tool for developers working on RAG systems due to its:
 
 - **Integration with Frameworks**: Works out of the box with Spring Boot (👋 Spring AI), Quarkus (👋 LangChain4j, which also integrates with Spring), and other popular Java frameworks.
@@ -258,7 +255,9 @@ Whether you’re automating customer support, processing financial data, or mana
 **Start streamlining your RAG workflows today with JobRunr.** 
 Download the [free version](https://github.com/jobrunr/jobrunr) or explore the advanced features of [JobRunr Pro](/pricing/).
 
-### FAQ
+---
+
+## FAQ
 #### How does JobRunr enhance RAG workflows?
 JobRunr automates job scheduling and error handling, making RAG workflows simpler, reliable, and easier to scale. It simplifies embedding synchronization by allowing developers to create functions or methods and control the level of parallelization. Additionally, JobRunr retries failed jobs automatically if, for instance, a resource like a URL is temporarily unavailable.
 
