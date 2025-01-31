@@ -9,9 +9,6 @@ feature_image: "/blog/FeaturedImage-RAG.webp"
 date: 2025-01-30T16:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "efficient-job-scheduling-for-rag"
-twitter:
-    - card: "Streamlining AI in Java: Efficient Job Scheduling for Retrieval-Augmented Generation (RAG) with JobRunr"
-    - image: "https://www.jobrunr.io/blog/FeaturedImage-RAG.webp"
 ---
 <div style="text-align: center;margin: -2em 0 2em;">
 <small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
