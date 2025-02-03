@@ -1,6 +1,6 @@
 ---
-title: "Streamlining AI in Java: Efficient Job Scheduling for Retrieval-Augmented Generation (RAG) with JobRunr"
-summary: "Learn how to streamline Retrieval-Augmented Generation (RAG) workflows using JobRunr in Java."
+title: "Building local LLM systems: RAG implementation with JobRunr and Spring AI"
+summary: "Learn how to build Retrieval-Augmented Generation (RAG) workflows using JobRunr in Java."
 tags: ["blog", "Java", "AI", "JobRunr", "RAG"]
 categories: ["AI", "Development"]
 images: 
