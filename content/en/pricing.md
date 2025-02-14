@@ -178,7 +178,14 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 </div>
 
 <br>
+<h3>How to convince your boss?</h3>
 
+We prepared an email with 5 good reasons to convince your boss to purchase a JobRunr Pro License!
+
+
+<a class="btn btn-black btn-lg"  href="/en/convince-your-boss/" style="display: inline-block; height: 45px; margin-right: 1rem;">Show me how!</a>
+
+<br>
 <h3>Why get a Pro license?</h3>
 
 Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Well, the actual question is: "is your business building infrastructure or *user functionality*"? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To find out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
