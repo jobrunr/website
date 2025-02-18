@@ -185,7 +185,7 @@ We’ve prepared a full example project demonstrating:
 
 👇 **Download the project here and get hands-on with JobRunr and RAG workflows.**
 
-<button class="hs-cta-trigger-button hs-cta-trigger-button-205897841901 btn btn-black btn-lg go26732895" style="
+<a href= "https://github.com/jobrunr/example-rag"><button class=" btn btn-black btn-lg go26732895" style="
     background: #090a0b !important;
     border-color: #090a0b !important;
     color: #fff !important;
@@ -194,7 +194,7 @@ We’ve prepared a full example project demonstrating:
     /* margin-left: auto; */
     /* margin-right: auto; */
     /* align-items: center; */
-">Download the example project!</button>
+">Go to the Github Project!</button></a>
 
 ## RAG in action!
 Let’s ask our local small LLM, Llama 3.2, a question related to JobRunr. We ask the question with and without RAG.
