@@ -1,5 +1,5 @@
 ---
-title: "5 Ways to convince your boss to buy a JobRunr Pro license"
+title: "6 Ways to convince your boss to buy a JobRunr Pro license"
 summary: "You know JobRunr Pro is the best solution for handling background jobs efficiently, but how do you convince your boss to approve the purchase? Here’s a simple email template that can help!"
 skip_meta: true
 date: 2025-02-14T12:00:00+02:00
