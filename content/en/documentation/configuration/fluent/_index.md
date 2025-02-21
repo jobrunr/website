@@ -128,4 +128,4 @@ JobRunr.configure()
 
 ```
 
-> For more options, check out the [JobRunr JavaDocs](https://www.javadoc.io/doc/org.jobrunr/jobrunr/latest/index.html).
+> For more options, check out the `JobRunrConfiguration` and `JobRunrDashboardWebServerConfiguration` classes.
