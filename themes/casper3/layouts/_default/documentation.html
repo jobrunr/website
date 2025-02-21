@@ -14,14 +14,14 @@
         <article class="post-full post no-image no-image">
             <header class="post-full-header">
                 {{ if eq .Params.version "pro"}}
-                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="tag:JobRunr Pro"><span class="label professional"><span>JobRunr Pro</span></span></div>
+                    <span data-pagefind-filter="tag:JobRunr Pro" class="label professional"><span>JobRunr Pro</span></span>
                 {{ else if eq .Params.version "enterprise"}}
-                    <div style="margin-bottom: 0.75em;" data-pagefind-filter="tag:JobRunr Pro"><span class="label enterprise"><span>JobRunr Pro Enterprise</span></span></div>
+                    <span data-pagefind-filter="tag:JobRunr Pro" class="label enterprise"><span>JobRunr Pro Enterprise</span></span>
                 {{ else }}
                     <template data-pagefind-filter="tag:JobRunr"></template>
                 {{ end }}
 
-                <h1 class="post-full-title">{{.Title}}</h1>
+                <h1 style="margin-top: 1rem" class="post-full-title">{{.Title}}</h1>
                 {{ if .Param "subtitle" }}
                     <p class="post-full-custom-excerpt"> {{ .Param "subtitle" }}</p>
                 {{ end }}

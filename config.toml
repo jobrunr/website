@@ -5,7 +5,7 @@ languageCode = "en"
 title = "JobRunr"
 theme = "casper3"
 googleAnalytics = "UA-5770953-9"
-disableKinds = ["taxonomy", "taxonomyTerm"]
+disableKinds = ["taxonomy"]
 
 [markup.goldmark.renderer]
 unsafe= true
