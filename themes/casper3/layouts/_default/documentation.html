@@ -20,6 +20,9 @@
                 {{ else }}
                     <template data-pagefind-filter="tag:JobRunr"></template>
                 {{ end }}
+                {{ with .Params.beta }}
+                    <span class="label beta"><span>Beta</span></span>
+                {{ end }}
 
                 <h1 style="margin-top: 1rem" class="post-full-title">{{.Title}}</h1>
                 {{ if .Param "subtitle" }}
