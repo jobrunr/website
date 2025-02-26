@@ -111,7 +111,8 @@
 <script>
 window.addEventListener("load", (event) => {
   setTimeout(() => {
-    window.cookieconsent.initialise({
+    // cookieconsent can be blocked in which case this crashes.
+    window.cookieconsent?.initialise({
       "palette": {
         "popup": {
           "background": "#000"
