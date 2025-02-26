@@ -8,7 +8,6 @@ tags:
     - KEDA
     - Kubernetes
 hideFrameworkSelector: true
-draft: true
 ---
 
 [Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used to dynamically adjust the resources allocated to a cloud application based on some metrics. Typically, scaling is done based on CPU or memory usage, but in the context of task scheduling and background job processing, we may be interested in scaling based on the number of jobs in the queue, the time they spend in the queue, etc. JobRunr Pro provides the advanced metrics to enable efficient autoscaling of your application.  
@@ -18,7 +17,7 @@ In this guide, we'll show you how to autoscale your [Kubernetes](https://kuberne
 - how to configure autoscaling triggers based on JobRunr Pro metrics such as workers' usage, job queue latency, and scheduled jobs count.
 
 ## Prerequisites
-- JobRunr Pro 8.0.0 or later
+- JobRunr Pro 8.0.0-beta.0 or later
 - You already know how to configure JobRunr
 - Basic knowledge of Kubernetes
 - A working Kubernetes cluster
