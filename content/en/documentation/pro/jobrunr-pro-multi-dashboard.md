@@ -4,7 +4,7 @@ title: "JobRunr Pro Multi Dashboard"
 subtitle: "One Dashboard To Rule Them All!"
 date: 2025-02-21T13:00:00+01:00
 layout: "documentation"
-draft: true
+beta: true
 menu: 
   main: 
     identifier: jobrunr-pro-multi-dashboard
