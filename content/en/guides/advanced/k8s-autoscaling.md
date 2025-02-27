@@ -10,6 +10,8 @@ tags:
 hideFrameworkSelector: true
 ---
 
+> This excellent guide on how to autoscale background job processing with K8s and JobRunr was contributed by [Dariusz Dumnicki](https://be.linkedin.com/in/dariusz-dumnicki).
+
 [Autoscaling](https://en.wikipedia.org/wiki/Autoscaling) is a method used to dynamically adjust the resources allocated to a cloud application based on some metrics. Typically, scaling is done based on CPU or memory usage, but in the context of task scheduling and background job processing, we may be interested in scaling based on the number of jobs in the queue, the time they spend in the queue, etc. JobRunr Pro provides the advanced metrics to enable efficient autoscaling of your application.  
 
 In this guide, we'll show you how to autoscale your [Kubernetes](https://kubernetes.io/)-managed JobRunr Pro applications using [KEDA](https://keda.sh/), a K8s-based event driven autoscaler. You will learn 
@@ -48,7 +50,7 @@ Our setup consists of 2 deployments:
 
 We have also created a [Service](https://kubernetes.io/docs/concepts/services-networking/service/) object called `jobrunr-service` that exposes ports of the `web` deployment, enabling access to the dashboard and API from outside of the cluster. Additionally, we deployed [PostgreSQL](https://www.postgresql.org/) as our database.  
 <!-- TODO: change github url -->
-You can see all the deployment files we used [here](https://github.com/dumnicki/example-k8s-scaling/tree/main/k8s).
+You can see all the deployment files we used [here](https://github.com/jobrunr/example-k8s-scaling/tree/main/k8s).
 
 Next, you can deploy KEDA in your Kubernetes cluster by executing the following command:
 ```
@@ -281,7 +283,7 @@ In this guide, we’ve learned how to set up autoscaling in Kubernetes using KED
 
 ### Finished example
 <!-- TODO: Change the github url -->
-The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/dumnicki/example-k8s-scaling).
+The example app and k8s deployment files that we created in this guide are available in our [github repository](https://github.com/jobrunr/example-k8s-scaling).
 
 ---
 
