@@ -1,12 +1,14 @@
 ---
 title: "JobRunr - the best Java Scheduler?"
 summary: "Easily schedule jobs in Java and monitor them using JobRunr"
-feature_image: /blog/2023-02-13-java-scheduler.png
-date: 2023-02-13T09:12:23+02:00
+feature_image: /blog/job-schedueler.webp
+date: 2025-03-05T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
   - blog
   - meta
+images: ["/blog/meme-job-schedueler.webp"]
+
 ---
 {{< trial-button >}}
 
