@@ -1,7 +1,7 @@
 ---
 version: "pro"
-title: "JobRunr Pro Multi Dashboard"
-subtitle: "One Dashboard To Rule Them All!"
+title: "Multi-Cluster Dashboard"
+subtitle: "One Dashboard to rule them all, One Dashboard to find them, One Dashboard to bring them all and from the database bind them."
 date: 2025-02-21T13:00:00+01:00
 layout: "documentation"
 beta: true
@@ -14,66 +14,94 @@ menu:
 
 {{< trial-button >}}
 
-The JobRunr Pro _Multi Dashboard_ is a separate webserver instance that controls all other [JobRunr Pro Dashboards](/en/documentation/pro/jobrunr-pro-dashboard). Monitoring multiple instances can get tiresome when running a lot of different JobRunr clusters, all running their own jobs, for instance when deploying multiple single-tenant SaaS applications. With the _Multi Dashboard_, your one-stop job shop, you can **monitor the health of all clusters at once** within one dashboard server.
+When running multiple JobRunr clusters (i.e. different applications running on separate JobRunr tables), it becomes tedious to monitor all the different  dashboards. The _Multi-Cluster Dashboard_ is here to make this task easier. 
+
+The Multi-Cluster Dashboard provides a unified view of multiple JobRunr Pro clusters (i.e., independent schedulers). We designed it to be as easy to use as possible. In fact, from a user perspective, it has the same feel and set of features as the regular [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}), with a few additional markers to quickly distinguish between clusters.
+
+<!-- Monitoring multiple instances can get tiresome when running a lot of different JobRunr clusters, all running their own jobs, for instance when deploying multiple single-tenant SaaS applications. With the _Multi Dashboard_, your one-stop job shop, you can **monitor the health of all clusters at once** within one dashboard server. -->
+
+> We often use the shorter Multi Dashboard to refer to the Multi-Cluster Dashboard.
 
 ## Architectural overview
 
-The _Multi Dashboard_ connects to all other clusters, either via a running `DashboardServer` using the autodiscovery mode, or directly through a `StorageProvider`. It then collects and aggregates the results, showing it to the user using the same UI and feature set of the regular [JobRunr Pro Dashboard](/en/documentation/pro/jobrunr-pro-dashboard).
+The _Multi Dashboard_ connects to all other clusters, either via a running `JobRunrDashboardWebServer`, or directly via a `StorageProvider`. It then collects the results and presents them to the user using the same UI and feature set as the regular [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}).
 
 Below is a schematic overview of how this works:
 
-![](/documentation/multi-dashboard-context.png "The MultiDashboard Context Diagram.")
+![](/documentation/multi-dashboard-context.png "The Multi-Cluster Dashboard Context Diagram.")
 
-Instead of surfing to `http://mycluster:9000/dashboard`, you now access `http://themulticluster:8000/dashboard` which is deployd separately. Various configuration options (see below) allow you to either inject the database providers directly into the multi cluster instance, or have each cluster announce itself to the multi instance.
-
-For instance, the _Multi Dashboard_ will be smart enough to figure out how to query all jobs, either through a cluster `DashboardServer` that announced itself or was pre-configured, or directly through a pre-configured `StorageProvider` if you choose not to expose/run any single dashboard webserver for the clusters themselves. 
+As shown in the diagram, instead of connecting to each dashboard for routine monitoring, a user can go directly to the multi-dashboard. The `MultiClusterWebServer` takes care of polling each cluster for data and running some filters to meet the user's request (e.g., serving the data in a certain order or setting a limit). The web server can be made aware of a cluster to query either at configuration time or at runtime via auto-discovery. See the [_Configuration_ section]({{< ref "#configuration" >}}) for more information.
 
 Zooming in on the above blue "JobRunr MultiDashboard" block, we see the system in effect:
 
-![](/documentation/multi-dashboard-container.png "The MultiDashboard Container Diagram.")
+![](/documentation/multi-dashboard-container.png "The `MultiClusterWebServer` Container Diagram.")
+
+As the diagram shows, the Multi Dashboard is smart enough to handle different types of data providers; it can connect directly to the database or send requests to a REST API.
 
 ## Configuration
 
-### The Multi Instance
+### Multi-cluster web server
 
-Bootstrapping the _Multi Dashboard_ works in the same vein as bootstrapping any other JobRunr Cluster: it starts with a set of configuration parameters, and then you call `start()`. That's it, you now have a multi instance running! 
+#### Pre-requisites
+* Add `jobrunr-pro-dashboard-multi-instance` as a dependency.
+* JDK 21 or higher
+
+> The package `jobrunr-pro-dashboard-multi-instance` is planned to be renamed to `jobrunr-pro-multi-cluster-dashboard`.
+
+#### Web server setup
+
+Bootstrapping the _Multi Dashboard_ works in the same vein as bootstrapping any other JobRunr cluster: it starts with a set of configuration parameters, and then you call `start()`.
 
 ```java
-var multiClusterWebServer = new MultiClusterWebServer(
-        usingStandardMultiWebServerConfiguration()
-                .andHost("localhost", 8000)
-                .andContextPath("/multi")
-                .andApiKey("my-api-token"));
+var multiClusterWebServer = new MultiClusterWebServer();
 multiClusterWebServer.start();
 ```
 
-The above code configures the webserver according to the `MultiClusterWebServerConfiguration` class, which provides the same configuration as the `JobRunrDashboardWebServerConfiguration` and the following extras:
+The above shows a setup of a `MultiClusterWebServer` with all default configuration. The dashboard can be reached by visiting `localhost:8000` but wouldn't do much.
+
+The `MultiClusterWebServer` takes up to two parameters for more advanced configuration:
+* `MultiClusterWebServerConfiguration` to configure the web server (e.g., authentication, hostname, port number, etc.).
+* `MultiClusterConfiguration` to statically configure the different clusters to query from.
+
+The `MultiClusterWebServerConfiguration` provides the same configuration as the `JobRunrDashboardWebServerConfiguration` with the following optional extras:
 
 - `andQueues()`: Allows to provide the names for the priority queues that will be displayed on the Dashboard.
-- `andApiKey()`: Used to communicate between multi and single cluster instances.
+- `andApiKey()`: A shared secret used to secure the communication between the multi-cluster server and single cluster. 
 - `andClusterConnectionTimeout()`: The maximum amount of time the multi server will wait on a cluster before aggregating the results back to the user. Default: 30 seconds.
 
-You can now open your browser at [http://localhost:8000/multi/dashboard](http://localhost:8000/multi/dashboard). Without any clusters configured or discovered, the dashboard will say it is waiting for clusters to be discovered. If you'd rather pre-configure the server with the storage provider or REST API cluster instances during boot, you can do that as well by **providing a second constructor parameter**, the `MultiClusterConfiguration`:
+The `MultiClusterConfiguration` allows to specify the clusters to query from at configuration time. Users have the option to specify multiple `StorageProvider`s to query or multiple REST APIs to connect to (or a combination of both).
+
+> You may choose to not provide this configuration and instead [use auto-discovery]({{< ref "#auto-discovery" >}}) to register clusters at runtime.
+
+Below is a more advanced configuration:
 
 ```java
 var multiClusterWebServer = new MultiClusterWebServer(
         usingStandardMultiWebServerConfiguration()
-                .andContextPath("/test")
-                // .and(...) more config (see above)
-              ),
+                .andContextPath("/multi")
+                .andHost("localhost", 8000)
+                .andApiKey("my-api-token")
+                // .and(...) more config (see MultiClusterWebServerConfiguration's API)
+        ,
         usingStandardMultiClusterConfiguration()
                 .andStorageProviderClusters(
-                        new StorageProviderClusterConfiguration("cluster 1", provider1),
-                        new StorageProviderClusterConfiguration("cluster 2", provider2))
-                .andRestApiClusters(new RestApiClusterConfiguration("cluster 3", "http://cluster3.host")));
+                        new StorageProviderClusterConfiguration("Accounting", provider1),
+                        new StorageProviderClusterConfiguration("Human Resources", provider2)
+                )
+                .andRestApiClusters(
+                        new RestApiClusterConfiguration("Order fulfillment", "https://order-fulfillment-service.acme.com")
+                )
+);
 multiClusterWebServer.start();
 ```
 
-The above code pre-loads the multi server with knowledge of three clusters: two with a direct database connection and one with a HTTP link to the exposed dashboard running at `http://cluster3.host`.
+Running this example will start a web server reachable at `http://localhost:8000/multi/dashboard`. The `MultiClusterWebServer` will serve requests by querying the two with `StorageProvider`s (i.e., `provider1` and `provider2`) and one JobRunr cluster web server at `https://order-fulfillment-service.acme.com`.
 
-### Single Instances
+> We expect the Multi-Cluster Dashboard to be deployed as a standalone application (e.g., inside a docker container). Therefore we require the use of JDK 21 or higher and internally use `Jackson` for JSON serialization needs.
 
-Providing cluster configuration at boot has the advantage of not having to expose dashboard servers. However, if you have multiple clusters deployed in Kubernetes pods, of which dynamically new ones are spin up and taken down, you might want to enable our **auto-discovery feature** in which a cluster announces itself to the multi server (each minute).
+### Auto-discovery
+
+Providing the `MultiClusterConfiguration` at boot has the advantage of not having to expose any dashboard servers. However, if you have multiple clusters deployed in Kubernetes pods where new clusters are dynamically spun up and down, you may want to enable our **auto-discovery** feature where a cluster announces itself to the multi-cluster web server.
 
 The only thing to add here is `andAutoDiscovery()` at the JobRunr Pro cluster dashboard configuration:
 
@@ -81,20 +109,36 @@ The only thing to add here is `andAutoDiscovery()` at the JobRunr Pro cluster da
 JobRunrPro
         .configure()
         // .use... your usual config
-        .useDashboardIf(true, usingStandardDashboardConfiguration()
-            .andHost("localhost", 9000)
+        .useDashboard(usingStandardDashboardConfiguration()
+            .andPort(9000)
             // .and... your usual dashboard web server config
-            .andAutoDiscovery("http://localhost:8000/multi", "my-api-token", "Cluster 1 at port 9000")
+            .andAutoDiscovery("https://multi-cluster.acme.com/multi", "my-api-token", "Order fulfillment service")
 ```
 
-That's it! As soon as the above cluster has booted, it will issue a `PUT` to the configured _Multi Dashboard_ server, announcing its name ("Cluster 1 at port 9000") and location. From here on, the _Multi Dashboard_ will retrieve the cluster ID and the dashboard will show all data of that cluster. If the cluster goes down (e.g. retrieving jobs fails), the _Multi Dashboard_ will mark it as `OFFLINE`, until it announces itself again, making it resilient against potential crashes. 
+That's it! As soon as the above cluster has booted, it'll announce itself and communicate its URL to the `MultiClusterWebServer`.
 
-## Working With the Multi Dashboard
+> **Note**: if provided, the API-Key needs to be shared by both servers.
 
-When you have a lot of clusters running, you may want to enable filtering in the different views. As you can see in the screenshot below, the _Multi Dashboard_ comes with a Cluster button on the top right that shows all currently discovered clusters where you can filter on specific ones. This filter remains persistent. Also, you can filter on _cluster name_ if you so desire in job tables. On the Dashboard overview page, a new badge also showcases the current number of clusters discovered, and how many of them are currently online.
+> For alternative auto-discovery configuration see the API of `JobRunrDashboardWebServerConfiguration`.
 
-![](/documentation/multi-dashboard-filter.png "Filtering on cluster in the Multi Dashboard UI.")
+### Authentication
 
-The number on the top right of the button gives an immediate indication of the amount of connected clusters (10 in the above example).
+The Multi-Cluster Dashboard supports the same [user authentication schemes]({{< ref "guides/authentication" >}}) as a regular JobRunr Pro Dashboard. The only way to authenticate server-to-server communication is to configure shared API keys. Once configured, servers pass the key along with each request. A valid API key provides full access to all the endpoints.
 
-You can issue any action you're used to issuing from the [JobRunr Pro Dashboard](/en/documentation/pro/jobrunr-pro-dashboard): triggering recurring jobs, retrying jobs, ... The _Multi Dashboard_ server itself does not handle any job processing: it simply delegates the actions to the designated cluster, either using the REST API or using the direct link to the database. 
+> Due to the nature of these exchanges, we recommend using HTTPS.
+
+## Working with the Multi Dashboard
+
+By default the dashboard provides an integrated view of data from all the clusters. For instance, this allows to search without first having to find out which cluster an item is located on. If not for a few markers, the experience is almost the same as using the regular dashboard. The below gif showcases the use of the Multi-Cluster Dashboard.
+
+![](/documentation/multi-cluster-dashboard.gif "Usage of the Multi-Cluster Dashboard.")
+
+You can perform any action you're used to issuing from the [JobRunr Pro Dashboard](/en/documentation/pro/jobrunr-pro-dashboard): triggering recurring jobs, requeueing jobs, stop servers, etc. On the overview page, a new card also displays the current number of clusters discovered, and how many of them are currently online.
+
+### Filter out clusters
+
+You may want to isolate a few clusters. As the below gif shows, the _Multi Dashboard_ comes with a button on the top right that shows all currently discovered clusters where you can filter on specific ones. 
+
+![](/documentation/multi-cluster-dashboard-filter.gif "Filtering on cluster in the Multi Dashboard UI.")
+
+> This filter remains persistent, so on your next visit, you'll view the clusters you isolated.

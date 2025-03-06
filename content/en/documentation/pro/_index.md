@@ -47,7 +47,7 @@ The enterprise version adds all the features of JobRunr Pro, plus the following 
 - __[Dashboard security]({{< ref "jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}}):__ add SSO and security to your dashboard with the OpenID integration and limit access to authorized personnel only. 
 - __[Dashboard embedded within your application framework]({{< ref "jobrunr-pro-dashboard.md#embed-the-dashboard-within-spring-application-server" >}}):__ instead of running an embedded server, you can run the dashboard within your existing application server. Save resources and plug-in any security framework you already have running in-house. 
 - __[GDPR compliant dashboard]({{< ref "jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}}):__ hide sensitive information from preying eyes in the dashboard using the GDPR toggle.
-
+- __[Multi-Cluster Dashboard]({{< ref "jobrunr-pro-multi-dashboard" >}}):__ provides a unified view across multiple JobRunr Pro clusters (i.e., independent schedulers).
 
 ### Upcoming features
 JobRunr Pro is by no means a finished product - subscribing will allow me to build extra features including:
