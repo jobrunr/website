@@ -8,7 +8,7 @@
 
 <!-- a hack to get hugo to move social media post images from /assets to /static -->
 {{- with .Params.images -}}
-    {{- range . | first 6 }}}
+    {{- range . | first 6 }}
         {{- $img := resources.Get . -}}
         {{- $permalink := $img.RelPermalink -}}
     {{- end }}
