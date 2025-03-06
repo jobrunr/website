@@ -160,10 +160,7 @@ jobScheduler.scheduleRecurrently(Cron.daily(), () -> myService.doWork());
 {{< /codeblock >}}
 
 ### 5. Visit the Web UI and see how your jobs are doing!
-<figure>
-<img src="/documentation/jobs-enqueued.webp" class="kg-image">
-<figcaption>An overview of all enqueued jobs</figcaption>
-</figure>
+![](/documentation/jobs-enqueued.webp "An overview of all enqueued jobs")
 
 The [dashboard]({{< ref "/documentation/background-methods/dashboard" >}}) provides an overview of all enqueued jobs, and other states, helping you track the status of each job and ensure reliable execution.
 
