@@ -1,7 +1,7 @@
 ---
 title: "JobRunr - the best Java Scheduler?"
 summary: "Easily schedule your (batch) jobs in Java and monitor them using JobRunr, a unified programming model to handle background tasks in a reliable way."
-feature_image: /blog/job-schedueler.webp
+feature_image: /blog/job-scheduler.webp
 date: 2025-03-05T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
