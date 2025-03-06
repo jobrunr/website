@@ -201,3 +201,9 @@ The Web UI in JobRunr provides a comprehensive view of each job’s status, incl
 #### 6. What is a cron expression, and how is it used for recurring jobs?
 
 A cron expression is a syntax that defines intervals for recurring job scheduling, such as daily, weekly, or monthly tasks. JobRunr enables you to use cron expressions for repetitive tasks, making it easy to automate ongoing processes like generating reports or sending reminders.
+
+<div style="display:none;>
+
+![](/blog//meme-job-schedueler.webp "Overview of JobRunr Architecture to run RAG workflows")
+
+</div>
