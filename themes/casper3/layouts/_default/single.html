@@ -6,6 +6,15 @@
     {{- partial "site-header.html" $ -}}
 </header>
 
+{{- with .Params.images -}}
+    {{- range . | first 6 }}
+        {{- if hasPrefix . "/assets/"}}
+            {{- $img := resources.Get . -}}
+            {{- $permalink := $img.RelPermalink -}}
+        {{- end -}}
+    {{- end }}
+{{- end -}}
+
 <main id="site-main" class="site-main outer">
     <div class="inner">
 
