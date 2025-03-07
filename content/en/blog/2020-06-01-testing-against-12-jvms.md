@@ -8,7 +8,7 @@ tags:
   - blog
   - tutorial
 ---
-Since JobRunr uses bytecode analysis to perform it's job (pun intended), I thought it was important to have a test where different job lambdas are compiled and executed on each different JVM instance.
+Since JobRunr uses bytecode analysis to perform its job (pun intended), I thought it was important to have a test where different job lambdas are compiled and executed on each different JVM instance.
 
 To do so, I first created the following test which has unit tests with different ways of enqueueing background jobs using JobRunr:
 

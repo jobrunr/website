@@ -9,7 +9,7 @@ menu:
     parent: 'background-methods'
     weight: 70
 ---
-Some jobs take a very long time to complete - generating 1000's of emails, do a batch import of some large xml or CSV files, ... . How to know whether your code is actually running and doing it's actual job (pun intended)?
+Some jobs take a very long time to complete - generating 1000's of emails, do a batch import of some large xml or CSV files, ... . How to know whether your code is actually running and doing its actual job (pun intended)?
 
 Say hello to job logging and the job progress bar.
 
@@ -18,7 +18,7 @@ Say hello to job logging and the job progress bar.
 ## Logging
 JobRunr supports logging to the dashboard - new messages will appear as they're logged, it is as if you're looking at a real console. To log something in the dashboard, you have two options:
 
-- you can use the JobContext and use it's logger:<br>
+- you can use the JobContext and use its logger:<br>
 `jobContext.logger().info('this will appear in the dashboard');`
 - or - even easier - wrap your existing Logger as follows:<br>
 `new JobRunrDashboardLogger(LoggerFactory.getLogger(MyService.class))`

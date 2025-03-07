@@ -506,7 +506,7 @@ BackgroundJob.scheduleRecurringly(
 <figcaption>This method call ensures that the generateAndSendSalarySlipToAllEmployees method of our SalarySlipService will be triggered each Sunday at 10pm.</figcaption>
 </figure>
 
-In this SpringBootApplication we create some fake employees, define a DataSource (in our case a simple H2 database) and initialize JobRunr using it's fluent-api.
+In this SpringBootApplication we create some fake employees, define a DataSource (in our case a simple H2 database) and initialize JobRunr using its fluent-api.
 
 <figure style="width: 100%; max-width: 100%">
 

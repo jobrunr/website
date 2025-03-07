@@ -12,7 +12,7 @@ tags:
 
 JDK 16 early access has a build available including Project Loom which is all about virtual, light-weight threads (also called Fibers) that can be created in large quantities, without worrying about exhausting system resources.
 
-Project Loom is also the reason why I did not use a reactive framework for JobRunr as it will change the way we will write concurrent programs. Project Loom with it's Virtual Threads is supposed to be a drop-in replacement for the existing threading framework and I tried it out today using JobRunr.
+Project Loom is also the reason why I did not use a reactive framework for JobRunr as it will change the way we will write concurrent programs. Project Loom with its Virtual Threads is supposed to be a drop-in replacement for the existing threading framework and I tried it out today using JobRunr.
 This also means that JobRunr, as of v0.9.16 (to be released soon), will support project Loom out-of-the-box while still also supporting every JVM since Java 8!
 
 Implementing support for Project Loom was easier than I thought using a `ServiceLoader`. I extracted a simple interface called `JobRunrExecutor` from the existing `ScheduledThreadPool`.

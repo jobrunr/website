@@ -42,7 +42,7 @@ Thanks to the @Transactional support, the whole method - including the job sched
 #### How does it work?
 - the JobRunr Spring Boot Starter and Micronaut Integration, Quarkus Extension, Exposed Plugin check whether they can participate in a transaction created by that framework.  
 - if one is present, it is used and the whole method is transactional.
-- if not, JobRunr creates it's own transaction to make sure the job is saved to the database. 
+- if not, JobRunr creates its own transaction to make sure the job is saved to the database. 
 
 > This of course only works for the SQL `StorageProvider`s.
 

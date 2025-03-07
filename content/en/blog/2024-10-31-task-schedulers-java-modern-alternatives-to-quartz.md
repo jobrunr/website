@@ -73,7 +73,7 @@ These libraries keep the number of third-party dependencies to a minimum, provid
 
 JobRunr aims to be **developer friendly** by providing a simple, flexible and straightforward API, automatic retries on failure, and seamless integration with your existing infrastructure. In fact, all you need to create a background job is a Java 8 lambda. JobRunr also supports all major SQL databases and popular NoSQL databases.
 
-A feature of JobRunr that neither Quartz nor db-scheduler provide out of the box is a dashboard. Thanks to the built-in dashboard, it's **easy to monitor the system** to see why a job failed or to perform actions such as requeuing or deleting a job.
+A feature of JobRunr that neither Quartz nor db-scheduler provide out of the box is a dashboard. Thanks to the built-in dashboard, its **easy to monitor the system** to see why a job failed or to perform actions such as requeuing or deleting a job.
 
 Used and trusted by industry leaders, the open source version of **JobRunr provides the essential features you need to schedule tasks in Java**. You can expect features similar to those in the Quartz Scheduler, but much easier to use. The JobRunr team also develop and maintain JobRunr Pro which offers Enterprise grade features, making JobRunr Pro the best job scheduling library in Java!
 

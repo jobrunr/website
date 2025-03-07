@@ -49,7 +49,7 @@ JobRunr uses your database for a lot of things:
 - Optimistic locking so that a job will be only executed once
 - ... 
 
-The moment JobRunr loses it's connection to the database (or the database goes down), there will be a lot of threads that will try to write updates to the database but all of these writes will of course fail. This will result in __a huge amount of logging__ and if JobRunr would try to continue job processing, it would flood the disks fast because of each attempt to process a job fails. That's why I decided that if there are too many exceptions because of the `StorageProvider`, JobRunr stops all background job processing. This can of course be monitored via the dashboard and health endpoints.
+The moment JobRunr loses its connection to the database (or the database goes down), there will be a lot of threads that will try to write updates to the database but all of these writes will of course fail. This will result in __a huge amount of logging__ and if JobRunr would try to continue job processing, it would flood the disks fast because of each attempt to process a job fails. That's why I decided that if there are too many exceptions because of the `StorageProvider`, JobRunr stops all background job processing. This can of course be monitored via the dashboard and health endpoints.
 
 > JobRunr Pro improves this by monitoring if the `StorageProvider` comes up again and if so, automatically restarts processing on all the different `BackgroundJobServer`s.
 

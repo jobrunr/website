@@ -1,6 +1,6 @@
 ---
 title: "Credits"
-subtitle: "JobRunr is build on the shoulders of some giants and I want to give them credit where credit's due."
+subtitle: "JobRunr is build on the shoulders of some giants and I want to give them credit where credit is due."
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 ---
