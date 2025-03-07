@@ -42,7 +42,7 @@ Recurring jobs that were missed during downtime will not be scheduled again in J
 ### My recurring jobs are not running nor available in the dashboard?
 To schedule your recurring jobs, you must make sure that the code scheduling these jobs is executed on startup of your application. See the examples in [Recurring jobs]({{<ref "background-methods/recurring-jobs.md#registering-your-recurring-jobs">}})
 
-### JobRunr stops completely if my SQL / NoSQL database goes down
+### JobRunr stops completely if the SQL/NoSQL database goes down
 JobRunr uses your database for a lot of things: 
 - Master node election for the `BackgroundJobServer`
 - Monitoring whether there are no zombie jobs (jobs that were being processed on a `BackgroundJobServer` node that crashed)

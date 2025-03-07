@@ -13,7 +13,7 @@ menu:
 ---
 {{< trial-button >}}
 
-JobRunr by defaults stops completely if my SQL / NoSQL database goes down and there is a reason for this - JobRunr namely uses your database for a lot of things:
+JobRunr by defaults stops completely if the SQL/NoSQL database goes down and there is a reason for this - JobRunr namely uses your database for a lot of things:
 - Master node election for the `BackgroundJobServer`
 - Fetching the details of a `Job` and update the state when it's done
 - Monitoring whether there are no zombie jobs (jobs that were being processed on a `BackgroundJobServer` node that crashed)
