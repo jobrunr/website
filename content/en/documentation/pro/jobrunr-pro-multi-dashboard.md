@@ -46,7 +46,7 @@ As the diagram shows, the Multi Dashboard is smart enough to handle different ty
 * Add `jobrunr-pro-dashboard-multi-instance` as a dependency.
 * JDK 21 or higher
 
-> The package `jobrunr-pro-dashboard-multi-instance` is planned to be renamed to `jobrunr-pro-multi-cluster-dashboard`.
+> ⚠️ The package `jobrunr-pro-dashboard-multi-instance` is planned to be renamed to `jobrunr-pro-multi-cluster-dashboard`.
 
 #### Web server setup
 
@@ -80,7 +80,7 @@ var multiClusterWebServer = new MultiClusterWebServer(
         usingStandardMultiWebServerConfiguration()
                 .andContextPath("/multi")
                 .andHost("localhost", 8000)
-                .andApiKey("my-api-token")
+                .andApiKey("my-api-key")
                 // .and(...) more config (see MultiClusterWebServerConfiguration's API)
         ,
         usingStandardMultiClusterConfiguration()
@@ -112,14 +112,17 @@ JobRunrPro
         .useDashboard(usingStandardDashboardConfiguration()
             .andPort(9000)
             // .and... your usual dashboard web server config
-            .andAutoDiscovery("https://multi-cluster.acme.com/multi", "my-api-token", "Order fulfillment service")
+            .andAutoDiscovery("https://multi-cluster.acme.com/multi", "my-api-key", "Order fulfillment service")
 ```
 
 That's it! As soon as the above cluster has booted, it'll announce itself and communicate its URL to the `MultiClusterWebServer`.
 
+> ⚠️ We pulled the `apiKey` configuration out of the auto-discovery configuration. In the next release this configuration is changing from `.andAutoDiscovery("https://multi-cluster.acme.com/multi", "my-api-key", "Order fulfillment service")` to `andApiKey("my-api-key").andAutoDiscovery("https://multi-cluster.acme.com/multi", "Order fulfillment service")`.
+
 > **Note**: if provided, the API-Key needs to be shared by both servers.
 
 > For alternative auto-discovery configuration see the API of `JobRunrDashboardWebServerConfiguration`.
+
 
 ### Authentication
 
