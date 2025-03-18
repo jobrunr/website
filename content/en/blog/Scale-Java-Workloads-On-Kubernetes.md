@@ -68,7 +68,7 @@ Now your resources are perfectly matched to workload demands, optimizing both pe
 
 ## Performance Impact: The numbers
 In our testing, properly configured JobRunr metrics-based autoscaling delivered impressive results:
-- Our v8 testers experienced a 869% speed increase when scaling from 1 to 10 instances. The autoscalling is done before a delay is noticed. 
+- Our v8 testers experienced a 869% speed increase when scaling from 1 to 10 instances. The autoscalling is done before a delay in performance is noticed. 
 - Consistent job processing times regardless of workload fluctuations.
 - 40-60% cost reduction compared to static provisioning.
 
