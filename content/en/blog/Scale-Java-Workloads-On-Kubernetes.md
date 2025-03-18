@@ -10,6 +10,9 @@ date: 2025-03-18T16:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "scale-java-workloads-on-kubernetes"
 ---
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 Have you ever found yourself staring at your Kubernetes dashboard watching costs climb while your Java background jobs crawl along? We've all been there, stuck with inefficient resource allocation as our batch processing jobs pile up and deadlines loom.  
 
