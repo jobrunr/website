@@ -6,4 +6,6 @@
   {{- end -}}
 {{- end -}}
 
-<img src="{{ $src }}" alt="{{ .Get "alt" }}" style="{{ .Get "style" }}" class="{{ .Get "class" }}" />
+<a href="{{ $src }}">
+  <img src="{{ $src }}" alt="{{ .Get "alt" }}" style="{{ .Get "style" }}" class="{{ .Get "class" }}" />
+</a>
