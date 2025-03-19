@@ -34,7 +34,7 @@ The result? A combination of unpredictable performance and unnecessary costs. Ve
     <figcaption>The impact of using JobRunr Metrics on Kubernetes Cost</figcaption>
 </figure>
 
-JobRunr Pro provides provides specialized metrics that can help make smart decisions to automatically spin up or take down Kubernetes pods based on :
+JobRunr Pro provides specialized metrics that can help make smart decisions to automatically spin up or take down Kubernetes pods based on:
 - [**Workers' usage**](/en/guides/advanced/k8s-autoscaling/#workers-usage): Measures how busy your job-processing workers are. If workers are consistently near full utilization, the system can scale out to avoid slowdowns and ensure jobs are processed without delay.
 - [**Job queue latency**](/en/guides/advanced/k8s-autoscaling/#enqueued-jobs-metrics): Tracks how long jobs are waiting in the queue. If jobs are waiting too long before being picked up, it signals that more processing power is needed to clear the backlog.
 - [**Scheduled jobs count**](/en/guides/advanced/k8s-autoscaling/#scheduled-jobs-metrics): Looks ahead at how many jobs are about to run in the near future. This allows the system to proactively scale up before those jobs start, preventing queues from building up in the first place.
@@ -50,7 +50,7 @@ By leveraging the new JobRunr metrics API in combination with the KEDA autoscali
 - Maintain consistent job processing times even during unexpected traffic spikes
 
 ## How It Works in Practice
-![](/blog/k8s-background.gif "Real life example where you can see extra pods being spun up and down")
+![](/documentation/k8s-autoscaling-servers.gif "Real life example where you can see extra pods being spun up and down")
 
 Let's see this in action with a real example:
 
