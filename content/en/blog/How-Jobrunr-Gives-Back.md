@@ -86,3 +86,9 @@ We’ll also keep sharing our journey — not to brag, but to inspire. Because i
 👉 Or just [get in touch](https://www.jobrunr.io/en/contact/) to share your thoughts or initiatives  
 
 Let’s build software that leaves the world better than we found it.
+
+<div style="display:none;>
+
+![](/blog/1ftp.png "1 percent")
+
+</div>
