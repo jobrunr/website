@@ -61,7 +61,7 @@ This change removes unexpected behaviors in production environments. If you want
 
 ## 💼 **New in JobRunr Pro 7.5.0**
 
-### 🐓 CockroachDB Support with CockroachStorageProvider
+### 🪳 CockroachDB Support with CockroachStorageProvider
 
 You can now use **CockroachDB** as your underlying storage engine with the new `CockroachStorageProvider`—available in JobRunr Pro.
 
