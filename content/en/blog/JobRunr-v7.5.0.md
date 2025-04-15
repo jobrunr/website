@@ -37,7 +37,7 @@ Modern Java frameworks move fast—and JobRunr keeps pace. We want to make sure 
 
 ### 🧠 Improved Misconfiguration Detection
 
-Catching mistakes earlier saves time and prevents production issues. JobRunr now warns you if a there is a mismatch between `JobRequest` and `JobRequestHandler`.
+Catching mistakes earlier saves time and prevents production issues. JobRunr now warns you if there is a mismatch between `JobRequest` and `JobRequestHandler`.
 
 No more silent failures or confusing runtime errors—just clearer, earlier feedback.
 
