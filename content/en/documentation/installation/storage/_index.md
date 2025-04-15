@@ -17,7 +17,7 @@ JobRunr stores the job details for each job using a `StorageProvider` and suppor
 Setting up an SQL database is easy-peasy because you probably don't need to do a thing!
 
 #### Sit back, relax and let JobRunr do the work for you!
-By default, **JobRunr will automatically create the necessary tables** for your database. Just like Liquibase and Flyway, it comes with a database migration manager that manages the database for you.
+By default, **JobRunr will automatically create the necessary tables** for your database. Just like Liquibase and Flyway, it comes with [a database migration manager](/en/documentation/pro/database-migrations/) that manages the database for you.
 
 #### Setting up the database yourself
 If however you do not want to give the JobRunr DataSource DDL rights, you can easily create the tables JobRunr uses yourself using one of the following methods:
@@ -84,6 +84,8 @@ org.jobrunr.database.tablePrefix: MY_SCHEMA.
   - Use the `SQLServerStorageProvider`.
 - **CockroachDB**: Migration type `cockroach`. Tested with container version 24.3.8.
   - Use the `CockroachStorageProvider`.
+
+For more information on database migration, see the [database migration docs page](/en/documentation/pro/database-migrations/).
 
 ## NoSQL databases
 

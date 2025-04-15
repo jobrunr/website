@@ -48,7 +48,7 @@ To do so, use the `DatabaseSqlMigrationFileProvider`:
 ```
 java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} (-DtablePrefix=...) (-DdatabaseManager=...) (-Doutput=...)
   where:
-    - databaseType is one of 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
+    - databaseType is one of 'cockroach', 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
     - databaseManager is one of 'none', 'liquibase', 'flyway' (defaults to none)
     - output is the directory where to create the requested files (defaults to current directory)
 ```
