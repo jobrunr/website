@@ -37,7 +37,7 @@ Modern Java frameworks move fast—and JobRunr keeps pace. We want to make sure 
 
 ### 🧠 Improved Misconfiguration Detection
 
-Catching mistakes earlier saves time and prevents production issues. JobRunr now warns you if a `JobRequest` points to a missing or misnamed `JobRequestHandler`.
+Catching mistakes earlier saves time and prevents production issues. JobRunr now warns you if a there is a mismatch between `JobRequest` and `JobRequestHandler`.
 
 No more silent failures or confusing runtime errors—just clearer, earlier feedback.
 
@@ -45,9 +45,11 @@ No more silent failures or confusing runtime errors—just clearer, earlier feed
 
 Using JobRunr for testing or local development? You can now configure the in-memory storage directly with a simple property:
 
+{{< codeblock >}}
 ```properties
 jobrunr.database.type=mem
 ```
+{{</ codeblock >}}
 
 No need to manually define a storage bean anymore. This works in **Spring**, **Quarkus**, and **Micronaut** environments.
 
@@ -74,14 +76,12 @@ Why CockroachDB?
 If you're building resilient, scalable systems, this new provider fits right in.
 
 CockroachDB is our newest addition—but it’s far from the only one.
-JobRunr now supports **14 Storage Providers** in total.
+JobRunr now supports more than **10 StorageProviders**.
 👉 [Check out the full overview here.](documentation/installation/storage/)
 
 ### 🧹 Pro-Only Fixes and Enhancements
 
 - Fix for `BatchJob` creation using `JobBuilder`
-- Stricter detection for JobRequestHandler issues
-
 
 ---
 
@@ -90,7 +90,7 @@ JobRunr now supports **14 Storage Providers** in total.
 - Fixed `IndexOutOfBoundsException` in job processing scenarios
 - Cleaned up datasource creation in storage provider tests
 - Updated dependency versions for stability and security
-- Improved internal build pipelines for faster release cycles
+- Improved internal build pipelines
 - Architecture test improvements to enforce clean code standards
 - Migrated E2E UI tests from Cypress to Playwright for speed and reliability
 
@@ -105,14 +105,10 @@ We’re proud of our growing community of developers who make JobRunr better wit
 
 ## 🧪 **How to Upgrade**
 
-To upgrade to version 7.5.0:
-
-- Update your dependency version to `7.5.0` in Maven or Gradle
-- Ensure you're explicitly configuring your `StorageProvider`
-- Check your `JobRequestHandler` mappings for any inconsistencies
+Simply update your dependency version to `7.5.0` in Maven or Gradle!
 
 Full changelog available here:  
-👉 [GitHub Release Notes](https://github.com/jobrunr/jobrunr/compare/v7.4.1...v7.5.0)
+👉 [GitHub Release Notes](https://github.com/jobrunr/jobrunr/releases/tag/v7.5.0)
 
 ---
 
