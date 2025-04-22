@@ -26,7 +26,7 @@ Are you running a multi-tenant application? Or do you have diverse types of jobs
 JobRunr supports two different types of load-balancing:
 - **Round Robin Dynamic Queues**: here, each dynamic queue receives the same amount of resource usage
 - **Weighted Round Robin Dynamic Queues**: : here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
-
+- **Fixed amount of reserved workers**: : here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
 
 ## Dashboard
 If you're using this feature, you can also enable an extra Dynamic Queues view in the dashboard. This view gives an immediate overview of the amount of jobs per dynamic queue.
@@ -101,6 +101,36 @@ public DynamicQueuePolicy weightedRoundRobinDynamicQueuePolicy() {
 <figcaption>A DynamicQueuePolicy bean is created where we again add the label prefix 'tenant:'.<br/>'Tenant-A' is configured with a weight of 5 meaning that it will get 5 times more resources than other tenants.</figcaption>
 </figure>
 
+###### Fixed amount of reserved workers
+
+You can reserve a fix amount of workers for different queues using the fluent API or properties as follows:
+
+_Fluent API_:
+
+{{< codeblock title="Notice the `FixedSizeWorkerPoolDynamicQueuePolicy` where we add the label prefix `tenant`. We've reserved 9 workers out of 20. We also enable the extra Dynamic Queue view in the dashboard and name it 'Tenants'">}}
+```java
+JobRunrPro.configure()
+    .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+            .andWorkerCount(20)
+            .andDynamicQueuePolicy(new FixedSizeWorkerPoolDynamicQueuePolicy("tenant:", Map.of("Tenant-A", 6, "Tenant-B", 3)))
+    .useDashboard(usingStandardDashboardConfiguration()
+            .andDynamicQueueConfiguration("Tenants", "tenant:"))
+    .initialize();
+```
+{{</ codeblock >}}
+
+_Properties (Spring Boot)_:
+
+<figure>
+
+```java
+org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-A=6
+org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-B=3
+org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.label-prefix=tenant:
+org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.title=Tenants
+```
+</figure>
 
 ### Usage
 Using dynamic queues could not have been easier thanks to Job Labels:
@@ -130,7 +160,7 @@ jobScheduler.create(aJob()
     .withLabels("tenant:" + tenant)
     .withDetails(() -> myService.runBackgroundWork(input)))
 ```
-<figcaption>We can use the JobBuilder to create a Job and assign it a label.<br/>Note how we re-use the previously configured label prefix 'tenant:'.</figcaption>
+<figcaption>We can use the JobBuilder to create a Job and assign it a label.<br/>Note how we re-use the previously configured label prefix `tenant:`.</figcaption>
 </figure>
 
 <br/>
