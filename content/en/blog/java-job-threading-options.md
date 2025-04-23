@@ -10,8 +10,9 @@ date: 2025-04-23T10:00:00+02:00 # Using current date as per general guidelines
 author: "Nicholas D'hondt" # Kept author from example, replace if needed
 slug: "java-job-threading-options" # Generated from title
 ---
-
-<div style="text-align: center;margin: -2em 0 2em;"><small style="font-size: 70%;">Image based on <a href='#'>Your Image Source Here</a></small></div> 
+<div style="text-align: center;margin: -2em 0 2em;">
+<small style="font-size: 70%;">Image based on <a href='https://www.freepik.com/vectors/cartoon-astronaut'>cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
+</div>
 
 The temptation might be to whip up a quick new `Thread().start()` , cross your fingers, and call it a day. Simple, right? Unfortunately, as many of us have learned the hard way in production environments, this naive approach quickly leads to a world of frustration, from crashing servers to silently failing tasks.
 
