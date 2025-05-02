@@ -24,12 +24,13 @@
 
             <header class="post-full-header">
 
-                {{ with .Params.tags }}
+                <!-- TODO implement proper tags that only shows articles with the tag the user clicked on -->
+                <!-- {{ with .Params.tags }}
                     {{ $primaryTag := (index . 0) }}
                     <section class="post-full-tags" data-pagefind-ignore>
                         <a href="{{ "/tags/" | relLangURL }}{{ $primaryTag | urlize }}">{{ $primaryTag }}</a>
                     </section>
-                {{ end }}
+                {{ end }} -->
 
                 {{ range $index, $tag := .Params.tags }}
                     <template data-pagefind-filter="tag:{{strings.FirstUpper $tag}}">{{ $tag }}</template>
