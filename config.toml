@@ -1,4 +1,4 @@
-baseURL = "https://www.jobrunr.io"
+baseURL = "https://www.jobrunr.io/"
 DefaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 languageCode = "en"
