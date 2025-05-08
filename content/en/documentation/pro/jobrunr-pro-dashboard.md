@@ -59,7 +59,7 @@ Once configured, JobRunr will work with the contentpath configured by you - e.g.
 ## Restrict access using Single Sign On authentication
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}
 
-JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...). It is currently available for a select number of customers as it is in preview.
+JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...).
 
 To configure it, use the following settings:
 ```

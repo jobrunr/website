@@ -1210,13 +1210,16 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 
 .post-card.use-case img.post-card-image {
     width: 10em;
-    height: auto;
+    height: 10em;
+    object-fit: cover;
+    object-position: center;
     float: left;
     margin: 0.5em 1em 0 0;
 }
 
-.post-full-image.use-case img {
-    aspect-ratio: 1;
+.post-full-image.use-case {
+   margin-top: 0 !important;
+   margin-bottom: 15px;
 }
 
 .post-full-image.blog img {
