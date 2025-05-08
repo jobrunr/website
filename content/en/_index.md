@@ -9,7 +9,6 @@ menu:
     identifier: home
     weight: 1
 gallery: [
-        ["/homepage/images/use-case-for-landing-page.webp","/en/use-case/jobrunr-pro-decathlon/", "Inventory management use case"], 
         ["/homepage/images/1587456209086_72063.webp"],
         ["/homepage/images/1587456209554_760158.webp","/en/documentation/background-methods/dashboard/", "An overview of all jobs"], 
         ["/homepage/images/1587456209311_393418.webp","/en/documentation/background-methods/dashboard/", "A succeeded job"], 
