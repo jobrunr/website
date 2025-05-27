@@ -15,7 +15,7 @@ unsafe= true
   images = ["/blog/2020-04-23-jobrunr-gets-jobs-done.webp"]
   googleAnalyticsID = "G-J3K00HKL9D"
   gtmID = "GTM-MX5H2KM"
-  jobRunrVersion = "7.0.0"
+  jobRunrVersion = "7.5.1"
   enableTrialButton = false
   enableWebinarPopup = false
 

@@ -15,7 +15,7 @@ menu:
 
 JobRunr will by default perform all database related migrations automatically for you. This page gives more options in case you need/want more control over how database migrations are executed.
 
-> Yes, you read that right, JobRunr will automatically manage database migrations for you. [Unless otherwise configured](#take-full-control-over-database-migrations), JobRunr automatically handles creation/update of tables, indexes, views, etc.
+> [Unless otherwise configured](#take-full-control-over-database-migrations), JobRunr automatically handles creation/update of tables, indexes, views, etc.
 
 ## Setup a custom user only for the Database Migrations
 In JobRunr Pro, you can setup a different user that will only be used during the database setup and migrations. As soon as the migrations are done, it will not be used anymore. This user can be configured in a property or in an environment variable.
