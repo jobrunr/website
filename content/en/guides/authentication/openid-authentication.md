@@ -248,7 +248,6 @@ In Micronaut, we simply define a `Bean`, and the framework automatically handles
 
 ```java
 @Singleton
-@Requires(missingBeans = JobRunrUserProvider.class)
 public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConnectSettings) {
     return new UserProvider(openIdConnectSettings);
 }     
@@ -275,6 +274,108 @@ If you're using Entra ID and the access token cannot be validated then you'll ne
 4. Update the JobRunr OpenID integration configuration scope, e.g., `openid api://client-id/jobrunr-pro-dashboard`.
 
 All these steps are provided in greater detail in this article: https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff.
+
+### The Access Token type is not JWT
+You may encounter an Exception with a message to:
+
+> `JOSE header typ (type) application/okta-internal-at+jwt not allowed.`
+
+This particular one occurred for an organization using Okta. In this case, we're attempting to use an access token that should not be verified or read by the client directly. Instead, the token should be sent back to the authorization server. We base our analysis on an answer from the Okta Team, see https://devforum.okta.com/t/okta-access-token-type-is-not-jwt/29515/2.
+
+In such a case we can follow two approaches:
+1. Bypass token validation and get the user profile from the UserInfo endpoint.
+2. Accept the risks and allow the client to validate the token.
+
+#### Bypassing token validation and using user profile endpoint
+Let's a create a `NoopOpenIdConnectAccessTokenValidator` and then provide it to `OpenIdConnectAuthenticationProvider`.
+{{< codeblock title="An example of a NoopOpenIdConnectAccessTokenValidator" >}}
+```java
+public class NoopOpenIdConnectAccessTokenValidator implements OpenIdConnectAccessTokenValidator {
+    @Override
+    public void validateAccessToken(BearerAccessToken accessToken) {
+        // we'll let the authorization server to the validation
+    }
+}
+```
+{{< /codeblock >}}
+
+Now we need to make the `OpenIdConnectAuthenticationProvider` aware of this `NoopOpenIdConnectAccessTokenValidator`.    
+{{< framework type="fluent-api">}}
+```java
+OpenIdConnectSettings openIdConnectSettings = new OpenIdConnectSettings(
+    "http://localhost:9001/realms/jobrunr/.well-known/openid-configuration",
+    "dashboard", "client-secret", null
+);
+
+JobRunrPro
+        .configure()
+        // ...
+        .useDashboard(usingStandardDashboardConfiguration()
+            // ...
+            .andAuthentication(new OpenIdConnectAuthenticationProvider(openIdConnectSettings, 
+                new NoopOpenIdConnectAccessTokenValidator(),
+                new InMemoryOpenIdConnectRefreshTokenStore(),
+                new UserProvider(openIdConnectSettings),
+            ))
+        )
+        // ...
+```
+{{< /framework >}}
+{{< framework type="spring-boot" label="Spring">}}
+In Spring Boot, we simply define a `Bean`, and the framework automatically handles dependency injection.
+```java
+@Bean
+public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
+    return new NoopOpenIdConnectAccessTokenValidator();
+}
+```
+{{< /framework >}}
+{{< framework type="quarkus" label="Quarkus">}}
+In Quarkus, we simply define a `Bean`, and the framework automatically handles dependency injection.
+
+```java
+@Produces
+@Singleton
+public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
+    return new NoopOpenIdConnectAccessTokenValidator();
+}
+```
+{{< /framework >}}
+{{< framework type="micronaut" label="Micronaut">}}
+In Micronaut, we simply define a `Bean`, and the framework automatically handles dependency injection.
+
+```java
+@Singleton
+public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
+    return new NoopOpenIdConnectAccessTokenValidator();
+}     
+```
+{{< /framework >}}
+
+> Don't forget to revisit the implementation of `UserProvider`. It should now extend `JobRunrUserUsingUserInfoEndpointProvider` instead of `JobRunrUserUsingJWTAccessTokenProvider`.
+
+
+#### Allow the client to validate the token
+You should prefer the previous solution as there is certainly a good reason for the designers choice. But you know what you're doing you may decide to let the client validate the access token and avoid another round trip. Similarly to the above we can implement a custom `OpenIdConnectAccessTokenValidator`, but this time by extending `OpenIdConnectJWTAccessTokenValidator` and overriding its `createJWTProcessor` method.
+
+{{< codeblock >}}
+```java
+public class OpenIdConnectNonStandardJWTAccessTokenValidator extends OpenIdConnectJWTAccessTokenValidator {
+    public OpenIdConnectNonStandardJWTAccessTokenValidator(OpenIdConnectSettings openIdConnectSettings) {
+        super(openIdConnectSettings);
+    }
+
+    @Override
+    protected ConfigurableJWTProcessor<SecurityContext> createJWTProcessor(OpenIdConnectSettings openIdConnectSettings) {
+        ConfigurableJWTProcessor<SecurityContext> jwtProcessor = super.createJWTProcessor(openIdConnectSettings);
+        jwtProcessor.setJWSTypeVerifier(new DefaultJOSEObjectTypeVerifier<>(JOSEObjectType.JWT, new JOSEObjectType("custom-type")));
+        return jwtProcessor;
+    }
+}
+```
+{{< /codeblock >}}
+
+Plug this custom validator into the `OpenIdConnectAuthenticationProvider` as shown in the previous alternative solution.
 
 ## Conclusion
 Incorporating the `OpenIdConnectAuthenticationProvider` into JobRunr Pro offers us an advanced solution for managing dashboard access in environments with diverse user needs. This guide has provided the necessary steps to implement user authentication and authorization securely and effectively, thereby significantly elevating the security posture of your dashboard. The `OpenIdConnectAuthenticationProvider` allows for a streamlined integration process with existing identity providers, ensuring that your application adheres to modern security standards while facilitating a seamless user experience.
