@@ -8,7 +8,6 @@ tags:
     - Spring Boot
     - Quarkus
     - Micronaut
-draft: true
 ---
 [OpenID Connect](https://openid.net/developers/how-connect-works/) (OIDC) is an authentication protocol that allows to verify the identity of users and obtain their profile information. JobRunr Pro allows you to use your existing OpenID Provider to secure your [JobRunr Pro Dashboard]({{< ref "/documentation/pro/jobrunr-pro-dashboard" >}} "Dashboard documentation") and its underlying `REST API` by using `OpenIdConnectAuthenticationProvider`. This authentication provider is perfect for enterprise grade access control.
 
@@ -43,6 +42,8 @@ As we’ll see in this section, enabling the OpenID integration to secure the da
 - [And, optionally, converting the claims to authorization rules]({{< ref "#configuring-openid-authorization-in-jobrunr" >}}).
 
 We assume you have an OpenID Provider up and running. If this is not the case and you do want to follow this guide, for our testing purposes, we use [Keycloak, an open source identity management tool](https://www.keycloak.org/). You can quickly set up a Keycloak server by following the [_Get started with Keycloak on Docker_](https://www.keycloak.org/getting-started/getting-started-docker) guide.
+
+> The code shown in this section is [available on Github](https://github.com/jobrunr/example-jobrunr-pro-pentest). Note that the repo is private and only visible to members of the JobRunr organization on Github.
 
 ### Add the OpenId dependency
 First, we need to add the additional dependency to add the OpenID capability inside the dashboard. To do so, you must add the following dependency to your `pom.xml`
@@ -153,14 +154,14 @@ Authorization is often done role-based instead of per user. Thus, we will add th
 This translates into the following code:
 {{< codeblock >}}
 ```java
-public class UserProvider extends JobRunrUserUsingJWTAccessTokenProvider {
+public class MyUserProvider extends JobRunrUserUsingJWTAccessTokenProvider {
 
     public enum UserRole {
         MANAGER,
         DEVELOPER;
     }
 
-    public UserProvider(OpenIdConnectSettings openIdConnectSettings) {
+    public MyUserProvider(OpenIdConnectSettings openIdConnectSettings) {
         super(openIdConnectSettings);
     }
 
@@ -192,9 +193,9 @@ From the claims, we get the roles and map them to `JobRunrUserAuthorizationRules
 > This code serves as an example and works for Keycloak, but keep in mind that the format of the claims may differ for other identity providers. You may also use more of the claim to shape the enabled rules, for instance, its good practice to check 
 
 JobRunr provides three builtin implementations of `JobRunrUserProvider`.
-- `JobRunrUserUsingJWTAccessTokenProvider`
-- `JobRunrUserUsingUserInfoEndpointProvider`
-- `JobRunrUserUsingJWTAccessTokenAndUserInfoEndpointProvider`
+- `JobRunrUserUsingJWTAccessTokenProvider`: Allows to configure the JobRunr Dashboard using claims added to the JWT encoded access token.
+- `JobRunrUserUsingUserInfoEndpointProvider`: Allows to configure the JobRunr Dashboard using claims available in the OpenID UserInfo Endpoint. Use or extend this `JobRunrUserProvider` if the access token is not supposed to be verified or read by the client. As the token can be opaque, the retrieved user-info are NOT cached. It is up to the actual implementation to add the necessary caching if needed.
+- `JobRunrUserUsingJWTAccessTokenAndUserInfoEndpointProvider`: Allows to configure the JobRunr Dashboard using claims available in the OpenID UserInfo Endpoint. Use or extend this `JobRunrUserProvider` if you need a combination of the access token and user-info to create `JobRunrUser`. The result of the user-info-endpoint is cached for performance reasons. The cache duration is configurable.
 
 Using these, you can override the method called `authorizationRules(...)` as we have done above. These specialized classes allow either to map a `JWTClaimsSet`, a `UserInfo` or both to `JobRunrUserAuthorizationRules`. Please refer to the javadoc of the classes for more details.
 
@@ -204,7 +205,7 @@ Using these, you can override the method called `authorizationRules(...)` as we 
 
 The last step is to make `OpenIdConnectAuthenticationProvider` aware of our custom implementation of `JobRunrUserProvider`.
 {{< framework type="fluent-api" >}}
-Let's extend the early authentication configuration to provide an instance of `UserProvider` to the `OpenIdConnectAuthenticationProvider`.
+Let's extend the early authentication configuration to provide an instance of `MyUserProvider` to the `OpenIdConnectAuthenticationProvider`.
 
 ```java
 OpenIdConnectSettings openIdConnectSettings = new OpenIdConnectSettings(
@@ -217,7 +218,7 @@ JobRunrPro
         // ...
         .useDashboard(usingStandardDashboardConfiguration()
             // ...
-            .andAuthentication(new OpenIdConnectAuthenticationProvider(openIdConnectSettings, new UserProvider(openIdConnectSettings)))
+            .andAuthentication(new OpenIdConnectAuthenticationProvider(openIdConnectSettings, new MyUserProvider(openIdConnectSettings)))
         )
         // ...
 ```
@@ -228,7 +229,7 @@ In Spring Boot, we simply define a `Bean`, and the framework automatically handl
 ```java
 @Bean
 public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConnectSettings) {
-    return new UserProvider(openIdConnectSettings);
+    return new MyUserProvider(openIdConnectSettings);
 }
 ```
 {{< /framework >}}
@@ -239,7 +240,7 @@ In Quarkus, we simply define a `Bean`, and the framework automatically handles d
 @Produces
 @Singleton
 public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConnectSettings) {
-    return new UserProvider(openIdConnectSettings);
+    return new MyUserProvider(openIdConnectSettings);
 }
 ```
 {{< /framework >}}
@@ -249,12 +250,12 @@ In Micronaut, we simply define a `Bean`, and the framework automatically handles
 ```java
 @Singleton
 public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConnectSettings) {
-    return new UserProvider(openIdConnectSettings);
+    return new MyUserProvider(openIdConnectSettings);
 }     
 ```
 {{< /framework >}}
 
-This is it. Now, for each request, the web server will parse the access token, construct a `JobRunrUser` using the custom `UserProvider` we just implemented. We have the best-in-class authentication scheme: any unauthenticated will be redirected to the identity provider to login. On success, they are redirected to the JobRunr dashboard which performs applies the authorization rules defined by the claims.
+This is it. Now, for each request, the web server will parse the access token, construct a `JobRunrUser` using the custom `MyUserProvider` we just implemented. We have the best-in-class authentication scheme: any unauthenticated will be redirected to the identity provider to login. On success, they are redirected to the JobRunr dashboard which performs applies the authorization rules defined by the claims.
 
 ## Troubleshooting
 Unfortunately the setup may not go smoothly for all identity providers. In this section, we'll go through some common issues you may encounter and how our OpenID integration allows you to solve them with code examples.
@@ -315,7 +316,7 @@ JobRunrPro
             .andAuthentication(new OpenIdConnectAuthenticationProvider(openIdConnectSettings, 
                 new NoopOpenIdConnectAccessTokenValidator(),
                 new InMemoryOpenIdConnectRefreshTokenStore(),
-                new UserProvider(openIdConnectSettings),
+                new MyUserProvider(openIdConnectSettings),
             ))
         )
         // ...
@@ -352,7 +353,7 @@ public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
 ```
 {{< /framework >}}
 
-> Don't forget to revisit the implementation of `UserProvider`. It should now extend `JobRunrUserUsingUserInfoEndpointProvider` instead of `JobRunrUserUsingJWTAccessTokenProvider`.
+> Don't forget to revisit the implementation of `MyUserProvider`. It should now extend `JobRunrUserUsingUserInfoEndpointProvider` instead of `JobRunrUserUsingJWTAccessTokenProvider`.
 
 
 #### Allow the client to validate the token
@@ -378,4 +379,4 @@ public class OpenIdConnectNonStandardJWTAccessTokenValidator extends OpenIdConne
 Plug this custom validator into the `OpenIdConnectAuthenticationProvider` as shown in the previous alternative solution.
 
 ## Conclusion
-Incorporating the `OpenIdConnectAuthenticationProvider` into JobRunr Pro offers us an advanced solution for managing dashboard access in environments with diverse user needs. This guide has provided the necessary steps to implement user authentication and authorization securely and effectively, thereby significantly elevating the security posture of your dashboard. The `OpenIdConnectAuthenticationProvider` allows for a streamlined integration process with existing identity providers, ensuring that your application adheres to modern security standards while facilitating a seamless user experience.
+Incorporating the `OpenIdConnectAuthenticationProvider` into JobRunr Pro offers us an advanced solution for managing dashboard access in environments with diverse user needs. This guide has provided the necessary steps to implement user authentication and authorization securely and effectively, thereby significantly elevating the security posture of your dashboard. The `OpenIdConnectAuthenticationProvider` allows for an easy integration process with existing identity providers, ensuring that your application adheres to modern security standards while facilitating a seamless user experience.
