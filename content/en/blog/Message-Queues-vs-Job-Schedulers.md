@@ -101,18 +101,23 @@ For a company like **Prophia**, processing thousands of resource-intensive docum
 It allows them to automate this massive workload to run every night, taking advantage of off-peak hours when server capacity is idle - a strategy that optimizes both performance and cloud costs. Crucially, a robust job scheduler also provides the reliability needed for such a large-scale, unattended task. 
 
 Automatic retries on failure and clear visibility into job status mean developers can focus on building features, confident that the nightly processing will complete successfully.
+
 {{< /image-text-left >}}
 
 ➡️ Read the story: [Job Scheduling at Scale: How Prophia’s Team Runs Thousands of Jobs Reliably]({{< ref "use-case/jobrunr-pro-prophia.md" >}})
+
+
 
 ### Managing Global Retail Inventory at Scale
 {{< image-text-right src="/use-case/jobrunr-pro-decathlon.jpg" alt="Decathlon case with JobRunr" url="/en/use-case/jobrunr-pro-decathlon/" >}}
 Aligning digital and physical inventory for a global retailer like **Decathlon**, with 1700 stores and millions of daily scans, is a monumental challenge. 
 
 They use job scheduling to reliably process this vast amount of data in the background, ensuring their inventory systems are always in sync.
-{{< /image-text-right >}}
 
 ➡️ Read the story: [Global inventory at Scale - How Decathlon manages stock worldwide using JobRunr]({{< ref "use-case/jobrunr-pro-decathlon.md" >}})
+{{< /image-text-right >}}
+
+
 
 ### Ensuring VoIP Hardware Deployment
 
@@ -120,9 +125,11 @@ They use job scheduling to reliably process this vast amount of data in the back
 Telecom providers often face a simple but frustrating problem: the VoIP hardware they need to program isn't always online. 
 
 A job scheduler with automatic retries provides an elegant solution. It attempts to program the hardware and, if it fails because the device is offline, it automatically retries later until the job succeeds.
-{{< /image-text-left >}}
 
 ➡️ Read the story: [JobRunr Pro Streamlines VoIP Deployment for Telecom Solution Providers]({{< ref "use-case/jobrunr-pro-hardware-programming.md" >}})
+{{< /image-text-left >}}
+
+
 
 ## Tying it in with JobRunr
 
