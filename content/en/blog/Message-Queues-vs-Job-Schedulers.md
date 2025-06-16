@@ -250,3 +250,8 @@ Ready to take control of your background tasks?
 - Give JobRunr a try! Check out our [GitHub repository](https://github.com/jobrunr/jobrunr).
 - Dive deeper into the documentation: [Read the docs]({{< ref "documentation" >}}).
 - See more examples: [Explore our other blog posts]({{< ref "blog" >}}) for more use cases and best practices.
+<div style="display:none;>
+
+![](/use-case/jobrunr-pro-prophia-square.webp "Prophia")
+
+</div>
