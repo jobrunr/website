@@ -1,0 +1,49 @@
+<!-- 
+  Shortcode for a two-column layout: image on the left, text on the right.
+  Parameters:
+  - src: The source path for the image (e.g., "/blog/my-image.png").
+  - alt: The alt text for the image.
+  - url: URL when clicking on the image (optional).
+-->
+<style>
+  .image-text-container-left {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  .image-text-container-left .image-wrapper-left {
+    flex: 1 1 30%;
+    min-width: 150px;
+  }
+
+  .image-text-container-left img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 0;
+  }
+
+  .image-text-container-left .text-wrapper-left {
+    flex: 1 1 60%;
+  }
+  
+  /* On smaller screens, stack the columns vertically */
+  @media (max-width: 768px) {
+    .image-text-container-left {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<div class="image-text-container-left">
+  <div class="image-wrapper-left">
+    <a href="{{ .Get "url" }}" target="_blank" rel="noopener noreferrer">
+      <img src="{{ .Get "src" }}" alt="{{ .Get "alt" }}">
+    </a>
+  </div>
+  <div class="text-wrapper-left">
+    {{ .Inner | .Page.RenderString }}
+  </div>
+</div>
