@@ -95,7 +95,6 @@ In Spring Boot, we just need to configure some properties in the `application.pr
 
 ```java
 org.jobrunr.dashboard.enabled=true
-org.jobrunr.dashboard.port=9000
 org.jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
 org.jobrunr.dashboard.openid-authentication.client-id="client-id"
 org.jobrunr.dashboard.openid-authentication.client-secret="client-secret"
@@ -107,7 +106,7 @@ In Quarkus, we just need to configure some properties in the `application.proper
 
 ```java
 quarkus.jobrunr.dashboard.enabled=true
-quarkus.jobrunr.dashboard.port=9000
+quarkus.jobrunr.dashboard.openid-authentication.enabled=true // must be true at build time (default false)
 quarkus.jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
 quarkus.jobrunr.dashboard.openid-authentication.client-id="client-id"
 quarkus.jobrunr.dashboard.openid-authentication.client-secret="client-secret"
@@ -237,7 +236,8 @@ public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConne
 In Quarkus, we simply define a `Bean`, and the framework automatically handles dependency injection.
 
 ```java
-@Produces
+@Alternative
+@Priority(1)
 @Singleton
 public JobRunrUserProvider jobRunrUserProvider(OpenIdConnectSettings openIdConnectSettings) {
     return new MyUserProvider(openIdConnectSettings);
@@ -294,7 +294,7 @@ Let's a create a `NoopOpenIdConnectAccessTokenValidator` and then provide it to 
 public class NoopOpenIdConnectAccessTokenValidator implements OpenIdConnectAccessTokenValidator {
     @Override
     public void validateAccessToken(BearerAccessToken accessToken) {
-        // we'll let the authorization server to the validation
+        // we'll let the authorization server do the validation
     }
 }
 ```
@@ -335,7 +335,8 @@ public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
 In Quarkus, we simply define a `Bean`, and the framework automatically handles dependency injection.
 
 ```java
-@Produces
+@Alternative
+@Priority(1)
 @Singleton
 public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
     return new NoopOpenIdConnectAccessTokenValidator();
@@ -349,7 +350,7 @@ In Micronaut, we simply define a `Bean`, and the framework automatically handles
 @Singleton
 public OpenIdConnectAccessTokenValidator openIdConnectAccessTokenValidator() {
     return new NoopOpenIdConnectAccessTokenValidator();
-}     
+}
 ```
 {{< /framework >}}
 
@@ -379,4 +380,4 @@ public class OpenIdConnectNonStandardJWTAccessTokenValidator extends OpenIdConne
 Plug this custom validator into the `OpenIdConnectAuthenticationProvider` as shown in the previous alternative solution.
 
 ## Conclusion
-Incorporating the `OpenIdConnectAuthenticationProvider` into JobRunr Pro offers us an advanced solution for managing dashboard access in environments with diverse user needs. This guide has provided the necessary steps to implement user authentication and authorization securely and effectively, thereby significantly elevating the security posture of your dashboard. The `OpenIdConnectAuthenticationProvider` allows for an easy integration process with existing identity providers, ensuring that your application adheres to modern security standards while facilitating a seamless user experience.
+Incorporating the `OpenIdConnectAuthenticationProvider` into JobRunr Pro offers us an advanced solution for managing dashboard access in environments with diverse user needs. This guide has provided the necessary steps to implement user authentication and authorization securely and effectively, thereby significantly elevating the security of your JobRunr Pro dashboard. The `OpenIdConnectAuthenticationProvider` allows for an easy integration process with existing identity providers, ensuring that your application adheres to modern security standards while facilitating a seamless user experience.
