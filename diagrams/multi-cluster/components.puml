@@ -1,0 +1,37 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_LANDSCAPE()
+
+AddRelTag("async", $textColor=$ARROW_FONT_COLOR, $lineColor=$ARROW_COLOR, $lineStyle=DashedLine(), $legendText="async call")
+
+title JobRunr Multi Dashboard: COMPONENT DIAGRAM
+
+Container(ui, "MultiDashboard React UI", "React", "WebApp frontend")
+
+Container_Boundary(srv, "JobRunr MultiDashboard Server") {
+    Component(httpsrv, "MultiClusterDashboardApiHandler", "REST handler", "Queries cluster REST endpoints & collects results")
+    Component(srv_sse, "MultiClusterDashboardSseHandler", "SSE Handler", "Connects to SSE handlers of clusters & collects results")
+    Component(srv_config, "MultiClusterWebServerConfiguration", "Java classes", "Used to configure the MultiCLuster server")
+}
+
+Container_Boundary(c1, "JobRunr Cluster 1") {
+    Component_Ext(c1_db, "DashboardApiHandler 1", "", "Java HttpExchange handler")
+    Component_Ext(c1_sse, "JobRunrSseHandler 1", "", "SSE Handler for the UI")
+}
+Container_Boundary(c2, "JobRunr Cluster 2") {
+    Component_Ext(c2_db, "DashboardApiHandler 2", "", "Java HttpExchange handler")
+    Component_Ext(c2_sse, "JobRunrSseHandler 2", "", "SSE Handler for the UI")
+}
+
+Rel_Up(ui, httpsrv, "Queries jobs (1)")
+Rel(httpsrv, c1_db, "Queries jobs (2a)")
+Rel(httpsrv, c2_db, "Queries jobs (2b)")
+
+Rel_Up(srv_sse, ui, "Pushes stat updates via SSE (2)", $tags="async")
+Rel(c1_sse, srv_sse, "Pushes stat upates via SSE (1a)", $tags="async")
+Rel(c2_sse, srv_sse, "Pushes stat upates via SSE (1b)", $tags="async")
+
+SHOW_LEGEND()
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title JobRunr Multi Dashboard: CONTEXT DIAGRAM
+
+Person(admin, "Admin", "JobRunr Maintainer")
+
+System(multi, "JobRunr MultiDashboard", "The WebApp monitoring all JobRunr clusters")
+
+System(c1, "JobRunr Cluster 1", "Cluster with BG Server")
+System(c2, "JobRunr Cluster 2", "Cluster with BG Server + DashboardServer")
+System(c3, "JobRunr Cluster 3", "Cluster with BG Server + DashboardServer")
+
+Rel(admin, multi, "Uses")
+Rel(multi, c1, "Queries (DB API)")
+Rel(multi, c2, "Queries (REST API)")
+Rel(multi, c3, "Queries (REST API)")
+
+@enduml
