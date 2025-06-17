@@ -24,7 +24,7 @@ jobScheduler.scheduleRecurrently("id-2", "0 16 * * * [PT3H/PT3H]", x->doWork())
 
 These recurring jobs will create jobs in the `AWAITING` state (see _Pending Jobs_ in the Dashboard), ready to be `SCHEDULED` at the optimal time. JobRunr guarantees that all jobs will be executed within the margin; even if there is no data available or the margin is too small.
 
-More examples and details on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs) section.
+**More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs) section.
 
 ## Architectural overview
 
@@ -72,13 +72,15 @@ jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-tim
 
 On the carbon aware job processing configuration class, the following parameters can be configured:
 
-- `areaCode`---Allows to set the areaCode of your datacenter (the area where your application is hosted) in order to have more accurate carbon emissions forecasts. Unless specified, the forecast may be from any dataProvider that supports the areaCode. If you _do not_ specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee based on IP. 
+- `enabled`---Enables the Carbon Aware feature. The `usingStandardCarbonAwareJobProcessingConfiguration()` Fluent API enables this by default. Without it, pending jobs will still be scheduled at their preferred time, without taking the margin into consideration.
+- `areaCode`---Allows to set the [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) areaCode of your datacenter (the area where your application is hosted; e.g. "BE", "US-CA", "IT-NO") in order to have more accurate carbon emissions forecasts. Unless specified, the forecast may be from any dataProvider that supports the areaCode. If you _do not_ specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee based on IP. 
 - `dataProvider`---Allows to set your preferred carbon intensity forecast dataProvider (e.g. "ENTSO-E", "Azure", ...). If you _do not_ specify a data provider, the first region matching the area code will be returned. For now, the only supported provider is "ENTSO-E".
 - `externalCode`---Allows to set the code of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "IT-North").
-- `erxternalIdentifier`---Allows to set the identifier of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "10Y1001A1001A73I"). 
+- `externalIdentifier`---Allows to set the identifier of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "10Y1001A1001A73I"). 
 - `apiClientConnectTimeout`---Allows to set the connect timeout for the API client (defaults to 3 seconds).
 - `apiClientReadTimeout`---Allows to set the read timeout for the API client (defaults to 3 seconds).
 - `apiClientRetriesOnException`---Configures the API client amount of retries when the call throws an exception (defaults to 3).
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} `andCarbonIntensityApiUrl`---Allows to set a custom Carbon Intensity API URL to create your own implementation. The area code, data provider, external code, and external provider settings will be passed in as a request parameter.
 
 > __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 
 

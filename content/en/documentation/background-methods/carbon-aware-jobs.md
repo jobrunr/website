@@ -1,6 +1,8 @@
 ---
-title: "Carbon aware jobs"
+title: "Carbon Aware Jobs"
 subtitle: "Use the Carbon Aware API to optimize the carbon footprint when scheduling (recurring) jobs."
+drawing1: https://excalidraw.com/#json=yVa0Rvpt4dWtEKVWbq_EJ,vWq0sr45v9nCOZZjDuGzfQ
+drawing2: https://excalidraw.com/#json=fUbk68riV80xkYlZTuUwb,6EA0BSlQ5zdXLXGC8Z6ODQ
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
 beta: true
@@ -14,6 +16,16 @@ menu:
 > **Configuration note**: In order to enable carbon aware capabilities for your jobs, please [correctly configure the Carbon Aware API](/en/documentation/configuration/carbon-aware/).
 
 Adding a margin to your regular (recurring) schedule allows your jobs to be executed at the optimal time: when the CO2 footprint for your local region is the lowest. Instead of immediately scheduling a job, it will be created in a new _pending_ mode and scheduled as soon as JobRunr receives carbon intensity data to optimize the carbon footprint of your job. 
+
+The following schematic summarizes how carbon aware job processing works:
+
+![](/documentation/carbon-schematic.png "A carbon aware job timeline.")
+
+As visible in the schematic, for carbon aware job processing, these concepts are important:
+
+- The preferred time---your usual schedule when the job should be processed. If something goes wrong (see [important remarks](#-important-remarks)), the job will still be processed using this as a fallback.
+- The carbon aware margin _\[From, To\]_---instead of always scheduling the job at the preferred time, with carbon aware, the job can be processed anywhere within this margin depending on the data of the energy provider. The interval limit can be seen as a _deadline_: if it is passed, the job will still be executed at that time.
+- The carbon optimal time---this is a moment in-between the above margin JobRunr selects as the time when the CO2 footprint is the lowest. This is the new _scheduled at_ time. In this example, the job runs later than the initial preferred time, but still well within the deadline.
 
 As usual, you can track the progress of your job in the dashboard:
 
