@@ -8,7 +8,7 @@ beta: true
 menu: 
   main: 
     parent: 'configuration'
-    weight: 5
+    weight: 21
 ---
 
 The Carbon Aware API is a unique JobRunr feature that enables the scheduling of (recurring) jobs at the optimal carbon time: when the energy prices are at their lowest. This is made possible by integrating with external energy **data providers** such as the [ENTSO-E](https://www.entsoe.eu/) services for the European Union that provide actual energy data for the coming day(s). 
@@ -24,11 +24,11 @@ jobScheduler.scheduleRecurrently("id-2", "0 16 * * * [PT3H/PT3H]", x->doWork())
 
 These recurring jobs will create jobs in the `AWAITING` state (see _Pending Jobs_ in the Dashboard), ready to be `SCHEDULED` at the optimal time. JobRunr guarantees that all jobs will be executed within the margin; even if there is no data available or the margin is too small.
 
-**More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs) section.
+> **More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs) section.
 
 ## Architectural overview
 
-For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at https://api.jobrunr.io/carbon-intensity and is configurable in the [Pro Version](/en/documentation/pro/). 
+For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at `api.jobrunr.io/carbon-intensity` and is configurable in the [Pro Version](/en/documentation/pro/). 
 
 > **Note**: Currently, we only support the carbon aware feature for data centres within the European Union.
 
@@ -36,7 +36,7 @@ Once it has carbon intensity data, you can add slack to a certain job schedule b
 
 Below is a schematic overview of how this works:
 
-![](/documentation/carbon-aware-context.png "The Carbon Aware AIP Context Diagram.")
+![](/documentation/carbon-aware-context.png "The Carbon Aware API Context Diagram.")
 
 ## Configuration
 
@@ -65,11 +65,9 @@ The processing config allows you to specify a few key parmeters including your a
 Of course, you can configure the Carbon Aware API with your favourite app framework such as [Spring](/en/documentation/configuration/spring/):
 
 ```
-# ...
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
-jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500
-# ...
+jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000
 ```
 
 On the carbon aware job processing configuration class, the following parameters can be configured:
