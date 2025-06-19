@@ -30,4 +30,23 @@ BackgroundJob.enqueueOrReplace(myId, () -> weatherService.predictWeather(cityId,
 
 > By default, JobRunr ignores jobs with an id that already exist in the JobRunr database. The reason for this is that JobRunr allows to create jobs from [JMS messages in a load-balanced environment]({{<ref "faq.md#im-listening-for-jobs-using-service-bus-messages-in-a-load-balanced-environment-and-i-want-to-schedule-jobs-only-once">}}). By ignoring a job that already exists, we're sure to run the job only once.
 
+
+## Creating a UUID from an arbitrary string
+
+In the above example, your city id might not be a UUID but an arbitrary string that also uniquely identify the city. With JobRunr Pro you can use the method `fromIdentifier` available on `JobId`, `JobProId` and `JobProRequestId` to convert any string to a UUID.
+
+Going back to the above example, our city id is the same as the city name (e.g., Brussels) and we don't want to enqueue multiple jobs with the same city name.
+
+<figure>
+
+```java
+UUID jobId = JobProId.fromIdentifier(city.name());
+Observation observation = observationService.getLatestObservation(city.name()); // the original observation
+BackgroundJob.enqueue(jobId, () -> weatherService.predictWeather(city.name(), observation));
+
+Observation observation = observationService.getLatestObservation(city.name()); // the updated observation after a storm
+BackgroundJob.enqueueOrReplace(jobId, () -> weatherService.predictWeather(city.name(), observation));
+```
+<figcaption>This replaces the existing background job as it uses the same uuid to create the job. The jobId is created from an arbitrary string.</figcaption>
+</figure>
 {{< trial-button >}}
