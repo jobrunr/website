@@ -1,7 +1,7 @@
 ---
 title: How To Reduce Your Carbon Impact With Carbon Aware Jobs
 description: In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server.
-weight: 10  
+weight: 26 
 tags:
     - Carbon Aware
     - CO2 footprint job processing

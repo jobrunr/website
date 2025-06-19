@@ -17,8 +17,8 @@ Creating a recurring job (either a CRON job or a job with a fixed defined interv
 On this page you can learn about:
 
 - [Creating a recurring job using a CRON expression](#using-a-cron-expression)
-- [Creating a carbon aware recurring job](#carbon-aware-cron-jobs)
 - [Creating a recurring job using an Interval](#using-an-interval)
+- [Making a carbon aware recurring job](#making-recurring-jobs-carbon-aware)
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
@@ -107,11 +107,6 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 ```
 </figure>
 
-## Carbon Aware CRON jobs
-
-If you make use of the [Carbon Aware API](/en/documentation/configuration/carbon-aware), you can add margins to the CRON expressions: see the [carbon aware jobs docs](/en/documentation/background-methods/carbon-aware-jobs/).
-
-
 ## Using an Interval
 Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting the moment the recurring job was scheduled.
 
@@ -149,6 +144,10 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
     }
 ```
 </figure>
+
+## Making recurring jobs carbon aware
+
+You can add margins to a recurring job schedule expression to let JobRunr run the job at a low carbon intensity moment. You can find more details on the dedicated [carbon aware job processing](/en/documentation/background-methods/carbon-aware-jobs/) page.
 
 
 ## Managing recurring jobs
