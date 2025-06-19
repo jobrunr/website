@@ -16,10 +16,12 @@ Suppose we need to run a job each day that calculates invoice information before
 
 With JobRunr, using a normal recurring job, this is trivial to implement:
 
+{{< codeblock >}}
 ```java
 var pdfGenService = new PdfGenerationService();
 jobScheduler.scheduleRecurrently("my-id", "0 2 * * *", pdfGenService->generateAndMail())
 ```
+{{</ codeblock >}}
 
 The CRON string `0 2 * * *` will make sure the service gets called every day at `2 AM`. For this use case, we trigger it at night to avoid overloading the server during working hours, but we don't really care _when_ during the night this one is processed: as long as it's done before our business opens at `9 AM` everything is all good.
 
@@ -50,6 +52,7 @@ As described in the [Carbon Aware Configuration documentation](/en/documentation
 {{< framework type="fluent-api" >}}
 For the Fluent API, add `andCarbonAwareJobProcessingConfiguration()` to configure the settings:
 
+{{< codeblock >}}
 ```java
 JobRunr
     .configure()
@@ -62,6 +65,7 @@ JobRunr
             ))
     // ...
 ```
+{{</ codeblock >}}
 
 {{< /framework >}}
 {{< framework type="spring-boot" label="Spring">}}
