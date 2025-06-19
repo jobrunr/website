@@ -117,6 +117,8 @@ For our job to trigger at its optimal CO2 time---during the early morning at `7 
 
 If you do not specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee IP based on the geolocation, which obviously can be wrong if set behind a VPN.
 
+> **Note**: Please make sure that the firewall allows the JobRunr server to reach the Carbon Intensity API by default located `api.jobrunr.io`. If not, JobRunr will fall back to scheduling the job at the fallback time.
+
 ### Inspecting Carbon Aware Jobs In The Dashboard
 
 You can track the history of your job in the JobRunr Dashboard:

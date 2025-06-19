@@ -30,6 +30,8 @@ These recurring jobs will create jobs in the `AWAITING` state (see _Pending Jobs
 
 For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at https://api.jobrunr.io/carbon-intensity and is configurable in the [Pro Version](/en/documentation/pro/). 
 
+> **Note**: Please make sure that the firewall allows the JobRunr server to reach `api.jobrunr.io`. If not, JobRunr will fall back to regular scheduling. See [carbon aware jobs: important remarks](/en/documentation/background-methods/carbon-aware-jobs/#-important-remarks).
+
 > **Note**: Currently, we only support the carbon aware feature for data centres within the European Union.
 
 Once it has carbon intensity data, you can add slack to a certain job schedule by providing a margin. JobRunr will then optimize that job within the specified margin based on the carbon intensity data. 
