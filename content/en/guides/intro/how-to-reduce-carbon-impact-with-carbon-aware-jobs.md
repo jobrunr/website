@@ -8,7 +8,7 @@ tags:
     - Job scheduling
 ---
 
-In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a CROM expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
+In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a CRON expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
 
 > This is a JobRunr v8 **beta feature**. For feedback on this feature, don’t hesitate to reach to start a discussion over on GitHub: https://github.com/jobrunr/jobrunr/discussions. If you are a JobRunr Pro customer, you can directly email us your feedback at support@jobrunr.io, please make sure to specify your version.
 
@@ -127,7 +127,7 @@ You can track the history of your job in the JobRunr Dashboard:
 
 ![](/documentation/carbon-aware-job-scheduled-to-minimize-carbon-impact.png "An example carbon aware daily recurring job with a margin between 16PM and 20PM, with the local time being 15PM. The job was scheduled at 16PM to minimize carbon impact.")
 
-The specified carbon aware margin can be inspected by clicking on the pending job. In the example screenshot above, it states _Job is awaiting optimal lo-carbon execution window between 56 minutes from now and 5 hours from now_, a state the job was put in 21 seconds ago. Then, the carbon aware task decided to schedule the job an hour from now, which is the beginning of the carbon aware margin. In our use case, we will see the job to be scheduled at `7 AM`.
+The specified carbon aware margin can be inspected by clicking on the pending job. In the example screenshot above, it states _Job is awaiting optimal low carbon execution window between 56 minutes from now and 5 hours from now_, a state the job was put in 21 seconds ago. Then, the carbon aware task decided to schedule the job an hour from now, which is the beginning of the carbon aware margin. In our use case, we will see the job to be scheduled at `7 AM`.
 
 Instead of immediately scheduling the job at the preferred time, the job will be created in a special initial pending state[^propending], as visible in the state diagram below. After the Carbon Aware part of JobRunr determines the optimal time for this particular job, it will be promoted to the scheduled state; ready to be picked up by the background job processor.
 
@@ -138,7 +138,7 @@ Instead of immediately scheduling the job at the preferred time, the job will be
 
 ### What Happens When Things Go Wrong
 
-JobRunr is dependent on external data providers for determining the optimal CO2 time to reduce the carbon footprint. As such, there are a many cases in which things do not go as expected. A few examples:
+JobRunr is dependent on external data providers for determining the optimal CO2 time to reduce the carbon footprint. As such, there are many cases in which things do not go as expected. A few examples:
 
 - The data provider does not provide energy intensity data for our specified interval
 - The data provider is down
