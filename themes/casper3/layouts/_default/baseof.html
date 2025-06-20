@@ -96,8 +96,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
+    {{- $codetabs := resources.Get "js/jobrunr-codetabs.js" -}}
+    {{- $framework := resources.Get "js/jobrunr-framework.js" -}}
+    {{- $uptimekuma := resources.Get "js/jobrunr-uptimekuma.js" -}}
+    {{- $cookies := resources.Get "js/jobrunr-cookieconsent.js" -}}
+    {{ $js := slice $codetabs $framework $uptimekuma $cookies | resources.Concat "js/jobrunr-site.js" | minify }}
+    <script src='{{ $js.Permalink }}' defer></script>
     <script src="/pagefind/pagefind-ui.js"></script>  
-    <script src='{{ (resources.Get "js/jobrunr-site.js").Permalink }}'></script>
     <script>
       const openDialogAsModal = (dialogId) => {
         document.querySelector(dialogId).showModal();
@@ -111,36 +116,6 @@
         document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
       });
   </script>
-<script>
-window.addEventListener("load", (event) => {
-  setTimeout(() => {
-    // cookieconsent can be blocked in which case this crashes.
-    window.cookieconsent?.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "transparent",
-          "border": "#fff",
-          "text": "#fff"
-        }
-      },
-      "content": {
-        "link": "Learn more about cookies"
-      }
-    });
-  }, 5000);
-});
-
-var links = document.querySelectorAll('a');
-for (var i = 0; i < links.length; i++) {
-  if (links[i].hostname != window.location.hostname) {
-    links[i].target = '_blank';
-    links[i].rel = 'noopener';
-  }
-}
-</script>
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
