@@ -12,14 +12,13 @@ menu:
     weight: 30
 ---
 
-Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the ~[`jobrunr-spring-boot-starter`]({{<ref "/documentation/configuration/spring/_index.md">}})~, [`jobrunr-spring-boot-2-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}), [`jobrunr-spring-boot-3-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}) , [`jobrunr-micronaut-feature`]({{<ref "/documentation/configuration/micronaut/_index.md">}}) or the [`jobrunr-quarkus-extension`]({{<ref "/documentation/configuration/quarkus/_index.md">}}) ).
-
-> **Important**: the `jobrunr-spring-boot-starter` is deprecated since JobRunr v6, please use `jobrunr-spring-boot-2-starter` or `jobrunr-spring-boot-3-starter` instead!
+Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the [`jobrunr-spring-boot-2-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}), [`jobrunr-spring-boot-3-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}) , [`jobrunr-micronaut-feature`]({{<ref "/documentation/configuration/micronaut/_index.md">}}) or the [`jobrunr-quarkus-extension`]({{<ref "/documentation/configuration/quarkus/_index.md">}}) ).
 
 On this page you can learn about:
 
-- [Create a recurring job using a CRON expression](#using-a-cron-expression)
-- [Create a recurring job using an Interval](#using-an-interval)
+- [Creating a recurring job using a CRON expression](#using-a-cron-expression)
+- [Creating a recurring job using an Interval](#using-an-interval)
+- [Making a carbon aware recurring job](#making-recurring-jobs-carbon-aware)
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
@@ -31,9 +30,9 @@ On this page you can learn about:
 - [Important remarks!](#important-remarks)
 
 
-> Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in JobRunr Pro!
+> Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in [JobRunr Pro](/en/pricing/)!
 
-> Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro]({{< ref "documentation/pro/real-time-scheduling.md" >}}).
+> Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro](/en/documentation/pro/real-time-scheduling).
 
 
 ## Using a CRON expression
@@ -108,9 +107,7 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 ```
 </figure>
 
-
-
-## Using an Interval 
+## Using an Interval
 Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting the moment the recurring job was scheduled.
 
 <figure>
@@ -147,6 +144,10 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
     }
 ```
 </figure>
+
+## Making recurring jobs carbon aware
+
+You can add margins to a recurring job schedule expression to let JobRunr run the job at a low carbon intensity moment. You can find more details on the dedicated [carbon aware job processing](/en/documentation/background-methods/carbon-aware-jobs/) page.
 
 
 ## Managing recurring jobs

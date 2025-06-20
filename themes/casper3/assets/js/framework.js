@@ -27,5 +27,4 @@ document.addEventListener('DOMContentLoaded', () => {
     if (tabs.length > 0) {  
         setActive(tabs[0].getAttribute('data-type')) 
     }
-    
-});  
+});

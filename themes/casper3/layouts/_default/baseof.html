@@ -62,7 +62,11 @@
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright" style="align-self: start;">
-                  &copy; <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+                  &copy; <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a><br/>
+                  <div id="uptime-kuma-status">
+                      <a href="https://status.jobrunr.io/status/jobrunr"><img src="https://status.jobrunr.io/api/badge/1/status"/></a> Carbon Intensity API<br/>
+                      <a href="https://status.jobrunr.io/status/jobrunr"><img src="https://status.jobrunr.io/api/badge/2/status"/></a> JobRunr Pro Maven Repo<br/>
+                  </div>
                 </section>
                 <section class="love" style="align-self: start; opacity: 0.7;">
                   Made with <strong style="color: red; font-size: large;">&hearts;</strong> in Belgium
@@ -92,9 +96,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
+    {{- $codetabs := resources.Get "js/codetabs.js" -}}
+    {{- $framework := resources.Get "js/framework.js" -}}
+    {{- $uptimekuma := resources.Get "js/jobrunr-uptimekuma.js" -}}
+    {{- $cookies := resources.Get "js/cookieconsent.js" -}}
+    {{ $js := slice $codetabs $framework $uptimekuma $cookies | resources.Concat "js/jobrunr-site.js" | minify }}
+    <script src='{{ $js.Permalink }}' defer></script>
     <script src="/pagefind/pagefind-ui.js"></script>  
-    <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
-    <script src='{{ (resources.Get "js/framework.js").Permalink }}'></script>
     <script>
       const openDialogAsModal = (dialogId) => {
         document.querySelector(dialogId).showModal();
@@ -108,36 +116,6 @@
         document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
       });
   </script>
-<script>
-window.addEventListener("load", (event) => {
-  setTimeout(() => {
-    // cookieconsent can be blocked in which case this crashes.
-    window.cookieconsent?.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "transparent",
-          "border": "#fff",
-          "text": "#fff"
-        }
-      },
-      "content": {
-        "link": "Learn more about cookies"
-      }
-    });
-  }, 5000);
-});
-
-var links = document.querySelectorAll('a');
-for (var i = 0; i < links.length; i++) {
-  if (links[i].hostname != window.location.hostname) {
-    links[i].target = '_blank';
-    links[i].rel = 'noopener';
-  }
-}
-</script>
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>

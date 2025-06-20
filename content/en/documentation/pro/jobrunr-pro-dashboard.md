@@ -73,6 +73,12 @@ org.jobrunr.dashboard.openid-authentication.client-secret=client-secret # the cl
 
 Using JobRunr Pro Enterprise, you can also embed the dashboard within your existing Spring Application. This means that the JobRunr dashboard will be hosted by Spring and you can add your own authentication and authorization using Spring Security.
 
+To configure it, use the following settings:
+
+```
+jobrunr.dashboard.type=embedded
+```
+
 > This feature is also planned for the Micronaut and Quarkus integration.
 
 <br />
