@@ -1,6 +1,6 @@
 ---
 title: "Carbon Aware Jobs"
-subtitle: "Use the Carbon Aware API to optimize the carbon footprint when scheduling (recurring) jobs."
+subtitle: "Use Carbon Aware Job Processing to optimize the carbon footprint when scheduling (recurring) jobs."
 drawing1: https://excalidraw.com/#json=yVa0Rvpt4dWtEKVWbq_EJ,vWq0sr45v9nCOZZjDuGzfQ
 drawing2: https://excalidraw.com/#json=fUbk68riV80xkYlZTuUwb,6EA0BSlQ5zdXLXGC8Z6ODQ
 date: 2025-06-13T09:15:00+02:00
@@ -13,7 +13,7 @@ menu:
     weight: 31
 ---
 
-> **Configuration note**: In order to enable carbon aware capabilities for your jobs, please [correctly configure the Carbon Aware API](/en/documentation/configuration/carbon-aware/).
+> **Configuration note**: In order to enable carbon aware capabilities for your jobs, please correctly setup the [Carbon Aware Job Processing Configuration]({{< ref "documentation/configuration/carbon-aware.md" >}}).
 
 Adding a margin to your regular (recurring) schedule allows your jobs to be executed at the optimal time: when the CO2 footprint for your local region is the lowest. Instead of immediately scheduling a job, it will be created in a new _pending_ mode and scheduled as soon as JobRunr receives carbon intensity data to optimize the carbon footprint of your job. 
 
@@ -123,6 +123,6 @@ When making use of carbon aware schedules, there are a few important things to k
 - If the Carbon Intensity API is down or cannot be reached (e.g., because of a firewall), jobs will be scheduled at their preferred time.
 - If the Carbon Intensity API has no forecast for a particular period, the job will be scheduled at their preferred time.
 - If the deadline has passed (e.g. `between(now, now.plus(3, HOURS)` and it's past the third hour), the job will be scheduled immediately.
-- If the Carbon API configuration is disabled, remaining carbon aware jobs in `AWAITING` will be processed and scheduled at their preferred time.
+- If Carbon Aware Job Processing is disabled, remaining carbon aware jobs in `AWAITING` will be processed and scheduled at their preferred time.
 
 For each of the above cases, a specific reason will be recorded that can be consulted in the dashboard when opening the job details. 

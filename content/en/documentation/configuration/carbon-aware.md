@@ -1,7 +1,7 @@
 ---
-title: "Carbon Aware API"
+title: "Carbon Aware Processing"
 keywords: ["JobRunr Configuration"]
-subtitle: "Use the Carbon Aware API to optimize the carbon footprint when scheduling (recurring) jobs."
+subtitle: "Use Carbon Aware Job Processing to optimize the carbon footprint when scheduling (recurring) jobs."
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
 beta: true
@@ -11,7 +11,7 @@ menu:
     weight: 21
 ---
 
-The Carbon Aware API is a unique JobRunr feature that enables the scheduling of (recurring) jobs at the optimal carbon time: when the energy prices are at their lowest. This is made possible by integrating with external energy **data providers** such as the [ENTSO-E](https://www.entsoe.eu/) services for the European Union that provide actual energy data for the coming day(s). 
+Carbon Aware Job Processing is a unique JobRunr feature that enables the scheduling of (recurring) jobs at the optimal carbon time; when the lowest amount of CO2 is being generated. This is made possible by integrating with external energy **data providers** such as the [ENTSO-E](https://www.entsoe.eu/) services for the European Union that provide actual energy data for the coming day(s). 
 
 By adding a margin to the schedule of your jobs, JobRunr will execute them when the lowest amount of CO2 is being generated. A few examples:
 
@@ -24,13 +24,13 @@ jobScheduler.scheduleRecurrently("id-2", "0 16 * * * [PT3H/PT3H]", x->doWork())
 
 These recurring jobs will create jobs in the `AWAITING` state (see _Pending Jobs_ in the Dashboard), ready to be `SCHEDULED` at the optimal time. JobRunr guarantees that all jobs will be executed within the margin; even if there is no data available or the margin is too small.
 
-> **More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs) section.
+> **More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) section.
 
 ## Architectural overview
 
-For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at `api.jobrunr.io/carbon-intensity` and is configurable in the [Pro Version](/en/documentation/pro/). 
+For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at `api.jobrunr.io/carbon-intensity` and is configurable in [JobRunr Pro]({{< ref "documentation/pro" >}}). 
 
-> **Note**: Please make sure that the firewall allows the JobRunr server to reach `api.jobrunr.io`. If not, JobRunr will fall back to regular scheduling. See [carbon aware jobs: important remarks](/en/documentation/background-methods/carbon-aware-jobs/#-important-remarks).
+> **Note**: Please make sure that the firewall allows the JobRunr server to reach `api.jobrunr.io`. If not, JobRunr will fall back to regular scheduling. See [carbon aware jobs: important remarks]({{< ref "documentation/background-methods/carbon-aware-jobs/#-important-remarks" >}}).
 
 > **Note**: Currently, we only support the carbon aware feature for data centres within the European Union.
 
@@ -42,7 +42,7 @@ Below is a schematic overview of how this works:
 
 ## Configuration
 
-To enable the Carbon Aware API, inject a `CarbonAwareJobProcessingConfiguration` into the background server configuration:
+To enable Carbon Aware Job Processing, inject a `CarbonAwareJobProcessingConfiguration` into the background server configuration:
 
 ```java
 JobRunr
@@ -64,7 +64,7 @@ The awaiting jobs request size allows to set the maximum number of carbon aware 
 
 The processing config allows you to specify a few key parmeters including your area code so that the correct energy data is being taken into account. 
 
-Of course, you can configure the Carbon Aware API with your favourite app framework such as [Spring](/en/documentation/configuration/spring/):
+Of course, you can configure the Carbon Aware API with your favourite app framework such as [Spring]({{< ref "documentation/configuration/spring" >}}):
 
 ```
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
@@ -86,4 +86,4 @@ On the carbon aware job processing configuration class, the following parameters
 
 > __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 
 
-Once you have the Carbon Aware API configured, it is time to take a look at how to enhance your jobs with the carbon aware margin: see [Carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs/) in the docs.
+Once you have Carbon Aware Job Processing configured, it is time to take a look at how to enhance your jobs with the carbon aware margin: see [Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) in the docs.
