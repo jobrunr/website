@@ -18,20 +18,19 @@ Suppose we need to run a job each day that calculates invoice information before
 
 With JobRunr, using a normal recurring job, this is trivial to implement:
 
-{{< codeblock >}}
+{{< codeblock title="Here we assume pdfGenService is an object available to this scope. If you're using a framework, you'd _inject_ this service." >}}
 ```java
-var pdfGenService = new PdfGenerationService();
 jobScheduler.scheduleRecurrently("my-id", "0 2 * * *", pdfGenService->generateAndMail())
 ```
 {{</ codeblock >}}
 
 The CRON string `0 2 * * *` will make sure the service gets called every day at `2 AM`. For this use case, we trigger it at night to avoid overloading the server during working hours, but we don't really care _when_ during the night this one is processed: as long as it's done before our business opens at `9 AM` everything is all good.
 
-This means we can **add slack** to the specified CRON string: Instead of using `0 2 * * *`, we use `0 2 * * * [PT1H/PT7H]` to add a from/to interval in the [ISO 8601 duration standard](https://en.wikipedia.org/wiki/ISO_8601). In this case, we say: _run this job preferably at 2 AM, but one hour earlier and 7 hours later is also fine_. In other words: run between `1 AM` and `9 AM`.
+This means we can **add slack** to the specified CRON string: Instead of using `0 2 * * *`, we use `0 2 * * * [PT1H/PT7H]` to some margin before/after in the [ISO 8601 duration standard](https://en.wikipedia.org/wiki/ISO_8601). In this case, we say: _run this job preferably at 2 AM, but one hour earlier and 7 hours later is also fine_. In other words: run between `1 AM` and `9 AM`.
 
 ## Carbon Aware Job Scheduling
 
-So when exactly is that job going to be triggered if we add a margin? **When the Carbon Aware API says the C02 footprint will be the lowest**. This is possible by consulting external energy data providers such as [ENTSO-E](https://www.entsoe.eu/) for the European Union that returns actual energy pricing information for the coming day(s). 
+So when exactly is that job going to be triggered if we add a margin? **When the Carbon Aware API says the CO2 footprint will be the lowest**. This is possible by consulting external energy data providers such as [ENTSO-E](https://www.entsoe.eu/) for the European Union that returns actual energy pricing information for the coming days. 
 
 Let's take a step back and look at the concept of carbon aware job scheduling with the help of a schematic:
 
@@ -40,17 +39,16 @@ Let's take a step back and look at the concept of carbon aware job scheduling wi
 In our example, the concepts from the schematic can be mapped as follows:
 
 - The preferred time---your usual schedule when the job should be processed. That'll be `2 AM` in this example.
-- The carbon aware margin _\[From, To\]_---This is the margin that is added to the CRON schedule between brackets: `[PT1H/PT7H]`; with _From_ being `1 AM` and _To_ being `9 AM`.
+- The carbon aware margin _\[before, after\]_---This is the margin that is added to the CRON schedule between brackets: `[PT1H/PT7H]`; with _before_ being `1 AM` and _after_ being `9 AM`.
 - The carbon optimal time---this is a moment in the margin JobRunr selects as the optimal time when the CO2 footprint is the lowest. For example, in this schematic, this is after `2 AM`---say `7 AM`.
 
 Suppose the sun is coming up in the early morning and `7 AM` is the peak moment at which solar panels provide a lot of energy before the clouds swoop in just as we start opening our business. During the night, solar energy is not available, hence the chance of relying on CO2-heavy energy is bigger. That could be a reason why in our case, `7 AM` is picked instead of a time _before_ the preferred time `1 AM`.
 
-Is this it, then? Just add `[X/Y]` to your CRON strings, as described in the [Carbon Aware Jobs documentation](/en/documentation/background-methods/carbon-aware-jobs/)? We're almost there, but we first need to configure JobRunr to make use of the Carbon Aware feature. 
+Is this it, then? Just add `[marginBefore/marginAfter]` to your CRON strings, as described in the [Carbon Aware Jobs documentation](/en/documentation/background-methods/carbon-aware-jobs/)? We're almost there, but we first need to configure JobRunr to make use of the Carbon Aware feature. 
 
 ### Configuring JobRunr To Be Carbon Aware
 
 As described in the [Carbon Aware Configuration documentation](/en/documentation/configuration/carbon-aware/), the feature needs to be turned on by setting a few configuration properties. This depends on your preference for the Fluent API or your favourite app framework (click on the buttons on the top right to select your style).
-
 {{< framework type="fluent-api" >}}
 For the Fluent API, add `andCarbonAwareJobProcessingConfiguration()` to configure the settings:
 
@@ -74,11 +72,9 @@ JobRunr
 For Spring, configure the properties in `application.properties`:
 
 ```
-# ...
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
 jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500
-# ...
 ```
 
 {{< /framework >}}
@@ -86,11 +82,9 @@ jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-tim
 For Quarkus, configure the properties in `application.properties`:
 
 ```
-# ...
 quarkus.jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 quarkus.jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
 quarkus.jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500
-# ...
 ```
 
 {{< /framework >}}
@@ -98,14 +92,12 @@ quarkus.jobrunr.background-job-server.carbon-aware-job-processing.api-client-con
 For Micronaut, configure the properties in `application.yml`:
 
 ```yml
-# ...
 jobrunr:
     background-job-server:
         carbon-aware-job-processing:
             enabled: true
             area-code: "BE"
             api-client-connect-timeout: 500
-# ...
 ```
 
 {{< /framework >}}
@@ -117,7 +109,7 @@ See the [Carbon Aware Configuration documentation](/en/documentation/configurati
 
 For our job to trigger at its optimal CO2 time---during the early morning at `7 AM`---we need to make sure our region is correctly set. Otherwise JobRunr may wrongly optimize the job when solar panels produce the most energy in Norway, while for example our data centre is located in the southern part of Italy. 
 
-If you do not specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee IP based on the geolocation, which obviously can be wrong if set behind a VPN.
+> If you do not specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee IP based on the geolocation, which obviously can be wrong if set behind a VPN.
 
 > **Note**: Please make sure that the firewall allows the JobRunr server to reach the Carbon Intensity API by default located `api.jobrunr.io`. If not, JobRunr will fall back to scheduling the job at the fallback time.
 
@@ -125,9 +117,9 @@ If you do not specify an area code, the Carbon Intensity API will try to determi
 
 You can track the history of your job in the JobRunr Dashboard:
 
-![](/documentation/carbon-aware-job-scheduled-to-minimize-carbon-impact.png "An example carbon aware daily recurring job with a margin between 16PM and 20PM, with the local time being 15PM. The job was scheduled at 16PM to minimize carbon impact.")
+![](/documentation/carbon-aware-job-scheduled-to-minimize-carbon-impact.png "An example carbon aware daily recurring job with a margin between 4 PM and 8 PM, with the local time being 3 PM. The job was scheduled at 4 PM to minimize carbon impact.")
 
-The specified carbon aware margin can be inspected by clicking on the pending job. In the example screenshot above, it states _Job is awaiting optimal low carbon execution window between 56 minutes from now and 5 hours from now_, a state the job was put in 21 seconds ago. Then, the carbon aware task decided to schedule the job an hour from now, which is the beginning of the carbon aware margin. In our use case, we will see the job to be scheduled at `7 AM`.
+The specified carbon aware margin can be inspected by clicking on the pending job. In the example screenshot above, it states _Job is awaiting optimal low carbon execution window between 56 minutes from now and 5 hours from now_, a state the job was put in 21 seconds ago. Then, the carbon aware task decided to schedule the job an hour from now, which is the beginning of the carbon aware margin. In our use case, we will see the job to be scheduled at `4 PM`.
 
 Instead of immediately scheduling the job at the preferred time, the job will be created in a special initial pending state[^propending], as visible in the state diagram below. After the Carbon Aware part of JobRunr determines the optimal time for this particular job, it will be promoted to the scheduled state; ready to be picked up by the background job processor.
 
