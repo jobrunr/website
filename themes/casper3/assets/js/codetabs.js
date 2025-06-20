@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll(".tab-container .nav-tabs li");
 
     const setActive = (tabType) => {
-        console.log('tester!!');
         document.querySelectorAll(`.tab-container .nav-tabs li[data-type="${tabType}"]`).forEach(function(tab) {
             tab.classList.add('active'); 
         })
@@ -27,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     tabs.forEach((tab) => {  
         tab.addEventListener('click', () => {  
             const tabType = tab.getAttribute('data-type');
-            console.log('test ron: ', tabType)
             removeActive(tabType);
             setActive(tabType);
         });  
@@ -35,6 +33,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (tabs.length > 0) {  
         setActive(tabs[0].getAttribute('data-type')) 
-    }
-    
-});  
+    }        
+});

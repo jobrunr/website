@@ -96,10 +96,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
-    {{- $codetabs := resources.Get "js/jobrunr-codetabs.js" -}}
-    {{- $framework := resources.Get "js/jobrunr-framework.js" -}}
+    {{- $codetabs := resources.Get "js/codetabs.js" -}}
+    {{- $framework := resources.Get "js/framework.js" -}}
     {{- $uptimekuma := resources.Get "js/jobrunr-uptimekuma.js" -}}
-    {{- $cookies := resources.Get "js/jobrunr-cookieconsent.js" -}}
+    {{- $cookies := resources.Get "js/cookieconsent.js" -}}
     {{ $js := slice $codetabs $framework $uptimekuma $cookies | resources.Concat "js/jobrunr-site.js" | minify }}
     <script src='{{ $js.Permalink }}' defer></script>
     <script src="/pagefind/pagefind-ui.js"></script>  
