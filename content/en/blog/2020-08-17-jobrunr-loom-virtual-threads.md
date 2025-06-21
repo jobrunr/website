@@ -17,7 +17,7 @@ This also means that JobRunr, as of v0.9.16 (to be released soon), will support 
 
 Implementing support for Project Loom was easier than I thought using a `ServiceLoader`. I extracted a simple interface called `JobRunrExecutor` from the existing `ScheduledThreadPool`.
 
-<figure style="width: 100%">
+{{< codeblock title="The `JobRunrExecutor` interface which is implemented by the existing ScheduledThreadPool" >}}
 
 ```java
 public interface JobRunrExecutor extends Executor {
@@ -30,12 +30,11 @@ public interface JobRunrExecutor extends Executor {
 
 }
 ```
-<figcaption>The `JobRunrExecutor` interface which is implemented by the existing ScheduledThreadPool</figcaption>
-</figure>
+{{</ codeblock >}}
 
 I then created another implementation of the interface using JDK 16 making use of Project Loom which does nothing more than delegating to a Virtual Thread:
 
-<figure style="width: 100%">
+{{< codeblock >}}
 
 ```java
 public class VirtualThreadJobRunrExecutor implements JobRunrExecutor {
@@ -63,11 +62,11 @@ public class VirtualThreadJobRunrExecutor implements JobRunrExecutor {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 Using a standard `ServiceLoader` I was then able to inject the `VirtualThreadJobRunrExecutor` thus adding support for Virtual Threads!
 
-<figure style="width: 100%">
+{{< codeblock >}}
 
 ```java
 
@@ -79,7 +78,7 @@ private JobRunrExecutor loadJobRunrExecutor() {
             .orElse(new ScheduledThreadPoolExecutor(serverStatus.getWorkerPoolSize(), "backgroundjob-worker-pool"));
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 With all this in place, it was time to test and see if performance is better.
 

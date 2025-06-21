@@ -23,31 +23,31 @@ So, presenting __JobRunr__ - a port of the excellent [Hangfire framework](https:
 
 JobRunr allows you to create background jobs using just Java 8 lambdas! An example:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 BackgroundJob.enqueue(() -> myService.doWork());
 ```
-</figure>
+{{</ codeblock >}}
 
 This one line of code makes sure that the lambda - including type, method and arguments - is serialized to persistent storage (an RDBMS like Oracle, Postgres, MySql and MariaDB or a NoSQL database which will be supported soon). A dedicated worker pool of threads will then execute these queued background jobs as soon as possible.
 
 Do you need to do schedule a background jobs tomorrow? Next week? Next month? JobRunr has you covered:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 BackgroundJob.schedule(() -> System.out.println("Reliable!"), now().plusHours(5));
 ```
-</figure>
+{{</ codeblock >}}
 
 Even recurring jobs have never been simpler - JobRunr allows to perform any kind of recurring task using CRON expressions.
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 BackgroundJob.scheduleRecurringly(() -> service.doWork(), Cron.daily());
 ```
-</figure>
+{{</ codeblock >}}
 
 ### The benefits:
 

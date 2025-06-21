@@ -57,7 +57,7 @@ To make all of this work, each `BackgroundJobServer` updates the `lastHeartbeat`
 ### Fast forward to Sunday October 30th at 2:59 am
 So, I setup my machine to reproduce this and put the date to 2:59 on Sunday October 30th while having a JobRunr instance running. And look what happened:
 
-<figure style="width:100%;">
+{{< codeblock >}}
 
 ```java
 02:00:57.024 [backgroundjob-zookeeper-pool-2-thread-1] INFO  org.jobrunr.server.ServerZooKeeper - Removed 1 server(s) that timed out
@@ -80,11 +80,11 @@ org.jobrunr.JobRunrException: JobRunr encountered a problematic exception. Pleas
 	at java.base/java.lang.Thread.run(Thread.java:833)
 Caused by: java.lang.IllegalStateException: No servers available?!
 ```
-</figure>
+{{</ codeblock >}}
 
 Wait, what? why? That's not possible as the code is as follows:
 
-<figure style="width:60%;">
+{{< codeblock title="It first signals that the server is alive (so setting the lastHeartbeat to Instant.now()) and then immediately removes the old servers." >}}
 
 ```java
 private void signalBackgroundJobServerAliveAndDoZooKeeping() {
@@ -93,12 +93,11 @@ private void signalBackgroundJobServerAliveAndDoZooKeeping() {
     determineIfCurrentBackgroundJobServerIsMaster();
 }
 ```
-<figcaption>It first signals that the server is alive (so setting the lastHeartbeat to Instant.now()) and then immediately removes the old servers.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 As I did not understand what was going on, I decided to add logging to the SQL statements and I immediately notice something is off (can you see it too?)...
 
-<figure style="width:100%;">
+{{< codeblock title="Why the 🤬 are these dates in the SQL statements not in UTC?!?!" >}}
 
 ```java
 2022-10-30T00:59:46.363080Z [SQL] update jobrunr_backgroundjobservers SET lastHeartbeat = '2022-10-30 02:59:46.30802+02', systemFreeMemory = 1706557440, systemCpuLoad = 0.13283909524169757, processFreeMemory = 17146814960, processAllocatedMemory = 33054224, processCpuLoad = 0.13283909524169757 where id = '281091d6-37df-42aa-8fc3-0bc7dd45e13b'
@@ -111,18 +110,16 @@ As I did not understand what was going on, I decided to add logging to the SQL s
 02:00:46.797 [backgroundjob-zookeeper-pool-2-thread-1] INFO  org.jobrunr.server.ServerZooKeeper - Removed 1 server(s) that timed out
 02:00:46.818 [backgroundjob-zookeeper-pool-2-thread-1] ERROR org.jobrunr.server.ServerZooKeeper - An unrecoverable error occurred. Shutting server down...
 ```
-<figcaption>Why the 🤬 are these dates in the SQL statements not in UTC?!?!</figcaption>
-</figure>
+{{</ codeblock >}}
 
 Back to the code: what happens when a [Java 8 Instant](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html) is transformed to an SQL statement?
 
-<figure style="width:60%;">
+{{< codeblock title="That looks correct to me, no?" >}}
 
 ```java
  preparedStatement.setTimestamp(i, Timestamp.from(instant));
 ```
-<figcaption>That looks correct to me, no?</figcaption>
-</figure>
+{{</ codeblock >}}
 
 That looks correct to me, no? Hmm, let's Google and Stackoverflow again!
 
@@ -161,34 +158,33 @@ Alright, this is going to be an easy fix! I just need to change the code snippet
 </figure>
 
 Luckily, Postgres helps me:
-<figure style="width:100%;">
+{{< codeblock >}}
 
 ```java
 org.postgresql.util.PSQLException: Can't infer the SQL type to use for an instance of java.time.Instant. Use setObject() with an explicit Types value to specify the type to use.
 ```
-</figure>
+{{</ codeblock >}}
 
 Allright, it is still going to be an easy fix. Let's change the code snippet to `preparedStatement.setObject(i, instant, Types.TIMESTAMP);`. Now these tests will be green! (Please scroll up until you see failing tests image again.)
 
 Hhmm, this time Postgres tells me:
-<figure style="width:100%;">
+
+{{< codeblock title="hmmm, this does not make sense..." >}}
 
 ```java
 org.postgresql.util.PSQLException: Bad value for type timestamp/date/time: 2022-11-05T17:05:52.581727Z
 ```
-  <figcaption>hmmm, this does not make sense...</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
 Let's try with `preparedStatement.setObject(i, instant, Types.TIMESTAMP_WITH_TIMEZONE);`. (Please scroll up again until you see failing tests image.)
 
-<figure style="width:100%;">
+{{< codeblock title="hmmm, this still does not make sense..." >}}
 
 ```java
 org.postgresql.util.PSQLException: Cannot cast an instance of java.time.Instant to type Types.TIMESTAMP_WITH_TIMEZONE
 ```
-  <figcaption>hmmm, this still does not make sense...</figcaption>
-</figure>
+{{</ codeblock >}}
 
 The [stackoverflow.com post](https://stackoverflow.com/a/54564844/1005124) also has a nice picture explaining everything, let's review it again:
 

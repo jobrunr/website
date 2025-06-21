@@ -21,7 +21,7 @@ To do its job (pun intended 😅), JobRunr analyses the Java 8 lambda. It serial
 
 ### Creating jobs using a Job Lambda
 When we create a job by means of a Java 8 lambda, JobRunr analyzes it and finds the class, the method and all the arguments we've passed to it. Given the following class:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```java
 package com.demo.jobrunr.services;
@@ -34,10 +34,10 @@ public class EmailService {
 
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 And the following lambda:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```java
 public void onboardCustomer(Customer customer) {
@@ -47,10 +47,10 @@ public void onboardCustomer(Customer customer) {
     BackgroundJob.enqueue(() -> emailService.sendEmail(customerEmail, "hello@jobrunr.io", "Happy you joined us!", "the email body..."));
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 Then JobRunr will analyze this lambda and create a JSON representation of it which can be saved in the SQL or NoSQL database and then be processed even on another server:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```json
 {
@@ -78,7 +78,7 @@ Then JobRunr will analyze this lambda and create a JSON representation of it whi
     ]
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 
 ## Setup

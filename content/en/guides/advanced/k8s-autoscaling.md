@@ -63,7 +63,7 @@ Now, we are ready to configure the autoscaling behavior.
 
 ## Configuring autoscaling
 To configure the scaling of our application, we define a [ScaledObject](https://keda.sh/docs/latest/concepts/scaling-deployments/#scaledobject-spec). Create a YAML file for our scaling configuration, we'll call it `keda-scaling.yaml`:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```yaml
 apiVersion: keda.sh/v1alpha1
@@ -78,7 +78,7 @@ spec:
   minReplicaCount:  0
   maxReplicaCount:  10
 ```
-</figure>
+{{</ codeblock >}}
 
 Let's take a look at the specification inside the `spec` section. The property `scaleTargetRef` points to the name of the deployment we want to scale. We can specify how often KEDA should fetch metrics from JobRunr by changing the `pollingInterval`. The `cooldownPeriod` property defines, after how many seconds of all triggers being inactive (based on `activationTargetValue`), scaling to 0 should happen (takes effect only when `minReplicaCount` is set to 0). Finally, the `minReplicaCount` and `maxReplicaCount` properties specify the minimal and maximal number of replicas our app can scale to.
 
@@ -94,7 +94,7 @@ Imagine you are running an e-commerce platform that processes a large number of 
 By configuring an autoscaling trigger based on workers' usage, you can dynamically adjust the number of job processing instances in your Kubernetes cluster. When the workers' usage exceeds a certain threshold (e.g., 80%), indicating that the system is under heavy load, KEDA will automatically scale up the number of instances to handle the increased workload. Conversely, when the workers' usage drops below the threshold, indicating reduced demand, the system will scale down to conserve resources.
 
 To handle such a case, we can configure KEDA to scale based on the workers' usage metric. In this example, we set the target utilization of workers to be 80%. The workers' usage is exposed by [JobRunr Pro metrics API]({{<ref "#jobrunr-pro-metrics-api">}}), we can use the provided endpoint in our configuration below.
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```yaml
 # ... your other configs
@@ -111,7 +111,7 @@ spec:
         url: "http://jobrunr-service.default:8000/api/metrics/workers"
         valueLocation: "usage"
 ```
-</figure>
+{{</ codeblock >}}
 
 Let's briefly explain what this config means.  
 In this setup, we are using REST endpoints to fetch our metrics, so we use the `metrics-api` type of trigger. The property `metricType: Value` specifies that the target value is independent of the number of pods. What is the most interesting to us is the `metadata` section. There we specify:  
@@ -127,7 +127,7 @@ Consider a data analytics platform that processes large batches of data at sched
 Conversely, when there are fewer scheduled data processing jobs, the system can scale down to conserve resources and reduce operational costs. This dynamic scaling based on scheduled jobs metrics ensures that your data processing pipeline remains responsive and efficient, regardless of workload fluctuations. This approach helps maintain optimal performance and cost-efficiency, ensuring critical tasks are completed on time and improving overall system reliability.
 
 For this example we configure the mentioned trigger to ensure that there are on average 8 jobs per pod that are scheduled in 2 minutes. This configuration is shown below.
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```yaml
 # ... your other configs
@@ -144,7 +144,7 @@ spec:
         url: "http://jobrunr-service.default:8000/api/metrics/jobs/scheduled?scheduledIn=PT2M"
         valueLocation: "count"
 ```
-</figure>
+{{</ codeblock >}}
 
 It specifies that we are targeting to have 8 scheduled jobs per pod. We are interested in jobs that will run in the next 2 minutes. Here we use `metricType: AverageValue` to specify that the `targetVaue` is per pod (e.g., having 2 pods and 10 scheduled jobs, we get value 5 per pod, so we are below the `targetValue` of 8).
 
@@ -156,7 +156,7 @@ Consider a financial services platform that processes real-time transactions and
 Conversely, when job latency is low, the system scales down to conserve resources and cut costs. This dynamic scaling ensures your platform remains responsive and efficient, even during peak periods, preventing bottlenecks and optimizing resource use for critical financial operations.
 
 In this case, our example includes a trigger that monitors when the latency of enqueued jobs exceeds 5 minutes in order to scale up. Let's add this trigger to the `triggers` section. Its configuration is below.
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```yaml
 # ... your other configs
@@ -173,7 +173,7 @@ spec:
         url: "http://jobrunr-service.default:8000/api/metrics/jobs/enqueued"
         valueLocation: "latency"
 ```
-</figure>
+{{</ codeblock >}}
 
 This trigger is defining that we want to scale up if there are jobs that are waiting in queue for more than 5 minutes.  
 
@@ -246,7 +246,7 @@ If you are planning to run jobs with long execution times, you might want to pre
 The termination period of both Kubernetes and JobRunr can be determined by the maximum expected runtime of your jobs. Imagine your longest running job takes 1 hour to complete. Then your graceful period should be greater than the execution time of that job, for example an 1 hour and 30 minutes.
 
 You can configure your deployment as follows:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```yaml
 apiVersion: apps/v1
@@ -260,15 +260,15 @@ spec:
             # ... your other template specs
             terminationGracePeriodSeconds: 5400
 ```
-</figure>
+{{</ codeblock >}}
 
 Similarly, a termination period would also have to be configured for JobRunr. There are multiple different options to [configure JobRunr](/documentation/configuration/). Since we are using the `jobrunr-pro-spring-boot-3-starter` dependency, we can add the following property to the `application.properties`:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```properties
 org.jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
 ```
-</figure>
+{{</ codeblock >}}
 
 > Important thing to note here, is that the Kubernetes termination period should match or be larger than the JobRunr one. This will ensure a safe interruption of the jobs and graceful termination of the JobRunr. If you are curious about how Kubernetes terminates the Pods, you can follow [this link](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
@@ -297,7 +297,7 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 - `priority` get metrics only for jobs with a specified priority.
 
 #### Response content example
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```json
 {
@@ -305,7 +305,7 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
     "count":10
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 - `latency` - time the oldest Job has spent in the queue in seconds.
 
@@ -319,14 +319,14 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 - `priority` get metrics only for jobs with a specified priority.
 
 #### Response content example
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```json
 {
     "count":10
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 - `count` - number of jobs scheduled to run in max `scheduledIn` time.
 
@@ -334,7 +334,7 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
 `GET /api/metrics/workers` 
 
 #### Response content example
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```json
 {
@@ -343,7 +343,7 @@ JobRunr Pro allows us to access metrics that can be used for autoscaling. This i
     "occupiedWorkers":2
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 - `usage` - percentage value of total usage of workers.
 

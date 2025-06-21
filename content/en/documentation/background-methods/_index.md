@@ -190,4 +190,3 @@ jobScheduler.create(aJob()
 ```
 <figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withJobRequest() JobRequest.</figcaption>
 </figure>
-da

@@ -216,7 +216,7 @@ JobRunr is built to ensure the reliability of background job processing with fea
 
 ### Dealing with Exceptions and Retries
 <!-- TODO Mention that we presented a few a example on how to configure the retries earlier and they can learn more in the docs -->
-JobRunr [automatically retries failed jobs]({{<ref "documentation/background-methods/dealing-with-exceptions.md">}}) with exponential back-off policy by default, a feature included in the free version. For more complex scenarios, [JobRunr Pro offers custom retry policies]({{<ref "documentation/background-methods/dealing-with-exceptions.md##a-custom-retrypolicy-for-all-your-jobs">}}), allowing developers to fine-tune retry behavior to match specific requirements. These retry mechanisms ensure that transient errors are handled seamlessly.
+JobRunr [automatically retries failed jobs]({{<ref "documentation/background-methods/dealing-with-exceptions.md">}}) with exponential back-off policy by default, a feature included in the free version. For more complex scenarios, [JobRunr Pro offers custom retry policies]({{<ref "documentation/background-methods/dealing-with-exceptions.md#a-custom-retrypolicy-for-all-your-jobs">}}), allowing developers to fine-tune retry behavior to match specific requirements. These retry mechanisms ensure that transient errors are handled seamlessly.
 
 ### Observability
 

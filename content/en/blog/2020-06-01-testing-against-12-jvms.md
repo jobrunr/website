@@ -12,7 +12,7 @@ Since JobRunr uses bytecode analysis to perform its job (pun intended), I though
 
 To do so, I first created the following test which has unit tests with different ways of enqueueing background jobs using JobRunr:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The test enqueues a job and then queries the rest API to see whether the job succeeded" >}}
 
 ```java
 package org.jobrunr.tests.e2e;
@@ -102,12 +102,11 @@ public class E2EJDKTest {
     }
 }
 ```
-<figcaption>The test enqueues a job and then queries the rest API to see whether the job succeeded</figcaption>
-</figure>
+{{</ codeblock >}}
 
 To run this test against 12 different JVM's, I then used TestContainers:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.tests.fromhost;
@@ -150,13 +149,13 @@ public class BuildAndTestContainer extends GenericContainer<BuildAndTestContaine
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 Here, a Docker image is build on the fly using a base image that can be passed along. A special environment variable called JDK_TEST is added and the gradle wrapper is mounted inside the docker image (which differs on my local system and the CI server). Next, the current gradle module is copied into the container and the `./gradlew build` command is run. Finally, the container waits for the log message 'BUILD SUCCESFUL' as it would otherwise stop immediately.
 
 To run the `E2EJDKTest` within the different JVM instances, the following test is used:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.tests.fromhost;
@@ -244,7 +243,7 @@ public class JdkTest {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 So, for each different JVM, the source code is copied inside that JVM and then a build is done which runs the `E2EJDKTest`. This makes sure that the code is compiled and the tests are executed within that JVM. To confirm that all is well, the logs of the container are requested and using the excellent AssertJ library, an assertion is done to make sure the container logs contain 'BUILD SUCCESSFUL'.
 

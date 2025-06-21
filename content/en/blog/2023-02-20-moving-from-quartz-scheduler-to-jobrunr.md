@@ -38,7 +38,7 @@ If you're more a `give me the source code kind of guy`, the examples below are a
 
 ### Add the JobRunr Dependency
 If you want to migrate from Quartz to JobRunr, you'll need to add the JobRunr dependency and a dependency for JSON serialization (e.g. Jackson or GSON). To do so, add the following dependency to your `pom.xml`: 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```xml
 <dependency>
@@ -47,7 +47,7 @@ If you want to migrate from Quartz to JobRunr, you'll need to add the JobRunr de
   <version>6.0.0</version>
 </dependency>
 ```
-</figure>
+{{</ codeblock >}}
 
 ### Creating one-off jobs
 A one-off job is a job that you can create to distribute load over multiple servers (e.g. on your preferred cloud provider). You can create a long-running one-off job from your web-application that is then immediately stored in a database and thus not blocking the `HttpRequest`. Another server can then pick these jobs from the database and process them. 
@@ -55,7 +55,7 @@ A one-off job is a job that you can create to distribute load over multiple serv
 ###### Creating a one-off job using Quartz
 If you want to create a one-off job using Quartz, you will first need to create an implementation of the `org.quartz.Job` interface. Once you have done that, you can trigger the job using a `JobKey` and the `JobDataMap`.
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.quartz;
@@ -119,12 +119,12 @@ public class QuartzExampleOneOffJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ###### Creating a one-off job using JobRunr
 If you want to create a one-off job with JobRunr, you can use any existing class or bean and just call the actual method using a Java 8 lambda using the [`JobScheduler.enqueue`]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}}) method.
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.jobrunr;
@@ -155,7 +155,7 @@ public class JobRunrExampleOneOffJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 
 ### Scheduling a job in the future
@@ -164,7 +164,7 @@ Sometimes you may want to schedule a job in the future (e.g. sending an email on
 ###### Creating a scheduled job using Quartz
 If you want to create a scheduled job using Quartz, we will again need to create an implementation of the `org.quartz.Job` interface. Once we have that, we can trigger the job using a `JobKey` and the `JobDataMap`.
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.quartz;
@@ -237,12 +237,12 @@ public class QuartzExampleScheduledJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ###### Creating a scheduled job using JobRunr
 If you want to create a scheduled job using JobRunr, we can use again use the same approach as before using a Java 8 lambda and the [`JobScheduler.schedule`]({{< ref "documentation/background-methods/scheduling-jobs.md" >}}) method..
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.jobrunr;
@@ -276,7 +276,7 @@ public class JobRunrExampleScheduledJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ### Creating a recurring or CRON job
 Sometimes you may want to create a job that runs every x amount of time (e.g. to see whether new data is available in a file share). These recurring jobs will again not be executed immediately but will be stored in the database until they need to be run.
@@ -284,7 +284,7 @@ Sometimes you may want to create a job that runs every x amount of time (e.g. to
 ###### Creating a recurring job using Quartz
 If you want to create a recurring job using Quartz, we will again need to create an implementation of the `org.quartz.Job` interface. Once we have that, we can trigger the job using a `JobKey`, the `JobDataMap` and a `schedule`.
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.quartz;
@@ -359,12 +359,12 @@ public class QuartzExampleRecurringJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ###### Creating a recurring job using JobRunr
 If you want to create a one-off job using JobRunr, we can use again use the same approach as before using a Java 8 lambda and the [`JobScheduler.scheduleRecurrently`]({{< ref "documentation/background-methods/recurring-jobs.md" >}}) method..
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 package com.example.jobrunr;
@@ -397,12 +397,12 @@ public class JobRunrExampleRecurringJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ### But I do not want to use Java 8 lambdas...
 No worries, also in this case, we have your back. You can also create a Job using a `JobRequest` and `JobRequestHandler` (which is based on the command & command handler pattern):
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock title="This enqueues a background job using a JobRequest. The JobRequest can contain data and when the actual job will be invoked, the JobRequest object will be provided to the run method of the JobRequestHandler." >}}
 
 ```java
 public class MyJobRequest implements JobRequest {
@@ -426,8 +426,7 @@ public class MyJobRequest implements JobRequest {
 
 JobId jobId = BackgroundJobRequest.enqueue(new MyJobRequest(id));
 ```
-<figcaption>This enqueues a background job using a JobRequest. The JobRequest can contain data and when the actual job will be invoked, the JobRequest object will be provided to the run method of the JobRequestHandler.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 When using a `JobRequest` to create jobs it is important to note that the `JobRequest` itself is nothing more than a __data transfer object__. You should not pass services or beans with it. The smaller the `JobRequest` is, the better as it will be serialized to Json and stored in your StorageProvider.
 
@@ -435,7 +434,7 @@ When using a `JobRequest` to create jobs it is important to note that the `JobRe
 
 A `JobRequestHandler` is a regular service (e.g. a Spring bean) where you can inject other services and must be resolvable by your IoC container. When your job will be invoked, JobRunr asks the IoC container for the relevant `JobRequestHandler`, calls the `run` method of the instance and passes the `JobRequest` as an argument. You can then use all the data from your `JobRequest` inside your `JobRequestHandler` to bring your job to a good end.
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock title="This JobRequestHandler handles all MyJobRequests. As it is a regular bean, you can inject other services." >}}
 
 ```java
 @Component
@@ -451,8 +450,7 @@ public class MyJobRequestHandler implements JobRequestHandler<MyJobRequest> {
   }
 }
 ```
-<figcaption>This JobRequestHandler handles all MyJobRequests. As it is a regular bean, you can inject other services.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ## Conclusion
 Migrating from JobRunr to Quartz is not difficult - you can easily use your existing methods or swith to a `JobRequest` and a `JobRequestHandler`. 
@@ -465,7 +463,7 @@ If you want to review the source code for the examples above, you can find them 
 
 ## But wait! I'm using [insert your preferred framework here]!
 Are you using Spring Boot, Micronaut or Quarkus? JobRunr has you covered! If you're using Spring Boot, just add following dependency to your `pom.xml`: 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```xml
 <dependency>
@@ -474,7 +472,7 @@ Are you using Spring Boot, Micronaut or Quarkus? JobRunr has you covered! If you
   <version>6.0.0</version>
 </dependency>
 ```
-</figure>
+{{</ codeblock >}}
 
 Next, configure which JobRunr features you want to enable using the `application.properties`:
 
