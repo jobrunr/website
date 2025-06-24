@@ -2,7 +2,7 @@
 title: "Carbon Aware Jobs"
 subtitle: "Use Carbon Aware Job Processing to optimize the carbon footprint when scheduling (recurring) jobs."
 drawing1: https://excalidraw.com/#json=yVa0Rvpt4dWtEKVWbq_EJ,vWq0sr45v9nCOZZjDuGzfQ
-drawing2: https://excalidraw.com/#json=fUbk68riV80xkYlZTuUwb,6EA0BSlQ5zdXLXGC8Z6ODQ
+drawing2: https://excalidraw.com/#json=KQKZ3E-3krR7TIDXVu--H,yZQDrHalLHBjgnu-U0aNew
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
 beta: true
