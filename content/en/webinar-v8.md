@@ -325,7 +325,7 @@ date: 2024-07-15T10:00:00+02:00
             <li class="learn-card">
                 <div class="learn-card-icon">🌍</div>
                 <h4>Carbon-Aware Job Scheduling</h4>
-                <p>Schedule jobs when energy is cleanest. It’s good for performance, and even better for your carbon footprint.</p>
+                <p>Schedule jobs when energy is cleanest. It reduces your carbon footprint — without changing your infrastructure.</p>
             </li>
             <li class="learn-card">
                 <div class="learn-card-icon">⚙️</div>
