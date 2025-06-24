@@ -1,10 +1,18 @@
 ---
 title: "JobRunr v8 Live-Coding Webinar & AMA"
-summary: "Join us for an exclusive live-coding session where we'll explore the groundbreaking features of JobRunr v8. Learn how to leverage virtual threads, carbon-aware job scheduling, and more to build highly efficient and scalable Java applications."
-skip_meta: true
-date: 2024-07-15T10:00:00+02:00
+summary: "Join us for a live-coding session where we'll talk about the new features of JobRunr v8. Learn how to use carbon-aware job scheduling, use workflow orchestration and more to build highly efficient and scalable Java applications."
+date: 2025-06-13T12:24:16+02:00
+author: "Nicholas D'hondt"
+tags:
+  - blog
+  - meta
+  - message-queue
+  - job-scheduler
+images:
+  - "/blog/launch-webinar.webp" 
+feature_image: "/blog/launch-webinar.webp" 
+slug: "webinar-v8"
 ---
-
 <style>
     /* General page styling */
     .webinar-page-content {
@@ -30,7 +38,7 @@ date: 2024-07-15T10:00:00+02:00
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
         align-items: start;
-        background: linear-gradient(135deg, rgba(40, 220, 222, 0.1) 0%, rgba(111, 114, 229, 0.1) 100%);
+        background: linear-gradient(135deg, rgba(40, 220, 222, 0.2) 0%, rgba(111, 114, 229, 0.2) 100%);
         /* Replicate the full-width style from other sections */
         margin: 0 -100vw;
         padding: 4rem 100vw;
@@ -82,12 +90,12 @@ date: 2024-07-15T10:00:00+02:00
     .learn-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        border-top-color: #3eb0ef; /* Accent color on hover */
+        border-top-color: #6f72e5; /* Accent color on hover */
     }
     .learn-card-icon {
         font-size: 2rem;
         margin-bottom: 1rem;
-        color: #3eb0ef;
+        color: #6f72e5;
     }
     .learn-card h4 {
         margin-top: 0;
@@ -140,7 +148,7 @@ date: 2024-07-15T10:00:00+02:00
     .testimonial-card {
         background: #fff;
         border: 1px solid #eee;
-        border-left: 5px solid #3eb0ef;
+        border-left: 5px solid #6f72e5;
         padding: 2rem;
         border-radius: 8px;
         position: relative;
@@ -238,24 +246,31 @@ date: 2024-07-15T10:00:00+02:00
     .guide-link-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        border-color: #3eb0ef;
+        border-color: #6f72e5;
     }
     .guide-link-icon {
         font-size: 2rem;
         margin-bottom: 1rem;
-        color: #3eb0ef;
+        color: #6f72e5;
     }
     .guide-link-card h4 {
         margin-top: 0;
-        font-size: 1.2rem;
+        font-size: 16px;
         color: var(--darkgrey);
+        padding-bottom: 10px;
     }
     .guide-link-card p {
         flex-grow: 1;
-        font-size: 1rem;
+        font-size: 14px;
         color: #666;
         margin-bottom: 0;
-        line-height: 1.7rem;
+        line-height: 16px;
+    }
+        .getting-started-section .btn {
+        background-color: black !important;
+        color: white !important;
+        margin-top: 15px;
+        font-size: 14px;
     }
 
     /* Responsive adjustments */
@@ -277,6 +292,10 @@ date: 2024-07-15T10:00:00+02:00
     .post-full-header{
         display:none;
     }
+    
+    .post-full-image{
+        display:none;
+    }
 
     .hsfc-Form button {
         margin-top: -25px; 
@@ -286,11 +305,7 @@ date: 2024-07-15T10:00:00+02:00
         margin-top: 10px;
     }
 
-    .getting-started-section .btn {
-        background-color: black !important;
-        color: white !important;
-        margin-top: 10px;
-    }
+
 
 </style>
 
@@ -298,7 +313,7 @@ date: 2024-07-15T10:00:00+02:00
     <div class="webinar-hero">
         <div class="hero-text">
             <h1>Master JobRunr v8: A Live-Coding Webinar</h1>
-            <p><strong>Unlock modern background job processing & carbon-aware scheduling in Java</strong> 
+            <p><strong>Unlock carbon-aware background job scheduling in Java</strong> 
             <br/><br/>Modern Java applications need more than just threads and timers to scale, they need efficient,  and easy to use job scheduling. That’s exactly what JobRunr v8 brings to the table.
 <br><br/>Join us for a live coding session with Ronald Dehuysser, creator of JobRunr, as we walk through the newest features in v8. 
 
