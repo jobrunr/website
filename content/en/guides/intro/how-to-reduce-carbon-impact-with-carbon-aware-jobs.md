@@ -8,7 +8,7 @@ tags:
     - Job scheduling
 ---
 
-In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a CRON expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
+In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a cron expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
 
 > This is a JobRunr v8 **beta feature**. For feedback on this feature, don’t hesitate to reach to start a discussion over on GitHub: https://github.com/jobrunr/jobrunr/discussions. If you are a JobRunr Pro customer, you can directly email us your feedback at support@jobrunr.io, please make sure to specify your version.
 
@@ -16,37 +16,13 @@ In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 f
 
 Suppose we need to run a job each day that calculates invoice information before sending out the generated PDF file via an email service. Our customers do not immediately need this email but we want it to be delivered at most 24 hours after triggering an action.
 
-With JobRunr, using a normal recurring job, this is trivial to implement:
+Let's examine what needs to be done in order to achieve this: 
 
-{{< codeblock title="Here we assume pdfGenService is an object available to this scope. If you're using a framework, you'd _inject_ this service." >}}
-```java
-jobScheduler.scheduleRecurrently("my-id", "0 2 * * *", pdfGenService->generateAndMail())
-```
-{{</ codeblock >}}
+1. [Configure JobRunr to be Carbon Aware](#configuring-jobrunr-to-be-carbon-aware)
+2. [Add a Carbon Aware margin to your (recurring) jobs](#adding-a-carbon-aware-marin)
+3. [Monitor Carbon Aware jobs in the dashboard](#inspecting-carbon-aware-jobs-in-the-dashboard)
 
-The CRON string `0 2 * * *` will make sure the service gets called every day at `2 AM`. For this use case, we trigger it at night to avoid overloading the server during working hours, but we don't really care _when_ during the night this one is processed: as long as it's done before our business opens at `9 AM` everything is all good.
-
-This means we can **add slack** to the specified CRON string: Instead of using `0 2 * * *`, we use `0 2 * * * [PT1H/PT7H]` to some margin before/after in the [ISO 8601 duration standard](https://en.wikipedia.org/wiki/ISO_8601). In this case, we say: _run this job preferably at 2 AM, but one hour earlier and 7 hours later is also fine_. In other words: run between `1 AM` and `9 AM`.
-
-## Carbon Aware Job Scheduling
-
-So when exactly is that job going to be triggered if we add a margin? **When the Carbon Aware API says the CO2 footprint will be the lowest**. This is possible by consulting external energy data providers such as [ENTSO-E](https://www.entsoe.eu/) for the European Union that returns actual energy pricing information for the coming days. 
-
-Let's take a step back and look at the concept of carbon aware job scheduling with the help of a schematic:
-
-![](/documentation/carbon-schematic.png "A carbon aware job timeline.")
-
-In our example, the concepts from the schematic can be mapped as follows:
-
-- The preferred time---your usual schedule when the job should be processed. That'll be `2 AM` in this example.
-- The carbon aware margin _\[before, after\]_---This is the margin that is added to the CRON schedule between brackets: `[PT1H/PT7H]`; with _before_ being `1 AM` and _after_ being `9 AM`.
-- The carbon optimal time---this is a moment in the margin JobRunr selects as the optimal time when the CO2 footprint is the lowest. For example, in this schematic, this is after `2 AM`---say `7 AM`.
-
-Suppose the sun is coming up in the early morning and `7 AM` is the peak moment at which solar panels provide a lot of energy before the clouds swoop in just as we start opening our business. During the night, solar energy is not available, hence the chance of relying on CO2-heavy energy is bigger. That could be a reason why in our case, `7 AM` is picked instead of a time _before_ the preferred time `1 AM`.
-
-Is this it, then? Just add `[marginBefore/marginAfter]` to your CRON strings, as described in the [Carbon Aware Jobs documentation](/en/documentation/background-methods/carbon-aware-jobs/)? We're almost there, but we first need to configure JobRunr to make use of the Carbon Aware feature. 
-
-### Configuring JobRunr To Be Carbon Aware
+## Configuring JobRunr To Be Carbon Aware
 
 As described in the [Carbon Aware Configuration documentation](/en/documentation/configuration/carbon-aware/), the feature needs to be turned on by setting a few configuration properties. This depends on your preference for the Fluent API or your favourite app framework (click on the buttons on the top right to select your style).
 {{< framework type="fluent-api" >}}
@@ -113,7 +89,71 @@ For our job to trigger at its optimal CO2 time---during the early morning at `7 
 
 > **Note**: Please make sure that the firewall allows the JobRunr server to reach the Carbon Intensity API by default located `api.jobrunr.io`. If not, JobRunr will fall back to scheduling the job at the fallback time.
 
-### Inspecting Carbon Aware Jobs In The Dashboard
+## Add a Carbon Aware margin to your (recurring) jobs
+
+With JobRunr, a normal recurring job is trivial to implement:
+
+{{< codeblock title="Here we assume pdfGenService is an object available to this scope. If you're using a framework, you'd _inject_ this service." >}}
+```java
+jobScheduler.scheduleRecurrently("my-id", "0 2 * * *", pdfGenService->generateAndMail())
+```
+{{</ codeblock >}}
+
+The cron string `0 2 * * *` will make sure the service gets called every day at `2 AM`. For this use case, we trigger it at night to avoid overloading the server during working hours, but we don't really care _when_ during the night this one is processed: as long as it's done before our business opens at `9 AM` everything is all good.
+
+This means we can **add slack** to the specified cron string: Instead of using `0 2 * * *`, we use `0 2 * * * [PT1H/PT7H]` to some margin before/after in the [ISO 8601 duration standard](https://en.wikipedia.org/wiki/ISO_8601). In this case, we say: _run this job preferably at 2 AM, but one hour earlier and 7 hours later is also fine_. In other words: run between `1 AM` and `9 AM`.
+
+In order to achieve this, we change the above cron string of `scheduleRecurrently()`:
+
+{{< codeblock title="The cron string with the added carbon aware margin." >}}
+```java
+jobScheduler.scheduleRecurrently("my-id", "0 2 * * * [PT1H/PT7H]", pdfGenService->generateAndMail())
+```
+{{</ codeblock >}}
+
+It's really that simple! For more control, other APIs are available to provide the margin. A few examples illustrate this:
+
+{{< codeblock title="Different possibilities of scheduling a job carbon aware." >}}
+```java
+// Specifying the margin in the cron string
+jobScheduler.scheduleRecurrently("my-id", "0 2 * * * [PT1H/PT7H]", pdfGenService->generateAndMail())
+// Specifying a margin using CarbonAware.dailyBetween() that generates the string for you
+jobScheduler.scheduleRecurrently("my-id", CarbonAware.dailyBetween(1, 9), pdfGenService->generateAndMail())
+// Specifying a margin using Duration instances
+jobScheduler.scheduleRecurrently("my-id", CarbonAware.using("0 2 * * *", Duration.ofHours(1), Duration.ofHours(7)), pdfGenService->generateAndMail())
+```
+{{</ codeblock >}}
+
+Scheduling one-time fire-and-forget jobs with added slack is also possible by specifying the margin using the new `CarbonAwarePeriod` class:
+
+{{< codeblock title="Scheduling a carbon aware job using CarbonAwarePeriod." >}}
+```java
+jobScheduler.scheduleCarbonAware(CarbonAwarePeriod.between(Instant.now(), Instant.now().plus(5, HOURS)), 
+  pdfGenService->generateAndMail());
+```
+{{</ codeblock >}}
+
+More possibilities and examples are described in the [Carbon Aware Jobs documentation](/en/documentation/background-methods/carbon-aware-jobs/). Next, let's investigate how scheduling a Carbon Aware job works behind the scenes.
+
+
+## How Carbon Aware Job Scheduling works
+
+So when exactly is that job going to be triggered if we add a margin? **When the Carbon Aware API says the CO2 footprint will be the lowest**. This is possible by consulting external energy data providers such as [ENTSO-E](https://www.entsoe.eu/) for the European Union that returns actual energy pricing information for the coming days. 
+
+Let's take a step back and look at the concept of carbon aware job scheduling with the help of a schematic:
+
+![](/documentation/carbon-schematic.png "A carbon aware job timeline.")
+
+In our example, the concepts from the schematic can be mapped as follows:
+
+- The preferred time---your usual schedule when the job should be processed. That'll be `2 AM` in this example.
+- The carbon aware margin _\[before, after\]_---This is the margin that is added to the cron schedule between brackets: `[PT1H/PT7H]`; with _before_ being `1 AM` and _after_ being `9 AM`.
+- The carbon optimal time---this is a moment in the margin JobRunr selects as the optimal time when the CO2 footprint is the lowest. For example, in this schematic, this is after `2 AM`---say `7 AM`.
+
+Suppose the sun is coming up in the early morning and `7 AM` is the peak moment at which solar panels provide a lot of energy before the clouds swoop in just as we start opening our business. During the night, solar energy is not available, hence the chance of relying on CO2-heavy energy is bigger. That could be a reason why in our case, `7 AM` is picked instead of a time _before_ the preferred time `1 AM`.
+
+
+## Monitoring Carbon Aware Jobs In The Dashboard
 
 You can track the history of your job in the JobRunr Dashboard:
 
