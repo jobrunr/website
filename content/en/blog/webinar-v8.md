@@ -13,6 +13,9 @@ images:
 feature_image: "/blog/launch-webinar.webp" 
 slug: "webinar-v8"
 ---
+<script>
+    console.log("Psst, developer! This landing page was put together by our marketing team. For the actual, enterprise-grade code we're proud of, you'll have to check out the JobRunr library itself. 😉");
+</script>
 <style>
     /* General page styling */
     .webinar-page-content {
@@ -129,6 +132,10 @@ slug: "webinar-v8"
         width: 150px;
         height: 150px;
         object-fit: cover;
+    }
+
+    .host-section a{
+        box-shadow: none;
     }
 
     /* Testimonials Section */
@@ -319,7 +326,7 @@ slug: "webinar-v8"
 
 </p>
             <p><strong>Date:</strong> Wednesday July 9, 2026<br><br>
-            <strong>Timeslot 1:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST
+            <strong>Timeslot 1:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST<br>
             <strong>Timeslot 2:</strong> 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT
             </p>
         </div>
@@ -330,7 +337,9 @@ slug: "webinar-v8"
   hbspt.forms.create({
     region: "eu1",
     portalId: "145458105",
-    formId: "a541ba81-7132-40ca-bb3d-c6280937e030"});
+    //formId: "a541ba81-7132-40ca-bb3d-c6280937e030" //testing
+    formId: "0f152bea-5656-4da4-a1d6-7b18261dde20" //live
+    });
 </script>
         </div>
     </div>
@@ -372,7 +381,7 @@ slug: "webinar-v8"
     <div class="host-section-wrapper">
         <h2>Meet Your Host</h2>
         <div class="host-section">
-            <img src="https://media.licdn.com/dms/image/v2/D4E03AQECs4yAUeGrAw/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1670587266374?e=1756339200&v=beta&t=Zod_BeENAeCi-G8BTHRka1f7xbzU9NIVfK4Xce1zFww" alt="Ronald Dehuysser">
+            {{< img src="/blog/RonaldHeadshot.webp" alt="Ronald Dehuysser" >}}
             <div>
                 <h3>Ronald Dehuysser</h3>
                 <p>With 20+ years of experience building Java systems, Ronald’s on a mission to make background processing fast, scalable, and developer-friendly. He's worked with distributed systems long before they were trendy and now spends his time coding, speaking, and helping teams ship better backend infrastructure.</p>
@@ -384,22 +393,22 @@ slug: "webinar-v8"
     <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: flex-start;">
         <div style="flex: 1; min-width: 300px;">
             <ul>
-                <li><strong>12:30 - 12:40 PM:</strong> Welcome & Introduction to JobRunr v8</li>
-                <li><strong>12:40 - 1:15 PM:</strong> Live-Coding Session:
+                <li><strong>(10 min) Welcome & Introduction to JobRunr v8</strong></li>
+                <li><strong>(35 min) Live-Coding Session:</strong>
                     <ul>
                         <li>Integrate JobRunr in your project.</li>
                         <li>Setting up Carbon-Aware recurring jobs.</li>
                         <li>Building a complex workflow with job chaining and batches.</li>
                     </ul>
                 </li>
-                <li><strong>1:15 - 1:30 PM:</strong> Deep Dive into JobRunr Pro Features</li>
-                <li><strong>1:30 - 1:45 PM:</strong> Live Q&A / Ask Me Anything (AMA)</li>
+                <li><strong>(15 min) Deep Dive into JobRunr Pro Features</strong></li>
+                <li><strong>(15 min) Live Q&A / Ask Me Anything (AMA)</strong></li>
             </ul>
         </div>
         <div style="flex: 1; min-width: 200px; text-align: center;">
-        <figure style="margin-top:0px">
-    {{< img src="/blog/webinar8v.png" style="max-height:400px" >}}
-        </figure>
+            <figure style="margin-top:0px">
+                {{< img src="/blog/webinar8v.png" style="max-height:400px" >}}
+            </figure>
         </div>
     </div>
 </div>
