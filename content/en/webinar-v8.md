@@ -260,10 +260,14 @@ date: 2024-07-15T10:00:00+02:00
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
+        .webinar-hero, .learn-section, .webinar-agenda-section, .final-cta {
+            /* On mobile, disable the full-width trick and use normal padding */
+            margin: 0;
+            padding: 2rem 1.5rem;
+            border-radius: 0;
+        }
         .webinar-hero {
             grid-template-columns: 1fr;
-            padding-left: 5vw; /* Adjust padding for mobile on full-width sections */
-            padding-right: 5vw;
         }
         .hero-text {
             text-align: center;
