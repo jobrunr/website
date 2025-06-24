@@ -24,19 +24,22 @@ date: 2024-07-15T10:00:00+02:00
         border: 0;
     }
 
-    /* Hero Section */
+    /* Hero Section - UPDATED for full-width background */
     .webinar-hero {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 3rem;
-        align-items: start; /* Align items to the start of the grid area */
-        padding: 4rem 0;
+        align-items: start;
+        background: linear-gradient(135deg, rgba(40, 220, 222, 0.1) 0%, rgba(111, 114, 229, 0.1) 100%);
+        /* Replicate the full-width style from other sections */
+        margin: 0 -100vw;
+        padding: 4rem 100vw;
     }
     .webinar-hero .hero-text {
         padding-top: 1rem;
     }
     .webinar-hero .hero-form {
-        background: #f5f5f5;
+        background: #fff; /* UPDATED: Changed to white for better contrast */
         padding: 2.5rem;
         border-radius: 12px;
         box-shadow: 0 10px 25px rgba(0,0,0,0.1);
@@ -109,7 +112,7 @@ date: 2024-07-15T10:00:00+02:00
         display: flex;
         align-items: center;
         gap: 2rem;
-        background: #f5f5f5;
+        background: #f7f9fa;
         padding: 2rem;
         border-radius: 10px;
     }
@@ -173,23 +176,19 @@ date: 2024-07-15T10:00:00+02:00
         display: block;
     }
 
-    /* Other Sections */
-    .webinar-section {
-        padding: 4rem 0;
-    }
-
-    /* WEBINAR AGENDA SECTION - now with background color */
+    /* WEBINAR AGENDA SECTION */
     .webinar-agenda-section {
         background-color: #f7f9fa;
         margin: 0 -100vw;
         padding: 4rem 100vw;
     }
-
-    .webinar-agenda-section h2, .webinar-section h2 {
+    .webinar-agenda-section h2 {
         text-align: center;
         font-size: 2.5rem;
         margin-bottom: 3rem;
     }
+
+    /* FINAL CTA */
     .final-cta {
         text-align: center;
         background-color: #f7f9fa;
@@ -201,10 +200,70 @@ date: 2024-07-15T10:00:00+02:00
         padding: 1rem 2rem;
     }
 
+    /* Getting Started Section */
+    .getting-started-section {
+        padding: 4rem 0;
+        border-top: 1px solid #eee;
+    }
+    .getting-started-section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin: 0 auto 1rem auto;
+        max-width: 650px;
+    }
+    .getting-started-section > p {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #555;
+        margin: 0 auto 3rem auto;
+        max-width: 650px;
+    }
+    .guides-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+    }
+    .guide-link-card {
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+        padding: 2rem;
+        border: 1px solid #eee;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--darkgrey);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    .guide-link-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        border-color: #3eb0ef;
+    }
+    .guide-link-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: #3eb0ef;
+    }
+    .guide-link-card h4 {
+        margin-top: 0;
+        font-size: 1.2rem;
+        color: var(--darkgrey);
+    }
+    .guide-link-card p {
+        flex-grow: 1;
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 0;
+        line-height: 1.7rem;
+    }
+
     /* Responsive adjustments */
     @media (max-width: 900px) {
         .webinar-hero {
             grid-template-columns: 1fr;
+            padding-left: 5vw; /* Adjust padding for mobile on full-width sections */
+            padding-right: 5vw;
         }
         .hero-text {
             text-align: center;
@@ -223,6 +282,12 @@ date: 2024-07-15T10:00:00+02:00
         margin-top: 10px;
     }
 
+    .getting-started-section .btn {
+        background-color: black !important;
+        color: white !important;
+        margin-top: 10px;
+    }
+
 </style>
 
 <div class="webinar-page-content">
@@ -230,11 +295,14 @@ date: 2024-07-15T10:00:00+02:00
         <div class="hero-text">
             <h1>Master JobRunr v8: A Live-Coding Webinar</h1>
             <p><strong>Unlock modern background job processing & carbon-aware scheduling in Java</strong> 
-            <br/><br/>Modern Java applications need more than just threads and timers to scale, they need efficient, resilient job scheduling. That’s exactly what JobRunr v8 brings to the table.
+            <br/><br/>Modern Java applications need more than just threads and timers to scale, they need efficient,  and easy to use job scheduling. That’s exactly what JobRunr v8 brings to the table.
 <br><br/>Join us for a live coding session with Ronald Dehuysser, creator of JobRunr, as we walk through the newest features in v8. 
 
 </p>
-            <p><strong>Date:</strong> July 9, 2026<br><strong>Time:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST</p>
+            <p><strong>Date:</strong> Wednesday July 9, 2026<br><br>
+            <strong>Timeslot 1:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST
+            <strong>Timeslot 2:</strong> 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT
+            </p>
         </div>
         <div class="hero-form" id="hero-form">
             <h3 style="text-align: center; margin-top: 0;">Reserve Your Spot Now!</h3>
@@ -300,7 +368,7 @@ date: 2024-07-15T10:00:00+02:00
                 <li><strong>12:30 - 12:40 PM:</strong> Welcome & Introduction to JobRunr v8</li>
                 <li><strong>12:40 - 1:15 PM:</strong> Live-Coding Session:
                     <ul>
-                        <li>Implementing Virtual Threads for a sample use case.</li>
+                        <li>Integrate JobRunr in your project.</li>
                         <li>Setting up Carbon-Aware recurring jobs.</li>
                         <li>Building a complex workflow with job chaining and batches.</li>
                     </ul>
@@ -327,9 +395,9 @@ date: 2024-07-15T10:00:00+02:00
                 </footer>
             </div>
             <div class="testimonial-card">
-                <blockquote>Notifications like hospital bed availability can’t wait 20 minutes in an emergency. With JobRunr, we deliver those updates in seconds, making a real difference for our clients.</blockquote>
+                <blockquote>Notifications like hospital bed availability can’t wait 20 minutes in an emergency. With JobRunr Pro, we deliver those updates in seconds, making a real difference for our clients.</blockquote>
                 <footer>
-                    Scott
+                    Paulius
                     <span>Software Engineer at Juvare</span>
                 </footer>
             </div>
@@ -338,6 +406,24 @@ date: 2024-07-15T10:00:00+02:00
     <div class="final-cta">
         <h2>Ready to Supercharge Your Java Applications?</h2>
         <p>Join thousands of Java developers who are already leveling up their background job processing with JobRunr.</p>
-        <a href="#" class="btn btn-black btn-lg" style="text-decoration: none;">Register for the Webinar</a>
+        <a href="#hero-form" class="btn btn-black btn-lg" style="text-decoration: none;">Register for the Webinar</a>
+    </div>
+    <div class="getting-started-section">
+        <h2>Want to get started with v8?</h2>
+        <p>Do you want to already take v8 for a (beta)-testride? You can find all the info in our guides</p>
+        <div class="guides-grid">
+            <a href="https://www.jobrunr.io/en/guides/migration/v8/" class="guide-link-card">
+                <span class="guide-link-icon">🛠️</span>
+                <h4>v8 Migration Guide</h4>
+                <p>Moving from a previous version or another scheduler? <br/>We’ll walk you through the cleanest way to transition.</p>
+                <span class="btn" style="text-decoration: none;">Get started with v8 Beta</span>
+            </a>
+            <a href="https://www.jobrunr.io/en/guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" class="guide-link-card">
+                <span class="guide-link-icon">🌍</span>
+                <h4>Carbon-Aware Scheduling</h4>
+                <p>Schedule jobs when energy is cleanest. It’s good for performance, and even better for your carbon footprint.</p>
+                <span class="btn" style="text-decoration: none;">Explore carbon-aware scheduling</span>
+            </a>
+        </div>
     </div>
 </div>
