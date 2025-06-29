@@ -325,7 +325,7 @@ slug: "webinar-v8"
 <br><br/>Join us for a live coding session with Ronald Dehuysser, creator of JobRunr, as we walk through the newest features in v8. 
 
 </p>
-            <p><strong>Date:</strong> Wednesday July 9, 2026<br><br>
+            <p><strong>Date:</strong> Wednesday July 9, 2025<br><br>
             <strong>Timeslot 1:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST<br>
             <strong>Timeslot 2:</strong> 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT
             </p>
