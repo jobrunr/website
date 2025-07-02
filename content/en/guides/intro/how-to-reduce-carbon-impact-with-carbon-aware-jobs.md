@@ -128,7 +128,7 @@ Scheduling one-time fire-and-forget jobs with added slack is also possible by sp
 
 {{< codeblock title="Scheduling a carbon aware job using CarbonAwarePeriod." >}}
 ```java
-jobScheduler.scheduleCarbonAware(CarbonAwarePeriod.between(Instant.now(), Instant.now().plus(5, HOURS)), 
+jobScheduler.schedule(CarbonAwarePeriod.between(Instant.now(), Instant.now().plus(5, HOURS)), 
   pdfGenService->generateAndMail());
 ```
 {{</ codeblock >}}

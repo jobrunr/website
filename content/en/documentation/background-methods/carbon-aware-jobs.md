@@ -40,25 +40,26 @@ Both delayed jobs and recurring jobs can be made carbon aware. The following sec
 
 > For general documentation on scheduled jobs, see [Scheduled Jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}}).
 
-As with scheduling regular jobs, you can use either the `jobScheduler.schedule()` method and pass in the desired delay & margin:
+As with scheduling regular jobs, call the `schedule()` method and pass in an instance of `Temporal`:
 
 ```java
-BackgroundJob.scheduleCarbonAware(CarbonAwarePeriod.between(now, now.plus(5, HOURS)), 
+BackgroundJob.schedule(CarbonAwarePeriod.between(now, now.plus(5, HOURS)), 
   () -> myService.sendNewlyRegisteredEmail());
 ```
 
-Note the used method here is `scheduleCarbonAware()` instead of your regular `schedule()`!
+
+The new `CarbonAwarePeriod` class implements `Temporal` and configures the desired delay and margin of your job. 
 
 Or you can use the `JobBuilder` to achieve the same result:
 
 ```java
 BackgroundJob.create(aJob()
     .withName("Send welcome email to newly registered users")
-    .scheduleCarbonAware(CarbonAwarePeriod.between(now, now.plus(5, HOURS)))
+    .scheduleAt(CarbonAwarePeriod.between(now, now.plus(5, HOURS)))
     .withDetails(() -> myService.sendNewlyRegisteredEmail()));
 ```
 
-Note that the used builder method here is `scheduleCarbonAware()` instead of your regular `scheduleIn()`!
+With the `JobBuilder`, it is possible to pass in an instance of `Temporal` using `scheduleAt()` or an instance of `TemporalAmount` using `scheduleIn()` to schedule the job to run after the specified duration from now. For Carbon Aware jobs, we again create a `CarbonAwarePeriod`.
 
 The following subsection details the different possibilities for creating a carbon-sepcific schedule.
 
@@ -83,10 +84,12 @@ The `CarbonAware` class houses several utility methods to quickly create a carbo
 
 1. `dailyBetween(fromHour, untilHour)`: allows relaxing of a daily schedule as long as it stays within `fromHour` and `untilHour` hours. Both parameters need to be in 24-hour format and should be within the same day (they cannot cross the 12-hour boundary: e.g. between 20H and 6H the next day); for that employ `using()` instead. 
 2. `dailyBefore(untilHour)`: alias of `dailyBetween(0, untilHour)`
-3. `using(cronExpression, marginBefore, marginAfter)`: allows relaxing of a schedule expression string by `[marginBefore, marginAfter]` where `marginBefore` and `marginAfter` are `Duration` instances (e.g. `using("0 16 * * *", Duration.ofHours(1), ofHours(4))` will schedule between 15 p.m. and 20 p.m.). 
-4. `using(fixedDelay, marginBefore, marginAfter)`: allows relaxing of a recurring job with a fixed delay between runs by `[marginBefore, marginAfter]` where all parameters are `Duration`s.
+3. `cron(cronExpression, marginBefore, marginAfter)`: allows relaxing of a schedule expression string by `[marginBefore, marginAfter]` where `marginBefore` and `marginAfter` are `Duration` instances (e.g. `using("0 16 * * *", Duration.ofHours(1), ofHours(4))` will schedule between 15 p.m. and 20 p.m.). 
+4. `cron(cronExpression, marginBeforeAndAfter)`: alias of `cron(cronExpression, marginBeforeAndAfter, marginBeforeAndAfter)`
+4. `interval(fixedDelay, marginBefore, marginAfter)`: allows relaxing of a recurring job with a fixed delay between runs by `[marginBefore, marginAfter]` where all parameters are `Duration`s.
+5. `interval(fixedDelay, marginBeforeAndAfter)`: alias of `interval(fixedDelay, marginBeforeAndAfter, marginBeforeAndAfter)`
 
-> The `using` method accepts any valid scheduleExpression string, meaning that you can use the same methods for custom schedules available in JobRunr Pro!
+> The `cron` method accepts any valid scheduleExpression string, meaning that you can use the same methods for custom schedules available in JobRunr Pro!
 
 ### Creating Carbon Aware Schedule Expressions manually
 
