@@ -96,7 +96,12 @@ Some notifications, such as the severe exception one, contain details that can b
 
 ### {{< label version="professional" >}}JobRunr Pro{{< /label >}} Database Performance Optimizations
 
-In JobRunr v8, we’ve reviewed the data types, queries and indexes to improve performance and reduce the load on the database. In our tests we’ve seen at least 2x improvement across all databases when all JobRunr features (such as dynamic queues, rate limiters, batch jobs, etc.) are enabled. In practice, you can expect less load on your database as queries run faster and data takes less space.
+In JobRunr Pro v8, we’ve reviewed the data types, queries and indexes to improve performance and reduce the load on the database. In our tests we’ve seen at least 2x improvement across all databases when all JobRunr features (such as dynamic queues, rate limiters, batch jobs, etc.) are enabled. In practice, you can expect less load on your database as queries run faster and data takes less space.
+
+The following graph depicts the performance gains by comparing average job throughput of JobRunr Pro 7.4.0 with the throughput of the new JobRunr Pro v8.0.0 release:
+
+![](/blog/jobrunrpro-v8-performance-comparison.svg "A job throughput comparison chart between JobRunr Pro 7.4.0 and JobRunr Pro 8.0.0")
+
 
 ### {{< label version="professional" >}}JobRunr Pro{{< /label >}} K8S Autoscaling
 

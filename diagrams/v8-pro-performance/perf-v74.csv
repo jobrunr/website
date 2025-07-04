@@ -1,0 +1,5 @@
+JobRunr version,StorageProvider,amount of created jobs,amount of succeeded jobs,creation duration,processing duration,job throughput (jobs / sec)
+JobRunr Pro,7.4.1-SNAPSHOT (master),MariaDbStorageProvider,500010,210451,PT6M56.415825793S,PT9M37.429504667S,364.73
+JobRunr Pro,7.4.1-SNAPSHOT (master),MongoDBStorageProvider,500010,500485,PT6M58.297849261S,PT9M39.118347769S,864.40
+JobRunr Pro,7.4.1-SNAPSHOT (master),MySqlStorageProvider,500010,135179,PT19M5.017221745S,PT8M26.27630496S,267.15
+JobRunr Pro,7.4.1-SNAPSHOT (master),PostgresStorageProvider,500010,501636,PT4M31.063078133S,PT6M36.941150701S,1266.76

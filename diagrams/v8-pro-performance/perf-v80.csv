@@ -1,0 +1,5 @@
+JobRunr version,StorageProvider,amount of created jobs,amount of succeeded jobs,creation duration,processing duration,job throughput (jobs / sec)
+JobRunr Pro,1.0.0-SNAPSHOT (feature/performance-bis),MariaDbStorageProvider,500010,385435,PT10M8.782339735S,PT10M0.27451932S,642.39
+JobRunr Pro,1.0.0-SNAPSHOT (feature/performance-bis),MongoDBStorageProvider,500010,502510,PT8M6.376133689S,PT6M25.049743427S,1305.22
+JobRunr Pro,1.0.0-SNAPSHOT (feature/performance-bis),MySqlStorageProvider,500010,300338,PT20M42.00834087S,PT10M0.118253951S,500.56
+JobRunr Pro,1.0.0-SNAPSHOT (feature/performance-bis),PostgresStorageProvider,500010,502510,PT4M48.297191368S,PT3M32.765128561S,2370.33
