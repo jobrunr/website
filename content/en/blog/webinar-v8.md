@@ -60,6 +60,11 @@ slug: "webinar-v8"
         margin-bottom: 1rem;
         line-height: 1.2;
     }
+
+    .hero-form h3{
+        margin-bottom: 15px;
+
+    }
     .webinar-hero p {
         
     }
@@ -279,6 +284,61 @@ slug: "webinar-v8"
         margin-top: 15px;
         font-size: 14px;
     }
+    
+    /* Custom Form Styling */
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    #webinar-form label {
+        display: block;
+        margin-bottom: .5rem;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    #webinar-form input[type="text"],
+    #webinar-form input[type="email"],
+    #webinar-form select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+    #webinar-form .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        margin-top: 1rem;
+    }
+    #webinar-form .checkbox-group input {
+        margin-top: 4px;
+        margin-right: 10px;
+    }
+    #webinar-form .checkbox-group label {
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    #webinar-form .privacy-text p {
+        font-size: 12px;
+        color: #666;
+        margin-top: 1rem;
+        line-height: 12px;
+    }
+    #webinar-form button {
+        width: 100%;
+        font-size: 1.2rem;
+        padding: 1rem;
+        border: none;
+        background-color: black !important;
+        color: white;
+    }
+    #webinar-form .form-row {
+        display: flex;
+        gap: 1rem;
+    }
+    #webinar-form .form-row .form-group {
+        flex: 1;
+    }
 
     /* Responsive adjustments */
     @media (max-width: 900px) {
@@ -286,13 +346,16 @@ slug: "webinar-v8"
             /* On mobile, disable the full-width trick and use normal padding */
             margin: 0;
             padding: 2rem 1.5rem;
-            border-radius: 0;
         }
         .webinar-hero {
             grid-template-columns: 1fr;
         }
         .hero-text {
             text-align: center;
+        }
+        #webinar-form .form-row {
+            flex-direction: column;
+            gap: 0;
         }
     }
 
@@ -331,15 +394,69 @@ slug: "webinar-v8"
             </p>
         </div>
         <div class="hero-form" id="hero-form">
-            <h3 style="text-align: center; margin-top: 0;">Reserve Your Spot Now!</h3>
-            <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+            <h3 style="text-align: center; margin-top: 0;">Reserve Your Spot Now!</h3>         
+            <form id="webinar-form" onsubmit="handleFormSubmit(event)">
+    <div class="form-row">
+        <div class="form-group">
+            <label for="firstname">First Name*</label>
+            <input type="text" id="firstname" name="firstname" required>
+        </div>
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" id="lastname" name="lastname">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="company">Company Name</label>
+        <input type="text" id="company" name="company">
+    </div>
+    <div class="form-group">
+        <label for="email">Email*</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    <div class="form-group">
+        <label for="webinar_v8_timeslot">Please select your preferred timeslot:*</label>
+        <select id="webinar_v8_timeslot" name="webinar_v8_timeslot" required>
+            <option value="" disabled selected>Choose a timeslot</option>
+            <option value="12:30 PM CEST / 6:30 AM ET / 4:00 PM IST">Timeslot 1: 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST</option>
+            <option value="6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT">Timeslot 2: 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT</option>
+        </select>
+    </div>
+    <div class="form-group checkbox-group">
+        <input type="checkbox" id="consent" name="LEGAL_CONSENT.subscription_type_620889303" value="true">
+        <label for="consent">We’d love to share useful release notes, code snippets, and community news now and then. Only when it’s worth your time, we promise.</label>
+    </div>
+    <div class="form-group privacy-text">
+        <p>By clicking submit below, you consent to allow JobRunr to store and process personal information.</p>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-black btn-lg">I want to join!</button>
+    </div>
+</form>
 <script>
-  hbspt.forms.create({
-    region: "eu1",
-    portalId: "145458105",
-    //formId: "a541ba81-7132-40ca-bb3d-c6280937e030" //testing
-    formId: "0f152bea-5656-4da4-a1d6-7b18261dde20" //live
-    });
+function handleFormSubmit(event) {
+  event.preventDefault(); // Stop the form from submitting the standard way
+  const form = event.target;
+  const data = new FormData(form);
+  const url = 'https://hooks.zapier.com/hooks/catch/21269987/u3teea8/';
+  // Send the data to Zapier in the background
+  fetch(url, {
+    method: 'POST',
+    body: data,
+    mode: 'no-cors' // Use 'no-cors' mode for "fire and forget" submissions
+  }).then(response => {
+    // Redirect to the thank you page after a short delay
+    setTimeout(() => {
+      window.location.href = 'https://www.jobrunr.io/en/webinar-v8-thank-you/';
+    }, 500); // 0.5 second delay
+  }).catch(error => {
+    console.error('Error submitting form:', error);
+    // Even if there's an error, redirect so the user experience is consistent
+    setTimeout(() => {
+      window.location.href = 'https://www.jobrunr.io/en/webinar-v8-thank-you/';
+    }, 500);
+  });
+}
 </script>
         </div>
     </div>
@@ -446,12 +563,4 @@ slug: "webinar-v8"
                 <p>Moving from a previous version or another scheduler? <br/>We’ll walk you through the cleanest way to transition.</p>
                 <span class="btn" style="text-decoration: none;">Get started with v8 Beta</span>
             </a>
-            <a href="https://www.jobrunr.io/en/guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" class="guide-link-card">
-                <span class="guide-link-icon">🌍</span>
-                <h4>Carbon-Aware Scheduling</h4>
-                <p>Schedule jobs when energy is cleanest. It’s good for performance, and even better for your carbon footprint.</p>
-                <span class="btn" style="text-decoration: none;">Explore carbon-aware scheduling</span>
-            </a>
-        </div>
-    </div>
-</div>
+            <a href="https://www.jobrunr.
