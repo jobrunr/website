@@ -553,7 +553,7 @@ function handleFormSubmit(event) {
         <p>Join thousands of Java developers who are already leveling up their background job processing with JobRunr.</p>
         <a href="#hero-form" class="btn btn-black btn-lg" style="text-decoration: none;">Register for the Webinar</a>
     </div>
-    <div class="getting-started-section">
+       <div class="getting-started-section">
         <h2>Want to get started with v8?</h2>
         <p>Do you want to already take v8 for a (beta)-testride? You can find all the info in our guides</p>
         <div class="guides-grid">
@@ -563,4 +563,12 @@ function handleFormSubmit(event) {
                 <p>Moving from a previous version or another scheduler? <br/>We’ll walk you through the cleanest way to transition.</p>
                 <span class="btn" style="text-decoration: none;">Get started with v8 Beta</span>
             </a>
-            <a href="https://www.jobrunr.
+            <a href="https://www.jobrunr.io/en/guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" class="guide-link-card">
+                <span class="guide-link-icon">🌍</span>
+                <h4>Carbon-Aware Scheduling</h4>
+                <p>Schedule jobs when energy is cleanest. It’s good for performance, and even better for your carbon footprint.</p>
+                <span class="btn" style="text-decoration: none;">Explore carbon-aware scheduling</span>
+            </a>
+        </div>
+    </div>
+</div>
