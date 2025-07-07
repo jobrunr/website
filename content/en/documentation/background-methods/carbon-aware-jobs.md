@@ -29,7 +29,9 @@ As visible in the schematic, for carbon aware job processing, these concepts are
 
 As usual, you can track the progress of your job in the dashboard:
 
-![](/documentation/carbon-aware-job-scheduled-to-minimize-carbon-impact.png "An example carbon aware daily recurring job with a margin between 16PM and 20PM, with the local time being 15PM. The job was scheduled at 16PM to minimize carbon impact.")
+![](/documentation/carbon-aware-job-scheduled-to-minimize-carbon-impact.png "An example carbon aware daily recurring job with a margin between 9h and 16h, with the local time being 9h. The job was scheduled at 15h to minimize carbon impact.")
+
+As visible in the above screenshot, the optimal low-carbon time window is visualized in the pending history. JobRunr picks an optimal time window inside the job's execution window---the `[From, To]` margins: everything that falls in-between the red line. The greener the time slice, the lower the carbon emissions will be at that time. 
 
 Both delayed jobs and recurring jobs can be made carbon aware. The following sections explain this in detail:
 
@@ -122,7 +124,7 @@ In the Dashboard, in the Recurring Jobs tab, you can see whether a Cron is a car
 
 When making use of carbon aware schedules, there are a few important things to keep in mind:
 
-- If the **margin is too small**, the job will be scheduled right away instead. This depends from energy data provider to data provider and from area code to area code. Most providers return carbon intensity data with hourly margins, but the EU is migrating to each 15 minutes. The configured margin should be three times as big as the margins returned by the data provider (e.g. if hourly, at least three hours). It does not make sense to schedule a job carbon aware between now and one hour if JobRunr does not receive carbon info between that margin. 
+- If the **margin is too small**, the job will be scheduled right away instead. This depends from energy data provider to data provider and from area code to area code. Most providers return carbon intensity data with hourly margins, but the EU is migrating to each 15 minutes. The configured margin should be twice as big as the margins returned by the data provider (e.g. if hourly, at least three hours). It does not make sense to schedule a job carbon aware between now and one hour if JobRunr does not receive carbon info between that margin. 
 - If the Carbon Intensity API is down or cannot be reached (e.g., because of a firewall), jobs will be scheduled at their preferred time.
 - If the Carbon Intensity API has no forecast for a particular period, the job will be scheduled at their preferred time.
 - If the deadline has passed (e.g. `between(now, now.plus(3, HOURS)` and it's past the third hour), the job will be scheduled immediately.
