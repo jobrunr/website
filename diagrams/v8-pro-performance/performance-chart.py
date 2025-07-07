@@ -39,7 +39,7 @@ def draw():
 
 	ax.set_xticks(x+width)
 	ax.set_xticklabels(xlbls)
-	ax.legend((v75[0], v80[0]), ('JobRunr 7.4.0', 'JobRunr 8.0.0'))
+	ax.legend((v75[0], v80[0]), ('JobRunr 7.5.0', 'JobRunr 8.0.0'))
 
 	ax.set(xlabel='StorageProvider Type', ylabel='Job Throughput (Higher = better)', title='JobRunr Pro v8 Performance Comparison')
 	fig.tight_layout()
