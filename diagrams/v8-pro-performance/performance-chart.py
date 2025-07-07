@@ -3,41 +3,43 @@ import numpy as np
 import matplotlib.pyplot as plt
 import csv
 
-def read_perffile(filename):
+def read_perffile(filename, modifier):
 	i = 0
 	dict = {}
 
-	# cols: JobRunr version, JobRunr build, StorageProvider,amount of created jobs,amount of succeeded jobs,creation duration,processing duration,job throughput (jobs / sec)
+	# example data: 2025-05-01T15:01:46.406977210Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,7.5.0 (HEAD),PostgresStorageProvider,500010,533339,PT32.042008295S,PT6M38.138275332S,1340.05
+	# cols: date, server, linux version, jobrunr pro/oss, jobrunr version, storage provider, jobs, processed, time, time, throughput
 	with open(filename) as csv_file:
 		for row in csv.reader(csv_file, delimiter=","):
-			if i > 0:
-				dict[row[2].replace("StorageProvider", "")] = float(row[7])
+			print(row[5])
+			dict[row[5].replace("StorageProvider", "")] = float(row[10]) * modifier
 			i += 1
 
 	return dict
 
-perf_v74 = read_perffile("perf-v74.csv")
-print("JobRunr v7.4.0")
-print(perf_v74)
-perf_v80 = read_perffile("perf-v80.csv")
-print("JobRunr v8.0.0")
+print("-- Reading JobRunr v7.5.0")
+perf_v75 = read_perffile("perf-v75.csv", 1)
+print(perf_v75)
+
+print("-- Reading JobRunr v8.0.0")
+perf_v80 = read_perffile("perf-v80.csv", 0.9)
 print(perf_v80)
 
 def draw():
 	#c = ['tab:blue', 'tab:blue', 'tab:red', 'tab:red', 'tab:red', 'tab:red', 'tab:red']
-	xlbls = list(perf_v74.keys())
-	y74 = list(perf_v74.values())
+	xlbls = list(perf_v75.keys())
+	y75 = list(perf_v75.values())
 	y80 = list(perf_v80.values())
 	x = np.arange(len(y80))
 	width = 0.27
 
 	fig, ax = plt.subplots()
-	v74 = ax.bar(x, y74, width, color="#7931B3")
+	v75 = ax.bar(x, y75, width, color="#7931B3")
 	v80 = ax.bar(x+width, y80, width, color="#6bace5")
 
 	ax.set_xticks(x+width)
 	ax.set_xticklabels(xlbls)
-	ax.legend((v74[0], v80[0]), ('JobRunr 7.4.0', 'JobRunr 8.0.0'))
+	ax.legend((v75[0], v80[0]), ('JobRunr 7.4.0', 'JobRunr 8.0.0'))
 
 	ax.set(xlabel='StorageProvider Type', ylabel='Job Throughput (Higher = better)', title='JobRunr Pro v8 Performance Comparison')
 	fig.tight_layout()
