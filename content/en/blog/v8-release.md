@@ -1,19 +1,13 @@
 ---
-title: "🍀 ⚡️JobRunr and JobRunr Pro v8.0.0!"
+title: "JobRunr and JobRunr Pro v8.0.0!"
 summary: "We're proud to announce the latest release, JobRunr & JobRunr Pro v8.0.0"
-feature_image: /blog/2024-04-09-jobrunr-jobrunr-pro-v7.png
-date: 2025-07-03T09:00:00+02:00
-draft: true
+feature_image: /blog/ReleaseVisual.webp
+date: 2025-07-07T09:00:00+02:00
 author: "The JobRunr Team"
 tags:
   - blog
   - meta
 ---
-
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
 JobRunr and JobRunr Pro `v8` has arrived! This release introduces a slew of new features such as _Carbon Aware Job Processing_; a new feature that optimizes job execution based on grid carbon intensity, helping reduce your application's environmental impact by running jobs when cleaner energy is available; _Kotlin Serialization_ support; a brand new _Dashboard Notification Centre_; significant database performance boosts; and more! 
 
 To upgrade from JobRunr `v7.x`, please follow the [JobRunr v8 migration guide](/en/guides/migration/v8/). Let's explore these new features one by one to get a better understanding of what's new and what has been changed. Be sure to also **review the breaking changes section**. 
