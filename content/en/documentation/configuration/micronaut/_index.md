@@ -8,12 +8,14 @@ menu:
     parent: 'configuration'
     weight: 15
 ---
-Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut](https://github.com/jobrunr/example-micronaut)
+Integration with Micronaut cannot be easier thanks to the `jobrunr-micronaut-feature`! There is even a complete example project available at [https://github.com/jobrunr/example-micronaut](https://github.com/jobrunr/example-micronaut).
 
 __To add JobRunr to your Micronaut project, these are the steps you need to take:__
+
 1. Add the `jobrunr-micronaut-feature` dependency to your project
-2. Configure JobRunr via the Micronaut `application.yml` file
-3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
+2. Add the `jobrunr-micronaut-annotations` annotation processor to your project
+3. Configure JobRunr via the Micronaut `application.yml` file
+4. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
 
 > Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
@@ -28,11 +30,32 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
     <artifactId>jobrunr-micronaut-feature</artifactId> 
     <version>${jobrunr.version}</version> 
 </dependency>
+...
+ <build>
+      <plugins>
+         <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>3.7.0</version>
+              <configuration>
+                  <source>1.8</source>
+                  <target>1.8</target>                  
+                  <annotationProcessorPaths>
+                      <path>
+                          <groupId>org.jobrunr</groupId>
+                          <artifactId>jobrunr-micronaut-annotations</artifactId>
+                          <version>${jobrunr.version}</version>
+                      </path>        
+                  </annotationProcessorPaths>
+              </configuration>
+          </plugin>
+   ....
 ```
 
 ### Gradle
 ```java
 implementation 'org.jobrunr:jobrunr-micronaut-feature:${jobrunr.version}'
+annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:${jobrunr.version}'
 ```
 <br/>
 
