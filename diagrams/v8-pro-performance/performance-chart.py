@@ -32,8 +32,8 @@ def draw():
 	width = 0.27
 
 	fig, ax = plt.subplots()
-	v74 = ax.bar(x, y74, width, color="red")
-	v80 = ax.bar(x+width, y80, width, color="blue")
+	v74 = ax.bar(x, y74, width, color="#7931B3")
+	v80 = ax.bar(x+width, y80, width, color="#6bace5")
 
 	ax.set_xticks(x+width)
 	ax.set_xticklabels(xlbls)
