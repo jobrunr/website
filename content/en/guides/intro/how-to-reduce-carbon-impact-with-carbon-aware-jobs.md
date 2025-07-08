@@ -10,8 +10,6 @@ tags:
 
 In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a cron expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
 
-> This is a JobRunr v8 **beta feature**. For feedback on this feature, don’t hesitate to reach to start a discussion over on GitHub: https://github.com/jobrunr/jobrunr/discussions. If you are a JobRunr Pro customer, you can directly email us your feedback at support@jobrunr.io, please make sure to specify your version.
-
 ## The Use Case
 
 Suppose we need to run a job each day that calculates invoice information before sending out the generated PDF file via an email service. Our customers do not immediately need this email but we want it to be delivered at most 24 hours after triggering an action.

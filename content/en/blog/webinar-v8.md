@@ -555,13 +555,13 @@ function handleFormSubmit(event) {
     </div>
        <div class="getting-started-section">
         <h2>Want to get started with v8?</h2>
-        <p>Do you want to already take v8 for a (beta)-testride? You can find all the info in our guides</p>
+        <p>Do you want to already take v8 for a testride? You can find all the info in our guides</p>
         <div class="guides-grid">
             <a href="https://www.jobrunr.io/en/guides/migration/v8/" class="guide-link-card">
                 <span class="guide-link-icon">🛠️</span>
                 <h4>v8 Migration Guide</h4>
                 <p>Moving from a previous version or another scheduler? <br/>We’ll walk you through the cleanest way to transition.</p>
-                <span class="btn" style="text-decoration: none;">Get started with v8 Beta</span>
+                <span class="btn" style="text-decoration: none;">Get started with v8</span>
             </a>
             <a href="https://www.jobrunr.io/en/guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" class="guide-link-card">
                 <span class="guide-link-icon">🌍</span>
