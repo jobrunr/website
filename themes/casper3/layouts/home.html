@@ -56,7 +56,7 @@
 <main id="site-main" class="site-main outer">
     <div class="inner">
         <div class="homepage-tabs">
-            <div id="homepage-selector-manager" class="homepage-tab active"><h3>JobRunr for CTO's and managers</h3></div>
+            <div id="homepage-selector-manager" class="homepage-tab active"><h3>JobRunr for CTOs and managers</h3></div>
             <div id="homepage-selector-developer" class="homepage-tab"><h3>JobRunr for developers and engineers</h3></div>
         </div>
         <div id="homepage-content-manager" class="homepage-content">
@@ -180,7 +180,7 @@
             <p style="margin-top: 2em;"><span id="developer-referrer"></span><span id="developer-no-referrer">Creating, scheduling and monitoring jobs just became a whole lot easier!</span></p>
             <div class="homepage-overview">
                 {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
-                    <article class="post-card small">
+                    <article class="post-card post-card-clickable small">
                         <div class="post-card-content">
                             <a class="post-card-content-link" href="{{ .Param "link"}}">
                                 <header class="post-card-header">

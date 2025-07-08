@@ -1,4 +1,4 @@
-2025-05-01T16:10:05.070888920Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,1.0.0-SNAPSHOT (feature/v8/performance-improvement@9eb0e3213),MariaDbStorageProvider,500010,524463,PT44.945302079S,PT4M8.892444911S,2114.77
+2025-05-01T16:10:05.070888920Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,1.0.0-SNAPSHOT (feature/v8/performance-improvement@9eb0e3213),MariaDBStorageProvider,500010,524463,PT44.945302079S,PT4M8.892444911S,2114.77
 2025-05-01T16:15:21.310693494Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,1.0.0-SNAPSHOT (feature/v8/performance-improvement@9eb0e3213),MongoDBStorageProvider,500010,541488,PT42.918629341S,PT5M55.726234007S,1525.32
 2025-05-01T16:22:06.083765252Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,1.0.0-SNAPSHOT (feature/v8/performance-improvement@9eb0e3213),MySqlStorageProvider,500010,571221,PT2M14.974511926S,PT15M0.720565295S,634.69
 2025-05-01T16:40:21.862578406Z,Ubuntu-2204-jammy-amd64-base,21.0.4+7-LTS,JobRunr Pro,1.0.0-SNAPSHOT (feature/v8/performance-improvement@9eb0e3213),OracleStorageProvider,500010,573456,PT2M49.740953708S,PT14M6.699774515S,677.84

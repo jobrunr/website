@@ -1,16 +1,15 @@
 ---
-title: "Queues"
+title: "🍀 Carbon Aware Jobs"
 type: homepage-example
-link: 'documentation/pro/priority-queues/'
-badge: PRO
+link: 'documentation/background-methods/carbon-aware-jobs/'
 weight: 4
 sitemapExclude: true
 ---
-Specify a queue to bypass all jobs already enqueued so your critical business processes finish on-time.
+
+Employ Carbon Aware Job Processing to reduce the CO2 footprint of your server.
 
 ```java
-@Job(queue = HighPrioQueue)
-public void doWork() { 
-    ...
-}
+BackgroundJob.schedule(
+    CarbonAwarePeriod.between(now(), now().plus(5, HOURS)), 
+      () -> service.doWork());
 ```

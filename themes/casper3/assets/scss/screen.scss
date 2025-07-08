@@ -2977,8 +2977,17 @@ pre[class*="language-"] > code {
 .homepage-overview article.post-card {
     padding: 0 1.5vw 0 0;
     border-bottom: none;
-    min-width: 330px;
+    min-width: 400px;
     margin-bottom: 0.5vw;
+}
+
+.post-card-clickable {
+    transition: all 200ms ease-out;
+    border-radius: 3px;    
+}
+
+.post-card-clickable:hover {
+    box-shadow: 0 0 6px #6eabe4;
 }
 
 .homepage-logos {

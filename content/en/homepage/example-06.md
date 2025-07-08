@@ -1,15 +1,16 @@
 ---
-title: "Job chaining"
-type: homepage-example-bis
-link: 'documentation/pro/job-chaining/'
+title: "Batches & job chaining"
+type: homepage-example
+link: 'documentation/pro/batches/'
 badge: PRO
 weight: 6
 sitemapExclude: true
 ---
-Specify a queue to bypass all jobs already enqueued so your critical business processes finish on-time.
+Create a bunch of background jobs atomically using a batch and then chain a new job which will run when the complete batch finishes.
 
 ```java
-BackgroundJob
-    .enqueue(() -> archiveService.createArchive(folder))
-    .continueWith(() -> notifyService.notifyViaSlack("ops-team", "Folder archived: " + folder))
+ BackgroundJob
+    .startBatch(this::sendEmailToEachSubscriber)
+    .continueWith(() -> reportService.createReport(...))
+    .continueWith(() -> notifyService.notify("sales-team", ...));
 ```

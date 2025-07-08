@@ -1,16 +1,16 @@
 ---
-title: "Batches & job chaining"
+title: "Queues"
 type: homepage-example
-link: 'documentation/pro/batches/'
+link: 'documentation/pro/priority-queues/'
 badge: PRO
 weight: 5
 sitemapExclude: true
 ---
-Create a bunch of background jobs atomically using a batch and then chain a new job which will run when the complete batch finishes.
+Specify a queue to bypass all jobs already enqueued so your critical business processes finish on-time.
 
 ```java
- BackgroundJob
-    .startBatch(this::sendEmailToEachSubscriber)
-    .continueWith(() -> reportService.createReport(...))
-    .continueWith(() -> notifyService.notify("sales-team", ...));
+@Job(queue = HighPrioQueue)
+public void doWork() { 
+    ...
+}
 ```
