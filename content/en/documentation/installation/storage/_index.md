@@ -82,7 +82,7 @@ org.jobrunr.database.tablePrefix: MY_SCHEMA.
   - Use the `SqLiteStorageProvider`.
 - Microsoft **SQL Server**: Migration type `sqlserver`. Tested with the latest version of the `mcr.microsoft.com/azure-sql-edge` container as a replacement for `mcr.microsoft.com/mssql/server`.
   - Use the `SQLServerStorageProvider`.
-- **CockroachDB**: Migration type `cockroach`. Tested with container version 24.3.8.
+- **CockroachDB**: Migration type `cockroach`. requires version 25.1 and up due to migration script issues in 24.x and lower.
   - Use the `CockroachStorageProvider`.
 
 For more information on database migration, see the [database migration docs page](/en/documentation/pro/database-migrations/).
@@ -101,13 +101,6 @@ Next to classic SQL databases, JobRunr also supports the following document-base
   > **Note**: if you're using a Amazon Document DB cluster it is important that JobRunr reads from the `primary` node as otherwise you will encounter `ConcurrentModificationExceptions`. The reason for that is that MongoDB needs to replicate updates to the other nodes and JobRunr is often faster than that in which case it receives stale data.
 - __InMemory__ - JobRunr comes with an InMemoryStorageProvider, which is ideal for testing and for lightweight tasks that are server-instance specific and where persistence is not important. Note that if you use the `InMemoryStorageProvider`, you can not scale horizontally as the storage is not shared.
   - Use the `InMemoryStorageProvider` for in-memory support
-- __ElasticSearch__ - JobRunr will create the necessary indices to save all Jobs and Recurring Jobs automatically for you. They will be prefixed with `jobrunr_`
-  - Use the `ElasticSearchStorageProvider` together with a `RestHighLevelClient`
-  > Note: the `ElasticSearchStorageProvider` is deprecated and will be removed from JobRunr 8.
-- __Redis__ - JobRunr will create all necessary datatypes (Strings, Sets, Hashes, ... ) automatically for you. You can choose out of two implementations: 
-  - Either the `JedisRedisStorageProvider` which uses Jedis.
-  - And the `LettuceRedisStorageProvider` which uses Lettuce. If you use this `StorageProvider` you also need to add a dependency to `org.apache.commons:commons-dbcp2` as the Lettuce driver is not thread-safe when using Redis Transactions.
-  > Note: the `LettuceRedisStorageProvider` and `JedisRedisStorageProvider` are deprecated and will be removed from JobRunr 8.
 
 <script type="text/javascript">
   if (window.navigator.userAgent.indexOf("Win") != -1) {

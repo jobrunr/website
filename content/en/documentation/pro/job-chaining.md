@@ -112,7 +112,7 @@ public void createArchiveAndNotify(String folder) {
 
     JobId notifyViaSlackJobId = BackgroundJob
         .create(aJob()
-            .runAfter(createArchiveJobId)
+            .runAfterSuccessOf(createArchiveJobId)
             .withDetails(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
 }
 

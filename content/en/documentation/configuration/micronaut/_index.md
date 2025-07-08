@@ -74,7 +74,7 @@ jobrunr:
 These are disabled by default so that your web application does not start processing jobs by accident.
 
 
-> The `jobrunr-micronaut-feature` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB, `RestHighLevelClient` for ElasticSearch and the Lettuce `RedisClient` for Redis).<br/>
+> The `jobrunr-micronaut-feature` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB).<br/>
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Features
@@ -89,7 +89,7 @@ jobrunr:
     skip-create: false
     table_prefix: # allows to set a table prefix (e.g. schema for all tables)
     datasource: # allows to specify a DataSource specifically for JobRunr
-    type: # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb', 'redis-lettuce', 'redis-jedis' and 'elasticsearch'.
+    type: # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and MongoDB), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
   jobs:
     default-number-of-retries:10 #the default number of retries for a failing job
     retry-back-off-time-seed:3 #the default time seed for the exponential back-off policy.

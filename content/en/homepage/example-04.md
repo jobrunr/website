@@ -10,6 +10,6 @@ Employ Carbon Aware Job Processing to reduce the CO2 footprint of your server.
 
 ```java
 BackgroundJob.schedule(
-    CarbonAwarePeriod.between(now(), now().plus(5, HOURS)), 
+    CarbonAware.between(now(), now().plus(5, HOURS)), 
       () -> service.doWork());
 ```

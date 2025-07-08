@@ -45,19 +45,19 @@ Both delayed jobs and recurring jobs can be made carbon aware. The following sec
 As with scheduling regular jobs, call the `schedule()` method and pass in an instance of `Temporal`:
 
 ```java
-BackgroundJob.schedule(CarbonAwarePeriod.between(now, now.plus(5, HOURS)), 
+BackgroundJob.schedule(CarbonAware.between(now, now.plus(5, HOURS)), 
   () -> myService.sendNewlyRegisteredEmail());
 ```
 
 
-The new `CarbonAwarePeriod` class implements `Temporal` and configures the desired delay and margin of your job. 
+The new `CarbonAwarePeriod` class returned by the `CarbonAware` API implements `Temporal` and configures the desired delay and margin of your job. 
 
 Or you can use the `JobBuilder` to achieve the same result:
 
 ```java
 BackgroundJob.create(aJob()
     .withName("Send welcome email to newly registered users")
-    .scheduleAt(CarbonAwarePeriod.between(now, now.plus(5, HOURS)))
+    .scheduleAt(CarbonAware.between(now, now.plus(5, HOURS)))
     .withDetails(() -> myService.sendNewlyRegisteredEmail()));
 ```
 

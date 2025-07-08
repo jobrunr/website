@@ -8,22 +8,22 @@ menu:
     parent: 'configuration'
     weight: 10
 ---
-Die Integration mit Spring kann mit dem `jobrunr-spring-boot-starter` nicht einfacher sein!
+Die Integration mit Spring kann mit dem `jobrunr-spring-boot-3-starter` nicht einfacher sein!
 
 ## Fügen Sie die Abhängigkeit zum Starter hinzu
-Da der `jobrunr-spring-boot-starter` in Maven Central verfügbar ist, müssen Sie lediglich die Abhängigkeit hinzufügen:
+Da der `jobrunr-spring-boot-3-starter` in Maven Central verfügbar ist, müssen Sie lediglich die Abhängigkeit hinzufügen:
 ### Maven
 ```xml
 <dependency> 
     <groupId>org.jobrunr</groupId> 
-    <artifactId>jobrunr-spring-boot-starter</artifactId> 
+    <artifactId>jobrunr-spring-boot-3-starter</artifactId> 
     <version>${jobrunr.version}</version> 
 </dependency>
 ```
 
 ### Gradle
 ```java
-implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-spring-boot-3-starter:${jobrunr.version}'
 ```
 <br/>
 
@@ -31,8 +31,8 @@ implementation 'org.jobrunr:jobrunr-spring-boot-starter:${jobrunr.version}'
 JobRunr kann einfach in Ihren `application.properties` konfiguriert werden. Wenn Sie nur Jobs planen möchten, müssen Sie nichts tun. Wenn Sie einen `BackgroundJobServer` zum Verarbeiten von Hintergrundjobs oder zum Aktivieren des Dashboards benötigen, fügen Sie der `application.properties` einfach die folgenden Eigenschaften hinzu:
 
 ```
-org.jobrunr.background_job_server=true
-org.jobrunr.dashboard=true
+jobrunr.background_job_server=true
+jobrunr.dashboard=true
 ```
 
 Diese sind standardmäßig deaktiviert, damit Ihre Webanwendung nicht versehentlich mit der Verarbeitung von Jobs beginnt.
@@ -45,12 +45,12 @@ Diese sind standardmäßig deaktiviert, damit Ihre Webanwendung nicht versehentl
 Jeder Aspekt von JobRunr kann über die `application.properties` konfiguriert werden. Nachfolgend finden Sie alle Einstellungen einschließlich des Standardwerts.
 
 ```
-org.jobrunr.job-scheduler.enabled=true
-org.jobrunr.background-job-server.enabled=false
-org.jobrunr.background-job-server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
-org.jobrunr.background-job-server.poll_interval=15 #check for new work every 15 seconds
-org.jobrunr.background-job-server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
-org.jobrunr.background-job-server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
-org.jobrunr.dashboard.enabled=false
-org.jobrunr.dashboard.port=8000 #the port on which to start the dashboard
+jobrunr.job-scheduler.enabled=true
+jobrunr.background-job-server.enabled=false
+jobrunr.background-job-server.worker_count=8 #this value normally is defined by the amount of CPU's that are available
+jobrunr.background-job-server.poll_interval=15 #check for new work every 15 seconds
+jobrunr.background-job-server.delete_succeeded_jobs_after=36 #succeeded jobs will go to the deleted state after 36 hours
+jobrunr.background-job-server.permanently_delete_deleted_jobs_after=72 #deleted jobs will be deleted permanently after 72 hours
+jobrunr.dashboard.enabled=false
+jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 ```

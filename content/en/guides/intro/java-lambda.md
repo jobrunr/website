@@ -166,8 +166,8 @@ public class Main {
 As we’re using the `jobrunr-spring-boot-3-starter` dependency, this is easy. We only need to add some properties to the `application.properties`:
 
 ```properties
-org.jobrunr.background-job-server.enabled=true
-org.jobrunr.dashboard.enabled=true
+jobrunr.background-job-server.enabled=true
+jobrunr.dashboard.enabled=true
 ```
 {{< /framework >}}
 {{< framework type="quarkus" >}}
