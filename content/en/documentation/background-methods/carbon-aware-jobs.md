@@ -5,7 +5,6 @@ drawing1: https://excalidraw.com/#json=yVa0Rvpt4dWtEKVWbq_EJ,vWq0sr45v9nCOZZjDuG
 drawing2: https://excalidraw.com/#json=KQKZ3E-3krR7TIDXVu--H,yZQDrHalLHBjgnu-U0aNew
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
-beta: true
 menu: 
   main: 
     identifier: carbon-aware-jobs

@@ -4,7 +4,6 @@ keywords: ["JobRunr Configuration"]
 subtitle: "Use Carbon Aware Job Processing to optimize the carbon footprint when scheduling (recurring) jobs."
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
-beta: true
 menu: 
   main: 
     parent: 'configuration'
