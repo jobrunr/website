@@ -461,40 +461,40 @@ function handleFormSubmit(event) {
         </div>
     </div>
     <div class="learn-section">
-        <h2>What You'll Learn</h2>
-        <ul class="learn-grid">
-            <li class="learn-card">
-                <div class="learn-card-icon">🌍</div>
-                <h4>Carbon-Aware Job Scheduling</h4>
-                <p>Schedule jobs when energy is cleanest. It reduces your carbon footprint — without changing your infrastructure.</p>
-            </li>
-            <li class="learn-card">
-                <div class="learn-card-icon">⚙️</div>
-                <h4>Advanced Workflow Orchestration</h4>
-                <p>Create robust pipelines with job chaining, job batches, and real-time triggers using the new orchestration layer.</p>
-            </li>
-            <li class="learn-card">
-                <div class="learn-card-icon">📊</div>
-                <h4>Enhanced Observability & Monitoring</h4>
-                <p>See what's happening under the hood. Learn how JobRunr v8 integrates with tools like Prometheus and Grafana.</p>
-            </li>
-             <li class="learn-card">
-                <div class="learn-card-icon">🚀</div>
-                <h4>Virtual Threads for High Throughput</h4>
-                <p>Harness the power of virtual threads to run I/O-heavy jobs at scale, without the usual thread overhead.</p>
-            </li>
-            <li class="learn-card">
-                <div class="learn-card-icon">❓</div>
-                <h4>Live AMA Session</h4>
-                <p>Ask Ronald anything. Literally! From deep technical dives to the future roadmap, it’s all on the table.</p>
-            </li>
-            <li class="learn-card">
-                <div class="learn-card-icon">🛠️</div>
-                <h4>Migration Best Practices</h4>
-                <p>Moving from a previous version or another scheduler? We’ll walk you through the cleanest way to transition.</p>
-            </li>
-        </ul>
-    </div>
+    <h2>What You'll Learn</h2>
+    <ul class="learn-grid">
+        <li class="learn-card">
+            <div class="learn-card-icon">🌍</div>
+            <h4>Carbon-Aware Job Scheduling</h4>
+            <p>Schedule jobs when energy is cleanest. It reduces your carbon footprint — without changing your infrastructure.</p>
+        </li>
+        <li class="learn-card">
+            <div class="learn-card-icon">📊</div>
+            <h4>Multi-Cluster Dashboard</h4>
+            <p>Monitor all your clusters from one slick dashboard. See what's running where and keep full control.</p>
+        </li>
+        <li class="learn-card">
+            <div class="learn-card-icon">🔄</div>
+            <h4>Better Recurring Jobs</h4>
+            <p>Set up recurring jobs with new improvements that make scheduling repeat work smoother than ever.</p>
+        </li>
+        <li class="learn-card">
+            <div class="learn-card-icon">⏸️</div>
+            <h4>Dynamic Queues & Rate Limiters</h4>
+            <p>Pause queues on the fly and configure rate limiters at runtime — full flexibility without redeploys.</p>
+        </li>
+        <li class="learn-card">
+            <div class="learn-card-icon">❓</div>
+            <h4>Live AMA Session</h4>
+            <p>Ask Ronald anything. Literally! From deep technical dives to the future roadmap, it’s all on the table.</p>
+        </li>
+        <li class="learn-card">
+            <div class="learn-card-icon">🚀</div>
+            <h4>Async Jobs & Idempotence</h4>
+            <p>Cut boilerplate with the @AsyncJob annotation and run long jobs safely with JobContext.runStepOnce().</p>
+        </li>
+    </ul>
+</div>
     <div class="host-section-wrapper">
         <h2>Meet Your Host</h2>
         <div class="host-section">
