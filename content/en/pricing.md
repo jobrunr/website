@@ -45,6 +45,7 @@ JobRunr OSS with:
 - [Enqueueing of jobs]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}})
 - [Scheduling of jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}})
 - [Automatic retry handling]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}})
+- [Carbon-aware job scheduling]({{< ref "guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" >}})
 <br><br><br><br><br>
 
 ### Licensing

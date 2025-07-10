@@ -55,11 +55,66 @@
 
 <main id="site-main" class="site-main outer">
     <div class="inner">
-        <div class="homepage-tabs">
-            <div id="homepage-selector-manager" class="homepage-tab active"><h3>JobRunr for CTOs and managers</h3></div>
-            <div id="homepage-selector-developer" class="homepage-tab"><h3>JobRunr for developers and engineers</h3></div>
-        </div>
+        <div id="homepage-content-developer" class="homepage-content">
+            <div class="homepage-overview" style="margin-top:20px; margin-bottom: 20px;">
+                {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
+                    <article class="post-card post-card-clickable small">
+                        <div class="post-card-content">
+                            <a class="post-card-content-link" href="{{ .Param "link"}}">
+                                <header class="post-card-header">
+                                    <h3 class="post-card-title">{{ .Title }}
+                                        {{ if isset .Params "badge" }}
+                                            <div class="label label-primary">{{ .Param "badge" }}</div>
+                                        {{ end }}
+                                    </h3>
+                                </header>
+
+                                <section class="post-card-excerpt">
+                                    {{ .Content }}
+                                </section>
+                            </a>
+                        </div>
+                    </article>
+                {{ end }}
+            </div>
+
+            <div style="text-align: center; margin-bottom: 50px;">
+                <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                    <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
+                    <span>{{i18n "star-us"}}</span>
+                </a>
+                {{ if eq $.Page.Site.Params.enableTrialButton true }}
+                    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
+                        <span>Try JobRunr Pro for free!</span>
+                    </a>
+                {{ end }}
+            </div>
+
+            <div class="homepage-logos" style="margin-bottom: 20px;">
+                <div class="logos">
+                    <img src="/logos/Amazon-logo.webp" alt="Amazon" height="30px" style="display:inline-block; margin-top: 20px;"/>
+                    <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks" height="30px" style="display:inline-block;" />
+                    <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase" height="35px" style="display:inline-block;"/>
+                    <img src="/logos/Capgemini-logo.webp" alt="Capgemini" height="30px" style="display:inline-block; margin-top: 10px;"/>
+                </div>
+            </div>
+            
         <div id="homepage-content-manager" class="homepage-content">
+            <div class="homepage-reason image-left">
+                <div class="image-container">
+                    <img style="border: 1px solid #838284;" src="/homepage/homepage-JobRunr-thoughtworks.webp" loading="lazy" alt="JobRunr's blip on the ThoughtWorks Technology Radar."/>
+                </div>
+                <div class="content">
+                    <br />
+                    <h3>Trusted by developers worldwide.</h3>
+                    <p>With 30.000 unique downloads per month and over 10 billion processed jobs in less than a year, JobRunr is trusted and loved by developers worldwide.</p>
+                    <p>Don't take our word for it: ThoughtWorks, a leading global technology consultancy company has put us on their <a href="https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202210044" target="_blank">Technology Radar</a> with blip 98: </p>
+                    <blockquote style="margin-top: 2.5em;">Our teams have enjoyed using JobRunr's built-in dashboard, which is easy to use and allows the monitoring and scheduling of background tasks.</blockquote>
+                    <div style="display: flex; justify-content: center; margin-top: 2em;">
+                        <a href="https://www.thoughtworks.com/" target="_blank"><span>JobRunr is enjoyed by</span>&nbsp;&nbsp;<img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks Logo" height="30px" style="display:inline-block; vertical-align:middle" /></a>
+                    </div>
+                </div>
+            </div>
             <div class="homepage-reason image-right">
                 <div class="content">
                     <h3>20% productivity increase.</h3>
@@ -80,21 +135,7 @@
                     <img style="border: 1px solid #ddd;" src="/homepage/homepage-dashboard.webp" alt="A screenshot of the default dashboard that comes out-of-the-box with JobRunr."/>
                 </div>
             </div>
-            <div class="homepage-reason image-left">
-                <div class="image-container">
-                    <img style="border: 1px solid #838284;" src="/homepage/homepage-JobRunr-thoughtworks.webp" loading="lazy" alt="JobRunr's blip on the ThoughtWorks Technology Radar."/>
-                </div>
-                <div class="content">
-                    <br />
-                    <h3>Trusted by developers worldwide.</h3>
-                    <p>With 12.000 unique downloads per month and over 10 billion processed jobs in less than a year, JobRunr is trusted and loved by developers worldwide.</p>
-                    <p>And again, don't take our word for it: ThoughtWorks, a leading global technology consultancy company has put us on their <a href="https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202210044" target="_blank">Technology Radar</a> with blip 98: </p>
-                    <blockquote style="margin-top: 2.5em;">Our teams have enjoyed using JobRunr's built-in dashboard, which is easy to use and allows the monitoring and scheduling of background tasks.</blockquote>
-                    <div style="display: flex; justify-content: center; margin-top: 2em;">
-                        <a href="https://www.thoughtworks.com/" target="_blank"><span>JobRunr is enjoyed by</span>&nbsp;&nbsp;<img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks Logo" height="30px" style="display:inline-block; vertical-align:middle" /></a>
-                    </div>
-                </div>
-            </div>
+            
             <div class="homepage-reason image-right">
                 <div class="content">
                     <h3>Scale beyond your dreams.</h3>
@@ -112,47 +153,6 @@
                 </div>
                 <div class="image-container">
                     <img src="/homepage/homepage-dreams.webp" loading="lazy" alt="Scale beyond your dreams using JobRunr."/>
-                </div>
-            </div>
-            <div class="homepage-reason image-left">
-                <div class="image-container">
-                    <img src="/homepage/homepage-clockwork-cropped.webp" loading="lazy" alt="Make sure your code is executed on time, even in the most volatile environment."/>
-                </div>
-                <div class="content">
-                    <h3>Runs like a Swiss watch.</h3>
-                    <p>Even in the most volatile environment, JobRunr Pro makes sure your business processes run like clockwork.</p>
-                    <p>Do not worry anymore about downtime from external services - JobRunr will retry your jobs automatically for you.<br />A job still failed? Find the root cause instantly thanks to the dashboard.</p>
-                    <br />
-                    <div>
-                        <div style="display: flex; justify-content: center;">
-                            <a href="/en/pricing" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
-                                get JobRunr Pro now
-                            </a>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-            </div>
-            <div class="homepage-reason image-right">
-                <div class="content">
-                    <h3>Loved by your operations team.</h3>
-                    <p>JobRunr leverages your existing infrastructure, which can be either a SQL or a NoSQL database.</p>
-                    <br />
-                    <p>All your engineers have to do, is add an extra library to their project. There are no extra components to manage or install - we promise.</p>
-                    <br />
-                    <div>
-                        <div style="display: flex; justify-content: center;">
-                            <a href="/en/pricing" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
-                                get JobRunr Pro now
-                            </a>
-                        </div>
-                    </div>
-                    
-                    
-                </div>
-                <div class="image-container">
-                    <img src="/homepage/homepage-operations.webp" loading="lazy" alt="JobRunr is loved by your operations team. Why? Well, they don't have to do anything..."/>
                 </div>
             </div>
             <div class="homepage-reason image-left" style="margin-bottom: 8em;">
@@ -176,52 +176,7 @@
                 </div>
             </div>
         </div>
-        <div id="homepage-content-developer" class="homepage-content" style="display: none;">
-            <p style="margin-top: 2em;"><span id="developer-referrer"></span><span id="developer-no-referrer">Creating, scheduling and monitoring jobs just became a whole lot easier!</span></p>
-            <div class="homepage-overview">
-                {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
-                    <article class="post-card post-card-clickable small">
-                        <div class="post-card-content">
-                            <a class="post-card-content-link" href="{{ .Param "link"}}">
-                                <header class="post-card-header">
-                                    <h3 class="post-card-title">{{ .Title }}
-                                        {{ if isset .Params "badge" }}
-                                            <div class="label label-primary">{{ .Param "badge" }}</div>
-                                        {{ end }}
-                                    </h3>
-                                </header>
-
-                                <section class="post-card-excerpt">
-                                    {{ .Content }}
-                                </section>
-                            </a>
-                        </div>
-                    </article>
-                {{ end }}
-            </div>
-
-            <div style="text-align: center;">
-                <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 45px; margin-right: 1rem;">
-                    <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
-                    <span>{{i18n "star-us"}}</span>
-                </a>
-                {{ if eq $.Page.Site.Params.enableTrialButton true }}
-                    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-                        <span>Try JobRunr Pro for free!</span>
-                    </a>
-                {{ end }}
-            </div>
-
-            <div class="homepage-logos">
-                <div class="logos">
-                    <img src="/logos/Amazon-logo.webp" alt="Amazon" height="30px" style="display:inline-block; margin-top: 20px;"/>
-                    <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks" height="30px" style="display:inline-block;" />
-                    <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase" height="35px" style="display:inline-block;"/>
-                    <img src="/logos/Capgemini-logo.webp" alt="Capgemini" height="30px" style="display:inline-block; margin-top: 10px;"/>
-                </div>
-            </div>
-
-            <style>
+        <style>
                 ol.carousel__viewport {
                     display: flex;
                     align-items: center;
@@ -347,7 +302,6 @@
                 {{ end }}
             </div>
         </div>
-        
         <div style="display: flex; justify-content: center;">
             <div  style="background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem; width: 700px; max-width: 100%;">
                 <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
@@ -361,68 +315,4 @@
         </div>
     </div>
 </main>
-
-<script type="text/javascript">
-    function showManagerTab() {
-        document.getElementById('homepage-selector-developer').classList.remove("active");
-        document.getElementById('homepage-selector-manager').classList.add("active");
-        document.getElementById('homepage-content-developer').style.display = 'none';
-        document.getElementById('homepage-content-manager').style.display = 'block';
-
-        if ('URLSearchParams' in window) {
-            const searchParams = new URLSearchParams(window.location.search)
-            searchParams.set('tab', 'manager');
-            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-            history.pushState(null, '', newRelativePathQuery);
-        }
-    }
-
-    function showDeveloperTab() {
-        document.getElementById('homepage-selector-manager').classList.remove("active");
-        document.getElementById('homepage-selector-developer').classList.add("active");
-        document.getElementById('homepage-content-manager').style.display = 'none';
-        document.getElementById('homepage-content-developer').style.display = 'block';
-
-        if ('URLSearchParams' in window) {
-            const searchParams = new URLSearchParams(window.location.search)
-            searchParams.set('tab', 'developer');
-            const newRelativePathQuery = window.location.pathname + '?' + searchParams.toString();
-            history.pushState(null, '', newRelativePathQuery);
-        }
-    }
-
-    document.getElementById('homepage-selector-manager').addEventListener('click', () => {
-        showManagerTab();
-    });
-    document.getElementById('homepage-selector-developer').addEventListener('click', () => {
-        showDeveloperTab();
-    });
-
-    if ('URLSearchParams' in window) {
-        console.log(`Hi there, I'm Ronald - the creator of JobRunr. Nice meeting you!`);
-        const searchParams = new URLSearchParams(window.location.search)
-        if('developer' == searchParams.get("tab")) {
-            showDeveloperTab();
-        } else if('manager' == searchParams.get("tab")) {
-            showManagerTab();
-        } else if (document.referrer && (document.referrer.includes('github.com') || document.referrer.includes('ycombinator.com') || document.referrer.includes('infoq.com') || document.referrer.includes('baeldung.com') || document.referrer.includes('localhost'))) {
-            showDeveloperTab();
-            document.getElementById('developer-no-referrer').style.display = 'none';
-            
-            const developerRefererSpan = document.getElementById('developer-referrer');
-            if(document.referrer.includes('github.com')) {
-                developerRefererSpan.innerHTML = `Since you're coming from GitHub, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
-            } else if(document.referrer.includes('ycombinator.com')) {
-                developerRefererSpan.innerHTML = `Since you're coming from Hacker News, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
-            } else if(document.referrer.includes('infoq.com')) {
-                developerRefererSpan.innerHTML = `Since you're coming from InfoQ, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
-            } else if(document.referrer.includes('baeldung.com')) {
-                developerRefererSpan.innerHTML = `Since you're coming from Baeldung, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
-            } else if(document.referrer.includes('localhost')) {
-                developerRefererSpan.innerHTML = `Since you're coming from localhost, I assume you're <strong>not</strong> interested in the <a href="/en/?tab=manager">marketing fluff</a> and switched tabs for you.&nbsp;See below how easy it is to use JobRunr!`;
-            }
-        }
-    }
-</script>
-
 {{ end }}
