@@ -126,8 +126,8 @@
                     </blockquote>
                     <br />
                     <div style="display: flex; justify-content: center;">
-                        <a href="/en/pricing" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
-                            get JobRunr Pro now
+                        <a href="/en/use-case" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                            Discover use cases
                         </a>
                     </div>
                 </div>
@@ -144,8 +144,8 @@
                     <br />
                     <div>
                         <div style="display: flex; justify-content: center;">
-                            <a href="/en/pricing" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
-                                get JobRunr Pro now
+                            <a href="/en/guides" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                                Get started with JobRunr
                             </a>
                         </div>
                     </div>
@@ -203,6 +203,17 @@
                 section.carousel ol {
                     list-style: none;
                 }
+
+                @media (max-width: 800px) {
+                    div.feedback {
+                        width: 100% !important;
+                        text-align: left !important;
+                        padding-left: 50px !important;
+                    }
+                    div.feedback::before {
+                        left: 10px;
+                    }
+                }
                 
                 div.feedback {
                     flex: 0 1 auto;
@@ -215,6 +226,7 @@
                     position: relative;
                     color: #383838;
                 }
+
 
                 div.feedback::before {
                     display: inline-block;

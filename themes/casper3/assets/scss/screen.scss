@@ -2975,10 +2975,16 @@ pre[class*="language-"] > code {
 }
 
 .homepage-overview article.post-card {
-    padding: 0 1.5vw 0 0;
+    padding: 0 1.5vw 20px 0;
     border-bottom: none;
-    min-width: 400px;
-    margin-bottom: 1vw;
+    flex: 1 1 48%; 
+    margin-bottom: 20px;
+}
+
+@media (max-width: 800px) {
+    .homepage-overview article.post-card {
+        flex: 1 1 100%; 
+    }
 }
 
 .post-card-clickable {
