@@ -1,14 +1,15 @@
 ---
 title: "JobRunr Pro Trial"
 translationKey: "jobrunr-pro-trial"
-summary: "Are you interested in a trial of JobRunr Pro? Fill in the form below and we will send you all the necessary information to get started!"
+summary: "Start your free 14-day trial of JobRunr Pro. <br/> Fill in the form below and we'll get in touch to get you started!<br/>
+"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
 menu:
 main:
 identifier: trial
 weight: 15
-draft: true
+draft: false
 ---
 
 <style>
@@ -64,9 +65,9 @@ draft: true
                 linkedIn: linkedIn,
                 company: company
             };
-            fetch('https://api.jobrunr.io/api/request-trial', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
+            fetch('https://hooks.zapier.com/hooks/catch/21269987/u2fk7ul/', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
                 .then(resp => {
-                    if(resp.status === 200) {
+                    if(resp.ok) {
                         document.getElementById('trial-form').style.display = 'none';
                         document.getElementById('trial-success-response').style.display = 'block';
                     } else {
@@ -84,34 +85,31 @@ draft: true
 
 </script>
 
-<div style="display: flex; column-gap: 100px;">
+<div style="display: flex; column-gap: 100px;" class="request-trial-page">
     <div style="flex: 0.8; background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem;">
         <div id="trial-form">
             <form novalidate="">
-                <h2 style="margin: 0 0 .5em;">Start your free trial now</h2>
-                <p style="margin-bottom: 0">
-                    Use JobRunr Pro for free during 14 days.<br />(No risk. No credit card required.)<br/>
-                </p>
+                <h2 style="margin: 0 0 .5em;">Request your free trial now</h2>
                 <br />
                 <div>
                     <dl>
-                        <dt style="text-align: right"><label for="firstName">First name </label></dt> 
+                        <dt style="text-align: right"><label for="firstName">First name* </label></dt> 
                         <dd><input type="text" value="" name="firstName" class="" id="firstName" /></dd>
                     </dl>
                     <dl>
-                        <dt style="text-align: right"><label for="lastName">Last name </label></dt> 
+                        <dt style="text-align: right"><label for="lastName">Last name* </label></dt> 
                         <dd><input type="text" value="" name="lastName" class="" id="lastName" /></dd>
                     </dl>
                     <dl>
-                        <dt style="text-align: right"><label for="email">Email </label></dt> 
+                        <dt style="text-align: right"><label for="email">Email* </label></dt> 
                         <dd><input type="text" value="" name="email" class="" id="email" /></dd>
                     </dl>
                     <dl>
-                        <dt style="text-align: right"><label for="linkedIn">LinkedIn url</label></dt> 
+                        <dt style="text-align: right"><label for="linkedIn">LinkedIn url*</label></dt> 
                         <dd><input type="text" value="" name="linkedIn" class="" id="linkedIn" /></dd>
                     </dl>
                     <dl>
-                        <dt style="text-align: right"><label for="company">Company</label></dt> 
+                        <dt style="text-align: right"><label for="company">Company*</label></dt> 
                         <dd><input type="text" value="" name="company" class="" id="company" /></dd>
                     </dl>
                     <dl id="trial-form-error" style="display: none">
@@ -121,21 +119,20 @@ draft: true
                         </dd>
                     </dl>
                     <dl>
-                        <dt style="text-align: right">&nbsp;</dt> 
                         <dd>
-                            <input id="submit-btn" type="button" value="Submit" onclick="submitForm();" />
+                            <input id="submit-btn" class="btn-try-jobrunr-form" type="button" value="Request a free trial" onclick="submitForm();" />
                         </dd>
                     </dl>
                 </div>
             </form>
         </div>
         <div id="mce-responses" class="clear">
-            <div class="response" id="trial-error-response" style="display:none; color:red;">Error submitting your request for a trial. Please try again later.</div>
-            <div class="response" id="trial-success-response" style="display:none">Thanks for requesting a trial. I will get back to you as soon as possible.</div>
+            <div class="response" id="trial-error-response" style="display:none; color:red;">There was an error processing your request. Please try again later.</div>
+            <div class="response" id="trial-success-response" style="display:none">Thank you! We've sent an email with everything you need to get started with your JobRunr Pro trial.</div>
         </div> 
     </div>
     <div id="like-a-pro" style="flex: 1;">
-        <h2 style="margin: 1em 0 .5em 0;">Run all your Java jobs, like a Pro.</h2>
+        <h2 style="margin: 0em 0 .5em 0;">Run all your Java jobs, like a Pro.</h2>
         <figure style="margin: 0em 0 1.5em 0">
             <img src="/try-jobrunr-pro.png" class="kg-image" style="max-height: 450px; border-radius: 10px">
             <figcaption>Use JobRunr Pro to launch millions of jobs and make your<br>development life hassle-free!</figcaption>
