@@ -65,15 +65,16 @@ draft: false
                 linkedIn: linkedIn,
                 company: company
             };
-            fetch('https://hooks.zapier.com/hooks/catch/21269987/u2fk7ul/', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(trialData)})
+            fetch('https://hooks.zapier.com/hooks/catch/21269987/u2fk7ul/', {method: 'POST', headers: {'Content-Type': 'application/json'}, mode: 'no-cors', body: JSON.stringify(trialData)})
                 .then(resp => {
-                    if(resp.ok) {
+                    console.log(resp);
+                    //if(resp.ok) {
                         document.getElementById('trial-form').style.display = 'none';
                         document.getElementById('trial-success-response').style.display = 'block';
-                    } else {
-                        document.getElementById('trial-form').style.display = 'none';
-                        document.getElementById('trial-error-response').style.display = 'block';
-                }
+                    //} else {
+                    //   document.getElementById('trial-form').style.display = 'none';
+                    //    document.getElementById('trial-error-response').style.display = 'block';
+                //}
                 })
                 .catch(error => {
                     document.getElementById('trial-form').style.display = 'none';
@@ -128,7 +129,7 @@ draft: false
         </div>
         <div id="mce-responses" class="clear">
             <div class="response" id="trial-error-response" style="display:none; color:red;">There was an error processing your request. Please try again later.</div>
-            <div class="response" id="trial-success-response" style="display:none">Thank you! We've sent an email with everything you need to get started with your JobRunr Pro trial.</div>
+            <div class="response" id="trial-success-response" style="display:none">Thank you! We'll get in touch to discuss your JobRunr Pro trial request.</div>
         </div> 
     </div>
     <div id="like-a-pro" style="flex: 1;">
