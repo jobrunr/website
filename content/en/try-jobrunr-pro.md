@@ -4,10 +4,6 @@ translationKey: "jobrunr-pro-trial"
 summary: "Start your free 14‑day trial of JobRunr Pro.<br/>Fill in the form below and we'll get in touch to get you started!<br/>"
 skip_meta: true
 date: 2022-03-15T11:12:23+02:00
-menu:
-  main:
-    identifier: trial
-    weight: 15
 draft: false
 ---
 
