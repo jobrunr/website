@@ -57,7 +57,7 @@ slug: "pro"
         line-height: 1.2;
     }
     .pro-hero p {
-        font-size: 1.25rem;
+        font-size: 1.6rem;
         color: #ced4da;
         margin: 0 auto 2.5rem auto;
         max-width: 650px;
@@ -75,6 +75,16 @@ slug: "pro"
         box-shadow: none;
         font-size: 1.1rem;
     }
+
+    .pro-hero .btn {
+      font-size: 1.3rem;
+    }
+
+     .pro-hero .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+        color: #fff;
+    }
     .pro-hero .cta.secondary {
         background-color: #7531B1;
     }
@@ -87,18 +97,23 @@ slug: "pro"
     /* Feature Section - Reusing .learn-section styles directly */
 
     .why-section{
-    font-size: 1.4rem;
-    line-height: 2rem;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
     }
 
     .why-section .guide-card-title {
       font-size: 1.8rem;
       text-align: left;
     }
+    .why-section p {
+      padding-top: 5px;
+      padding-bottom: 10px;
+    }
 
     .why-section .guide-card {
       gap: 5px;
     }
+
 
     .learn-section {
         background-color: #f7f9fa;
@@ -170,19 +185,20 @@ slug: "pro"
     }
     .testimonial-card blockquote {
         margin: 0;
-        font-size: 1.1rem;
-        line-height: 1.5rem;
+        font-size: 1.6rem;
+        line-height: 2rem;
         font-style: italic;
         border-left: 0;
         padding-left: 0;
+        padding-top: 15px;
         z-index: 1;
         position: relative;
     }
     .testimonial-card footer {
-        font-size: 1rem;
+        font-size: 1.6rem;
         font-weight: bold;
         text-align: right;
-        line-height: 1.6rem;
+        line-height: 2rem;
         padding-top: 10px;
     }
     .testimonial-card footer a {
@@ -197,7 +213,7 @@ slug: "pro"
     /* NEW Pricing Section - Styled to match the webinar page's aesthetic */
     .pricing-section {
         background-color: #f7f9fa;
-         font-size: 1.4rem;
+        font-size: 1.6rem;
         line-height: 2rem;
         padding-bottom: 0;
     }
@@ -334,16 +350,22 @@ slug: "pro"
 
     .faq-item li{
           color: #666;
-    line-height: 1.4rem;
-    font-size: 1.2rem;
+    line-height: 2rem;
+    font-size: 1.6rem;
     }
      .faq-item:first-of-type { border-top: 1px solid #eee; }
-    .faq-item h3 { margin: 0 0 0.5rem; font-size: 1.2rem; }
+    
+    .faq-item h3 
+    { 
+          line-height: 2rem;
+    font-size: 1.6rem;s
+    }
+
     .faq-item p { 
-          margin: 0;
+    margin: 0;
     color: #666;
-    line-height: 1.4rem;
-    font-size: 1.2rem;
+    line-height: 2rem;
+    font-size: 1.6rem;
       }
 
     /* Hide default theme elements */
@@ -547,7 +569,7 @@ _or_
 _per PRD cluster / month <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
 _(excl. VAT)_ 
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">CONTACT SALES</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">GET STARTED</a>
 
 
 <!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
@@ -638,7 +660,7 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
     <h3>How to convince your boss?</h3>
     <p>We prepared an email with 5 good reasons to convince your boss to purchase a JobRunr Pro License!
     <br/><br/>
-    <a href="/convince-your-boss/">Get the email</a></p>
+    <a href="/en/convince-your-boss/">Get the email</a></p>
   </div>
 
   <div class="faq-item">
