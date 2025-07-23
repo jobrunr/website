@@ -22,6 +22,20 @@ slug: "pro"
         margin: 0 -100vw;
         padding: 5rem 100vw;
     }
+@media (min-width: 501px) and (max-width: 700px) {
+  .full-width-section {
+    margin: 0 -10vw;
+    padding: 5rem 10vw;
+  }
+}
+
+@media (max-width: 500px) {
+  .full-width-section {
+    margin: 0 -5vw;
+    padding: 5rem 5vw;
+  }
+}
+
     .full-width-section h2 {
         text-align: center;
         font-size: 2.5rem;
@@ -220,6 +234,9 @@ slug: "pro"
 
     .pricing-section h3{
       font-size: 2rem;
+    }
+    div.plan{
+      background-color:white;
     }
 
     div.plan-business a.button, div.plan-business h2{
@@ -440,7 +457,7 @@ slug: "pro"
       <div class="guide-card-tag">Pro Enterprise</div>
     </footer>
   </a>
-  <a class="guide-card" href="/en/documentation/pro/">
+  <a class="guide-card" href="/en/documentation/pro/jobrunr-pro-dashboard/#restrict-access-using-single-sign-on-authentication">
     <header class="guide-card-header">
       <h2 class="guide-card-title">Single Sign-On (SSO)</h2>
     </header>
@@ -470,15 +487,15 @@ slug: "pro"
       <div class="testimonial-grid">
         <div class="testimonial-card">
           <blockquote>We slashed infra costs and scaled to 25,000+ leases nightly.</blockquote>
-          <footer>Prophia<a href="/use-case/jobrunr-pro-prophia/">Read the full case →</a></footer>
+          <footer>Prophia<a href="/en/use-case/jobrunr-pro-prophia/">Read the full case →</a></footer>
         </div>
         <div class="testimonial-card">
           <blockquote>20% dev productivity boost, and our first-line support now solves 80% of job issues.</blockquote>
-          <footer>Tracer.ai<a href="/use-case/jobrunr-pro-web-crawling-and-sentiment-analysis/">Read the full case →</a></footer>
+          <footer>Tracer.ai<a href="/en/use-case/jobrunr-pro-web-crawling-and-sentiment-analysis/">Read the full case →</a></footer>
         </div>
         <div class="testimonial-card">
           <blockquote>We use JobRunr to orchestrate key processes in our logistics workflows across Europe.</blockquote>
-          <footer>Decathlon<a href="/use-case/jobrunr-pro-decathlon/">Read the full case →</a></footer>
+          <footer>Decathlon<a href="/en/use-case/jobrunr-pro-decathlon/">Read the full case →</a></footer>
         </div>
       </div>
     </section> 
