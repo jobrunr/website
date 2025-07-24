@@ -902,6 +902,12 @@ _unlimited clusters,<br/>unlimited installations,<br/>priority feature developme
       <a href="#pricing" class="btn">Request your Quote</a>
     </section>
 </div>
+<div style="display: none;">
+
+![](/blog/jobrunr-logo-white-pro.webp "logo")
+
+
+</div>
 <script>
 document.getElementById('see-more-pro-features').addEventListener('click', function () {
   const isExpanded = this.getAttribute('aria-expanded') === 'true';
