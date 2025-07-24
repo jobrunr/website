@@ -3011,6 +3011,10 @@ pre[class*="language-"] > code {
     margin-bottom: 20px;
 }
 
+.homepage-overview article.post-card-clickable:hover {
+    box-shadow: 0 0 0px #6eabe4;
+}
+
 @media (max-width: 800px) {
     .homepage-overview article.post-card {
         flex: 1 1 100%; 
