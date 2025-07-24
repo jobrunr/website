@@ -8,8 +8,14 @@ tags:
   - pricing
   - job-scheduler
   - enterprise
-feature_image: "/blog/jobrunr-logo-white-pro.webp" 
+images:
+  - "/blog/jobrunr-pro-og-image.png" 
+feature_image: "/blog/jobrunr-pro-og-image.png" 
 slug: "pro"
+menu: 
+  main: 
+    identifier: pricing
+    weight: 3
 ---
 <style>
     /* General page styling from webinar-v8.md */
@@ -127,7 +133,167 @@ slug: "pro"
     .why-section .guide-card {
       gap: 5px;
     }
+    .why-section .guide-card {
+  border: 1px solid #e9ecef;
+  border-bottom: none;
+  border-radius: 12px;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
 
+
+   /* For all guide cards */
+.why-section .guide-card {
+  position: relative;
+  transition: box-shadow 0.25s;
+  overflow: hidden;
+}
+
+/* Hide footer in collapsed state for hidden cards */
+.hidden-feature .card-footer-hidden {
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s, opacity 0.4s;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* When expanded: show footer smoothly */
+.hidden-feature.show-feature .card-footer-hidden {
+  max-height: 200px;
+  opacity: 1;
+  transition: max-height 0.5s, opacity 0.4s 0.2s;
+  pointer-events: all;
+}
+
+/* Hide the hidden-feature cards completely until expanded */
+.hidden-feature:not(.show-feature) {
+  display: none;
+}
+.hidden-feature {
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  overflow: hidden;
+  transition: all 0.4s ease;
+}
+.hidden-feature.show-feature {
+  opacity: 1;
+  height: auto;
+  margin: 1rem 0;
+  padding: 2rem;
+  pointer-events: auto;
+  overflow: visible;
+}
+/* Fade summary effect */
+.fade-summary {
+  position: relative;
+  /* Hide overflow for fade effect */
+  overflow: hidden;
+  /* Animate height & opacity */
+  max-height: 4.7em; /* Enough for 2 lines + fade */
+  opacity: 1;
+  transition: max-height 0.5s cubic-bezier(0.55, 0, 0.1, 1), opacity 0.5s;
+  will-change: max-height, opacity;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+}
+
+/* Only clamp and fade if not expanded */
+.hidden-feature .fade-summary {
+  opacity: 1;
+  max-height: 4.7em; /* about 2 lines */
+  -webkit-line-clamp: 2;
+  transition: max-height 0.5s cubic-bezier(0.55, 0, 0.1, 1), opacity 0.5s;
+}
+
+/* Add the fade overlay gradient */
+.hidden-feature .fade-summary::after {
+  content: "";
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  left: -1px;
+  right: -1px;
+  bottom: -20px;
+  height: 5.5em;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 25%,
+    #f7f9fa 90%
+  );
+  border-radius: 0 0 13px 13px;
+  transition: opacity 0.4s;
+  opacity: 1;
+  z-index: 3;
+}
+
+/* Expanded: show all text and remove fade */
+.hidden-feature.show-feature .fade-summary {
+  max-height: 200px; /* big enough for most summaries */
+  opacity: 1;
+  -webkit-line-clamp: unset;
+  display: block;
+  transition: max-height 0.7s cubic-bezier(0.7,0,0.3,1), opacity 0.5s;
+}
+.hidden-feature.show-feature .fade-summary::after {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* Make card "expand" transition smoother */
+.hidden-feature {
+  transition: box-shadow 0.4s, background 0.2s;
+}
+
+/* Make the button a little animated */
+#see-more-pro-features {
+ background: #744cbf !important;
+    border-color: #090a0b !important;
+    color: #fff !important;
+    font-weight: 700;
+  border: none;
+  border-radius: 4px;
+  margin-top: 16px;
+  transition: background 0.18s;
+}
+#see-more-pro-features:hover {
+  background: #5CB85B;
+  color: #fff;
+}
+.hidden-feature .fade-summary::after {
+  content: "";
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -12px;  /* Let the gradient extend past the card bottom */
+  height: 3.5em;   /* Start fade higher: increase the height */
+  /* Fade from transparent to full card bg color (over border) */
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 30%,
+    rgba(247,249,250,0.98) 80%,
+    rgba(247,249,250,1) 100%
+  );
+  border-radius: 0 0 12px 12px;  /* Match card's border-radius, so it overlays */
+  transition: opacity 0.4s;
+  opacity: 1;
+  z-index: 2;
+}
+
+/* For dark mode or other card backgrounds, adjust the color in rgba accordingly */
+
+.hidden-feature.show-feature .fade-summary::after {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
     .learn-section {
         background-color: #f7f9fa;
@@ -370,7 +536,8 @@ slug: "pro"
     line-height: 2rem;
     font-size: 1.6rem;
     }
-     .faq-item:first-of-type { border-top: 1px solid #eee; }
+     /*.faq-item:first-of-type { border-top: 1px solid #eee; }*/
+     .faq-item:last-of-type { border-bottom:none; }
     
     .faq-item h3 
     { 
@@ -401,87 +568,113 @@ slug: "pro"
                             <a href="#pricing" class="btn btn-black btn-purple" style="display: inline-block; margin-right: 1rem;">
                                 Compare Pro versions
                             </a>
-                        </div>
+      </div>
     </header>
-    <section class="learn-section full-width-section">
-      <h2>Why Teams Upgrade to Pro</h2>
-<div class="guides why-section">
-  <a class="guide-card" href="/en/documentation/pro/">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">From 100 to Unlimited Jobs</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>Go beyond OSS limits with unlimited recurring jobs, perfect for growing workloads in scale-ups and enterprises. No need to manually track job caps ever again.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Business</div>
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
+   <section class="learn-section full-width-section">
+  <h2>Why Teams Upgrade to Pro</h2>
+  <div class="guides why-section" id="why-pro-features">
+    <!-- Top 4 cards, always expanded -->
+    <a class="guide-card" href="/en/documentation/pro/">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">From 100 to Unlimited Jobs</h2>
+      </header>
+      <section class="guide-card-summary">
+        <p>Go beyond OSS limits with unlimited recurring jobs, perfect for growing workloads in scale-ups and enterprises. No need to manually track job caps ever again.</p>
+      </section>
+      <footer class="guide-card-footer">
+        <div class="guide-card-tag">Pro Business</div>
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <a class="guide-card" href="/en/documentation/pro/priority-queues/">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">Priority & Dynamic Queues</h2>
+      </header>
+      <section class="guide-card-summary">
+        <p>Handle time-sensitive operations with up to 5 priority queues (unlimited for Pro Enterprise) and dynamic routing. Perfect for critical processes and smarter load distribution.</p>
+      </section>
+      <footer class="guide-card-footer">
+        <div class="guide-card-tag">Pro Business</div>
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <a class="guide-card" href="/en/documentation/pro/job-chaining/">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">Advanced Job Workflows</h2>
+      </header>
+      <section class="guide-card-summary">
+        <p>Create complex business logic using job chaining, atomic batches, and smart failure handling. Build resilient systems that scale with your needs.</p>
+      </section>
+      <footer class="guide-card-footer">
+        <div class="guide-card-tag">Pro Business</div>
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <a class="guide-card" href="/en/documentation/pro/observability/">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">Observability & Monitoring</h2>
+      </header>
+      <section class="guide-card-summary">
+        <p>Integrates with Prometheus, Grafana, and more. Get actionable insights into job performance, failures, and throughput across your clusters.</p>
+      </section>
+      <footer class="guide-card-footer">
+        <div class="guide-card-tag">Pro Business</div>
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <!-- Last 2 cards, only show preview + fade unless expanded -->
+    <a class="guide-card hidden-feature" href="/en/documentation/pro/jobrunr-pro-dashboard/#restrict-access-using-single-sign-on-authentication">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">Single Sign-On (SSO)</h2>
+      </header>
+      <section class="guide-card-summary fade-summary">
+        <p>Enable secure access with SSO integration. Perfect for enterprises that want centralized user management and simplified login workflows.</p>
+      </section>
+      <footer class="guide-card-footer card-footer-hidden">
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <a class="guide-card hidden-feature" href="/en/documentation/pro/">
+      <header class="guide-card-header">
+        <h2 class="guide-card-title">GDPR & HIPAA Compliant</h2>
+      </header>
+      <section class="guide-card-summary fade-summary">
+        <p>JobRunr Pro Enterprise offers secure job processing with GDPR and HIPAA compliance support. Ensure your workflows meet privacy and regulatory standards.</p>
+      </section>
+      <footer class="guide-card-footer card-footer-hidden">
+        <div class="guide-card-tag">Pro Enterprise</div>
+      </footer>
+    </a>
+    <a class="guide-card hidden-feature" href="/en/documentation/pro/jobrunr-pro-dashboard/#multi-cluster-dashboard">
+  <header class="guide-card-header">
+    <h2 class="guide-card-title">Multi-Cluster Dashboard</h2>
+  </header>
+  <section class="guide-card-summary">
+    <p>Get real-time visibility across all clusters in one single view. Whether you’re running jobs in the EU, US, or beyond — you’ll monitor everything from one central dashboard.</p>
+  </section>
+  <footer class="guide-card-footer card-footer-hidden">
+    <div class="guide-card-tag">Pro Business</div>
+    <div class="guide-card-tag">Pro Enterprise</div>
+  </footer>
+</a>
 
-  <a class="guide-card" href="/en/documentation/pro/priority-queues/">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">Priority & Dynamic Queues</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>Handle time-sensitive operations with up to 5 priority queues (unlimited for Pro Enterprise) and dynamic routing. Perfect for critical processes and smarter load distribution.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Business</div>
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
-
-  <a class="guide-card" href="/en/documentation/pro/job-chaining/">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">Advanced Job Workflows</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>Create complex business logic using job chaining, atomic batches, and smart failure handling. Build resilient systems that scale with your needs.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Business</div>
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
-
-  <a class="guide-card" href="/en/documentation/pro/observability/">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">Observability & Monitoring</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>Integrates with Prometheus, Grafana, and more. Get actionable insights into job performance, failures, and throughput across your clusters.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Business</div>
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
-  <a class="guide-card" href="/en/documentation/pro/jobrunr-pro-dashboard/#restrict-access-using-single-sign-on-authentication">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">Single Sign-On (SSO)</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>Enable secure access with SSO integration. Perfect for enterprises that want centralized user management and simplified login workflows.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
-
-  <a class="guide-card" href="/en/documentation/pro/">
-    <header class="guide-card-header">
-      <h2 class="guide-card-title">GDPR & HIPAA Compliant</h2>
-    </header>
-    <section class="guide-card-summary">
-      <p>JobRunr Pro Enterprise offers secure job processing with GDPR and HIPAA compliance support. Ensure your workflows meet privacy and regulatory standards.</p>
-    </section>
-    <footer class="guide-card-footer">
-      <div class="guide-card-tag">Pro Enterprise</div>
-    </footer>
-  </a>
-</div>
-    </section>
+<a class="guide-card hidden-feature" href="/en/documentation/pro/rate-limiters/">
+  <header class="guide-card-header">
+    <h2 class="guide-card-title">Rate Limiters</h2>
+  </header>
+  <section class="guide-card-summary">
+    <p>Protect external APIs and prevent overload by limiting job throughput per resource. Fine-tune concurrency and stay in control — without hacks or workarounds.</p>
+  </section>
+  <footer class="guide-card-footer card-footer-hidden">
+    <div class="guide-card-tag">Pro Business</div>
+    <div class="guide-card-tag">Pro Enterprise</div>
+  </footer>
+</a>
+  </div>
+  <div style="text-align:center; margin-top: 2rem;">
+    <button id="see-more-pro-features" class="btn btn-purple" style="padding:0.7rem 2rem;font-size:1.2rem;">Discover more features</button>
+  </div>
+</section>
     <section class="testimonial-section full-width-section">
       <h2>How others are using JobRunr Pro</h2>
       <div class="testimonial-grid">
@@ -530,7 +723,7 @@ JobRunr OSS with:
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
 - [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions)
 
-<span style="display: block; height: 125px"></span>
+<span style="display: block; height: 175px"></span>
 
 <div class="buy">
 
@@ -539,6 +732,7 @@ _always and forever_
 <br>
 
 <a class="button" target="_blank" href="https://search.maven.org/artifact/org.jobrunr/jobrunr">DOWNLOAD</a>
+<br/><br/>
 </div>
 </div>
 
@@ -587,15 +781,9 @@ _per PRD cluster / month <a class="tooltip" data-title="A production cluster is 
 _(excl. VAT)_ 
 
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">GET STARTED</a>
-
+<br/><a href="/en/try-jobrunr-pro/">Or request a free trial </a>
 
 <!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
-
-<div class="eco-friendly">
-
-We care about our planet:
-_[your subscription includes <br/>400 planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
-</div>
 </div>
 </div>
 
@@ -634,22 +822,20 @@ Everything in Business plus:
 - Credit Card 
 - Invoice
 - Flexible support for custom procurement processes as needed
+<span style="display: block; height: 15px"></span>
 
 <div class="buy">
 
 _unlimited clusters,<br/>unlimited installations,<br/>priority feature development_
-
+<br/>
 <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-enterprise">CONTACT SALES</a>
+<br /><br/>
 
-<div class="eco-friendly">
-
-We care about our planet:
-_[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.md#eco-friendly-software" >}})_
-</div>
 </div>
 </div>
 
 </div>
+</section>
 <section class="faq-section">
   <h2>Common Questions</h2>
 
@@ -716,3 +902,14 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
       <a href="#pricing" class="btn">Request your Quote</a>
     </section>
 </div>
+<script>
+document.getElementById('see-more-pro-features').addEventListener('click', function () {
+  const isExpanded = this.getAttribute('aria-expanded') === 'true';
+  const hiddenCards = document.querySelectorAll('.hidden-feature');
+  hiddenCards.forEach(card => {
+    card.classList.toggle('show-feature', !isExpanded);
+  });
+  this.setAttribute('aria-expanded', !isExpanded);
+  this.textContent = !isExpanded ? 'Show less' : 'Discover more features';
+});
+</script>
