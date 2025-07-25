@@ -61,7 +61,7 @@ JobRunr
 
 The awaiting jobs request size allows to set the maximum number of carbon aware jobs to update from awaiting to scheduled state per database round-trip. If not set, it will default to `1000`.
 
-The processing config allows you to specify a few key parmeters including your area code so that the correct energy data is being taken into account. 
+The processing config allows you to specify a few key parmeters including your area code so that the correct energy data is being taken into account. If you have no idea which region to select, the Carbon Intensity API lists all supported areas at https://api.jobrunr.io/carbon-intensity/areas!
 
 Of course, you can configure the Carbon Aware API with your favourite app framework such as [Spring]({{< ref "documentation/configuration/spring" >}}):
 
@@ -75,7 +75,7 @@ On the carbon aware job processing configuration class, the following parameters
 
 - `enabled`---Enables the Carbon Aware feature. The `usingStandardCarbonAwareJobProcessingConfiguration()` Fluent API enables this by default. Without it, pending jobs will still be scheduled at their preferred time, without taking the margin into consideration.
 - `areaCode`---Allows to set the [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) areaCode of your datacenter (the area where your application is hosted; e.g. "BE", "US-CA", "IT-NO") in order to have more accurate carbon emissions forecasts. Unless specified, the forecast may be from any dataProvider that supports the areaCode. If you _do not_ specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee based on IP. 
-- `dataProvider`---Allows to set your preferred carbon intensity forecast dataProvider (e.g. "ENTSO-E", "Azure", ...). If you _do not_ specify a data provider, the first region matching the area code will be returned. For now, the only supported provider is "ENTSO-E".
+- `dataProvider`---Allows to set your preferred carbon intensity forecast dataProvider (e.g. "ENTSO-E", "Azure", ...). If you _do not_ specify a data provider, the first region matching the area code will be returned. For now, the only supported provider is "ENTSO-E". The Carbon Intensity API lists all supported data providers at https://api.jobrunr.io/carbon-intensity/providers. 
 - `externalCode`---Allows to set the code of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "IT-North").
 - `externalIdentifier`---Allows to set the identifier of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "10Y1001A1001A73I"). 
 - `apiClientConnectTimeout`---Allows to set the connect timeout for the API client (defaults to 3 seconds).
