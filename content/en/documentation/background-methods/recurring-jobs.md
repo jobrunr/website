@@ -108,7 +108,7 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 </figure>
 
 ## Using an Interval
-Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting the moment the recurring job was scheduled.
+Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting as soon as the interval triggers (e.g. if your interval is `PT5M`, your first job will be enqueued after five minutes).
 
 <figure>
 
