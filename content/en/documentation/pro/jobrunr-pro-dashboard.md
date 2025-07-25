@@ -61,11 +61,12 @@ Once configured, JobRunr will work with the contentpath configured by you - e.g.
 
 JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...).
 
-To configure it, use the following settings:
+To configure it using Spring, use the following settings:
+
 ```
-org.jobrunr.dashboard.openid-authentication.openid-configuration-url=http://localhost:8080/realms/master/.well-known/openid-configuration
-org.jobrunr.dashboard.openid-authentication.client-id=client-id # the clientId that is configured in your OpenID Authorization server
-org.jobrunr.dashboard.openid-authentication.client-secret=client-secret # the client secret that is configured in your OpenID Authorization server
+jobrunr.dashboard.openid-authentication.openid-configuration-url=http://localhost:8080/realms/master/.well-known/openid-configuration
+jobrunr.dashboard.openid-authentication.client-id=client-id # the clientId that is configured in your OpenID Authorization server
+jobrunr.dashboard.openid-authentication.client-secret=client-secret # the client secret that is configured in your OpenID Authorization server
 ```
 
 ## Embed the dashboard within Spring Application Server
@@ -73,11 +74,13 @@ org.jobrunr.dashboard.openid-authentication.client-secret=client-secret # the cl
 
 Using JobRunr Pro Enterprise, you can also embed the dashboard within your existing Spring Application. This means that the JobRunr dashboard will be hosted by Spring and you can add your own authentication and authorization using Spring Security.
 
-To configure it, use the following settings:
+To configure it using Spring, use the following settings:
 
 ```
 jobrunr.dashboard.type=embedded
 ```
+
+Optionally, you can specify the root context path using `jobrunr.dashboard.context-path=/mypath`.
 
 > This feature is also planned for the Micronaut and Quarkus integration.
 
