@@ -68,7 +68,7 @@ org.jobrunr.database.tablePrefix: MY_SCHEMA.
 #### Supported SQL database types
 
 - **MariaDB** and **MySQL**: Migration type `mariadb` and `mysql`.
-  - Use the `MariaDbStorageProvider` or `MySqlStorageProvider`.
+  - Use the `MariaDbStorageProvider` or `MySqlStorageProvider`. Tested with MySQL version 8 and the latest MariaDB version.
     > **Note**: Make sure [your connection string]() is setup that it [UTC timestamps correctly](https://stackoverflow.com/questions/1646171/mysql-datetime-fields-and-daylight-savings-time-how-do-i-reference-the-extra).
 - **DB2**: Migration type `db2`. Tested with container version 12.1.0.0.
   - Use the `DB2StorageProvider`.
