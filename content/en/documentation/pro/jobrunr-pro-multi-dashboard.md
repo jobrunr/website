@@ -125,6 +125,8 @@ The Multi-Cluster Dashboard supports the same [user authentication schemes]({{< 
 
 > Due to the nature of these exchanges, we recommend using HTTPS.
 
+> If you configure authentication on a single-cluster dashboard and this dashboard connects to a multi-cluster dashboard, you'll need to configure an API-Key. Otherwise the requests from the multi-cluster dashboard will be rejected because unauthorized.
+
 ## Working with the Multi Dashboard
 
 By default the dashboard provides an integrated view of data from all the clusters. For instance, this allows to search without first having to find out which cluster an item is located on. If not for a few markers, the experience is almost the same as using the regular dashboard. The below gif showcases the use of the Multi-Cluster Dashboard.
