@@ -15,6 +15,8 @@ In this guide, we’ll start by configuring JobRunr to use an OpenID Provider, w
 
 > The setup may not go as smoothly as in this guide, because some providers may not be fully OpenID Connect compliant. We'll get back to this issue and provide some guidance on how to overcome these difficulties.
 
+> **Important**: The OpenID integration does not work with the `embedded` dashboard configuration. You must use the standalone web server to enjoy this authentication provider. Do you want to keep the embedded dashboard and secure it? Try to configure Spring Security (replace Spring by your framework of choice), users will need to authenticate to access the dashboard but without the granular authorization rules offered by JobRunr.
+
 ## Prerequisites
 - JobRunr Pro Enterprise 7.0.0 or later
 - You already know how to configure JobRunr
