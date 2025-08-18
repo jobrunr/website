@@ -49,4 +49,10 @@ BackgroundJob.enqueueOrReplace(jobId, () -> weatherService.predictWeather(city.n
 ```
 <figcaption>This replaces the existing background job as it uses the same uuid to create the job. The jobId is created from an arbitrary string.</figcaption>
 </figure>
+
+
+## Important Remarks
+
+1. If the previous job is in processing state, it'll be [interrupted when possible](< ref "documentation/background-methods/deleting-jobs.md" >). Interruption may take up to a `pollInterval`, the behavior for any cancelled job.
+
 {{< trial-button >}}
