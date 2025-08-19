@@ -22,6 +22,6 @@ JobRunr allows to define worker threads as [`PlatformThreads`](https://docs.orac
 Below are different ways to configure JobRunr to use either of those type of threads - just choose your preferred thread type depending on your expected workload:
 
 ```
-org.jobrunr.background-job-server.thread-type=PlatformThreads
-#or org.jobrunr.background-job-server.thread-type=VirtualThreads
+jobrunr.background-job-server.thread-type=PlatformThreads
+#jobrunr.background-job-server.thread-type=VirtualThreads
 ```

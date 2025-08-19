@@ -163,7 +163,7 @@ For Spring Boot, the amount of workers can be configured as simply as:
 
 {{< codeblock title="Configuring Worker Count" >}}
 ```properties
-org.jobrunr.background-job-server.worker-count=10
+jobrunr.background-job-server.worker-count=10
 ```
 {{</ codeblock >}}
 

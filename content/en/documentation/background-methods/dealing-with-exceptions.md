@@ -95,7 +95,7 @@ If you want to have the same `RetryPolicy` for all jobs and you are using the `j
 Here is the Spring Boot example:
 
 ```properties
-org.jobrunr.jobs.custom-backoff-retry-policy=5,5,60,120
+jobrunr.jobs.custom-backoff-retry-policy=5,5,60,120
 ```
 
 In the example above, all your jobs will be retried at most 4 times and the retries will happen after 5 seconds, 5 seconds, 60 seconds and then 120 seconds ...

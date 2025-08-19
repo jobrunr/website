@@ -26,10 +26,10 @@ You can easily enable the issue tracking integration in Spring Boot, Micronaut a
 <figure>
 
 ```
-org.jobrunr.dashboard.integrations.issue-tracking.github.organization=jobrunr
-org.jobrunr.dashboard.integrations.issue-tracking.github.repo=jobrunr
-org.jobrunr.dashboard.integrations.issue-tracking.github.labels=bug
-org.jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and-i
+jobrunr.dashboard.integrations.issue-tracking.github.organization=jobrunr
+jobrunr.dashboard.integrations.issue-tracking.github.repo=jobrunr
+jobrunr.dashboard.integrations.issue-tracking.github.labels=bug
+jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and-i
 ```
 <figcaption>This configuration shows how to integrate JobRunr with GitHub.</figcaption>
 </figure>
@@ -38,9 +38,9 @@ org.jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and
 <figure>
 
 ```
-org.jobrunr.dashboard.integrations.issue-tracking.jira.root-url=https://[your-jira-instance].atlassian.net/
-org.jobrunr.dashboard.integrations.issue-tracking.jira.project-id=10001
-org.jobrunr.dashboard.integrations.issue-tracking.jira.issue-type=10007
+jobrunr.dashboard.integrations.issue-tracking.jira.root-url=https://[your-jira-instance].atlassian.net/
+jobrunr.dashboard.integrations.issue-tracking.jira.project-id=10001
+jobrunr.dashboard.integrations.issue-tracking.jira.issue-type=10007
 ```
 <figcaption>This configuration shows how to integrate JobRunr with Jira.</figcaption>
 </figure>

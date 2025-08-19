@@ -29,7 +29,7 @@ The DatabaseCreator class allows you to create the necessary tables using a term
 <div class="terminal">
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar:slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
+java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseCreator {jdbcUrl} {userName} {password}
 ```
 </div>
 
@@ -41,7 +41,7 @@ To generate the sql scripts for your database so you can apply them yourself, us
 <div class="terminal">
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar:slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
+java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
 </div>
 
@@ -62,7 +62,7 @@ JobRunr also supports a table prefix which will prefix all tables with a custom 
 Example configuration for a Spring Boot Starter:
 
 ```
-org.jobrunr.database.tablePrefix: MY_SCHEMA.
+jobrunr.database.tablePrefix: MY_SCHEMA.
 ```
 
 #### Supported SQL database types

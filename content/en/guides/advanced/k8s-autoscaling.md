@@ -266,7 +266,7 @@ Similarly, a termination period would also have to be configured for JobRunr. Th
 {{< codeblock >}}
 
 ```properties
-org.jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
+jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
 ```
 {{</ codeblock >}}
 

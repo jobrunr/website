@@ -96,11 +96,11 @@ JobRunrPro
 In Spring Boot, we just need to configure some properties in the `application.properties` to enable OpenID integration:
 
 ```java
-org.jobrunr.dashboard.enabled=true
-org.jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
-org.jobrunr.dashboard.openid-authentication.client-id="client-id"
-org.jobrunr.dashboard.openid-authentication.client-secret="client-secret"
-org.jobrunr.dashboard.openid-authentication.scope="scope" // optional, defaults to "openid email profile" 
+jobrunr.dashboard.enabled=true
+jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
+jobrunr.dashboard.openid-authentication.client-id="client-id"
+jobrunr.dashboard.openid-authentication.client-secret="client-secret"
+jobrunr.dashboard.openid-authentication.scope="scope" // optional, defaults to "openid email profile" 
 ```
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}

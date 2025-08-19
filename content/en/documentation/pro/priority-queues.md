@@ -86,9 +86,9 @@ For the Spring / Micronaut / Quarkus, you can just define the queues in your con
 <figure>
 
 ```
-org.jobrunr.queues.default-queue-name=Default
-org.jobrunr.queues.names=HighPrio, Default, LowPrio
-#org.jobrunr.queues.from-enum=org.jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
+jobrunr.queues.default-queue-name=Default
+jobrunr.queues.names=HighPrio, Default, LowPrio
+#jobrunr.queues.from-enum=jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
   
 ```
 <figcaption>Just define the default queue name and the other queue names using your configuration.</figcaption>

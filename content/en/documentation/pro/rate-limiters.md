@@ -44,7 +44,7 @@ JobRunrPro
 
 #### Using Spring Boot / Quarkus / Micronaut
 ```
-org.jobrunr.jobs.rate-limiter.concurrent-job-rate-limiter.my-rate-limiter=3
+jobrunr.jobs.rate-limiter.concurrent-job-rate-limiter.my-rate-limiter=3
 ```
 
 This configuration example tells JobRunr to use `ConcurrentJobRateLimiter` to rate limit `Jobs` whose `rateLimiter` attribute has value `my-rate-limiter` to only 3 concurrent executions. Note that `my-rate-limiter` can be any string of your choice (limited to 128 characters), you may view it as a resource identifier.
@@ -73,7 +73,7 @@ JobRunrPro
 
 #### Using Spring Boot / Quarkus / Micronaut
 ```
-org.jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
+jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
 ```
 
 This configuration example tells JobRunr to use `SlidingTimeWindowRateLimiter` to rate limit `Jobs` whose `rateLimiter` attribute has value `my-rate-limiter` to only 2 executions every 5 seconds. This is inferred by the value of the property `2/PT5S` which follows the syntax `amount/ISO Duration`. Note that `my-rate-limiter` can be any string of your choice (limited to 128 characters), you may view it as a resource identifier.

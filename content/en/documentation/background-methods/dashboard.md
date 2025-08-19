@@ -28,8 +28,8 @@ __Using Spring configuration__
 <figure>
 
 ```java
-org.jobrunr.dashboard.enabled=true 
-org.jobrunr.dashboard.port=8000
+jobrunr.dashboard.enabled=true 
+jobrunr.dashboard.port=8000
 ```
 <figcaption>Using the application.properties you can enable the dashboard which will be started on the given port</figcaption>
 </figure>

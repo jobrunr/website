@@ -25,7 +25,7 @@ You can easily enable these timings in Spring Boot, Micronaut and Quarkus using 
 <figure>
 
 ```
-org.jobrunr.jobs.metrics.micrometer-timers.enabled=true
+jobrunr.jobs.metrics.micrometer-timers.enabled=true
 ```
 <figcaption>This configuration shows how to enable the MicroMeter timers.</figcaption>
 </figure>
@@ -51,13 +51,13 @@ You can easily enable observability in Spring Boot, Micronaut and Quarkus using 
 
 ```
 # enable linking from within the JobRunr Pro Dashboard to your Tracing Provider
-org.jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/
+jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/
 
 # if you prefer MicroMeter
-org.jobrunr.jobs.metrics.micrometer-observability.enabled=true
+jobrunr.jobs.metrics.micrometer-observability.enabled=true
 
 # or, if you prefer OpenTelemetry
-org.jobrunr.jobs.metrics.otel-observability.enabled=true
+jobrunr.jobs.metrics.otel-observability.enabled=true
 ```
 <figcaption>Just define your preferred observability intregration.</figcaption>
 </figure>

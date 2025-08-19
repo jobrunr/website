@@ -62,8 +62,8 @@ You can also enable the round robin dynamic queues easily via Spring properties:
 <figure>
 
 ```java
-org.jobrunr.jobs.dynamic-queue.round-robin.label-prefix=tenant: 
-org.jobrunr.jobs.dynamic-queue.round-robin.title=Tenants
+jobrunr.jobs.dynamic-queue.round-robin.label-prefix=tenant: 
+jobrunr.jobs.dynamic-queue.round-robin.title=Tenants
 ```
 </figure>
 
@@ -125,10 +125,10 @@ _Properties (Spring Boot)_:
 <figure>
 
 ```java
-org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-A=6
-org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-B=3
-org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.label-prefix=tenant:
-org.jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.title=Tenants
+jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-A=6
+jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.queues.Tenant-B=3
+jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.label-prefix=tenant:
+jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.title=Tenants
 ```
 </figure>
 

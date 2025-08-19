@@ -76,7 +76,7 @@ If it succeeds, it means that the job is not being processed by another `Backgro
 
 ### What if I don't want to have 10 retries when a job fails?
 You can configure the amount of retries for all your jobs or per job.
-- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just change the `org.jobrunr.jobs.default-number-of-retries` property.
+- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just change the `jobrunr.jobs.default-number-of-retries` property.
 - To change the amount of retries on a single Job, just use the `@Job` annotation:
 
 ```java

@@ -23,9 +23,9 @@ In JobRunr Pro, you can setup a different user that will only be used during the
 To do so in Spring Boot, use the following `application.properties`:
 
 ```
-org.jobrunr.database.skip-create=false
-org.jobrunr.database.migration.username={ddl-user-name}
-org.jobrunr.database.migration.password={ddl-user-password}
+jobrunr.database.skip-create=false
+jobrunr.database.migration.username={ddl-user-name}
+jobrunr.database.migration.password={ddl-user-password}
 ```
 
 ## Take full control over Database Migrations
@@ -35,7 +35,7 @@ If you are not allowed to have a user using DDL rights at runtime or if due to c
 If you do your migrations [by hand](#apply-the-sql-scripts-yourself) or using a [3th party tool like Flyway or Liquibase](#generate-flyway-or-liquibase-migrations), you will need to tell JobRunr it should not perform the migrations for you. This can also be done via a property:
 
 ```
-org.jobrunr.database.skip-create=true
+jobrunr.database.skip-create=true
 ```
 
 Let's go over the different options to migrate your database:
