@@ -363,8 +363,8 @@ public class TicketService {
                 .orElseThrow(() -> new TicketNotFoundException(ticketId));
         
         // 2. Update its state using the method on the entity.
-        ticket.close(resolution);
-       //TODO: Calculate the embedding when the ticket is resolved
+        ticket.close(resolution);
+        //TODO: Calculate the embedding when the ticket is resolved
 
         // 3. Save the changes back to the database.
         return ticketRepository.save(ticket);
