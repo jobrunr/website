@@ -17,6 +17,7 @@ That’s the power of semantic search. Unfortunately, intelligent search involve
 
 To do this, we'll construct a powerful application by combining the native **AI Vector Search in Oracle Database**, the fast time-to-market that **Spring Boot** offers, and the simple, reliable background job processing of **JobRunr**. This guide will walk you through the entire process, from database setup to a fully functional semantic search implementation, all without compromising your application's performance.
 
+{{< codeblock title="This JSON output shows the final result: semantic similar closed tickets listed alongside a newly created ticket." >}}
 ```javascript
 {
   "ticket": {
@@ -39,16 +40,16 @@ To do this, we'll construct a powerful application by combining the native **AI 
   ]
 }
 ```
-<i>This JSON output shows the final result: semantic similar closed tickets listed alongside a newly created ticket.</i>
+{{</ codeblock >}}
 
 
-### **The Challenge: Slow AI Makes Apps Unresponsive**
+### The Challenge: Slow AI Makes Apps Unresponsive
 
 Integrating AI features like vector search into an application presents a classic challenge: the process of generating vector embeddings for text can be computationally expensive. An embedding is essentially a numerical representation of data (in our case, the text of a support ticket), which allows us to measure similarity.
 
 If you calculate these embeddings synchronously \- that is, during the web request when a user submits or updates a ticket \- the user is left waiting. This can lead to slow response times, request timeouts, and a frustrating user experience. The obvious solution is to offload this heavy lifting to a background process. This is where **JobRunr** comes in. JobRunr makes this simple and reliable. It’s fully distributed, developer-friendly, and comes with a powerful built-in dashboard so you can track, retry, and monitor jobs with ease.
 
-### **Our Architecture: The Best of Three Worlds**
+### Our Architecture: The Best of Three Worlds
 
 Our application will use a robust stack to solve the problem:
 
@@ -66,11 +67,11 @@ Our application will use a robust stack to solve the problem:
 
 ![](/blog/vector-flow.png)
 
-### **Step-by-Step Guide to Building a Responsive Ticket Resolution AI Powered App in Java**
+### Step-by-Step Guide to Building a Responsive Ticket Resolution AI Powered App in Java
 
 As Ronald demonstrated in the [webinar with Oracle](https://www.youtube.com/watch?v=IbXJVJ_e6Gk), the best way to tackle a project like this is iteratively. We'll start with the simplest possible working application and gradually add layers of functionality. You can find the final source code for this demo in the [GitHub repository](https://github.com/rdehuyss/demo-oracle-ai-jobrunr).
 
-#### **Step 1: Project Initialization & Dependencies**
+#### Step 1: Project Initialization & Dependencies
 
 We’ll start with a new Spring Boot project using Java 21\. You can generate the project at [start.spring.io](https://start.spring.io/), selecting the following dependencies:
 
@@ -97,10 +98,10 @@ Once generated, you can open the project in your favorite IDE and you're ready t
 
 > **Note:** The Oracle JDBC driver is sometimes marked with `<scope>runtime</scope>` by default. For compilation to work smoothly, you may need to remove that line so the driver is available at compile time too.
 
-#### **Step 2: Setting Up the Environment**
+#### Step 2: Setting Up the Environment
 Before we write any Java code, we need a running Oracle Database. Manually installing and configuring a database can be complex and time-consuming. To streamline this, we'll use Docker. Docker will download the correct Oracle Database 23ai image, configure it, and even run our initial SQL scripts to create tables and load the AI model, all with a single command.
 
-#### **Step 2a: Prepare your Docker compose file**
+#### Step 2a: Prepare your Docker compose file
 
 The heart of this automated setup is the `compose.yaml` file shown below. Pay close attention to the `volumes` section; this is the critical part that mounts our local directories into the container. It’s how we provide our custom SQL initialization scripts and the pre-trained AI model, making the entire database configuration self-contained.
 
@@ -140,7 +141,7 @@ Here’s a breakdown of the scripts we'll use:
 
 You can copy these scripts from the [project's GitHub repository](https://github.com/rdehuyss/demo-oracle-ai-jobrunr/tree/main/src/main/resources/container-entrypoint-initdb.d) and paste them into `src/main/resources/container-entrypoint-initdb.d`
 
-#### Step 2c: Download the Pre-Trained AI Model**
+#### Step 2c: Download the Pre-Trained AI Model
 
 Our database needs a pre-trained language model to understand the *meaning* of the ticket text and convert it into a vector embedding. For this, we'll use `all-MiniLM-L12-v2`, a popular and efficient model that is great for this kind of task.
 
@@ -172,7 +173,7 @@ We’ll also need to make sure that Spring uses these new converter classes so y
 >
 >![](/blog/vector-docker-2.png)
 
-#### **Step 3: Creating the Core Domain Model**
+#### Step 3: Creating the Core Domain Model
 
 With our environment ready, it's time to define the core of our application: the `Ticket` entity. This is a plain Java class that directly maps to the `TICKETS` table we created in our database.
 
@@ -226,7 +227,6 @@ public class Ticket {
 }
 
 ```
-<br />
 
 #### Breaking Down the `Ticket` Entity
 
@@ -242,7 +242,7 @@ public class Ticket {
 
 5.  **Factory Method (`newTicket`)**: The `public static Ticket newTicket(...)` method provides a clean, convenient way to create new ticket instances. It encapsulates the logic for setting default values like a new `UUID`, version `0`, and an initial `OPEN` status.
 
-#### **Step 5: A Working Endpoint**
+#### Step 5: A Working Endpoint
 
 With our domain model in place, let's create the first functional part of our application: an API endpoint to list tickets. This involves two components: a `TicketRepository` to handle database operations and a `TicketController` to expose our REST API.
 
@@ -278,7 +278,7 @@ public class TicketController {
 }
 ```
 
-**Step 6: Configuring the Application**
+#### Step 6: Configuring the Application
 
 Now it's time to connect all the pieces. We'll do this in the `application.properties` file, which is the central place for configuring a Spring Boot application. This file tells our app how to connect to the database, how to configure the connection pool, and how to enable JobRunr's features.
 
@@ -324,7 +324,7 @@ jobrunr.background-job-server.enabled=true
 >
 >It should start successfully. If you make a `GET` request to `/tickets`, you'll receive an empty `[]`. This confirms our database connection and type converters are working correctly.
 
-#### **Step 7: Creating and saving a new Ticket**
+#### Step 7: Creating and saving a new Ticket
 
 Before we can resolve tickets and generate embeddings, users need a way to create them. Let's add a `POST` endpoint to our existing `TicketController` to handle new ticket submissions.
 
@@ -341,7 +341,7 @@ public ResponseEntity<Ticket> submitTickets(@RequestParam() String subject, @Req
 
 This method takes the `subject` and `description` from the request, uses our `newTicket` factory method to create an instance, saves it to the database, and returns the newly created ticket. Wrapping the result in a `ResponseEntity` gives us full control over the HTTP response, ensuring the client receives a standard `200 OK` status code on success.
 
-#### **Step 8: Adding Logic to Close a Ticket**
+#### Step 8: Adding Logic to Close a Ticket
 
 So far, our controller has been directly interacting with the repository. As our application grows, it's common to introduce a **service layer** to hold our business logic. Let's create a `TicketService` to handle the process of closing a ticket.
 
@@ -460,7 +460,7 @@ public class TicketService {
 ```
 <br />
 
-#### **Understanding the Details**
+#### Understanding the Details
 
 You might notice we have to cast the result of `computeEmbedding` to a `double[]`. This works because of two configurations we set up earlier. 
 

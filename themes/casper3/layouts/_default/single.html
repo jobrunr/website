@@ -10,8 +10,9 @@
 {{- with .Params.images -}}
     {{- range . | first 6 }}
         {{- $img := resources.Get . -}}
+        {{- if eq $img "nil" -}}{{- errorf "Could not get resources for image %s" . -}}{{- end -}}
         {{- $permalink := $img.RelPermalink -}}
-    {{- end }}
+    {{- end -}}
 {{- end -}}
 
 <main id="site-main" class="site-main outer">
