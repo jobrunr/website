@@ -4,8 +4,8 @@ summary: "Step-by-step guide to building a semantic search engine using Oracle D
 tags: ["blog", "Java", "AI", "JobRunr", "Oracle", "Vector Search"]
 categories: ["AI", "Development"]
 images: 
-    - "/blog/FeaturedImage-vector.webp"
-feature_image: "/blog/FeaturedImage-vector.webp"
+    - "/blog/FeaturedImage-Vector.webp"
+feature_image: "/blog/FeaturedImage-Vector.webp"
 date: 2025-08-26T12:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "semantic-search-engine-oracle-jobrunr-spring"
