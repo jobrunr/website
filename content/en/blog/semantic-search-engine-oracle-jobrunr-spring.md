@@ -242,7 +242,7 @@ public class Ticket {
 
 5.  **Factory Method (`newTicket`)**: The `public static Ticket newTicket(...)` method provides a clean, convenient way to create new ticket instances. It encapsulates the logic for setting default values like a new `UUID`, version `0`, and an initial `OPEN` status.
 
-#### Step 5: A Working Endpoint
+#### Step 4: A Working Endpoint
 
 With our domain model in place, let's create the first functional part of our application: an API endpoint to list tickets. This involves two components: a `TicketRepository` to handle database operations and a `TicketController` to expose our REST API.
 
@@ -278,7 +278,7 @@ public class TicketController {
 }
 ```
 
-#### Step 6: Configuring the Application
+#### Step 5: Configuring the Application
 
 Now it's time to connect all the pieces. We'll do this in the `application.properties` file, which is the central place for configuring a Spring Boot application. This file tells our app how to connect to the database, how to configure the connection pool, and how to enable JobRunr's features.
 
@@ -324,7 +324,7 @@ jobrunr.background-job-server.enabled=true
 >
 >It should start successfully. If you make a `GET` request to `/tickets`, you'll receive an empty `[]`. This confirms our database connection and type converters are working correctly.
 
-#### Step 7: Creating and saving a new Ticket
+#### Step 6: Creating and saving a new Ticket
 
 Before we can resolve tickets and generate embeddings, users need a way to create them. Let's add a `POST` endpoint to our existing `TicketController` to handle new ticket submissions.
 
@@ -341,7 +341,7 @@ public ResponseEntity<Ticket> submitTickets(@RequestParam() String subject, @Req
 
 This method takes the `subject` and `description` from the request, uses our `newTicket` factory method to create an instance, saves it to the database, and returns the newly created ticket. Wrapping the result in a `ResponseEntity` gives us full control over the HTTP response, ensuring the client receives a standard `200 OK` status code on success.
 
-#### Step 8: Adding Logic to Close a Ticket
+#### Step 7: Adding Logic to Close a Ticket
 
 So far, our controller has been directly interacting with the repository. As our application grows, it's common to introduce a **service layer** to hold our business logic. Let's create a `TicketService` to handle the process of closing a ticket.
 
@@ -392,7 +392,7 @@ public ResponseEntity<Ticket> resolveTicket(@PathVariable UUID id, @RequestParam
 
 And now the fun stuff\! We’ll start with creating the embeddings
 
-### Step 9: Creating and storing embeddings
+#### Step 8: Creating and storing embeddings
 
 This is where JobRunr enters the picture. The process of calculating a vector embedding can be time-consuming. To prevent our API from becoming slow and unresponsive, we'll offload this work to a background job. When a ticket is resolved, our API will return a response immediately, while JobRunr handles the AI processing behind the scenes.
 
@@ -478,7 +478,7 @@ And after a couple of seconds, your job should look like this:
 ![](/blog/vector-dashboard-2.png)
 
 
-#### **Step 10: The Payoff\! Finding Similar Tickets**
+#### Step 9: The Payoff\! Finding Similar Tickets
 
 We've done the hard work. Now for the fun part: using our stored embeddings to find similar tickets. We'll create a final `GET /{id}` endpoint that retrieves a single ticket and also returns a list of the most similar resolved tickets.
 
