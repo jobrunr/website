@@ -100,7 +100,7 @@ jobrunr:
     delete-succeeded-jobs-after: 36
     permanently-delete-deleted-jobs-after: 72
     metrics:
-      enabled: false #Micrometer integration - this was true in v5.
+      enabled: true # Micrometer integration: reports server metrics (cpu usage, memory usage, worker pool size, etc.)
   dashboard:
     enabled: false
     port: 8000 #the port on which to start the dashboard
