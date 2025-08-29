@@ -13,7 +13,7 @@ menu:
 
 {{< trial-button >}}
 
-JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/pricing.md" >}}) and adds a lot of extra functionality to support your difficult business processes. 
+JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/jobrunr-pro.md" >}}) and adds a lot of extra functionality to support your difficult business processes. 
 
 - __[JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}):__ are you processing a lot of jobs and do you quickly need to find that one job? Thanks to the Job Search feature in the JobRunr Pro dashboard you will quickly find any job by name, method signature or any other fields.
 - __[Built-in Observability]({{< ref "observability.md" >}}):__ keep track on how your jobs are doing over time. Corelate failures easily thanks to built-in observability using your existing observability provider like [Jaeger](https://www.jaegertracing.io/) or [New Relic](https://newrelic.com/).
