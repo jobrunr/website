@@ -49,4 +49,4 @@ If your company depends on background job processing, the advantages of JobRunr 
 
 ### Ready to Get Started?
 
-Take a look at our [pricing plans]({{< ref "pricing.md" >}}) and see which one fits your company’s needs best. If you have any questions, [contact us]({{< ref "contact.md" >}}) and we’ll be happy to assist!
+Take a look at our [pricing plans]({{< ref "jobrunr-pro.md" >}}) and see which one fits your company’s needs best. If you have any questions, [contact us]({{< ref "contact.md" >}}) and we’ll be happy to assist!

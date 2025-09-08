@@ -13,7 +13,9 @@ menu:
 ---
 {{< trial-button >}}
 
-The JobRunr [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}), [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}}), [Quarkus extension]({{<ref "/documentation/configuration/quarkus/_index.md">}}) come with an `@Transactional` plugin that makes sure your jobs join the transaction created by the framework. You can also benefit from this plugin when using Kotlin with the [Exposed ORM](https://github.com/JetBrains/Exposed).
+The JobRunr [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}), [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}}) (*), [Quarkus extension]({{<ref "/documentation/configuration/quarkus/_index.md">}}) come with an `@Transactional` plugin that makes sure your jobs join the transaction created by the framework. You can also benefit from this plugin when using Kotlin with [Exposed ORM](https://github.com/JetBrains/Exposed).
+
+> (*) See important remarks at the end of this page.
 
 <figure>
 
@@ -100,5 +102,10 @@ This example shows how to provide `ExposedTransactionAwareConnectionProvider` to
 </figure>
 
 > Similarly you can provide a `ConnectionProvider` for Micronaut, Quarkus and Spring. JobRunr Pro comes with the following transaction aware connections: `ExposedTransactionAwareConnectionProvider`, `MicronautTransactionAwareConnectionProvider`, `QuarkusTransactionAwareConnectionProvider`, and `SpringTransactionAwareConnectionProvider`.
+
+
+## Important remarks
+
+- The Micronaut Transaction Plugin only supports `micronaut-data-jdbc`. If you're using `micronaut-hibernate-jpa` and needs transaction support, please let us know!
 
 {{< trial-button >}}

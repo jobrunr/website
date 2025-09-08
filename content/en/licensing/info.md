@@ -24,4 +24,4 @@ Please see the [LGPL license](lgpl) for details.
 
 ### Commercial License
 
-Subject to the purchase of a [corresponding subscription]({{< ref "/pricing.md" >}}), you may distribute JobRunr under the terms of commercial license, that allows you to distribute private forks and modifications. Please see our [Standard License](../standard-eula) and [Royalty Free License](../royalty-free-eula) files for details.
+Subject to the purchase of a [corresponding subscription]({{< ref "/jobrunr-pro.md" >}}), you may distribute JobRunr under the terms of commercial license, that allows you to distribute private forks and modifications. Please see our [Standard License](../standard-eula) and [Royalty Free License](../royalty-free-eula) files for details.

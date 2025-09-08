@@ -16,6 +16,8 @@ menu:
   main: 
     identifier: pricing
     weight: 3
+aliases:
+  - ./pricing
 ---
 <style>
     /* General page styling from webinar-v8.md */
@@ -591,7 +593,7 @@ menu:
         <h2 class="guide-card-title">Priority & Dynamic Queues</h2>
       </header>
       <section class="guide-card-summary">
-        <p>Handle time-sensitive operations with up to 5 priority queues (unlimited for Pro Enterprise) and dynamic routing. Perfect for critical processes and smarter load distribution.</p>
+        <p>Handle time-sensitive operations with up to 5 priority queues and implement load balancing or multi-tenant apps with dynamic queues. Perfect for critical processes and smarter load distribution.</p>
       </section>
       <footer class="guide-card-footer">
         <div class="guide-card-tag">Pro Business</div>

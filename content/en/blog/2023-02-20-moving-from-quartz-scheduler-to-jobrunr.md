@@ -456,7 +456,7 @@ public class MyJobRequestHandler implements JobRequestHandler<MyJobRequest> {
 Migrating from JobRunr to Quartz is not difficult - you can easily use your existing methods or swith to a `JobRequest` and a `JobRequestHandler`. 
 With its modern features and simple API, you can quickly and easily create one-off jobs, schedule jobs to run at a specific time or after a specific interval.
 
-JobRunr's enterprise-grade capabilities ensure reliability, security, and support for large-scale production deployments, making it the ideal choice for any Java scheduling needs. And, it also comes with great support if you take a [JobRunr Pro license]({{< ref "/pricing.md" >}}).
+JobRunr's enterprise-grade capabilities ensure reliability, security, and support for large-scale production deployments, making it the ideal choice for any Java scheduling needs. And, it also comes with great support if you take a [JobRunr Pro license]({{< ref "/jobrunr-pro.md" >}}).
 
 If you want to review the source code for the examples above, you can find them over on [GitHub](https://github.com/jobrunr/quartz-to-jobrunr).
 
