@@ -490,7 +490,7 @@ aliases:
     /* Final CTA - Reusing .final-cta styles directly */
     .final-cta {
         text-align: center;
-        background-color: #0f172a;
+        background-color: #090a0b;
     }
     .final-cta h2 { color: #fff; }
     .final-cta p {
@@ -560,17 +560,27 @@ aliases:
     .post-full-header + img {
       display:none;
     }
+    .btn-purple{
+      background: #744cbf !important;
+      color: #fff !important;
+      font-weight: 700;
+      border: none;
+      border-radius: 4px;
+    }
 </style>
 <div class="pro-page-content">
     <header class="pro-hero full-width-section">
       <img src="/blog/jobrunr-logo-white-pro.webp" alt="JobRunr Logo">
-      <h1>Scale background jobs without limits</h1>
-      <p>Upgrade to JobRunr Pro for serious workflows, real-time precision, and enterprise reliability.</p>
+      <h1>Turn a Critical Task Into a Competitive Advantage.</h1>
+      <p>With JobRunr Pro's proven scalability and enterprise features, you can free your team from maintaining <br/>fragile, in-house job schedulers and focus on what truly matters.</p>
       <div style="display: flex; justify-content: center;">
-                            <a href="#pricing" class="btn btn-black btn-purple" style="display: inline-block; margin-right: 1rem;">
-                                Compare Pro versions
+                            <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-purple" style="display: inline-block; margin-right: 1rem;">
+                              Try JobRunr Pro for free
                             </a>
       </div>
+      <div style="justify-content: center; padding-top: 5px; font-size: 15px;">
+                                <i>No credit card required</i>
+                            </div>
     </header>
    <section class="learn-section full-width-section">
   <h2>Why Teams Upgrade to Pro</h2>
@@ -578,7 +588,7 @@ aliases:
     <!-- Top 4 cards, always expanded -->
     <a class="guide-card" href="/en/documentation/pro/">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">From 100 to Unlimited Jobs</h2>
+        <h2 class="guide-card-title">Unlock Unlimited Scale</h2>
       </header>
       <section class="guide-card-summary">
         <p>Go beyond OSS limits with unlimited recurring jobs, perfect for growing workloads in scale-ups and enterprises. No need to manually track job caps ever again.</p>
@@ -590,7 +600,7 @@ aliases:
     </a>
     <a class="guide-card" href="/en/documentation/pro/priority-queues/">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">Priority & Dynamic Queues</h2>
+        <h2 class="guide-card-title">Ensure Critical Tasks Never Wait</h2>
       </header>
       <section class="guide-card-summary">
         <p>Handle time-sensitive operations with up to 5 priority queues and implement load balancing or multi-tenant apps with dynamic queues. Perfect for critical processes and smarter load distribution.</p>
@@ -602,7 +612,7 @@ aliases:
     </a>
     <a class="guide-card" href="/en/documentation/pro/job-chaining/">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">Advanced Job Workflows</h2>
+        <h2 class="guide-card-title">Automate Complex Business Logic </h2>
       </header>
       <section class="guide-card-summary">
         <p>Create complex business logic using job chaining, atomic batches, and smart failure handling. Build resilient systems that scale with your needs.</p>
@@ -614,7 +624,7 @@ aliases:
     </a>
     <a class="guide-card" href="/en/documentation/pro/observability/">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">Observability & Monitoring</h2>
+        <h2 class="guide-card-title">Gain Complete Oversight & Control</h2>
       </header>
       <section class="guide-card-summary">
         <p>Integrates with Prometheus, Grafana, and more. Get actionable insights into job performance, failures, and throughput across your clusters.</p>
@@ -627,7 +637,7 @@ aliases:
     <!-- Last 2 cards, only show preview + fade unless expanded -->
     <a class="guide-card hidden-feature" href="/en/documentation/pro/jobrunr-pro-dashboard/#restrict-access-using-single-sign-on-authentication">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">Single Sign-On (SSO)</h2>
+        <h2 class="guide-card-title">Streamline Security and Access</h2>
       </header>
       <section class="guide-card-summary fade-summary">
         <p>Enable secure access with SSO integration. Perfect for enterprises that want centralized user management and simplified login workflows.</p>
@@ -638,7 +648,7 @@ aliases:
     </a>
     <a class="guide-card hidden-feature" href="/en/documentation/pro/">
       <header class="guide-card-header">
-        <h2 class="guide-card-title">GDPR & HIPAA Compliant</h2>
+        <h2 class="guide-card-title">Secure Your Compliance and Your Data</h2>
       </header>
       <section class="guide-card-summary fade-summary">
         <p>JobRunr Pro Enterprise offers secure job processing with GDPR and HIPAA compliance support. Ensure your workflows meet privacy and regulatory standards.</p>
@@ -649,10 +659,10 @@ aliases:
     </a>
     <a class="guide-card hidden-feature" href="/en/documentation/pro/jobrunr-pro-dashboard/#multi-cluster-dashboard">
   <header class="guide-card-header">
-    <h2 class="guide-card-title">Multi-Cluster Dashboard</h2>
+    <h2 class="guide-card-title">Manage All Clusters from One Dashboard</h2>
   </header>
   <section class="guide-card-summary">
-    <p>Get real-time visibility across all clusters in one single view. Whether you’re running jobs in the EU, US, or beyond — you’ll monitor everything from one central dashboard.</p>
+    <p>Get real-time visibility across all clusters in one single view. Whether you’re running jobs in the EU, US, or beyond, you’ll monitor everything from one central dashboard.</p>
   </section>
   <footer class="guide-card-footer card-footer-hidden">
     <div class="guide-card-tag">Pro Business</div>
@@ -662,10 +672,10 @@ aliases:
 
 <a class="guide-card hidden-feature" href="/en/documentation/pro/rate-limiters/">
   <header class="guide-card-header">
-    <h2 class="guide-card-title">Rate Limiters</h2>
+    <h2 class="guide-card-title">Protect External Services from Overload</h2>
   </header>
   <section class="guide-card-summary">
-    <p>Protect external APIs and prevent overload by limiting job throughput per resource. Fine-tune concurrency and stay in control — without hacks or workarounds.</p>
+    <p>Prevent costly downtime and service fees by putting a cap on how many times your background jobs access external APIs. Maintain a predictable, stable environment for your most critical workflows without risking service interruptions.</p>
   </section>
   <footer class="guide-card-footer card-footer-hidden">
     <div class="guide-card-tag">Pro Business</div>
@@ -694,6 +704,11 @@ aliases:
         </div>
       </div>
     </section> 
+    <section class= "full-width-section" style="background-color: #090A0B; padding: 3rem 1.5rem; text-align: center;">
+      <h3 style="color: #fff; font-size: 2rem; margin-bottom: 1rem;">Ready to make the business case for JobRunr Pro?</h3>
+      <p style="color: #adb5bd; font-size: 1.2rem; margin: 0 auto 1.5rem auto; max-width: 800px;">We've created a simple guide to help you get approval, complete with a detailed cost analysis and a customizable email template.</p>
+      <a href="/en/convince-your-boss/" class="btn btn-black btn-purple" style="padding:0.7rem 2rem;font-size:1.2rem;">Convince your manager</a>
+    </section>
     <section class="pricing-section full-width-section" id="pricing">
         <h2>Pricing Plans</h2>
         <div class="plan-container">
@@ -775,15 +790,16 @@ Everything in JobRunr OSS plus:
 <div class="buy">
 
 _one prod cluster,<br/>priority support<br/><br/>_
- <strong style='color: #3eb0ef;text-decoration: none;'>9.000,00 <span class="currency-holder">€</span></strong>
-_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
-_or_
- <strong style='color: #3eb0ef;text-decoration: none;font-size:1.25em;'>850,00 <span class="currency-holder">€</span></strong>
+ <strong style='color: black;text-decoration: none;font-size:1.25em;'>850 <span class="currency-holder">Euro</span></strong>
 _per PRD cluster / month <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
 _(excl. VAT)_ 
+_or_
+ <strong style='color: black;text-decoration: none; font-size:1.25em;'>9.000,00 <span class="currency-holder">Euro</span></strong>
+_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">GET STARTED</a>
-<br/><a href="/en/try-jobrunr-pro/">Or request a free trial </a>
+
+<a class="button" href="/en/try-jobrunr-pro/">START A FREE TRIAL</a>
+<br/><a href="/en/get-jobrunr-pro-business"><span style="text-decoration: underline;">Get JobRunr Pro Business</span> </a>
 
 <!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
 </div>
@@ -865,7 +881,7 @@ _unlimited clusters,<br/>unlimited installations,<br/>priority feature developme
     <h3>How to convince your boss?</h3>
     <p>We prepared an email with 5 good reasons to convince your boss to purchase a JobRunr Pro License!
     <br/><br/>
-    <a href="/en/convince-your-boss/">Get the email</a></p>
+    <a href="/en/convince-your-boss/" style="text-decoration: underline;">Get the email</a></p>
   </div>
 
   <div class="faq-item">
@@ -901,7 +917,7 @@ _unlimited clusters,<br/>unlimited installations,<br/>priority feature developme
     <section class="final-cta full-width-section">
       <h2>Ready to Build with Confidence?</h2>
       <p>Go from prototype to production with job scheduling that scales as fast as you do.</p>
-      <a href="#pricing" class="btn">Request your Quote</a>
+      <a href="/en/try-jobrunr-pro/" class="btn">START YOUR FREE TRIAL</a>
     </section>
 </div>
 <div style="display: none;">

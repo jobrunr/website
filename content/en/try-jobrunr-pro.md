@@ -100,21 +100,20 @@ draft: false
   }
 </style>
 
-<h1>Ready to try out JobRunr Pro?</h1>
+<h1>Request Your Free 14-Day Pro Trial</h1>
 <div class="payload-container request-trial-page">
   <!-- Left: Trial messaging -->
   <section class="copy">
     <article>
-      <h3 class="copy-title">Start your free 14‑day trial of JobRunr Pro!</h3>
-      <p>Fill in the form and we’ll reach out to get you up and running with all Pro features.</p>
+      <h3 class="copy-title">Get immediate access to enterprise-grade features that will save your team time and improve operational efficiency.</h3><br/>
     </article>
     <article>
       <h4 class="copy-subtitle">What you’ll get in your trial:</h4>
       <ul>
-        <li><strong>Full Pro features:</strong> Priority queues, batch processing and advanced dashboards.</li>
-        <li><strong>Scale stress‑free:</strong> Run up to 5,000 recurring jobs without lifting a finger.</li>
-        <li><strong>Visibility & control:</strong> Real-time scheduling, advanced metrics, and full dashboard observability and filters.</li>
-        <li><strong>Limited support:</strong> Trial‑only access to our dev team for tips and troubleshooting.</li>
+        <li><strong>Full Pro features:</strong> Test all our <a href="/en/pro">Pro features</a>, such as server tags for job isolation, mutex for sequential processing, batches for complex workflows, and priority queues for critical tasks.</li>
+        <li><strong>Cost-saving scalability:</strong> Go from a handful of jobs to thousands, handling increasing workloads without performance bottlenecks or expensive in-house maintenance.</li>
+        <li><strong>Centralized visibility & control:</strong> With our Pro Dashboard, you get a single pane of glass to monitor all your critical background processes, so you can troubleshoot in minutes, not hours..</li>
+        <li><strong>Dedicated support:</strong> Get direct access to our support team to ensure you get the most out of your trial and see the full potential of JobRunr Pro.</li>
       </ul>
       <footer class="trusted-by">
         <h3 class="trusted-by-title">Join industry leaders who trust JobRunr</h3>
@@ -132,23 +131,11 @@ draft: false
   <section class="form-container">
     <div id="trial-form">
       <form novalidate="">
-        <h2 style="margin: 0 0 .5em;">Request your free trial now</h2>
+        <h2 style="margin: 0 0 .5em;">Ready for Pro?</h2>
         <br />
         <dl>
-          <dt style="text-align: right"><label for="firstName">First name* </label></dt>
-          <dd><input type="text" id="firstName" name="firstName" /></dd>
-        </dl>
-        <dl>
-          <dt style="text-align: right"><label for="lastName">Last name* </label></dt>
-          <dd><input type="text" id="lastName" name="lastName" /></dd>
-        </dl>
-        <dl>
-          <dt style="text-align: right"><label for="email">Email* </label></dt>
+          <dt style="text-align: right"><label for="email">Business Email* </label></dt>
           <dd><input type="text" id="email" name="email" /></dd>
-        </dl>
-        <dl>
-          <dt style="text-align: right"><label for="linkedIn">LinkedIn URL* </label></dt>
-          <dd><input type="text" id="linkedIn" name="linkedIn" /></dd>
         </dl>
         <dl>
           <dt style="text-align: right"><label for="company">Company* </label></dt>
@@ -164,13 +151,13 @@ draft: false
               id="submit-btn"
               class="btn-try-jobrunr-form"
               type="button"
-              value="Request a free trial"
+              value="Start your trial now"
               onclick="submitForm();"
             />
           </dd>
         </dl>
       </form>
-      <p>After you submit your trial request, our team will reach out within 48 hours to learn about your needs and make sure JobRunr Pro is the right fit for your company.</p>
+      <p>After you submit your trial request, our team will reach out within 1 hour to learn about your needs and make sure JobRunr Pro is the right fit for your company.</p>
     </div>
     <div id="mce-responses" class="clear">
       <div id="trial-error-response" class="response" style="display:none; color:red;">
@@ -185,33 +172,27 @@ draft: false
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById('firstName').focus();
+    document.getElementById('email').focus();
   });
 
   function submitForm() {
-    const firstName = document.getElementById('firstName').value.trim();
-    const lastName = document.getElementById('lastName').value.trim();
     const email = document.getElementById('email').value.trim();
-    const linkedIn = document.getElementById('linkedIn').value.trim();
     const company = document.getElementById('company').value.trim();
-    const validLinkedIn =
-      linkedIn.startsWith('https://linkedin') ||
-      linkedIn.startsWith('https://www.linkedin') ||
-      linkedIn.startsWith('linkedin.com');
+    
     const errorEl = document.getElementById('trial-form-error');
 
-    if (!firstName || !lastName || !email || !company || !email.includes('@') || !validLinkedIn) {
+    if (!email || !company || !email.includes('@')) {
       errorEl.style.display = 'block';
       return false;
     }
     errorEl.style.display = 'none';
 
     // disable inputs
-    ['firstName','lastName','email','linkedIn','company','submit-btn'].forEach(id => {
+    ['email','company','submit-btn'].forEach(id => {
       document.getElementById(id).disabled = true;
     });
 
-    const trialData = { firstName, lastName, email, linkedIn, company };
+    const trialData = {email, company };
     fetch('https://hooks.zapier.com/hooks/catch/21269987/u2fk7ul/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

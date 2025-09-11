@@ -24,7 +24,7 @@ The ultimate library for background processing in Java.<br/>
 Distributed and backed by persistent storage.  
 Open-source and free for commercial use.
 <div style="display: flex;">
-    <a href="/en/guides" class="btn btn-purple btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem; margin-top: 2rem;">
+    <a href="/en/documentation/5-minute-intro/" class="btn btn-purple btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem; margin-top: 2rem;">
         get started with JobRunr
     </a>
 </div>
