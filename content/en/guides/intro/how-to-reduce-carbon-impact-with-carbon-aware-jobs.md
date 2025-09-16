@@ -48,7 +48,7 @@ For Spring, configure the properties in `application.properties`:
 ```
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
-jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500
+jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500ms
 ```
 
 {{< /framework >}}
@@ -58,7 +58,7 @@ For Quarkus, configure the properties in `application.properties`:
 ```
 quarkus.jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 quarkus.jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
-quarkus.jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500
+quarkus.jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=500ms
 ```
 
 {{< /framework >}}
@@ -71,7 +71,7 @@ jobrunr:
         carbon-aware-job-processing:
             enabled: true
             area-code: "BE"
-            api-client-connect-timeout: 500
+            api-client-connect-timeout: 500ms
 ```
 
 {{< /framework >}}

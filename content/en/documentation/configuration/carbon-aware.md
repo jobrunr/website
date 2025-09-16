@@ -68,7 +68,7 @@ Of course, you can configure the Carbon Aware API with your favourite app framew
 ```
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
-jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000
+jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000ms
 ```
 
 On the carbon aware job processing configuration class, the following parameters can be configured:
