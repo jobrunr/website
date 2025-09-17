@@ -1,5 +1,5 @@
 ---
-version: "pro"
+version: "enterprise"
 title: "Multi-Cluster Dashboard"
 subtitle: "One Dashboard to rule them all, One Dashboard to find them, One Dashboard to bring them all and from the database bind them."
 date: 2025-02-21T13:00:00+01:00
