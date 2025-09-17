@@ -27,8 +27,6 @@ Are you processing millions of jobs? Do you need to find that one job and find o
 
 ![](/documentation/job-filters.gif "Thanks to the search filter, you can quickly find the job(s) you are interested in.")
 
-> Note that users using __Redis__ as StorageProvider can only filter on State, Job Signature, Queue and ServerTag.
-
 You can combine multiple filters to quickly find any job you are looking for using:
 - Job Name
 - Job Signature / Method Signature
