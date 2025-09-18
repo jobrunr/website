@@ -818,11 +818,12 @@ Everything in Business plus:
 - Enterprise hardened <a class="tooltip" data-title="Enterprise hardened releases are designed for production environments where the least amount of disruption is the goal. Each release goes through a stress test in addition to a full suite of unit/functional/full-system tests. CPU, memory and performance benchmarks are compared to previous releases for regressions. Additionally, extra external security auditing is performed for maximum security."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [Dashboard SSO]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}}) <a class="tooltip" data-title="Allow your engineers and developers connect to the dashboard with Single Sign On thanks to our OpenId integration"><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [GDPR / HIPAA compliant dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}})
+- [Multi-Cluster Dashboard](/en/documentation/pro/jobrunr-pro-multi-dashboard/)
 - <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}">Panic Button (1 / year)</a> <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}" class="tooltip" data-title="The panic button allows to notify me instantaneously, Ronald Dehuysser, in case of a production incident."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - Unlimited clusters
 - [SBOM](https://www.cisa.gov/sbom) included
-<br><br><br>
+<br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})

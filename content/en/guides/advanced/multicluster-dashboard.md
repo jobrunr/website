@@ -161,7 +161,7 @@ Manual cluster configuration does have its downsides: you will need to programma
 
 Instead of having to navigate to each dashboard in order to monitor job progression and handle possible errors, the Multi-Cluster Dashboard provides a quick and easy way to maintain the overview of all your background jobs, regardless of which cluster they are running on. Configuration and deployment is straightforward thanks to the auto-discovery mode and the FluentAPI configuration known and loved by JobRunr users.
 
-If you are interested in using this feature, check out our complete [JobRunr Pro](/en/pro/) feature set and try JobRunr Pro for free right now!
+If you are interested in using the Multi-Cluster dashboard, check out our complete [JobRunr Pro](/en/pro/) feature set or [Try JobRunr Pro for free](/en/try-jobrunr-pro/)!
 
 ---
 
