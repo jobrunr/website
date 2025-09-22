@@ -31,6 +31,26 @@ Let’s look at what’s new.
 
 Spring developers have enjoyed the simplicity of [`@AsyncJob`](/en/guides/migration/v8/#asyncjob-to-reduce-boilerplate) since v8.0. Now, developers using Quarkus and Micronaut can also turn a method call directly into a background job with a single annotation. This feature significantly reduces boilerplate code and makes enqueuing jobs more intuitive. You can find more information about [`@AsyncJob` here](/en/guides/migration/v8/#asyncjob-to-reduce-boilerplate)
 
+{{< codeblock >}}
+```java
+@Test
+public void testAsyncJob() {
+    asyncJobTestService.testMethodAsAsyncJob();
+    await().atMost(30, TimeUnit.SECONDS).until(() -> storageProvider.countJobs(StateName.SUCCEEDED) == 1);
+}
+
+@Singleton
+@AsyncJob
+public static class AsyncJobTestService {
+
+    @Job(name = "my async spring job")
+    public void testMethodAsAsyncJob() {
+        LOGGER.info("Running AsyncJobService.testMethodAsAsyncJob in a job");
+    }
+}
+```
+{{</ codeblock >}}
+
 ###  Official Support for JDK 25
 
 We are committed to keeping you on the cutting edge of the Java ecosystem. While JobRunr v8.0 was already compatible with JDK 25, this release makes it official. We have run a full set of tests to ensure there are no issues at all. You can confidently use the newest features and performance optimizations from JDK 25 in your background jobs.
@@ -106,6 +126,10 @@ jobrunr.dashboard.context-path=/jobrunr
 
 We have added extra columns to the tables in the JobRunr Pro Dashboard, giving you more at-a-glance information about your jobs. We also improved the upsert logic for Oracle databases, enhancing performance and reliability for our enterprise users.
 
+<video width="100%" autoplay muted loop controls>
+  <source src="/blog/JR810Dasboard.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ### Know When It's the Final Retry Attempt
 In addition to getting the retry count, JobRunr Pro now lets you easily check if a job is on its final attempt. The new `jobContext.isLastRetry()` method returns a boolean, simplifying your code for handling final failure scenarios. This is perfect for tasks like sending an alert to an administrator, moving a failed item to a dead-letter queue, or triggering a final cleanup process only after all standard retries have been exhausted. 
