@@ -126,10 +126,7 @@ jobrunr.dashboard.context-path=/jobrunr
 
 We have added extra columns to the tables in the JobRunr Pro Dashboard, giving you more at-a-glance information about your jobs. We also improved the upsert logic for Oracle databases, enhancing performance and reliability for our enterprise users.
 
-<video width="100%" autoplay muted loop controls>
-  <source src="/blog/JR810Dasboard.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+{{< video src="/blog/JR810Dasboard.mp4" autoplay="true" width="100%" muted="true" loop="true" controls="true" >}}
 
 ### Know When It's the Final Retry Attempt
 In addition to getting the retry count, JobRunr Pro now lets you easily check if a job is on its final attempt. The new `jobContext.isLastRetry()` method returns a boolean, simplifying your code for handling final failure scenarios. This is perfect for tasks like sending an alert to an administrator, moving a failed item to a dead-letter queue, or triggering a final cleanup process only after all standard retries have been exhausted. 
