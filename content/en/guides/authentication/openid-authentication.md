@@ -269,14 +269,16 @@ You may get an Exception with a message similar to the following:
 
 This may be a sign of misconfiguration of your identity provider. You may get this when using [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/microsoft-entra), because, under the default scope `openid`, the access token can only be validated by Microsoft's own services, and they are not OpenID compliant. This is also a sign that we're attempting to use a token that our application is not supposed to look into.
 
-#### Making Entra ID OpenID compliant
+#### Making Entra ID OpenID compliant/Integrating Active Directory
+
 If you're using Entra ID and the access token cannot be validated then you'll need to configure Entra ID to generate an access token for your application, in our case: the JobRunr Pro Dashboard. Apply the following steps:
+
 1. Add a new scope to the registered application, e.g., `jobrunr-pro-dashboard`.
 2. Update the manifest to make sure Entra ID returns v2 tokens by setting `accessTokenAcceptedVersion: 2`. 
 3. Optional: By default the `email` claim is not returned by Entra ID. JobRunr by default sets the username to this email (`null` is an acceptable value). If you don't want the username to be `null`, you need to enable the optional `email` claim. Or override the default `JobRunUser` instantiation.
 4. Update the JobRunr OpenID integration configuration scope, e.g., `openid api://client-id/jobrunr-pro-dashboard`.
 
-All these steps are provided in greater detail in this article: https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff.
+All these steps are provided in greater detail in this article discussing how Azure can be made Active Directory (AD) OIDC compliant: https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff.
 
 ### The Access Token type is not JWT
 You may encounter an Exception with a message to:
