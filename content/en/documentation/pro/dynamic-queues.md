@@ -88,18 +88,17 @@ JobRunrPro.configure()
 </figure>
 
 _Configuring Weighted Round Robin Dynamic Queues by means of Spring Boot Properties_:<br/>
-You can also enable the weighted round robin dynamic queues easily via Spring Bean:
+You can also enable the weighted round robin dynamic queues easily via properties:
 
 <figure>
 
-```java
-@Bean(name = "dynamicQueuePolicy")
-public DynamicQueuePolicy weightedRoundRobinDynamicQueuePolicy() {
-    return new WeightedRoundRobinDynamicQueuePolicy(labelPrefix, Map.of("Tenant-A", 5));
-}
 ```
-<figcaption>A DynamicQueuePolicy bean is created where we again add the label prefix 'tenant:'.<br/>'Tenant-A' is configured with a weight of 5 meaning that it will get 5 times more resources than other tenants.</figcaption>
-</figure>
+jobrunr.jobs.dynamic-queue.weighted-round-robin.label-prefix=tenant:
+jobrunr.jobs.dynamic-queue.weighted-round-robin.title=Tenants
+jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
+```
+
+You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
 
 ###### Fixed amount of reserved workers
 
