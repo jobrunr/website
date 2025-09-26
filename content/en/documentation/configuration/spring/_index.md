@@ -84,3 +84,5 @@ jobrunr.dashboard.enabled=false
 jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
 ```
+
+See the [Carbon Aware Job Processing docs](/en/documentation/configuration/carbon-aware/) for info on how to configure Carbon Aware specific properties. 

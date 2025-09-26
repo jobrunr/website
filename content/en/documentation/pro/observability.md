@@ -17,21 +17,36 @@ Although the JobRunr Pro Dashboard gives instant insights how your jobs are doin
 
 
 ## MicroMeter Job Timings
-JobRunr allows to export amount of jobs processed, average job duration, maximum job duration and other metrics like job failure count per job. This allows you to reuse your existing tools like [Prometheus](https://prometheus.io), [Grafana](https://grafana.net), ... and be notified by your existing alerting platform in case things go south.
+
+JobRunr can be easily configured to export metrics such as the total amount of succeeded jobs. In addition, JobRunr _Pro_ can export the average job duration, maximum job duration and other metrics like job failure count per job. This allows you to reuse your existing tools like [Prometheus](https://prometheus.io), [Grafana](https://grafana.net), ... and be notified by your existing alerting platform in case things go south.
 
 ### Configuration
+
 You can easily enable these timings in Spring Boot, Micronaut and Quarkus using your existing configuration:
 
 <figure>
 
 ```
-jobrunr.jobs.metrics.micrometer-timers.enabled=true
+# enable general jobs metrics and integrate with your framework
+jobrunr.jobs.metrics.enabled=true 
+# enable job timing metrics (Pro only)
+jobrunr.jobs.metrics.micrometer-timers.enabled=true 
 ```
 <figcaption>This configuration shows how to enable the MicroMeter timers.</figcaption>
 </figure>
 
 
-{{< trial-button >}}
+If `micrometer-timers` is enabled, the following extra metrics will be exposed: 
+
+```
+jobrunr_jobs_in_progress_seconds_count
+jobrunr_jobs_in_progress_seconds_sum
+jobrunr_jobs_in_progress_seconds_max
+jobrunr_jobs_runs_total
+jobrunr_jobs_runs_succeeded_seconds_count
+jobrunr_jobs_runs_succeeded_seconds_sum
+jobrunr_jobs_runs_succeeded_seconds_max
+```
 
 ## Observability
 You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [MicroMeter](https://micrometer.io/).

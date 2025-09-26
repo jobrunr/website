@@ -69,6 +69,7 @@ Of course, you can configure the Carbon Aware API with your favourite app framew
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
 jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000ms
+jobrunr.background-job-server.carbon-aware-job-processing.poll-interval-in-minutes=5
 ```
 
 On the carbon aware job processing configuration class, the following parameters can be configured:
@@ -82,6 +83,7 @@ On the carbon aware job processing configuration class, the following parameters
 - `apiClientReadTimeout`---Allows to set the read timeout for the API client (defaults to 3 seconds).
 - `apiClientRetriesOnException`---Configures the API client amount of retries when the call throws an exception (defaults to 3).
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} `andCarbonIntensityApiUrl`---Allows to set a custom Carbon Intensity API URL to create your own implementation. The area code, data provider, external code, and external provider settings will be passed in as a request parameter.
+- `pollIntervalInMinutes`---Allows to configure how often Carbon Aware Awaiting jobs will be picked up and processed (defaults to 5 minutes).
 
 > __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 
 
