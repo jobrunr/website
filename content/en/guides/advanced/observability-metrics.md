@@ -1,12 +1,11 @@
 ---
 title: Leveraging JobRunr's Metrics and Observability Features
-description: This guide explains how to expose different metrics and how to integrate JobRunr into your OpenTelemetry observability platform.
+description: This guide explains how to expose different metrics and how to integrate JobRunr into your observability platform.
 weight: 30
 tags:
     - metrics
     - MicroMeter
     - observability
-    - OpenTelemetry
 hideFrameworkSelector: true
 ---
 
@@ -130,7 +129,7 @@ That way, you can inject a registry that connects to another backend, just like 
 
 # 2. Tracing
 
-For distributed end-to-end tracing, passing in a TraceId and keeping it consistent is key for observability platforms that ease distributed debugging sessions. [Jaeger](https://www.jaegertracing.io/) is the de facto distributed tracing platform that eases the pain of troubleshooting complex systems. By enabling JobRunr Pro's Open Telemetry observability capabilities, we can follow the TraceId both in the JobRunr Pro dashboard and in Jaeger to see how it interacts with other systems.
+For distributed end-to-end tracing, passing in a TraceId and keeping it consistent is key for observability platforms that ease distributed debugging sessions. [Jaeger](https://www.jaegertracing.io/) and  is the de facto distributed tracing platform that eases the pain of troubleshooting complex systems. By enabling JobRunr Pro's Open Telemetry observability capabilities, we can follow the TraceId both in the JobRunr Pro dashboard and in Jaeger to see how it interacts with other systems.
 
 Let's start with the same pre-requirements as above.
 
