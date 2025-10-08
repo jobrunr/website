@@ -150,6 +150,6 @@ That way, you can inject a registry that connects to another backend, just like 
 
 # Conclusion
 
-By configuring job and background server metrics, JobRunr is able to plug into the existing metrics observability system of your framework of choice, relaying among others job stats and background server resource information to an observability platform such as Prometheus.  Close system health monitoring is an indispensable part of improving the quality of your software. As we have seen, JobRunr and JobRunr Pro provides easy ways to expand these.
+By configuring job and background server metrics, JobRunr is able to plug into the existing metrics observability system of your framework of choice, relaying among others job stats and background server resource information to an observability platform such as Prometheus. Close system health monitoring is an indispensable part of improving the quality of your software. As we have seen, JobRunr and JobRunr Pro provides easy ways to expand these.
 
 If you are interested in also integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/guides/advanced/observability-tracing).

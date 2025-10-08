@@ -145,7 +145,7 @@ If you fire off a job in that `creditCardService` triggered in `/register` in th
 
 ![](/guides/jobrunrpro-dashboard-tracing.png "The Trace ID is available to the right of the Job ID after configuring JobRunrPro to enable otel observability.")
 
-The link takes us to the Jaeger dashboard and automatically filters on the specific trace (`/trace/id`). There, we can clearly see the single trace starting in the `banking-app`, creating a `jobrunr.job` (if you click open "Tags" you'll get more info like the job name: `CreditCardService.createNewCreditCard(...)`) that fires off a `http.get` into another hop (the colour transitions from lightblue to orange indicating the TraceId reached an external system) to `government.app`:
+The link takes us to the Jaeger dashboard and automatically filters on the specific trace (`/trace/id`). There, we can clearly see the single trace starting in the `banking-app`, creating a `jobrunr.job` span inside the same service (if you click open "Tags" you'll get more info like the job name: `CreditCardService.createNewCreditCard(...)`) that fires off a `http.get` into another service or "hop" (the colour transitions from lightblue to orange indicating the TraceId reached an external system: `government.app`):
 
 ![](/guides/jaeger.png "jobrunr.job tag information displayed in Jaeger: creditCardService.createNewCreditCard via org.springframework.boot.")
 
