@@ -66,7 +66,7 @@ Create a new Micronaut application. Then, we want to make sure to depend on the 
 
 ```groovy
 dependencies {
-    implementation 'org.jobrunr:jobrunr-micronaut-starter:8.1.0'
+    implementation 'org.jobrunr:jobrunr-micronaut:8.1.0'
     // ... other micronaut dependencies
     implementation 'io.micronaut:micronaut-management'
     implementation 'io.micronaut.micrometer:micronaut-micrometer-core'
@@ -123,6 +123,8 @@ If you're using Quarkus, we need to add the following extra dependency:
 
 ```groovy
 dependencies {
+    // JobRunr support for Quarkus
+    implementation 'org.jobrunr:quarkus-jobrunr:8.1.0'
     // Micrometer <-> Prometheus support
     implementation 'io.quarkus:quarkus-micrometer-registry-prometheus'
 }
