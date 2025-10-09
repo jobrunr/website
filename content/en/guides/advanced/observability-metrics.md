@@ -5,14 +5,20 @@ weight: 30
 draft: true
 tags:
     - JobRunr Pro
-    - observability
+    - Observability
     - MicroMeter
-    - tracing
+    - Tracing
 ---
 
 In this guide, we will unfold JobRunr's observability features that go beyond simply logging. We'll explore how to enable outputting various metrics to integrate with your favourite monitoring platform. If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/guides/advanced/observability-tracing) instead.
 
 > ⚠️ **Warning**: Adding any metrics to your application will generally impact performance as it adds extra computational/IO overhead. Only do this if you intent to monitor them and be sensible with metric scraping configurations.
+
+## Prerequisites
+
+- JobRunr Pro 8.0.0 or later
+- You already know how to configure JobRunr
+- Basic knowledge of MicroMeter
 
 Suppose your software generates important documents that _have_ to make it to the end user---a failing job should immediately trigger an alarm, without having to constantly scan and manually refresh the JobRunr dashboard. This is exactly where metrics come in. JobRunr exposes both **job-based metrics** (e.g. job counts) and **server-based metrics** (e.g. resource usage of your active background job servers). These can be configured individually. 
 
@@ -23,7 +29,25 @@ Let's first start with just the base framework to showcase how JobRunr's metrics
 ## Framework Setup
 
 {{< framework type="fluent-api" >}}
-Please **select a framework of your choice** on the top right of this article.
+If you do not use a framework, you have to create your own `meterRegistry` to later inject into the JobRunr configuration:
+
+```java
+PrometheusMeterRegistry meterRegistry = new PrometheusMeterRegistry(
+  PrometheusConfig.DEFAULT, CollectorRegistry.defaultRegistry, Clock.SYSTEM);
+
+```
+
+This requires the following MicroMeter Gradle dependencies:
+
+```groovy
+dependencies {
+implementation 'io.micrometer:micrometer-core:1.11.4'
+implementation 'io.micrometer:micrometer-registry-prometheus:1.11.4'
+}
+```
+
+Note that this in itself does nothing: it also does not expose an endpoint. We'll expose a Prometheus-specific one later.
+
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 In Quarkus, there’s no separate generic Micrometer `/metrics` HTTP endpoint like in Micronaut or Spring Boot that returns JSON. Instead, if you directly configure and add the Prometheus dependency, that endpoint will directly expose metrics in the Prometheus format. 
@@ -100,12 +124,39 @@ Next, start your application and surf to [http://localhost:8080/metrics](http://
 ```
 {{< /framework >}}
 
+### JobRunr Configuration
+
 Let's try to enable the JobRunr specific metrics. As mentioned before and in the [JobRunr Metrics docs](/en/documentation/configuration/metrics/), there are background job server metrics and job metrics; both can be toggled individually:
 
+{{< framework type="fluent-api" >}}
+```java
+JobRunr.configure()
+  // ... other config
+  .useMicroMeter(new JobRunrMicroMeterIntegration(meterRegistry, true))
+```
+
+If you do not enable the background job server, the metrics will not be enabled. The second optional parameter determines whether to publish job-specific metrics (e.g. `jobrunr.jobs.metrics.enabled`).
+
+{{< /framework >}}
+{{< framework type="quarkus" label="Quarkus">}}
+```
+quarkus.jobrunr.jobs.metrics.enabled=true
+quarkus.jobrunr.background-job-server.metrics.enabled=true
+```
+{{< /framework >}}
+{{< framework type="spring-boot" label="Spring">}}
 ```
 jobrunr.jobs.metrics.enabled=true
 jobrunr.background-job-server.metrics.enabled=true
 ```
+{{< /framework >}}
+
+{{< framework type="micronaut" label="Micronaut">}}
+```
+jobrunr.jobs.metrics.enabled=true
+jobrunr.background-job-server.metrics.enabled=true
+```
+{{< /framework >}}
 
 > ⚠️ **Warning**: Be careful with enabling `jobs` metrics as this generates more database load. Ideally, only enable it on the same server running the dashboard.
 
@@ -116,7 +167,30 @@ Now, `/metrics` should include, among others, `jobrunr.background-job-server.pro
 Micrometer itself does not ingest these values: it merely provides a convenient way to expose them. A popular monitoring tool is [Prometheus](https://prometheus.io/) that can scrape an endpoint every x (mili)seconds to aggregate, transform, visualize, ... the data. 
 
 {{< framework type="fluent-api" >}}
-Please **select a framework of your choice** on the top right of this article.
+Use the Fluent API to configure a `JobRunrMicroMeterIntegration` instance by injecting the `meterRegistry` we created above:
+
+```java
+JobRunr.configure()
+  // ... other config
+  .useMicroMeter(new JobRunrMicroMeterIntegration(meterRegistry))
+```
+
+Next, we'll have to expose `/prometheus` ourselves if we don't rely on a framework doing it for us:
+
+```java
+HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+
+server.createContext("/prometheus", exchange -> {
+    String response = meterRegistry.scrape();
+    exchange.getResponseHeaders().add("Content-Type", "text/plain; version=0.0.4");
+    exchange.sendResponseHeaders(200, response.getBytes().length);
+    try (OutputStream os = exchange.getResponseBody()) {
+        os.write(response.getBytes());
+    }
+});
+
+```
+
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 If you're using Quarkus, we need to add the following extra dependency:
@@ -210,7 +284,18 @@ This tells Prometheus to look for `localhost:8080/actuator/prometheus` and scrap
 Let's create an endpoint to create 1000 jobs to showcase how Prometheus visualizes the sudden spike in jobs. 
 
 {{< framework type="fluent-api" >}}
-Please **select a framework of your choice** on the top right of this article.
+We presume you created a Rest server that can serve the GET endpoint `/bulk-add-cards`:
+
+```java
+public class AdminController {
+
+    // This is a GET endpoint at /bulk-add-cards
+    public void bulkAddCreditCards() {
+        for(int i = 1; i <= 1000; i++) {
+            BackgroundJob.enqueue(() -> System.out.println("creating new credit card #" + i));
+        }
+    }
+```
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 ```java
@@ -282,15 +367,7 @@ You can even take this a step further by involving Grafana and adding scripts th
 
 ## Configuring Custom Micrometer Registries
 
-If you want to have full control on where JobRunr's metrics are exported to, you can create your own `meterRegistry` bean that automatically will be injected into JobRunr's `JobRunrMicroMeterIntegration` class.
-
-If you don't use a framework, you can rely on the Fluent API to configure this yourself:
-
-```java
-JobRunr.configure()
-  // ... other config
-  .useMicroMeter(new JobRunrMicroMeterIntegration(meterRegistry))
-```
+If you want to have full control on where JobRunr's metrics are exported to, you can create your own `meterRegistry` bean that automatically will be injected into JobRunr's `JobRunrMicroMeterIntegration` class. See the Fluent API examples in this guide on how to configure this yourself.
 
 That way, you can inject a registry that connects to another backend, just like the `micrometer-registry-prometheus` dependency we relied on. 
 

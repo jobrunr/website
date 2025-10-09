@@ -5,8 +5,8 @@ weight: 30
 drawing: https://excalidraw.com/#json=eVCmWXqZLhc1hQGLVyDpN,ePXi5lYY-0msET2JM_btOg
 draft: true
 tags:
-    - observability
-    - metrics
+    - Observability
+    - Metrics
     - MicroMeter
 ---
 
@@ -14,20 +14,75 @@ In this {{< label version="professional" >}}JobRunr Pro {{< /label >}} guide, we
 
 If you are interested in exposing JobRunr-specific metrics and feeding these into your observability platform, please consult the [observability: metrics guide](/guides/advanced/observability-metrics) instead.
 
-For distributed end-to-end tracing, passing in a TraceId and keeping it consistent is key for observability platforms that ease distributed debugging sessions. [Jaeger](https://www.jaegertracing.io/) and [Zipkin](https://zipkin.io/) are popular distributed tracing platforms that ease the pain of troubleshooting complex systems. By enabling JobRunr Pro's Open Telemetry observability capabilities, we can follow the TraceId both in the JobRunr Pro dashboard and in Jaeger to see how it interacts with other systems.
+## Prerequisites
 
-Let's start with creating a sample scenario to better demonstrate the distributed tracing capabilities. We'll create two applications: port `8080` will run our banking app with a controller that registers new credit cards. That will fire off a JobRunr job doing a HTTP call to the government app at port `8088` verifying credentials. The distributed nature and the HTTP call inside the async job will showcase why tracing can be hard and how tools like Jaeger and Zipkin can be of great help.
+- JobRunr Pro 8.0.0 or later
+- You already know how to configure JobRunr
+- Basic knowledge of OpenTelemetry
 
-![](/guides/tracing-app-structure.png)
+## What we're going to build
 
-## Framework Boot Setup
+Let's start with creating a sample scenario to better demonstrate the distributed tracing capabilities. We'll create two applications: port `8080` will run our banking app with a controller that registers new credit cards. That will fire off a JobRunr job doing a HTTP call to the government app at port `8088` verifying credentials:
 
-Your framework of choice (please pick one on the top right of this article) uses Micrometer behind the scenes as an abstraction layer together with an Open Telemetry (Otel) exporter to make sure our trace information reaches Jaeger. For demonstration purposes of this guid, Jaeger will be our tracing platform of choice. 
+![](/guides/tracing-app-structure.png "The system structure: two applications (banking and government app) interacting through HTTP.")
 
-### The Banking App
+The distributed nature and the HTTP call inside the asynchronous JobRunr job will showcase why tracing can be hard and how observability tools can be of great help. 
+
+In order to trace specific actions through a distributed system---such as the registration of a credit card---a unique ID called a _TraceId_ has to be passed along to retrace the steps of an execution path through every piece of software involved. Every trace is a graph of _spans_, logical units of work that have an operation name and can be timed. 
+
+By enabling JobRunr Pro's Open Telemetry observability capabilities, we can follow the TraceId both in the JobRunr Pro dashboard and in Jaeger to see how it interacts with other systems.
+
+> For demonstration purposes of this guid, [Jaeger](https://www.jaegertracing.io/) will be our tracing platform of choice. Thanks to the Micrometer and OpenTelemetry abstraction layer, JobRunr is tool agnostic: you can use any existing observability platform you already have in place. [Zipkin](https://zipkin.io/) is another popular alternative.
+
+## Framework Setup
+
+Your framework of choice (please **pick one on the top right** of this article) uses Micrometer behind the scenes as an abstraction layer together with an Open Telemetry (Otel) exporter to make sure our trace information reaches Jaeger. 
 
 {{< framework type="fluent-api" >}}
-Please **select a framework of your choice** on the top right of this article.
+
+If you are not using a framework, you'll have to use the OpenTelemetry SDK to get a `Tracer` instance that can be passed into the JobRunr FluentAPI configuration. See the [OpenTelemetry Java documentation](https://opentelemetry.io/docs/languages/java/intro/) for more information.
+
+The following snippet creates a `Tracer` using the SDK builder that later can be injected into JobRunr Pro:
+
+```java
+SpanExporter otlpExporter = OtlpHttpSpanExporter.builder()
+        .setEndpoint("http://localhost:4318/v1/traces")
+        .build();
+
+// this is the name that will appear in the Jaeger dropdown box.
+Resource resource = Resource.create(
+        Attributes.of(ResourceAttributes.SERVICE_NAME, "jobrunr-test")
+);
+
+SdkTracerProvider tracerProvider = SdkTracerProvider.builder()
+        .addSpanProcessor(BatchSpanProcessor
+                .builder(otlpExporter)
+                .build())
+        .setResource(Resource.getDefault().merge(resource))
+        .build();
+
+OpenTelemetry openTelemetry = OpenTelemetrySdk.builder()
+        .setTracerProvider(tracerProvider)
+        .buildAndRegisterGlobal();
+
+// this object will be needed for the JobRunr Pro config.
+Tracer tracer = openTelemetry.getTracer("jobrunr-test");
+```
+
+For this to work, we'll need the following additional Gradle dependencies:
+
+```groovy
+dependencies {
+    implementation 'io.opentelemetry:opentelemetry-api:1.54.1'
+    implementation 'io.opentelemetry:opentelemetry-sdk:1.54.1'           // to build an Otel instance
+    implementation 'io.opentelemetry:opentelemetry-semconv:1.24.0-alpha' // for the service name
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.54.1' // the exporter to the OTLP endpoint
+}
+```
+
+Remember that the `BatchSpanProcessor` by default batches trace exports every five seconds. This can be configured with for instance `.setScheduleDelay(10, TimeUnit.MILLISECONDS)` and `.setMaxExportBatchSize(1)`.
+
+
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 Createa a new Quarkus application. Add the following dependencies (Gradle example):
@@ -45,9 +100,135 @@ dependencies {
 
 The above dependencies instruct Quarkus to export traces in the Open Telemetry format (`opentelemetry-exporter-otlp`) to an exporter that in this case happens to be Jager. 
 
-Next, we'll create a resource endpoint that registers a new credit card, creating a JobRunr job that executes a HTTP call to the government app---just like in the schematic above. 
+In Quarkus, the tracing functionality is supported and **on** by default---see the official [Quarkus OpenTelemetry tracing documentation](https://quarkus.io/guides/opentelemetry-tracing) for more information. All that is left to do is pointing our Quarkus application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these config properties:
 
-The resource:
+```
+quarkus.application.name=banking-app
+# for the government app: quarkus.application.name=banking-app
+# point to our running instance
+quarkus.otel.exporter.otlp.endpoint=http://localhost:4318
+# quarkus by default uses gRPC (port 4317); we will send data to Jaeger over HTTP
+quarkus.otel.tracer.exporter.otlp.protocol=http/protobuf
+
+# optionally, change the log output to also include the traceIds
+quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n
+```
+
+If you don't see the spans immediately appearing in Jaeger, that is because Quarkus batches them. Disabled this with `quarkus.otel.simple=true` to double-check that everything is working correctly.
+
+{{< /framework >}}
+{{< framework type="spring-boot" label="Spring">}}
+Scaffoled a new Spring Boot application using https://start.spring.io/. Add the following dependencies (Gradle example):
+
+```groovy
+dependencies {
+    // JobRunr Pro integration
+    implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:8.1.0'
+    // This is needed as a base for Spring Boot to enable any observability
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // The micrometer bridge to Open Telemetry (otel)
+    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+    // The Otel exporter so it can send data to Jaeger
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+}
+```
+
+The above dependencies instruct Spring Boot to use Micrometer to export traces in the Open Telemetry format (`tracing-brdige-otel`) to our Open Telemetry-compatible tracing platform (`exporter-otlp`) that in this case happens to be Jager. For debugging purposes, you can also enable the logging exporter by including and configuring `opentelemetry-exporter-logging` to see the traceIds and details in the log output that otherwise flow to the OTLP endpoint.
+
+All that is left to do is pointing our Spring Boot application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these two lines to your properties:
+
+```
+management.tracing.sampling.probability=1.0 # export all traces instead of the default 10%
+management.otlp.tracing.endpoint=http://localhost:4318/v1/traces # point to our running instance
+```
+{{< /framework >}}
+{{< framework type="micronaut" label="Micronaut">}}
+Create a new Micronaut application. Add the following dependencies (Gradle example):
+
+```groovy
+dependencies {
+    // JobRunr Pro integration
+    implementation 'org.jobrunr:jobrunr-pro-micronaut:8.1.0'
+    // OpenTelemetry + the exporter
+    implementation 'io.micronaut:micronaut-tracing-opentelemetry'
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
+}
+```
+
+The above dependencies instruct Micronaut to export traces in the Open Telemetry format (`opentelemetry-exporter-otlp`) to an exporter that in this case happens to be Jager. 
+
+All that is left to do is pointing our Micronaut application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these two lines to your properties:
+
+```yml
+otel:
+  sdk:
+    enabled: true
+    resource:
+      service:
+        # don't forget to change accordingly for government-app
+        name: banking-app
+    tracer:
+      exporter:
+        otlp:
+          endpoint: http://localhost:4318
+          protocol: http/protobuf
+    sampler:
+      probability: 1.0
+```
+{{< /framework >}}
+
+Next, we'll create an endpoint that registers a new credit card in the banking app, creating a JobRunr job that executes a HTTP call to the government app---just like in the schematic above. 
+
+
+## Building The Banking App
+
+{{< framework type="fluent-api" >}}
+We assume that you create a Rest server exposing a POST endpoint at `/register` and enqueuing a JobRunr job:
+
+
+```java
+public class CreditCardController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreditCardController.class);
+    private final CreditCardService creditCardService;
+    
+    public class CreditCardController(CreditCardService creditCardService) {
+      this.creditCardService = creditCardService;
+    }
+
+    // a POST endpoint at /register
+    public String processRegistration(CreditCard creditCard) {
+        LOGGER.info("registering new credit card: {}", creditCard);
+
+        BackgroundJob.enqueue(() -> creditCardService.processRegistration(creditCard));
+        return "enqueued";
+    }  
+}
+```
+
+The `CreditCardService` that verifies credentials via the government app (assuming access to some form of Rest client):
+
+```java
+public class CreditCardService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CreditCardService.class);
+    // TODO use your flavour of choice here
+    private final SomeRestClient restClient;
+
+    public CreditCardService(SomeRestClient restClient) {
+      this.restClient = restClient;
+    }
+
+    public void processRegistration(CreditCard creditCard) {
+        String verified = restClient.get("http://localhost:8089/verify-credentials");
+        LOGGER.info("Created new credit card: {} - verified: {}", creditCard, verified);
+    }
+}
+
+```
+
+{{< /framework >}}
+{{< framework type="quarkus" label="Quarkus">}}
+Let's createa a resource representing the registration of the credit card service:
 
 ```java
 public class CreditCardResource {
@@ -98,46 +279,15 @@ public interface VerificationClient {
 
 ```
 
-In Quarkus, the tracing functionality is supported and **on** by default---see the official [Quarkus OpenTelemetry tracing documentation](https://quarkus.io/guides/opentelemetry-tracing) for more information. All that is left to do is pointing our Quarkus application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these config properties:
+Don't forget to configure our REST endpoint to point to the government app:
 
 ```
-quarkus.application.name=banking-app
-# point to our running instance
-quarkus.otel.exporter.otlp.endpoint=http://localhost:4318
-# quarkus by default uses gRPC (port 4317); we will send data to Jaeger over HTTP
-quarkus.otel.tracer.exporter.otlp.protocol=http/protobuf
-
-# optionally, change the log output to also include the traceIds
-quarkus.log.console.format=%d{HH:mm:ss} %-5p traceId=%X{traceId}, parentId=%X{parentId}, spanId=%X{spanId}, sampled=%X{sampled} [%c{2.}] (%t) %s%e%n
-
-# don't forget to configure our REST endpoint to point to the government app
 quarkus.rest-client.verification-api.url=http://localhost:8088
 ```
 
-If you don't see the spans immediately appearing in Jaeger, that is because Quarkus batches them. Disabled this with `quarkus.otel.simple=true` to double-check that everything is working correctly.
-
 {{< /framework >}}
 {{< framework type="spring-boot" label="Spring">}}
-Scaffoled a new Spring Boot application using https://start.spring.io/. Add the following dependencies (Gradle example):
-
-```groovy
-dependencies {
-    // JobRunr Pro integration
-    implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:8.1.0'
-    // This is needed as a base for Spring Boot to enable any observability
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
-    // The micrometer bridge to Open Telemetry (otel)
-    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
-    // The Otel exporter so it can send data to Jaeger
-    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
-}
-```
-
-The above dependencies instruct Spring Boot to use Micrometer to export traces in the Open Telemetry format (`tracing-brdige-otel`) to our Open Telemetry-compatible tracing platform (`exporter-otlp`) that in this case happens to be Jager. For debugging purposes, you can also enable the logging exporter by including and configuring `opentelemetry-exporter-logging` to see the traceIds and details in the log output that otherwise flow to the OTLP endpoint.
-
-Next, we'll create a controller endpoint that registers a new credit card, creating a JobRunr job that executes a HTTP call to the government app---just like in the schematic above. 
-
-The controller:
+The Rest controller:
 
 ```java
 @Controller
@@ -178,31 +328,10 @@ public class CreditCardService {
 }
 ```
 
-Thanks to the Spring Boot Actuator dependency, our application will automatically generate traces for each HTTP request based on Spring Boot's annotations---see the official [Actuator Tracing docs](https://docs.spring.io/spring-boot/reference/actuator/tracing.html) for more information. Traces will also be automatically propagated across the network if you use the provided Spring Rest builders to execute your HTTP calls. 
+Our application will automatically generate traces for each HTTP request based on Spring Boot's annotations thanks to the OpenTelemetry tracer hooking into Spring Actuator---see the official [Actuator Tracing docs](https://docs.spring.io/spring-boot/reference/actuator/tracing.html) for more information. Traces will also be automatically propagated across the network if you use the provided Spring Rest builders to execute your HTTP calls. 
 
-All that is left to do is pointing our Spring Boot application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these two lines to your properties:
-
-```
-management.tracing.sampling.probability=1.0 # export all traces instead of the default 10%
-management.otlp.tracing.endpoint=http://localhost:4318/v1/traces # point to our running instance
-```
 {{< /framework >}}
 {{< framework type="micronaut" label="Micronaut">}}
-Create a new Micronaut application. Add the following dependencies (Gradle example):
-
-```groovy
-dependencies {
-    // JobRunr Pro integration
-    implementation 'org.jobrunr:jobrunr-pro-micronaut:8.1.0'
-    // OpenTelemetry + the exporter
-    implementation 'io.micronaut:micronaut-tracing-opentelemetry'
-    implementation 'io.opentelemetry:opentelemetry-exporter-otlp'
-}
-```
-
-The above dependencies instruct Micronaut to export traces in the Open Telemetry format (`opentelemetry-exporter-otlp`) to an exporter that in this case happens to be Jager. 
-
-Next, we'll create a controller endpoint that registers a new credit card, creating a JobRunr job that executes a HTTP call to the government app---just like in the schematic above. 
 
 The controller:
 
@@ -254,45 +383,77 @@ public interface VerificationClient {
 ```
 
 For the REST client to work you'll need to add the `io.micronaut:micronaut-http-client` dependency.
-
-All that is left to do is pointing our Micronaut application to the `4318` endpoint where our tracing provider will be deployed (see the next section). Add these two lines to your properties:
-
-```yml
-otel:
-  sdk:
-    enabled: true
-    resource:
-      service:
-        name: banking-app
-    tracer:
-      exporter:
-        otlp:
-          endpoint: http://localhost:4318
-          protocol: http/protobuf
-    sampler:
-      probability: 1.0
-```
 {{< /framework >}}
 
-Then, we'll enable the JobRunr Pro tracing capabilities as well. JobRunr Pro offers the ability to export job information to the OTLP exporter and to integrate the TraceId in the JobRunr dashboard. For this, we need to configure JobRunr to enable tracing observability:
+Next, let's take a look at how to configure JobRunr Pro to enable OpenTelemetry tracing support.
 
+### JobRunr Setup
+
+Here, we'll enable the JobRunr Pro tracing capabilities. JobRunr Pro offers the ability to export job information to the OTLP exporter and to integrate the TraceId in the JobRunr dashboard. For this, we need to configure JobRunr to enable tracing observability:
+
+{{< framework type="fluent-api" >}}
+
+Inject the `tracer` we created earlier into the Fluent API configuration:
+
+```java
+JobRunrPro
+        .configure()
+        // ... other config
+        .useTracing(JobRunrOpenTelemetryTracingConfiguration.usingOpenTelemetryTracing(tracer))
+        .useDashboardIf(dashboardIsEnabled(args), usingStandardDashboardConfiguration()
+          // ... other config
+          .andIntegration(new JaegerObservabilityIntegration("http://localhost:16686/"))
+        )
+        .initialize();
+
+```
+
+> ⚠️ The Fluent API `useTracing()` method is supported for JobRunr Pro versions newer than 8.1.0.
+
+{{< /framework >}}
+{{< framework type="quarkus" label="Quarkus">}}
+```
+quarkus.jobrunr.jobs.metrics.otel-observability.enabled=true # enable export 
+quarkus.jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/ # enable linking in dashboard
+```
+{{< /framework >}}
+{{< framework type="spring-boot" label="Spring">}}
 ```
 jobrunr.jobs.metrics.otel-observability.enabled=true # enable export 
 jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/ # enable linking in dashboard
 ```
+{{< /framework >}}
+{{< framework type="micronaut" label="Micronaut">}}
+```
+jobrunr.jobs.metrics.otel-observability.enabled=true # enable export 
+jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/ # enable linking in dashboard
+```
+{{< /framework >}}
 
-The first configuration enables JobRunr to piggyback onto the previously configured Spring Boot OTLP system to export its job information to Jaeger and the second one allows us to click through from the JobRunr Pro dashboard to the Jaeger instance automatically filtering on a specific traceId. 
+Enabling observability in JobRunr piggybacks onto the previously configured framework's OTLP system to export its job information to Jaeger and setting the Jaeger root URL allows us to click through from the JobRunr Pro dashboard to the Jaeger instance automatically filtering on a specific traceId. 
 
-Our application will automatically generate traces for each HTTP request thanks to the way the frameworks integrate Rest clients with OpenTelemetry. Traces will also be automatically propagated across the network, which is exactly what we will be doing when calling the government app from a JobRunr job inside the banking app. 
+Thanks to the way the frameworks integrate Rest clients with OpenTelemetry, traces will also be automatically propagated across the network, which is exactly what we will be doing when calling the government app from a JobRunr job inside the banking app. 
 
 This means that in one "trace"---the act of registering a single credit card starting at `CreditCardController.processRegistration()` in the banking app---there will be multiple "spans" visible---hops the trace will go through from system to system, to the government app. Speaking of which...
 
-### The Government App
+## Building The Government App
 
 This one is just a simple endpoint that logs something when we hit `http://localhost:8088/verify-credentials`. All you need is a minimal controller implementing this:
 
 {{< framework type="fluent-api" >}}
-Please **select a framework of your choice** on the top right of this article.
+We assume that you create a Rest server exposing a POST endpoint at `/verify-credentials` returning a simple string:
+
+
+```java
+public class CredentialsController {
+  private static final Logger LOGGER = LoggerFactory.getLogger(CredentialsController.class);
+  // a GET endpoint at /verify-credentials
+  public String verify() {
+    LOGGER.info("verifying credentials");
+    return "looks good to me!";
+  }
+}
+```
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 ```java
@@ -339,7 +500,7 @@ public class CredentialsController {
 ```
 {{< /framework >}}
 
-We don't need the JobRunr dependency here, but this application must also send its tracing data to our provider otherwise the spans will not be added to the existing trace. Don't forget to set the server port to `8088` with `server.port=8088` to avoid port collisions.
+We don't need the JobRunr dependency here, but this application must also send its tracing data to our provider otherwise the spans will not be added to the existing trace. Don't forget to set the server port to `8088` (e.g. in Spring Boot with `server.port=8088`) to avoid port collisions.
 
 ## Inspecting Distributed Traces
 
@@ -367,7 +528,7 @@ The link takes us to the Jaeger dashboard and automatically filters on the speci
 
 ![](/guides/jaeger.png "jobrunr.job tag information displayed in Jaeger: creditCardService.createNewCreditCard via org.springframework.boot.")
 
-For more information about spans and traces, see the [Jaeger documentation](https://www.jaegertracing.io/docs/1.22/architecture/#span) explaining the terms and architecture. For more tracing configuration options, see our [JobRunr Pro Observability docs](/en/documentation/pro/observability/).
+For more tracing configuration options, see our [JobRunr Pro Observability docs](/en/documentation/pro/observability/).
 
 ---
 
