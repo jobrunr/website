@@ -16,7 +16,7 @@ menu:
 Although the JobRunr Pro Dashboard gives instant insights how your jobs are doing, you may already have an observability platform like [Jaeger](https://www.jaegertracing.io/), [HoneyComb](https://www.honeycomb.io) or [New Relic](https://newrelic.com) running. JobRunr Pro out-of-the box integrates with many of these observability platforms so you can keep on top of things.
 
 
-## MicroMeter Job Timings
+## Micrometer Job Timings
 
 JobRunr can be easily configured to export metrics such as the total amount of succeeded jobs. In addition, JobRunr _Pro_ can export the average job duration, maximum job duration and other metrics like job failure count per job. This allows you to reuse your existing tools like [Prometheus](https://prometheus.io), [Grafana](https://grafana.net), ... and be notified by your existing alerting platform in case things go south.
 
@@ -32,7 +32,7 @@ jobrunr.jobs.metrics.enabled=true
 # enable job timing metrics (Pro only)
 jobrunr.jobs.metrics.micrometer-timers.enabled=true 
 ```
-<figcaption>This configuration shows how to enable the MicroMeter timers.</figcaption>
+<figcaption>This configuration shows how to enable the Micrometer timers.</figcaption>
 </figure>
 
 
@@ -49,7 +49,7 @@ jobrunr_jobs_runs_succeeded_seconds_max
 ```
 
 ## Observability
-You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [MicroMeter](https://micrometer.io/).
+You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [Micrometer](https://micrometer.io/).
 
 Using the integration of your choice will not only show you the TraceId within the JobRunr Pro Dashboard but it will also show detailed job information in your observability platform.
 
@@ -68,7 +68,7 @@ You can easily enable observability in Spring Boot, Micronaut and Quarkus using 
 # enable linking from within the JobRunr Pro Dashboard to your Tracing Provider
 jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/
 
-# if you prefer MicroMeter
+# if you prefer Micrometer
 jobrunr.jobs.metrics.micrometer-observability.enabled=true
 
 # or, if you prefer OpenTelemetry

@@ -2,34 +2,37 @@
 title: "Observability: Enabling JobRunr Metrics"
 description: Follow this guide to expose and integrate different JobRunr-specific metrics into your observability platform.
 weight: 30
-draft: true
 tags:
     - JobRunr Pro
     - Observability
-    - MicroMeter
+    - Micrometer
     - Tracing
 ---
 
-In this guide, we will unfold JobRunr's observability features that go beyond simply logging. We'll explore how to enable outputting various metrics to integrate with your favourite monitoring platform. If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/guides/advanced/observability-tracing) instead.
+In this guide, we will unfold JobRunr's observability features that go beyond simply logging. We'll explore how to enable outputting various metrics to integrate with your favourite monitoring platform. 
+
+If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/guides/advanced/observability-tracing) instead.
 
 > ⚠️ **Warning**: Adding any metrics to your application will generally impact performance as it adds extra computational/IO overhead. Only do this if you intent to monitor them and be sensible with metric scraping configurations.
 
 ## Prerequisites
 
-- JobRunr Pro 8.0.0 or later
+- JobRunr 8.0.0 or later
 - You already know how to configure JobRunr
-- Basic knowledge of MicroMeter
+- Basic knowledge of Micrometer
+
+## Context
 
 Suppose your software generates important documents that _have_ to make it to the end user---a failing job should immediately trigger an alarm, without having to constantly scan and manually refresh the JobRunr dashboard. This is exactly where metrics come in. JobRunr exposes both **job-based metrics** (e.g. job counts) and **server-based metrics** (e.g. resource usage of your active background job servers). These can be configured individually. 
 
-Under the hood, JobRunr uses [Micrometer](https://micrometer.io/docs/) as a facade layer to connect to your existing monitoring system. Micrometer supports a bunch of them: from Graphite to CloudWatch and Prometheus. Additionally, Micrometer makes it easy to integrate with existing JVM frameworks. 
+Under the hood, JobRunr uses [Micrometer](https://micrometer.io/docs/) as a facade layer to connect to your existing monitoring system. JobRunr is tool agnostic: you can use any existing observability platform you already have in place. Micrometer supports a bunch of them: from Graphite to CloudWatch and Prometheus. Additionally, Micrometer makes it easy to integrate with existing JVM frameworks. 
 
-Let's first start with just the base framework to showcase how JobRunr's metrics integrate with the Micrometer metrics system.
+Let's first start with just a base observability framework to then showcase how JobRunr's metrics integrate with the Micrometer metrics system.
 
 ## Framework Setup
 
 {{< framework type="fluent-api" >}}
-If you do not use a framework, you have to create your own `meterRegistry` to later inject into the JobRunr configuration:
+If you do not use a framework, you have to create your own `meterRegistry` to later inject into the JobRunr configuration. This can be [any supported implementation](https://docs.micrometer.io/micrometer/reference/implementations.html), but for the purposes of this guide, we'll be using the `PrometheusMeterRegistry` class:
 
 ```java
 PrometheusMeterRegistry meterRegistry = new PrometheusMeterRegistry(
@@ -37,7 +40,7 @@ PrometheusMeterRegistry meterRegistry = new PrometheusMeterRegistry(
 
 ```
 
-This requires the following MicroMeter Gradle dependencies:
+This requires the following Micrometer Gradle dependencies:
 
 ```groovy
 dependencies {
@@ -126,7 +129,7 @@ Next, start your application and surf to [http://localhost:8080/metrics](http://
 
 ### JobRunr Configuration
 
-Let's try to enable the JobRunr specific metrics. As mentioned before and in the [JobRunr Metrics docs](/en/documentation/configuration/metrics/), there are background job server metrics and job metrics; both can be toggled individually:
+Next, let's try to enable the JobRunr specific metrics. As mentioned before and in the [JobRunr Metrics docs](/en/documentation/configuration/metrics/), there are background job server metrics and job metrics; both can be toggled individually:
 
 {{< framework type="fluent-api" >}}
 ```java
@@ -160,7 +163,7 @@ jobrunr.background-job-server.metrics.enabled=true
 
 > ⚠️ **Warning**: Be careful with enabling `jobs` metrics as this generates more database load. Ideally, only enable it on the same server running the dashboard.
 
-Now, `/metrics` should include, among others, `jobrunr.background-job-server.process-free-memory` (a background-job-server one), and `jobrunr.jobs.by-state` (a job metric). The latter requires further drilling down by providing a state: are you interested in enqueued jobs, processing jobs, succeeded ones, or just the failed ones? The actual metric value can be retrieved by visiting `/metrics/jobrunr.jobs.by-state?tag=state:SUCCEEDED`. 
+After enabling the metrics, the generated data should include `jobrunr.background-job-server.process-free-memory` (a background-job-server metric), and `jobrunr.jobs.by-state` (a job-specific metric). The latter requires further drilling down by providing a state: are you interested in enqueued jobs, processing jobs, succeeded ones, or just the failed ones? If you are using a framework, the actual metric value can be retrieved by visiting `/metrics/jobrunr.jobs.by-state?tag=state:SUCCEEDED`. 
 
 ## Enabling Micrometer + Prometheus
 
@@ -279,12 +282,12 @@ scrape_configs:
       - targets: [ 'host.docker.internal:8080' ]
 ```
 
-This tells Prometheus to look for `localhost:8080/actuator/prometheus` and scrape the data every five seconds. For other frameworks, simply `/pometheus` will suffice.
+This tells Prometheus to look for `localhost:8080/actuator/prometheus` and scrape the data every five seconds. For other frameworks, simply `/pometheus` will suffice depending on how you configured the Prometheus endpoint path.
 
-Let's create an endpoint to create 1000 jobs to showcase how Prometheus visualizes the sudden spike in jobs. 
+Let's create an endpoint to create 1000 jobs showcasing how Prometheus visualizes the sudden spike in jobs. 
 
 {{< framework type="fluent-api" >}}
-We presume you created a Rest server that can serve the GET endpoint `/bulk-add-cards`:
+We presume you created a Rest server exposed at port `8080` that can serve the GET endpoint `/bulk-add-cards`:
 
 ```java
 public class AdminController {

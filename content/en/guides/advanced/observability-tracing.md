@@ -3,11 +3,10 @@ title: "Observability: Tracing JobRunr Jobs"
 description: Follow this guide to enable and configure distributed tracing for JobRunr Pro jobs using your observability platform of choice.
 weight: 30
 drawing: https://excalidraw.com/#json=eVCmWXqZLhc1hQGLVyDpN,ePXi5lYY-0msET2JM_btOg
-draft: true
 tags:
     - Observability
     - Metrics
-    - MicroMeter
+    - Micrometer
 ---
 
 In this {{< label version="professional" >}}JobRunr Pro {{< /label >}} guide, we will unfold JobRunr's observability features that go beyond simply logging. In this part, we'll investigate how to integrate with OpenTelemetry to more easily trace distributed end-to-end API calls that might run through a JobRunr job. 
@@ -17,7 +16,7 @@ If you are interested in exposing JobRunr-specific metrics and feeding these int
 ## Prerequisites
 
 - JobRunr Pro 8.0.0 or later
-- You already know how to configure JobRunr
+- You already know how to configure JobRunr Pro
 - Basic knowledge of OpenTelemetry
 
 ## What we're going to build
@@ -42,7 +41,7 @@ Your framework of choice (please **pick one on the top right** of this article) 
 
 If you are not using a framework, you'll have to use the OpenTelemetry SDK to get a `Tracer` instance that can be passed into the JobRunr FluentAPI configuration. See the [OpenTelemetry Java documentation](https://opentelemetry.io/docs/languages/java/intro/) for more information.
 
-The following snippet creates a `Tracer` using the SDK builder that later can be injected into JobRunr Pro:
+The following code snippet creates a `Tracer` using the SDK builder that later can be injected into JobRunr Pro:
 
 ```java
 SpanExporter otlpExporter = OtlpHttpSpanExporter.builder()
@@ -183,7 +182,7 @@ Next, we'll create an endpoint that registers a new credit card in the banking a
 ## Building The Banking App
 
 {{< framework type="fluent-api" >}}
-We assume that you create a Rest server exposing a POST endpoint at `/register` and enqueuing a JobRunr job:
+We assume that you create a Rest server exposing a POST endpoint at `/register` at port `8080` to enqueue a JobRunr job:
 
 
 ```java
@@ -441,7 +440,7 @@ This means that in one "trace"---the act of registering a single credit card sta
 This one is just a simple endpoint that logs something when we hit `http://localhost:8088/verify-credentials`. All you need is a minimal controller implementing this:
 
 {{< framework type="fluent-api" >}}
-We assume that you create a Rest server exposing a POST endpoint at `/verify-credentials` returning a simple string:
+We assume that you create a Rest server on port `8088` exposing a POST endpoint at `/verify-credentials` returning a simple string:
 
 
 ```java
@@ -518,7 +517,7 @@ services:
 
 Port `4318` is the receiving port and port `16686` is the UI interface we'll use to inspect the traces in Jaeger itself. If you prefer Zipkin, there's a dedicated Spring Boot Zipkin exporter available as well. 
 
-By opening up http://localhost:16686/search and looking for that entry http post `/register` of our banking app, we can now find the traces in Jaeger. Note that Jaeger or similar automatically detect multiple services: you should see both `banking-app` and `government-app` popping up in the combobox provied you configured the application name property (e.g. `spring.application.name` or `otel.sdk.resource.service.name` or `quarkus.application.name` depending on your framework) correctly for both applications.
+By opening up [http://localhost:16686/search](http://localhost:16686/search) and looking for that entry HTTP POST `/register` of our banking app, we can now find the traces in Jaeger. Note that Jaeger or similar automatically detect multiple services: you should see both `banking-app` and `government-app` popping up in the combobox provied you configured the application name property (e.g. `spring.application.name` or `otel.sdk.resource.service.name` or `quarkus.application.name` depending on your framework) correctly for both applications.
 
 If you fire off a job in that `creditCardService` triggered in `/register` in the above controller example, the JobRunr job will be visible in the trace, as will the HTTP call hopping to the next span: our government app. You don't even need to go look for it or to enable trace logging: just open the dashboard and click on the newly appeared TraceId link:
 
