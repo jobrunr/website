@@ -17,7 +17,7 @@ menu:
 The JobRunr Pro dashboard offers a lot of improvements that save your engineering teams a lot of time:
 - [Find any Job using the search functionality](#find-any-job-using-the-search-functionality)
 - [Save time thanks to usability improvements](#save-time-thanks-to-some-usability-improvements)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Restrict access using Single Sign On authentication](#restrict-access-using-single-sign-on-authentication)
+- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Restrict access using Single Sign On authentication](/en/documentation/pro/sso-authentication)
 - {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
 - {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
 
@@ -53,19 +53,6 @@ Are you running multiple instances of JobRunr inside your organization? Do you w
 Once configured, JobRunr will work with the contentpath configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
 
 {{< trial-button >}}
-
-## Restrict access using Single Sign On authentication
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}
-
-JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...).
-
-To configure it using Spring, use the following settings:
-
-```
-jobrunr.dashboard.openid-authentication.openid-configuration-url=http://localhost:8080/realms/master/.well-known/openid-configuration
-jobrunr.dashboard.openid-authentication.client-id=client-id # the clientId that is configured in your OpenID Authorization server
-jobrunr.dashboard.openid-authentication.client-secret=client-secret # the client secret that is configured in your OpenID Authorization server
-```
 
 ## Embed the dashboard within Spring Application Server
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;

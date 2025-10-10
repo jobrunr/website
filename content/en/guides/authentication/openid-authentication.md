@@ -18,7 +18,7 @@ In this guide, we’ll start by configuring JobRunr to use an OpenID Provider, w
 > **Important**: The OpenID integration does not work with the `embedded` dashboard configuration. You must use the standalone web server to enjoy this authentication provider. Do you want to keep the embedded dashboard and secure it? Try to configure Spring Security (replace Spring by your framework of choice), users will need to authenticate to access the dashboard but without the granular authorization rules offered by JobRunr.
 
 ## Prerequisites
-- JobRunr Pro Enterprise 7.0.0 or later
+- JobRunr Pro Enterprise 8.0.0 or later
 - You already know how to configure JobRunr
 - Basic knowledge about OAuth 2.0 and OpenID Connect.
 - You have Keycloak up and running
@@ -44,8 +44,6 @@ As we’ll see in this section, enabling the OpenID integration to secure the da
 - [And, optionally, converting the claims to authorization rules]({{< ref "#configuring-openid-authorization-in-jobrunr" >}}).
 
 We assume you have an OpenID Provider up and running. If this is not the case and you do want to follow this guide, for our testing purposes, we use [Keycloak, an open source identity management tool](https://www.keycloak.org/). You can quickly set up a Keycloak server by following the [_Get started with Keycloak on Docker_](https://www.keycloak.org/getting-started/getting-started-docker) guide.
-
-> The code shown in this section is [available on Github](https://github.com/jobrunr/example-jobrunr-pro-pentest). Note that the repo is private and only visible to members of the JobRunr organization on Github.
 
 ### Add the OpenId dependency
 First, we need to add the additional dependency to add the OpenID capability inside the dashboard. To do so, you must add the following dependency to your `pom.xml`
@@ -79,7 +77,8 @@ OpenIdConnectSettings openIdConnectSettings = new OpenIdConnectSettings(
     "your-well-known-openid-configuration-url", // you know, your well known openId configuration URL 😉
     "client-id", // the client id 🤔
     "client-secret", // the client secret 🤯
-    "scope" // if null, the default "openid email profile" is used
+    "scope", // if null, the default "openid email profile" is used
+    Set.of("acceptedAudience") // the accepted JWT audience, if provided, the claims must be issued to at least one of the accepted audience
 );
 
 JobRunrPro
@@ -91,6 +90,10 @@ JobRunrPro
         )
         // ...
 ```
+
+> The code shown in this guide is [available on Github](https://github.com/jobrunr/example-jobrunr-pro-pentest). Note that the repo is private and only visible to members of the JobRunr organization on Github.
+
+
 {{< /framework >}}
 {{< framework type="spring-boot" label="Spring">}}
 In Spring Boot, we just need to configure some properties in the `application.properties` to enable OpenID integration:
@@ -101,19 +104,30 @@ jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-know
 jobrunr.dashboard.openid-authentication.client-id="client-id"
 jobrunr.dashboard.openid-authentication.client-secret="client-secret"
 jobrunr.dashboard.openid-authentication.scope="scope" // optional, defaults to "openid email profile" 
+jobrunr.dashboard.openid-authentication.accepted-audience="my-app" // optional, the JWT accepted audience
 ```
+
+> The code shown in this guide is [available on Github](https://github.com/jobrunr/example-jobrunr-pro-spring-boot-openid). Note that the repo is private and only visible to members of the JobRunr organization on Github.
+
 {{< /framework >}}
 {{< framework type="quarkus" label="Quarkus">}}
 In Quarkus, we just need to configure some properties in the `application.properties` to enable OpenID integration:
 
 ```java
 quarkus.jobrunr.dashboard.enabled=true
-quarkus.jobrunr.dashboard.openid-authentication.enabled=true // must be true at build time (default false)
+quarkus.jobrunr.dashboard.openid-authentication.included=true // must be true at build time (default false)
 quarkus.jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
 quarkus.jobrunr.dashboard.openid-authentication.client-id="client-id"
 quarkus.jobrunr.dashboard.openid-authentication.client-secret="client-secret"
 quarkus.jobrunr.dashboard.openid-authentication.scope="scope" // optional, defaults to "openid email profile" 
+quarkus.jobrunr.dashboard.openid-authentication.accepted-audience="my-app" // optional, the JWT accepted audience
 ```
+
+The JobRunr Pro Quarkus extension automatically provides OpenID-specific beans (see `JobRunrDashboardOpenIdAuthenticationProducer`) but these can be provided and overridden if desired.
+
+> The code shown in this guide is [available on Github](https://github.com/jobrunr/example-jobrunr-pro-quarkus-openid). Note that the repo is private and only visible to members of the JobRunr organization on Github.
+
+
 {{< /framework >}}
 {{< framework type="micronaut" label="Micronaut">}}
 In Micronaut, we just need to configure some properties in the `application.yaml` to enable OpenID integration:
@@ -126,7 +140,8 @@ jobrunr:
       openid-configuration-url: "your-well-known-openid-configuration-url"
       client-id: "client-id"
       client-secret: "client-secret"
-      scope: "scope" // optional, defaults to "openid email profile" 
+      scope: "scope" # optional, defaults to "openid email profile" 
+      accepted-audience: "my-app" # optional JWT accepted Audience
       
 ```
 {{< /framework >}}
@@ -136,8 +151,9 @@ In the code snippet above, we configure all the necessary information to the Job
 To set these values, please refer to the documentation of your OpenID identity provider. As an example, for Keycloak, we can create a realm named `jobrunr` and a client named `dashboard`. Giving the following configuration values to provide to JobRunr:
 - Configuration URL: `http://localhost:9001/realms/jobrunr/.well-known/openid-configuration`
 - Client ID: `dashboard`
+- Client Secret: your confidential secret
 
-> We omit the two other parameters. The `scope` because it's optional and in Keycloak, by default the `email` and `profile` are available under the `openid` scope. The `client secret` as it should remain confidential.
+> We omit the other parameters. The `scope` because it is optional and in Keycloak, by default the `email` and `profile` are available under the `openid` scope. The `acceptred audience` because it is also optional and requires more configuration in Keycloack. See the [audience support docs](https://www.keycloak.org/docs/latest/server_admin/index.html#audience-support) of Keycloack for more information.
 
 > **Important**: Don't forget to properly configure the redirect urls of the client (i.e., the url of the dashboard).
 
@@ -263,7 +279,8 @@ This is it. Now, for each request, the web server will parse the access token, c
 Unfortunately the setup may not go smoothly for all identity providers. In this section, we'll go through some common issues you may encounter and how our OpenID integration allows you to solve them with code examples.
 
 ### The Access Token cannot be validated
-You may get an Exception with a message similar to the following:
+
+You may encounter an Exception with the following message:
 
 > `Signed JWT rejected: Invalid signature`
 
@@ -280,8 +297,19 @@ If you're using Entra ID and the access token cannot be validated then you'll ne
 
 All these steps are provided in greater detail in this article discussing how Azure can be made Active Directory (AD) OIDC compliant: https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff.
 
+### JWT Audience Rejected
+
+You may encounter an Exception with the following message:
+
+> `BadJWTException: JWT audience rejected: [account]`
+
+This means there is a mismatch between the accepted audience configuration in Keycloack and in your JobRunr settings. Inspect the audience client scope settings in Keycloack: which custom audience string is set? The one set as `jobrunr.dashboard.openid-authentication.accepted-audience` in your application properties should match.
+
+If they don't match, Keycloack dismisses the JWT token as it is not part of the intended audience.
+
 ### The Access Token type is not JWT
-You may encounter an Exception with a message to:
+
+You may encounter an Exception with the following message:
 
 > `JOSE header typ (type) application/okta-internal-at+jwt not allowed.`
 
