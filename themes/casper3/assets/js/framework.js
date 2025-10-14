@@ -22,7 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const tabType = tab.getAttribute('data-type');
             removeActive(tabType);
             setActive(tabType);
-            window.location.hash = `#${tabType}`
+
+            const url = new URL(window.location.href)
+            url.searchParams.set('type', tabType)
+            window.history.pushState({}, '', url)
         });  
     }); 
 
@@ -30,11 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
         setActive(tabs[0].getAttribute('data-type')) 
     }
 
-    if(window.location.hash) {
-        const possibleType = window.location.hash.substring(1);
-        if(possibleTypes.includes(possibleType)) {
-            removeActive(possibleType);
-            setActive(possibleType);
-        }
+    const queryParams = new URLSearchParams(document.location.search)
+    const possibleType = queryParams.get("type")
+    if(possibleTypes.includes(possibleType)) {
+        removeActive(possibleType)
+        setActive(possibleType)
     }
 });  
