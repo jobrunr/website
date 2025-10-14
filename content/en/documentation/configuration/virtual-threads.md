@@ -42,7 +42,7 @@ But virtual threads have one major flaw: pinning. This is mostly fixed in later 
 
 Another noteworthy behavior of virtual threads is that they are not time shared: there is no forceful preemption. A virtual thread releases the carrier only when encountering a blocking operation. This is bad news for CPU-bound tasks. When all the carrier threads are occupied by CPU-bound tasks, other tasks need to wait until those complete. With platform threads, this is not an issue thanks to time sharing.
 
-> One major cause to pinning is the use of `synchronized`. This is solved in JDK 24. From JDK 24 pinning may still happen but only in [a few rare cases](https://openjdk.org/jeps/491#Future-Work), e.g., calling native code.
+> One major cause of _pinning_ is the use of `synchronized`. This is solved in JDK 24. From JDK 24 pinning may still happen but only in [a few rare cases](https://openjdk.org/jeps/491#Future-Work), e.g., calling native code.
 
 > The pinning and no non-preemptive behavior can lead an unacceptable wait time for other tasks (or even starvation). By default virtual threads run on `availableProcessors`--configurable via `jdk.virtualThreadScheduler.parallelism`.
 
