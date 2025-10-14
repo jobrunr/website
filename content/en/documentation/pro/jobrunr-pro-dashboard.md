@@ -47,29 +47,31 @@ The JobRunr Pro dashboard also includes some usability improvements that save yo
 
 ![](/documentation/jobrunr-pro-failed-requeue.png "Thanks to some usability features, you can quickly requeue or delete all jobs.")
 
-## Easier support to Proxy
+## Easier support to Proxy with a custom context-path
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.
 
-Once configured, JobRunr will work with the contentpath configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
+To configure it, use the following settings:
 
-{{< trial-button >}}
+```
+jobrunr.dashboard.context-path=/my-context-path
+```
+
+For Quarkus, you need to prefix this with `quarkus.`.
+
+Once configured, JobRunr will work with the context path configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
 
 ## Embed the dashboard within Spring Application Server
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;
 
 Using JobRunr Pro Enterprise, you can also embed the dashboard within your existing Spring Application. This means that the JobRunr dashboard will be hosted by Spring and you can add your own authentication and authorization using Spring Security.
 
-To configure it using Spring, use the following settings:
+To configure it, use the following settings:
 
 ```
 jobrunr.dashboard.type=embedded
 ```
 
-Optionally, you can specify the root context path using `jobrunr.dashboard.context-path=/mypath`.
-
-> This feature is also planned for the Micronaut and Quarkus integration.
-
-<br />
+For Quarkus, you need to prefix this with `quarkus.`.
 
 ## GDPR and HIPAA compliant dashboard
 {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;
@@ -78,4 +80,4 @@ Is your company operating in the medical or financial world and is your dashboar
 
 Thanks to the GDPR / HIPAA feature, any sensitive information will not be accessible in the dashboard anymore while still providing enough information to resolve bugs and provide support in case of unexpected exceptions.
 
-<br />
+{{< trial-button >}}
