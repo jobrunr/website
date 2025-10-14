@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setActive(tabType);
 
             const url = new URL(window.location.href)
-            url.searchParams.set('type', tabType)
+            url.searchParams.set('framework', tabType)
             window.history.pushState({}, '', url)
         });  
     }); 
@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const queryParams = new URLSearchParams(document.location.search)
-    const possibleType = queryParams.get("type")
-    if(possibleTypes.includes(possibleType)) {
-        removeActive(possibleType)
-        setActive(possibleType)
+    const possibleFrameworkType = queryParams.get("framework")
+    if(possibleTypes.includes(possibleFrameworkType)) {
+        removeActive(possibleFrameworkType)
+        setActive(possibleFrameworkType)
     }
 });  
