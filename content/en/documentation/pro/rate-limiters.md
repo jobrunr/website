@@ -19,6 +19,8 @@ You can configure different rate limiters to be used within your system and rate
 > When using a rate limiter there may be a latency of `pollIntervalInSeconds` before a rate-limited `Job` can start processing due an extra state change from `AWAITING` to `ENQUEUED`.<br>
 > Please also note that you cannot use both a rate limiter and a [`mutex`]({{< ref "/documentation/pro/mutexes" >}}) on the same `Job`.
 
+> **Recurring job**: Unless the rate-limiter is shared with other jobs, we don't recommend using a rate-limiter to limit the concurrency of a recurring job. By default, a recurring job cannot have multiple jobs running in parallel, therefore a rate-limiter is not needed. You can use the `RecurringJob` `maxConcurrentJobs` attribute to increase the allowed concurrency.
+
 On this page you will learn how to:
 - [configure a concurrent rate limiter](#concurrent-rate-limiters) 
 - [configure a sliding time window rate limiter](#sliding-time-window-rate-limiters) 
