@@ -78,7 +78,7 @@ OpenIdConnectSettings openIdConnectSettings = new OpenIdConnectSettings(
     "client-id", // the client id 🤔
     "client-secret", // the client secret 🤯
     "scope", // if null, the default "openid email profile" is used
-    Set.of("acceptedAudience") // the accepted JWT audience, if provided, the claims must be issued to at least one of the accepted audience
+    Set.of("acceptedAudience") // optional but recommended; the accepted JWT audience, if provided, the claims must be issued to at least one of the accepted audience
 );
 
 JobRunrPro
@@ -303,9 +303,7 @@ You may encounter an Exception with the following message:
 
 > `BadJWTException: JWT audience rejected: [account]`
 
-This means there is a mismatch between the accepted audience configuration in Keycloack and in your JobRunr settings. Inspect the audience client scope settings in Keycloack: which custom audience string is set? The one set as `jobrunr.dashboard.openid-authentication.accepted-audience` in your application properties should match.
-
-If they don't match, Keycloack dismisses the JWT token as it is not part of the intended audience.
+This means there is a mismatch between the accepted audience configuration in the identity provider and in your JobRunr settings. Inspect the audience client settings on the identity provider side and make sure your there is an audience that match the one you used to configure JobRunr.
 
 ### The Access Token type is not JWT
 

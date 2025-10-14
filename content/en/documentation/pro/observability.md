@@ -36,17 +36,17 @@ jobrunr.jobs.metrics.micrometer-timers.enabled=true
 </figure>
 
 
-If `micrometer-timers` is enabled, the following extra metrics will be exposed: 
+After enabling `micrometer-timers`, the following metrics will be exposed: 
 
-```
-jobrunr_jobs_in_progress_seconds_count
-jobrunr_jobs_in_progress_seconds_sum
-jobrunr_jobs_in_progress_seconds_max
-jobrunr_jobs_runs_total
-jobrunr_jobs_runs_succeeded_seconds_count
-jobrunr_jobs_runs_succeeded_seconds_sum
-jobrunr_jobs_runs_succeeded_seconds_max
-```
+- A counter of all job runs: `jobrunr.jobs.runs.total`.
+- A long task timer `jobrunr.jobs.in-progress` to follow jobs in processing.
+- A timer reporting the execution time of succeeded jobs: `jobrunr.jobs.runs.succeeded`.
+- A timer reporting the execution time of succeeded batch jobs: `jobrunr.batch-jobs.runs.succeeded`.
+- A timer reporting the execution time of failed jobs: `jobrunr.jobs.runs.failed`.
+- A timer reporting the execution time of failed batch jobs: `jobrunr.batch-jobs.runs.failed`.
+- A gauge of the number of failed jobs: `jobrunr.jobs.failures`.
+
+The above meters include tags (aka labels) populated from each executed job.
 
 ## Observability
 You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [Micrometer](https://micrometer.io/).

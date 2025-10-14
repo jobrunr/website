@@ -1,6 +1,6 @@
 ---
 version: "enterprise"
-title: "Single Sign On Authentication"
+title: "Single Sign On"
 subtitle: "JobRunr Pro's dashboard integrates seamlessly with OpenID"
 date: 2025-10-10T10:00:00+02:00
 layout: "documentation"
@@ -13,7 +13,7 @@ menu:
 
 {{< trial-button >}}
 
-JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has support for multiple roles (readOnly, allowAll, ...).
+JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has fine grained authorization rules that be sued for role based access control, e.g., readOnly, allowAll, ...
 
 Please consult our [Secure your JobRunr Dashboard with your OpenID Provider](/en/guides/authentication/openid-authentication/) guide to get started with JobRunr Pro and your OpenID provider of choice.
 
@@ -27,7 +27,7 @@ The following settings can be used to configure JobRunr:
 - **Scope**---the optional scope; if `null` the default `"openid email profile"` will be used
 - **Accepted Audience**---the optional JWT audience claim passed into the OID provider (being mapped to a `Set<String>` there can be multiple audiences provided)
 
-In addition of the JobRunr configuration settings, be sure to configure your OpenID provider to redirect back to the JobRunr Pro dashboard after loging in (see below).
+In addition of the JobRunr configuration settings, be sure to configure your OpenID provider to redirect back to the JobRunr Pro dashboard after logging in (see below).
 
 ### Using a framework
 
@@ -38,9 +38,11 @@ jobrunr.dashboard.enabled=true
 jobrunr.dashboard.openid-authentication.openid-configuration-url="your-well-known-openid-configuration-url"
 jobrunr.dashboard.openid-authentication.client-id="client-id"
 jobrunr.dashboard.openid-authentication.client-secret="client-secret"
-jobrunr.dashboard.openid-authentication.scope="scope"
-jobrunr.dashboard.openid-authentication.accepted-audience="my-app"
+jobrunr.dashboard.openid-authentication.scope="scope" # if null, the default "openid email profile" is used
+jobrunr.dashboard.openid-authentication.accepted-audience="my-app" # optional but recommended, if provided, the claims must be issued to at least one of the accepted audience
 ````
+
+> **Quarkus**: You'll need to prefix the properties with `quarkus.`, e.g., `quarkus.jobrunr.dashboard.openid-authentication.client-id="client-id"` and replace `jobrunr.dashboard.enabled=true` by `quarkus.jobrunr.dashboard.included=true`
 
 ### Using the Fluent API
 

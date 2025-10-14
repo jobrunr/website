@@ -12,7 +12,7 @@ menu:
 
 JobRunr can be configured to export metrics informing your monitoring system of choice on how many jobs are enqueued, processed, failed, ... and how much resources the background job server is currently using. We distinguish two different types of metrics (see below). 
 
-Enabling these is as simple as asdding one line to your `application.properties` file. If you're using a Spring Actuator-enabled Spring Boot project, the setting will integrate with Spring's actuator endpoint at [http://localhost:8080/actuator/metrics](http://localhost:8080/actuator/metrics). 
+Enabling these is as simple as adding one line to your `application.properties` file. If you're using a Spring Actuator-enabled Spring Boot project, the setting will integrate with Spring's actuator endpoint at [http://localhost:8080/actuator/metrics](http://localhost:8080/actuator/metrics). 
 
 If you'd like to configure the Micrometer meter registry yourself or do not use frameworks in your project, you can use the Fluent API to configure metrics:
 
@@ -22,12 +22,12 @@ JobRunr.configure()
   .useMicroMeter(new JobRunrMicroMeterIntegration(meterRegistry))
 ```
 
-Here, `meterRegistry` can be an injected bean from your framework, or you can create it yourself (e.g. a `SimpleMeterRegistry`, a `JmxMeterRegistry`, a `PrometheusMeterRegistry`, ...---depending on your monitoring backend). For more information on how to configure the registry, see the [Micrometer Documentation](https://micrometer.io/docs/).
+Here, `meterRegistry` can be an injected bean from your framework, or you can create it yourself (e.g. a `SimpleMeterRegistry`, a `JmxMeterRegistry`, a `PrometheusMeterRegistry`, ...---depending on your monitoring backend). For more information on how to configure the registry, see the [Micrometer Documentation](https://docs.micrometer.io/micrometer/reference/).
 
 
 ## 1. Background Job Server Metrics
 
-How to enable: `jobrunr.background-job-server.metrics.enabled=true`. This is **enabled** by default.
+How to enable: `jobrunr.background-job-server.metrics.enabled=true`. For Spring and Micronaut, this is `true` by default.
 
 The following metrics are exposed:
 
