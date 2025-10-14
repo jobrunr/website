@@ -38,7 +38,7 @@ By onboarding more jobs, we want to make sure there is a job ready to take advan
 
 Virtual threads make it much easier to structure applications. They allow us to use a simple, easy to understand, thread-per-request model.
 
-But virtual threads have, had?, one major flaw: pinning. Pinning means that the virtual thread cannot release its carrier, the platform thread, while performing an IO operation. This is problematic because the scheduler is not able to mount another virtual thread on the carrier.
+But virtual threads have one major flaw: pinning. This is mostly fixed in later JDK versions (24 and higher). Pinning means that the virtual thread cannot release its carrier, the platform thread, while performing an IO operation. This is problematic because the scheduler is not able to mount another virtual thread on the carrier.
 
 Another noteworthy behavior of virtual threads is that they are not time shared: there is no forceful preemption. A virtual thread releases the carrier only when encountering a blocking operation. This is bad news for CPU-bound tasks. When all the carrier threads are occupied by CPU-bound tasks, other tasks need to wait until those complete. With platform threads, this is not an issue thanks to time sharing.
 
