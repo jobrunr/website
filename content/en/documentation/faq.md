@@ -61,9 +61,13 @@ I'm seeing the following exception in my logs:
 Unable to check for new JobRunr version: api.github.com
 ```
 
-In the past (and even now), too many GitHub issues are created with people not running the latest JobRunr version (so their issue is often already resolved in a later version). This version check polls GitHub to see whether there is a new version and shows a notification in the dashboard if that's the case. 
+Please upgrade to the latest JobRunr version. This call is no longer part of the backend.
 
-You cannot disable it in the free version.
+### My jobs are not being processed and the dashboard is not visible
+
+Often, this is due to a misconfiguration. Please make sure you have enabled the background job server and dashboard. They are disabled by default. Thus why jobs are not executed or the dashboard is unreachable.
+
+> Are you using Spring Boot? Please check that you properties are properly configured. Pre v8, all JobRunr properties are prefixed with `org.`. **Make sure your properties have this `org.` prefix if you're still on v7 or lower**.
 
 ## Job FAQ
 

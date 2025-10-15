@@ -99,11 +99,11 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
@@ -137,11 +137,11 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "P2D8H")
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", interval = "P2D8H")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
@@ -197,11 +197,11 @@ You can enable the feature using `@Job`:
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "P2D8H", deleteAt = "2025-06-01T14:00:00Z")
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", interval = "P2D8H", deleteAt = "2025-06-01T14:00:00Z")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
@@ -278,11 +278,11 @@ This feature is disabled by default and can be enabled using the following setti
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "P2D8H", scheduleJobsSkippedDuringDowntime=true)
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", interval = "P2D8H", scheduleJobsSkippedDuringDowntime=true)
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
@@ -312,12 +312,12 @@ By default, `maxConcurrentJobs` is set to 1 but this setting can be changed per 
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "PT5M", maxConcurrentJobs=4)
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // if for some reason this method takes more than 5 minutes (=PT5M), 
-        // JobRunr will create up to 4 concurrent job instances of this recurring job
-    }
+@Recurring(id = "my-recurring-job", interval = "PT5M", maxConcurrentJobs=4)
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // if for some reason this method takes more than 5 minutes (=PT5M), 
+    // JobRunr will create up to 4 concurrent job instances of this recurring job
+}
 ```
 </figure>
 

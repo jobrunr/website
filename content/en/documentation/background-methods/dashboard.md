@@ -18,8 +18,8 @@ __Using fluent configuration__
 <figure>
 
 ```java
-    JobRunr.configure()
-        .useDashboard(8000)
+JobRunr.configure()
+    .useDashboard(8000)
 ```
 <figcaption>The dashboard will be started on port 8000</figcaption>
 </figure>
