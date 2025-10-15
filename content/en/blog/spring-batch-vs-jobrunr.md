@@ -4,7 +4,7 @@ summary: "We compare Spring Batch and JobRunr to help you decide whether you nee
 images:
   - /blog/springbatchvsjobrunr.webp
 feature_image: /blog/springbatchvsjobrunr.webp
-date: 2025-09-30T16:00:00+02:00
+date: 2025-09-29T00:00:00+02:00
 author: "Nicholas D'hondt"
 tags:
   - blog
@@ -13,6 +13,9 @@ tags:
 ---
 
 From traditional mainframe batch jobs in banking to modern cloud-native microservices, Java developers face the same challenge: how to process work reliably in the background. Whether it's generating a report, processing a massive file, or sending thousands of emails, you need to move that work into the background. But when you start looking for a solution, the landscape can be confusing. Do you need a heavyweight, industrial-strength framework, or a lightweight, simple library?
+
+> Already know both solutions and want to see how they compare in the 10 Million Row Challenge? **[Click here to skip to the good stuff](#see-it-in-action-the-10-million-row-challenge)**.
+
 
 We’ve all been there. You have a job to do, and you need the right tool. In the Java world, two popular but very different options are Spring Batch and JobRunr.
 
@@ -245,6 +248,27 @@ public class JobRunrWorkflowService {
 
 The result is the same. It's a two-step process. But the approach is different. Spring Batch uses declarative configuration, while JobRunr lets you orchestrate the workflow directly in your code, keeping your logic in simple methods.
 
+<span id="the-good-stuf"></span>
+### See It in Action: The 10 Million Row Challenge
+
+Theory is one thing, but how do these two stack up in a real-world data processing scenario? We’ve created a demo project on GitHub that implements the same ETL job—reading and importing a CSV file—using both Spring Batch and JobRunr.
+
+To make things interesting, we put them to the test with a 10 million row file on three different machines to see how they performed under various conditions.
+
+The results speak for themselves:
+
+| Machine | Spring Batch | JobRunr |
+| :--- | :--- | :--- |
+| **MacBook M4 Pro (48GB RAM)** | 2m 22s | **1m 59s** |
+| **MacBook M3 Max (64GB RAM)** | 4m 31s | **3m 30s** |
+| **Lightnode VPS (16 vCPU, 32GB)**| 11m 33s | **7m 55s** |
+
+Across the board, JobRunr demonstrated a significant performance advantage in this head-to-head ETL challenge.
+
+We invite you to clone the repository, run the demo yourself, and explore the code side-by-side. Your feedback is valuable, so [let us know](mailto:hello@jobrunr.io) if you think ETL features like these should be a core part of JobRunr.
+
+Check out the [demo project on GitHub](https://github.com/jobrunr/spring-batch-vs-jobrunr).
+
 ### **Key Takeaways**
 
 So, which one is right for you? The answer truly is, "it depends."
@@ -255,4 +279,7 @@ Choose **JobRunr** when you need a simple, fast, and modern way to run any backg
 
 We built JobRunr because we believe that background processing shouldn't be a major architectural challenge. It should be a simple tool that lets you focus on what matters.
 
-Ready to see for yourself? Check out our [documentation](https://www.jobrunr.io/en/documentation/) to get started in just 5 minutes. We’d love to hear what you build.
+Ready to see for yourself? 
+Check out our [documentation](https://www.jobrunr.io/en/documentation/) to get started in just 5 minutes or [request a free JobRunr Pro trial](/en/try-jobrunr-pro/)!
+
+We’d love to see what you build.
