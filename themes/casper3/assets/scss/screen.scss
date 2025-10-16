@@ -280,7 +280,7 @@ html {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 body {
-    overflow-x: hidden;
+    overflow-x: clip;
     color: color-mod(var(--midgrey) l(-30%));
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.6rem;
@@ -857,13 +857,19 @@ body {
 /* 5. Site Navigation
 /* ---------------------------------------------------------- */
 
-.site-nav-main {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
+:target {
+    scroll-margin-top: 120px;
+}
+
+.site-header {
+    position:sticky;
+    top:0;
     z-index: 1000;
+}
+
+.site-nav-main {
     background: #090a0b;
+    color: #fff;
 }
 
 .site-nav {
