@@ -1,6 +1,43 @@
-<p style="color: #ccc; text-align: center; margin: 0; padding-top: 1.5em; text-transform: uppercase; font-size: 12px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;">
+<p style="color: #ccc; text-align: center; margin: 0; padding-top: 1.5em; text-transform: uppercase; font-size: 12px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" id="notification-banner">
     Ready to upgrade to v8? Please <a href="/en/guides/migration/v8/">read the migration guide</a>.
 </p>
+
+<script type="text/javascript">
+    window.addEventListener("load", (event) => {
+        const notificationBanner = document.getElementById("notification-banner");
+
+        if(notificationBanner) {
+            let isVisible = true;
+            let timer = 0;
+
+            const debounce = (fn) => {
+                clearTimeout(timer)
+                timer = setTimeout(() => {
+                    fn();
+                }, 50)
+            }
+
+            const scrollEventHandler = () => {
+                const scrollTop = window.scrollY;
+
+                if(scrollTop > 0) {
+                    if(isVisible) {
+                        notificationBanner.style.display = "none";
+                        isVisible = false;
+                    }
+                } else {
+                    if(!isVisible) {
+                        notificationBanner.style.display = "block";
+                        isVisible = true;
+                    }
+                }
+            };
+
+            window.addEventListener('scroll', () => debounce(scrollEventHandler));
+        }
+
+    });
+</script>
 
 <nav id="site-nav" class="site-nav">
     <div class="site-nav-left">
