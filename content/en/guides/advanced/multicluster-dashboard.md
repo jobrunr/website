@@ -3,9 +3,9 @@ title: Installing And Configuring the JobRunr Multi-Cluster Dashboard
 description: This guide explains how to make use of a single overarching dashboard to manage multiple JobRunr cluster instances.
 weight: 10
 tags:
-    - multicluster
+    - Multi-Cluster
     - JobRunr Pro
-    - dashboard
+    - Dashboard
 hideFrameworkSelector: true
 ---
 

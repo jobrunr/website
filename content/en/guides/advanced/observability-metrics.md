@@ -1,6 +1,8 @@
 ---
 title: "Observability: Enabling JobRunr Metrics"
 description: Follow this guide to expose and integrate different JobRunr-specific metrics into your observability platform.
+date: 2025-10-07T00:00:00+02:00
+lastmod: 2025-10-20T00:00:00+02:00
 weight: 30
 tags:
     - JobRunr Pro
