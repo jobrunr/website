@@ -32,10 +32,20 @@ jobrunr.database.migration.password={ddl-user-password}
 
 If you are not allowed to have a user using DDL rights at runtime or if due to company policies, you cannot have JobRunr do the migrations for you, there are several options which we will discuss below. If you manually take control of your migrations, please note that new releases of JobRunr may introduce changes to the database schema. It is then up to you to make sure that all the necessary database changes are applied.
 
-If you do your migrations [by hand](#apply-the-sql-scripts-yourself) or using a [3th party tool like Flyway or Liquibase](#generate-flyway-or-liquibase-migrations), you will need to tell JobRunr it should not perform the migrations for you. This can also be done via a property:
+If you do your migrations [by hand](#apply-the-sql-scripts-yourself) or using a [3th party tool like Flyway or Liquibase](#generate-flyway-or-liquibase-migrations), you will need to tell JobRunr it should not perform the migrations for you. This can also be done via a property if you are using a framework:
 
 ```
 jobrunr.database.skip-create=true
+```
+
+Or using the Fluent API by passing in a `DatabaseOptions` instance where `skipCreate` is set to `true`:
+
+```java
+JobRunrPro
+  .configure()
+  // ...
+  . useStorageProvider(SqlStorageProviderFactory.using(dataSource, tablePrefix, new DatabaseOptions(true)))
+  // ...
 ```
 
 Let's go over the different options to migrate your database:
