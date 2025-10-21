@@ -938,3 +938,54 @@ document.getElementById('see-more-pro-features').addEventListener('click', funct
   this.textContent = !isExpanded ? 'Show less' : 'Discover more features';
 });
 </script>
+<script type="text/javascript">
+    // Function to update the pricing in the Business plan section
+    function updatePricingToUSD() {
+        // Find the specific pricing container for the Business plan
+        const businessPlanDiv = document.querySelector('.plan-business .buy');
+        if (businessPlanDiv) {
+            // Find all elements with class 'currency-holder' and replace the content with '$'
+            const currencyHolders = businessPlanDiv.querySelectorAll('.currency-holder');
+            for (let i = 0; i < currencyHolders.length; i++) {
+                currencyHolders[i].innerHTML = "dollars";
+            }
+            // Update the monthly price text
+            let monthlyPriceStrong = businessPlanDiv.querySelector('strong:nth-of-type(1)');
+            if (monthlyPriceStrong) {
+                // Change '850' to '999'
+                monthlyPriceStrong.innerHTML = monthlyPriceStrong.innerHTML.replace('850', '999');
+            }
+            // Update the yearly price text
+            let yearlyPriceStrong = businessPlanDiv.querySelector('strong:nth-of-type(2)');
+            if (yearlyPriceStrong) {
+                // Change '9.000,00' to '10.500,00' and replace the comma with a dot for US formatting
+                yearlyPriceStrong.innerHTML = yearlyPriceStrong.innerHTML
+                    .replace('9.000,00', '10.500')
+                    .replace(',', '.');
+            }
+        }
+    }
+    // Fetch the currency from the IP geolocation API
+    fetch('https://ipapi.co/currency/')
+        .then(resp => {
+            // Check if the response is successful (HTTP 200)
+            if (!resp.ok) {
+                console.error('Failed to fetch currency from geolocation API.');
+                return ''; // Return empty string to prevent update
+            }
+            return resp.text();
+        })
+        .then(data => {
+            // Check if the returned currency is USD
+            if (data && data.trim() === 'USD') {
+                //console.log('Currency detected as USD. Updating pricing to $.');
+                updatePricingToUSD();
+            } else {
+                //console.log('Currency is not USD (detected: ' + data + '). Keeping standard pricing.');
+            }
+        })
+        .catch(error => {
+            console.error('An error occurred during location check:', error);
+            // Default pricing (Euro) will be shown if the API fails
+        });
+</script>
