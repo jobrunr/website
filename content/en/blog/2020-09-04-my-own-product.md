@@ -13,9 +13,9 @@ This is the story about [**JobRunr**]({{< ref "../_index.md" >}}), a distributed
 ## Some history
 In February 2020, right before the whole COVID-19 mess started, I decided it was time to try something new in my career - developing my own product. Since 2009, I always worked as a freelance consultant on different software projects but never developed a real product for end customers. Most of my projects where business applications making life easier for employees of different companies.
 
-When I initially started my career (somewhere in 2004), I found that open-source world was mostly only happening in Java - the complete .NET world was still in it's infancy and there did not exist a lot of open-source projects for C#. And due to my job choices at that moment, I continued developing in the Java and Android world.
+When I initially started my career (somewhere in 2004), I found that open-source world was mostly only happening in Java - the complete .NET world was still in its infancy and there did not exist a lot of open-source projects for C#. And due to my job choices at that moment, I continued developing in the Java and Android world.
 
-Fast forward to 2015 where I worked as a freelance consultant and did some pre-sales for a customer of [Cegeka](https://www.cegeka.com) that really wanted to have it's software developed in C#. Since I provided the estimates for this project, I also wanted to work on it as I did not want to be the guy who just gave some (way to optimistic) estimates and then moved along. No, I wanted to see whether the numbers I gave also worked out.
+Fast forward to 2015 where I worked as a freelance consultant and did some pre-sales for a customer of [Cegeka](https://www.cegeka.com) that really wanted to have its software developed in C#. Since I provided the estimates for this project, I also wanted to work on it as I did not want to be the guy who just gave some (way to optimistic) estimates and then moved along. No, I wanted to see whether the numbers I gave also worked out.
 
 As I only developed in Java like languages until 2015 and the customer insisted on Microsoft products, it was time to learn some C# and the whole eco-system of the .NET world. And wauw, did that change since 2004. They did not only have a lot more IoC frameworks - 11 in .NET vs 3 or 4 in Java (the famous ones are Spring and Guice), there were some frameworks like [MediatR](https://github.com/jbogard/MediatR) and [Hangfire](https://www.hangfire.io/) with which I really fell in love and that did not exist in the Java world. As soon as I understood the advantage of these frameworks, I always told my colleague's that I would port them to Java someday.
 
@@ -35,7 +35,7 @@ On the website, I also explicitly mention [StackOverflow with a custom tag](http
 Since I'd loved to get the word out about JobRunr, I used some free Google Ads credit and monitored the visitors on the website. The number of visitors increased significantly but for some reason, the ads where mostly only shown to Indian visitors and it did not have a big effect on the amount of JobRunr users. Even after changing the regional settings for my ads, nothing really happened and I did not notice an increase in the amount of users for JobRunr (there were no extra questions in Gitter nor any new bugs or feature requests on GitHub). Since I did not want to spend any money on Google Ads, I stopped the Google Ads campaign.
 
 <figure>
-<img src="/blog/2020-09-04-my-own-product-google-analytics.webp" />
+{{< img src="/blog/2020-09-04-my-own-product-google-analytics.webp" >}}
 <figcaption>The google analytics for the <a href="https://www.jobrunr.io/">jobrunr.io</a> website.</figcaption>
 </figure>
 
@@ -47,17 +47,17 @@ When publishing a Jar on Maven Central, you can also see some basic statistics a
 <div style="display: flex; padding: 5px;">
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-05-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-05-2020.webp" >}}
 <figcaption>19 unique downloads of JobRunr v0.9.7</figcaption>
 </figure>
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-06-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-06-2020.webp" >}}
 <figcaption>62 unique downloads of JobRunr in total<br>v0.9.7 = 26; v0.9.8 = 16; v0.9.9 = 14; <br>v0.9.10 = 11; v0.9.11 = 20</figcaption>
 </figure>
 
 <figure style="margin: 5px;">
-<img src="/blog/2020-09-04-oss-stats-07-2020.webp" />
+{{< img src="/blog/2020-09-04-oss-stats-07-2020.webp" >}}
 <figcaption>110 unique download of JobRunr in total<br>v0.9.7 = 17; v0.9.8 = 20; v0.9.9 = 25; <br>v0.9.10 = 21; v0.9.11 = 52; v0.9.12 = 17; v0.9.13 = 10</figcaption>
 </figure>
 </div>

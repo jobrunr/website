@@ -18,11 +18,10 @@ tags:
 This is a small update on how JobRunr is mentioned in the media and how it is used on day to day basis in various projects.
 
 ### Thank you Thoughtworks!
-Did you already know that JobRunr has been featured on the [Thoughtworks Technology Radar](https://www.thoughtworks.com/radar/languages-and-frameworks?blipid=202210044)?
+Did you already know that JobRunr has been featured on the [Thoughtworks Technology Radar](https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2022/10/tr_technology_radar_vol_27_en.pdf)?
 
 <figure>
-<img src="/blog/2022-12-06-JobRunr-thoughtworks.png" />
-
+{{< img src="/homepage/homepage-JobRunr-thoughtworks.webp" >}}
 <figcaption>We could not be prouder on this achievement!</figcaption>
 </figure>
 

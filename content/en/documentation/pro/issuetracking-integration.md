@@ -17,12 +17,7 @@ Some jobs may fail due to downtime of an external system, some unforeseen circum
 
 JobRunr Pro integrates with GitHub issues and Jira so you can easily create an issue in case of a job failure. It will prefill all fields so you can save time and do what you do best: create excelling software without bugs 😊.
 
-
-<figure>
-<img src="/documentation/jobrunr-pro-issue-tracking-integration.png" class="kg-image">
-<figcaption>Create an issue for failed jobs with 1 click in your issue tracking software.</figcaption>
-</figure>
-
+![](/documentation/jobrunr-pro-issue-tracking-integration.png "Create an issue for failed jobs with 1 click in your issue tracking software.")
 
 ## Configuration
 You can easily enable the issue tracking integration in Spring Boot, Micronaut and Quarkus using your existing configuration:
@@ -31,10 +26,10 @@ You can easily enable the issue tracking integration in Spring Boot, Micronaut a
 <figure>
 
 ```
-org.jobrunr.dashboard.integrations.issue-tracking.github.organization=jobrunr
-org.jobrunr.dashboard.integrations.issue-tracking.github.repo=jobrunr
-org.jobrunr.dashboard.integrations.issue-tracking.github.labels=bug
-org.jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and-i
+jobrunr.dashboard.integrations.issue-tracking.github.organization=jobrunr
+jobrunr.dashboard.integrations.issue-tracking.github.repo=jobrunr
+jobrunr.dashboard.integrations.issue-tracking.github.labels=bug
+jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and-i
 ```
 <figcaption>This configuration shows how to integrate JobRunr with GitHub.</figcaption>
 </figure>
@@ -43,9 +38,9 @@ org.jobrunr.dashboard.integrations.issue-tracking.github.assignees=me-myself-and
 <figure>
 
 ```
-org.jobrunr.dashboard.integrations.issue-tracking.jira.root-url=https://[your-jira-instance].atlassian.net/
-org.jobrunr.dashboard.integrations.issue-tracking.jira.project-id=10001
-org.jobrunr.dashboard.integrations.issue-tracking.jira.issue-type=10007
+jobrunr.dashboard.integrations.issue-tracking.jira.root-url=https://[your-jira-instance].atlassian.net/
+jobrunr.dashboard.integrations.issue-tracking.jira.project-id=10001
+jobrunr.dashboard.integrations.issue-tracking.jira.issue-type=10007
 ```
 <figcaption>This configuration shows how to integrate JobRunr with Jira.</figcaption>
 </figure>

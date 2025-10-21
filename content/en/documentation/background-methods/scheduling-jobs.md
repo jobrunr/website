@@ -83,4 +83,6 @@ jobRequestScheduler.create(aJob()
 <figcaption>Scheduling a background job in the future using the JobBuilder pattern</figcaption>
 </figure>
 
+If you make use of the Carbon Aware API, you can add margins to the schedule: see the [carbon aware jobs](/en/documentation/background-methods/carbon-aware-jobs/) docs.
+
 > Note that scheduled jobs may not be executed on the exact moment you specified: whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro]({{< ref "documentation/pro/real-time-scheduling.md" >}}).

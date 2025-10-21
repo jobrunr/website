@@ -1,0 +1,40 @@
+@startuml
+!$ICONURL = "https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/v3.0.0/icons"
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include $ICONURL/common.puml
+!include $ICONURL/devicons/postgresql.puml
+!include $ICONURL/devicons/mongodb.puml
+
+LAYOUT_WITH_LEGEND()
+
+title JobRunr Multi Dashboard: CONTAINER DIAGRAM
+
+Person(admin, "Admin", "JobRunr Maintainer")
+
+System_Boundary(multidashboard, "JobRunr MultiDashboard Server") {
+    Container(multisrv, "MultiDashboardServer", "Java", "The WebApp monitoring all JobRunr clusters")
+}
+
+ContainerDb(db1, "Database 1", "PostgreSQL", "StorageProvider the cluster uses.")
+ContainerDb(db2, "Database 2", "MongoDB", "StorageProvider the cluster uses.")
+DEV_POSTGRESQL(db1, "Db1 StorageProvider", database)
+DEV_MONGODB(db2, "Db2 StorageProvider", database)
+
+System_Boundary(c1, "JobRunr Cluster 1") {
+    Container(bg1, "BackgroundServer 1", "Java", "Job processor instance")
+    Container(dash1, "DashboardServer 1", "Java", "Single cluster dashboard instance (HTTP)")
+    Rel(bg1, db1, "uses")
+    Rel(dash1, db1, "uses")
+}
+
+System_Boundary(c2, "JobRunr Cluster 2") {
+    Container(bg2, "BackgroundServer 2", "Java", "Job processor instance")
+    Rel(bg2, db2, "uses")
+}
+
+Rel(admin, multisrv, "Uses (multi instance)")
+Rel(admin, dash1, "Uses (single instance)")
+Rel(multisrv, dash1, "Queries (REST API)")
+Rel(multisrv, db2, "Queries (DB API)")
+
+@enduml

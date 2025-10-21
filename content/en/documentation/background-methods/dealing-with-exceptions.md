@@ -23,11 +23,7 @@ On this page you will learn how to:
 ## How to monitor your failed jobs
 When JobRunr encounters external exception that occured during the execution of the job, it will automatically change the state of the `Job` to `FAILED`, and you always can find this job in the Dashbord UI under the `FAILED` jobs sections (it will not expire unless you delete it explicitly).
 
-
-<figure>
-<img src="/documentation/failed-job.webp" class="kg-image">
-<figcaption>Detailed information why a job failed</figcaption>
-</figure>
+![](/documentation/failed-job.webp "Detailed information why a job failed")
 
 ## How does JobRunr handle exceptions?
 In the previous paragraph it is mentioned that JobRunr will change the state of the `Job` to `FAILED` but thanks to `JobFilters` that are triggered by state transitions, we can intercept these state changes and update the job. The `RetryFilter` is one of them and it reschedules the failed job to be automatically retried after increasing delay.
@@ -80,7 +76,7 @@ You can configure the amount of retries per job by means of the `@Job` annotatio
         System.out.println("I will only be retried two times ");
     }
 ```
-<figcaption>This is off course also possible on the run method of a JobRequestHandler.</figcaption>
+<figcaption>Of course, this is also possible on the run method of a JobRequestHandler.</figcaption>
 </figure>
 
 ### Custom `RetryPolicy` configuration
@@ -99,7 +95,7 @@ If you want to have the same `RetryPolicy` for all jobs and you are using the `j
 Here is the Spring Boot example:
 
 ```properties
-org.jobrunr.jobs.custom-backoff-retry-policy=5,5,60,120
+jobrunr.jobs.custom-backoff-retry-policy=5,5,60,120
 ```
 
 In the example above, all your jobs will be retried at most 4 times and the retries will happen after 5 seconds, 5 seconds, 60 seconds and then 120 seconds ...

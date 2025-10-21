@@ -16,42 +16,48 @@ menu:
 Although the JobRunr Pro Dashboard gives instant insights how your jobs are doing, you may already have an observability platform like [Jaeger](https://www.jaegertracing.io/), [HoneyComb](https://www.honeycomb.io) or [New Relic](https://newrelic.com) running. JobRunr Pro out-of-the box integrates with many of these observability platforms so you can keep on top of things.
 
 
-## MicroMeter Job Timings
-JobRunr allows to export amount of jobs processed, average job duration, maximum job duration and other metrics like job failure count per job. This allows you to reuse your existing tools like [Prometheus](https://prometheus.io), [Grafana](https://grafana.net), ... and be notified by your existing alerting platform in case things go south.
+## Micrometer Job Timings
+
+JobRunr can be easily configured to export metrics such as the total amount of succeeded jobs. In addition, JobRunr _Pro_ can export the average job duration, maximum job duration and other metrics like job failure count per job. This allows you to reuse your existing tools like [Prometheus](https://prometheus.io), [Grafana](https://grafana.net), ... and be notified by your existing alerting platform in case things go south.
 
 ### Configuration
+
 You can easily enable these timings in Spring Boot, Micronaut and Quarkus using your existing configuration:
 
 <figure>
 
 ```
-org.jobrunr.jobs.metrics.micrometer-timers.enabled=true
+# enable general jobs metrics and integrate with your framework
+jobrunr.jobs.metrics.enabled=true 
+# enable job timing metrics (Pro only)
+jobrunr.jobs.metrics.micrometer-timers.enabled=true 
 ```
-<figcaption>This configuration shows how to enable the MicroMeter timers.</figcaption>
+<figcaption>This configuration shows how to enable the Micrometer timers.</figcaption>
 </figure>
 
 
-{{< trial-button >}}
+After enabling `micrometer-timers`, the following metrics will be exposed: 
+
+- A counter of all job runs: `jobrunr.jobs.runs.total`.
+- A long task timer `jobrunr.jobs.in-progress` to follow jobs in processing.
+- A timer reporting the execution time of succeeded jobs: `jobrunr.jobs.runs.succeeded`.
+- A timer reporting the execution time of succeeded batch jobs: `jobrunr.batch-jobs.runs.succeeded`.
+- A timer reporting the execution time of failed jobs: `jobrunr.jobs.runs.failed`.
+- A timer reporting the execution time of failed batch jobs: `jobrunr.batch-jobs.runs.failed`.
+- A gauge of the number of failed jobs: `jobrunr.jobs.failures`.
+
+The above meters include tags (aka labels) populated from each executed job.
 
 ## Observability
-You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [MicroMeter](https://micrometer.io/).
+You can also integrate JobRunr with your observability platform thanks to [OpenTelemetry](https://opentelemetry.io/) and [Micrometer](https://micrometer.io/).
 
 Using the integration of your choice will not only show you the TraceId within the JobRunr Pro Dashboard but it will also show detailed job information in your observability platform.
 
-<figure>
-<img src="/documentation/jobrunr-pro-traceid.png" class="kg-image">
-<figcaption>Jaeger - the duration and all the different API interactions over multiple microservices are automatically available</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-traceid.png "Jaeger - the duration and all the different API interactions over multiple microservices are automatically available")
 
-<figure>
-<img src="/documentation/jobrunr-pro-jaeger-succeeded-job.png" class="kg-image">
-<figcaption>Jaeger - the duration and all the different API interactions over multiple microservices are automatically available</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-jaeger-succeeded-job.png "Jaeger - the duration and all the different API interactions over multiple microservices are automatically available")
 
-<figure>
-<img src="/documentation/jobrunr-pro-jaeger-failed-job.png" class="kg-image">
-<figcaption>Jaeger - if a job failed, you can easily see what is happening</figcaption>
-</figure>
+![](/documentation/jobrunr-pro-jaeger-failed-job.png "Jaeger - if a job failed, you can easily see what is happening")
 
 ### Configuration
 You can easily enable observability in Spring Boot, Micronaut and Quarkus using your existing configuration:
@@ -60,13 +66,13 @@ You can easily enable observability in Spring Boot, Micronaut and Quarkus using 
 
 ```
 # enable linking from within the JobRunr Pro Dashboard to your Tracing Provider
-org.jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/
+jobrunr.dashboard.integrations.observability.jaeger.root-url=http://localhost:16686/
 
-# if you prefer MicroMeter
-org.jobrunr.jobs.metrics.micrometer-observability.enabled=true
+# if you prefer Micrometer
+jobrunr.jobs.metrics.micrometer-observability.enabled=true
 
 # or, if you prefer OpenTelemetry
-org.jobrunr.jobs.metrics.otel-observability.enabled=true
+jobrunr.jobs.metrics.otel-observability.enabled=true
 ```
 <figcaption>Just define your preferred observability intregration.</figcaption>
 </figure>

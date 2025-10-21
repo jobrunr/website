@@ -1,16 +1,16 @@
 {{ $image := resources.Get .Destination }}
-
 {{ if $image }}
-    {{ if .Title }}
     <figure>
-        <img src="{{ with $image }}{{ $image.Permalink }}{{ end }}" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
-        {{ with .Title }}<figcaption>{{ . }}</figcaption>{{ end }}
+        <a href="{{ with $image }}{{ $image.Permalink }}{{ end }}">
+            <img src="{{ with $image }}{{ $image.Permalink }}{{ end }}" class="kg-image" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
+        </a>
+        {{ with .Title }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
     </figure>
-    {{ else }}
-    <img src="{{ with $image }}{{ $image.Permalink }}{{ end }}" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
-    {{ end }}
 {{ else }}
-<img src="{{ .Destination }}" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
+<figure>
+    <a href="{{ .Destination }}">
+        <img src="{{ .Destination }}" class="kg-image" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
+    </a>
+    {{ with .Title }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
 {{ end }}
-
-

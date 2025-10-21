@@ -12,12 +12,12 @@ tags:
 
 JDK 16 early access has a build available including Project Loom which is all about virtual, light-weight threads (also called Fibers) that can be created in large quantities, without worrying about exhausting system resources.
 
-Project Loom is also the reason why I did not use a reactive framework for JobRunr as it will change the way we will write concurrent programs. Project Loom with it's Virtual Threads is supposed to be a drop-in replacement for the existing threading framework and I tried it out today using JobRunr.
+Project Loom is also the reason why I did not use a reactive framework for JobRunr as it will change the way we will write concurrent programs. Project Loom with its Virtual Threads is supposed to be a drop-in replacement for the existing threading framework and I tried it out today using JobRunr.
 This also means that JobRunr, as of v0.9.16 (to be released soon), will support project Loom out-of-the-box while still also supporting every JVM since Java 8!
 
 Implementing support for Project Loom was easier than I thought using a `ServiceLoader`. I extracted a simple interface called `JobRunrExecutor` from the existing `ScheduledThreadPool`.
 
-<figure style="width: 100%">
+{{< codeblock title="The `JobRunrExecutor` interface which is implemented by the existing ScheduledThreadPool" >}}
 
 ```java
 public interface JobRunrExecutor extends Executor {
@@ -30,12 +30,11 @@ public interface JobRunrExecutor extends Executor {
 
 }
 ```
-<figcaption>The `JobRunrExecutor` interface which is implemented by the existing ScheduledThreadPool</figcaption>
-</figure>
+{{</ codeblock >}}
 
 I then created another implementation of the interface using JDK 16 making use of Project Loom which does nothing more than delegating to a Virtual Thread:
 
-<figure style="width: 100%">
+{{< codeblock >}}
 
 ```java
 public class VirtualThreadJobRunrExecutor implements JobRunrExecutor {
@@ -63,11 +62,11 @@ public class VirtualThreadJobRunrExecutor implements JobRunrExecutor {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 Using a standard `ServiceLoader` I was then able to inject the `VirtualThreadJobRunrExecutor` thus adding support for Virtual Threads!
 
-<figure style="width: 100%">
+{{< codeblock >}}
 
 ```java
 
@@ -79,7 +78,7 @@ private JobRunrExecutor loadJobRunrExecutor() {
             .orElse(new ScheduledThreadPoolExecutor(serverStatus.getWorkerPoolSize(), "backgroundjob-worker-pool"));
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 With all this in place, it was time to test and see if performance is better.
 
@@ -102,22 +101,19 @@ All numbers are in seconds.
 What we can compare is the results from JVisualVM. And boy, are these worthwhile!
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk11-1.webp" class="kg-image">
+{{< img src="/blog/2020-08-17-jvisualvm-jdk11-1.webp" class="kg-image" >}}
 <figcaption>JDK 11.0.8</figcaption>
 </figure>
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk16.webp" class="kg-image">
+{{< img src="/blog/2020-08-17-jvisualvm-jdk16.webp" class="kg-image" >}}
 <figcaption>JDK Build 16-loom+5-54 without Virtual Threads</figcaption>
 </figure>
 
 <figure>
-<img src="/blog/2020-08-17-jvisualvm-jdk16-withloom.webp" class="kg-image">
+{{< img src="/blog/2020-08-17-jvisualvm-jdk16-withloom.webp" class="kg-image" >}}
 <figcaption>JDK Build 16-loom+5-54 with Virtual Threads</figcaption>
 </figure>
-
-
-
 
 __The biggest difference is memory usage:__
 

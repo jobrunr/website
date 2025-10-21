@@ -31,7 +31,7 @@ Luckily JobRunr is here to help as it is a __distributed background job processi
 ### Postgres as database
 In the first version of our application, we used an embedded H2 Database. As we now go for a deployment on Google Cloud Platform (GCP), we will use a Cloud Sql Postgres instance. To do so, we need to change our DataSource in the SalarySlipMicroService as follows:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The DataSource now uses environment variables to connect to the Postgres Cloud Sql instance." >}}
 
 ```java
 @Bean
@@ -45,15 +45,14 @@ public DataSource dataSource() {
     return new HikariDataSource(config);
 }
 ```
-<figcaption>The DataSource now uses environment variables to connect to the Postgres Cloud Sql instance.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ### Dockerize it!
 Since Kubernetes runs Pods - which are in fact one or more Docker Containers - we first need to create a Docker Image from our application. [Jib](https://github.com/GoogleContainerTools/jib) is a tool from Google to easily create Docker images from your Java application using only Maven or Gradle.
 
 In our build.gradle file we add the following plugin:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="We configure the <i>jib</i> plugin and tell it to build further upon the distroless Java 11 base image. We tag it with `gcr.io/jobrunr-tutorial-kubernetes/jobrunr-${project.name}:1.0` so that it will be available later in GCP, specify the timezone and tell it to expose some ports." >}}
 
 ``` java
 plugins {
@@ -76,8 +75,7 @@ jib {
     }
 }
 ```
-<figcaption>We configure the <i>jib</i> plugin and tell it to build further upon the distroless Java 11 base image. We tag it with `gcr.io/jobrunr-tutorial-kubernetes/jobrunr-${project.name}:1.0` so that it will be available later in GCP, specify the timezone and tell it to expose some ports.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 If we now run the gradle command: `./gradlew jibDockerBuild` it will create a new Docker image for us, ready to run on Docker!
 
@@ -93,7 +91,7 @@ The installation for these tools is well explained and differs for each OS. Foll
 We also need an account for Google Cloud. Using your browser navigate to https://console.cloud.google.com/  - when you first login to the Google Cloud Platform you get 300 € of free credit, more than enough for us. You can activate it on the top right.
 
 <figure style="width: 100%; max-width: 100%">
-<img src="/blog/2020-05-06-kubernetes-gcp-01.webp" class="kg-image">
+{{< img src="/blog/2020-05-06-kubernetes-gcp-01.webp" class="kg-image" >}}
 <figcaption>The Google console dashboard with the free trial at the top</figcaption>
 </figure>
 
@@ -102,7 +100,7 @@ In this tutorial, we will use the terminal as much as possible - so fire up a te
 
 To deploy a Kubernetes cluster to GCP, we first need to create a new GCP project, add a billing account to it, enable the container API's and upload our docker image:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The first command creates the GCP project and makes it the default project. The second command will list an account id, account name and some other data. Use the account id in the fourth command to link billing to your GCP project. Next, some Google API's need to enabled. The last command uploads the Docker image to a private Docker registry at Google" >}}
 
 ```
 ~$ gcloud projects create jobrunr-tutorial-kubernetes --name="JobRunr K8s Tutorial" --set-as-default
@@ -112,12 +110,11 @@ To deploy a Kubernetes cluster to GCP, we first need to create a new GCP project
 ~$ gcloud services enable sqladmin.googleapis.com
 ~$ docker push gcr.io/jobrunr-tutorial-kubernetes/jobrunr-example-paycheck:1.0
 ```
-<figcaption>The first command creates the GCP project and makes it the default project. The second command will list an account id, account name and some other data. Use the account id in the fourth command to link billing to your GCP project. Next, some Google API's need to enabled. The last command uploads the Docker image to a private Docker registry at Google</figcaption>
-</figure>
+{{</ codeblock >}}
 
 We also need a Terraform service account with the necessary rights to create the Kubernetes cluster in the GCP project.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="First, a service account for Terraform is created. It is given the roles editor, resourcemanager.projectIamAdmin and cloudsql.client. Finally, a private key is created which is saved to a json file and exported so that it can be used by Terraform." >}}
 
 ```
 ~$ gcloud iam service-accounts create terraform --display-name "Terraform admin account"
@@ -128,8 +125,7 @@ We also need a Terraform service account with the necessary rights to create the
 ~$ export TF_CREDS=~/.config/gcloud/jobrunr-tutorial-kubernetes-terraform-admin.json
 ~$ export GOOGLE_APPLICATION_CREDENTIALS=${TF_CREDS}
 ```
-<figcaption>First, a service account for Terraform is created. It is given the roles editor, resourcemanager.projectIamAdmin and cloudsql.client. Finally, a private key is created which is saved to a json file and exported so that it can be used by Terraform.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ### Terraform deep dive
 Now we're all setup, we can start defining our infrastructure as code using Terraform.
@@ -166,7 +162,7 @@ Our entrypoint in Terraform is the `main.tf` configuration file. Next to it, are
 
 `main.tf` is the entrypoint in our infrastructure as code.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`main.tf`: in this file the GCP project that was created earlier on is reused. Other variables are also defined - like the region where the application will run and a username and password for the Kubernetes cluster. Next, two modules are defined which consume the variables. The k8s module reuses outputs from the gke module." >}}
 
 ```
 #####################################################################
@@ -211,13 +207,12 @@ module "k8s" {
   cloudsql_db_password = module.gke.cloudsql_db_password
 }
 ```
-<figcaption><strong>main.tf</strong>: in this file the GCP project that was created earlier on is reused. Other variables are also defined - like the region where the application will run and a username and password for the Kubernetes cluster. Next, two modules are defined which consume the variables. The k8s module reuses outputs from the gke module.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 #### GKE module
 Our GKE module will create a container cluster on Google Cloud and provision a Postgres Cloud Sql instance. We start by defining some variables that can then be used in the other Terraform files.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`gke/gcp.tf`: the google provider allows to create a container cluster and a Postgres Cloud Sql instance" >}}
 
 ```
 #####################################################################
@@ -236,11 +231,10 @@ provider "google" {
   region  = var.region
 }
 ```
-<figcaption><strong>gke/gcp.tf</strong>: the google provider allows to create a container cluster and a Postgres Cloud Sql instance</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`gke/cluster.tf`: for the GKE cluster, a machine of type n1-standard-2 is defined, equaling to 2 virtual CPU's. Various oauth_scopes are given - the important ones are compute, cloud-platform and sqlservice.admin. They are needed to interact with the compute engine for our Kubernetes Cluster and with the Postgres Cloud Sql instance. Some outputs are defined which will be consumed by the Terraform Kubernetes resource.">}}
 
 ```
 #####################################################################
@@ -296,12 +290,11 @@ output "host" {
   sensitive = true
 }
 ```
-<figcaption><strong>gke/cluster.tf</strong>: for the GKE cluster, a machine of type n1-standard-2 is defined, equaling to 2 virtual CPU's. Various oauth_scopes are given - the important ones are compute, cloud-platform and sqlservice.admin. They are needed to interact with the compute engine for our Kubernetes Cluster and with the Postgres Cloud Sql instance. Some outputs are defined which will be consumed by the Terraform Kubernetes resource.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
-<figure style="width: 100%; max-width: 100%">
-
+{{< codeblock  title="`gke/cloudsql.tf`: a Postgres Cloud Sql instance is defined together with a user and a database. Again various outputs are defined which will be consumed by our k8s module." >}}
+ 
 ```
 #####################################################################
 # GKE Cloud SQL
@@ -355,8 +348,7 @@ output "cloudsql_db_instance" {
   sensitive = true
 }
 ```
-<figcaption><strong>gke/cloudsql.tf</strong>: a Postgres Cloud Sql instance is defined together with a user and a database. Again various outputs are defined which will be consumed by our k8s module.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
 #### k8s Module
@@ -364,7 +356,7 @@ The k8s module will deploy our docker image we created earlier on and provide it
 
 We again start with the variables that can be used in the other Terraform files from the k8s module.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`k8s/variables.tf`: the values for these variables are all passed from the main.tf file which acts as a bridge between the gke module and k8s module." >}}
 
 ```
 #####################################################################
@@ -382,10 +374,9 @@ variable cloudsql_db_name {}
 variable cloudsql_db_user {}
 variable cloudsql_db_password {}
 ```
-<figcaption><strong>k8s/variables.tf</strong>: the values for these variables are all passed from the main.tf file which acts as a bridge between the gke module and k8s module.</figcaption>
-</figure>
+{{</ codeblock >}}
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`k8s/k8s.tf`: the kubernetes provider allows us to interact with resources supported by Kubernetes." >}}
 
 ```
 #####################################################################
@@ -401,10 +392,9 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(var.cluster_ca_certificate)
 }
 ```
-<figcaption>__k8s/k8s.tf__: the kubernetes provider allows us to interact with resources supported by Kubernetes. </figcaption>
-</figure>
+{{</ codeblock >}}
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`k8s/deployment.tf`: this is the deployment resource where our docker image is provisioned on the Kubernetes cluster. Currently, only 1 replica or instance is requested. The important part is everything under the container attribute - it contains the docker image which the pod should run, the ports that should be exposed and passes all the database credentials using environment variables. On top of that, resource limits and resource requests are defined." >}}
 
 ```
 #####################################################################
@@ -484,10 +474,9 @@ resource "kubernetes_deployment" "jobrunr-tutorial" {
   }
 }
 ```
-<figcaption><strong>k8s/deployment.tf</strong>: this is the deployment resource where our docker image is provisioned on the Kubernetes cluster. Currently, only 1 replica or instance is requested. The important part is everything under the container attribute - it contains the docker image which the pod should run, the ports that should be exposed and passes all the database credentials using environment variables. On top of that, resource limits and resource requests are defined.</figcaption>
-</figure>
+{{</ codeblock >}}
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`k8s/service.tf`: the final piece of the puzzle - the Kubernetes Service makes sure that both the Dashboard and the Rest API are available on the internet" >}}
 
 ```
 #####################################################################
@@ -516,35 +505,33 @@ resource "kubernetes_service" "jobrunr-tutorial" {
   }
 }
 ```
-<figcaption><strong>k8s/service.tf</strong>: the final piece of the puzzle - the Kubernetes Service makes sure that both the Dashboard and the Rest API are available on the internet</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ### Deploy time!
 We now can use Terraform commands to provision our application to the Google Cloud Platform. Make sure you are in the directory which contains the main.tf file and the gke and k8s folders when issuing the following commands:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The terraform init command downloads the necessary plugins (google and kubernetes) to execute the requested infrastructure changes. The second command, terraform plan lists all the required infrastructure changes. The last command, terraform apply makes the actual infrastructure changes." >}}
 
 ```
 ~/jobrunr/gcloud$ terraform init
 ~/jobrunr/gcloud$ terraform plan
 ~/jobrunr/gcloud$ terraform apply
 ```
-<figcaption>The terraform init command downloads the necessary plugins (google and kubernetes) to execute the requested infrastructure changes. The second command, terraform plan lists all the required infrastructure changes. The last command, terraform apply makes the actual infrastructure changes.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
 After you run the terraform apply command you have to wait... typical deploy time is about 5 minutes.
 
 After the deployment succeeds, we can query kubernetes to find out the public ip-address.
-<figure style="width: 100%; max-width: 100%">
+
+{{< codeblock title="The first command downloads credentials and makes them available to the kubectl command. kubectl allows to list all the services and their public ip-addresses. The last command kubectl get pods lists the pods - there should be one pod active." >}}
 
 ```
 ~/jobrunr/gcloud$ gcloud container clusters get-credentials jobrunr-tutorial-kubernetes --region europe-west1
 ~/jobrunr/gcloud$ kubectl get services
 ~/jobrunr/gcloud$ kubectl get pods
 ```
-<figcaption>The first command downloads credentials and makes them available to the kubectl command. kubectl allows to list all the services and their public ip-addresses. The last command kubectl get pods lists the pods - there should be one pod active.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ### Testing time!
 Since the salary slip microservice is now available on the internet, we can test it. First, we will create 10.000 employees in our database. To do so, fire up your favorite browser and go to the url http://${public-ip-from-the-service}:8080/create-employees?amount=10000. This takes about 15 seconds.
@@ -552,14 +539,14 @@ Since the salary slip microservice is now available on the internet, we can test
 Now, visit the JobRunr dashboard - you can find it at http://${public-ip-from-the-service}:8000/dashboard. Navigate to the Recurring jobs tab and trigger the 'Generate and send salary slip to all employees' job. After about 15 seconds, you should have 10.000 enqueued jobs.
 
 <figure>
-<img src="/blog/2020-05-06-kubernetes-5-1.webp" class="kg-image">
-<figcaption>It takes _11.229 seconds_ or about 3 hours and 7 minutes to create all the salary slips.</figcaption>
+{{< img src="/blog/2020-05-06-kubernetes-5-1.webp" class="kg-image" >}}
+<figcaption>It takes <i>11.229 seconds</i> or about 3 hours and 7 minutes to create all the salary slips.</figcaption>
 </figure>
 
 
 ### Scale it up!
 Now, let's add 10 instances of our application to the cluster by changing the replica attribute in the `deployment.tf` file.
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="`k8s/deployment.tf`: the replica value is changed from 1 to 10 in the Kubernetes deployment resource" >}}
 
 ```
 #####################################################################
@@ -576,8 +563,7 @@ resource "kubernetes_deployment" "jobrunr-tutorial" {
   }
 }
 ```
-<figcaption><strong>k8s/deployment.tf</strong>: the replica value is changed from 1 to 10 in the Kubernetes deployment resource</figcaption>
-</figure>
+{{</ codeblock >}}
 
 We now apply this change again using the Terraform apply command:
 `~/jobrunr/gcloud$ terraform apply`
@@ -585,8 +571,8 @@ We now apply this change again using the Terraform apply command:
 If you run the command `~/jobrunr/gcloud$ kubectl get pods` you will now see 10 pods running our JobRunr application. Let's trigger the 'Generate and send salary slip to all employees' recurring job again and wait for it to finish.
 
 <figure>
-<img src="/blog/2020-05-06-kubernetes-6.webp" class="kg-image">
-<figcaption>It only took _1.292 seconds_ or 21 minutes and 30 seconds!</figcaption>
+{{< img src="/blog/2020-05-06-kubernetes-6.webp" class="kg-image" >}}
+<figcaption>It only took <i>1.292 seconds</i> or 21 minutes and 30 seconds!</figcaption>
 </figure>
 
 

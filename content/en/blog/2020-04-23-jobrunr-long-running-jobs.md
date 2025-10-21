@@ -15,7 +15,7 @@ In this tutorial, we will be working for the fictional company Acme Corp and we 
 
 
 To do so, we will be using 3 open-source components:
-- [JobRunr](https://github.com/jobrunr/jobrunr): JobRunr allows to easily schedule and process background jobs using Java 8 lambda's. It is backed by persistent storage and can process jobs in a parallel and distributed manner. Thanks to the built-in dashboard we have an in-depth overview into all our background jobs.
+- [JobRunr](https://github.com/jobrunr/jobrunr): JobRunr allows to easily schedule and process background jobs using Java 8 lambdas. It is backed by persistent storage and can process jobs in a parallel and distributed manner. Thanks to the built-in dashboard we have an in-depth overview into all our background jobs.
 - [Spring Data Jpa](https://docs.spring.io/spring-data/): If you want to easily access data in a relational database, Spring Data Jpa is here to help. You can create repositories using nothing more than a simple interface
 - [Docx-Stamper](https://github.com/thombergs/docx-stamper): Docx-Stamper allows to easily generate Word (.docx) documents backed by templates
 Architecture
@@ -28,7 +28,7 @@ During this tutorial, we will generate the weekly salary slip of all of Acme Cor
   - send an email to the employee with his salary slip using an `EmailService`.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-report.webp" class="kg-image">
+{{< img src="/blog/2020-04-23-tutorial-report.webp" class="kg-image">}}
 <figcaption>We will transform a Word template to PDF and replace all placeholders with actual values.</figcaption>
 </figure>
 
@@ -39,7 +39,7 @@ In this tutorial we omit all Java imports for brevity - to find them, just visit
 For building this salary slip service, we use gradle and our `build.gradle` file is as follows:
 
 ##### Gradle build file
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="Our build.gradle file uses JobRunr, Spring Boot Data, Sprint Boot Mail and Docx-Stamper. We exclude slf4j-log4j12 as it clashes with Logback provided by Spring" >}}
 
 ```java
 plugins {
@@ -83,13 +83,12 @@ test {
     useJUnitPlatform()
 }
 ```
-<figcaption>our build.gradle file uses JobRunr, Spring Boot Data, Sprint Boot Mail and Docx-Stamper. We exclude slf4j-log4j12 as it clashes with Logback provided by Spring</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ##### Employee
 Since we need to create salary slips for all employees let us start with the `Employee` class - it is a simple Entity with some fields like `firstName`, `lastName` and `email`.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="Our Employee is a simple javax persistence entity">}}
 
 ```java
 package org.jobrunr.example.employee;
@@ -142,11 +141,10 @@ public class Employee {
     }
 }
 ```
-<figcaption>Our Employee is a simple javax persistence entity</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ##### EmployeeRepository
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The EmployeeRepository extends the Spring Data CrudRepository and adds an extra method to fetch all the id's of the Employees" >}}
 
 ```java
 package org.jobrunr.example.employee;
@@ -158,13 +156,12 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 }
 ```
-<figcaption>the EmployeeRepository extends the Spring Data CrudRepository and adds an extra method to fetch all the id's of the Employees</figcaption>
-</figure>
+{{</ codeblock >}}
 
 ##### WorkWeek
 Since the salary slip is generated once per week, we need a class representing the amount of time an employee has worked that week - the `WorkWeek` class. It has some extra fields like the `weekNbr` and a from and to date which we will use for our generated salary slip document.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.example.timeclock;
@@ -233,12 +230,12 @@ public class WorkWeek {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ##### TimeClockService
 To get a WorkWeek class for a certain employee, we create a `TimeClockService` which is a Spring Component. As we don't want to make this tutorial overly complex, here we use a stub which generates some random data. In a real-world application this service would make a REST or SOAP request to another microservice.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="To simplify this tutorial, we use a stub for the TimeClockService which generates Random work hours for each employee" >}}
 
 ```java
 package org.jobrunr.example.timeclock;
@@ -270,13 +267,12 @@ public class TimeClockService {
 
 }
 ```
-<figcaption>to simplify this tutorial, we use a stub for the TimeClockService which generates Random work hours for each employee</figcaption>
-</figure>
+{{</ codeblock >}}
 
 We now have all the necessary data to generate our salary slip - except the SalarySlip class itself:
 
 ##### SalarySlip
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The SalarySlip class contains all the data necessary to generate a salary slip and will be used by the DocumentGenerationService to generate the salary slips as PDF documents." >}}
 
 ```java
 package org.jobrunr.example.paycheck;
@@ -314,12 +310,11 @@ public class SalarySlip {
     }
 }
 ```
-<figcaption>the SalarySlip class contains all the data necessary to generate a salary slip and will be used by the DocumentGenerationService to generate the salary slips as PDF documents.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
 ##### DocumentGenerationService
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.example.paycheck;
@@ -342,7 +337,7 @@ public class DocumentGenerationService {
 
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 The `DocumentGenerationService` is also a Spring Component and has the responsibility to generate the actual salary slip documents based on a word template. The word template has a lot of placeholders, like `${employee.firstName}`, `${employee.lastName}` and `${workWeek.workHoursMonday.setScale(2)}` that will be replaced by DocxStamper using the given context object - in our case a `SalarySlip` object. Finally, the Word document with all fields filled in is converted to a PDF document.
 
@@ -351,7 +346,7 @@ The `EmailService` is again a Spring Component and has the responsibility to ema
 
 The `JavaMailSender` is a class provided by Spring Boot Starter Mail and configured using a properties file. You can find the properties file here: ...
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.example.email;
@@ -379,7 +374,7 @@ public class EmailService {
 
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 
 ##### And finally, the SalarySlipService
@@ -398,7 +393,7 @@ __generateAndSendSalarySlip__
 
 The method `generateAndSendSalarySlip` uses the employee id to get the actual employee data, generates the salary slip Word document and sends it via email to the employee. It will be a JobRunr background job and it is called from the method `generateAndSendSalarySlipToAllEmployees`. We annotate it with the Job annotation to have meaningful names in dashboard of JobRunr.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="The method generateAndSendSalarySlip, a standard method in our service, will become a background job" >}}
 
 ```java
     @Job(name = "Generate and send salary slip to employee %0")
@@ -408,8 +403,7 @@ The method `generateAndSendSalarySlip` uses the employee id to get the actual em
         emailService.sendSalarySlip(employee, salarySlipPath);
     }
 ```
-<figcaption>The method generateAndSendSalarySlip, a standard method in our service, will become a background job</figcaption>
-</figure>
+{{</ codeblock >}}
 
 __generateAndSendSalarySlipToAllEmployees__
 
@@ -417,7 +411,7 @@ This is our main method that will be scheduled each week - it gets a stream of e
 
 The document generation fails because there is not enough disk space? Or the `TimeClockService` fails for an employee because the external microservice is down? No worries - as JobRunr is fault-tolerant (it will automatically retry failed jobs with an exponential back-off policy), these failing jobs will be retried 10 times automatically.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="This method will be scheduled each week and will create new background jobs for the generation and sending of the salary slip for each employee." >}}
 
 ```java
     @Transactional(readOnly = true)
@@ -427,12 +421,11 @@ The document generation fails because there is not enough disk space? Or the `Ti
         BackgroundJob.<SalarySlipService, Long>enqueue(allEmployees, (salarySlipService, employeeId) -> salarySlipService.generateAndSendSalarySlip(employeeId));
     }
 ```
-<figcaption>This method will be scheduled each week and will create new background jobs for the generation and sending of the salary slip for each employee.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 The complete SalarySlipService is as follows:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.example.paycheck;
@@ -489,12 +482,12 @@ public class SalarySlipService {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ##### Last but not least - our Spring Boot Application
 The Spring Boot Application bootstraps our application and has one important piece of code:
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock title="This method call ensures that the generateAndSendSalarySlipToAllEmployees method of our SalarySlipService will be triggered each Sunday at 10pm." >}}
 
 ```java
 BackgroundJob.scheduleRecurringly(
@@ -503,12 +496,11 @@ BackgroundJob.scheduleRecurringly(
 	Cron.weekly(DayOfWeek.SUNDAY, 22)
 );
 ```
-<figcaption>This method call ensures that the generateAndSendSalarySlipToAllEmployees method of our SalarySlipService will be triggered each Sunday at 10pm.</figcaption>
-</figure>
+{{</ codeblock >}}
 
-In this SpringBootApplication we create some fake employees, define a DataSource (in our case a simple H2 database) and initialize JobRunr using it's fluent-api.
+In this SpringBootApplication we create some fake employees, define a DataSource (in our case a simple H2 database) and initialize JobRunr using its fluent-api.
 
-<figure style="width: 100%; max-width: 100%">
+{{< codeblock >}}
 
 ```java
 package org.jobrunr.example;
@@ -560,13 +552,14 @@ public class SalarySlipMicroService {
 
 }
 ```
-</figure>
+{{</ codeblock >}}
+
 Time to use our new application!
 
 Once you start the SalarySlipMicroService application, you can open your browser using the url http://localhost:8000 and navigate to the Recurring jobs tab.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-01-recurring-job.webp" class="kg-image">
+{{< img src="/blog/2020-04-23-tutorial-salary-slip-01-recurring-job.webp" class="kg-image" >}}
 <figcaption>Our recurring job that will be triggered each Sunday.</figcaption>
 </figure>
 
@@ -574,17 +567,18 @@ Once you start the SalarySlipMicroService application, you can open your browser
 To test it, we trigger it now manually. The job is processed and schedules a new job to create the salary slip for each employee. Within 15 seconds the processing of these jobs start and we will see the generated PDF documents in our tmp folder.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-02.webp" class="kg-image">
+{{< img src="/blog/2020-04-23-tutorial-salary-slip-02.webp" class="kg-image" >}}
+<figcaption>An overview of enqueued jobs</figcaption>
 </figure>
 
 We can inspect a Job and see them succeed - if it would fail for some reason, they will be automatically retried.
 
 <figure>
-<img src="/blog/2020-04-23-tutorial-salary-slip-04.webp" class="kg-image">
+{{< img src="/blog/2020-04-23-tutorial-salary-slip-04.webp" class="kg-image" >}}
 <figcaption>An overview of a succeeded job</figcaption>
 </figure>
 
 
 ### Conclusion:
-- JobRunr and Spring Data integrate very well and both are very easy to use. Being able to schedule Java 8 lambda's and have them run in a background process is a really nice feature of JobRunr.
+- JobRunr and Spring Data integrate very well and both are very easy to use. Being able to schedule Java 8 lambdas and have them run in a background process is a really nice feature of JobRunr.
 - To convert the Word document to PDF, there is some nasty stuff in the word template (like white text) to have an OK-layout. Docx-Stamper is a great library and depends on Docx4J. Docx4J allows to convert Word documents to PDF but it still requires some work as a couple of hacks were done to get the layout right.

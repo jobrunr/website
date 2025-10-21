@@ -15,16 +15,16 @@ menu:
 
 Are you processing millions of jobs? Do you have some high priority jobs that need to finish fast? Use JobRunr priority queues to make sure that critical jobs cut in front of already enqueued jobs.
 
-> **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/dynamic-queues.md" >}}).
+> **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/documentation/pro/dynamic-queues.md" >}}).
 
 ## Usage
 ### Using the Job Annotation
 Using queues could not have been easier thanks to the `Job` annotation. Just add it to your service method and specify on which queue you want to run it.
 
 ```java
-public static final String HighPrioQueue = "high-prio";
-public static final String DefaultQueue = "default";
-public static final String LowPrioQueue = "low-prio";
+public static final String HighPrioQueue = "HighPrio";
+public static final String DefaultQueue = "Default";
+public static final String LowPrioQueue = "LowPrio";
 
 public void runJobs() {
     BackgroundJob.enqueue(this::startJobOnLowPrioQueue);
@@ -86,9 +86,9 @@ For the Spring / Micronaut / Quarkus, you can just define the queues in your con
 <figure>
 
 ```
-org.jobrunr.queues.default-queue-name=Default
-org.jobrunr.queues.names=HighPrio, Default, LowPrio
-#org.jobrunr.queues.from-enum=org.jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
+jobrunr.queues.default-queue-name=Default
+jobrunr.queues.names=HighPrio, Default, LowPrio
+#jobrunr.queues.from-enum=jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
   
 ```
 <figcaption>Just define the default queue name and the other queue names using your configuration.</figcaption>
@@ -130,9 +130,7 @@ You can also configure the Queues using beans by means of an extra bean of type 
 ## Dashboard
 
 The Pro version of JobRunr comes with an enhanced dashboard that shows you the different queues.
-<figure>
-<img src="/documentation/jobrunr-pro-enqueued.webp" class="kg-image">
-<figcaption>Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue</figcaption>
-</figure>
+
+![](/documentation/jobrunr-pro-enqueued.webp "Thanks to queues, we have an overview how many jobs are enqueued on the high-prio queue, standard queue and low-prio queue")
 
 {{< trial-button >}}

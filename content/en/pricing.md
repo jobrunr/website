@@ -1,13 +1,10 @@
 ---
 title: "JobRunr Pro"
-translationKey: "jobrunr-pro"
+translationKey: "pricing"
 summary: "Save months of development time with [JobRunr Pro](/en/documentation/pro/ 'If you would develop the features of the Pro edition yourself, it would have an estimated cost of around 119.400 $\n(190 days of development at a rate of 600$). ') so you can handle the most difficult background job workflow challenges."
 skip_meta: true
 date: 2020-08-27T11:12:23+02:00
-menu: 
-  main: 
-    identifier: pricing
-    weight: 3
+draft: true
 ---
 
 <script type="text/javascript">
@@ -25,12 +22,6 @@ menu:
 
 Deliver exceptional experiences to your customers thanks to advanced [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}) that gives instant insights into your business processes. Empower your engineers using [developer]({{< ref "priority-queues.md" >}})-[friendly]({{< ref "batches.md" >}}) [API's]({{< ref "job-chaining.md" >}}) resulting in [cost reductions](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos) and faster time to market.
 
-<div style="text-align: center; margin: -2rem 0 3rem 0;">
-    {{< trial-button >}}
-    <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-        <span>Contact us!</span>
-    </a>
-</div>
 
 <div class="plan-container">
 
@@ -49,6 +40,7 @@ JobRunr OSS with:
 - [Enqueueing of jobs]({{< ref "documentation/background-methods/enqueueing-jobs.md" >}})
 - [Scheduling of jobs]({{< ref "documentation/background-methods/scheduling-jobs.md" >}})
 - [Automatic retry handling]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}})
+- [Carbon-aware job scheduling]({{< ref "guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/" >}})
 <br><br><br><br><br>
 
 ### Licensing
@@ -58,7 +50,7 @@ JobRunr OSS with:
 
 ### Community support
 - [Stack Overflow Tag](https://stackoverflow.com/questions/ask?tags=java%20jobrunr)
-- GitHub Discussions
+- [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions)
 
 <span style="display: block; height: 125px"></span>
 
@@ -104,15 +96,22 @@ Everything in JobRunr OSS plus:
 - Priority handling for bugs
 
 ### Purchasing
-- Credit Card / PayPal 
-- Invoice
+- Credit Card  
 
 <div class="buy">
 
-<strong style='color: #3eb0ef;text-decoration: none;'>7950 <span class="currency-holder">$</span></strong>
-_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a><br/>(excl. VAT)_
+_one prod cluster,<br/>priority support<br/><br/>_
+ <strong style='color: #3eb0ef;text-decoration: none;'>9.000,00 <span class="currency-holder">$</span></strong>
+_per PRD cluster / year <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
+_or_
+ <strong style='color: #3eb0ef;text-decoration: none;font-size:1.25em;'>850,00 <span class="currency-holder">$</span></strong>
+_per PRD cluster / month <a class="tooltip" data-title="A production cluster is one application running JobRunr Pro with multiple background job servers processing jobs."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>_
+_(excl. VAT)_ 
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro">BUY NOW</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-business">CONTACT SALES</a>
+
+
+<!-- <a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_business' });" href="/en/get-jobrunr-pro-business">BUY NOW</a> -->
 
 <div class="eco-friendly">
 
@@ -127,7 +126,7 @@ _[your subscription includes <br/>250 planted trees / year]({{< ref "about.md#ec
 ## Enterprise
 <div class="no-margin">
 
-_our most powerful offering with security and much more_
+_our most powerful offering<br>with security and much more_
 </div>
 
 ### Features
@@ -138,7 +137,8 @@ Everything in Business plus:
 - <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}">Panic Button (1 / year)</a> <a href="{{< ref "blog/2023-06-06-jobrunr-pro-panic-button/" >}}" class="tooltip" data-title="The panic button allows to notify me instantaneously, Ronald Dehuysser, in case of a production incident."><img width="16" height="16" src="/question-mark.svg" style="margin: 0 0 -2px 0; width: 16px"/></a>
 - [Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}})
 - Unlimited clusters
-<br><br><br><br>
+- [SBOM](https://www.cisa.gov/sbom) included
+<br><br><br>
 
 ### Licensing
 - [Standard EULA]({{< ref "licensing/standard-eula.md" >}})
@@ -149,17 +149,19 @@ Everything in Business plus:
 ### Priority support
 - [Email / HelpDesk](mailto:hello@jobrunr.io)
 - Technical support
+- Escalation support via phone and video call for critical technical issues
 - Priority handling for bugs
 
 ### Purchasing
-- Credit Card / PayPal 
+- Credit Card 
 - Invoice
+- Flexible support for custom procurement processes as needed
 
 <div class="buy">
 
 _unlimited clusters,<br/>unlimited installations,<br/>priority feature development_
 
-<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro">CONTACT SALES</a>
+<a class="button" onclick="gtag('event', 'click_buy_pro', {'event_category': 'ecommerce', 'event_label' : 'plan_platinum' });" href="/en/get-jobrunr-pro-enterprise">CONTACT SALES</a>
 
 <div class="eco-friendly">
 
@@ -172,15 +174,22 @@ _[your subscription includes <br/>a lot of planted trees / year]({{< ref "about.
 </div>
 
 <br>
+<h3>How to convince your boss?</h3>
 
+We prepared an email with 5 good reasons to convince your boss to purchase a JobRunr Pro License!
+
+
+<a class="btn btn-black btn-lg"  href="/en/convince-your-boss/" style="display: inline-block; height: 45px; margin-right: 1rem;">Show me how!</a>
+
+<br>
 <h3>Why get a Pro license?</h3>
 
-Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Is your business building infrastructure or *user functionality*? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To found out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
+Open Source software is great, why should you pay money for JobRunr Pro Business or Enterprise license when you can build it yourself? Well, the actual question is: "is your business building infrastructure or *user functionality*"? How many days or weeks will it take your team to piece together similar functionality? How long will they spend fixing bugs in production? Paying money for good infrastructure means you have more time to focus on user-facing features. To find out whether it's worth building something like JobRunr yourself, take a look at this [build-vs-buy calculator](https://www.omnicalculator.com/finance/build-or-buy?c=USD&v=overhead:25!perc,employees:1.5,gross:5500!mos,annual_cost:7950!yrs,hours:1!yrs,days_maint:2!mos).
 
 JobRunr Pro has lots of **really valuable, well-documented, well-tested** features. You can reproduce some of this functionality with 3rd party open source libraries but:
 
 - Will they be supported years from now?
-- Will they work with newer versions of Java, or Spring Boot?
+- Will they work with newer versions of Java, Spring Boot or Quarkus?
 - Will they get a steady stream of updates to fix bugs? What about security fixes?
 - How many days or weeks will it take you to integrate everything together and test it?
 

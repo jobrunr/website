@@ -42,14 +42,14 @@ Recurring jobs that were missed during downtime will not be scheduled again in J
 ### My recurring jobs are not running nor available in the dashboard?
 To schedule your recurring jobs, you must make sure that the code scheduling these jobs is executed on startup of your application. See the examples in [Recurring jobs]({{<ref "background-methods/recurring-jobs.md#registering-your-recurring-jobs">}})
 
-### JobRunr stops completely if my SQL / NoSQL database goes down
+### JobRunr stops completely if the SQL/NoSQL database goes down
 JobRunr uses your database for a lot of things: 
 - Master node election for the `BackgroundJobServer`
 - Monitoring whether there are no zombie jobs (jobs that were being processed on a `BackgroundJobServer` node that crashed)
 - Optimistic locking so that a job will be only executed once
 - ... 
 
-The moment JobRunr loses it's connection to the database (or the database goes down), there will be a lot of threads that will try to write updates to the database but all of these writes will of course fail. This will result in __a huge amount of logging__ and if JobRunr would try to continue job processing, it would flood the disks fast because of each attempt to process a job fails. That's why I decided that if there are too many exceptions because of the `StorageProvider`, JobRunr stops all background job processing. This can of course be monitored via the dashboard and health endpoints.
+The moment JobRunr loses its connection to the database (or the database goes down), there will be a lot of threads that will try to write updates to the database but all of these writes will of course fail. This will result in __a huge amount of logging__ and if JobRunr would try to continue job processing, it would flood the disks fast because of each attempt to process a job fails. That's why I decided that if there are too many exceptions because of the `StorageProvider`, JobRunr stops all background job processing. This can of course be monitored via the dashboard and health endpoints.
 
 > JobRunr Pro improves this by monitoring if the `StorageProvider` comes up again and if so, automatically restarts processing on all the different `BackgroundJobServer`s.
 
@@ -61,22 +61,26 @@ I'm seeing the following exception in my logs:
 Unable to check for new JobRunr version: api.github.com
 ```
 
-In the past (and even now), too many GitHub issues are created with people not running the latest JobRunr version (so their issue is often already resolved in a later version). This version check polls GitHub to see whether there is a new version and shows a notification in the dashboard if that's the case. 
+Please upgrade to the latest JobRunr version. This call is no longer part of the backend.
 
-You cannot disable it in the free version.
+### My jobs are not being processed and the dashboard is not visible
+
+Often, this is due to a misconfiguration. Please make sure you have enabled the background job server and dashboard. They are disabled by default. Thus why jobs are not executed or the dashboard is unreachable.
+
+> Are you using Spring Boot? Please check that you properties are properly configured. Pre v8, all JobRunr properties are prefixed with `org.`. **Make sure your properties have this `org.` prefix if you're still on v7 or lower**.
 
 ## Job FAQ
 
 ### How does JobRunr make sure to only process a job once?
 JobRunr uses [optimistic locking](https://en.wikipedia.org/wiki/Optimistic_concurrency_control) to make sure that a job is only processed once. 
-Concretely, this means that when a `BackgroundJob` server starts processing a job, it first changes the state to `PROCESSING` and tries to save that to the `StorageProvider`. If that fails, it means that the job is already processing by another `BackgroundJob` server and the current `BackgroundJob` server will not process it again. 
+Concretely, this means that when a `BackgroundJob` server starts processing a job, it first changes the state to `PROCESSING` and tries to save that with the `StorageProvider`. If that fails, it means that the job is already processing by another `BackgroundJob` server and the current `BackgroundJob` server will not process it again. 
 If it succeeds, it means that the job is not being processed by another `BackgroundJob` server and the current `BackgroundJob` server can process it.
 
 
 
 ### What if I don't want to have 10 retries when a job fails?
 You can configure the amount of retries for all your jobs or per job.
-- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just change the `org.jobrunr.jobs.default-number-of-retries` property.
+- To change the default for all jobs, just register a [`RetryFilter`]({{<ref "_index.md#retryfilter">}}) with the amount of retries you want using the `withJobFilter` method in the [Fluent API]({{<ref "configuration/fluent/_index.md">}}) or in case of the [Spring configuration]({{<ref "configuration/spring/_index.md">}}), just change the `jobrunr.jobs.default-number-of-retries` property.
 - To change the amount of retries on a single Job, just use the `@Job` annotation:
 
 ```java

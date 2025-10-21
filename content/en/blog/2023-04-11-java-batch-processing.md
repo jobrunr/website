@@ -53,7 +53,7 @@ JobRunr includes a built-in dashboard that provides real-time information about 
 
 To start using JobRunr in your Java project, add the following dependencies to your build configuration (Maven or Gradle):
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```xml
 <!-- Maven -->
@@ -63,13 +63,13 @@ To start using JobRunr in your Java project, add the following dependencies to y
     <version>6.1.3</version>
 </dependency>
 ```
-</figure>
+{{</ codeblock >}}
 
 ### 4.2. Configuring JobRunr
 
 Next, configure JobRunr by means of the Fluent API. JobRunr supports a lot of SQL and NoSQL databases but for the sake of this example, we will use the `InMemoryStorageProvider`:
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 JobRunr.configure()
@@ -78,7 +78,7 @@ JobRunr.configure()
     .useDashboard()
     .initialize();
 ```
-</figure>
+{{</ codeblock >}}
 
 ## 5. Creating and scheduling jobs with JobRunr
 
@@ -86,7 +86,7 @@ JobRunr.configure()
 
 A job in JobRunr is defined as a Java method or lambda expression that contains the logic to be executed. To define a job, create a class with a method that represents the task:
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 public class MyJob {
@@ -95,18 +95,18 @@ public class MyJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ### 5.2. Scheduling a job
 
 To schedule a job with JobRunr, use the JobScheduler instance and provide the job definition:
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 jobScheduler.<MyJob>enqueue(x -> x.performTask());
 ```
-</figure>
+{{</ codeblock >}}
 
 ## 6. Job processing with JobRunr
 
@@ -114,7 +114,7 @@ jobScheduler.<MyJob>enqueue(x -> x.performTask());
 
 JobRunr automatically retries failed jobs based on a configurable retry policy. You can customize the number of retries on a per job basis:
 
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 public class MyJob {
@@ -125,14 +125,14 @@ public class MyJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 For more configuration options, feel free to check [the docs]({{< ref "documentation/background-methods/dealing-with-exceptions.md" >}}).
 
 
 ### 6.2. Job prioritization
 Using JobRunr Pro, you can assign [different priorities]({{< ref "priority-queues.md" >}}) to jobs, ensuring that higher-priority jobs are executed before lower-priority ones:
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 public class MyJob {
@@ -143,11 +143,11 @@ public class MyJob {
     }
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ### 6.3. Complex workflows
 Another feature of JobRunr Pro is that you can create [complex workflows]({{< ref "job-chaining.md" >}}) that match your business processes:
-<figure style="width: 80%; margin: 0 auto 2em 0">
+{{< codeblock >}}
 
 ```java
 public void createArchiveAndNotify(String folder) {
@@ -156,7 +156,7 @@ public void createArchiveAndNotify(String folder) {
         .continueWith(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder))
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 ## 7. Monitoring and managing jobs through the JobRunr dashboard
 

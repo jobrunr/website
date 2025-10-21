@@ -15,6 +15,9 @@ menu:
 
 A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex`.
 
+> You cannot use both a mutex and a [rate limiter]({{< ref "/documentation/pro/rate-limiters" >}}) on the same `Job`.
+
+> **Recurring job**: Unless the mutex is shared with other jobs, we don't recommend using a mutex to limit the concurrency of a recurring job. By default, a recurring job cannot have multiple jobs running in parallel, therefore a mutex is not needed.
 
 ## Usage via `@Job` annotation
 Using a mutex is as easy as using Queues and Server Tags, again thanks to the `Job` annotation. Just add it to your service method and specify the mutex to use

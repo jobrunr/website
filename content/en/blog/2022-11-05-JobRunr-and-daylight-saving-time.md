@@ -23,7 +23,7 @@ In this blog post, I want to go deeper and find out the root cause on why JobRun
 And this blog post is also about me saying sorry 😢.
 
 
-<img src="/blog/2022-11-05-irony.gif" />
+{{< img src="/blog/2022-11-05-irony.gif" >}}
 
 
 ## When you write a blog post how things wont go wrong but do go wrong...
@@ -43,7 +43,7 @@ There it is, in writing! It even has **97 Upvotes** so it must be correct! But, 
 **54 Upvotes!** That is even more proof!! Alright, problem solved - it must be related to MySQL. On top of that, JobRunr only relies on [Instants](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html) - the new date and time API that was added in Java 8. So, it must be really related to MySQL, no? Yes, I can safely [close the issue](https://github.com/jobrunr/jobrunr/issues/248#issuecomment-982072478). 
 
 
-<img src="/blog/2022-11-05-what-a-mistake.gif" />
+{{< img src="/blog/2022-11-05-what-a-mistake.gif" >}}
 
 
 ## So, what happened?
@@ -57,7 +57,7 @@ To make all of this work, each `BackgroundJobServer` updates the `lastHeartbeat`
 ### Fast forward to Sunday October 30th at 2:59 am
 So, I setup my machine to reproduce this and put the date to 2:59 on Sunday October 30th while having a JobRunr instance running. And look what happened:
 
-<figure style="width:100%;">
+{{< codeblock >}}
 
 ```java
 02:00:57.024 [backgroundjob-zookeeper-pool-2-thread-1] INFO  org.jobrunr.server.ServerZooKeeper - Removed 1 server(s) that timed out
@@ -80,11 +80,11 @@ org.jobrunr.JobRunrException: JobRunr encountered a problematic exception. Pleas
 	at java.base/java.lang.Thread.run(Thread.java:833)
 Caused by: java.lang.IllegalStateException: No servers available?!
 ```
-</figure>
+{{</ codeblock >}}
 
 Wait, what? why? That's not possible as the code is as follows:
 
-<figure style="width:60%;">
+{{< codeblock title="It first signals that the server is alive (so setting the lastHeartbeat to Instant.now()) and then immediately removes the old servers." >}}
 
 ```java
 private void signalBackgroundJobServerAliveAndDoZooKeeping() {
@@ -93,12 +93,11 @@ private void signalBackgroundJobServerAliveAndDoZooKeeping() {
     determineIfCurrentBackgroundJobServerIsMaster();
 }
 ```
-<figcaption>It first signals that the server is alive (so setting the lastHeartbeat to Instant.now()) and then immediately removes the old servers.</figcaption>
-</figure>
+{{</ codeblock >}}
 
 As I did not understand what was going on, I decided to add logging to the SQL statements and I immediately notice something is off (can you see it too?)...
 
-<figure style="width:100%;">
+{{< codeblock title="Why the 🤬 are these dates in the SQL statements not in UTC?!?!" >}}
 
 ```java
 2022-10-30T00:59:46.363080Z [SQL] update jobrunr_backgroundjobservers SET lastHeartbeat = '2022-10-30 02:59:46.30802+02', systemFreeMemory = 1706557440, systemCpuLoad = 0.13283909524169757, processFreeMemory = 17146814960, processAllocatedMemory = 33054224, processCpuLoad = 0.13283909524169757 where id = '281091d6-37df-42aa-8fc3-0bc7dd45e13b'
@@ -111,23 +110,21 @@ As I did not understand what was going on, I decided to add logging to the SQL s
 02:00:46.797 [backgroundjob-zookeeper-pool-2-thread-1] INFO  org.jobrunr.server.ServerZooKeeper - Removed 1 server(s) that timed out
 02:00:46.818 [backgroundjob-zookeeper-pool-2-thread-1] ERROR org.jobrunr.server.ServerZooKeeper - An unrecoverable error occurred. Shutting server down...
 ```
-<figcaption>Why the 🤬 are these dates in the SQL statements not in UTC?!?!</figcaption>
-</figure>
+{{</ codeblock >}}
 
 Back to the code: what happens when a [Java 8 Instant](https://docs.oracle.com/javase/8/docs/api/java/time/Instant.html) is transformed to an SQL statement?
 
-<figure style="width:60%;">
+{{< codeblock title="That looks correct to me, no?" >}}
 
 ```java
  preparedStatement.setTimestamp(i, Timestamp.from(instant));
 ```
-<figcaption>That looks correct to me, no?</figcaption>
-</figure>
+{{</ codeblock >}}
 
 That looks correct to me, no? Hmm, let's Google and Stackoverflow again!
 
 <figure>
-  <img src="/blog/2022-11-05-no-stackoverflow-for-you.png">
+  {{< img src="/blog/2022-11-05-no-stackoverflow-for-you.png" >}}
 
   <figcaption>This is going to be fun...</figcaption>
 </figure>
@@ -139,7 +136,7 @@ So, after resetting my pc's date and time correct again, I find the following [s
 Just for fun, I open the `java.sql.Timestamp` class:
 
 <figure>
-  <img src="/blog/2022-11-05-oooh-noooo.png">
+  {{< img src="/blog/2022-11-05-oooh-noooo.png" >}}
 
   <figcaption>java.sql.Timestamp extends java.util.Data? This is really going to be fun...</figcaption>
 </figure>
@@ -155,45 +152,44 @@ Further down in the [stackoverflow.com post](https://stackoverflow.com/a/5456484
 Alright, this is going to be an easy fix! I just need to change the code snippet from above to `preparedStatement.setObject(i, instant);`, run the tests and call it a day!
 
 <figure>
-  <img style="width:60%; margin: 0 auto;" src="/blog/2022-11-05-oooh-noooo-tests.png">
+  {{< img style="width:60%; margin: 0 auto;" src="/blog/2022-11-05-oooh-noooo-tests.png" >}}
 
   <figcaption>Perhaps the fix is not going to be so easy...</figcaption>
 </figure>
 
 Luckily, Postgres helps me:
-<figure style="width:100%;">
+{{< codeblock >}}
 
 ```java
 org.postgresql.util.PSQLException: Can't infer the SQL type to use for an instance of java.time.Instant. Use setObject() with an explicit Types value to specify the type to use.
 ```
-</figure>
+{{</ codeblock >}}
 
 Allright, it is still going to be an easy fix. Let's change the code snippet to `preparedStatement.setObject(i, instant, Types.TIMESTAMP);`. Now these tests will be green! (Please scroll up until you see failing tests image again.)
 
 Hhmm, this time Postgres tells me:
-<figure style="width:100%;">
+
+{{< codeblock title="hmmm, this does not make sense..." >}}
 
 ```java
 org.postgresql.util.PSQLException: Bad value for type timestamp/date/time: 2022-11-05T17:05:52.581727Z
 ```
-  <figcaption>hmmm, this does not make sense...</figcaption>
-</figure>
+{{</ codeblock >}}
 
 
 Let's try with `preparedStatement.setObject(i, instant, Types.TIMESTAMP_WITH_TIMEZONE);`. (Please scroll up again until you see failing tests image.)
 
-<figure style="width:100%;">
+{{< codeblock title="hmmm, this still does not make sense..." >}}
 
 ```java
 org.postgresql.util.PSQLException: Cannot cast an instance of java.time.Instant to type Types.TIMESTAMP_WITH_TIMEZONE
 ```
-  <figcaption>hmmm, this still does not make sense...</figcaption>
-</figure>
+{{</ codeblock >}}
 
 The [stackoverflow.com post](https://stackoverflow.com/a/54564844/1005124) also has a nice picture explaining everything, let's review it again:
 
 <figure>
-  <img src="/blog/2022-11-05-jdbc-types.png">
+  {{< img src="/blog/2022-11-05-jdbc-types.png" >}}
 
   <figcaption>java.sql.Timestamp extends java.util.Data? This is really going to be fun...</figcaption>
 </figure>
@@ -201,7 +197,7 @@ The [stackoverflow.com post](https://stackoverflow.com/a/54564844/1005124) also 
 I read all the [different](https://stackoverflow.com/a/22470650/1005124) [stackoverflow](https://stackoverflow.com/a/50668272/1005124) posts but none if works. They say that either the above should work (🤥) by passing `java.time.*` Objects or using the `Timestamp.from(instant)`.
 
 <figure>
-  <img src="/blog/2022-11-05-stackoverflow-has-no-answer.webp">
+  {{< img src="/blog/2022-11-05-stackoverflow-has-no-answer.webp" >}}
 
   <figcaption>When Stackoverflow does not provide an answer...</figcaption>
 </figure>
@@ -227,7 +223,7 @@ Originally, when I created JobRunr I used `TIMESTAMP(6)` for the `lastHeartbeat`
 But - my gut feeling (Batman) did not like this approach my brain (Robin) proposed.
 
 <figure>
-  <img src="/blog/2022-11-05-batman.jpeg">
+  {{< img src="/blog/2022-11-05-batman.jpeg" >}}
 
   <figcaption>My gut feeling slapping my brain...</figcaption>
 </figure>
@@ -244,7 +240,7 @@ The code from above then become  `preparedStatement.setObject(i, LocalDateTime.o
 Jeeej! Only one failing test per database! And, if I go back in time to Sunday October 30th at 2:59 and test the original bug again all is well! The failing test is easily solved (I should then also fetch the `java.sql.Timestamp` as a `java.time.LocalDateTime` and transform it back to an `java.time.Instant`) and I start testing it for each database. There is light at the end of the tunnel!
 
 <figure>
-  <img src="/blog/2022-11-05-db2.jpeg">
+  {{< img src="/blog/2022-11-05-db2.jpeg" >}}
 
   <figcaption>Apparently, DB2 does not support JDBC 4.2</figcaption>
 </figure>
@@ -256,7 +252,7 @@ Well, bad luck for those DB2 people, no? Who uses DB2 anyways?
 ### A solution no-where to be found on the internet
 Then, by sheer luck, I suddenly saw the following: 
 <figure>
-  <img src="/blog/2022-11-05-intellij-to-the-rescue.png">
+  {{< img src="/blog/2022-11-05-intellij-to-the-rescue.png" >}}
 
   <figcaption>Wait - what is that Calendar I can pass as an extra option?</figcaption>
 </figure>

@@ -13,10 +13,10 @@ menu:
 
 {{< trial-button >}}
 
-JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/pricing.md" >}}) and adds a lot of extra functionality to support your difficult business processes. 
+JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscription]({{< ref "/jobrunr-pro.md" >}}) and adds a lot of extra functionality to support your difficult business processes. 
 
 - __[JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}):__ are you processing a lot of jobs and do you quickly need to find that one job? Thanks to the Job Search feature in the JobRunr Pro dashboard you will quickly find any job by name, method signature or any other fields.
-- __[Built-in Obserability]({{< ref "observability.md" >}}):__ keep track on how your jobs are doing over time. Corelate failures easily thanks to built-in observability using your existing observability provider like [Jaeger](https://www.jaegertracing.io/) or [New Relic](https://newrelic.com/).
+- __[Built-in Observability]({{< ref "observability.md" >}}):__ keep track on how your jobs are doing over time. Corelate failures easily thanks to built-in observability using your existing observability provider like [Jaeger](https://www.jaegertracing.io/) or [New Relic](https://newrelic.com/).
 - __[Transaction plugin]({{< ref "transactions.md" >}}):__ are you using the [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}) or the [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}})? Enjoy out of the box integration with their transactions using the `@Transactional` annotation thanks to the Transaction plugin.
 - __Instant job processing:__ Are you in a hurry? JobRunr Pro starts processing your enqueued jobs instantly.
 - __[Real-time scheduling]({{< ref "real-time-scheduling.md" >}}):__ Are you very punctually? JobRunr Pro has support for real-time scheduling and enqueueing and makes sure your jobs run at the exact moment you specified!
@@ -47,7 +47,7 @@ The enterprise version adds all the features of JobRunr Pro, plus the following 
 - __[Dashboard security]({{< ref "jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}}):__ add SSO and security to your dashboard with the OpenID integration and limit access to authorized personnel only. 
 - __[Dashboard embedded within your application framework]({{< ref "jobrunr-pro-dashboard.md#embed-the-dashboard-within-spring-application-server" >}}):__ instead of running an embedded server, you can run the dashboard within your existing application server. Save resources and plug-in any security framework you already have running in-house. 
 - __[GDPR compliant dashboard]({{< ref "jobrunr-pro-dashboard.md#gdpr-compliant-dashboard" >}}):__ hide sensitive information from preying eyes in the dashboard using the GDPR toggle.
-
+- __[Multi-Cluster Dashboard]({{< ref "jobrunr-pro-multi-dashboard" >}}):__ provides a unified view across multiple JobRunr Pro clusters (i.e., independent schedulers).
 
 ### Upcoming features
 JobRunr Pro is by no means a finished product - subscribing will allow me to build extra features including:

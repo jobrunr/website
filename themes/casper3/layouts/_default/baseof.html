@@ -35,7 +35,7 @@
     
     <meta name="author" content="Ronald Dehuysser, ronald@dehuysser.be">
 
-    {{ template "partials/twitter.html" . }}
+    {{ template "_internal/twitter_cards.html" . }}
     {{ template "_internal/opengraph.html" . }}
 
     <!-- scss by Ronald-->
@@ -49,6 +49,7 @@
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/themes/prism-coy.min.css"></noscript>
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" as="style" onload="this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"></noscript>
+    <link rel="stylesheet" href="/pagefind/pagefind-ui.css">
 </head>
 <body class="{{ block "body_class" . }} {{ end }}">
     <!-- Google Tag Manager (noscript) -->
@@ -58,60 +59,74 @@
       <!-- End Google Tag Manager (noscript) -->
     <div class="site-wrapper">
         {{- block "main" . }}{{- end }}
-
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright" style="align-self: start;">
-                  &copy; <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+                  &copy; <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a><br/>
+                  <div id="uptime-kuma-status">
+                      <a href="https://status.jobrunr.io/status/jobrunr"><img src="https://status.jobrunr.io/api/badge/4/status"/></a> Carbon Intensity API<br/>
+                      <a href="https://status.jobrunr.io/status/jobrunr"><img src="https://status.jobrunr.io/api/badge/2/status"/></a> JobRunr Pro Maven Repo<br/>
+                  </div>
+
+
                 </section>
                 <section class="love" style="align-self: start; opacity: 0.7;">
                   Made with <strong style="color: red; font-size: large;">&hearts;</strong> in Belgium
+                  <br />
+                                    <a href="https://www.youtube.com/@JobRunr" target="_blank" class="social-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="24" height="24">
+                        <path d="M549.655 124.083c-6.281-23.65-24.787-42.156-48.432-48.432C458.781 64 288 64 288 64S117.22 64 74.777 75.651c-23.645 6.276-42.15 24.782-48.432 48.432C16 165.956 16 288 16 288s0 122.044 10.345 163.917c6.282 23.65 24.787 42.156 48.432 48.432C117.22 448 288 448 288 448s170.78 0 213.223-11.651c23.645-6.276 42.15-24.782 48.432-48.432C560 410.044 560 288 560 288s0-122.044-10.345-163.917zM232 364V148l144 108-144 108z"/>
+                    </svg> JobRunr on YouTube
+                </a>
+                  <a href="https://directories.onepercentfortheplanet.org/profile/rosoco-bv-jobrunr"><img src="/1fortheplanet.webp" alt="1% for the Planet Member" style="height: 60px; display: block; margin-top:10px;"/></a>
                 </section>
                 <nav class="site-footer-nav">
                   <div>
                     <div><a href="/en/about/" rel="noopener" style="opacity: 0.5;">JobRunr by Rosoco BV (BE 0807596165)</a></div>
+                    <div><a href="/en/contact/" rel="noopener" style="opacity: 0.5;">Contact us</a></div>
                     <div><a href="/en/licensing/info/" rel="noopener" style="opacity: 0.5;">Terms of use</a></div>
                     <div><a href="/en/privacy/" rel="noopener" style="opacity: 0.5;">Privacy</a></div>
+
                   </div>
                 </nav>
             </div>
         </footer>
     </div>
 
+    <dialog id="search-modal">
+      <div class="dialog__container">
+        <section class="dialog__content">
+          <div id="pagefind-search"></div>
+        </section>
+        <footer class="dialog__footer">
+          <button class="btn" onclick="closeDialog('#search-modal')">Close</button>
+        </footer>
+      </div>
+    </dialog>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/prism.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.20.0/components/prism-java.min.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" defer></script>
-    <script src='{{ (resources.Get "js/codetabs.js").Permalink }}'></script>
-    <script src='{{ (resources.Get "js/framework.js").Permalink }}'></script>
-<script>
-window.addEventListener("load", (event) => {
-  setTimeout(() => {
-    window.cookieconsent.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "transparent",
-          "border": "#fff",
-          "text": "#fff"
-        }
-      },
-      "content": {
-        "link": "Learn more about cookies"
+    {{- $codetabs := resources.Get "js/codetabs.js" -}}
+    {{- $framework := resources.Get "js/framework.js" -}}
+    {{- $uptimekuma := resources.Get "js/jobrunr-uptimekuma.js" -}}
+    {{- $cookies := resources.Get "js/cookieconsent.js" -}}
+    {{ $js := slice $codetabs $framework $uptimekuma $cookies | resources.Concat "js/jobrunr-site.js" | minify }}
+    <script src='{{ $js.Permalink }}' defer></script>
+    <script src="/pagefind/pagefind-ui.js"></script>  
+    <script>
+      const openDialogAsModal = (dialogId) => {
+        document.querySelector(dialogId).showModal();
       }
-    });
-  }, 5000);
-});
+      const closeDialog = (dialogId) => {
+        document.querySelector(dialogId).close();
+      }
+      window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true, openFilters: ['Type'] });
 
-var links = document.querySelectorAll('a');
-for (var i = 0; i < links.length; i++) {
-  if (links[i].hostname != window.location.hostname) {
-    links[i].target = '_blank';
-    links[i].rel = 'noopener';
-  }
-}
-</script>
+        document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
+      });
+  </script>
 
 {{ if eq $.Site.Params.enableWebinarPopup true }}
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>

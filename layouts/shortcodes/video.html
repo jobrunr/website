@@ -1,0 +1,19 @@
+{{- $u := urls.Parse (.Get "src") -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+  {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+
+<video 
+    {{ if .Get "width" }} width="{{.}}" {{ end }}
+    {{ if .Get "autoplay" }} autoplay {{ end }}
+    {{ if .Get "muted" }} muted {{ end }}
+    {{ if .Get "loop" }} loop {{ end }}
+    {{ if .Get "controls" }} controls {{ end }}
+
+>
+    <source src="{{ $src }}" type="video/mp4">
+    Your browser does not support the video tag.
+</video>

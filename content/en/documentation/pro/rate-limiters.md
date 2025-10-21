@@ -16,6 +16,11 @@ A `rate limiter` allows to control the execution rate of `Jobs` to avoid overwhe
 
 You can configure different rate limiters to be used within your system and rate limiters can be shared by different job types, however each job can only use one `rate limiter`.
 
+> When using a rate limiter there may be a latency of `pollIntervalInSeconds` before a rate-limited `Job` can start processing due an extra state change from `AWAITING` to `ENQUEUED`.<br>
+> Please also note that you cannot use both a rate limiter and a [`mutex`]({{< ref "/documentation/pro/mutexes" >}}) on the same `Job`.
+
+> **Recurring job**: Unless the rate-limiter is shared with other jobs, we don't recommend using a rate-limiter to limit the concurrency of a recurring job. By default, a recurring job cannot have multiple jobs running in parallel, therefore a rate-limiter is not needed. You can use the `RecurringJob` `maxConcurrentJobs` attribute to increase the allowed concurrency.
+
 On this page you will learn how to:
 - [configure a concurrent rate limiter](#concurrent-rate-limiters) 
 - [configure a sliding time window rate limiter](#sliding-time-window-rate-limiters) 
@@ -41,7 +46,7 @@ JobRunrPro
 
 #### Using Spring Boot / Quarkus / Micronaut
 ```
-org.jobrunr.jobs.rate-limiter.concurrent-job-rate-limiter.my-rate-limiter=3
+jobrunr.jobs.rate-limiter.concurrent-job-rate-limiter.my-rate-limiter=3
 ```
 
 This configuration example tells JobRunr to use `ConcurrentJobRateLimiter` to rate limit `Jobs` whose `rateLimiter` attribute has value `my-rate-limiter` to only 3 concurrent executions. Note that `my-rate-limiter` can be any string of your choice (limited to 128 characters), you may view it as a resource identifier.
@@ -70,7 +75,7 @@ JobRunrPro
 
 #### Using Spring Boot / Quarkus / Micronaut
 ```
-org.jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
+jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
 ```
 
 This configuration example tells JobRunr to use `SlidingTimeWindowRateLimiter` to rate limit `Jobs` whose `rateLimiter` attribute has value `my-rate-limiter` to only 2 executions every 5 seconds. This is inferred by the value of the property `2/PT5S` which follows the syntax `amount/ISO Duration`. Note that `my-rate-limiter` can be any string of your choice (limited to 128 characters), you may view it as a resource identifier.

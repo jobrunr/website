@@ -25,13 +25,13 @@ sitemap:
   }
 }
 </style>
-
-<div class="star-btn" style="text-align: center; margin: 2rem 0 3rem;">
-  <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 45px; margin-right: 1rem;">
-      <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
-      <span>Star JobRunr on Github</span>
-  </a>
+<div style="padding: 1rem; background: black; border-radius: 8px; color:white;">
+  <strong>JobRunr DocsGPT is here to help</strong><br>
+  Trained on all our documentation, it's your fastest way to get unstuck.<br>
+  <a onclick="chatbase.open()" style="cursor: pointer; color:white; box-shadow: #ffffff 0 -1px inset;">Open the chatbot now →</a>
 </div>
+
+
 
 <div id="mobile-notice" style="margin-top: 1rem">
 
@@ -48,9 +48,9 @@ sitemap:
 </figure>
 
 ## How does it all work?
-- You can enqueue, schedule or schedule a recurring background [Job](#job) the [JobScheduler](#jobscheduler).
+- You can enqueue, schedule or schedule a recurring background [Job](#job) using the [JobScheduler](#jobscheduler).
 - The [JobScheduler](#jobscheduler) analyses and decomposes the lambda to a JSON object and saves it into the [StorageProvider](#storage-provider).
-- JobRunr returns immediately to the caller so that it is not blocking
+- JobRunr immediately returns to the caller so that it is not blocking
 - One or more [BackgroundJobServers](#backgroundjobserver) poll the [StorageProvider](#storage-provider) for new enqueued jobs and process them
 - When a job has been processed, it updates the state in the [StorageProvider](#storage-provider) and fetches the next job to perform
 
@@ -69,7 +69,7 @@ BackgroundJob.enqueue(() -> System.out.println("Simple!"));
 </figure>
 
 ### RecurringJob
-A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
+A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr called the `ProcessRecurringJobsTask` checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
 
 ### Storage Provider
 A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to Json and placed into storage, no data is kept in a process’ memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for RDBMS and NoSQL solutions.
@@ -116,7 +116,7 @@ You can place this `BackgroundJobServer` in any process you want - even if you t
 > <br/>**Remark 2**: You should have only 1 `BackgroundJobServer` per application / JVM instance. If you want to process more jobs or you want to distribute the jobs over multiple JVM's, you must launch a complete new instance of your application. **Starting multiple `BackgroundJobServers` within the same JVM instance is bad practice and should NOT be done.**
 
 ### JobActivator
-Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we off course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
+Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we of course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
 
 <figure>
 
@@ -150,7 +150,7 @@ The `JobFilter` allows you to extend and intervene with background jobs in JobRu
 This is a default filter of type `ElectStateFilter` and is automatically added for each job which is run by JobRunr. When a job fails, the `RetryFilter` will automatically retry the job 10 times with an exponential back-off policy. Is some API server down while processing jobs? No worries, JobRunr has you covered.
 
 ### JobContext
-If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambda's you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
+If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambdas you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
 
 > Note: that this is best avoided as it couples your domain logic tightly with JobRunr.
 

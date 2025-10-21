@@ -89,7 +89,7 @@ public interface JobActivator {
 }
 ```
 
-When a certain background job needs to be executed, JobRunr will try to resolve the actual service instance via the `JobActivator`. This allows JobRunr to resolve a fully wired service bean that is ready to invoke it's background method.
+When a certain background job needs to be executed, JobRunr will try to resolve the actual service instance via the `JobActivator`. This allows JobRunr to resolve a fully wired service bean that is ready to invoke its background method.
 
 The `JobActivator` is automatically created by the [JobRunr Spring Boot Starter]({{<ref "../configuration/spring/_index.md">}}), the [Micronaut Integration]({{<ref "../configuration/micronaut/_index.md">}}) and the [Quarkus Extension]({{<ref "../configuration/quarkus/_index.md">}}) - there is no need for you to create it normally.
 

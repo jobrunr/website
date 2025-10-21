@@ -18,7 +18,7 @@ With JobRunr, I hope to solve all that.
 ## Our official address
 JobRunr is a startup located in Tienen, Belgium. Our official address is:<br />
 **JobRunr by Rosoco BV**<br />
-Sint-Truidensesteenweg 70<br />
+Gallicstraat 68<br />
 3300 Tienen<br />
 VAT BE 0807596165<br />
 TEL <a href="tel:+32487717535">+32 487 717 535</a><br />

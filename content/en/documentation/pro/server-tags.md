@@ -76,6 +76,6 @@ JobRunrPro
 </figure>
 
 ### Spring configuration
-For the Spring configuration, you can use the `org.jobrunr.background-job-server.tags` property to set the different server tags.
+For the Spring configuration, you can use the `jobrunr.background-job-server.tags` property to set the different server tags.
 
 {{< trial-button >}}

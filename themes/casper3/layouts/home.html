@@ -1,0 +1,336 @@
+{{ define "body_class" }} home-template {{ end }}
+
+{{ define "main" }}
+
+<header class="site-home-header">
+    <style type="text/css">
+        .responsive-header-img {
+            background-image: url(/publication-cover.webp);
+        }
+    </style>
+    <div class="outer site-header-background responsive-header-img">
+        <div class="inner">
+            {{- partial "site-nav.html" . -}}
+            
+            <div class="site-header-content">
+                <div class="site-header-description">
+                    <div class="site-title">
+                        {{ $logo_img := resources.Get "images/jobrunr-logo-white.webp" }}
+                        <img class="site-logo" src="{{ $logo_img.Permalink }}" alt="{{ .Site.Title }}" height="80" width="346.320"/>
+                    </div>
+                    <h1 class="site-description">
+                        {{.Content | replaceRE "<p>" "" | replaceRE "</p>" "" | safeHTML }}
+                    </h1>
+                </div>
+                <div class="site-header-images" style="z-index: 99;">
+                    {{ $slider_css := resources.Get "scss/my-slider.css" | toCSS | minify | fingerprint }}
+                    <link rel="stylesheet" href="{{ $slider_css.Permalink }}">
+                    {{ $slider_js := resources.Get "js/ism-2-2.min.js" }}
+                    <script src="{{ $slider_js.Permalink }}"></script>
+                    <div class="ism-slider" data-radios="false" id="homepage-slider">
+                        <div class="ism-frame">
+                            <ol style="max-width: initial; width: 600%; perspective: 1000px; backface-visibility: hidden; transform: translateX(0px);" class="ism-slides">
+                                {{ range $index,  $element := .Params.gallery }}
+                                    <li class="ism-slide ism-slide-{{$index}}">
+                                        <div class="ism-img-frame"><div class="ism-img-frame"><img src="{{ index . 0 }}" class="ism-img" loading="lazy" alt="The JobRunr Dashboard"></div></div>
+                                        {{ if( index . 1 ) }}
+                                            <a class="ism-caption ism-caption-0" href="{{ index . 1 }}" target="_blank" rel="noopener" style="visibility: hidden;">{{ index . 2 }}</a>
+                                        {{ end }}
+                                    </li>
+                                {{ end }}
+                            </ol>
+                            <div class="ism-button ism-button-prev">&nbsp;</div>
+                            <div class="ism-button ism-button-next">&nbsp;</div>
+                            <div class="ism-button ism-button-prev">&nbsp;</div>
+                            <div class="ism-button ism-button-next">&nbsp;</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+<main id="site-main" class="site-main outer">
+    <div class="inner">
+        <div id="homepage-content-developer" class="homepage-content">
+            <div class="homepage-overview" style="margin-top:20px; margin-bottom: 20px;">
+                {{ range where .Site.Pages.ByWeight "Params.type" "homepage-example" }}
+                    <article class="post-card post-card-clickable small">
+                        <div class="post-card-content">
+                            <a class="post-card-content-link" href="{{ .Param "link"}}">
+                                <header class="post-card-header">
+                                    <h3 class="post-card-title">
+                                        {{ .Title }}&nbsp;{{ if isset .Params "badge" }}<div class="label label-primary">{{ .Param "badge" }}</div>{{ end }}
+                                    </h3>
+                                </header>
+
+                                <section class="post-card-excerpt">
+                                    {{ .Content }}
+                                </section>
+                            </a>
+                        </div>
+                    </article>
+                {{ end }}
+            </div>
+
+            <div style="text-align: center; margin-bottom: 50px; margin-top: -40px;">
+                <a href="https://github.com/jobrunr/jobrunr" class="btn btn-black btn-lg" target="_blank" rel="noopener" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                    <svg viewBox="0 0 16 16" style="margin: -4px 10px 0 0; display: inline-block; vertical-align: text-top; fill: currentColor; width: 25px; height: 25px;" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"></path></svg>
+                    <span>{{i18n "star-us"}}</span>
+                </a>
+                {{ if eq $.Page.Site.Params.enableTrialButton true }}
+                    <a href="/en/try-jobrunr-pro/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
+                        <span>Try JobRunr Pro for free</span>
+                    </a>
+                {{ end }}
+            </div>
+
+            <div class="homepage-logos" style="margin-bottom: 20px;">
+                <div class="logos">
+                    <img src="/logos/Amazon-logo.webp" alt="Amazon" height="30px" style="display:inline-block; margin-top: 20px;"/>
+                    <img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks" height="30px" style="display:inline-block;" />
+                    <img src="/logos/JP-Morgan-Chase-logo.webp" alt="JP-Morgan-Chase" height="35px" style="display:inline-block;"/>
+                    <img src="/logos/Capgemini-logo.webp" alt="Capgemini" height="30px" style="display:inline-block; margin-top: 10px;"/>
+                </div>
+            </div>
+            
+        <div id="homepage-content-manager" class="homepage-content">
+            <div class="homepage-reason image-left">
+                <div class="image-container">
+                    <figure>
+                    <img style="border: 1px solid #838284;" src="/homepage/homepage-JobRunr-thoughtworks.webp" loading="lazy" alt="JobRunr's blip on the ThoughtWorks Technology Radar."/>
+                    <figcaption style="text-align: center; font-size: 0.8em; color: #555; margin-top: 0.5em;">JobRunr featured on the ThoughtWorks Technology Radar.</figcaption>
+                </figure>
+                </div>
+                <div class="content">
+                    <br />
+                    <h3>Trusted by developers worldwide.</h3>
+                    <p>With 300.000 unique downloads per month and over 10 billion processed jobs in less than a year, JobRunr is trusted and loved by developers worldwide.</p>
+                    <p>Don't take our word for it: ThoughtWorks, a leading global technology consultancy company has put us on their <a href="https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2022/10/tr_technology_radar_vol_27_en.pdf" target="_blank">Technology Radar</a> with blip 98: </p>
+                    <blockquote style="margin-top: 2.5em;">Our teams have enjoyed using JobRunr's built-in dashboard, which is easy to use and allows the monitoring and scheduling of background tasks.</blockquote>
+                    <div style="display: flex; justify-content: center; margin-top: 2em;">
+                        <a href="https://www.thoughtworks.com/" target="_blank"><span>JobRunr is enjoyed by</span>&nbsp;&nbsp;<img src="/logos/Thoughtworks-logo.webp" alt="ThoughtWorks Logo" height="30px" style="display:inline-block; vertical-align:middle" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="homepage-reason image-right">
+                <div class="content">
+                    <h3>20% productivity increase.</h3>
+                    <p>A bold claim, we know. Praised by management, these words are not ours:</p>
+                    <blockquote style="margin-top: 2.5em;">
+                        We have seen a 20% developer productivity increase thanks to JobRunr Pro. As our first line support uses the dashboard to diagnose issues and help our customers, the engineering team can focus on what matters.
+                        <br /><span style="float: right;">Peter Davidson - <a href="https://www.tracer.ai/" target="_blank" rel="noopener">Tracer.ai</a></span>
+                        <br />
+                    </blockquote>
+                    <br />
+                    <div style="display: flex; justify-content: center;">
+                        <a href="/en/use-case" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                            Discover use cases
+                        </a>
+                    </div>
+                </div>
+                <div class="image-container">
+                    <img style="border: 1px solid #ddd;" src="/homepage/homepage-dashboard.webp" alt="A screenshot of the default dashboard that comes out-of-the-box with JobRunr."/>
+                </div>
+            </div>
+            
+            <div class="homepage-reason image-left">
+                <div class="image-container">
+                    <img src="/homepage/homepage-AutoScaling.gif" loading="lazy" alt="Easily scale up and down"/>
+                </div>
+                <div class="content">
+                    <h3>Easily scale up and down</h3>
+                    <p>Handle millions of jobs per day without changing your code. JobRunr fits seamlessly into any architecture: microservices, modular monoliths, or anything in between.</p>
+                    <p>Save costs by scaling dynamically based on load, whether you're running on-premise or in the cloud.</p>
+                    <br />
+                    <div>
+                        <div style="display: flex; justify-content: center;">
+                            <a href="/en/guides" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                                Get started with JobRunr
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            <div class="homepage-reason image-right" style="margin-bottom: 8em;">
+                
+                <div class="content">
+                    <h3>JobRunr Pro: Built for production at scale</h3>
+                    <p>Need more than fire-and-forget jobs? JobRunr Pro gives you <b>priority queues, batches with chaining, and workflow management</b>, ideal for time-critical processes, transactional flows, and large-scale data workloads.</p>
+                    <p>With support for up to 5,000 recurring jobs, an advanced dashboard, and SSO, Pro is trusted by companies like Decathlon and Collibra to streamline backend operations across production clusters.</p>
+                    <br />
+                    <div>
+                        <div style="display: flex; justify-content: center;">
+                            <a href="/en/try-jobrunr-pro" class="btn btn-black btn-lg" style="display: inline-block; height: 45px; margin-right: 1rem;">
+                                Try JobRunr Pro for free
+                            </a>
+                        </div>
+                        <div style="display: flex; justify-content: center; padding-top: 5px;">
+                                <i>No credit card required</i>
+                        </div>
+                    </div>
+                
+                    
+                </div>
+                <div class="image-container vignette-wrapper">
+                    <img src="/homepage/homepage-JobRunrPro.webp" loading="lazy" alt="Don't bother your legal team - JobRunr is not a SaaS and we do not have access to your data."/>
+                </div>
+            </div>
+        </div>
+        <style>
+                ol.carousel__viewport {
+                    display: flex;
+                    align-items: center;
+                    /* animation: slideToLeft 10s ease infinite 1s; */
+                }
+                ol.carousel__viewport li.slide {
+                    transition: opacity 3s;
+                    width: 0;
+                    height: 0;
+                    overflow: hidden;
+                    opacity: 0;
+                    z-index: 1;
+                }
+
+                ol.carousel__viewport li.showing {
+                    transition: opacity 3s;
+                    height: initial;
+                    width: 100%;
+                    overflow: initial;
+                    opacity: 1;
+                    z-index: 2;
+                }
+
+                section.carousel ol {
+                    list-style: none;
+                }
+
+                @media (max-width: 800px) {
+                    div.feedback {
+                        width: 100% !important;
+                        text-align: left !important;
+                        padding-left: 50px !important;
+                    }
+                    div.feedback::before {
+                        left: 10px;
+                    }
+                }
+                
+                div.feedback {
+                    flex: 0 1 auto;
+                    width: 75%;
+                    text-align: right;
+                    font-style: italic;
+                    margin: auto;
+                    padding: 0.35em 40px;
+                    line-height: 1.45;
+                    position: relative;
+                    color: #383838;
+                }
+
+
+                div.feedback::before {
+                    display: inline-block;
+                    padding-left: 10px;
+                    content: "\201C";
+                    font-size: 80px;
+                    position: absolute;
+                    left: -20px;
+                    top: -20px;
+                    color: #7a7a7a;
+                }
+                div.feedback span.quote {
+                    display: block;
+                }
+                div.feedback span.quote p {
+                    margin-bottom: 0;
+                }
+                div.feedback span.author {
+                    color: rgb(115, 138, 148);
+                }
+                div.homepage-overview {
+                    clear: both;
+                }
+                .label-primary {
+                    background-color: #337ab7;
+                }
+                .label {
+                    display: inline;
+                    padding: .2em .6em .3em;
+                    font-size: 75%;
+                    font-weight: 700;
+                    line-height: 1;
+                    color: #fff;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: baseline;
+                    border-radius: .25em;
+                }
+            </style>
+            
+            <h2 id="why-jobrunr" style="margin-top: 1.2em;">{{ i18n "why-jobrunr" }}</h2>
+            <section class="carousel" aria-label="Gallery">
+                <ol class="carousel__viewport">
+                {{ range $index, $value := where .Site.Pages.ByWeight "Params.type" "homepage-quote" }}
+                <li tabindex="0" class="slide {{ if (eq $index 0) }}showing{{ end }}">
+                    <div class="feedback">
+                        <span class="quote">{{ .Content }}</span>
+                        <span class="author">
+                            <a href="{{ .Param "author_url"}}">{{ .Param "author" }}</a>
+                            - {{ .Param "author_description" }} 
+                            {{ if isset .Params "company" }}
+                                at <a target="_blank" href="{{ .Param "company_url"}}">{{ .Param "company" }}</a>
+                            {{ end }}
+                        </span>
+                    </div>
+                </li>
+                {{ end }}
+                </ol>
+            </section>
+
+            <script type="text/javascript">
+                var slides = document.querySelectorAll('section.carousel li.slide');
+                var currentSlide = 0;
+                var slideInterval = setInterval(nextSlide,10000);
+
+                function nextSlide() {
+                    slides[currentSlide].className = 'slide';
+                    currentSlide = (currentSlide+1)%slides.length;
+                    slides[currentSlide].className = 'slide showing';
+                }
+            </script>
+
+            <div class="homepage-overview">
+                {{ range where .Site.Pages.ByWeight "Params.type" "homepage-feature" }}
+                    <article class="post-card">
+                        <div class="post-card-content">
+                            <header class="post-card-header">
+                                <h3 class="post-card-title">{{ .Title }}</h3>
+                            </header>
+                            <section class="post-card-excerpt">
+                                {{ .Content }}
+                            </section>
+                        </div>
+                    </article>
+                {{ end }}
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center;">
+            <div  style="background: #f5f5f5; padding: 3rem; border: #f5f5f5; border-radius: 10px; margin-bottom: 5rem; width: 700px; max-width: 100%;">
+                <script charset="utf-8" type="text/javascript" src="//js-eu1.hsforms.net/forms/embed/v2.js"></script>
+                <script>
+                    hbspt.forms.create({
+                        portalId: "145458105",
+                        formId: "5de2d8fb-0928-4911-b82a-8aa2e732357c"
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</main>
+{{ end }}

@@ -12,15 +12,17 @@ menu:
     weight: 30
 ---
 
-Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the [`jobrunr-spring-boot-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}), [`jobrunr-micronaut-feature`]({{<ref "/documentation/configuration/micronaut/_index.md">}}) or the [`jobrunr-quarkus-extension`]({{<ref "/documentation/configuration/quarkus/_index.md">}}) ).
+Creating a recurring job (either a CRON job or a job with a fixed defined interval) is just as simple as creating a background job – you only need to write a single line of code (and it is even less if you use the [`jobrunr-spring-boot-2-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}), [`jobrunr-spring-boot-3-starter`]({{<ref "/documentation/configuration/spring/_index.md">}}) , [`jobrunr-micronaut-feature`]({{<ref "/documentation/configuration/micronaut/_index.md">}}) or the [`jobrunr-quarkus-extension`]({{<ref "/documentation/configuration/quarkus/_index.md">}}) ).
 
 On this page you can learn about:
 
-- [Create a recurring job using a CRON expression](#using-a-cron-expression)
-- [Create a recurring job using an Interval](#using-an-interval)
+- [Creating a recurring job using a CRON expression](#using-a-cron-expression)
+- [Creating a recurring job using an Interval](#using-an-interval)
+- [Making a carbon aware recurring job](#making-recurring-jobs-carbon-aware)
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
+- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs with limited lifetime](#recurring-jobs-with-limited-lifetime)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Advanced Cron Expressions](#advanced-cron-expressions)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom Recurring Job Schedules](#custom-recurring-job-schedules)
 - {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
@@ -28,9 +30,9 @@ On this page you can learn about:
 - [Important remarks!](#important-remarks)
 
 
-> Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in JobRunr Pro!
+> Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in [JobRunr Pro](/en/pricing/)!
 
-> Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro]({{< ref "documentation/pro/real-time-scheduling.md" >}}).
+> Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro](/en/documentation/pro/real-time-scheduling).
 
 
 ## Using a CRON expression
@@ -97,18 +99,16 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", cron = "*/5 * * * *")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
-
-
-## Using an Interval 
-Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting the moment the recurring job was scheduled.
+## Using an Interval
+Instead of giving a Cron expression, you can also give a duration. This will make sure that the recurring job will now be executed using a fixed interval starting as soon as the interval triggers (e.g. if your interval is `PT5M`, your first job will be enqueued after five minutes).
 
 <figure>
 
@@ -137,13 +137,17 @@ If you are using the `jobrunr-spring-boot-starter`, the `jobrunr-micronaut-featu
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "P2D8H")
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", interval = "P2D8H")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
+
+## Making recurring jobs carbon aware
+
+You can add margins to a recurring job schedule expression to let JobRunr run the job at a low carbon intensity moment. You can find more details on the dedicated [carbon aware job processing](/en/documentation/background-methods/carbon-aware-jobs/) page.
 
 
 ## Managing recurring jobs
@@ -180,6 +184,38 @@ You can remove an existing recurring job either via the dashboard or by calling 
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 
 Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
+
+## Recurring jobs with limited lifetime
+{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+
+By default, a `RecurringJob` is active for the entire lifetime of an application (unless [paused](#pause-and-resume-recurring-jobs)).
+
+__With JobRunr Pro you can provide an end time__: each `RecurringJob` with a `deleteAt` in the passed will stop scheduling new jobs. JobRunr will also automatically remove the `RecurringJob` from the DB.
+
+You can enable the feature using `@Job`:
+
+<figure>
+
+```java
+@Recurring(id = "my-recurring-job", interval = "P2D8H", deleteAt = "2025-06-01T14:00:00Z")
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
+```
+</figure>
+
+If you are using the `JobBuilder`, this is also possible:
+<figure>
+
+```java
+BackgroundJob.createRecurrently(aRecurringJob()
+    .withId("some-id")
+    .withCron(Cron.daily())
+    .withDeleteAt(Instant.parse("2025-06-01T14:00:00Z"))
+    .withDetails(() -> System.out.println("Schedule me up to the 2025-06-01T14:00:00Z")));
+```
+</figure>
 
 ## Advanced CRON Expressions
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
@@ -227,6 +263,7 @@ public void myRecurringMethod(JobContext jobContext) {
 <figcaption>JobRunr will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.</figcaption>
 </figure>
 
+> Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 
 ## Recurring jobs missed during downtime
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
@@ -241,11 +278,11 @@ This feature is disabled by default and can be enabled using the following setti
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "P2D8H", scheduleJobsSkippedDuringDowntime=true)
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // your business logic here
-    }
+@Recurring(id = "my-recurring-job", interval = "P2D8H", scheduleJobsSkippedDuringDowntime=true)
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // your business logic here
+}
 ```
 </figure>
 
@@ -275,12 +312,12 @@ By default, `maxConcurrentJobs` is set to 1 but this setting can be changed per 
 <figure>
 
 ```java
-    @Recurring(id = "my-recurring-job", interval = "PT5M", maxConcurrentJobs=4)
-    @Job(name = "My recurring job")
-    public void executeSampleJob() {
-        // if for some reason this method takes more than 5 minutes (=PT5M), 
-        // JobRunr will create up to 4 concurrent job instances of this recurring job
-    }
+@Recurring(id = "my-recurring-job", interval = "PT5M", maxConcurrentJobs=4)
+@Job(name = "My recurring job")
+public void executeSampleJob() {
+    // if for some reason this method takes more than 5 minutes (=PT5M), 
+    // JobRunr will create up to 4 concurrent job instances of this recurring job
+}
 ```
 </figure>
 

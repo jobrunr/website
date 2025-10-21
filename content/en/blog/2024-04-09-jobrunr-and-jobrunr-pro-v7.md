@@ -94,7 +94,7 @@ We are excited to announce the release of JobRunr v7.0.0 and JobRunr Pro v7.0.0.
 - Overall `BatchJob`s logic has been rewritten, make sure `MigrateFromV6toV7Task` is run
 - Dynamic queues configuration has been changed in Spring, Quarkus and Micronaut: `dynamic-queues.type` has been removed, instead the type is now part of the dynamic queues property keys, e.g., `org.jobrunr.jobs.dynamic-queue.round-robin.label-prefix` (please adapt to your framework)
 
-If you are a JobRunr OSS user and you are interested in JobRunr Pro, you can find all the pricing information [here]({{< ref "pricing.md" >}}).
+If you are a JobRunr OSS user and you are interested in JobRunr Pro, you can find all the pricing information [here]({{< ref "jobrunr-pro.md" >}}).
 
 
 ## OSS version:

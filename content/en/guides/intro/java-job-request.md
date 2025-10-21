@@ -22,7 +22,7 @@ To do its job (pun intended 😅), JobRunr can not only use a Java 8 lambda but 
 ### Creating jobs using the JobRequest and JobRequestHandler pattern
 When we want to enqueue or schedule a job by means of a `JobRequest` we will need to create two classes, one implementing the `JobRequest` interface and one implementing the `JobRequestHandler` interface:
 
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```java
 package com.demo.jobrunr.services;
@@ -36,9 +36,9 @@ public record SendEmailJobRequest(String to, String from, String subject, String
 
 }
 ```
-</figure>
+{{</ codeblock >}}
 
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```java
 package com.demo.jobrunr.services;
@@ -53,10 +53,10 @@ public class SendEmailJobRequestHandler implements JobRequestHandler<SendEmailJo
 
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 We can now create a job as follows:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```java
 public void onboardCustomer(Customer customer) {
@@ -65,10 +65,10 @@ public void onboardCustomer(Customer customer) {
     BackgroundJobRequest.enqueue(new SendEmailJobRequest(customer.getEmailAddress(), "hello@jobrunr.io", "Happy you joined us!", "the email body..."));
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 Then JobRunr will analyze this lambda and create a JSON representation of it which can be saved in the SQL or NoSQL database and then be processed even on another server:
-<figure style="width: 100%; max-width: 100%; margin: 0">
+{{< codeblock >}}
 
 ```json
 {
@@ -89,7 +89,7 @@ Then JobRunr will analyze this lambda and create a JSON representation of it whi
     ]
 }
 ```
-</figure>
+{{</ codeblock >}}
 
 
 ## Setup
@@ -177,8 +177,8 @@ public class Main {
 As we’re using the `jobrunr-spring-boot-3-starter` dependency, this is easy. We only need to add some properties to the `application.properties`:
 
 ```properties
-org.jobrunr.background-job-server.enabled=true
-org.jobrunr.dashboard.enabled=true
+jobrunr.background-job-server.enabled=true
+jobrunr.dashboard.enabled=true
 ```
 {{< /framework >}}
 {{< framework type="quarkus" >}}

@@ -10,19 +10,16 @@ menu:
     parent: 'background-methods'
     weight: 70
 ---
-Some jobs take a very long time to complete - generating 1000's of emails, do a batch import of some large xml or CSV files, ... . How to know whether your code is actually running and doing it's actual job (pun intended)?
+Some jobs take a very long time to complete - generating 1000's of emails, do a batch import of some large xml or CSV files, ... . How to know whether your code is actually running and doing its actual job (pun intended)?
 
 Say hello to job logging and the job progress bar.
 
-<figure>
-<img src="/documentation/job-progress.gif" class="kg-image">
-<figcaption>Watch logging appear live from your actual job</figcaption>
-</figure>
+![](/documentation/job-progress.gif "The Job History progress bar is updated live as you schedule jobs.")
 
 ## Logging
 JobRunr supports logging to the dashboard - new messages will appear as they're logged, it is as if you're looking at a real console. To log something in the dashboard, you have two options:
 
-- you can use the JobContext and use it's logger:<br>
+- you can use the JobContext and use its logger:<br>
 `jobContext.logger().info('this will appear in the dashboard');`
 - or - even easier - wrap your existing Logger as follows:<br>
 `Logger log = new JobRunrDashboardLogger(LoggerFactory.getLogger(MyService.class))`<br>
@@ -45,7 +42,7 @@ public void runJob() { ... }
 ## Progress bar
 Long running jobs take time - and sometimes you need to know how long a job will take. Thanks to the progress bar in JobRunr, you can now track progress from within the dashboard - a progress bar will appear automatically just below the 'Processing job' header and advance while work is progressing.
 
-### For Java 8 lambda's
+### For Java 8 lambdas
 To use this feature, you will need to inject the `JobContext` into your job: 
 `BackgroundJob.enqueue(() -> myService.doWork(JobContext.Null))`.
 
