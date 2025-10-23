@@ -34,7 +34,7 @@ JobRunrPro
   // ...
 ```
 
-Okay, now JobRunr stopped migrating for us. The next steps are exporting the migrations into a Liquibase-compatible format and telling Liquibase to take over.
+Okay, now JobRunr stopped migrating for us. The next steps are exporting the migrations into a Flyway-compatible format and telling Flyway to take over.
 
 
 ### 2. Export JobRunr Pro Database Migrations
@@ -44,7 +44,7 @@ Exporting the JobRunr Pro database migrations ensures that you have the necessar
 To do so, you can use the `DatabaseSqlMigrationFileProvider` command, as explained in [our database migrations documentation](/en/documentation/pro/database-migrations/):
 
 ```
-java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} -DdatabaseManager=flyway (-DtablePrefix=...) (-Doutput=...)
+java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} -DdatabaseManager=flyway (-DtablePrefix=...) (-Doutput=...)
   where:
     - databaseType is one of 'cockroach', 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
     - databaseManager is flyway
@@ -55,16 +55,18 @@ java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar;slf4j-api.jar org.jobrun
 For example; suppose your database is a Postgres one and you're using the latest version of JobRunr Pro:
 
 ```
-java -cp jobrunr-pro-8.1.0.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider -DdatabaseManager=flyway
+java -cp jobrunr-pro-8.1.0.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider -DdatabaseManager=flyway
 ```
 
-For Flyway, this will generate the `.sql` migration files in the current directory. Flyway enforces a naming convention for versioned migrations: `{prefix}{version}{separator}{description}{suffix}`. JobRunr follows that convention: e.g. a file might be called `V004__alter_job_table_add_rate_limiter.sql` where `{prefix}` is `V` (the default), `{version}` is `004`, `{separator}` is `__` (the default), `{description}` is `alter_job_table_add_rate_limiter` and `{suffix}` is `.sql`. Flyway uses this to track which scripts already have been applied, which are pending, and in which order they need to be executed.
+For Flyway, this will generate the `.sql` migration files in the current directory. Flyway enforces a naming convention for versioned migrations: `{prefix}{version}{separator}{description}{suffix}`. JobRunr follows that convention: e.g. a file might be called `V004__alter_job_table_add_rate_limiter.sql` where `{prefix}` is `V` (the default), `{version}` is `004`, `{separator}` is `__` (the default), `{description}` is `alter_job_table_add_rate_limiter` and `{suffix}` is `.sql`. See the [Flyway documentation on versioned migrations](https://documentation.red-gate.com/fd/versioned-migrations-273973333.html) for more information. Flyway uses this to track which scripts already have been applied, which are pending, and in which order they need to be executed.
 
 Next, we need to move the files to a directory that Flyway scans.
 
 ### 3. Organize Migrations
 
-Most Java-based projects keep their migration scripts in `src/main/resources/db/migration` but this is configurable. Ensure that Flyway knows where to look for migration files by correctly setting the `flyway.locations` property. Speaking of configuration... 
+Most Java-based projects keep their migration scripts in `src/main/resources/db/migration` but this is configurable. JobRunr Pro generates scripts from version `V000` and upwards: if you already have a script with that version you will have to change these accordingly.
+
+Ensure that Flyway knows where to look for migration files by correctly setting the [Flyway Locations Setting](https://documentation.red-gate.com/flyway/reference/configuration/flyway-namespace/flyway-locations-setting) property with key `flyway.locations`. Speaking of configuration... 
 
 ### 4. Configure Flyway
 

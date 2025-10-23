@@ -44,7 +44,7 @@ Exporting the JobRunr Pro database migrations ensures that you have the necessar
 To do so, you can use the `DatabaseSqlMigrationFileProvider` command, as explained in [our database migrations documentation](/en/documentation/pro/database-migrations/):
 
 ```
-java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} -DdatabaseManager=liquibase (-DtablePrefix=...) (-Doutput=...)
+java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} -DdatabaseManager=liquibase (-DtablePrefix=...) (-Doutput=...)
   where:
     - databaseType is one of 'cockroach', 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
     - databaseManager is liquibase
@@ -55,7 +55,7 @@ java -cp jobrunr-pro-{{< param "JobRunrVersion" >}}.jar;slf4j-api.jar org.jobrun
 For example; suppose your database is a Postgres one and you're using the latest version of JobRunr Pro:
 
 ```
-java -cp jobrunr-pro-8.1.0.jar;slf4j-api.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider -DdatabaseManager=liquibase
+java -cp jobrunr-pro-8.1.0.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider -DdatabaseManager=liquibase
 ```
 
 For liquibase, this will generate `.sql` files in the current directory along with a changelog XML file called `database-changelog.jobrunr.xml`. The changelog file is the master configuration file Liquibase reads to execute commands including the raw SQL files that were outputted. See the [What is a Changelog?](https://docs.liquibase.com/pro/user-guide-4-33/what-is-a-changelog) documentation from Liquibase for more information about the specific format.
