@@ -33,6 +33,23 @@ Note for Kotlin Exposed Transaction support you want to include a Kotlin support
 
 ### Usage with Maven
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const queryParams = new URLSearchParams(document.location.search)
+    const article = document.querySelector("article section")
+
+    if(queryParams.get("version")) {
+        article.innerHTML = article.innerHTML.replaceAll("${jobrunr.version}", queryParams.get("version"))
+    }
+    if(queryParams.get("username")) {
+        article.innerHTML = article.innerHTML.replaceAll("${jobrunrProAccess.userName}", queryParams.get("username"))
+    }
+    if(queryParams.get("password")) {
+        article.innerHTML = article.innerHTML.replaceAll("${jobrunrProAccess.password}", queryParams.get("password"))
+    }
+});
+</script>
+
 To use JobRunr Pro, just use the following Maven coordinates:
 
 ```xml
@@ -46,11 +63,9 @@ To use JobRunr Pro, just use the following Maven coordinates:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-pro-spring-boot-3-starter</artifactId>
-    <version>{{ jobrunrPro.version }}</version>
+    <version>${jobrunr.version}</version>
 </dependency>
 ```
-
-Where `jobrunrPro.version` is the latest JobRunr Pro version. 
 
 Then, add your provided Maven repository credentials in the Maven settings.xml:
 
@@ -59,8 +74,8 @@ Then, add your provided Maven repository credentials in the Maven settings.xml:
     <servers>
         <server>
             <id>JobRunrPro</id>
-            <username>{{ jobrunrProAccess.userName }}</username>
-            <password>{{ jobrunrProAccess.password }}</password>
+            <username>${jobrunrProAccess.userName}</username>
+            <password>${jobrunrProAccess.password}</password>
         </server>
     </servers>
 </settings>
@@ -77,18 +92,16 @@ repositories {
   maven {
     url "https://repo.jobrunr.io/private-releases"
     credentials {
-      username "{{ jobrunrProAccess.userName }}"
-      password "{{ jobrunrProAccess.password }}"
+      username "${jobrunrProAccess.userName}"
+      password "${jobrunrProAccess.password}"
     }
   }
 }
 
 dependencies {
-  implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:{{ jobrunrPro.version }}'
+  implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:${jobrunr.version}'
 }
 ```
-
-Where `jobrunrPro.version` is the latest JobRunr Pro version. 
 
 Instead of setting the credentials in your build file and to avoid checking in this information, you can configure these in the root `gradle.properties` file by setting the `mavenUser` and `mavenPass` properties.
 
