@@ -8,7 +8,9 @@ tags:
 hideFrameworkSelector: true
 ---
 
-In this guide, we will set up a mirror for the JobRunr Pro private artifacts repository in order to cache the Maven artifacts to increase resiliency. There are three tools that allow you to easily mirror am artiifacts repository: [JFrog](#jfrog), [Reposilite](#reposilite), and [Sonatype Nexus](#sonatype-nexus). We will cover them all three---choose the solution that best fits with your company's needs. Or perhaps you already have one of them up and running: in that case read on to find out how to include the JobRunr Pro private repository.
+In this guide, we will set up a mirror for the JobRunr Pro private artifacts repository in order to cache the Maven artifacts to increase resiliency. There are several tools that allow you to easily mirror an artifacts repository. In this guide we will cover [JFrog Artifactory](#jfrog), [Reposilite](#reposilite), and [Sonatype Nexus Repository](#sonatype-nexus), choose the solution that best fits with your company's needs. Or perhaps you already have one of them up and running: in that case read on to find out how to include the JobRunr Pro private repository.
+
+> Let us know if you're using a tool not covered in this guide and would like help in mirroring our private releases repository with your tool.
 
 > ⚠️ Please make sure your **proxy is only available by your company**, i.e., it should not be accessible publicly by anonymous users!
 
