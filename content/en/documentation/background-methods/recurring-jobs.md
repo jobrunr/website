@@ -255,7 +255,7 @@ Do you have really complex recurring job schedule? Just extend the class `org.jo
 <figure>
 
 ```java
-@Recurring(id = "my-recurring-job", customSchedule = "com.project.services.MySchedule(my-recurring-arg)")
+@Recurring(id = "my-recurring-job", customSchedule = "com.project.services.MySchedule()")
 public void myRecurringMethod(JobContext jobContext) {
     System.out.print("My recurring job method");
 }
@@ -265,29 +265,27 @@ With `MySchedule` being:
 
 ```java
 public class MySchedule extends CustomSchedule {
-    private final String recurringJobArg;
-    public MySchedule(String recurringJobArg) {
-        this.recurringJobArg = recurringJobArg;
-    }
+    private final CronExpression everyHalfHour = new CronExpression(Cron.everyHalfHour());
+    private final CronExpression daily = new CronExpression(Cron.daily());
 
     @Override
     public Instant next(Instant createdAtInstant, Instant currentInstant, ZoneId zoneId) {
         var day = currentInstant.atZone(zoneId).getDayOfWeek();
         if(day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
-            return new CronExpression(Cron.everyHalfHour()).next(createdAtInstant, currentInstant, zoneId);
+            return everyHalfHour.next(createdAtInstant, currentInstant, zoneId);
         }
-        return new CronExpression(Cron.daily()).next(createdAtInstant, currentInstant, zoneId);
+        return daily.next(createdAtInstant, currentInstant, zoneId);
     }
 
     @Override
     public String asString() {
-        return CustomSchedule.expressionFor(MySchedule.class, recurringJobArg);
+        return CustomSchedule.expressionFor(MySchedule.class, "");
     }
 }
 
 ```
 
-JobRunr Pro will instantiate the class com.project.services.MySchedule and pass the content between the parentheses (e.g. `(my-recurring-arg)`) as input to the constructor. You can use any String input you want to determine when the recurring job should run: this could also be for example `my.custom.scheduling.MyOneTimeSchedule(2050-01-01T01:00:00.000Z)`. In that case, the string will be converted into an `Instant`. See the Javadoc on `CustomSchedule` for more examples on how to correctly make use of the class.
+JobRunr Pro will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run: this could also be for example `my.custom.scheduling.MyOneTimeSchedule(2050-01-01T01:00:00.000Z)`. In that case, the string will be converted into an `Instant`. See the Javadoc on `CustomSchedule` for more examples on how to correctly make use of the class.
 
 > ⚠️ Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 
