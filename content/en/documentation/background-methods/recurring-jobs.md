@@ -250,20 +250,45 @@ __Some examples:__
 ## Custom Recurring Job Schedules
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
 
-Do you have really complex recurring job schedule? Just extend the class `org.jobrunr.scheduling.custom.CustomSchedule` and implement one method where you provide the next `java.time.Instant` your job should run. For example:
+Do you have really complex recurring job schedule? Just extend the class `org.jobrunr.scheduling.custom.CustomSchedule` and implement one method where you provide the next `java.time.Instant` your job should run. For example, suppose you have a recurring job to run that needs to run once a day but can run every half hour during weekends:
 
 <figure>
 
 ```java
-@Recurring(id = "my-recurring-job", customSchedule = "com.project.services.MySchedule(2025-01-01T01:00:00.000Z,2026-01-01T01:00:00.000Z,2027-01-01T01:00:00.000Z)")
+@Recurring(id = "my-recurring-job", customSchedule = "com.project.services.MySchedule(my-arg)")
 public void myRecurringMethod(JobContext jobContext) {
     System.out.print("My recurring job method");
 }
 ```
-<figcaption>JobRunr will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.</figcaption>
-</figure>
 
-> Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
+With `MySchedule` being:
+
+```java
+public class MySchedule extends CustomSchedule {
+    public MySchedule(String myArg) {
+        // do something with the argument(s)
+    }
+
+    @Override
+    public Instant next(Instant createdAtInstant, Instant currentInstant, ZoneId zoneId) {
+        var day = currentInstant.atZone(zoneId).getDayOfWeek();
+        if(day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+            return new CronExpression(Cron.everyHalfHour()).next(createdAtInstant, currentInstant, zoneId);
+        }
+        return new CronExpression(Cron.daily()).next(createdAtInstant, currentInstant, zoneId);
+    }
+
+    @Override
+    public String asString() {
+        return CustomSchedule.expressionFor(MySchedule.class, "my-arg");
+    }
+}
+
+```
+
+JobRunr Pro will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any String input you want to determine when the recurring job should run.
+
+> ⚠️ Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 
 ## Recurring jobs missed during downtime
 {{< label version="professional" >}}JobRunr Pro{{< /label >}} 
