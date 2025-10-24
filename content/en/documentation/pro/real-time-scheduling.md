@@ -1,6 +1,6 @@
 ---
 version: "pro"
-title: "Real-time scheduling and enqueueing"
+title: "Real-time Scheduling and Enqueueing"
 subtitle: "Do you have strict timing requirements? JobRunr Pro has you covered!"
 keywords: ["real time scheduling", "scheduling", "real time enqueueing", "enqueueing", "strict timing requirements", "fetch jobs", "fetch all jobs"]
 date: 2020-08-27T11:12:23+02:00
@@ -27,29 +27,3 @@ JobRunr Pro improves on this and:
 
 > One-second precision means JobRunr Pro will group all the jobs that need to be scheduled in buckets per second and enqueue these jobs at that second. So, if there are 2 jobs that are scheduled at `2023-01-30T20:00:00.350` and `2023-01-30T20:00:00.550`, they will both be enqueued at `2023-01-30T20:00:00.000` (give or take a couple of milliseconds)
 
-JobRunr Pro achieves instant job processing by using a multicast (UDP) socket to send publish a message across all JobRunr Pro nodes at the moment a job is enqueued. 
-
-### Configuring the multicast address
-
-By default, the address `udp://239.076.159.181:8379` is used, but this can be configured either by setting this property in your favourite framework:
-
-```
-jobrunr.multicast-group-address=udp://239.076.159.181:8379
-```
-
-Or by passing in a `URI` in the Fluent API Configuration:
-
-```java
-JobRunrPro
-        .configure()
-        // ... your usual config
-        .useMultiCastAddress(new URI("udp://239.076.159.181:8379"))
-        .useDashboard(...)
-        .useBackgroundJobServer(...)
-```
-
-Be sure to configure this before the configuration of the dashboard and background job server. 
-
-The multicast---and therefore, real-time scheduling---will be disabled if `null` is passed in. 
-
-> ⚠️ The multicast will also be disabled if the address cannot be resolved (i.e. a `SocketException` or `UnknownHostException` is thrown). Make sure to adjust your firewall configuration accordingly. JobRunr Pro will issue the warning "Could not create JobRunrMulticastSender" to inform the user of this problem.
