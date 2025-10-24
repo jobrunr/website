@@ -63,5 +63,9 @@ implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 implementation 'com.fasterxml.jackson.core:jackson-databind:2.11.0'
 implementation 'com.google.code.gson:gson:2.8.6'
 implementation 'org.eclipse:yasson:1.0.8'
-
 ```
+
+## JobRunr Pro
+
+For specific instructions on how to get started with JobRunr Pro such as configuring the license key, please see the [JobRunr Pro installation documentation](/en/documentation/pro/installation/).
+
