@@ -285,7 +285,7 @@ public class MySchedule extends CustomSchedule {
 
 ```
 
-JobRunr Pro will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any amount of String inputs you want to determine when the recurring job should run: this could also be for example `com.project.services.MySchedule(2025-01-01T01:00:00.000Z,2026-01-01T01:00:00.000Z,2027-01-01T01:00:00.000Z)`. In that case, the arguments will be converted into an `Instant`. See the Javadoc on `CustomSchedule` for more examples on how to correctly make use of the class.
+JobRunr Pro will instantiate the class com.project.services.MySchedule and pass the content between the parentheses as input to the constructor. You can use any amount of `String` inputs you want to determine when the recurring job should run: this could also be for example `com.project.services.MySchedule(2025-01-01T01:00:00.000Z,2026-01-01T01:00:00.000Z,2027-01-01T01:00:00.000Z)`. See the Javadoc on `CustomSchedule` for more examples on how to correctly make use of the class.
 
 > ⚠️ Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 

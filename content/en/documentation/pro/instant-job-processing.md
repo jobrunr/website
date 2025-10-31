@@ -3,7 +3,6 @@ version: "pro"
 title: "Instant Job Processing"
 subtitle: "Are you in a hurry? JobRunr Pro starts processing your enqueued jobs instantly!"
 keywords: ["real time scheduling", "scheduling", "real time enqueueing", "enqueueing", "strict timing requirements", "fetch jobs", "fetch all jobs"]
-date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
   main: 
