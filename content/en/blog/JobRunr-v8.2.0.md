@@ -4,7 +4,8 @@ summary: "Async Jobs for Quarkus & Micronaut, Embedded Dashboards, bugfixes, and
 feature_image: /blog/JobRunr810.webp
 images:
 - /blog/JobRunr810.webp
-date: 2025-09-25T00:00:00+02:00
+date: 2025-11-25T00:00:00+02:00
+draft: true
 author: "Nicholas D'hondt"
 tags:
   - blog
