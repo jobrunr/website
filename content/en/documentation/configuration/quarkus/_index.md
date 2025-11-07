@@ -55,7 +55,7 @@ Every aspect of JobRunr can be configured via the `application.properties`. Belo
 quarkus.jobrunr.database.skip-create=false
 quarkus.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema for all tables)
 quarkus.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
-quarkus.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
+quarkus.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and a NoSQL one), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
 quarkus.jobrunr.jobs.default-number-of-retries=10 # the default number of retries for a failing job
 quarkus.jobrunr.jobs.retry-back-off-time-seed=3 # the default time seed for the exponential back-off policy.
 quarkus.jobrunr.job-scheduler.enabled=true # allows to enable the JobScheduler or JobRequestScheduler (this is a runtime configuration)

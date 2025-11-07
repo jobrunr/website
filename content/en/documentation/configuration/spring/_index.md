@@ -53,7 +53,7 @@ jobrunr.dashboard.enabled=true
 These are disabled by default so that your web application does not start processing jobs by accident.
 
 
-> The `jobrunr-spring-boot-starter` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB, `RestHighLevelClient` for ElasticSearch and `JedisPool` or `RedisClient` for Redis). <br/>
+> The `jobrunr-spring-boot-starter` will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB). <br/>
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
 ## Features
@@ -69,7 +69,7 @@ jobrunr.database.skip-create=false
 jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
 jobrunr.database.database-name=jobrunr # Override the default database name to use (e.g. use main application database)
 jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr
-jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and Elasticsearch), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
+jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and a NoSQL one), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
 jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job
 jobrunr.jobs.retry-back-off-time-seed=3 #the default time seed for the exponential back-off policy.
 jobrunr.jobs.metrics.enabled=false #Micrometer integration - this was true in v5.
