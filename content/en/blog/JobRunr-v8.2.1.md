@@ -4,8 +4,7 @@ summary: "New Rate Limiter Dashboard, Automatic Cleanup, Enhanced Security, and 
 feature_image: /blog/821.webp
 images:
 - /blog/821.webp
-date: 2025-11-07T00:00:00+01:00
-draft: true
+date: 2025-11-10T00:00:00+01:00
 author: "Nicholas D'hondt"
 tags:
 - blog
