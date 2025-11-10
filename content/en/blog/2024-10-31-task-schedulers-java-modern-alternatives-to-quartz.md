@@ -31,7 +31,7 @@ The age of Quartz, while an advantage, is also a disadvantage, as the **Quartz A
 
 Another place where Quartz shows its age is in its architecture. When using an RDBMS, **the scheduler requires the creation of more than 10 tables**, which is probably overkill for most applications where the actual business logic requires fewer tables.
 
-We have written an article that [compares Quartz to a more modern solution, namely JobRunr](https://www.jobrunr.io/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). This article **gives a feel for how complex and verbose Quartz is to use**.
+We have written an article that [explains why some people move from Quartz to JobRunr and how to do so.](https://www.jobrunr.io/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). This article **gives a feel for how complex and verbose Quartz is to use**.
 
 #### Performs worse than modern alternatives
 
@@ -49,7 +49,7 @@ Quartz has the ability to handle the tasks in a distributed fashion, but this fe
 
 The last non-beta release of Quartz dates back to October 23, 2019. While development was on hold, **the ecosystem around it didn't stop evolving**. This hiatus led to a pile of unresolved issues. The users of the library are still suffering from the `javax` to `jakarta` namespace change, unless they use the latest release candidate, along with many bugs and security issues. They also **cannot use newest Java features such as virtual threads**, that may benefit background job processing, for instance to increase throughput…
 
-> There are good news for Quartz users. the recent acquisition by IBM led to a spark in activity, with the community helping to fix all the major issues. It is still unclear what this acquisition means for the future of Quartz…
+> There is good news for Quartz users. the recent acquisition by IBM led to a spark in activity, with the community helping to fix all the major issues. It is still unclear what this acquisition means for the future of Quartz…
 > 
 
 ## Modern alternatives to Quartz Scheduler
@@ -63,7 +63,7 @@ We distinguish between two types of schedulers:
 
 ### Alternatives to Quartz in Java
 
-There are two great alternatives to Quartz for scheduling jobs in Java, namely [JobRunr](#jobrunr) and [db-scheduler](#db-scheduler). They can be added as a dependency to any Java application to **provide the needed features for distributed background task processing and persisted task scheduling**.
+There are two great alternatives to Quartz for scheduling jobs in Java, namely [JobRunr](#jobrunr) and [db-scheduler](#db-scheduler). They can be added as a dependency to any Java application.
 
 These libraries keep the number of third-party dependencies to a minimum, providing better security insurance. They are available as standard Java jars on Maven Central. 
 
