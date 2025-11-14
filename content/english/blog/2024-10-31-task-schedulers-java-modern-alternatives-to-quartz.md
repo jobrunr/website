@@ -50,6 +50,7 @@ Quartz has the ability to handle the tasks in a distributed fashion, but this fe
 The last non-beta release of Quartz dates back to October 23, 2019. While development was on hold, **the ecosystem around it didn't stop evolving**. This hiatus led to a pile of unresolved issues. The users of the library are still suffering from the `javax` to `jakarta` namespace change, unless they use the latest release candidate, along with many bugs and security issues. They also **cannot use newest Java features such as virtual threads**, that may benefit background job processing, for instance to increase throughput…
 
 > There is good news for Quartz users. the recent acquisition by IBM led to a spark in activity, with the community helping to fix all the major issues. It is still unclear what this acquisition means for the future of Quartz…
+> 
 
 ## Modern alternatives to Quartz Scheduler
 
@@ -62,7 +63,7 @@ We distinguish between two types of schedulers:
 
 ### Alternatives to Quartz in Java
 
-There are two great alternatives to Quartz for scheduling jobs in Java, namely [JobRunr](#jobrunr) and [db-scheduler](#db-scheduler). They can be added as a dependency to any Java application to **provide the needed features for distributed background task processing and persisted task scheduling**.
+There are two great alternatives to Quartz for scheduling jobs in Java, namely [JobRunr](#jobrunr) and [db-scheduler](#db-scheduler). They can be added as a dependency to any Java application.
 
 These libraries keep the number of third-party dependencies to a minimum, providing better security insurance. They are available as standard Java jars on Maven Central. 
 
