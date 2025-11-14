@@ -5,7 +5,7 @@ date: 2024-02-05T14:19:23+02:00
 lastmod: 2025-10-20T00:00:00+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     parent: 'configuration'
     weight: 21
 ---

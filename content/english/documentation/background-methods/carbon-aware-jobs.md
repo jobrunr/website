@@ -6,7 +6,7 @@ drawing2: https://excalidraw.com/#json=KQKZ3E-3krR7TIDXVu--H,yZQDrHalLHBjgnu-U0a
 date: 2025-06-13T09:15:00+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: carbon-aware-jobs
     parent: 'background-methods'
     weight: 31

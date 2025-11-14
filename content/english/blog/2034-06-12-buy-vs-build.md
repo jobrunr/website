@@ -1,7 +1,7 @@
 ---
 title: "Buy vs Build in open-source"
-summary: "I would love your input on how to convince your management in the buy vs build decision?"
-feature_image: /blog/2022-12-06-JobRunr-in-the-news.png
+description: "I would love your input on how to convince your management in the buy vs build decision?"
+image: /blog/2022-12-06-JobRunr-in-the-news.png
 date: 2034-06-12T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

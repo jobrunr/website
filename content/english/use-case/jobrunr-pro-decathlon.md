@@ -1,7 +1,7 @@
 ---
 title: "Global inventory at Scale - How Decathlon manages stock worldwide using JobRunr"
 author: "Ronald Dehuysser"
-feature_image: /use-case/jobrunr-pro-decathlon.jpg
+image: /use-case/jobrunr-pro-decathlon.jpg
 summary: "In the dynamic retail sector, aligning physical and digital inventories is challenging, especially for Decathlon, which runs 1700 stores and handles millions of scans daily. Reliable, robust technology is crucial for managing this vast data. JobRunr stands out as the ideal tool, efficiently streamlining background task management."
 date: 2024-03-10T11:12:23+02:00
 tags:

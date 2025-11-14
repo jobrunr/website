@@ -4,7 +4,7 @@ subtitle: "JobRunr supports both SQL and NoSQL databases"
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar: 
     identifier: storage
     parent: 'installation'
     weight: 5

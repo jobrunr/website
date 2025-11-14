@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro Release v3.2.0"
-summary: "Clean code - clean dashboard!"
-feature_image: /blog/New-Release.webp
+description: "Clean code - clean dashboard!"
+image: /blog/New-Release.webp
 date: 2021-06-24T21:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

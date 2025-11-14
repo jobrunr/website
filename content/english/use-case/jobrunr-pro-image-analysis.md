@@ -1,7 +1,7 @@
 ---
 title: "Leveraging JobRunr Pro for Efficient Medical Image Analysis in Med-Tech"
 author: "Ronald Dehuysser"
-feature_image: /use-case/jobrunr-pro-healthcare.jpg
+image: /use-case/jobrunr-pro-healthcare.jpg
 summary: "Medical image analysis plays a critical role in the diagnosis, monitoring, and treatment of various diseases. By implementing JobRunr Pro, a powerful background job SDK, to manage and distribute the medical image analysis over multiple servers, a med-tech company has increased throughput by a whopping 1000% while ensuring data privacy."
 date: 2022-03-10T11:12:23+02:00
 tags:

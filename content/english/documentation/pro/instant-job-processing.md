@@ -5,7 +5,7 @@ subtitle: "Are you in a hurry? JobRunr Pro starts processing your enqueued jobs 
 keywords: ["real time scheduling", "scheduling", "real time enqueueing", "enqueueing", "strict timing requirements", "fetch jobs", "fetch all jobs"]
 layout: "documentation"
 menu: 
-  main: 
+  sidebar: 
     identifier: instant-job-processing
     parent: 'jobrunr-pro'
     weight: 3

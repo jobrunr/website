@@ -1,7 +1,7 @@
 ---
 title: "JobRunr at Spring.io!"
-summary: "Did you miss Spring.io? Watch the JobRunr talk I gave at Spring.io Barcelona!"
-feature_image: /blog/2022-06-13-jobrunr-spring-io.png
+description: "Did you miss Spring.io? Watch the JobRunr talk I gave at Spring.io Barcelona!"
+image: /blog/2022-06-13-jobrunr-spring-io.png
 date: 2022-06-13T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

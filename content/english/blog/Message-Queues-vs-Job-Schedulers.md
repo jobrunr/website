@@ -1,7 +1,7 @@
 ---
 title: "What's the Difference Between Message Queues and Job Schedulers?"
-summary: "Ever found yourself wondering whether you need a message queue or a job scheduler? It’s a common crossroads for developers. This post explains the difference."
-feature_image: "/blog/messagequeuesvsjobschedulers.webp"
+description: "Ever found yourself wondering whether you need a message queue or a job scheduler? It’s a common crossroads for developers. This post explains the difference."
+image: "/blog/messagequeuesvsjobschedulers.webp"
 date: 2025-06-13T12:24:16+02:00
 author: "Nicholas D'hondt"
 tags:

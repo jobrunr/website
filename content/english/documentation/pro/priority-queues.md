@@ -6,7 +6,7 @@ keywords: ["priority queues", "critical business processes", "job builder", "flu
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: queues
     parent: 'jobrunr-pro'
     weight: 5

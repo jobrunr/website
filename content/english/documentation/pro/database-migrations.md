@@ -6,7 +6,7 @@ keywords: ["database migrations", "flyway", "liquibase", "ddl", "flyway migratio
 date: 2021-06-24T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: database-migrations
     parent: 'jobrunr-pro'
     weight: 35

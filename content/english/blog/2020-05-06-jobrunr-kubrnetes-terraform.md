@@ -1,7 +1,7 @@
 ---
 title: "JobRunr ♥ Kubernetes ♥ Terraform"
-summary: "Learn how to scale JobRunr to have a whopping 869% speed increase"
-feature_image: /blog/balloons.webp
+description: "Learn how to scale JobRunr to have a whopping 869% speed increase"
+image: /blog/balloons.webp
 date: 2020-05-06T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

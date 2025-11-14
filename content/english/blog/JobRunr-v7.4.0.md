@@ -1,7 +1,7 @@
 ---
 title: "JobRunr & JobRunr Pro v7.4.0"
-summary: "New release packed with enhancements, compatibility updates, and bug fixes!"
-feature_image: /blog/JobRunr740.webp
+description: "New release packed with enhancements, compatibility updates, and bug fixes!"
+image: /blog/JobRunr740.webp
 images:
 - /blog/JobRunr740.webp
 date: 2025-01-17T09:00:00+02:00

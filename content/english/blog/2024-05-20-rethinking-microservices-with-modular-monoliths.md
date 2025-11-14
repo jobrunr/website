@@ -1,7 +1,7 @@
 ---
 title: "Do you really need Microservices?"
-summary: "Rethinking Microservices with Modular Monoliths"
-feature_image: /blog/2024-05-20-jobrunr-message-queue.png
+description: "Rethinking Microservices with Modular Monoliths"
+image: /blog/2024-05-20-jobrunr-message-queue.png
 date: 2024-05-20T09:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

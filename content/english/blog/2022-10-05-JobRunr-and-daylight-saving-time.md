@@ -1,7 +1,7 @@
 ---
 title: "JobRunr and Daylight Saving Time"
-summary: "Let's dig deeper on the impact of Daylight Saving Time and scheduled JobRunr Jobs"
-feature_image: /blog/2022-10-05-jobrunr-dst.png
+description: "Let's dig deeper on the impact of Daylight Saving Time and scheduled JobRunr Jobs"
+image: /blog/2022-10-05-jobrunr-dst.png
 date: 2022-10-05T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

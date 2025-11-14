@@ -5,8 +5,7 @@ keywords: ["projects", "backend module", "spring integration", "background job",
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
-    parent: 'documentation'
+  sidebar:
     weight: 5
 sitemap:
   priority: 0.7

@@ -5,7 +5,7 @@ subtitle: "One Dashboard to rule them all, One Dashboard to find them, One Dashb
 date: 2025-02-21T13:00:00+01:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: jobrunr-pro-multi-dashboard
     parent: 'jobrunr-pro'
     weight: 1

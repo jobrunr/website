@@ -1,7 +1,7 @@
 ---
 title: "Java batch processing with JobRunr"
-summary: "Discover the power of Java batch processing with JobRunr — a modern, user-friendly solution for distributed job management."
-feature_image: /blog/2023-04-11-java-batch-processing.png
+description: "Discover the power of Java batch processing with JobRunr — a modern, user-friendly solution for distributed job management."
+image: /blog/2023-04-11-java-batch-processing.png
 date: 2023-04-11T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

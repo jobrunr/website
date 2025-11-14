@@ -1,7 +1,7 @@
 ---
 title: "Why JobRunr Pro Makes Sense When Your Jobs Aren't Just ETL Theater"
 author: "Lloyd Chandran"
-feature_image: /use-case/jobrunr-pro-fincarna.webp
+image: /use-case/jobrunr-pro-fincarna.webp
 summary: "At Fincarna, a modern monetization platform for banks, we learned that not all background jobs are the same. This article explains why we chose JobRunr Pro to handle our diverse job processing needs, from ETL operations to real-time notifications, and how it helps us focus on building better financial products."
 date: 2025-08-21T10:55:00+02:00
 tags:

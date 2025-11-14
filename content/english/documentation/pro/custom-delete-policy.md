@@ -6,7 +6,7 @@ keywords: ["clean code", "job trigger", "job duration", "clean code c", "custom 
 date: 2021-06-24T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: custom-delete-policy
     parent: 'jobrunr-pro'
     weight: 30

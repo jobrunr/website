@@ -1,7 +1,7 @@
 ---
 title: "Oooh, the irony"
-summary: "A crime scene investigation on what went wrong with JobRunr when Daylight Saving Time ended."
-feature_image: /blog/2022-11-05-jobrunr-dst.png
+description: "A crime scene investigation on what went wrong with JobRunr when Daylight Saving Time ended."
+image: /blog/2022-11-05-jobrunr-dst.png
 date: 2022-11-05T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

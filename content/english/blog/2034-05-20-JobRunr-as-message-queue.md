@@ -1,7 +1,7 @@
 ---
 title: "JobRunr: An Alternative to Message Queueing"
-summary: "Do you really need a message queue?"
-feature_image: /blog/2024-05-20-jobrunr-message-queue.png
+description: "Do you really need a message queue?"
+image: /blog/2024-05-20-jobrunr-message-queue.png
 date: 2034-05-20T09:00:00+02:00
 author: "Ronald Dehuysser"
 draft: true

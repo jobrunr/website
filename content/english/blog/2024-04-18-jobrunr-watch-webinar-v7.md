@@ -1,7 +1,7 @@
 ---
 title: "Watch JobRunr v7 Release Day Webinar"
-summary: "JobRunr & JobRunr Pro v7 release webinar online"
-feature_image: /blog/2024-04-18-jobrunr-watch-webinar-v7.webp
+description: "JobRunr & JobRunr Pro v7 release webinar online"
+image: /blog/2024-04-18-jobrunr-watch-webinar-v7.jpg
 date: 2024-04-17T01:00:00
 author: "Donata Petkevičiūtė"
 tags:

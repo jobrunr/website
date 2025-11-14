@@ -1,15 +1,10 @@
 ---
-title: "Blog"
-translationKey: "blog"
-subtitle: "Read on to find out more about the latest developments of JobRunr"
-description: "Read on to find out more about the latest developments of JobRunr"
-date: 2020-04-30T11:12:23+02:00
-menu: 
-  main: 
-    weight: 50
-sitemap:
-  priority: 0.8
-  changeFreq: weekly
----
+title: "Blog Posts"
+meta_title: "Blog"
+description: "this is meta description"
 
-# Blog  
+blog:
+  subtitle: "The JobRunr Blog"
+  title: "Everything you need to know about <br> background processing"
+  description: "Explore technical deep-dives, product updates, and real-world examples to help you build, scale, and monitor your Java background jobs."
+---

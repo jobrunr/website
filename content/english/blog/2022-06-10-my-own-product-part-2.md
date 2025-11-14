@@ -1,7 +1,7 @@
 ---
 title: "Launching a developer product - part 2"
-summary: "Jeeeejj! I have a 1000 stars in GitHub!"
-feature_image: /blog/2022-06-10-my-own-product-part2.png
+description: "Jeeeejj! I have a 1000 stars in GitHub!"
+image: /blog/2022-06-10-my-own-product-part2.png
 date: 2022-06-10T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

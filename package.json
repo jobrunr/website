@@ -1,18 +1,31 @@
 {
-  "name": "jobrunr",
-  "version": "1.0.0",
-  "description": "Website of JobRunr",
-  "main": "index.js",
-  "devDependencies": {
-    "autoprefixer": "^10.4.20",
-    "cssnano": "^7.0.6",
-    "postcss": "^8.4.41",
-    "postcss-cli": "^11.0.0",
-    "postcss-color-mod-function": "3.0.3"
-  },
+  "name": "fortify-hugo",
+  "description": "Security Saas & Startup Template",
+  "version": "1.1.0",
+  "license": "UNLICENSED",
+  "author": "Themefisher",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "hugo server",
+    "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
+    "preview": "hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
+    "dev:example": "cd exampleSite && hugo server --themesDir ../..",
+    "build:example": "cd exampleSite && hugo --themesDir ../.. --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
+    "preview:example": "cd exampleSite && hugo --themesDir ../.. server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
+    "update-modules": "node ./scripts/clearModules.js && hugo mod clean --all && hugo mod get -u ./... && hugo mod tidy",
+    "project-setup": "node ./scripts/projectSetup.js",
+    "theme-setup": "node ./scripts/themeSetup.js",
+    "update-theme": "node ./scripts/themeUpdate.js",
+    "format": "prettier -w ."
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "tailwindcss": "^4.1.13",
+    "@tailwindcss/forms": "^0.5.10",
+    "@tailwindcss/typography": "^0.5.16"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13",
+    "prettier": "^3.5.2",
+    "prettier-plugin-go-template": "0.0.15",
+    "prettier-plugin-tailwindcss": "^0.6.11"
+  }
 }

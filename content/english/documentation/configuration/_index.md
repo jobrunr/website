@@ -4,9 +4,8 @@ keywords: ["configuration", "fluent api", "spring boot starter", "quarkus extens
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: configuration
-    parent: 'documentation'
     weight: 10
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: "Building local LLM systems: RAG implementation with JobRunr and Spring AI"
-summary: "Learn how to build Retrieval-Augmented Generation (RAG) workflows using JobRunr in Java."
+description: "Learn how to build Retrieval-Augmented Generation (RAG) workflows using JobRunr in Java."
 tags: ["blog", "Java", "AI", "JobRunr", "RAG"]
 categories: ["AI", "Development"]
 images: 
     - "/blog/FeaturedImage-RAG.webp"
-feature_image: "/blog/FeaturedImage-RAG.webp"
+image: "/blog/FeaturedImage-RAG.webp"
 date: 2025-01-30T16:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "efficient-job-scheduling-for-rag"

@@ -1,7 +1,7 @@
 ---
 title: "How JobRunr Pro Empowers Brand Protection through Parallel Web Crawling and Sentiment Analysis"
 author: "Ronald Dehuysser"
-feature_image: /use-case/jobrunr-pro-web-crawling-and-sentiment-analysis.jpg
+image: /use-case/jobrunr-pro-web-crawling-and-sentiment-analysis.jpg
 summary: "Brand protection is more crucial than ever. JobRunr Pro, an advanced job scheduling platform, has emerged as a powerful tool for distributed web crawling and sentiment analysis by businesses that want to improve their brand protection strategy, leveraging parallel processing and monitoring tools to maximize efficiency and effectiveness."
 date: 2022-04-09T11:12:23+02:00
 tags:

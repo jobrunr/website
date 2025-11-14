@@ -354,7 +354,7 @@ public class JobController {
 JobRunr comes with a built-in dashboard that allows us to monitor our jobs. We can find it at http://localhost:8000 and inspect all the jobs, including all recurring jobs and an estimation of how long it will take until all the enqueued jobs are processed:
 
 <figure>
-<img src="/documentation/jobrunr-overview-1.webp" class="kg-image">
+{{< img src="/documentation/jobrunr-overview-1.webp" class="kg-image" >}}
 <figcaption>A complete overview of the amount of jobs that are being processed</figcaption>
 </figure>
 
@@ -362,7 +362,7 @@ Bad things can happen, for example, an SSL certificate expired, or a disk is ful
 
 All of this is visible in the dashboard, including each retry with the exact error message and the complete stack trace of why a job failed:
 <figure>
-<img src="/documentation/job-details-failed-2.webp" class="kg-image">
+{{< img src="/documentation/job-details-failed-2.webp" class="kg-image" >}}
 <figcaption>When a job failed, you see a detailed message why it did fail</figcaption>
 </figure>
 

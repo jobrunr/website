@@ -1,7 +1,7 @@
 ---
 title: "JobRunr and JobRunr Pro v7.0.0!"
-summary: "We're proud to announce the latest release, JobRunr & JobRunr Pro v7.0.0"
-feature_image: /blog/2024-04-09-jobrunr-jobrunr-pro-v7.png
+description: "We're proud to announce the latest release, JobRunr & JobRunr Pro v7.0.0"
+image: /blog/2024-04-09-jobrunr-jobrunr-pro-v7.png
 date: 2024-04-09T09:00:00+02:00
 author: "Donata Petkevičiūtė"
 tags:

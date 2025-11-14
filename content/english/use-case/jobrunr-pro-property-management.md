@@ -1,7 +1,7 @@
 ---
 title: "Streamlining Property Management Operations with JobRunr Pro"
 author: "Ronald Dehuysser"
-feature_image: /use-case/jobrunr-pro-property-management.jpg
+image: /use-case/jobrunr-pro-property-management.jpg
 summary: "Property management companies handle an extensive range of tasks, from updating property sales ads on various online marketplaces to ensuring timely rental payments and document contract signings. JobRunr Pro helps to automate these tasks, simplifying their software architecture and streamlines all property management operations."
 date: 2021-08-10T11:12:23+02:00
 tags:

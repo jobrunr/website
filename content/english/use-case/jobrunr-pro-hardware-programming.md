@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro Streamlines VoIP Deployment for Telecom Solution Providers"
 author: "Ronald Dehuysser"
-feature_image: /use-case/jobrunr-pro-voip.jpg
+image: /use-case/jobrunr-pro-voip.jpg
 summary: "One of the main issues faced by VoIP providers is that the hardware is not always available or online when programming is needed. JobRunr Pro, a powerful background job processing library, offers an effective solution to this problem by automatically retrying until the programming of the hardware is successful."
 date: 2021-08-10T11:12:23+02:00
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "How JobRunr Builds Software That Gives Back to the Planet"
-summary: "At JobRunr, we believe building great software shouldn't come at the cost of the planet. Here’s how we’re using our profits, and platform to leave the world better than we found it."
-feature_image: "/blog/giving-back.webp"
+description: "At JobRunr, we believe building great software shouldn't come at the cost of the planet. Here’s how we’re using our profits, and platform to leave the world better than we found it."
+image: "/blog/giving-back.webp"
 images:
   - "/blog/giving-back.webp"
 date: 2025-04-11T12:00:00+02:00

@@ -1,7 +1,7 @@
 ---
 title: "Taming the Bursts: Efficient Cloud-Native Processing with JobRunr"
-summary: "Discover how JobRunr helps manage high-demand tasks like pay-check calculations, retail promotions, and email campaigns by distributing load across multiple servers in any environment."
-feature_image: /blog/2023-03-30-taming-the-burst.png
+description: "Discover how JobRunr helps manage high-demand tasks like pay-check calculations, retail promotions, and email campaigns by distributing load across multiple servers in any environment."
+image: /blog/2023-03-30-taming-the-burst.png
 date: 2023-03-30T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

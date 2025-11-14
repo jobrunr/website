@@ -1,11 +1,11 @@
 ---
 title: "Mastering Java Background Jobs: Threads, Pools, Virtual Threads, and JobRunr"
-summary: "We've all been there. Your web application needs to do something time-consuming; send an email, process an uploaded file, generate a report,.. but making the user wait is simply not an option." 
+description: "We've all been there. Your web application needs to do something time-consuming; send an email, process an uploaded file, generate a report,.. but making the user wait is simply not an option."
 tags: ["blog", "Java", "Background Jobs", "Threading", "Concurrency", "ExecutorService", "Virtual Threads", "JobRunr", "Performance", "Best Practices"]
 categories: ["Java", "Development", "Concurrency"]
 images:
   - "/blog/FeaturedImage-JavaThreads.webp" # Placeholder - replace with an actual relevant image path
-feature_image: "/blog/FeaturedImage-JavaThreads.webp" # Placeholder - replace with an actual relevant image path
+image: "/blog/FeaturedImage-JavaThreads.webp" # Placeholder - replace with an actual relevant image path
 date: 2025-04-23T10:00:00+02:00 # Using current date as per general guidelines
 author: "Nicholas D'hondt" # Kept author from example, replace if needed
 slug: "java-job-threading-options" # Generated from title

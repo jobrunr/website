@@ -1,11 +1,11 @@
 ---
 title: "How To Prioritze Background Jobs?"
-summary: "Not all background tasks are created equal. Discover strategies to ensure your most critical jobs always run first, even under heavy load."
+description: "Not all background tasks are created equal. Discover strategies to ensure your most critical jobs always run first, even under heavy load."
 tags: ["blog", "Java", "Background Jobs", "Prioritization", "Concurrency", "JobRunr", "Performance", "Best Practices"]
 categories: ["Java", "Development", "Concurrency"]
 images:
   - "/blog/FeaturedImage-priority.webp" 
-feature_image: "/blog/FeaturedImage-priority.webp" 
+image: "/blog/FeaturedImage-priority.webp"
 date: 2025-05-02T10:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "prioritizing-background-jobs"

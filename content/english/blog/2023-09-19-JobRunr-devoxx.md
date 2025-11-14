@@ -1,7 +1,7 @@
 ---
 title: "JobRunr at Devoxx 2023"
-summary: "🎉 I'll be talking about JobRunr at Devoxx 2023 in Antwerp, Belgium 🎉"
-feature_image: /blog/2023-09-19-devoxx.png
+description: "🎉 I'll be talking about JobRunr at Devoxx 2023 in Antwerp, Belgium 🎉"
+image: /blog/2023-09-19-devoxx.png
 date: 2023-09-19T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

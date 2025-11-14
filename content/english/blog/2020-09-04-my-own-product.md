@@ -1,7 +1,7 @@
 ---
 title: "Launching a developer product - how hard is it?"
-summary: "Is it worthwhile to start a freemium product for developers in the Java eco-system?"
-feature_image: /blog/2020-09-04-my-own-product.webp
+description: "Is it worthwhile to start a freemium product for developers in the Java eco-system?"
+image: /blog/2020-09-04-my-own-product.webp
 date: 2020-09-04T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

@@ -1,11 +1,11 @@
 ---
 title: "Optimizing Cost and Performance on Kubernetes: Scale Java Workloads with JobRunr Metrics"
-summary: "Explore how JobRunr Pro metrics API can dynamically scale your Java workloads on Kubernetes to optimize cost and performance."
+description: "Explore how JobRunr Pro metrics API can dynamically scale your Java workloads on Kubernetes to optimize cost and performance."
 tags: ["blog", "Java", "Kubernetes", "JobRunr", "Metrics", "Autoscaling"]
 categories: ["Java", "Development", "Kubernetes"]
 images:
   - "/blog/FeaturedImage-K8s.webp"
-feature_image: "/blog/FeaturedImage-K8s.webp"
+image: "/blog/FeaturedImage-K8s.webp"
 date: 2025-03-18T16:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "scale-java-workloads-on-kubernetes"

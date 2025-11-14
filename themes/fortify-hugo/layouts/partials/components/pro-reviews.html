@@ -1,0 +1,28 @@
+<div class="md:col-6 lg:col-4">
+  <div
+    class="flex min-h-full flex-col justify-start gap-8 rounded-xl bg-light p-6 md:rounded-3xl">
+    <!--<div class="flex justify-start gap-x-2">
+      {{ range seq 1 5 }}
+        <i class="fa-regular fa-star text-yellow-500 text-2xl"></i>
+      {{ end }}
+    </div>-->
+    <div class="content prose-strong:text-xl">
+      <div>{{ .content | markdownify }}</div>
+    </div>
+    <div class="pt-6 pl-10 text-right">
+      <strong class="mb-1 block text-lg font-bold text-gray-900">
+        {{ .name | markdownify }}
+      </strong>
+
+      {{/* Show link if it exists */}}
+      {{ with .link }}
+        <a
+          href="{{ . }}"
+          class="mt-1 block text-base font-medium text-tertiary">
+          Read the full case →
+        </a>
+      {{ end }}
+    </div>
+    
+  </div>
+</div>

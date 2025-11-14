@@ -4,7 +4,7 @@ subtitle: "JobRunr has excellent Spring support thanks to the jobrunr-spring-boo
 date: 2021-08-24T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     parent: 'configuration'
     weight: 10
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Trees planted!"
-summary: "I've sold my second license and that resulted in trees being planted!"
-feature_image: /blog/trees.webp
+description: "I've sold my second license and that resulted in trees being planted!"
+image: /blog/trees.webp
 date: 2021-08-03T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

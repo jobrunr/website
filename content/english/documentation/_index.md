@@ -5,11 +5,6 @@ keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative",
 subtitle: "The architecture and terminology behind JobRunr"
 description: "Find out all about the architecture and terminology behind JobRunr"
 date: 2020-04-30T11:12:23+02:00
-layout: "documentation"
-menu: 
-  main: 
-    identifier: documentation
-    weight: 10
 sitemap:
   priority: 0.9
   changeFreq: monthly
@@ -26,7 +21,7 @@ sitemap:
 }
 </style>
 <div style="padding: 1rem; background: black; border-radius: 8px; color:white;">
-  <strong>JobRunr DocsGPT is here to help</strong><br>
+  <strong style="color:white;">JobRunr DocsGPT is here to help</strong><br>
   Trained on all our documentation, it's your fastest way to get unstuck.<br>
   <a onclick="chatbase.open()" style="cursor: pointer; color:white; box-shadow: #ffffff 0 -1px inset;">Open the chatbot now →</a>
 </div>

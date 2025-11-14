@@ -1,0 +1,128 @@
+#################### default parameters ################################
+# favicon module: https://github.com/gethugothemes/hugo-modules/tree/master/images#favicon-implementation
+favicon = "images/favicon.png"
+# logo module: https://github.com/gethugothemes/hugo-modules/tree/master/images#logo-implementation
+logo = "images/logo.svg"
+# use `px` or `x` with logo_width, example: "100px".
+# Note: logo_width is not work with .svg file
+logo_width = "134px"
+logo_height = "47px"
+# if logo_webp set false, will not generate WEBP version of logo | default is true
+logo_webp = true
+# logo text will only show when logo is missing.
+logo_text = "JobRunr"
+# theme-mode
+theme_switcher = true
+theme_default = "system" # available options [light/dark/system]
+# Main Sections
+mainSections = ["blog"]
+# contact form action
+contact_form_action = "#" # contact form works with [https://airform.io/] or [https://formspree.io]
+# google tag manager, see https://developers.google.com/tag-manager/
+google_tag_manager = "" # example: G-XXXXXXXXXX
+google_adsense = ""     # example: ca-pub-xxxxxxxxxxxxxxxx
+# custom script on header, example: custom_script= "<script>console.log(\"Hello World\")</script>"
+custom_script = ""
+# copyright
+copyright = ""
+#footer description
+footer_description = "The ultimate library for background processing in Java. Distributed, persistent, and reliable job scheduling."
+
+# background pattern
+[header]
+bg_image = "/images/header-bg.jpg"
+
+# Preloader
+# preloader module: https://github.com/gethugothemes/hugo-modules/tree/master/components/preloader
+[preloader]
+enable = false
+preloader = "" # use jpg, png, svg or gif format.
+
+# Navigation button
+[navigation_button]
+enable = true
+label = "Get Started"
+link = "get-started"
+
+# search
+# search module: https://github.com/gethugothemes/hugo-modules/tree/master/search
+[search]
+enable = true
+primary_color = "#121212"
+include_sections = ["blog"]
+show_image = true
+show_description = true
+show_tags = true
+show_categories = true
+
+
+# seo meta data for OpenGraph / Twitter Card
+# seo module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/basic-seo
+[metadata]
+keywords = ["JobRunr", "Java", "Background Processing", "Job Scheduling", "Task Execution", "Open Source", "Distributed Systems", "Microservices", "Cloud Computing"]
+description = "The simple, open-source Java library for reliable background processing. Never lose a job again. Get a full dashboard, automatic retries, and durable job scheduling backed by your existing database."
+author = "JobRunr"
+image = "images/og-image.png"
+
+
+# site verifications
+# verification module: https://github.com/gethugothemes/hugo-modules/tree/master/seo-tools/site-verifications
+[site_verification]
+google = ""   # Your verification code
+bing = ""     # Your verification code
+baidu = ""    # Your verification code
+facebook = "" # Your verification code
+mastodon = "" # Your verification code
+
+# cookies
+# cookies module: https://github.com/gethugothemes/hugo-modules/tree/master/components/cookie-consent
+[cookies]
+enable = false
+expire_days = 60
+content = "This site uses cookies. By continuing to use this website, you agree to their use."
+button = "I Accept"
+
+# diagrams
+# [mermaid]
+# js_url = 'https://cdn.jsdelivr.net/npm/mermaid@latest/dist/mermaid.esm.min.mjs'
+
+######################## sidebar widgets #########################
+[widgets]
+sidebar = ["categories", "tags"]
+
+# google map
+[google_map]
+enable = false
+map_api_key = "AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU"
+map_latitude = "51.5223477"
+map_longitude = "-0.1622023"
+map_marker = "images/marker.png"
+
+# Subscription
+[quote_form]
+title = "Subscribe to Our Newsletter!"
+description = "Stay up-to-date with new JobRunr releases, features, and technical articles."
+submit_button_label = "Subscribe"
+placeholder = "Enter your email"
+action = "#"
+
+
+############################# social site ########################
+
+
+
+
+[[social]]
+title = "github"
+icon = "fa-brands fa-github" # fontawesome icon pack : https://fontawesome.com/icons/
+link = "https://github.com/jobrunr/jobrunr"
+
+[[social]]
+title = "linkedin"
+icon = "fa-brands fa-linkedin" # fontawesome icon pack : https://fontawesome.com/icons/
+link = "https://www.linkedin.com/company/jobrunr/"	
+
+[[social]]
+title = "youtube"
+icon = "fab fa-youtube" # fontawesome icon pack : https://fontawesome.com/icons/
+link = "https://www.youtube.com/@JobRunr"

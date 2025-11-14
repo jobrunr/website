@@ -6,7 +6,7 @@ keywords: ["database fault tolerance", "fault tolerance", "master node", "zombie
 date: 2021-06-24T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: database-fault-tolerance
     parent: 'jobrunr-pro'
     weight: 31

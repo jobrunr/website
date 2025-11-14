@@ -1,0 +1,53 @@
+{{ define "main" }}
+<section class="section pt-8">
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar Navigation -->
+      <div class="lg:col-3 lg:pl-0">
+        {{ partial "documentation/sidebar-menu.html" . }}
+      </div>
+
+      <!-- Main Content Area -->
+      <main class="lg:col-9" data-pagefind-body>
+        {{ partial "pagefind-filters.html" . }}
+        <article class="content">
+          {{ if eq .Params.version "pro"}}
+          <div data-pagefind-filter="tag:JobRunr Pro" class="label professional"><span>JobRunr Pro</span></div>
+          {{ else if eq .Params.version "enterprise"}}
+          <div data-pagefind-filter="tag:JobRunr Pro" class="label enterprise"><span>JobRunr Pro Enterprise</span></div>
+          {{ else }}
+          <template data-pagefind-filter="tag:JobRunr"></template>
+          {{ end }}
+          <!-- Page Header -->
+          <header class="mb-8">
+            <h1 class="text-4xl mt-2 mb-2">{{ .Title }}</h1>
+            {{ $desc := or .Description .Params.subtitle }}
+            {{ with $desc }}
+            <p class="text-xl font-light text-text/70 mb-4">{{ . }}</p>
+            {{ end }}
+          </header>
+
+          <!-- Main Content -->
+          <div class="docs-content">
+            {{ .Content }}
+          </div>
+        </article>
+      </main>
+
+      {{/* Table of Contents - currently hidden */}}
+      {{/* {{ if gt (len .TableOfContents) 50 }}
+      <aside class="lg:col-3 hidden lg:block">
+        <div class="docs-toc sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <div class="rounded-lg border-l-4 border-primary bg-light p-4">
+            <h4 class="mb-3 text-sm font-semibold text-text-dark">On This Page</h4>
+            <div class="toc-content text-sm">
+              {{ .TableOfContents }}
+            </div>
+          </div>
+        </div>
+      </aside>
+      {{ end }} */}}
+    </div>
+  </div>
+</section>
+{{ end }}

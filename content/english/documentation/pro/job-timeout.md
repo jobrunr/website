@@ -6,7 +6,7 @@ keywords: ["job timeout", "job time out", "job configuration", "configuration jo
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: job-timeout
     parent: 'jobrunr-pro'
     weight: 27

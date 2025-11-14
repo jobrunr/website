@@ -5,7 +5,7 @@ keywords: ["schedule", "scheduling", "scheduler", "java schedule method", "java 
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: scheduling-jobs
     parent: 'background-methods'
     weight: 15

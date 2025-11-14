@@ -5,7 +5,7 @@ keywords: ["passing arguments", "jobrequest", "java function as parameter", "jav
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: passing-arguments
     parent: 'background-methods'
     weight: 40

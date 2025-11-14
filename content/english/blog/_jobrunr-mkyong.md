@@ -1,8 +1,8 @@
 ---
 title: "JobRunr on Mkyong.com"
 translationKey: "2020-10-22-jobrunr-mkyong"
-summary: "A guide on how to run background jobs in Spring with JobRunr"
-feature_image: /blog/2020-04-08-get-shit-done.webp
+description: "A guide on how to run background jobs in Spring with JobRunr"
+image: /blog/2020-04-08-get-shit-done.webp
 aspect_ratio: 1;
 date: 2020-10-22T11:12:23+02:00
 author: "Ronald Dehuysser"

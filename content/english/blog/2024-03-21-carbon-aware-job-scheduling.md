@@ -1,7 +1,7 @@
 ---
 title: "Introducing Carbon-Aware Jobs in JobRunr"
-summary: "A Leap Towards Sustainable Computing"
-feature_image: /blog/2024-03-21-carbon-aware-job-scheduling.png
+description: "A Leap Towards Sustainable Computing"
+image: /blog/2024-03-21-carbon-aware-job-scheduling.png
 date: 2024-03-21T09:00:00+02:00
 author: "Donata Petkevičiūtė"
 tags:

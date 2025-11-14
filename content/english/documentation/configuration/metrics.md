@@ -5,7 +5,7 @@ subtitle: "Expose JobRunr specific metrics to seamlessly integrate with your mon
 date: 2025-09-26T13:15:00+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     parent: 'configuration'
     weight: 22
 ---

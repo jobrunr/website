@@ -1,7 +1,7 @@
 ---
 title: "We are on Spring Builders!"
-summary: "Check out the introduction to JobRunr on Spring Builders"
-feature_image: /blog/2024-05-17-spring-builders-article.png
+description: "Check out the introduction to JobRunr on Spring Builders"
+image: /blog/2024-05-17-spring-builders-article.png
 date: 2024-05-17T09:00:00+02:00
 author: "Donata Petkevičiūtė"
 tags:

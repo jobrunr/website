@@ -1,7 +1,7 @@
 ---
 title: "Spring.io Barcelona!"
-summary: "I'm happy to share that I can present JobRunr at Spring.io in Barcelona!"
-feature_image: /blog/2022-04-24-spring-io.png
+description: "I'm happy to share that I can present JobRunr at Spring.io in Barcelona!"
+image: /blog/2022-04-24-spring-io.png
 date: 2022-04-24T08:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

@@ -1,7 +1,7 @@
 ---
 title: "JobRunr & JobRunr Pro v7.5.0"
-summary: "New release brings Quarkus 3.20 and Micronaut 4.8 support, smarter config validation, and CockroachDB integration!"
-feature_image: /blog/750.webp
+description: "New release brings Quarkus 3.20 and Micronaut 4.8 support, smarter config validation, and CockroachDB integration!"
+image: /blog/750.webp
 images:
 - /blog/750.webp
 date: 2025-04-15T09:00:00+02:00

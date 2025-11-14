@@ -1,6 +1,6 @@
 ---
 title: "JobRunr v8 Live-Coding Webinar & AMA"
-summary: "Join us for a live-coding session where we'll talk about the new features of JobRunr v8. Learn how to use carbon-aware job scheduling, use workflow orchestration and more to build highly efficient and scalable Java applications."
+description: "Join us for a live-coding session where we'll talk about the new features of JobRunr v8. Learn how to use carbon-aware job scheduling, use workflow orchestration and more to build highly efficient and scalable Java applications."
 date: 2025-06-13T12:24:16+02:00
 author: "Nicholas D'hondt"
 tags:
@@ -8,10 +8,10 @@ tags:
   - meta
   - message-queue
   - job-scheduler
-images:
-  - "/blog/launch-webinar.webp" 
-feature_image: "/blog/launch-webinar.webp" 
+image: "/blog/launch-webinar.webp" 
+image: "/blog/launch-webinar.webp"
 slug: "webinar-v8"
+draft: true
 ---
 <script>
     console.log("Psst, developer! This landing page was put together by our marketing team. For the actual, enterprise-grade code we're proud of, you'll have to check out the JobRunr library itself. 😉");

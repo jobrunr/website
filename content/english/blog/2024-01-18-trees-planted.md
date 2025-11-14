@@ -1,7 +1,7 @@
 ---
 title: "More than 15.000 trees 🌳 planted!"
-summary: "Buy JobRunr Pro and plant trees!"
-feature_image: /blog/2023-06-17-team-trees.png
+description: "Buy JobRunr Pro and plant trees!"
+image: /blog/2023-06-17-team-trees.png
 date: 2024-01-18T09:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

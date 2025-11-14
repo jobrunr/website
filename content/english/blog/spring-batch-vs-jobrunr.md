@@ -1,9 +1,8 @@
 ---
 title: "Spring Batch vs. JobRunr: Choosing the Right Tool for Your Java Background Jobs"
-summary: "We compare Spring Batch and JobRunr to help you decide whether you need industrial-strength data processing or modern, simple task execution."
-images:
-  - /blog/springbatchvsjobrunr.webp
-feature_image: /blog/springbatchvsjobrunr.webp
+description: "We compare Spring Batch and JobRunr to help you decide whether you need industrial-strength data processing or modern, simple task execution."
+image: "/blog/springbatchvsjobrunr.webp"
+image: /blog/springbatchvsjobrunr.webp
 date: 2025-09-29T00:00:00+02:00
 author: "Nicholas D'hondt"
 tags:

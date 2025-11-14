@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro v3.4.0"
-summary: "JobRunr Pro Dashboard with Job Filtering - the backoffice to your code"
-feature_image: /blog/New-Release.webp
+description: "JobRunr Pro Dashboard with Job Filtering - the backoffice to your code"
+image: /blog/New-Release.webp
 date: 2021-07-12T21:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

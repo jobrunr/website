@@ -5,7 +5,7 @@ subtitle: "Use the Fluent API to configure JobRunr in your application within mi
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     parent: 'configuration'
     weight: 10
 ---

@@ -222,8 +222,8 @@ workers-854f975c57-vbdjr             0/1     ContainerCreating   0          1s
 Great! We see there are 5 new pods being created. After around 1 minute, the servers should announce themselves and will be visible in the JobRunr dashboard.
 
 <figure style="width: 100%; max-width: 100%">
-    <img src="/documentation/k8s-autoscaling-servers.gif" class="kg-image">
-    <figcaption>JobRunr Pro dashboard showing autoscaling in action (the GIF is accelerated)</figcaption>
+  {{< img src="/documentation/k8s-autoscaling-servers.gif" class="kg-image" >}}
+  <figcaption>JobRunr Pro dashboard showing autoscaling in action (the GIF is accelerated)</figcaption>
 </figure>
 
 

@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro Panic Button"
-summary: "Stay calm and press the Panic Button..."
-feature_image: /blog/2023-05-17-jobrunr-pro-panic-button.png
+description: "Stay calm and press the Panic Button..."
+image: /blog/2023-05-17-jobrunr-pro-panic-button.png
 date: 2023-06-06T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

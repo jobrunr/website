@@ -6,7 +6,7 @@ keywords: ["job filters", "filters", "job filter beans", "sprig job filter", "mi
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: job-filters
     parent: 'jobrunr-pro'
     weight: 27

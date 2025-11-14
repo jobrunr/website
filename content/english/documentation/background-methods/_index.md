@@ -5,9 +5,8 @@ keywords: ["dashboard", "best practices", "scheduling jobs", "recurring jobs", "
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: background-methods
-    parent: 'documentation'
     weight: 15
 ---
 JobRunr supports 3 ways to easily generate background jobs:

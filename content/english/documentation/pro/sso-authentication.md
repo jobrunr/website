@@ -5,7 +5,7 @@ subtitle: "JobRunr Pro's dashboard integrates seamlessly with OpenID"
 date: 2025-10-10T10:00:00+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: single-sign-on-authentication
     parent: 'jobrunr-pro'
     weight: 61

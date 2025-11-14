@@ -5,7 +5,7 @@ keywords: ["exceptions", "programming errors", "exception handling in java", "ex
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: dealing-with-exceptions
     parent: 'background-methods'
     weight: 60

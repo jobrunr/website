@@ -1,7 +1,7 @@
 ---
 title: "More than 3500 trees 🌳 planted!"
-summary: "Part of the JobRunr revenue goes to #TeamTrees!"
-feature_image: /blog/2023-06-17-team-trees.png
+description: "Part of the JobRunr revenue goes to #TeamTrees!"
+image: /blog/2023-06-17-team-trees.png
 date: 2023-06-17T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

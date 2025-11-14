@@ -1,0 +1,446 @@
+{{ define "main" }}
+
+
+  {{ partial "components/pro-features.html" . }}
+  {{ with .Params.customer_reviews }}
+    <section class="section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="mx-auto text-center lg:col-8 xl:col-9"
+            data-aos="fade-up-sm">
+            <p class="mb-2 font-medium text-tertiary">
+              {{ .subtitle | markdownify }}
+            </p>
+            <h2 class="mb-6">{{ .title | markdownify }}</h2>
+            <p class="text-lg ">{{ .description | markdownify }}</p>
+          </div>
+          <div
+            class="col-12 pt-20"
+            data-aos="fade-up-sm"
+            data-aos-delay="200">
+            <div class="row g-4 justify-center">
+              {{ $number := 3 }}
+              {{ with site.GetPage "sections/pro-reviews" }}
+                {{ $reviews := .Params.list | first $number }}
+
+                {{ range $reviews }}
+                  {{ partial "components/pro-reviews.html" . }}
+                {{ end }}
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        <div
+          class="mx-auto text-center lg:col-8"
+          data-aos="fade-up-sm">
+          <p class="mb-2 font-medium text-tertiary">
+            {{ .Params.subtitle | markdownify }}
+          </p>
+          <h1 class="h2 mb-6">Pricing plans</h1>
+          <p class="text-lg ">
+            Find the plan that suits your needs.
+          </p>
+        </div>
+        <div class="col-12 pt-20">
+          {{ partial "components/pricing-plan.html" . }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Feature Comparison Table  -->
+<section class="section bg-gray-50" id="comparison-table">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="h2 mb-4 text-gray-900" data-aos="fade-up-sm">
+          Detailed feature comparison
+        </h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto" data-aos="fade-up-sm" data-aos-delay="100">
+          Compare the features across JobRunr Open Source, Pro Business, and Pro Enterprise tiers to choose the right fit for your organization.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto relative shadow-lg sm:rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 table-fixed">
+          <thead class="text-xs uppercase bg-gray-200 border-b border-gray-300">
+            <tr>
+              <th scope="col" class="py-3 px-6 w-1/3 text-gray-900">Feature</th>
+              <th scope="col" class="py-3 px-6 text-center bg-[#FAFAFA] text-gray-900">Open Source (OSS)</th>
+              <th scope="col" class="py-3 px-6 text-center bg-black text-white">Pro Business</th>
+              <th scope="col" class="py-3 px-6 text-center bg-[#FAFAFA] text-gray-900">Pro Enterprise</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            <tr class="bg-gray-100">
+                <td colspan="4" class="py-2 px-6 font-bold text-base text-gray-900 sticky top-0 bg-gray-100">
+                    Job Execution & Scheduling
+                </td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+               <a class="dashed-underline" href="{{ "documentation/background-methods/enqueueing-jobs/" | relURL }}"> Enqueueing & Scheduling Jobs (Fire-and-Forget)</a>
+              </th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/background-methods/carbon-aware-jobs/" | relURL }}">Carbon-Aware Job Scheduling</th></a>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/real-time-scheduling/" | relURL }}">Real-Time Scheduling & Enqueueing (Instant execution)</th></a>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Max Recurring Jobs</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">~100 (DB dependent)</td>
+              <td class="py-4 px-6 text-center bg-black text-white">Up to 5,000</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Unlimited</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/background-methods/dealing-with-exceptions/" | relURL }}">Automatic Retry Handling (Exponential Back-off)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/background-methods/recurring-jobs/#recurring-jobs-missed-during-downtime" | relURL }}">Schedule Missed Recurring Jobs (After Downtime)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/job-timeout/" | relURL }}">Job Time-outs</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/configuration/virtual-threads/" | relURL }}">Thread Support (e.g., Project Loom / Virtual Threads)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+
+            <tr class="bg-gray-100">
+                <td colspan="4" class="py-2 px-6 font-bold text-base text-gray-900 sticky top-0 bg-gray-100">
+                    Advanced Workflow & Control
+                </td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/job-chaining/" | relURL }}">Workflow Management (Job Chaining)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/batches/" | relURL }}">Batch Processing (Atomic Batches)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/priority-queues/" | relURL }}">Priority Queues (Up to 5 Levels)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/dynamic-queues/" | relURL }}">Dynamic Queues (Fair-Usage Multi-Tenancy)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/rate-limiters/" | relURL }}">Rate Limiting</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/mutexes/" | relURL }}">Mutexes (Resource Locking)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/server-tags/" | relURL }}">Server Tags (Run jobs on specific servers)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/transactions/" | relURL }}">Transaction Plugin (Spring, Micronaut, Quarkus)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+
+            <tr class="bg-gray-100">
+                <td colspan="4" class="py-2 px-6 font-bold text-base text-gray-900 sticky top-0 bg-gray-100">
+                    Observability & Monitoring
+                </td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/jobrunr-pro-dashboard/" | relURL }}">Dashboard Features</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Simple Overview</td>
+              <td class="py-4 px-6 bg-black text-white text-center">Enhanced Search, Filters, Labels, Observability Integration (Micrometer)</td>
+              <td class="py-4 px-6 bg-[#FAFAFA] text-gray-900 text-center">All Pro Business features + Dashboard SSO, GDPR/HIPAA Redaction</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/jobrunr-pro-multi-dashboard/" | relURL }}">Multi-Cluster Dashboard</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white">❌</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "guides/advanced/k8s-autoscaling/" | relURL }}">K8s Autoscaling Support</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+
+            <tr class="bg-gray-100">
+                <td colspan="4" class="py-2 px-6 font-bold text-base text-gray-900 sticky top-0 bg-gray-100">
+                    Enterprise Readiness & Support
+                </td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "documentation/pro/sso-authentication/" | relURL }}">Dashboard Security (SSO / OpenID Connect)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white">❌</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Enterprise Hardened Releases</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Standard</td>
+              <td class="py-4 px-6 text-center bg-black text-white">Standard</td>
+              <td class="py-4 px-6 bg-[#FAFAFA] text-gray-900 text-center"><span class="table-check-icon"></span><br/>Stress-tested, benchmarked, external security auditing</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "blog/2023-06-06-jobrunr-pro-panic-button/" | relURL }}">Panic Button (Direct notification for critical issues)</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white">❌</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">1 / Year</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Software Bill of Materials (SBOM)</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white">❌</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Commercial License</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">LGPL 3.0</td>
+              <td class="py-4 px-6 text-center bg-black text-white">Standard EULA</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Flexible support for custom procurement processes</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Payment</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
+              <td class="py-4 px-6 text-center bg-black text-white">Credit Card</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Invoice or Credit Card</td>
+            </tr>
+            <tr class="bg-white border-b border-gray-100">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">
+                <a class="dashed-underline" href="{{ "understanding-your-license/" | relURL }}">Cluster / Installation Limit</a></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Single Cluster (Implied)</td>
+              <td class="py-4 px-6 text-center bg-black text-white">One PRD Cluster</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Unlimited</td>
+            </tr>
+            <tr class="bg-white">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900">Priority Support Escalation</th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">Community Support</td>
+              <td class="py-4 px-6 text-center bg-black text-white">Email / HelpDesk, Priority Bug Handling</td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">All Pro Business options + Video Call for Critical Issues </td>
+            </tr>
+            <tr class="bg-white">
+              <th scope="row" class="py-4 px-6 font-medium text-gray-900"></th>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><a class="underline" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden');" rel="noopener">Start your free trial</a></td>
+              <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><a class="underline" href="{{ "/en/get-jobrunr-pro-enterprise" }}">Get In Touch </a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+  <!-- /Feature Comparison Table -->
+
+
+  {{ partial "components/accordion.html" . }}
+  {{ partial "call-to-action.html" . }}
+
+
+  <!-- Trial Modal -->
+  <div id="modal-backdrop" class="hidden fixed inset-0 z-40 bg-primary opacity-50" onclick="document.getElementById('trial-modal').classList.add('hidden'); this.classList.add('hidden');"></div>
+
+  <div id="trial-modal" aria-hidden="true" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full flex items-center justify-center">
+      <div class="relative w-full max-w-md max-h-full my-auto">
+          <div class="relative bg-white rounded-lg shadow-xl">
+              <div class="flex items-center justify-between p-4 rounded-t">
+                  <h3 id="modal-title" class="text-xl font-semibold text-gray-900">
+                      Get Your Free 14-Day JobRunr Pro Trial
+                  </h3>
+                  <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="document.getElementById('trial-modal').classList.add('hidden'); document.getElementById('modal-backdrop').classList.add('hidden');">
+                      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                  </button>
+              </div>
+              <div class="flex items-center justify-between p-4 pt-0 pb-0">
+                <p>Unlock Priority Queues, Job Workflows, Enhanced Search on the Dashboard and so much more for 14 days.</p>
+              </div>
+              <div class="p-6">
+
+                  <form id="trial-form" action="#" method="POST">
+                      <div id="form-content">
+                          <div class="mb-4">
+                              <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email</label>
+                              <input type="email" id="business-email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="you@company.com" required>
+                          </div>
+                          <div class="mb-6">
+                              <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Company</label>
+                              <input type="text" id="company" name="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Company Name" required>
+                          </div>
+                          <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 14-Day Pro Trial</button>
+                      </div>
+                  </form>
+                  
+                  <div id="trial-success-message" class="hidden text-center">
+                      <p class="text-lg font-medium text-green-600 mb-4">
+                          Your trial request was successfully sent!
+                      </p>
+                      <p class="text-gray-700">
+                          We'll get in touch in 1 business day (usually even faster!)
+                      </p>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const triggers = document.querySelectorAll(
+      'main a[href*="pro"]' +
+      ':not([href*="get-jobrunr-pro"])' +
+      ':not([href*="documentation/pro"])' +
+      ':not([href*="blog"])'+
+      ':not([href*="case"])'
+    );
+    const modal = document.getElementById('trial-modal');
+    const backdrop = document.getElementById('modal-backdrop');
+
+    if (!modal || !backdrop) return;
+
+    const open = (e) => {
+      e.preventDefault();
+      modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+    };
+
+    const close = () => {
+      modal.classList.add('hidden');
+      backdrop.classList.add('hidden');
+    };
+
+    triggers.forEach(el => {
+      el.addEventListener('click', open);
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') open(e);
+      });
+    });
+
+    backdrop.addEventListener('click', close);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+    modal.querySelectorAll('[data-close-modal]').forEach(btn => btn.addEventListener('click', close));
+  });
+
+
+document.getElementById('trial-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const formContent = document.getElementById('form-content');
+    const successMessage = document.getElementById('trial-success-message');
+    const modalTitle = document.getElementById('modal-title');
+    
+    // Disable button and show loading state
+    const submitButton = form.querySelector('button[type="submit"]');
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+
+    // Collect form data
+    const formData = {
+        email: form.elements.email.value,
+        company: form.elements.company.value,
+        form: 'trial' 
+    };
+
+    // This is the Webhook URL you get from your N8N workflow.
+    const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
+
+    fetch(n8nWebhookUrl, { 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData) 
+    })
+    .then(response => {
+        if (response.ok) {
+            // Hide the form and show success message
+            formContent.classList.add('hidden');
+            successMessage.classList.remove('hidden');
+            
+            // Update the modal title for a clearer confirmation
+            modalTitle.textContent = 'Success!';
+        } else {
+            // Handle non-OK N8N response
+            throw new Error('N8N webhook returned a non-success status.');
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        
+        // Revert button state and display a generic error message
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Request';
+        alert('There was an error sending your request. Please try again or contact us directly.');
+    });
+});
+</script>
+
+
+{{ end }}

@@ -1,7 +1,7 @@
 ---
 title: "Testing JobRunr against 12 different JVM's"
-summary: "A hands-on tutorial on how JobRunr is tested against 12 different JVM's using TestContainers."
-feature_image: /blog/balloons.webp
+description: "A hands-on tutorial on how JobRunr is tested against 12 different JVM's using TestContainers."
+image: /blog/balloons.webp
 date: 2020-06-01T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

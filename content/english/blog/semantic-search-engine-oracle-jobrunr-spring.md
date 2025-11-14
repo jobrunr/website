@@ -1,11 +1,10 @@
 ---
 title: "Building a Semantic Search Engine: A Blueprint for Vector Search using Oracle Database, JobRunr, and Spring"
-summary: "Step-by-step guide to building a semantic search engine using Oracle Database’s AI Vector Search, JobRunr for background jobs, and Spring Boot."
+description: "Step-by-step guide to building a semantic search engine using Oracle Database’s AI Vector Search, JobRunr for background jobs, and Spring Boot."
 tags: ["blog", "Java", "AI", "JobRunr", "Oracle", "Vector Search"]
 categories: ["AI", "Development"]
-images: 
-    - "/blog/FeaturedImage-Vector.webp"
-feature_image: "/blog/FeaturedImage-Vector.webp"
+image: "/blog/FeaturedImage-Vector.webp"
+image: "/blog/FeaturedImage-Vector.webp"
 date: 2025-08-26T12:00:00+02:00
 author: "Nicholas D'hondt"
 slug: "semantic-search-engine-oracle-jobrunr-spring"

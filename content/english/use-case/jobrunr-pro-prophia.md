@@ -3,7 +3,7 @@ title: "Job Scheduling at Scale: How Prophia’s Team Runs Thousands of Jobs Rel
 author: "Nicholas D'hondt"
 images:
   - /use-case/jobrunr-pro-prophia.webp
-feature_image: /use-case/jobrunr-pro-prophia.webp
+image: /use-case/jobrunr-pro-prophia.webp
 summary: "Prophia processes thousands of commercial leases every night, requiring speed, scale, and reliability.
 By switching to JobRunr Pro, they simplified job scheduling and cut cloud costs.
 Now their developers focus on features, not firefighting failing tasks."

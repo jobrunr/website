@@ -1,7 +1,7 @@
 ---
 title: "JobRunr in the media"
-summary: "Did you already know that JobRunr is featured on Thoughtworks technology radar?"
-feature_image: /blog/2022-12-06-JobRunr-in-the-news.png
+description: "Did you already know that JobRunr is featured on Thoughtworks technology radar?"
+image: /blog/2022-12-06-JobRunr-in-the-news.png
 date: 2022-12-06T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
@@ -36,6 +36,3 @@ JobRunr was featured in [CoffeeJug](https://www.coffeejug.org/) by [Oleh Melnyk]
 </iframe>
 
 <br /><br />
-
-### JobRunr release 6 coming up!
-Did you know that JobRunr 6 is coming up? It will unlock quite some new features, dashboard improvements and bugfixes. Do you want to learn more? Then join us for our [webinar on the 19th of January 2023]({{< ref "webinar-v7.md" >}}) where we will show you what's new. Or join us to ask some technical questions you've always had about JobRunr.

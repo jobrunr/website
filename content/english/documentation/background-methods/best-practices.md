@@ -5,7 +5,7 @@ keywords: ["background processing", "tips", "throwable", "spring boot tips"]
 date: 2020-04-30T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: best-practices
     parent: 'background-methods'
     weight: 75

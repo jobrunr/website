@@ -1,32 +1,65 @@
-### This is the website for JobRunr. 
+# This is the website for JobRunr.
 
 If you see a typo, do not hesitate to create a pull request.
 
 ## How to run locally
-Install node modules:
-```bash
+
+### Prerequisites
+
+1. Install hugo: https://gohugo.io/installation/
+2. Install go: https://go.dev/dl/
+3. Install Node.js: https://nodejs.org/en/download (or use `nvm` https://github.com/nvm-sh/nvm)
+
+### Project setup
+
+Run the following to setup the project:
+```sh
+npm run project-setup
+```
+
+### Run the project locally
+
+1. Install required modules
+
+```sh
 npm i
 ```
 
-Start the server:
-```bash
+2. Start local server
+
+
+```sh
 hugo server -D
 ```
 
-##### TODO:
-- [x] remove webinar popup
-- [ ] Update all content related to v6 and the blog post
-   - [ ] Job Builder
-   - [ ] deleteOnSuccess
-   - [ ] deleteOnFailure
-   - [ ] labels
-   - [ ] job continuations
-   - [ ] workflow
-   - [ ] createOrReplace
-   - [ ] Authentication
-- [ ] Update pricing with listing all features
-- [ ] buy trees
-- [ ] Add management page on the homepage
-  - [ ] different page for developer / manager
-- [ ] Add contact me section via gmail schedule <- lead generation
+> `-D` allows to see draft articles
 
+3. Build with pagefind (you need this at least once for search to work locally)
+
+```
+npx -y pagefind --site public
+```
+
+### Theme
+
+This project uses the hugo fortify theme. You can find its documentation at https://docs.gethugothemes.com/fortify/.
+
+### JobRunr Extensions
+
+We've extended the fortify theme with a few shortcodes of our own.
+
+#### Sidebar menu
+
+This is currently used on the documentation pages. It supports up to 3 levels of nesting.
+
+##### Usage
+The menu type in the front-matter needs to be `sidebar`.
+
+Example:
+```yaml
+menu: 
+  sidebar:
+    identifier: faq
+    name: FAQ
+    weight: 95
+```

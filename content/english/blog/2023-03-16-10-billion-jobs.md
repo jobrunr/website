@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Has Processed more than 10 Billion Jobs Successfully in Less Than a Year"
-summary: "A Testament to Its Power and Flexibility"
-feature_image: /blog/2023-03-16-10-billion-jobs.png
+description: "A Testament to Its Power and Flexibility"
+image: /blog/2023-03-16-10-billion-jobs.png
 date: 2023-03-16T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

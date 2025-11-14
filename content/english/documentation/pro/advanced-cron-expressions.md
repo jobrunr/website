@@ -6,7 +6,7 @@ keywords: ["cron", "cron expression", "cron job expression", "cron job schedulin
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: advanced-cron-expressions
     parent: 'jobrunr-pro'
     weight: 16

@@ -1,7 +1,7 @@
 ---
 title: "Meet the Geek!"
-summary: "Do you have questions about JobRunr? Are you struggling with a problem related to JobRunr? Then join a live coding session where I'll try to answer all your questions!"
-feature_image: /blog/meet-the-geek.png
+description: "Do you have questions about JobRunr? Are you struggling with a problem related to JobRunr? Then join a live coding session where I'll try to answer all your questions!"
+image: /blog/meet-the-geek.png
 date: 2023-05-24T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

@@ -6,9 +6,8 @@ description: "Find out how JobRunr compares to some alternatives"
 date: 2020-09-16T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar: 
     identifier: alternatives
-    parent: 'documentation'
     name: JobRunr compared
     weight: 105
 sitemap:

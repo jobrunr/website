@@ -6,7 +6,7 @@ keywords: ["workflows", "job chains", "process workflow", "process management so
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: job-chaining
     parent: 'jobrunr-pro'
     weight: 10
@@ -36,7 +36,6 @@ public void createArchiveAndNotify(String folder) {
 
 ```
 <figcaption>
-
 The notification will only be sent if the archive is created successfully, and thus the `archiveService.createArchive(String folder)` job succeeded.
 </figcaption>
 </figure>
@@ -60,7 +59,6 @@ public void createArchiveAndNotify(String folder) {
 
 ```
 <figcaption>
-
 The notification will only be sent if the archive could not be created, and thus the `archiveService.createArchive(String folder)` job failed.
 </figcaption>
 </figure>
@@ -87,7 +85,6 @@ public void createArchiveAndNotify(String folder) {
 
 ```
 <figcaption>
-
 The first notification will only be sent if the archive is created, and thus the `archiveService.createArchive(String folder)` job failed. While the second notification is sent only if the archive could not be created, and thus the `archiveService.createArchive(String folder)` job failed.
 </figcaption>
 </figure>
@@ -118,7 +115,6 @@ public void createArchiveAndNotify(String folder) {
 
 ```
 <figcaption>
-
 The notification will only be sent once the archive is created successfully, and thus the `archiveService.createArchive(String folder)` job succeeded.
 </figcaption>
 </figure>

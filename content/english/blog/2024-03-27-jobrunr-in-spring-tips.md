@@ -1,7 +1,7 @@
 ---
 title: "JobRunr featured in Spring Tips!"
-summary: "The great Josh Long created an awesome introductionary video to JobRunr"
-feature_image: /blog/2024-03-30-spring-tips.webp
+description: "The great Josh Long created an awesome introductionary video to JobRunr"
+image: /blog/2024-03-30-spring-tips.webp
 date: 2024-03-30T09:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

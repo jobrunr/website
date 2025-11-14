@@ -1,7 +1,7 @@
 ---
 title: "JobRunr is joining the OpenJDK Quality Outreach program"
-summary: "We make sure JobRunr will run on all future JVM's to come"
-feature_image: /blog/balloons.webp
+description: "We make sure JobRunr will run on all future JVM's to come"
+image: /blog/balloons.webp
 date: 2020-06-25T11:12:23+02:00
 author: "Ronald Dehuysser"
 tags:

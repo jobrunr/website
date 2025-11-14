@@ -1,7 +1,7 @@
 ---
 title: "JobRunr - the best Java Scheduler?"
-summary: "Easily schedule your (batch) jobs in Java and monitor them using JobRunr, a unified programming model to handle background tasks in a reliable way."
-feature_image: /blog/job-scheduler.webp
+description: "Easily schedule your (batch) jobs in Java and monitor them using JobRunr, a unified programming model to handle background tasks in a reliable way."
+image: /blog/job-scheduler.webp
 date: 2025-03-05T09:12:23+02:00
 author: "Ronald Dehuysser"
 tags:
@@ -167,7 +167,7 @@ The [dashboard]({{< ref "/documentation/background-methods/dashboard" >}}) provi
 ## Conclusion
 JobRunr is probably the best choice for a scheduler in any Java project. With its modern features and simple API, you can quickly and easily create one-off jobs, schedule jobs to run at a specific time or after a specific interval.
 
-JobRunr's enterprise-grade capabilities ensure reliability, security, and support for large-scale production deployments, making it the ideal choice for any Java scheduling needs. And, it also comes with great support if you take a [JobRunr Pro license]({{< ref "/jobrunr-pro.md" >}}).
+JobRunr's enterprise-grade capabilities ensure reliability, security, and support for large-scale production deployments, making it the ideal choice for any Java scheduling needs. And, it also comes with great support if you take a [JobRunr Pro license]({{< ref "pro.md" >}}).
 
 ---
 

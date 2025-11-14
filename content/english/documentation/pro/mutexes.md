@@ -6,7 +6,7 @@ keywords: ["mutexes", "shared mutex", "shared mutexes", "mutex", "mutex in os", 
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: mutexes
     parent: 'jobrunr-pro'
     weight: 25

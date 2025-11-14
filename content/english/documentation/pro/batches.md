@@ -6,7 +6,7 @@ keywords: ["batches", "complex workflows", "batch chain"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: batches
     parent: 'jobrunr-pro'
     weight: 15

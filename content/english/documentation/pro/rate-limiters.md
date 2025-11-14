@@ -5,7 +5,7 @@ subtitle: "Control the number of executions of your jobs by using JobRunr's buil
 date: 2024-02-05T14:19:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: rate-limiters
     parent: 'jobrunr-pro'
     weight: 24

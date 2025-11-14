@@ -1,9 +1,9 @@
 ---
 title: "JobRunr Pro increases developer productivity"
-summary: "Thanks to the JobRunr Pro Dashboard!"
+description: "Thanks to the JobRunr Pro Dashboard!"
 description: "JobRunr Pro increases developer productivity as developers are less interrupted by first line support."
 keywords: ["First Line Support", "Second Line Support", "Developer productivity"]
-feature_image: /blog/2022-05-09-astronaut-love.png
+image: /blog/2022-05-09-astronaut-love.png
 date: 2022-05-17T20:00:00+02:00
 author: "Ronald Dehuysser"
 tags:

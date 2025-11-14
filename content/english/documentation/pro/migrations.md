@@ -6,7 +6,7 @@ keywords: ["ci", "cd", "continuous delivery", "refactoring", "cd ci", "continuou
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: job-migrations
     parent: 'jobrunr-pro'
     weight: 34

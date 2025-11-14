@@ -5,7 +5,7 @@ date: 2020-04-30T11:12:23+02:00
 keywords: ["dashboard", "fluent configuration", "spring configuration", "job overview", "find dashboard", "spring boot java configuration", "dashboard board"]
 layout: "documentation"
 menu: 
-  main: 
+  sidebar:
     identifier: dashboard
     parent: 'background-methods'
     weight: 1
