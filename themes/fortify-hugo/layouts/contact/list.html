@@ -1,0 +1,145 @@
+{{ define "main" }}
+{{ with .Params.hero }}
+<section class="section">
+  <div class="container contact-container">
+    <div class="row">
+      <div class="lg:col-7 lg:pe-20 lg:pt-0" data-aos="fade-left-sm">
+        <p class="mb-2 font-medium text-tertiary">
+          {{ .subtitle | markdownify }}
+        </p>
+        <h2 class="md:text-h1 mb-6">
+          {{ .title | markdownify }}
+        </h2>
+        <p class="text-lg">{{ .description | markdownify }}</p>
+        <div class="mt-10 flex flex-col gap-10 sm:flex-row xl:mt-20">
+          {{ range .list }}
+          <div>
+            <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
+              <i class="text-white {{ .icon }}"></i>
+            </div>
+            <h3 class="h6 mb-2 mt-5">{{ .title | markdownify }}</h3>
+            <p class="text-lg">
+              {{ .description | markdownify }}
+            </p>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="relative pt-2 lg:col-5 lg:pt-0" data-aos="fade-left-sm" data-aos-delay="200">
+        <div class="rounded-2xl bg-light p-5 md:p-10" id="n8n-contact-form-container">
+          <p id="n8n-contact-error" style="color: red; display: none; margin-bottom: 10px;"></p>
+          <form class="row g-4" id="n8n-contact-form">
+        <div class="col-12">
+            <label for="contact-email" class="form-label">
+                {{ T "email" }} <span class="text-red-500">*</span>
+            </label>
+            <input id="contact-email" name="email"
+                class="form-input" placeholder="youremail@email.com" required="" type="email" />
+        </div>
+        <div class="col-12">
+            <label for="company-name" class="form-label">
+                {{ T "company_name" }} <span class="text-red-500">*</span>
+            </label>
+            <input id="company-name"
+                name="company-name" class="form-input" placeholder="Your Company Name" required="" type="text" />
+        </div>
+        <div class="col-12">
+            <label for="message" class="form-label">
+                {{ T "write_message" }} <span class="text-red-500">*</span>
+            </label>
+            <textarea id="message" name="message"
+                class="form-input" placeholder="Write Your Message Here" required="" rows="3"></textarea>
+        </div>
+        <div class="col-12">
+            <button type="submit" id="n8n-contact-submit" class="btn btn-regular">
+                {{ T "send_message" }}
+            </button>
+        </div>
+    </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+document.getElementById('n8n-contact-form').addEventListener('submit', function(event) {
+    // 1. Prevent the default form submission
+    event.preventDefault();
+
+    // 2. Get all the necessary elements
+    const formContainer = document.getElementById('n8n-contact-form-container');
+    const form = event.target;
+    const submitButton = document.getElementById('n8n-contact-submit');
+    const errorMessage = document.getElementById('n8n-contact-error');
+    
+    // Get all form input elements
+    const emailInput = document.getElementById('contact-email');
+    const companyInput = document.getElementById('company-name');
+    const messageInput = document.getElementById('message');
+
+    // 3. !!! IMPORTANT: REPLACE THIS URL !!!
+    const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe'; 
+
+    // 4. Prepare the data to send (as JSON)
+    const formData = {
+        email: emailInput.value,
+        company: companyInput.value,
+        message: messageInput.value,
+        form: 'contact' // This field is now included
+    };
+
+    // 5. Disable the form to prevent multiple submissions
+    submitButton.disabled = true;
+    submitButton.innerHTML = 'Sending...'; // Use innerHTML to match your T "send_message"
+    emailInput.disabled = true;
+    companyInput.disabled = true;
+    messageInput.disabled = true;
+    errorMessage.style.display = 'none';
+
+    // 6. Send the data to your N8N webhook
+    fetch(n8nWebhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        // 7. Check if the submission was successful
+        if (response.ok) {
+            // SUCCESS: Replace the form with the success message
+            formContainer.innerHTML = '<p>We received your message and will get in touch!</p>';
+        } else {
+            // ERROR: Show an error message
+            throw new Error('Submission failed. Server returned an error.');
+        }
+    })
+    .catch(error => {
+        // 8. Handle any network errors
+        console.error('Form Submission Error:', error);
+        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.style.display = 'block';
+
+        // Re-enable the form so the user can try again
+        submitButton.disabled = false;
+        submitButton.innerHTML = '{{ T "send_message" }}'; // Reset button text
+        emailInput.disabled = false;
+        companyInput.disabled = false;
+        messageInput.disabled = false;
+    });
+});
+</script>
+{{ end }}
+
+
+
+<!-- accordion -->
+{{ partial "components/accordion" . }}
+<!-- /accordion -->
+
+
+<!-- Call to action -->
+{{ partial "call-to-action.html" . }}
+<!-- /Call to action -->
+
+{{ end }}

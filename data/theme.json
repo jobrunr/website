@@ -1,0 +1,30 @@
+{
+  "colors": {
+    "default": {
+      "theme_color": {
+        "primary": "#744cbf", 
+        "secondary": "#00F0B5",
+        "tertiary": "#744cbf",
+        "quaternary": "#f2f2f2",
+        "body": "#fff",
+        "border": "#e0e0e0",
+        "light": "#fafafa",
+        "dark": "#1d1d1d"
+      },
+      "text_color": {
+        "text": "#464646",
+        "text-dark": "#1d1d1d",
+        "text-light": "#f6f6f6"
+      }
+    }
+  },
+  "fonts": {
+    "font_family": {
+      "primary": "-apple-system, 'system-ui', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+      "primary_type": "sans-serif",
+      "secondary": "-apple-system, 'system-ui', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
+      "secondary_type": "sans-serif"
+    },
+    "font_size": { "base": "16", "scale": "1.262" }
+  }
+}

@@ -1,0 +1,297 @@
+{{ with site.GetPage "sections/pricing-plan" }}
+  <div class="row gx-2">
+    <div
+      class="col-12 pb-10"
+      data-aos="fade-up-sm"
+      data-aos-delay="200">
+      <div class="flex items-center justify-center gap-x-3">
+        <span class="select-none font-medium order-0">{{ T "monthly" }}</span
+        ><span class="select-none font-medium order-3">{{ T "yearly" }}</span
+        ><label
+          class="relative inline-block h-8 w-16 cursor-pointer order-1 rounded-full bg-dark/10"
+          ><span class="sr-only">Pricing Switcher</span
+          ><input
+            type="checkbox"
+            id="checkbox"
+            class="pricing-check peer w-full cursor-pointer opacity-0" /><span
+            class="absolute left-0 top-0 cursor-pointer before:absolute before:left-1 before:top-1 before:h-6 before:w-6 before:translate-x-0 before:rounded-full before:bg-tertiary before:transition-all before:delay-75 before:duration-300 peer-checked:before:translate-x-8"></span
+        ></label>
+      </div>
+    </div>
+    <div class="grid lg:grid-cols-3 gap-2">
+    {{ with .Params.basic_plan }}
+      <div
+        data-aos="fade-up-sm"
+        data-aos-delay="200">
+        <div
+          class="bg-light group mb-12 flex min-h-full flex-col items-start gap-8 rounded-xl px-6 py-10 xl:px-8 xl:py-12 last:mb-0 md:gap-12 md:rounded-3xl">
+          <div class="flex flex-wrap items-center gap-4">
+            <h2 class="counter h5 group-[.has-dark-bg]:text-light">
+              <span>{{ .title | markdownify }}</span>
+            </h2>
+          </div>
+          <p class="text-lg ">{{ .description | markdownify }}</p>
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <strong class="h4 group-[.has-dark-bg]:text-light">
+              <!-- UPDATED: Added .price-currency class and data-usd-symbol -->
+              <span class="price-currency" data-usd-symbol="{{ .currency_usd | default .currency | markdownify }}">{{ .currency | markdownify }}</span>
+              <!-- UPDATED: Added .price-value class and data-usd-price-monthly -->
+              <span class="price-value" data-usd-price-monthly="{{ .monthly_price_usd | default .monthly_price | markdownify }}">{{ .monthly_price | markdownify }}</span>
+            </strong>
+            <span
+              class="text-monthly text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_monthly | markdownify }}</span
+            ><span
+              class="text-yearly hidden text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_yearly
+                | markdownify
+              }}</span
+            >
+          </div>
+          <ul class="list list-tertiary">
+            {{ range .list }}
+              <li class="mb-2 text-lg ">{{ .item | markdownify }}</li>
+            {{ end }}
+          </ul>
+
+          {{ if .button.enable }}
+          <div class="mt-auto">
+            <a class="btn-dark btn mt-auto" href="{{ .button.link | absURL }}"
+              >{{ .button.label | markdownify }}<span class="icon-wrapper"
+                ><span class="icon"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                ><span class="icon" aria-hidden="true"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span
+            ></a><a class="flex mt-4 ml-2 text-sm opacity-80 hover:opacity-100 items-center" style="visibility: hidden;">get started</a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+    {{ with .Params.premium_plan }}
+      <div
+        data-aos="fade-up-sm"
+        data-aos-delay="350">
+        <div
+          class="has-dark-bg bg-dark text-light group mb-12 flex min-h-full flex-col items-start gap-8 rounded-xl px-6 py-10 xl:px-8 xl:py-12 last:mb-0 md:gap-12 md:rounded-3xl">
+          <div class="flex items-center gap-4">
+            <h2 class="counter h5 group-[.has-dark-bg]:text-light">
+              <span>{{ .title | markdownify }}</span>
+            </h2>
+            <span
+              class="rounded-full bg-secondary px-5 py-1.5 font-medium text-text-dark"
+              >{{ .recommended | markdownify }}</span
+            >
+          </div>
+          <p class="text-lg ">{{ .description | markdownify }}</p>
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <strong class="h4 group-[.has-dark-bg]:text-light">
+              <!-- UPDATED: Added .price-currency class and data-usd-symbol -->
+              <span class="price-currency" data-usd-symbol="{{ .currency_usd | default .currency | markdownify }}">{{ .currency | markdownify }}</span>
+              <!-- UPDATED: Added .price-value class and data-usd-* attributes for monthly/yearly -->
+              <span
+                class="data-count price-value"
+                data-count-yearly="{{ .yearly_price | markdownify }}"
+                data-count-monthly="{{ .monthly_price | markdownify }}"
+                data-usd-price-yearly="{{ .yearly_price_usd | default .yearly_price | markdownify }}"
+                data-usd-price-monthly="{{ .monthly_price_usd | default .monthly_price | markdownify }}"
+                >{{ .monthly_price | markdownify }}</span>
+            </strong>
+            <span
+              class="text-monthly text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_monthly | markdownify }}</span
+            ><span
+              class="text-yearly hidden text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_yearly
+                | markdownify
+              }}</span
+            >
+          </div>
+          <ul class="list list-tertiary">
+            {{ range .list }}
+              <li class="mb-2 text-lg ">
+                {{ .item | markdownify }}
+              </li>
+            {{ end }}
+          </ul>
+          {{ if .button.enable }}
+          <div>  
+          <a
+              class="btn btn-light hover:bg-slate-600 mt-auto"
+              href="{{ .button.link | absURL }}"
+              >{{ .button.label }}<span class="icon-wrapper"
+                ><span class="icon"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                ><span class="icon" aria-hidden="true"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span
+            ></a>
+            <a class="flex mt-4 ml-2 text-sm opacity-80 hover:opacity-100 items-center" href="{{ .button.link2 }}">Or get in touch to request a quote</a>
+            </div>
+          {{ end }}
+                  
+
+        </div>
+      </div>
+    {{ end }}
+    {{ with .Params.enterprise_plan }}
+      <div
+        data-aos="fade-up-sm"
+        data-aos-delay="400">
+        <div
+          class="bg-light group mb-12 flex min-h-full flex-col items-start gap-8 rounded-xl px-6 py-10 xl:px-8 xl:py-12 last:mb-0 md:gap-12 md:rounded-3xl">
+          <div class="flex flex-wrap items-center gap-4">
+            <h2 class="counter h5 group-[.has-dark-bg]:text-light">
+              <span>{{ .title | markdownify }}</span>
+            </h2>
+          </div>
+          <p class="text-lg ">{{ .description | markdownify }}</p>
+          <div class="flex flex-col gap-2 sm:flex-row sm:items-center">
+            <strong class="h4 group-[.has-dark-bg]:text-light">
+              <!-- UPDATED: Added .price-currency class and data-usd-symbol -->
+              <span class="price-currency" data-usd-symbol="{{ .currency_usd | default .currency | markdownify }}">{{ .currency | markdownify }}</span>
+              <!-- UPDATED: Added .price-value class and data-usd-price-monthly -->
+              <span class="price-value" data-usd-price-monthly="{{ .monthly_price_usd | default .monthly_price | markdownify }}">{{ .monthly_price | markdownify }}</span>
+            </strong>
+            <span
+              class="text-monthly text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_monthly | markdownify }}</span
+            ><span
+              class="text-yearly hidden text-lg  group-[.has-dark-bg]:text-light"
+              >{{ .billed_yearly
+                | markdownify
+              }}</span>
+          </div>
+          <ul class="list list-tertiary">
+            {{ range .list }}
+              <li class="mb-2 text-lg ">{{ .item | markdownify }}</li>
+            {{ end }}
+          </ul>
+
+          {{ if .button.enable }}
+          <div class="mt-auto">
+            <a class="btn mt-auto btn-dark" href="{{ .button.link | absURL }}"
+              >{{ .button.label | markdownify }}<span class="icon-wrapper"
+                ><span class="icon"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                ><span class="icon" aria-hidden="true"
+                  ><svg
+                    stroke="currentColor"
+                    fill="currentColor"
+                    stroke-width="0"
+                    viewBox="0 0 448 512"
+                    height="1em"
+                    width="1em"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span
+            ></a><a class="flex mt-4 ml-2 text-sm opacity-80 hover:opacity-100 items-center" style="visibility: hidden;">get started</a>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    {{ end }}
+    </div>
+  </div>
+{{ end }}
+
+<!-- 
+  ADD THIS SCRIPT BLOCK TO YOUR TEMPLATE
+  (Or add it to your site's global JS file)
+-->
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // List of currencies to treat as "Dollar"
+    // You can add others like 'CAD', 'AUD', etc.
+    const dollarCurrencies = ['USD', 'CAD', 'AUD', 'NZD', 'SGD', 'HKD'];
+
+    fetch('https://ipapi.co/currency/')
+      .then(resp => {
+        if (!resp.ok) {
+          throw new Error('Currency API failed');
+        }
+        return resp.text()
+      })
+      .then(currency => {
+        
+        if (dollarCurrencies.includes(currency)) {
+          // 1. Update all currency symbols
+          const currencyElements = document.querySelectorAll('.price-currency');
+          currencyElements.forEach(el => {
+            if (el.dataset.usdSymbol) {
+              el.innerHTML = el.dataset.usdSymbol;
+            }
+          });
+
+          // 2. Update all price values
+          const priceElements = document.querySelectorAll('.price-value');
+          priceElements.forEach(el => {
+            // Check if it's the premium plan toggle
+            const isPremiumToggle = el.classList.contains('data-count');
+            
+            if (isPremiumToggle && el.dataset.usdPriceMonthly && el.dataset.usdPriceYearly) {
+              // Update the displayed price
+              el.innerHTML = el.dataset.usdPriceMonthly;
+              
+              // Update the data attributes for the toggle script to use
+              el.dataset.countMonthly = el.dataset.usdPriceMonthly;
+              el.dataset.countYearly = el.dataset.usdPriceYearly;
+
+            } else if (el.dataset.usdPriceMonthly) {
+              // This handles Basic and Enterprise plans
+              el.innerHTML = el.dataset.usdPriceMonthly;
+            }
+          });
+        }
+        // If not a dollar currency, do nothing. The default EUR prices will be shown.
+        
+      })
+      .catch(err => {
+        console.warn('Could not fetch user currency, defaulting to EUR.');
+      });
+  });
+</script>

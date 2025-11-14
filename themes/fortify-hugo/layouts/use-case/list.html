@@ -1,0 +1,49 @@
+{{ define "main" }}
+  {{/* Paginate all regular pages */}}
+  {{ $paginator := .Paginate .RegularPages }}
+
+  <section class="section overflow-hidden">
+    <div class="container">
+      <div class="row">
+        {{/* This is the title block for the regular blog list.
+          You can update the .Params.blog values in your _index.md 
+          to something like:
+          
+          [blog]
+          subtitle = "Our Blog"
+          title = "All Posts"
+          description = "Here you can find all our articles."
+        */}}
+        {{ with .Params.blog }}
+          <div
+            class="mx-auto text-center lg:col-10"
+            data-aos="fade-up-sm">
+            <p class="mb-2 font-medium text-tertiary">
+              {{ .subtitle | markdownify }}
+            </p>
+            <h2 class="mb-6">{{ .title | markdownify }}</h2>
+            <p class="text-lg ">{{ .description | markdownify }}</p>
+          </div>
+        {{ end }}
+
+
+        <div
+          class="col-12 pt-10"
+          data-aos="fade-up-sm"
+          data-aos-delay="200">
+          <div class="row gx-4 gy-5 justify-start md:gx-5">
+            {{ range $paginator.Pages }}
+              {{/* This div now uses md:col-6 to force 2 columns */}}
+              <div class=" md:col-6">
+                {{ partial "components/blog-card" (dict "Context" .) }}
+              </div>
+            {{ end }}
+          </div>
+          <div class="mt-16">
+            {{ partial "components/pagination.html" . }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}

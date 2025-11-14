@@ -1,0 +1,4 @@
+{{ range $index, $tag := .Params.tags }}
+<template data-pagefind-filter="tag:{{strings.FirstUpper $tag}}">{{ $tag }}</template>
+{{ end }}
+<template data-pagefind-filter="type:{{strings.FirstUpper .Section}}">{{ .Section }}</template>
