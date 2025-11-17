@@ -38,7 +38,7 @@ You can combine multiple filters to quickly find any job you are looking for usi
 - Created after / Created before
 - Updated after / Updated before 
 
-To see a complete demo of JobRunr Pro with job filtering, have a look at this [blog post](/blog/2021-07-12-jobrunr-pro-v3.4.0).
+To see a complete demo of JobRunr Pro with job filtering, have a look at this [blog post](/en/blog/2021-07-12-jobrunr-pro-v3.4.0).
 
 > This feature works great in combination with the [custom delete policies]({{< ref "custom-delete-policy.md" >}}). As you keep less data in your storage provider (either SQL or NoSQL), job filtering will be faster if there is less data.
 

@@ -18,7 +18,7 @@ list:
   - title: "Is JobRunr Pro ready for enterprise or regulated environments?"
     description: "Yes. Pro is built for this. It includes features like Single Sign-On (SSO) for dashboard access, audit trails, and support to help you meet your GDPR and HIPAA compliance requirements."
   - title: "How can I convince my manager to buy Pro?"
-    description: "We can help. We prepared an email with 5 clear reasons that frame Pro as an investment that saves development time, reduces infrastructure costs, and lowers production risk. [You can find the email template here.](/convince-your-boss)"
+    description: "We can help. We prepared an email with 5 clear reasons that frame Pro as an investment that saves development time, reduces infrastructure costs, and lowers production risk. [You can find the email template here.](/en/convince-your-boss)"
   - title: "We are a startup or non-profit. Do you have special pricing?"
     description: "Yes. We offer special plans for startups, freelancers, and non-profits. We also offer royalty-free licenses if you want to redistribute JobRunr. Please reach out to us, and we will find a plan that works for you."
   - title: "We are an existing customer. Does our pricing change?"

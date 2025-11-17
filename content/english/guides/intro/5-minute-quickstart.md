@@ -36,7 +36,7 @@ We recommend using the latest version of JobRunr (e.g., `8.1.0`).
 implementation 'org.jobrunr:jobrunr:8.1.0'
 ```
 
-> **Tip:** Are you using <a href="/documentation/configuration/spring/">Spring</a>, <a href="/documentation/configuration/micronaut/">Micronaut</a> or <a href="/documentation/configuration/quarkus/">Quarkus</a>? We created starters to get you going even quicker.
+> **Tip:** Are you using <a href="/en/documentation/configuration/spring/">Spring</a>, <a href="/en/documentation/configuration/micronaut/">Micronaut</a> or <a href="/en/documentation/configuration/quarkus/">Quarkus</a>? We created starters to get you going even quicker.
 
 ### Step 2: Initialize JobRunr
 
@@ -64,7 +64,7 @@ public class MainApplication {
 
 ### Step 3: Schedule your first job
 
-Now, let's schedule a <a href= "/documentation/background-methods/recurring-jobs/recurring"> recurring job </a> to run every minute. JobRunr uses CRON expressions for scheduling.
+Now, let's schedule a <a href= "/en/documentation/background-methods/recurring-jobs"> recurring job </a> to run every minute. JobRunr uses CRON expressions for scheduling.
 
 Add this code to your `main` method right after `.initialize()`:
 

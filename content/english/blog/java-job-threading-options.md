@@ -111,7 +111,7 @@ Beyond simplifying concurrency, JobRunr provides a complete solution for robust 
 Take a look at your current background job implementation. Could it be more resilient, scalable, or easier to monitor?
 
 -   Explore [JobRunr on GitHub](https://github.com/jobrunr/jobrunr).
--   Check out the [JobRunr Documentation](/documentation) for configuration details, storage options, and features.
+-   Check out the [JobRunr Documentation](/en/documentation) for configuration details, storage options, and features.
 -   Consider trying JobRunr in your next project to experience how much easier reliable background processing can be!
 
 By applying these principles and leveraging the right tools, you can build Java background job systems that are truly production-ready. Happy coding!

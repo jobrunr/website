@@ -39,7 +39,7 @@ At Fincarna, we process everything from account reconciliations (hello, ETL!) to
 The last thing I want is my job framework forcing me to think in terms of "chunks" and "item processors" when I'm just trying to send a fee notification or update an account balance.
 Sometimes the best design is the one that gets out of your way.
 
-> We discuss the importance of choosing the right tool for the job in our article on [modern alternatives to Quartz](/blog/2024-10-31-task-schedulers-java-modern-alternatives-to-quartz/).
+> We discuss the importance of choosing the right tool for the job in our article on [modern alternatives to Quartz](/en/blog/2024-10-31-task-schedulers-java-modern-alternatives-to-quartz/).
 
 ## Scaling: The Art of Not Breaking Things
 In fintech, scaling isn't just about handling more load, it's about handling more load without accidentally charging the same fee twice or missing a revenue opportunity.
@@ -49,7 +49,7 @@ The stakes are a bit higher than your average e-commerce site.
 What I love about [JobRunr Pro](/en/pro) is that <b>scaling feels natural</b>. Need more throughput? Add more workers.
 Need to handle spikes? The system adapts. No need to become a distributed systems PhD just to process more background jobs without losing money.
 
-> Want to learn more about K8S autoscaling, check out the guide [Autoscale your JobRunr application deployed on Kubernetes](/guides/advanced/k8s-autoscaling/) or our blogpost [Optimizing Cost and Performance on Kubernetes: Scale Java Workloads with JobRunr Metrics](/blog/Scale-Java-Workloads-On-Kubernetes/)
+> Want to learn more about K8S autoscaling, check out the guide [Autoscale your JobRunr application deployed on Kubernetes](/en/guides/advanced/k8s-autoscaling/) or our blogpost [Optimizing Cost and Performance on Kubernetes: Scale Java Workloads with JobRunr Metrics](/en/blog/Scale-Java-Workloads-On-Kubernetes/)
 
 The beauty is in the simplicity: your jobs scale horizontally without you having to think about partitioning strategies or coordination protocols.
 Because honestly, I'd rather spend my time building features that make banks money than debugging why my job queue decided to process everything twice.
@@ -64,7 +64,7 @@ This is especially crucial in banking applications where your database is often 
 The last thing you want is your background job to process monthly statements interfering with calculating a real-time fee.
 
 ## The Features That Actually Mattered for Us
-### [JobFilters](/documentation/pro/job-filters/)
+### [JobFilters](/en/documentation/pro/job-filters/)
 This is where [JobRunr Pro](/en/pro) shows its distributed systems maturity.
 When you're running jobs across multiple nodes in a cluster, thread-local variables become... complicated.
 Add multi-tenancy to the mix (because of course we're multi-tenant), and JobFilters become absolutely essential.
@@ -102,7 +102,7 @@ class UserContextServerFilter : JobServerFilter {
     }
 }
 ```
-### [Job Dependencies & Workflows](/documentation/background-methods/background-jobs-dependencies/)
+### [Job Dependencies & Workflows](/en/documentation/background-methods/background-jobs-dependencies/)
 This is where <b>JobRunr Pro</b> really <b>shines for complex financial operations</b>.
 Being able to define job dependencies means we can orchestrate multi-step processes without the usual coordination headaches.
 The parent job functionality gave us a solid foundation, but we sprinkled some extra magic on top to make chunking easier.
@@ -156,18 +156,18 @@ override fun startProcessingWorkflow(batchId: String): JobProId {
 
 Take invoice generation, for example. We need to calculate all fees for the period, apply any promotional discounts, generate invoice files, and then send notifications.
 
-With [JobRunr Pro](/en/pro)'s [workflow capabilities](/documentation/pro/job-chaining/), we can chain these steps together elegantly—if fee calculation fails, we don't waste time generating invoice files.
+With [JobRunr Pro](/en/pro)'s [workflow capabilities](/en/documentation/pro/job-chaining/), we can chain these steps together elegantly—if fee calculation fails, we don't waste time generating invoice files.
 If invoice generation succeeds but notification fails, we can retry just the notification step.
 <b>It's like having a state machine, but without the complexity.</b>
 
-### [Spring Boot Integration](/documentation/configuration/spring/)
+### [Spring Boot Integration](/en/documentation/configuration/spring/)
 At Fincarna, we're pretty much a Spring shop, we love the ecosystem, the conventions, and how everything just works together.
 
 [JobRunr Pro](/en/pro)'s seamless Spring Boot integration means we didn't have to fight our existing architecture or learn a completely new way of doing things.
 Configuration is clean, dependency injection works as expected, and our job classes fit naturally into our existing Spring context.
 
 ### Kubernetes Vision
-While we're currently using our own container orchestration approach at Fincarna, knowing that JobRunr Pro is built with [Kubernetes](/guides/advanced/k8s-autoscaling/) in mind gives me confidence for future scaling decisions.
+While we're currently using our own container orchestration approach at Fincarna, knowing that JobRunr Pro is built with [Kubernetes](/en/guides/advanced/k8s-autoscaling/) in mind gives me confidence for future scaling decisions.
 When we do evaluate different orchestration strategies, we won't need to rethink our entire job processing architecture.
 
 ## The Bottom Line
@@ -182,7 +182,7 @@ These are the problems worth solving. Everything else should just work.
 > ## Ready to take control of your background jobs?
 >Stop wrestling with frameworks that weren't built for your use case. Discover how JobRunr Pro can simplify your architecture, scale with your needs, and let you focus on what you do best.
 >
->[Explore JobRunr Pro Features](/en/pro) or [Request a Free Trial](/try-jobrunr-pro/)
+>[Explore JobRunr Pro Features](/en/pro) or [Request a Free Trial](/en/try-jobrunr-pro/)
 
 ***
 *Lloyd Chandran is the founder and lead architect of <a href="https://fincarna.com/">Fincarna</a>, a cutting-edge, cloud-native monetization platform helping small and medium banks compete in the digital age. When he's not building Fincarna's next feature, he's probably debugging why his lawn mower isn't working (again).*

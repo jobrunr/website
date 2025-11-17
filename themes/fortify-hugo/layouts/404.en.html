@@ -45,4 +45,22 @@
       </div>
     </div>
   </section>
+  <script>
+        (function() {
+            var currentPath = window.location.pathname;
+            
+            // Check if the path is missing the '/en/' prefix
+            if (!currentPath.startsWith("/en/")) {
+                
+                // Construct the new URL
+                var newPath = "/en" + currentPath;
+                
+                // Optional: You can log this to console to see it happening
+                console.log("Redirecting from " + currentPath + " to " + newPath);
+                
+                // Perform the redirect immediately
+                window.location.replace(newPath);
+            }
+        })();
+    </script>
 {{ end }}

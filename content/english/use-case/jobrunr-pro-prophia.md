@@ -12,7 +12,7 @@ tags:
   - use-case
 ---
 
-Managing data for commercial real estate is no small task, especially when dealing with thousands of leases and heavy data processing every night. Prophia, a SaaS company specializing in lease abstraction and analytics, relies on [JobRunr Pro](/pricing/) to keep their operations smooth and scalable. It’s become a favorite tool for their developers, thanks to its simplicity and performance under pressure.
+Managing data for commercial real estate is no small task, especially when dealing with thousands of leases and heavy data processing every night. Prophia, a SaaS company specializing in lease abstraction and analytics, relies on [JobRunr Pro](/en/pricing/) to keep their operations smooth and scalable. It’s become a favorite tool for their developers, thanks to its simplicity and performance under pressure.
 
 ## The Challenge Prophia Faced
 
@@ -25,13 +25,13 @@ Their old system forced them to run additional servers full-time to handle peak 
 
 ## Why They Chose JobRunr Pro
 
-Prophia explored several options, including [Quartz Scheduler](/blog/2024-10-31-task-schedulers-java-modern-alternatives-to-quartz/), but JobRunr Pro stood out for its lightweight setup and developer-friendly design.
+Prophia explored several options, including [Quartz Scheduler](/en/blog/2024-10-31-task-schedulers-java-modern-alternatives-to-quartz/), but JobRunr Pro stood out for its lightweight setup and developer-friendly design.
 
 > "We liked that JobRunr Pro didn’t require constant maintenance or specialized knowledge to get started," Brent said. "It just fits into your system without any hassle."
 
 ## What Changed After Adopting JobRunr Pro
 
-Integrating [JobRunr Pro](/pricing/) was quick and straightforward for Prophia. Their developers were able to adapt it to their workflows within a couple of weeks. 
+Integrating [JobRunr Pro](/en/pricing/) was quick and straightforward for Prophia. Their developers were able to adapt it to their workflows within a couple of weeks. 
 
 The results have been impressive:
 - **Scalability:** Prophia can now scale their worker clusters dynamically, reducing the number of servers they need during quiet periods and adding capacity when workloads increase.  
@@ -42,9 +42,9 @@ The results have been impressive:
 
 ## Features That Make the Difference
 
-Prophia has made full use of [JobRunr Pro](/pricing/)’s advanced features, which have directly addressed their needs:
+Prophia has made full use of [JobRunr Pro](/en/pricing/)’s advanced features, which have directly addressed their needs:
 
-- **Batch Jobs and Priority Queues:** By using [priority queues](/blog/prioritizing-background-jobs/), Prophia ensures that critical jobs, like customer notifications, are never delayed by heavy workloads.  
+- **Batch Jobs and Priority Queues:** By using [priority queues](/en/blog/prioritizing-background-jobs/), Prophia ensures that critical jobs, like customer notifications, are never delayed by heavy workloads.  
 - **Worker Threads Customization:** Prophia fine-tuned their worker threads to balance performance and resource usage. This allowed them to scale their system while staying cost-effective.  
 - **Real-Time Monitoring:** The ability to track jobs in real-time helped their team quickly identify and fix issues with resource bottlenecks.
 

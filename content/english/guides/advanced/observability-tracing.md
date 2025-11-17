@@ -11,7 +11,7 @@ tags:
 
 In this JobRunr Pro guide, we will unfold JobRunr's observability features that go beyond simply logging. In this part, we'll investigate how to integrate with OpenTelemetry to easily trace distributed end-to-end API calls that might run through a JobRunr job. 
 
-> If you are interested in exposing JobRunr-specific metrics and feeding these into your observability platform, please consult the [observability: metrics guide](/guides/advanced/observability-metrics) instead.
+> If you are interested in exposing JobRunr-specific metrics and feeding these into your observability platform, please consult the [observability: metrics guide](/en/guides/advanced/observability-metrics) instead.
 
 ## Prerequisites
 

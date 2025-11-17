@@ -15,7 +15,7 @@ In this guide, we will unfold JobRunr's observability features that go beyond si
 
 > ⚠️ **Warning**: Adding any metrics to your application will generally impact performance as it adds extra computational/IO overhead. Only do this if you intent to monitor them and be sensible with metric scraping configurations.
 
-> If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/guides/advanced/observability-tracing).
+> If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/en/guides/advanced/observability-tracing).
 
 ## Prerequisites
 
@@ -490,5 +490,5 @@ By configuring job and background server metrics, JobRunr is able to plug into t
 
 ## Further reading
 - [More metrics configuration options](/en/documentation/configuration/metrics/)
-- [How to publish Job execution traces](/guides/advanced/observability-tracing)
+- [How to publish Job execution traces](/en/guides/advanced/observability-tracing)
 

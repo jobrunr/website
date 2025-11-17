@@ -232,7 +232,7 @@ Once it's time for our scheduled jobs to execute, they'll be queued and then pro
 If we wait 5 minutes and don't schedule any new jobs, our deployment will scale back to 0.
 
 ## Autoscaling your secured JobRunr dashboard
-Securing your JobRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requires some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
+Securing your JobRunr dashboard is explained in detail in the [authentication guides](/en/guides/authentication/). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requires some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
 
 ## Limitations and considerations
 Deploying a distributed application with enabled autoscaling might be tricky. There are some corner cases that may not be obvious at first. Moreover, Kubernetes comes with some limitations that we should be aware of.
@@ -262,7 +262,7 @@ spec:
 ```
 {{</ codeblock >}}
 
-Similarly, a termination period would also have to be configured for JobRunr. There are multiple different options to [configure JobRunr](/documentation/configuration/). Since we are using the `jobrunr-pro-spring-boot-3-starter` dependency, we can add the following property to the `application.properties`:
+Similarly, a termination period would also have to be configured for JobRunr. There are multiple different options to [configure JobRunr](/en/documentation/configuration/). Since we are using the `jobrunr-pro-spring-boot-3-starter` dependency, we can add the following property to the `application.properties`:
 {{< codeblock >}}
 
 ```properties
@@ -273,10 +273,10 @@ jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=90m
 > Important thing to note here, is that the Kubernetes termination period should match or be larger than the JobRunr one. This will ensure a safe interruption of the jobs and graceful termination of the JobRunr. If you are curious about how Kubernetes terminates the Pods, you can follow [this link](https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#pod-termination).
 
 ### Poll interval
-The workers' usage is updated at every [background job server poll interval](documentation/configuration/spring#advanced-configuration). Therefore, setting a shorter poll interval in HPA when using only workers' usage metric is not going to increase the frequency of workers' usage updates.
+The workers' usage is updated at every [background job server poll interval](/en/documentation/configuration/spring#advanced-configuration). Therefore, setting a shorter poll interval in HPA when using only workers' usage metric is not going to increase the frequency of workers' usage updates.
 
 ## Autoscaling your secured JobRunr dashboard
-Securing your JobRunr dashboard is explained in detail in the [authentication guides](guides/authentication/_index.md). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requires some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
+Securing your JobRunr dashboard is explained in detail in the [authentication guides](/en/guides/authentication/). KEDA inside your Kubernetes cluster can still access the secured metrics API, but it requires some additional configuration. This is described in detail in the [KEDA documentation](https://keda.sh/docs/2.14/concepts/authentication/).
 
 ## Conclusion
 In this guide, we’ve learned how to set up autoscaling in Kubernetes using KEDA and use the JobRunr Pro metrics API to create the scaling triggers.

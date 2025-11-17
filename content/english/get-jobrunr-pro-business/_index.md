@@ -5,7 +5,7 @@ translationKey: "request-jobrunr-pro-business-quote"
 description: "Supercharge your background jobs with advanced features. Scale your operations and get priority support. Speak to our team."
 draft: false
 type: "get-jobrunr-pro" 
-
+aliases: ["/pro/try-jobrunr-pro"]
 
 hero:
   subtitle: "Request a quote"

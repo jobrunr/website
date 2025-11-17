@@ -77,7 +77,7 @@ If you're building resilient, scalable systems, this new provider fits right in.
 
 CockroachDB is our newest addition—but it’s far from the only one.
 JobRunr now supports more than **10 StorageProviders**.
-👉 [Check out the full overview here.](documentation/installation/storage/)
+👉 [Check out the full overview here.](/en/documentation/installation/storage/)
 
 ### 🧹 Pro-Only Fixes and Enhancements
 

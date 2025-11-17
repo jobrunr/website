@@ -9,7 +9,7 @@ tags:
 hideFrameworkSelector: true
 ---
 
-[Flyway](https://flywaydb.org/) is a database migration tool that simplifies the process of managing and applying database changes across different environments. This guide will walk you through migrating your JobRunr Pro database using Flyway. If you're looking for other guides on database configuration and migration, please browse the [database guides](/guides/database/).
+[Flyway](https://flywaydb.org/) is a database migration tool that simplifies the process of managing and applying database changes across different environments. This guide will walk you through migrating your JobRunr Pro database using Flyway. If you're looking for other guides on database configuration and migration, please browse the [database guides](/en/guides/database/).
 
 ## Prerequisites
 

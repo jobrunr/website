@@ -251,7 +251,7 @@ JobRunr is an ideal tool for developers working on RAG systems due to its:
 Whether you’re automating customer support, processing financial data, or managing medical research workflows, JobRunr can help you simplify these operations.
 
 **Start streamlining your RAG workflows today with JobRunr.** 
-Download the [free version](https://github.com/jobrunr/jobrunr) or explore the advanced features of [JobRunr Pro](/pricing/).
+Download the [free version](https://github.com/jobrunr/jobrunr) or explore the advanced features of [JobRunr Pro](/en/pricing/).
 
 ---
 
@@ -260,13 +260,13 @@ Download the [free version](https://github.com/jobrunr/jobrunr) or explore the a
 JobRunr automates job scheduling and error handling, making RAG workflows simpler, reliable, and easier to scale. It simplifies embedding synchronization by allowing developers to create functions or methods and control the level of parallelization. Additionally, JobRunr retries failed jobs automatically if, for instance, a resource like a URL is temporarily unavailable.
 
 #### Can JobRunr handle vector database integration?
-Yes, JobRunr supports [many databases](/documentation/installation/storage/), e.g., PostgreSQL with a pgvector extension, ensuring efficient storage and retrieval for RAG systems. It can be easily extended to support any DB of your choice.
+Yes, JobRunr supports [many databases](/en/documentation/installation/storage/), e.g., PostgreSQL with a pgvector extension, ensuring efficient storage and retrieval for RAG systems. It can be easily extended to support any DB of your choice.
 
 #### What are the benefits of using JobRunr in Java AI projects?
 JobRunr offers parallel processing, fault tolerance, and real-time monitoring, making it ideal for AI workflows built with Java.
 
 #### How do I set up JobRunr with Spring Boot?
-JobRunr integrates out of the box with Spring Boot. Simply include the [JobRunr Spring Boot Starter dependency](/documentation/configuration/spring/) and configure it in your application to get started.
+JobRunr integrates out of the box with Spring Boot. Simply include the [JobRunr Spring Boot Starter dependency](/en/documentation/configuration/spring/) and configure it in your application to get started.
 
 #### Why is embedding synchronization important in RAG systems?
 Because knowledge bases are regularly updated, embedding synchronization ensures that AI models always have access to the most up-to-date information, improving the accuracy and relevance of their responses.

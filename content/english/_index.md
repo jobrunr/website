@@ -16,7 +16,7 @@ banner:
     get_started:
       enable: true
       label: "Get Started with JobRunr"
-      link: "/en/guides/intro/5-minute-quickstart/  "
+      link: "/en/guides/intro/5-minute-quickstart/"
     learn_more:
       enable: true
       label: "Try JobRunr Pro"

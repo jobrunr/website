@@ -57,7 +57,7 @@ When you click on a specific rate limiter, you get a detailed view of its state,
 
 {{< video src="/blog/rate-limiters.mov" autoplay="true" width="100%" muted="true" loop="true" controls="true" >}}
 
-Forgot how to configure a rate-limiter? Find more info in our [documentation](/documentation/pro/rate-limiters/)!
+Forgot how to configure a rate-limiter? Find more info in our [documentation](/en/documentation/pro/rate-limiters/)!
 
 ### Automatic Cleanup for Unused Rate Limiters
 
@@ -148,7 +148,7 @@ Full changelog available here:
 
 JobRunr v8.2 makes your job processing more secure and more observable. With the new rate limiter dashboard, automatic cleanup, and important compatibility fixes, we're committed to providing the most reliable background job processing solution for all Java developers.
 
-Ready to explore powerful Pro features like the new Rate Limiter Dashboard? [**Start your free JobRunr Pro trial today**](/try-jobrunr-pro/) and see for yourself how it can save you time\!
+Ready to explore powerful Pro features like the new Rate Limiter Dashboard? [**Start your free JobRunr Pro trial today**](/en/try-jobrunr-pro/) and see for yourself how it can save you time\!
 
 Have questions or feedback? Join the conversation in our [Reddit Community](https://www.reddit.com/r/JobRunr/) or on our [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions) page.
 

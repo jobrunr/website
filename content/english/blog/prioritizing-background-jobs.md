@@ -45,7 +45,7 @@ A very simple approach to prioritisation is delaying non‑critical tasks for ti
 
 This approach consists in creating separate queues for different priority levels, such as critical, high, normal, and low. This can be achieved by creating a `ThreadPoolExecutor` for each priority level; you may also set a priority at the thread level by passing a `ThreadFactory` to the executor. Dedicated worker threads are then assigned to handle these queues based on their priority.
 
-> If you want to learn more about threads, read our blogpost: [*Mastering Java Background Jobs: Threads, Pools, Virtual Threads, and JobRunr*](blog/java-job-threading-options/) 
+> If you want to learn more about threads, read our blogpost: [*Mastering Java Background Jobs: Threads, Pools, Virtual Threads, and JobRunr*](/en/blog/java-job-threading-options/) 
 
 For example, more workers might be allocated to the critical queue than to the low‑priority queue. When a job is created, it is placed in the appropriate queue according to its priority, ensuring that higher‑priority tasks are processed in a timely manner thanks to having exclusive resources. This approach helps balance workload and ensures timely execution of more urgent tasks.
 
@@ -69,7 +69,7 @@ Generally leads to better overall worker utilization, as any available worker ca
 
 ## How JobRunr helps with prioritization
 
-[JobRunr Pro](/pricing/) provides sophisticated features designed to handle both the urgency—i.e., priorities—of critical tasks and the need for fairness across different types of job queues. Let's start by looking at its first key feature for managing importance: [**Priority Queues**](documentation/pro/priority-queues/).
+[JobRunr Pro](/en/pricing/) provides sophisticated features designed to handle both the urgency—i.e., priorities—of critical tasks and the need for fairness across different types of job queues. Let's start by looking at its first key feature for managing importance: [**Priority Queues**](/en/documentation/pro/priority-queues/).
 
 ### Priority queues
 
@@ -84,7 +84,7 @@ The Web UI allows you to follow, in near real‑time, the composition of the dif
 
 This setup works great for making sure your most important tasks get immediate attention from available workers. However, relying only on these static priority queues can sometimes lead to a "starvation" scenario as we noted above.
 
-Thankfully, if you're facing this challenge, [JobRunr Pro](/pricing/) offers an elegant enhancement specifically designed to prevent starvation: [**Dynamic Queues**](/documentation/pro/dynamic-queues/). This mechanism works alongside priority queues to ensure that even your lower‑priority tasks get a fair chance at execution, regardless of how busy the high‑priority queues are. We'll dive into exactly how Dynamic Queues achieve this a bit later in the article.
+Thankfully, if you're facing this challenge, [JobRunr Pro](/en/pricing/) offers an elegant enhancement specifically designed to prevent starvation: [**Dynamic Queues**](/en/documentation/pro/dynamic-queues/). This mechanism works alongside priority queues to ensure that even your lower‑priority tasks get a fair chance at execution, regardless of how busy the high‑priority queues are. We'll dive into exactly how Dynamic Queues achieve this a bit later in the article.
 
 Here’s an example implementing Priority Queues using the Job annotation:
 
@@ -115,17 +115,17 @@ In this example, we've created three jobs at three different priority levels—o
 
 > JobRunr Pro allows you to configure up to 5 priority queues.
 
-If you don’t like annotations, JobRunr also offers a builder to fluently configure your jobs. Check out the [dedicated documentation page](/documentation/pro/priority-queues/) to find out how to use a `JobBuilder` to set priorities on your tasks and more.
+If you don’t like annotations, JobRunr also offers a builder to fluently configure your jobs. Check out the [dedicated documentation page](/en/documentation/pro/priority-queues/) to find out how to use a `JobBuilder` to set priorities on your tasks and more.
 
 ### Dynamic Queues: ensuring fairness
 
 While Priority Queues help organize jobs by importance, scenarios like multi‑tenant applications or diverse workloads can present a challenge: what if one tenant or one type of job generates a massive number of tasks, potentially overwhelming the system and delaying jobs from other tenants or types?
 
-[JobRunr Pro](/pricing/) addresses this directly with its [**Dynamic Queues**](/documentation/pro/dynamic-queues/) feature, designed specifically to guarantee *fair‑use* processing.
+[JobRunr Pro](/en/pricing/) addresses this directly with its [**Dynamic Queues**](/en/documentation/pro/dynamic-queues/) feature, designed specifically to guarantee *fair‑use* processing.
 
 #### An overview of different dynamic queues
 
-Instead of relying solely on static priority, Dynamic Queues work using Job Labels and configurable load‑balancing policies. Find out more on dynamic‑queue configuration and usage in the [JobRunr documentation](/documentation/pro/dynamic-queues/) .
+Instead of relying solely on static priority, Dynamic Queues work using Job Labels and configurable load‑balancing policies. Find out more on dynamic‑queue configuration and usage in the [JobRunr documentation](/en/documentation/pro/dynamic-queues/) .
 
 <figure>
     {{< img src="/documentation/dynamic-queues.png" style="max-height:500px" >}}
@@ -197,7 +197,7 @@ The `@Job` annotation uses `%0` and `%1` to substitute those values into the job
 
 When you call `BackgroundJob.enqueue(...)`, JobRunr Pro picks up those annotations, applies your round‑robin or priority‑queue policies behind the scenes, and schedules the work on exactly the right queue. Your business‑logic methods stay clean and focused—everything about naming, labeling, and prioritization happens in the annotation metadata.
 
-More information about dynamic queues can be found in the [*Dynamic Queues* section of the JobRunr Pro documentation](/documentation/pro/dynamic-queues/).
+More information about dynamic queues can be found in the [*Dynamic Queues* section of the JobRunr Pro documentation](/en/documentation/pro/dynamic-queues/).
 
 ## Quick tips for effective prioritization
 
@@ -208,4 +208,4 @@ More information about dynamic queues can be found in the [*Dynamic Queues* sect
 
 ## Conclusion
 
-Don't treat all your background jobs the same! Implementing prioritization is key to building responsive, reliable applications that meet user expectations and business requirements. By understanding the strategies and leveraging features in tools like [JobRunr Pro](/pricing/), you can ensure your most critical tasks always get the attention they deserve.
+Don't treat all your background jobs the same! Implementing prioritization is key to building responsive, reliable applications that meet user expectations and business requirements. By understanding the strategies and leveraging features in tools like [JobRunr Pro](/en/pricing/), you can ensure your most critical tasks always get the attention they deserve.

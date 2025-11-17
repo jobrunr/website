@@ -53,6 +53,6 @@ BackgroundJob.enqueueOrReplace(jobId, () -> weatherService.predictWeather(city.n
 
 ## Important Remarks
 
-1. If the previous job is in processing state, it'll be [interrupted when possible](< ref "documentation/background-methods/deleting-jobs.md" >). Interruption may take up to a `pollInterval`, the behavior for any cancelled job.
+1. If the previous job is in processing state, it'll be [interrupted when possible](/en/documentation/background-methods/deleting-jobs). Interruption may take up to a `pollInterval`, the behavior for any cancelled job.
 
 {{< trial-button >}}
