@@ -1,0 +1,8 @@
+---
+title: "Advanced JobRunr features"
+description: Explore the advanced JobRunr features. Discover how to autoscale the deployment of your application using JobRunr metrics.
+weight: 20
+tags:
+    - Advanced
+    - JobRunr Pro
+---

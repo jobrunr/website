@@ -1,0 +1,88 @@
+/* Documentation Layout Styles */
+
+/* Navigation container styling - clear visual separation */
+.docs-nav {
+  @apply bg-light/50 rounded-lg border border-border/50 shadow-sm;
+}
+
+/* Highlight expand/collapse button on hover */
+.docs-nav .section-toggle:hover {
+  @apply bg-border/30;
+}
+
+/* Industry standard font sizes for documentation */
+.docs-content h1 {
+  @apply text-4xl leading-tight mb-6 mt-8;
+}
+
+.docs-content h2 {
+  @apply text-3xl leading-tight mb-4 mt-8;
+}
+
+.docs-content h3 {
+  @apply text-2xl leading-snug mb-3 mt-6;
+}
+
+.docs-content h4 {
+  @apply text-xl leading-snug mb-3 mt-6;
+}
+
+.docs-content h5 {
+  @apply text-lg leading-snug mb-2 mt-4;
+}
+
+.docs-content h6 {
+  @apply text-base leading-snug mb-2 mt-4;
+}
+
+.docs-content p {
+  @apply text-base leading-relaxed mb-4;
+}
+
+.docs-content ul,
+.docs-content ol {
+  @apply text-base leading-relaxed mb-4;
+}
+
+.docs-content li {
+  @apply mb-2;
+}
+
+.docs-content code {
+  @apply text-sm;
+}
+
+.docs-content pre {
+  @apply text-sm mb-4;
+}
+
+/* Table of Contents styling */
+.docs-toc .toc-content ul {
+  @apply m-0 list-none pl-3;
+}
+
+.docs-toc .toc-content li {
+  @apply mb-2;
+}
+
+.docs-toc .toc-content a {
+  @apply text-text no-underline transition-colors hover:text-primary;
+}
+
+.docs-toc .toc-content ul ul {
+  @apply mt-1 pl-3;
+}
+
+/* Smooth scrolling for anchor links in documentation */
+.content [id] {
+  scroll-margin-top: 6rem;
+}
+
+/* Documentation card hover effects */
+.doc-card a {
+  @apply text-inherit no-underline;
+}
+
+.doc-card:hover h3 {
+  @apply text-primary;
+}

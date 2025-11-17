@@ -1,0 +1,66 @@
+:root {
+    --framework-button-color: #26a6ed;
+}
+
+.framework-button {
+    margin-left: 10px;
+    border: 1px solid var(--framework-button-color);
+    border-radius: 4px;
+    color: var(--framework-button-color);
+    padding: 4px 8px;
+    display: inline-block;
+    @apply text-sm;
+}
+
+.framework-button.active {
+    background-color: var(--framework-button-color);
+    border: 1px solid var(--framework-button-color);
+    color: white;
+}
+
+.framework-button:hover {
+    cursor: pointer;
+}
+
+.framework-content {
+    display: none;
+    width: 100%;
+}
+
+.framework-content.active {
+    display: block;
+}
+
+/* Search Modal Dialog */
+dialog {
+    @apply border-0 rounded-md shadow-2xl p-0 m-auto;
+}
+
+dialog::backdrop {
+    @apply bg-black/60;
+}
+
+dialog .dialog__container {
+    @apply p-4;
+}
+
+dialog .dialog__content {
+    @apply overflow-y-auto overscroll-contain;
+}
+
+dialog .dialog__footer {
+    @apply pt-4;
+}
+
+dialog .dialog__footer .btn {
+    @apply px-5 py-2.5 text-sm font-medium transition-all;
+    @apply hover:bg-light rounded-md border border-border;
+}
+
+dialog #pagefind-search {
+    @apply h-[70vh] w-[80vw] max-w-[900px];
+}
+
+dialog #pagefind-search .pagefind-ui__results {
+    @apply overflow-x-auto;
+}

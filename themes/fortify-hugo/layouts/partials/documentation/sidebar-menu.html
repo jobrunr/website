@@ -1,0 +1,99 @@
+{{/* Sidebar navigation using Hugo menu system */}}
+
+{{ $currentPage := . }}
+
+<aside class="lg:sticky lg:top-1">
+  <nav class="docs-nav lg:max-h-[calc(100vh-153px)] lg:overflow-y-auto lg:overscroll-contain  ">
+    <div class="px-4 py-3">
+      {{/* Get top-level menu items (items without a parent) */}}
+      {{ range site.Menus.sidebar }}
+        {{ if not .Parent }}
+          {{ $menuURL := .URL | absLangURL }}
+          {{ $pageURL := $currentPage.Permalink | absLangURL }}
+          {{ $isActive := eq $menuURL $pageURL }}
+          {{ $hasChildren := .HasChildren }}
+
+          {{/* Check if any child is active */}}
+          {{ $sectionActive := $isActive }}
+          {{ if $hasChildren }}
+            {{ range .Children }}
+              {{ $childURL := .URL | absLangURL }}
+              {{ if or (eq $childURL $pageURL) (hasPrefix $pageURL $childURL) }}
+                {{ $sectionActive = true }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          <div class="nav-section{{ if $sectionActive }} active{{ end }}" data-section>
+            <div class="section-header group mb-1 flex items-center justify-between rounded transition-colors px-2 py-1.5 {{ if $isActive }} bg-primary{{ else }} hover:bg-body{{ end }}">
+              <a href="{{ .URL | relLangURL }}" class="section-link flex-1 text-sm font-medium transition-colors{{ if $isActive }} text-white{{ else }} text-text-dark group-hover:text-primary{{ end }}">
+                {{ .Name }}
+              </a>
+              {{ if $hasChildren }}
+              <button class="section-toggle flex h-6 w-6 items-center justify-center rounded transition-colors{{ if $isActive }} text-white{{ else }} text-text group-hover:text-text-dark{{ end }}" aria-label="Toggle section">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition-transform duration-200{{ if $sectionActive }} rotate-180{{ end }}">
+                  <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+              {{ end }}
+            </div>
+
+            {{/* Show children if this section has any */}}
+            {{ if $hasChildren }}
+              <ul class="nav-list ml-2 border-l border-border pl-2{{ if not $sectionActive }} hidden{{ end }}">
+                {{ range .Children }}
+                  {{ $childURL := .URL | absLangURL }}
+                  {{ $childActive := or (eq $childURL $pageURL) (hasPrefix $pageURL $childURL) }}
+                  {{ $hasGrandChildren := .HasChildren }}
+
+                  <li class="nav-item mb-0.5">
+                    <a href="{{ .URL | relLangURL }}" class="nav-link block rounded px-2 py-1 text-sm transition-colors{{ if $childActive }} bg-primary font-medium text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
+                      {{ .Name }}
+                    </a>
+
+                    {{/* Show grandchildren (3rd level) if any */}}
+                    {{ if $hasGrandChildren }}
+                      <ul class="ml-2 mt-0.5 border-l border-border pl-2">
+                        {{ range .Children }}
+                          {{ $grandChildURL := .URL | absLangURL }}
+                          {{ $grandChildActive := eq $grandChildURL $pageURL }}
+                          <li class="mb-0.5">
+                            <a href="{{ .URL | relLangURL }}" class="nav-link block rounded px-2 py-1 text-xs transition-colors{{ if $grandChildActive }} bg-primary font-medium text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
+                              {{ .Name }}
+                            </a>
+                          </li>
+                        {{ end }}
+                      </ul>
+                    {{ end }}
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </div>
+        {{ end }}
+      {{ end }}
+    </div>
+  </nav>
+</aside>
+
+<script>
+// Toggle collapsible sections in documentation sidebar
+document.addEventListener('DOMContentLoaded', function() {
+  const toggles = document.querySelectorAll('.docs-nav .section-toggle');
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      const section = this.closest('[data-section]');
+      const navList = section.querySelector('.nav-list');
+      const svg = this.querySelector('svg');
+
+      if (navList) {
+        navList.classList.toggle('hidden');
+        svg.classList.toggle('rotate-180');
+      }
+    });
+  });
+});
+</script>

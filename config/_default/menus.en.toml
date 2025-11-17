@@ -1,0 +1,61 @@
+############# English navigation ##############
+
+# main menu
+
+[[main]]
+name = "Home"
+pageRef = "/"
+weight = 1
+
+[[main]]
+name = "JobRunr Pro"
+pageRef = "/pro"
+weight = 2
+
+
+[[main]]
+name = "Blog"
+pageRef = "/blog"
+weight = 3
+
+
+[[main]]
+name= "Documentation"
+pageRef = "/documentation"
+weight = 3
+[main.params]
+hasChildren = false
+
+
+[[main]]
+name= "Guides"
+pageRef = "/guides"
+weight = 3
+
+
+# footer menu left
+[[footer_01]]
+name = "Our License Model"
+url = "/understanding-your-license/"
+weight = 3
+
+[[footer_01]]
+name = "Contact"
+pageRef = "/contact"
+weight = 5
+
+[[footer_02]]
+name = "Terms"
+url = "/licensing/info/"
+weight = 1
+
+[[footer_02]]
+name = "Privacy Policy"
+url = "/privacy"
+weight = 2
+
+[[footer_02]]
+name = "About JobRunr"
+pageRef = "/about"
+weight = 3
+

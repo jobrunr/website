@@ -1,0 +1,31 @@
+{{ define "main" }}
+  <div data-pagefind-body>
+    {{ partial "page-header" . }}
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          {{ if and (eq .Section "guides") (not (eq $.Params.hideFrameworkSelector true)) }}
+          <div class="framework-container mb-6">
+            <div class="flex items-center justify-end gap-3 rounded-lg bg-light/50 border border-border/30 px-4 py-3">
+              <span class="text-sm font-medium text-text-dark">Choose a framework:</span>
+              <ul class="nav-tabs flex gap-2">
+                <li class="framework-button active" data-type="fluent-api">Fluent API</li>
+                <li class="framework-button" data-type="spring-boot">Spring Boot</li>
+                <li class="framework-button" data-type="quarkus">Quarkus</li>
+                <li class="framework-button" data-type="micronaut">Micronaut</li>
+              </ul>
+            </div>
+          </div>
+          {{ end }}
+          <div class="content" data-pagefind-body>
+              {{ partial "pagefind-filters.html" . }}
+              {{ .Content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}

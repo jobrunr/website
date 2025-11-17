@@ -1,0 +1,210 @@
+{{ define "main" }}
+  <!-- Banner -->
+  <section class="section">
+    <div class="container">
+      <div class="row">
+        <div
+          class="mx-auto text-center lg:col-8"
+          data-aos="fade-up-sm">
+          <p class="mb-2 font-medium text-tertiary">
+            {{ .Params.subtitle | markdownify }}
+          </p>
+          <h2 class="mb-6">{{ .Params.title | markdownify }}</h2>
+          <p class="text-lg ">
+            {{ .Params.description | markdownify }}
+          </p>
+        </div>
+        <div
+          class="col-12 pt-20"
+          data-aos="fade-up-sm"
+          data-aos-delay="200">
+          <div class="row g-4 justify-center">
+            <div class="max-lg:order-last lg:col-6">
+              {{ partial "image" (dict "Src" .Params.left_image "Alt" "About Image" "Class" "w-full rounded-lg object-cover md:h-[600px]! md:rounded-3xl") }}
+            </div>
+            <div class="max-lg:order-first lg:col-6">
+              {{ partial "image" (dict "Src" .Params.right_image "Alt" "About Image" "Class" `h-[300px] w-full rounded-lg object-cover object-top md:h-[340px]! md:rounded-3xl`) }}
+              {{ with .Params.quote }}
+                <div
+                  class="relative mt-10 rounded-lg bg-tertiary p-6 pt-10 text-light md:rounded-3xl md:pt-8">
+                  <div class="mb-4 flex items-center gap-5">
+                    {{ partial "image" (dict "Src" .avatar "Alt" "CEO Image" "Class" "h-16 w-16 object-cover rounded-lg") }}
+                    <div>
+                      <h3 class="h6 text-inherit">{{ .name | markdownify }}</h3>
+                      <p class="text-inherit">
+                        {{ .designation | markdownify }}
+                      </p>
+                    </div>
+                  </div>
+                  <p class="text-lg  text-inherit">
+                    {{ .content | markdownify }}
+                  </p>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Banner -->
+
+  <!--Brand Logo -->
+
+  <!--/Brand Logo -->
+
+  <!-- Core Values -->
+  {{ with .Params.core_values }}
+    <section class="section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="mx-auto text-center lg:col-10"
+            data-aos="fade-up-sm">
+            <p class="mb-2 text-tertiary font-medium">
+              {{ .subtitle | markdownify }}
+            </p>
+            <h2 class="mb-6">{{ .title | markdownify }}</h2>
+            <p class="text-lg ">{{ .description | markdownify }}</p>
+          </div>
+          <div class="col-12 pt-20">
+            <div class="row g-4 justify-center">
+              {{ range .list }}
+                <div
+                  class="md:col-6 lg:col-4"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="200">
+                  <div
+                    class="min-h-full rounded-xl bg-light px-6 py-12 text-center md:rounded-3xl">
+                    <div
+                      class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
+                      <i class="text-xl object-cove text-white {{ .icon }}"></i>
+                    </div>
+                    <h3 class="h5 mb-2">{{ .title | markdownify }}</h3>
+                    <p>{{ .description | markdownify }}</p>
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+            <div class="row g-4 justify-center pt-16">
+              {{ range .stats }}
+                <div
+                  class="md:col-4 lg:col-4"
+                  data-aos="fade-up-sm"
+                  data-aos-delay="300">
+                  <div class="text-center">
+                    <p class="mb-3 lg:text-lg ">
+                      {{ .label | markdownify }}
+                    </p>
+                    <h3 class="h2 lg:h1 mb-2">{{ .value | markdownify }}</h3>
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /Core Values -->
+
+<!-- Green Initiatives  -->
+{{ with .Params.Green_initiatives }}
+<section class="section">
+  <div class="container">
+    <div class="row justify-center">
+      <div
+        class="mx-auto text-center lg:col-10"
+        data-aos="fade-up-sm">
+        <p class="mb-2 text-tertiary font-medium">
+          {{ .subtitle | markdownify }}
+        </p>
+        <h2 class="mb-6">{{ .title | markdownify }}</h2>
+        <p class="text-lg ">{{ .description | markdownify }}</p>
+      </div>
+      
+      <div class="col-12 pt-10">
+        <div class="row justify-center">
+          <div class="lg:col-10">
+            
+            <div class="row g-6 items-center bg-light p-6 rounded-xl md:p-10 mb-16 shadow-lg">
+                
+                <div class="md:col-4 flex flex-col items-center justify-center text-center">
+                    {{/* 1% for the Planet Logo */}}
+                    {{ partial "image" (dict "Src" .logo_src "Alt" "1% for the Planet Member" "Class" "h-24 w-auto mb-4 p-6") }}
+                    <a href="https://directories.onepercentfortheplanet.org/profile/rosoco-bv-jobrunr" target="_blank" rel="noopener" class="text-base font-medium text-purple-600 hover:text-purple-800 transition duration-150">
+                        View Our 1% Profile →
+                    </a>
+                </div>
+
+                <div class="md:col-8">
+                    <h3 class="h4 mb-3 text-gray-900">{{ .commitment_title | markdownify }}</h3>
+                    <p class="text-lg text-gray-700">
+                        {{ .commitment_description | markdownify }}
+                    </p>
+                </div>
+            </div>
+            <div class="space-y-10 mt-12">
+              <h3 class="h4 mb-8 text-gray-900 text-center">{{ .initiative_title | markdownify }}</h3>
+              
+              {{ range .initiatives }}
+                <div class="p-0 pb-4">
+                  <h4 class="text-xl font-bold mb-1 text-tertiary">{{ .title | markdownify }}</h4>
+                  <p class="text-gray-700">{{ .description | markdownify }}</p>
+                  {{ if .link }}
+                    <a href="{{ .link }}" class="text-base font-medium text-purple-600 hover:text-purple-800 transition duration-150 mt-1 inline-block">Learn More →</a>
+                  {{ end }}
+                </div>
+              {{ end }}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+  <!-- Our Team -->
+  {{ with .Params.our_team }}
+    <section class="section">
+      <div class="container">
+        <div class="row">
+          <div
+            class="mx-auto text-center lg:col-10"
+            data-aos="fade-up-sm">
+            <p class="mb-2 font-medium text-tertiary">
+              {{ .subtitle | markdownify }}
+            </p>
+            <h2 class="mb-6">{{ .title | markdownify }}</h2>
+            <p class="text-lg ">{{ .description | markdownify }}</p>
+          </div>
+          <div
+            class="col-12 pt-20"
+            data-aos="fade-up-sm"
+            data-aos-delay="200">
+            <div class="row g-4 justify-center">
+              {{ range .list }}
+                <div class="col-6 lg:col-3">
+                  <div
+                    class="mb-6 overflow-hidden rounded-xl bg-light text-center md:rounded-3xl">
+                    {{ partial "image" (dict "Src" .image "Alt" "quote background shape" "Class" "w-full") }}
+                  </div>
+                  <h3 class="h6 mb-1.5">{{ .name | markdownify }}</h3>
+                  <p>{{ .company | markdownify }}</p>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- Our Team -->
+
+
+  <!-- Call to action -->
+  {{ partial "call-to-action.html" . }}
+  <!-- /Call to action -->
+{{ end }}

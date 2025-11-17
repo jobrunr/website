@@ -1,0 +1,166 @@
+<footer class="bg-light py-16 xl:py-28">
+  <div class="container" data-aos="fade-up-sm">
+    <div class="row gy-5 justify-between lg:g-4">
+      <div class="sm:col-6 lg:col-4 lg:pe-16">
+        <div class="mb-5">
+          <a
+            class="navbar-brand inline-block"
+            href="{{ site.Home.RelPermalink }}">
+            {{ partial "logo" }}
+          </a>
+        </div>
+        <p class="mb-2.5 lg:mb-20">
+          {{ site.Params.footer_description | markdownify }}
+        </p>
+        {{ with .Site.Params.social }}
+          <ul class="social-icons">
+            {{ range . }}
+              <li>
+                <a
+                  aria-label="{{ .title }}"
+                  href="{{ .link | safeURL }}"
+                  target="_blank"
+                  rel="noopener noreferrer nofollow">
+                  <span class="sr-only">{{ .title }}</span>
+                  <i class="{{ .icon }} text-2xl"></i>
+                </a>
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
+        <div class="mt-8" id="uptime-kuma-status" data-fallback-img="{{ (resources.Get "images/shield-down.svg").RelPermalink }}">
+            <a href="https://status.jobrunr.io/status/jobrunr"><img class="inline-block" src="https://status.jobrunr.io/api/badge/1/status"/> Carbon Intensity API</a>
+            <a href="https://status.jobrunr.io/status/jobrunr"><img class="inline-block" href="https://status.jobrunr.io/api/badge/2/status"/> JobRunr Pro Maven Repo</a>
+        </div>
+      </div>
+      <div class="sm:col-6 md:col-6 lg:col-4">
+        <div
+          class="flex flex-wrap gap-y-6 sm:flex-nowrap md:justify-end lg:justify-around">
+          <div class="w-[160px]">
+            <h3 class="mb-4 pt-2 text-base text-text-dark md:mb-9">
+              {{ T "resources" }}
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {{ range site.Menus.footer_01 }}
+                <li>
+                  <a
+                    class="font-medium transition hover:text-tertiary"
+                    href="{{ .URL | relLangURL }}"
+                    >{{ .Name }}</a
+                  >
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div class="w-[160px]">
+            <h3 class="mb-4 pt-2 text-base text-text-dark md:mb-9">
+              {{ T "quick_info" }}
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {{ range site.Menus.footer_02 }}
+                <li>
+                  <a
+                    class="font-medium transition hover:text-tertiary"
+                    href="{{ .URL | relLangURL }}"
+                    >{{ .Name }}</a
+                  >
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="sm:col-7 md:col-6 lg:col-4">
+        <h3 class="mb-4 text-xl font-normal text-text-dark">
+          {{ site.Params.quote_form.title | markdownify }}
+        </h3>
+        <p class="mb-6">
+          {{ site.Params.quote_form.description | markdownify }}
+        </p>
+        <div id="n8n-form-container"></div>
+        <p id="n8n-form-error" style="color: red; display: none; margin: 0;"></p>
+        <form
+          action="{{ site.Params.quote_form.action | safeURL }}"
+          method="post"
+          class="flex justify-between rounded-full bg-white px-3 py-2"
+          id="n8n-footer-form">
+          <input
+            type="email"
+            id="n8n-footer-email"
+            placeholder="{{ site.Params.quote_form.placeholder }}"
+            class="form-input w-full rounded-full border-none! py-2! pl-2! placeholder:opacity-100"
+            required="" />
+          <button
+            class="rounded-full bg-secondary px-4 py-1 font-medium transition hover:opacity-80"
+            id="n8n-submit-button"
+            type="submit">
+            {{ site.Params.quote_form.submit_button_label | markdownify }}
+          </button>
+        </form>
+        </div>
+        <div class="copyright mt-5 lg:mt-14">
+          {{ site.Params.copyright | markdownify }}
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+document.getElementById('n8n-footer-form').addEventListener('submit', function(event) {
+    // 1. Prevent the default form submission (which causes a page reload)
+    event.preventDefault();
+
+    // 2. Get all the necessary elements
+    const formContainer = document.getElementById('n8n-form-container');
+    const form = event.target;
+    const emailInput = document.getElementById('n8n-footer-email');
+    const submitButton = document.getElementById('n8n-submit-button');
+    const errorMessage = document.getElementById('n8n-form-error');
+
+    // This is the Webhook URL you get from your N8N workflow.
+    const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe'; 
+
+    // 4. Prepare the data to send (as JSON)
+    const formData = {
+        email: emailInput.value,
+        form: 'newsletter' 
+    };
+
+    // 5. Disable the form to prevent multiple submissions
+    submitButton.disabled = true;
+    submitButton.textContent = 'Sending...';
+    emailInput.disabled = true;
+    errorMessage.style.display = 'none';
+
+    // 6. Send the data to your N8N webhook
+    fetch(n8nWebhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        // 7. Check if the submission was successful (N8N returns a 200 OK status)
+        if (response.ok) {
+            // SUCCESS: Replace the form with the success message
+            formContainer.innerHTML = '<p style="color: green; margin: 0;">Your registration was successful!</p>';
+        } else {
+            // ERROR: Show an error message
+            throw new Error('Submission failed. Server returned an error.');
+        }
+    })
+    .catch(error => {
+        // 8. Handle any network errors
+        console.error('Form Submission Error:', error);
+        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.style.display = 'block';
+
+        // Re-enable the form so the user can try again
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit';
+        emailInput.disabled = false;
+    });
+});
+</script>

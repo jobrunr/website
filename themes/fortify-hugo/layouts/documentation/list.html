@@ -1,0 +1,60 @@
+{{ define "main" }}
+<section class="section pt-8">
+  <div class="container">
+    <div class="row">
+      <!-- Sidebar Navigation -->
+      <div class="lg:col-3 lg:pl-0">
+        {{ partial "documentation/sidebar-menu.html" . }}
+      </div>
+
+      <!-- Main Content Area -->
+      <main class="lg:col-9" data-pagefind-body>
+        {{ partial "pagefind-filters.html" . }}
+        {{ if eq .Params.version "pro"}}
+            <span data-pagefind-filter="tag:JobRunr Pro" class="label professional"><span>JobRunr Pro</span></span>
+        {{ else if eq .Params.version "enterprise"}}
+            <span data-pagefind-filter="tag:JobRunr Pro" class="label enterprise"><span>JobRunr Pro Enterprise</span></span>
+        {{ else }}
+            <template data-pagefind-filter="tag:JobRunr"></template>
+        {{ end }}
+        <article class="content">
+          <!-- Page Header -->
+          <header class="mb-8">
+            <h1 class="text-4xl mt-2 mb-2">{{ .Title }}</h1>
+            {{ $desc := or .Description .Params.subtitle }}
+            {{ with $desc }}
+            <p class="text-xl font-light text-text/70 mb-4">{{ . }}</p>
+            {{ end }}
+          </header>
+
+          <!-- Main Content from _index.md -->
+          <div class="docs-content">
+            {{ .Content }}
+          </div>
+
+          <!-- List pages in this section -->
+          <!-- {{ if .RegularPages }}
+          <div class="mt-12">
+            <h2 class="mb-6">In This Section</h2>
+            <div class="row g-4">
+              {{ range .RegularPages.ByWeight }}
+              <div class="col-12">
+                <div class="doc-card rounded-lg border border-border bg-body p-6 transition-all hover:border-primary hover:shadow-lg">
+                  <a href="{{ .RelPermalink }}" class="block">
+                    <h3 class="mb-2 text-xl font-medium text-text-dark">{{ .Title }}</h3>
+                    {{ with .Description }}
+                    <p class="text-text">{{ . }}</p>
+                    {{ end }}
+                  </a>
+                </div>
+              </div>
+              {{ end }}
+            </div>
+          </div>
+          {{ end }} -->
+        </article>
+      </main>
+    </div>
+  </div>
+</section>
+{{ end }}
