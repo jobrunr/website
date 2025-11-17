@@ -21,7 +21,7 @@ This is a small update on how JobRunr is mentioned in the media and how it is us
 Did you already know that JobRunr has been featured on the [Thoughtworks Technology Radar](https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2022/10/tr_technology_radar_vol_27_en.pdf)?
 
 <figure>
-{{< img src="/homepage/homepage-JobRunr-thoughtworks.webp" >}}
+{{< img src="/images/homepage-jobrunr-thoughtworks.png" >}}
 <figcaption>We could not be prouder on this achievement!</figcaption>
 </figure>
 
