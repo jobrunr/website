@@ -172,3 +172,9 @@ lazy = false
 [[params.plugins.js]]
 link = "js/framework.js"
 lazy = false
+[[params.plugins.js]]
+link = "js/cookieconsent.js"
+lazy = false
+[[params.plugins.js]]
+link = "js/jobrunr-uptimekuma.js"
+lazy = true
