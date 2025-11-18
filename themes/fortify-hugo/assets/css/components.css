@@ -160,7 +160,7 @@
   @apply prose-strong:text-text-dark;
   @apply prose-a:text-primary prose-a:underline hover:prose-a:text-primary;
   @apply prose-li:text-text;
-  @apply prose-table:relative prose-table:overflow-hidden prose-table:rounded-lg prose-table:before:absolute prose-table:before:left-0 prose-table:before:top-0 prose-table:before:h-full prose-table:before:w-full prose-table:before:rounded-[inherit] prose-table:before:border prose-table:before:content-[""];
+  @apply prose-table:relative prose-table:block prose-table:overflow-auto prose-table:whitespace-nowrap;
   @apply prose-thead:border-border prose-thead:bg-light;
   @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark;
   @apply prose-tr:border-border;
@@ -173,6 +173,33 @@
   .content > *:last-child {
     @apply mb-0;
   }
+}
+
+.content table {
+    background:
+      radial-gradient(ellipse at left,rgba(0,0,0,.2) 0,transparent 75%) 0,
+      radial-gradient(ellipse at right,rgba(0,0,0,.2) 0,transparent 75%) 100%;
+    background-attachment: scroll,scroll;
+    background-repeat: no-repeat;
+    background-size: 10px 100%,10px 100%;
+}
+
+
+.content table td:first-child {
+    background-image: linear-gradient(90deg,#fff 50%,rgba(255,255,255,0));
+    background-repeat: no-repeat;
+    background-size: 20px 100%
+}
+
+.content table td:last-child {
+    background-image: linear-gradient(270deg,#fff 50%,rgba(255,255,255,0));
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: 20px 100%
+}
+
+.content table tbody, .content table thead {
+  @apply rounded border border-border;
 }
 
 .content figure {
