@@ -1,6 +1,6 @@
 ---
 title: "JobRunr v8 Live-Coding Webinar & AMA"
-description: "Join us for a live-coding session where we'll talk about the new features of JobRunr v8. Learn how to use carbon-aware job scheduling, use workflow orchestration and more to build highly efficient and scalable Java applications."
+description: "Watch the replay for a live-coding session where we'll talk about the new features of JobRunr v8. Learn how to use carbon-aware job scheduling, use workflow orchestration and more to build highly efficient and scalable Java applications."
 date: 2025-06-13T12:24:16+02:00
 author: "Nicholas D'hondt"
 tags:
@@ -375,91 +375,20 @@ draft: true
         margin-top: 10px;
     }
 
+    .container img:first-of-type {
+        display: none;
+    }
+
 
 
 </style>
 
 <div class="webinar-page-content">
-    <div class="webinar-hero">
-        <div class="hero-text">
-            <h1>Master JobRunr v8: A Live-Coding Webinar</h1>
-            <p><strong>Unlock carbon-aware background job scheduling in Java</strong> 
-            <br/><br/>Modern Java applications need more than just threads and timers to scale, they need efficient,  and easy to use job scheduling. That’s exactly what JobRunr v8 brings to the table.
-<br><br/>Join us for a live coding session with Ronald Dehuysser, creator of JobRunr, as we walk through the newest features in v8. 
-
-</p>
-            <p><strong>Date:</strong> Wednesday July 9, 2025<br><br>
-            <strong>Timeslot 1:</strong> 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST<br>
-            <strong>Timeslot 2:</strong> 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT
-            </p>
-        </div>
-        <div class="hero-form" id="hero-form">
-            <h3 style="text-align: center; margin-top: 0;">Reserve Your Spot Now!</h3>         
-            <form id="webinar-form" onsubmit="handleFormSubmit(event)">
-    <div class="form-row">
-        <div class="form-group">
-            <label for="firstname">First Name*</label>
-            <input type="text" id="firstname" name="firstname" required>
-        </div>
-        <div class="form-group">
-            <label for="lastname">Last Name</label>
-            <input type="text" id="lastname" name="lastname">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="company">Company Name</label>
-        <input type="text" id="company" name="company">
-    </div>
-    <div class="form-group">
-        <label for="email">Email*</label>
-        <input type="email" id="email" name="email" required>
-    </div>
-    <div class="form-group">
-        <label for="webinar_v8_timeslot">Please select your preferred timeslot:*</label>
-        <select id="webinar_v8_timeslot" name="webinar_v8_timeslot" required>
-            <option value="" disabled selected>Choose a timeslot</option>
-            <option value="12:30 PM CEST / 6:30 AM ET / 4:00 PM IST">Timeslot 1: 12:30 PM CEST / 6:30 AM ET / 4:00 PM IST</option>
-            <option value="6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT">Timeslot 2: 6:00 PM CEST / 12:00 PM EDT / 9:00 AM PDT</option>
-        </select>
-    </div>
-    <div class="form-group checkbox-group">
-        <input type="checkbox" id="consent" name="LEGAL_CONSENT.subscription_type_620889303" value="true">
-        <label for="consent">We’d love to share useful release notes, code snippets, and community news now and then. Only when it’s worth your time, we promise.</label>
-    </div>
-    <div class="form-group privacy-text">
-        <p>By clicking submit below, you consent to allow JobRunr to store and process personal information.</p>
-    </div>
-    <div class="form-group">
-        <button type="submit" class="btn btn-black btn-lg">I want to join!</button>
-    </div>
-</form>
-<script>
-function handleFormSubmit(event) {
-  event.preventDefault(); // Stop the form from submitting the standard way
-  const form = event.target;
-  const data = new FormData(form);
-  const url = 'https://hooks.zapier.com/hooks/catch/21269987/u3teea8/';
-  // Send the data to Zapier in the background
-  fetch(url, {
-    method: 'POST',
-    body: data,
-    mode: 'no-cors' // Use 'no-cors' mode for "fire and forget" submissions
-  }).then(response => {
-    // Redirect to the thank you page after a short delay
-    setTimeout(() => {
-      window.location.href = 'https://www.jobrunr.io/en/webinar-v8-thank-you/';
-    }, 500); // 0.5 second delay
-  }).catch(error => {
-    console.error('Error submitting form:', error);
-    // Even if there's an error, redirect so the user experience is consistent
-    setTimeout(() => {
-      window.location.href = 'https://www.jobrunr.io/en/webinar-v8-thank-you/';
-    }, 500);
-  });
-}
-</script>
-        </div>
-    </div>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dZ57mzasHto?si=5gdDU6TctCdOsQa9" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="
+    margin-left: auto;
+    margin-right: auto;
+"></iframe>
+<br/>
     <div class="learn-section">
     <h2>What You'll Learn</h2>
     <ul class="learn-grid">
@@ -495,16 +424,6 @@ function handleFormSubmit(event) {
         </li>
     </ul>
 </div>
-    <div class="host-section-wrapper">
-        <h2>Meet Your Host</h2>
-        <div class="host-section">
-            {{< img src="/blog/RonaldHeadshot.webp" alt="Ronald Dehuysser" >}}
-            <div>
-                <h3>Ronald Dehuysser</h3>
-                <p>With 20+ years of experience building Java systems, Ronald’s on a mission to make background processing fast, scalable, and developer-friendly. He's worked with distributed systems long before they were trendy and now spends his time coding, speaking, and helping teams ship better backend infrastructure.</p>
-            </div>
-        </div>
-    </div>
 <div class="webinar-agenda-section">
     <h2>Webinar Agenda</h2>
     <div style="display: flex; flex-wrap: wrap; gap: 3rem; align-items: flex-start;">
@@ -547,11 +466,6 @@ function handleFormSubmit(event) {
                 </footer>
             </div>
         </div>
-    </div>
-    <div class="final-cta">
-        <h2>Ready to Supercharge Your Java Applications?</h2>
-        <p>Join thousands of Java developers who are already leveling up their background job processing with JobRunr.</p>
-        <a href="#hero-form" class="btn btn-black btn-lg" style="text-decoration: none;">Register for the Webinar</a>
     </div>
        <div class="getting-started-section">
         <h2>Want to get started with v8?</h2>
