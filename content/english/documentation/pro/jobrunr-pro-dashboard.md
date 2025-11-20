@@ -17,9 +17,9 @@ menu:
 The JobRunr Pro dashboard offers a lot of improvements that save your engineering teams a lot of time:
 - [Find any Job using the search functionality](#find-any-job-using-the-search-functionality)
 - [Save time thanks to usability improvements](#save-time-thanks-to-some-usability-improvements)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Restrict access using Single Sign On authentication](/en/documentation/pro/sso-authentication)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
-- {{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
+- {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Restrict access using Single Sign On authentication](/en/documentation/pro/sso-authentication)
+- {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
+- {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
 
 
 ## Find any Job using the search functionality
@@ -61,7 +61,7 @@ For Quarkus, you need to prefix this with `quarkus.`.
 Once configured, JobRunr will work with the context path configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
 
 ## Embed the dashboard within Spring Application Server
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;
+{{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}}&nbsp;
 
 Using JobRunr Pro Enterprise, you can also embed the dashboard within your existing Spring Application. This means that the JobRunr dashboard will be hosted by Spring and you can add your own authentication and authorization using Spring Security.
 
@@ -74,7 +74,7 @@ jobrunr.dashboard.type=embedded
 For Quarkus, you need to prefix this with `quarkus.`.
 
 ## GDPR and HIPAA compliant dashboard
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}&nbsp;
+{{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}}&nbsp;
 
 Is your company operating in the medical or financial world and is your dashboard showing sensitive information? Do you still want your developers to quickly resolve any bugs and provide great support? 
 

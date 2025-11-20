@@ -40,7 +40,7 @@ JobRunr Pro is a drop-in replacement for JobRunr, available under a [paid subscr
 - __[Issue tracking Integration]({{< ref "issuetracking-integration.md" >}}):__ Save time by integrating JobRunr with your issue tracking software.
 
 
-{{< label version="enterprise" >}}JobRunr Pro Enterprise{{< /label >}}<br> 
+{{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}}<br>
 The enterprise version adds all the features of JobRunr Pro, plus the following features:
 - __[Unlimited recurring jobs]({{< ref "documentation/background-methods/recurring-jobs.md" >}}):__ enjoy (almost) unlimited recurring jobs using JobRunr Pro Enterprise. We have personally tested with up to 10.000 jobs per minute (in combination with `CustomDeletePolicy`).
 - __[Dashboard security]({{< ref "jobrunr-pro-dashboard.md#restrict-access-using-openid-authentication" >}}):__ add SSO and security to your dashboard with the OpenID integration and limit access to authorized personnel only. 

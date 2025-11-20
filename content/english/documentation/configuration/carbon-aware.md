@@ -82,7 +82,7 @@ On the carbon aware job processing configuration class, the following parameters
 - `apiClientConnectTimeout`---Allows to set the connect timeout for the API client (defaults to 3 seconds).
 - `apiClientReadTimeout`---Allows to set the read timeout for the API client (defaults to 3 seconds).
 - `apiClientRetriesOnException`---Configures the API client amount of retries when the call throws an exception (defaults to 3).
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} `andCarbonIntensityApiUrl`---Allows to set a custom Carbon Intensity API URL to create your own implementation. The area code, data provider, external code, and external provider settings will be passed in as a request parameter.
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} `andCarbonIntensityApiUrl`---Allows to set a custom Carbon Intensity API URL to create your own implementation. The area code, data provider, external code, and external provider settings will be passed in as a request parameter.
 - `pollIntervalInMinutes`---Allows to configure how often Carbon Aware Awaiting jobs will be picked up and processed (defaults to 5 minutes).
 
 > __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 

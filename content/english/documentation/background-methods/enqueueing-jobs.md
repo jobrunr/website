@@ -16,8 +16,8 @@ Creating a background job with JobRunr is really easy. On this page you will lea
 - [create a single job using a JobRequest](#enqueueing-a-job-using-a-jobrequest) 
 - [create many jobs using a Java 8 lambda](#enqueueing-many-jobs-using-a-java-8-lambda) 
 - [create many jobs using a JobRequest](#enqueueing-many-jobs-using-a-jobrequest) 
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Prevent duplicate jobs by an identifier](#prevent-duplicate-jobs-thanks-to-the-jobidentifier)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Replace existing jobs](#replacing-an-existing-job-using-a-jobidentifier)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Prevent duplicate jobs by an identifier](#prevent-duplicate-jobs-thanks-to-the-jobidentifier)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Replace existing jobs](#replacing-an-existing-job-using-a-jobidentifier)
 
 
 ## Enqueueing a single background job

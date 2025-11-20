@@ -56,4 +56,4 @@ jobrunr.jobs.by-state
 
 Where `jobrunr.jobs.by-state` can be further drilled down by adding a state as request parameter; e.g. [http://localhost:8080/actuator/metrics/jobrunr.jobs.by-state?tag=state:SUCCEEDED](http://localhost:8080/actuator/metrics/jobrunr.jobs.by-state?tag=state:SUCCEEDED).
 
-{{< label version="professional" >}}JobRunr Pro {{< /label >}}---JobRunr Pro offers more job-specific metrics such as job timings. For more info, see the [JobRunr Pro Observability docs](/en/documentation/pro/observability/#micrometer-job-timings).
+{{< badge version="professional" >}}JobRunr Pro {{< /badge >}}---JobRunr Pro offers more job-specific metrics such as job timings. For more info, see the [JobRunr Pro Observability docs](/en/documentation/pro/observability/#micrometer-job-timings).

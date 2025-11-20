@@ -10,14 +10,14 @@
       <!-- Main Content Area -->
       <main class="lg:col-9" data-pagefind-body>
         {{ partial "pagefind-filters.html" . }}
-        {{ if eq .Params.version "pro"}}
-            <span data-pagefind-filter="tag:JobRunr Pro" class="label professional"><span>JobRunr Pro</span></span>
-        {{ else if eq .Params.version "enterprise"}}
-            <span data-pagefind-filter="tag:JobRunr Pro" class="label enterprise"><span>JobRunr Pro Enterprise</span></span>
-        {{ else }}
-            <template data-pagefind-filter="tag:JobRunr"></template>
-        {{ end }}
         <article class="content">
+          {{ if eq .Params.version "pro"}}
+          <div data-pagefind-filter="tag:JobRunr Pro"><span class="badge professional">JobRunr Pro</span></div>
+          {{ else if eq .Params.version "enterprise"}}
+          <div data-pagefind-filter="tag:JobRunr Pro"><span class="badge enterprise">JobRunr Pro Enterprise</span></div>
+          {{ else }}
+          <template data-pagefind-filter="tag:JobRunr"></template>
+          {{ end }}
           <!-- Page Header -->
           <header class="mb-8">
             <h1 class="text-4xl mt-2 mb-2">{{ .Title }}</h1>

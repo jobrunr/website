@@ -89,7 +89,7 @@ The following recording demonstrates the usage of the Notification Centre:
 
 Some notifications, such as the severe exception one, contain details that can be opened up in a separate window to inspect configuration properties, stack traces, or possible hints towards a solution. That pop-up screen can be dismissed by simply clicking next to it.
 
-### {{< label version="professional" >}}JobRunr Pro{{< /label >}} Database Performance Optimizations
+### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Database Performance Optimizations
 
 In JobRunr Pro v8, we’ve reviewed the data types, queries and indexes to improve performance and reduce the load on the database. In our tests we’ve seen at least 2x improvement across all databases when all JobRunr features (such as dynamic queues, rate limiters, batch jobs, etc.) are enabled. In practice, you can expect less load on your database as queries run faster and data takes less space.
 
@@ -99,13 +99,13 @@ The following graph depicts the performance gains by comparing average job throu
 
 Just to err on the safe side, we even subtracted 10% off the v8 performance in the above graph!
 
-### {{< label version="professional" >}}JobRunr Pro{{< /label >}} K8S Autoscaling
+### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} K8S Autoscaling
 
 JobRunr Pro v8 provides different metrics (e.g., the worker’s usage, the amount of enqueued jobs, etc.), to customize Kubernetes autoscaling. 
 
 See the [JobRunr K8S Autoscaling guide](/en/guides/advanced/k8s-autoscaling/) that demonstrates the power of these metrics when coupled to KEDA, an event-driven way to autoscale your Kubernetes cluster.
 
-### {{< label version="enterprise" >}}JobRunr Pro{{< /label >}} Multi-Cluster Dashboard
+### {{< badge version="enterprise" >}}JobRunr Pro{{< /badge >}} Multi-Cluster Dashboard
 
 The JobRunr Pro Multi-Cluster Dashboard is a separate web server that offers a unified view over multiple JobRunr Pro clusters. Monitoring multiple instances can get tiresome when running a lot of different clusters, all running their own jobs. With the Multi-Cluster Dashboard, you can monitor the health of all clusters in one place.
 

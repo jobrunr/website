@@ -64,3 +64,12 @@ dialog #pagefind-search {
 dialog #pagefind-search .pagefind-ui__results {
     @apply overflow-x-auto;
 }
+
+.badge {
+    @apply py-1 px-2 rounded text-sm mr-2 text-light text-center inline-block;
+    background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
+}
+
+.badge.enterprise {
+    background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
+}

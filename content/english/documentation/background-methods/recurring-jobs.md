@@ -21,12 +21,12 @@ On this page you can learn about:
 - [Making a carbon aware recurring job](#making-recurring-jobs-carbon-aware)
 - [Managing recurring jobs](#managing-recurring-jobs)
 - [Deleting recurring jobs](#deleting-recurring-jobs)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs with limited lifetime](#recurring-jobs-with-limited-lifetime)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Advanced Cron Expressions](#advanced-cron-expressions)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom Recurring Job Schedules](#custom-recurring-job-schedules)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Concurrent recurring jobs](#concurrent-recurring-jobs)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Pause and Resume recurring jobs](#pause-and-resume-recurring-jobs)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Recurring jobs with limited lifetime](#recurring-jobs-with-limited-lifetime)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Advanced Cron Expressions](#advanced-cron-expressions)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Custom Recurring Job Schedules](#custom-recurring-job-schedules)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Recurring jobs missed during downtime](#recurring-jobs-missed-during-downtime)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Concurrent recurring jobs](#concurrent-recurring-jobs)
 - [Important remarks!](#important-remarks)
 
 
@@ -181,12 +181,12 @@ The methods above will create a new recurring job if no recurring job with that 
 You can remove an existing recurring job either via the dashboard or by calling the `BackgroundJob.delete` method with the id of the recurring job. It does not throw an exception when there is no such recurring job.
 
 ## Pause and Resume recurring jobs
-{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
 
 Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
 
 ## Recurring jobs with limited lifetime
-{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
 
 By default, a `RecurringJob` is active for the entire lifetime of an application (unless [paused](#pause-and-resume-recurring-jobs)).
 
@@ -218,7 +218,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 </figure>
 
 ## Advanced CRON Expressions
-{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
 
 Do you need to run recurring jobs on some special moments like the first business day of the month or the last business day of the month? JobRunr Pro has a CRON expression parser on steroids and supports your really complex schedule requirements.
 
@@ -248,7 +248,7 @@ __Some examples:__
 - `0 0 20W * *`: midnight on the 20th or the closest workday to the 20th
 
 ## Custom Recurring Job Schedules
-{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
 
 Do you have really complex recurring job schedule? Just extend the class `org.jobrunr.scheduling.custom.CustomSchedule` and implement one method where you provide the next `java.time.Instant` your job should run. For example, suppose you have a recurring job to run that needs to run once a day but can run every half hour during weekends:
 
@@ -290,7 +290,7 @@ JobRunr Pro will instantiate the class com.project.services.MySchedule and pass 
 > ⚠️ Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 
 ## Recurring jobs missed during downtime
-{{< label version="professional" >}}JobRunr Pro{{< /label >}} 
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
 
 If for some reason all of your servers are down (e.g. deploying a new version / scheduled down time / ...), JobRunr OSS skips these recurring jobs: as there is no background job server running, it will not be able to schedule these recurring jobs.
 
@@ -324,7 +324,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 
 
 ## Concurrent recurring jobs
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 JobRunr by default does not allow concurrent recurring jobs - the reason being is that if your recurring jobs for some reason take longer than the given CRON expression or interval, you may create more jobs than you can process.
 So, if a job instance created by a recurring job is still in state `SCHEDULED`, `ENQUEUED` or `PROCESSING` and it's time to again queue a new instance of the recurring job then this last instance will not be created.

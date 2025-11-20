@@ -12,9 +12,9 @@
         {{ partial "pagefind-filters.html" . }}
         <article class="content">
           {{ if eq .Params.version "pro"}}
-          <div data-pagefind-filter="tag:JobRunr Pro" class="label professional"><span>JobRunr Pro</span></div>
+          <div data-pagefind-filter="tag:JobRunr Pro"><span class="badge professional">JobRunr Pro</span></div>
           {{ else if eq .Params.version "enterprise"}}
-          <div data-pagefind-filter="tag:JobRunr Pro" class="label enterprise"><span>JobRunr Pro Enterprise</span></div>
+          <div data-pagefind-filter="tag:JobRunr Pro"><span class="badge enterprise">JobRunr Pro Enterprise</span></div>
           {{ else }}
           <template data-pagefind-filter="tag:JobRunr"></template>
           {{ end }}

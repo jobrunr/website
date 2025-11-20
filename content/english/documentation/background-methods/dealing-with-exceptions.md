@@ -35,10 +35,10 @@ You can of course configure how many retries JobRunr will do by default.
 
 - [Default retry policy configuration](#default-retry-policy-configuration)
 - [Per Job](#per-job)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom retry policy for all your jobs](#a-custom-retrypolicy-for-all-your-jobs)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom retry policy per job](#a-custom-retrypolicy-defined-per-job)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Custom retry policy per exception](#a-custom-retrypolicy-defined-per-job)
-- {{< label version="professional" >}}JobRunr Pro{{< /label >}} [Do Not Retry policy](#a-donotretrypolicy-in-case-nothing-helps)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Custom retry policy for all your jobs](#a-custom-retrypolicy-for-all-your-jobs)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Custom retry policy per job](#a-custom-retrypolicy-defined-per-job)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Custom retry policy per exception](#a-custom-retrypolicy-defined-per-job)
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} [Do Not Retry policy](#a-donotretrypolicy-in-case-nothing-helps)
 
 #### Default retry policy configuration
 <figure>
@@ -80,7 +80,7 @@ You can configure the amount of retries per job by means of the `@Job` annotatio
 </figure>
 
 ### Custom `RetryPolicy` configuration
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 Sometimes you may need a custom retry policy as it does not make sense to have exponential back-off policy. Or, you need a different retry policy per job or per Exception. Using the custom `RetryPolicy`, you can configure different rules based on the job and the exceptions you encounter. The first rule that matches, will be used.
 
@@ -88,7 +88,7 @@ Using the `PerJobRetryPolicy`, you now can handle the most exotic business rules
 
 
 #### A custom `RetryPolicy` for all your jobs
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 If you want to have the same `RetryPolicy` for all jobs and you are using the `jobrunr-spring-boot-x-starter`, the `jobrunr-micronaut-feature` or the `jobrunr-quarkus-extension`, you can easily configure this in via your application's properties.
 
@@ -102,7 +102,7 @@ In the example above, all your jobs will be retried at most 4 times and the retr
 
 
 #### A custom `RetryPolicy` defined per job
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 If one of your jobs need to connect to an external service that is often down for a longer period, it may make sense to have a custom `RetryPolicy` only for that job. 
 With JobRunr Pro, this is now also possible:
@@ -123,7 +123,7 @@ If you're using a framework integration (e.g. `jobrunr-spring-boot-x-starter`, t
 <br>
 
 #### A custom `RetryPolicy` defined per exception
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 If you want to change the `RetryPolicy` based on the exception, this can also easily be done:
 
@@ -143,7 +143,7 @@ If you're using a framework integration (e.g. `jobrunr-spring-boot-x-starter`, t
 <br>
 
 #### A `DoNotRetryPolicy` in case nothing helps
-{{< label version="professional" >}}JobRunr Pro{{< /label >}}
+{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
 
 If you do not want to retry failing jobs, this is also easily configurable:
 
