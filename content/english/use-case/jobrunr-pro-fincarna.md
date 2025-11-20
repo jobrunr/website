@@ -49,7 +49,7 @@ The stakes are a bit higher than your average e-commerce site.
 What I love about [JobRunr Pro](/en/pro) is that <b>scaling feels natural</b>. Need more throughput? Add more workers.
 Need to handle spikes? The system adapts. No need to become a distributed systems PhD just to process more background jobs without losing money.
 
-> Want to learn more about K8S autoscaling, check out the guide [Autoscale your JobRunr application deployed on Kubernetes](/en/guides/advanced/k8s-autoscaling/) or our blogpost [Optimizing Cost and Performance on Kubernetes: Scale Java Workloads with JobRunr Metrics](/en/blog/Scale-Java-Workloads-On-Kubernetes/)
+> Want to learn more about K8S autoscaling, check out the guide [Autoscale your JobRunr application deployed on Kubernetes](/en/guides/advanced/k8s-autoscaling/) or our blogpost [Optimizing Cost and Performance on Kubernetes: Scale Java Workloads with JobRunr Metrics](/en/blog/scale-java-workloads-on-kubernetes/)
 
 The beauty is in the simplicity: your jobs scale horizontally without you having to think about partitioning strategies or coordination protocols.
 Because honestly, I'd rather spend my time building features that make banks money than debugging why my job queue decided to process everything twice.

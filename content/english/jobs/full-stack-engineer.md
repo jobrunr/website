@@ -40,6 +40,6 @@ It is not imperative to have the experience. The motivation, drive, and passion 
 - A conversation to gauge team fit.
 
 ### To Apply:
-Email your CV in English to [hello@jobrunr.io](hello@jobrunr.io).
+Email your CV in English to hello@jobrunr.io.
 
 *JobRunr is an equal opportunity employer.*
