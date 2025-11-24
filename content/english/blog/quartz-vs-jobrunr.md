@@ -94,7 +94,7 @@ This test compared the free and open-source Quartz with JobRunr Pro.
 
 We believe in transparency. You shouldn't just take our word for it.
 
-We are cleaning up the benchmark code and will make the full, reproducible benchmark available on GitHub soon. You can run it yourself and see the numbers on your own stack.
+We published the full, reproducible benchmark on [GitHub](https://github.com/jobrunr/jobrunr-performance-test). You can run it yourself and see the numbers on your own stack.
 
 Choosing a scheduler is a big decision. We hope this data helps you understand the real-world cost of database overhead.
 
