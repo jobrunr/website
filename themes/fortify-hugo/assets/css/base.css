@@ -169,3 +169,15 @@ blockquote > p {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.text-secundary {
+  color: var(--color-secondary) !important;
+}
+
+.finance-use-cases a {
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: #a0a0a0;
+    text-decoration: none !important;
+    padding-bottom: 2px;
+}

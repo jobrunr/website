@@ -1,15 +1,26 @@
-{{ with site.GetPage "sections/accordion" }}
+{{/* 1. Try to get accordion data from the current page's Front Matter */}}
+{{ $data := .Params.accordion }}
+
+{{/* 2. If current page has no data, fallback to the global sections/accordion.md */}}
+{{ if not $data }}
+  {{ with site.GetPage "sections/accordion" }}
+    {{ $data = .Params }}
+  {{ end }}
+{{ end }}
+
+{{/* 3. Render the section if data was found */}}
+{{ with $data }}
 <section class="section">
   <div class="container">
     <div class="row">
       <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
-        <p class="mb-2 font-medium text-tertiary">{{ .Params.subtitle | markdownify }}</p>
-        <h2 class="mb-6">{{ .Params.title | markdownify }}</h2>
-        <p class="text-lg ">{{ .Params.description | markdownify }}</p>
+        <p class="mb-2 font-medium text-tertiary">{{ .subtitle | markdownify }}</p>
+        <h2 class="mb-6">{{ .title | markdownify }}</h2>
+        <p class="text-lg ">{{ .description | markdownify }}</p>
       </div>
       <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay="100">
         <div class="row g-2 justify-center">
-          {{ range $index, $item := .Params.list }}
+          {{ range $index, $item := .list }}
           <div class="lg:col-10">
             <div class="primary-accordion">
               <button class="primary-accordion-header bg-light!" aria-label="toggle accordion content">
@@ -22,7 +33,6 @@
           </div>
           {{ end }}
         </div>
-
       </div>
     </div>
   </div>
