@@ -181,3 +181,8 @@ blockquote > p {
     text-decoration: none !important;
     padding-bottom: 2px;
 }
+
+input[name="username"] {
+    position: absolute;
+    left: -999999999px;
+}
