@@ -333,7 +333,7 @@
                           <div class="mb-6">
                               <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Company</label>
                               <input type="text" id="company" name="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Company Name" required>
-                              <input type="text" name="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
+                              <input type="text" name="username" id="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
                           </div>
                           <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 14-Day Pro Trial</button>
                       </div>
@@ -408,6 +408,7 @@ document.getElementById('trial-form').addEventListener('submit', function(e) {
     const formData = {
         email: form.elements.email.value,
         company: form.elements.company.value,
+        username: form.elements.username.value,
         form: 'trial' 
     };
 
