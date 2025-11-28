@@ -37,7 +37,7 @@ quote_section:
   role: "Director of Engineering"
 
 challenges_section:
-  title: "Banking & Insurance Infrastructure is Evolving"
+  title: "Banking & Insurance Infra is Evolving"
   description: "Financial institutions are under pressure to modernize. You are transitioning from monolithic mainframes to a modern Java infrastructure. But this architectural shift introduces new risks."
   items:
     - title: "The 'Lost Job' Risk"
@@ -46,6 +46,9 @@ challenges_section:
       description: "Regulations require strict vendor due diligence and operational resilience. You cannot rely on unproven tools."
     - title: "Scale & Throughput"
       description: "Processing 50 million+ customer records or handling 100,000 urgent bulk payments without latency requires enterprise-grade architecture."
+    - title: "Cut your operational costs"
+      description: "Mainframe processing can be costly. With JobRunr you can configure auto-scaling and even run your backround jobs on moments when electricity is cheaper."
+
 
 security_section:
   title: "Security & Compliance:"
