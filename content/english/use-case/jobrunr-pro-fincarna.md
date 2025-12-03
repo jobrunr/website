@@ -163,10 +163,6 @@ With [JobRunr Pro](/en/pro)'s [workflow capabilities](/en/documentation/pro/job-
 If invoice generation succeeds but notification fails, we can retry just the notification step.
 <b>It's like having a state machine, but without the complexity.</b>
 
-Here is the updated section with the **Priority Queues** paragraph added. I have crafted it to match Lloyd’s pragmatic, "architect-to-architect" tone, using Kotlin for the code snippet to maintain consistency with the rest of the article.
-
-You can insert this block right after the **Job Dependencies & Workflows** section and before the **Spring Boot Integration** section.
-
 ### [Priority Queues](/en/documentation/pro/priority-queues/)
 
 In fintech, latency isn't just an annoyance; it’s a liability.
