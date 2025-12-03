@@ -17,8 +17,7 @@ The JobRunr [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_i
 
 > (*) See important remarks at the end of this page.
 
-<figure>
-
+{{< codeblock title="Thanks to the `@Transactional` support, the whole method - including the job scheduling - is transactional." >}}
 ```java
 @Inject
 private UserRepository userRepositoy;
@@ -32,12 +31,7 @@ public void createUserAndSendWelcomeEmail(User user) {
 }
 
 ```
-<figcaption>
-
-Thanks to the @Transactional support, the whole method - including the job scheduling - is transactional.
-
-</figcaption>
-</figure>
+{{< /codeblock >}}
 
 > Also works with Exposed's transaction block!
 
@@ -63,25 +57,20 @@ The one exception is when you want to use Exposed. But you'll be up and running 
 
 If you're using one of the supported frameworks (Spring, Micronaut or Quarkus), then you may provide a `ConnectionProvider` bean that will be picked up automatically by JobRunr.
 
-<figure>
-
+{{< codeblock title="This example shows how to provide `ExposedTransactionAwareConnectionProvider` as a `Bean` when using the Spring framework." >}}
 ```java
 @Bean(name = "connectionProvider")
 public ConnectionProvider getExposedTransactionAwareConnectionProvider() {
     return new ExposedTransactionAwareConnectionProvider();
 }
 ```
-<figcaption>
+{{< /codeblock >}}
 
-This example shows how to provide `ExposedTransactionAwareConnectionProvider` as a `Bean` when using the Spring framework.
-
-</figcaption>
 </figure>
 
 If you're using the Fluent API, you can configure a `ConnectionProvider` as follows:
 
-<figure>
-
+{{< codeblock title="This example shows how to provide `ExposedTransactionAwareConnectionProvider` to the `StorageProvider` when using the fluent API." >}}
 ```java
 JobRunrPro.configure()
   // ...
@@ -94,12 +83,7 @@ JobRunrPro.configure()
   // ...
   .initialize();
 ```
-<figcaption>
-
-This example shows how to provide `ExposedTransactionAwareConnectionProvider` to the `StorageProvider` when using the fluent API.
-
-</figcaption>
-</figure>
+{{< /codeblock >}}
 
 > Similarly you can provide a `ConnectionProvider` for Micronaut, Quarkus and Spring. JobRunr Pro comes with the following transaction aware connections: `ExposedTransactionAwareConnectionProvider`, `MicronautTransactionAwareConnectionProvider`, `QuarkusTransactionAwareConnectionProvider`, and `SpringTransactionAwareConnectionProvider`.
 

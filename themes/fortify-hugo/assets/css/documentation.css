@@ -48,10 +48,6 @@
   @apply mb-2;
 }
 
-.docs-content code {
-  @apply text-sm;
-}
-
 .docs-content pre {
   @apply text-sm mb-4;
 }
