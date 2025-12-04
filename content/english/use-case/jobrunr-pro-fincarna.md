@@ -13,6 +13,9 @@ Let me start with a confession: I've built more job processing systems than I ca
 
 At Fincarna, where we're building a modern monetization platform for small and medium banks, I've learned that not every background job is created equal, and many seem to think they are.
 
+> Want to skip the intro and go immideatly to code-examples? <Br/>
+> [The Features That Actually Mattered for Us](#the-features-that-actually-mattered-for-us).
+
 ## The ETL Trap: When Your Hammer Thinks Everything's a Nail
 Here's the thing about Extract, Transform, Load frameworks (ETL), they're fantastic when you're actually doing ETL operations.
 
@@ -160,6 +163,46 @@ With [JobRunr Pro](/en/pro)'s [workflow capabilities](/en/documentation/pro/job-
 If invoice generation succeeds but notification fails, we can retry just the notification step.
 <b>It's like having a state machine, but without the complexity.</b>
 
+### [Priority Queues](/en/documentation/pro/priority-queues/)
+
+In fintech, latency isn't just an annoyance; it’s a liability.
+We learned the hard way that in a mixed-workload environment, you cannot treat a user waiting for a One-Time Password (OTP) the same way you treat a nightly report generation task.
+
+If your background workers are clogged up processing 50,000 monthly statements, that single critical fraud alert or password reset email shouldn't have to wait in line.
+[JobRunr Pro](/en/pro) solves this with **Priority Queues**, allowing us to let high-value, time-sensitive transactions "skip the line" automatically.
+
+It’s like having a dedicated express lane for VIP traffic without the overhead of managing completely separate infrastructure clusters.
+
+```kotlin
+// High Priority: The user is literally waiting at the screen
+jobScheduler.create(
+    aJob()                      
+        .withName("Send Authorization OTP")
+        .withQueue("High-prio") // Top priority
+        .withDetails(() -> notificationService.sendHighPriorityOtp(userId)) 
+);
+
+// Standard Priority: Business as usual
+jobScheduler.create(
+    aJob()
+        .withName("Send Authorization OTP")
+        .withQueue("Default") // Default priority
+        .withDetails(() -> feeService.calculate(transactionId)) 
+);
+
+
+// Low Priority: "Get to it when the server is bored"
+jobScheduler.create(
+    aJob()
+        .withName("Generate Monthly Statement PDF")
+        .withQueue("LowPrio") // Background fill
+        .withDetails (() -> statementService.generatePdf(accountId))
+);
+```
+
+This simple `withQueue` argument saved us from the "noisy neighbor" problem. Now, no matter how heavy our batch processing gets, real-time customer interactions always take precedence.
+
+
 ### [Spring Boot Integration](/en/documentation/configuration/spring/)
 At Fincarna, we're pretty much a Spring shop, we love the ecosystem, the conventions, and how everything just works together.
 
@@ -182,7 +225,7 @@ These are the problems worth solving. Everything else should just work.
 > ## Ready to take control of your background jobs?
 >Stop wrestling with frameworks that weren't built for your use case. Discover how JobRunr Pro can simplify your architecture, scale with your needs, and let you focus on what you do best.
 >
->[Explore JobRunr Pro Features](/en/pro) or [Request a Free Trial](/en/try-jobrunr-pro/)
+>[Explore JobRunr Pro for Finance](/en/finance) or [Request a Free Trial](/en/try-jobrunr-pro/)
 
 ***
 *Lloyd Chandran is the founder and lead architect of <a href="https://fincarna.com/">Fincarna</a>, a cutting-edge, cloud-native monetization platform helping small and medium banks compete in the digital age. When he's not building Fincarna's next feature, he's probably debugging why his lawn mower isn't working (again).*
