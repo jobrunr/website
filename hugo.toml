@@ -24,6 +24,7 @@ defaultContentLanguageInSubdir = true
 jobRunrVersion = "8.1.0"
 github_url = "https://github.com/jobrunr/jobrunr"
 github_stars = "2.8K"
+enableTrialButton = true
 
 ########################### Services #############################
 [services]
