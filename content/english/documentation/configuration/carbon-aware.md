@@ -88,3 +88,92 @@ On the carbon aware job processing configuration class, the following parameters
 > __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 
 
 Once you have Carbon Aware Job Processing configured, it is time to take a look at how to enhance your jobs with the carbon aware margin: see [Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) in the docs.
+
+## Available Areas
+
+The Carbon Intensity API provides carbon intensity data for various geographical areas. Below is a list of some example supported areas:
+
+
+
+<div class="my-6">
+    <div class="mb-4">
+    <input type="text" id="areas-search" placeholder="Search areas..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+    </div>
+    <div id="areas-table"></div>
+</div>
+
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script>
+
+<script>
+// Example data - this would be dynamically loaded from API
+const data = [
+  { displayName: 'Austria', areaCode: 'AT', externalCode: null, externalIdentifier: '10YAT-APG------L', timezone: 'Europe/Vienna', provider: 'ENTSO-E' },
+  { displayName: 'Belgium', areaCode: 'BE', externalCode: null, externalIdentifier: '10YBE----------2', timezone: 'Europe/Brussels', provider: 'ENTSO-E' },
+  { displayName: 'Bulgaria', areaCode: 'BG', externalCode: null, externalIdentifier: '10YCA-BULGARIA-R', timezone: 'Europe/Sofia', provider: 'ENTSO-E' },
+  { displayName: 'Croatia', areaCode: 'HR', externalCode: null, externalIdentifier: '10YHR-HEP------M', timezone: 'Europe/Zagreb', provider: 'ENTSO-E' },
+  { displayName: 'Czech Republic', areaCode: 'CZ', externalCode: null, externalIdentifier: '10YCZ-CEPS-----N', timezone: 'Europe/Prague', provider: 'ENTSO-E' },
+  { displayName: 'Denmark - West', areaCode: 'DK', externalCode: 'DK-West', externalIdentifier: '10YDK-1--------W', timezone: 'Europe/Copenhagen', provider: 'ENTSO-E' },
+  { displayName: 'Denmark - East', areaCode: 'DK', externalCode: 'DK-East', externalIdentifier: '10YDK-2--------M', timezone: 'Europe/Copenhagen', provider: 'ENTSO-E' },
+  { displayName: 'Estonia', areaCode: 'EE', externalCode: null, externalIdentifier: '10Y1001A1001A39I', timezone: 'Europe/Tallinn', provider: 'ENTSO-E' },
+  { displayName: 'Finland', areaCode: 'FI', externalCode: null, externalIdentifier: '10YFI-1--------U', timezone: 'Europe/Helsinki', provider: 'ENTSO-E' },
+  { displayName: 'France', areaCode: 'FR', externalCode: null, externalIdentifier: '10YFR-RTE------C', timezone: 'Europe/Paris', provider: 'ENTSO-E' },
+  { displayName: 'Germany', areaCode: 'DE', externalCode: null, externalIdentifier: '10Y1001A1001A83F', timezone: 'Europe/Berlin', provider: 'ENTSO-E' },
+  { displayName: 'Greece', areaCode: 'GR', externalCode: null, externalIdentifier: '10YGR-HTSO-----Y', timezone: 'Europe/Athens', provider: 'ENTSO-E' },
+  { displayName: 'Hungary', areaCode: 'HU', externalCode: null, externalIdentifier: '10YHU-MAVIR----U', timezone: 'Europe/Budapest', provider: 'ENTSO-E' },
+  { displayName: 'Ireland', areaCode: 'IE', externalCode: null, externalIdentifier: '10YIE-1001A00010', timezone: 'Europe/Dublin', provider: 'ENTSO-E' },
+  { displayName: 'Italy - North', areaCode: 'IT', externalCode: 'IT-North', externalIdentifier: '10Y1001A1001A73I', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
+  { displayName: 'Italy - Central North', areaCode: 'IT', externalCode: 'IT-CentralNorth', externalIdentifier: '10Y1001A1001A70O', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
+  { displayName: 'Italy - Central South', areaCode: 'IT', externalCode: 'IT-CentralSouth', externalIdentifier: '10Y1001A1001A71M', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
+  { displayName: 'Italy - South', areaCode: 'IT', externalCode: 'IT-South', externalIdentifier: '10Y1001A1001A788', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
+  { displayName: 'Latvia', areaCode: 'LV', externalCode: null, externalIdentifier: '10YLV-1001A00074', timezone: 'Europe/Riga', provider: 'ENTSO-E' },
+  { displayName: 'Lithuania', areaCode: 'LT', externalCode: null, externalIdentifier: '10YLT-1001A0008Q', timezone: 'Europe/Vilnius', provider: 'ENTSO-E' },
+  { displayName: 'Netherlands', areaCode: 'NL', externalCode: null, externalIdentifier: '10YNL----------L', timezone: 'Europe/Amsterdam', provider: 'ENTSO-E' },
+  { displayName: 'Norway - South', areaCode: 'NO', externalCode: 'NO-South', externalIdentifier: '10YNO-2--------T', timezone: 'Europe/Oslo', provider: 'ENTSO-E' },
+  { displayName: 'Norway - North', areaCode: 'NO', externalCode: 'NO-North', externalIdentifier: '10YNO-4--------9', timezone: 'Europe/Oslo', provider: 'ENTSO-E' },
+  { displayName: 'Poland', areaCode: 'PL', externalCode: null, externalIdentifier: '10YPL-AREA-----S', timezone: 'Europe/Warsaw', provider: 'ENTSO-E' },
+  { displayName: 'Portugal', areaCode: 'PT', externalCode: null, externalIdentifier: '10YPT-REN------W', timezone: 'Europe/Lisbon', provider: 'ENTSO-E' },
+  { displayName: 'Romania', areaCode: 'RO', externalCode: null, externalIdentifier: '10YRO-TEL------P', timezone: 'Europe/Bucharest', provider: 'ENTSO-E' },
+  { displayName: 'Slovakia', areaCode: 'SK', externalCode: null, externalIdentifier: '10YSK-SEPS-----K', timezone: 'Europe/Bratislava', provider: 'ENTSO-E' },
+  { displayName: 'Slovenia', areaCode: 'SI', externalCode: null, externalIdentifier: '10YSI-ELES-----O', timezone: 'Europe/Ljubljana', provider: 'ENTSO-E' },
+  { displayName: 'Spain', areaCode: 'ES', externalCode: null, externalIdentifier: '10YES-REE------0', timezone: 'Europe/Madrid', provider: 'ENTSO-E' },
+  { displayName: 'Sweden - South', areaCode: 'SE', externalCode: 'SE-South', externalIdentifier: '10Y1001A1001A44P', timezone: 'Europe/Stockholm', provider: 'ENTSO-E' },
+  { displayName: 'Sweden - North', areaCode: 'SE', externalCode: 'SE-North', externalIdentifier: '10Y1001A1001A45N', timezone: 'Europe/Stockholm', provider: 'ENTSO-E' },
+  { displayName: 'Switzerland', areaCode: 'CH', externalCode: null, externalIdentifier: '10YCH-SWISSGRIDZ', timezone: 'Europe/Zurich', provider: 'ENTSO-E' }
+];
+
+// Initialize Tabulator
+const table = new Tabulator("#areas-table", {
+  data: data,
+  height: 500,
+  layout: "fitColumns",
+  virtualDom: true,
+  virtualDomBuffer: 300,
+  rowHeight: 38,
+  columns: [
+    { title: "Display Name", field: "displayName", sorter: "string", minWidth: 200 },
+    { title: "Area Code", field: "areaCode", sorter: "string"},
+    { title: "External Code", field: "externalCode", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
+    { title: "External Identifier", field: "externalIdentifier", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
+    { title: "Timezone", field: "timezone", sorter: "string" },
+    { title: "Provider", field: "provider", sorter: "string" }
+  ],
+  placeholder: "No areas found",
+  initialSort: [
+    { column: "displayName", dir: "asc" }
+  ]
+});
+
+// Global search functionality
+document.getElementById("areas-search").addEventListener("keyup", function() {
+  table.setFilter([
+    [
+      { field: "displayName", type: "like", value: this.value },
+      { field: "areaCode", type: "like", value: this.value },
+      { field: "externalCode", type: "like", value: this.value },
+      { field: "externalIdentifier", type: "like", value: this.value },
+      { field: "timezone", type: "like", value: this.value },
+      { field: "provider", type: "like", value: this.value }
+    ]
+  ]);
+});
+</script>

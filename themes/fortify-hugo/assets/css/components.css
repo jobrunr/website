@@ -174,34 +174,3 @@
     @apply mb-0;
   }
 }
-
-.content table {
-    background:
-      radial-gradient(ellipse at left,rgba(0,0,0,.2) 0,transparent 75%) 0,
-      radial-gradient(ellipse at right,rgba(0,0,0,.2) 0,transparent 75%) 100%;
-    background-attachment: scroll,scroll;
-    background-repeat: no-repeat;
-    background-size: 10px 100%,10px 100%;
-}
-
-
-.content table td:first-child {
-    background-image: linear-gradient(90deg,#fff 50%,rgba(255,255,255,0));
-    background-repeat: no-repeat;
-    background-size: 20px 100%
-}
-
-.content table td:last-child {
-    background-image: linear-gradient(270deg,#fff 50%,rgba(255,255,255,0));
-    background-position: 100% 0;
-    background-repeat: no-repeat;
-    background-size: 20px 100%
-}
-
-.content table tbody, .content table thead {
-  @apply rounded border border-border;
-}
-
-.content figure {
-  display: block!important;
-}

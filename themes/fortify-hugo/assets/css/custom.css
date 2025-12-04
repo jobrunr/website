@@ -1,0 +1,141 @@
+/* TABLES */
+.content table:not(.datatable) {
+    background:
+      radial-gradient(ellipse at left,rgba(0,0,0,.2) 0,transparent 75%) 0,
+      radial-gradient(ellipse at right,rgba(0,0,0,.2) 0,transparent 75%) 100%;
+    background-attachment: scroll,scroll;
+    background-repeat: no-repeat;
+    background-size: 10px 100%,10px 100%;
+}
+
+
+.content table:not(.datatable) td:first-child {
+    background-image: linear-gradient(90deg,#fff 50%,rgba(255,255,255,0));
+    background-repeat: no-repeat;
+    background-size: 20px 100%
+}
+
+.content table:not(.datatable) td:last-child {
+    background-image: linear-gradient(270deg,#fff 50%,rgba(255,255,255,0));
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: 20px 100%
+}
+
+.content table:not(.datatable) tbody, .content table thead {
+  @apply rounded border border-border;
+}
+
+/* TABULATOR */
+
+/* Tabulator container */
+#areas-table.tabulator {
+  @apply rounded border border-gray-200 shadow-sm;
+}
+
+#areas-table.tabulator, 
+.tabulator .tabulator-header,
+.tabulator .tabulator-row {
+  @apply border-b border-gray-200;
+}
+
+/* Header */
+.tabulator .tabulator-header .tabulator-headers,
+.tabulator .tabulator-header .tabulator-headers .tabulator-col {
+  @apply h-[48px]!;
+}
+
+.tabulator .tabulator-header .tabulator-headers .tabulator-col {
+  @apply justify-center;
+}
+
+.tabulator .tabulator-header .tabulator-col .tabulator-col-content {
+  @apply p-0;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-sortable.tabulator-col-sorter-element:hover {
+  @apply bg-transparent;
+}
+
+/* Sort arrow styling */
+.tabulator .tabulator-col.tabulator-sortable[aria-sort="none"] .tabulator-arrow {
+  @apply opacity-0;
+}
+
+.tabulator .tabulator-col.tabulator-sortable[aria-sort="none"]:hover .tabulator-arrow {
+  @apply opacity-40;
+}
+
+.tabulator .tabulator-col.tabulator-sortable[aria-sort="asc"] .tabulator-arrow,
+.tabulator .tabulator-col.tabulator-sortable[aria-sort="desc"] .tabulator-arrow {
+  @apply opacity-100;
+}
+
+.tabulator .tabulator-row:hover {
+  @apply hover:bg-light;
+}
+
+/* Cells */
+.tabulator .tabulator-cell, .tabulator .tabulator-col {
+  @apply px-2 py-2;
+}
+
+.tabulator .tabulator-row .tabulator-cell,
+.tabulator .tabulator-header .tabulator-col {
+  @apply border-r-0;
+}
+
+.tabulator .tabulator-header .tabulator-col-resize-handle {
+  @apply bg-gray-300 w-[2px] py-[12px] mr-0 ml-[-2.5px] bg-clip-content;
+}
+
+.tabulator .tabulator-row .tabulator-col-resize-handle {
+  @apply hidden;
+}
+
+/* MISC */
+
+.content figure {
+  display: block!important;
+}
+
+.kg-image{
+  margin-top: 0px !important;
+}
+
+.primary-accordion-content a{
+  text-decoration: underline !important;
+}
+
+.table-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem; /* 20px */
+  height: 1.25rem; /* 20px */
+  border-radius: 9999px; /* full circle */
+  
+  /* Use your variable for the purple color */
+  background-color: var(--color-tertiary, #8B5CF6); 
+  
+  /* The SVG from your .list::before style */
+  background-image: url("data:image/svg+xml,%3Csvg stroke='currentColor' fill='white' stroke-width='0' viewBox='0 0 448 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z'%3E%3C/path%3E%3C/svg%3E");
+  
+  /* From your .list li::before example */
+  background-size: 80%; 
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.finance-use-cases a {
+    border-bottom-width: 1px;
+    border-bottom-style: dashed;
+    border-bottom-color: #a0a0a0;
+    text-decoration: none !important;
+    padding-bottom: 2px;
+}
+
+input[name="username"] {
+    position: absolute;
+    left: -999999999px;
+}
