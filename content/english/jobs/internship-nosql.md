@@ -4,6 +4,9 @@ summary: "Deep dive into the world of NoSQL"
 translationKey: "webinar"
 skip_meta: true
 date: 2023-02-06T11:12:23+02:00
+build:
+  render: "never"
+  list: "never"
 ---
 
 ## Mission

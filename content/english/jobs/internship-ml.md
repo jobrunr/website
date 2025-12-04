@@ -3,7 +3,8 @@ title: "JobRunr ML Internship"
 summary: "Deep dive into ML to optimize job throughput"
 translationKey: "webinar"
 skip_meta: true
-date: 2023-02-06T11:12:23+02:00
+date: 3023-02-06T11:12:23+02:00
+draft: true
 ---
 
 ## Mission

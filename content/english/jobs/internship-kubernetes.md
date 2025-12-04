@@ -3,7 +3,11 @@ title: "JobRunr Kubernetes Autoscaling Internship"
 summary: "Deep dive into the cloud-native world!"
 translationKey: "webinar"
 skip_meta: true
-date: 2023-02-06T11:12:23+02:00
+date: 2033-02-06T11:12:23+02:00
+draft: true
+build:
+  render: "never"
+  list: "never"
 ---
 
 ## Mission

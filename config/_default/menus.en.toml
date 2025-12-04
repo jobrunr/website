@@ -57,5 +57,10 @@ weight = 2
 [[footer_02]]
 name = "About JobRunr"
 pageRef = "/about"
-weight = 3
+weight = 4
+
+[[footer_02]]
+name = "Jobs at JobRunr"
+pageRef = "/jobs"
+weight = 4
 
