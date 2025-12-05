@@ -91,20 +91,65 @@ Once you have Carbon Aware Job Processing configured, it is time to take a look 
 
 ## Available Areas
 
-The Carbon Intensity API provides carbon intensity data for various geographical areas. Below is a list of some example supported areas:
+The Carbon Intensity API provides carbon intensity forecasts through various data providers, each covering different geographical regions.
 
+### 🚧 Data Providers
 
+Below are the data providers integrated with the Carbon Intensity API:
 
-<div class="my-6">
+<!-- <div id="providers-container" class="data-providers"></div> -->
+🚧 Coming soon!
+
+### 🚧 Areas
+
+The following table lists all geographical areas currently supported by the Carbon Intensity API:
+
+<!-- <div class="my-6">
     <div class="mb-4">
     <input type="text" id="areas-search" placeholder="Search areas..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
     </div>
     <div id="areas-table"></div>
-</div>
+</div> -->
 
-<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script>
+<!-- <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script> -->
+
+🚧 Coming soon!
 
 <script>
+// Data providers configuration
+const providersData = [
+  {
+    name: 'ENTSO-E',
+    displayName: 'European Network of Transmission System Operators for Electricity',
+    description: 'ENTSO-E provides comprehensive electricity market data across Europe, including real-time generation mix and carbon intensity information for all EU member states.',
+    updateFrequency: 'Daily',
+    areaCount: 32
+  }
+  // More providers will be added here as they become available
+];
+
+function renderProviderCard(provider) {
+  return `
+    <article class="card">
+        <div class="card__header">
+            <div class="card__title__container">
+                <h4 class="card__title">${provider.name}</h4>
+                <span class="update-frequency">Update: ${provider.updateFrequency}</span>
+            </div>
+            <div class="card__subtitle">${provider.displayName}</div>
+        </div>
+        <p class="card__content">${provider.description}</p>
+        <div class="card__footer">
+            <a href="#available-areas" class="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium whitespace-nowrap">${provider.areaCount} areas →</a>
+        </div>
+    </article>
+  `;
+}
+
+// Initial render
+document.getElementById('providers-container').innerHTML = providersData.map(renderProviderCard).join('');
+
+
 // Example data - this would be dynamically loaded from API
 const data = [
   { displayName: 'Austria', areaCode: 'AT', externalCode: null, externalIdentifier: '10YAT-APG------L', timezone: 'Europe/Vienna', provider: 'ENTSO-E' },
@@ -149,6 +194,7 @@ const table = new Tabulator("#areas-table", {
   virtualDom: true,
   virtualDomBuffer: 300,
   rowHeight: 38,
+  selectableRows: 1,
   columns: [
     { title: "Display Name", field: "displayName", sorter: "string", minWidth: 200 },
     { title: "Area Code", field: "areaCode", sorter: "string"},
@@ -175,5 +221,9 @@ document.getElementById("areas-search").addEventListener("keyup", function() {
       { field: "provider", type: "like", value: this.value }
     ]
   ]);
+});
+
+table.on("rowSelectionChanged", function(data, rows){
+  document.getElementById("selected-rows").innerHTML = data.length;
 });
 </script>

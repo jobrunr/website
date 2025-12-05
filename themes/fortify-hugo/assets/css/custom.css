@@ -75,6 +75,16 @@
   @apply hover:bg-light;
 }
 
+.tabulator .tabulator-row.tabulator-selected,
+.tabulator .tabulator-row.tabulator-selected:hover {
+  @apply text-white;
+  background-color: var(--color-primary);
+}
+
+.tabulator .tabulator-row.tabulator-selected:hover {
+  @apply bg-(--color-primary)/90;
+}
+
 /* Cells */
 .tabulator .tabulator-cell, .tabulator .tabulator-col {
   @apply px-2 py-2;
@@ -91,6 +101,40 @@
 
 .tabulator .tabulator-row .tabulator-col-resize-handle {
   @apply hidden;
+}
+
+/* DATA-PROVIDERS */
+.data-providers { 
+  @apply my-6 grid gap-3 sm:grid-cols-2 md:grid-cols-3;
+}
+
+.data-providers .card {
+  @apply border border-gray-200 rounded-md p-4 hover:shadow;
+}
+
+.data-providers .card .card__header .card__title__container {
+  @apply flex justify-between gap-2 flex-wrap;
+}
+
+.data-providers .card .card__header .card__title__container .card__title {
+  @apply font-semibold text-base m-0;
+}
+
+.data-providers .card .card__header .card__title__container .update-frequency {
+  @apply px-2.5 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded whitespace-nowrap self-baseline;
+}
+
+.data-providers .card .card__header .card__subtitle {
+  @apply text-sm opacity-70 mt-2;
+}
+
+
+.data-providers .card .card__content {
+  @apply text-sm;
+}
+
+.data-providers .card .card__footer {
+  @apply text-sm mt-3;
 }
 
 /* MISC */
