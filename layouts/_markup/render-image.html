@@ -4,13 +4,13 @@
         <a href="{{ with $image }}{{ $image.Permalink }}{{ end }}">
             <img src="{{ with $image }}{{ $image.Permalink }}{{ end }}" class="kg-image" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
         </a>
-        {{ with .Title }}<figcaption class="mt-0">{{ . | markdownify }}</figcaption>{{ end }}
+        {{ with .Title }}<figcaption class="mt-3">{{ . | markdownify }}</figcaption>{{ end }}
     </figure>
 {{ else }}
 <figure>
     <a href="{{ .Destination }}">
         <img src="{{ .Destination }}" class="kg-image" alt="{{ .Text }}" {{ with .Title }} title="{{ . }}"{{ end }}/>
     </a>
-    {{ with .Title }}<figcaption class="mt-0">{{ . | markdownify }}</figcaption>{{ end }}
+    {{ with .Title }}<figcaption class="mt-3">{{ . | markdownify }}</figcaption>{{ end }}
 </figure>
 {{ end }}

@@ -147,8 +147,9 @@
   @apply rounded-none;
 }
 
-.kg-image{
-  margin-top: 0px !important;
+.content figure img.kg-image {
+  display: block;
+  margin: 0 auto;
 }
 
 .primary-accordion-content a{
