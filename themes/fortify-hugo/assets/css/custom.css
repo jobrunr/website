@@ -143,6 +143,10 @@
   display: block!important;
 }
 
+.content figure img {
+  @apply rounded-none;
+}
+
 .kg-image{
   margin-top: 0px !important;
 }
