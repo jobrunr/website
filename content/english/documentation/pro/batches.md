@@ -145,7 +145,13 @@ public void step1() {
 
 ## Dashboard
 
-Thanks to the enhanced dashboard that comes with JobRunr Pro, you have an in-depth overview of all your different batch jobs.
+Thanks to the Pro dashboard’s advanced search, you can easily filter batch jobs from other job types. The video below demonstrates how to search for batch jobs and view the details of their child jobs.
+
+### Filter Batch Jobs and track their progress
+
+{{< video src="/documentation/batch-jobs.mp4" autoplay="true" width="100%" muted="true" loop="true" controls="true" >}}
+
+### Screenshots
 
 ![](/documentation/jobrunr-pro-batches.webp "The Pro version also gives an overview of all your batches")
 
