@@ -23,20 +23,22 @@ The JobRunr Pro dashboard offers a lot of improvements that save your engineerin
 
 
 ## Find any Job using the search functionality
-Are you processing millions of jobs? Do you need to find that one job and find out if it succeeded? JobRunr Pro has you covered - thanks to a new feature called Job Search.
+Are you processing millions of jobs? Do you need to find that one job and find out if it succeeded? JobRunr Pro has you covered - thanks to Job Search feature, available to the Pro Dashboard users.
 
-![](/documentation/job-filters.gif "Thanks to the search filter, you can quickly find the job(s) you are interested in.")
+{{< video src="/documentation/jobrunr-pro-advanced-search.mp4" autoplay="true" width="100%" muted="true" loop="true" controls="true" >}}
 
 You can combine multiple filters to quickly find any job you are looking for using:
 - Job Name
 - Job Signature / Method Signature
+- Last Exception thrown by the Job
 - Job Fingerprint / Complete method with serialized parameters (toString())
 - Any label the Job was given
-- The queue the job was submitted on
-- The server tag of the job
+- The queue the Job was submitted on
+- The server tag of the Job
 - The recurring job id
 - Created after / Created before
-- Updated after / Updated before 
+- Updated after / Updated before
+- ...
 
 To see a complete demo of JobRunr Pro with job filtering, have a look at this [blog post](/en/blog/2021-07-12-jobrunr-pro-v3.4.0).
 
@@ -45,7 +47,14 @@ To see a complete demo of JobRunr Pro with job filtering, have a look at this [b
 ## Save time thanks to some usability improvements
 The JobRunr Pro dashboard also includes some usability improvements that save you a lot of time. Just requeue all your failed jobs with one click.
 
-![](/documentation/jobrunr-pro-failed-requeue.png "Thanks to some usability features, you can quickly requeue or delete all jobs.")
+![](/documentation/jobrunr-pro-failed-requeue.webp "Thanks to some usability features, you can quickly requeue or delete all jobs.")
+
+### Protection against destructive actions
+
+The JobRunr Pro dashboard includes a confirmation dialog when attempting to execute a destructive action (e.g., deleting a job).
+
+![](/documentation/jobrunr-pro-destructive-action.webp "To prevent misclicks, the UI shows a confirmation dialog for all destructive actions.")
+
 
 ## Easier support to Proxy with a custom context-path
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.
