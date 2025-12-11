@@ -7,7 +7,7 @@ date: 2020-08-27T11:12:23+02:00
 
 # License
 
-Copyright © 2019-2030 JobRunr bv Rosoco BV
+Copyright © 2019-2030 JobRunr by Rosoco BV
 
 JobRunr software is an open-source software that is multi-licensed under the terms of the licenses listed in this file. Recipients may choose the terms under which they are want to use or distribute the software, when all the preconditions of a chosen license are satisfied.
 

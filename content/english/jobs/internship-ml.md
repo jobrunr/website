@@ -5,6 +5,9 @@ translationKey: "webinar"
 skip_meta: true
 date: 3023-02-06T11:12:23+02:00
 draft: true
+build:
+  render: "never"
+  list: "never"
 ---
 
 ## Mission
