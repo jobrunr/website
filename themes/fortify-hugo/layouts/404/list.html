@@ -50,7 +50,7 @@
             var currentPath = window.location.pathname;
             
             // Check if the path is missing the '/en/' prefix
-            if (!currentPath.startsWith("/en/")) {
+            if (!currentPath.startsWith("/en/") && !["/404", "/404.html"].includes(currentPath)) {
                 
                 // Construct the new URL
                 var newPath = "/en" + currentPath;
