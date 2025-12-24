@@ -22,8 +22,8 @@ Remember that background jobs may be processed days or weeks after they were enq
 You can pass object to the background job lambda just like any other normal lambda method invocation. These arguments can be any of type `java.lang` or even custom objects.
 
 > Take the following into account if you are using custom objects:<br>
-> - it must be possible to serialize and deserialize them via either Jackson, Gson or JSON-B
-> - foresee a default no-argument constructor (it can be private) - this helps Jackson, Gson or JSON-B to deserialize it
+> - it must be possible to serialize and deserialize them via your chosen [JSON serialization library]({{< ref "documentation/serialization" >}})
+> - foresee a default no-argument constructor (it can be private) - this helps your JSON library to deserialize it
 
 <figure>
 
@@ -31,15 +31,15 @@ You can pass object to the background job lambda just like any other normal lamb
 Mail mail = new Mail("from", "to", "subject", "message");
 BackgroundJob.enqueue(() -> mailService.send(mail));
 ```
-<figcaption>Since the Mail class can be serialized with Jackson, Gson or JSON-B, it can be passed as an argument to a background job</figcaption>
+<figcaption>Since the Mail class can be serialized with your JSON library, it can be passed as an argument to a background job</figcaption>
 </figure>
 
 ### JobRequest and JobRequestHandler
 Also when using the `JobRequest` approach, you can easily pass arguments. These arguments can again be any of type `java.lang` or even custom objects.
 
 > Take the following into account if you are using custom objects:<br>
-> - it must be possible to serialize and deserialize them via either Jackson, Gson or JSON-B
-> - foresee a default no-argument constructor (it can be private) - this helps Jackson, Gson or JSON-B to deserialize it
+> - it must be possible to serialize and deserialize them via your chosen [JSON serialization library]({{< ref "documentation/serialization" >}})
+> - foresee a default no-argument constructor (it can be private) - this helps your JSON library to deserialize it
 
 <figure>
 
@@ -47,5 +47,5 @@ Also when using the `JobRequest` approach, you can easily pass arguments. These 
 SendMailJobRequest sendMailJobRequest = new SendMailJobRequest("from", "to", "subject", "message");
 BackgroundJobRequest.enqueue(sendMailJobRequest);
 ```
-<figcaption>Since the SendMailJobRequest class can be serialized with Jackson, Gson or JSON-B, it can be passed as an argument to a background job</figcaption>
+<figcaption>Since the SendMailJobRequest class can be serialized with your JSON library, it can be passed as an argument to a background job</figcaption>
 </figure>

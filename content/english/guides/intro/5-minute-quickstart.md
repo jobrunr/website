@@ -1,6 +1,6 @@
 ---
 title: "JobRunr 5-Minute Quickstart Guide"
-meta_title: "Get Started with JobRunr - 10-Minute Quickstart"
+meta_title: "Get Started with JobRunr - 5-Minute Quickstart"
 description: "This guide shows you how to add JobRunr to a Java project, schedule your first (recurring) job, and see it live in the dashboard."
 weight: 1
 tags:
@@ -8,33 +8,37 @@ tags:
     - Job scheduling
 draft: false
 aliases: ["/get-started"]
+hideFrameworkSelector: true
 ---
 ### Step 1: Add the JobRunr dependency
 
 Add JobRunr to your project using Maven or Gradle. This quickstart uses the built-in in-memory storage, so we only need a json parser and we are ready to go. 
 
-We recommend using the latest version of JobRunr (e.g., `8.1.0`).
+We recommend using the latest version of JobRunr (e.g., `8.3.1`).
 
 #### Maven
 
 ```xml
-<dependency> 
-    <groupId>org.jobrunr</groupId> 
-    <artifactId>jobrunr</artifactId> 
-    <version>8.1.0</version> 
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr</artifactId>
+    <version>8.3.1</version>
 </dependency>
-<!-- you can use either Jackson, Gson or Yasson (Json-B compatible).  -->
+<!-- Add a JSON serialization library - see serialization documentation -->
 <dependency>
     <groupId>com.fasterxml.jackson.core</groupId>
     <artifactId>jackson-databind</artifactId>
-    <version>2.11.0</version>
+    <version>2.20.1</version>
 </dependency>
 ```
 
 #### Gradle
-```xml
-implementation 'org.jobrunr:jobrunr:8.1.0'
+```groovy
+implementation 'org.jobrunr:jobrunr:8.3.1'
+implementation 'com.fasterxml.jackson.core:jackson-databind:2.20.1'
 ```
+
+> **Note:** JobRunr requires a JSON serialization library. This example uses Jackson 2, but you can also use Jackson 3, Gson, JSON-B, or Kotlin Serialization. See the [Serialization documentation]({{< ref "documentation/serialization" >}}) for details.
 
 > **Tip:** Are you using <a href="/en/documentation/configuration/spring/">Spring</a>, <a href="/en/documentation/configuration/micronaut/">Micronaut</a> or <a href="/en/documentation/configuration/quarkus/">Quarkus</a>? We created starters to get you going even quicker.
 

@@ -34,7 +34,7 @@ Unlike usual method invocations which are run instantly, these methods are in fa
 
 > Important: all your servers __must run the same version of your code__! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail! <br>As of JobRunr v1.1.0, the dashboard shows an error if there are jobs which cannot be found.
 
-Serialization is performed by the either Jackson, Gson or Json-B and the resulting JSON, that looks like in the following snippet, is persisted using a `StorageProvider` making it available for processing in a different thread or even a different JVM. As we can see everything is passed by value, so heavy data structures will also be serialized and consume a lot of bytes in the RDBMS or NoSQL database.
+Serialization is performed by your chosen [JSON serialization library]({{< ref "documentation/serialization" >}}) and the resulting JSON, that looks like in the following snippet, is persisted using a `StorageProvider` making it available for processing in a different thread or even a different JVM. As we can see everything is passed by value, so heavy data structures will also be serialized and consume a lot of bytes in the RDBMS or NoSQL database.
 
 <figure>
 
