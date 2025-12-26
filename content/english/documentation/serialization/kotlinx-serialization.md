@@ -1,6 +1,6 @@
 ---
 title: "Kotlin Serialization"
-subtitle: "Using Kotlin's multiplatform serialization library with JobRunr"
+description: "Using Kotlin's multiplatform serialization library with JobRunr"
 layout: "documentation"
 menu:
   sidebar:

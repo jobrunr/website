@@ -1,7 +1,6 @@
 ---
 title: "Serialization"
-subtitle: "JobRunr supports multiple JSON serialization libraries - choose the one that fits your stack"
-keywords: ["json serialization", "jackson", "gson", "json-b", "yasson", "job serialization", "custom json mapper", "serialization configuration", "kotlinx serialization"]
+description: "JobRunr supports multiple JSON serialization libraries - choose the one that fits your stack"
 layout: "documentation"
 menu:
   sidebar:

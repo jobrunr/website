@@ -1,6 +1,6 @@
 ---
 title: "Jackson 3"
-subtitle: "Using Jackson 3.x for JSON serialization in JobRunr"
+description: "Using Jackson 3.x for JSON serialization in JobRunr"
 layout: "documentation"
 menu:
   sidebar:

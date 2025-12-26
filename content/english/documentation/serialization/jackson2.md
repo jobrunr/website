@@ -1,6 +1,6 @@
 ---
 title: "Jackson 2"
-subtitle: "Using Jackson 2.x for JSON serialization in JobRunr"
+description: "Using Jackson 2.x for JSON serialization in JobRunr"
 layout: "documentation"
 menu:
   sidebar:

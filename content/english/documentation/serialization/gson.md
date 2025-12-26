@@ -1,6 +1,6 @@
 ---
 title: "Gson"
-subtitle: "Using Google's Gson for JSON serialization in JobRunr"
+description: "Using Google's Gson for JSON serialization in JobRunr"
 layout: "documentation"
 menu:
   sidebar:

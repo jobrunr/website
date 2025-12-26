@@ -1,6 +1,6 @@
 ---
 title: "JSON-B"
-subtitle: "Using Jakarta JSON Binding for JSON serialization in JobRunr"
+description: "Using Jakarta JSON Binding for JSON serialization in JobRunr"
 layout: "documentation"
 menu:
   sidebar:
