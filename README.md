@@ -63,3 +63,55 @@ menu:
     name: FAQ
     weight: 95
 ```
+
+### Code tabs
+
+Display code examples in multiple formats with synchronized tabs across the page.
+
+#### Features
+
+- **Global sync**: Clicking one tab activates all matching tabs on the page
+- **Persistence**: Remembers user preferences per category using localStorage
+- **Keyboard navigation**: Arrow keys, Home, and End for accessibility
+- **ARIA compliant**: Full accessibility support with proper roles and keyboard interaction
+
+#### Usage
+
+Basic example with auto-generated tab types:
+
+````markdown
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr</artifactId>
+    <version>${jobrunr.version}</version>
+</dependency>
+```
+{{< /codetab >}}
+
+{{< codetab label="Gradle" >}}
+```groovy
+implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+````
+
+#### Parameters
+
+**`codetabs` shortcode:**
+- `category` (optional): Category for syncing tabs across page. If omitted, auto-generates from sorted tab types. Must be one of the allowed categories in `params.codetabs.allowedCategories`. Specifying the `category` is highly recommended.
+- `label` (optional): ARIA label for the tablist. Defaults to "Code examples".
+
+**`codetab` shortcode:**
+- `label` (required): Display text for the tab button.
+- `type` (optional): Unique identifier for the tab. Auto-generated from label using `urlize` if not provided.
+
+#### Best Practices
+
+- Use explicit `category` for common patterns (dependency, framework, etc.) to ensure tabs sync correctly
+- Each `codetab` must have a unique `label` within its parent `codetabs`
+- Minimum 2 tabs required per `codetabs` block
+- Tab content supports full Markdown formatting
