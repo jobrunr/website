@@ -26,6 +26,9 @@ github_url = "https://github.com/jobrunr/jobrunr"
 github_stars = "2.8K"
 enableTrialButton = true
 
+[params.codetabs]
+allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style"]
+
 ########################### Services #############################
 [services]
 [services.googleAnalytics]

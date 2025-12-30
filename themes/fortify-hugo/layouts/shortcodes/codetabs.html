@@ -1,14 +1,60 @@
-{{- $tabs := .Scratch.Get "tabs" -}}
+{{- $tabs := .Store.Get "tabs" -}}
+{{- $groupId := printf "codetabs-%d" .Ordinal -}}
+{{- $label := .Get "label" | default "Code examples" -}}
 
-<div class="tab-container">
-    <ul class="nav-tabs">
-        {{- range $i, $e := $tabs -}}
-        <li data-type="{{.type}}" role="button">
-            <span class="tab" href="#" role="button">{{.label}}</span>
-        </li>
-        {{- end -}}
-    </ul>
-    <div class="tab-content">
-        {{ .Inner }}  
-    </div>
+{{- /* Category handling with validation */ -}}
+{{- $allowedCategories := site.Params.codetabs.allowedCategories -}}
+{{- $providedCategory := .Get "category" -}}
+{{- $category := "" -}}
+
+{{- if $providedCategory -}}
+  {{- /* Validate provided category */ -}}
+  {{- if not (in $allowedCategories $providedCategory) -}}
+    {{- errorf "codetabs: unknown category '%s' (expected: %s). Is this a typo or have you forgotten to update the site params in hugo.toml? File: %s" $providedCategory (delimit $allowedCategories ", ") .Position -}}
+  {{- end -}}
+  {{- $category = $providedCategory -}}
+{{- else -}}
+  {{- /* Auto-generate from tab types */ -}}
+  {{- $types := slice -}}
+  {{- range $tabs -}}{{- $types = $types | append .type -}}{{- end -}}
+  {{- $category = delimit ($types | sort) "-" -}}
+{{- end -}}
+
+{{- /* Validate that we have at least 2 tabs */ -}}
+{{- $tabCount := 0 -}}
+{{- if $tabs -}}
+  {{- $tabCount = len $tabs -}}
+{{- end -}}
+
+{{- if lt $tabCount 2 -}}
+  {{- errorf "codetabs shortcode: requires at least 2 codetab children, found %d. File: %s" $tabCount .Position -}}
+{{- end -}}
+
+{{- /* Check for duplicate types (O(n) single pass) */ -}}
+{{- $seen := dict -}}
+
+<div class="codetabs" data-category="{{ $category }}">
+  <nav class="codetabs__tablist" role="tablist" aria-label="{{ $label }}">
+    {{- range $i, $tab := $tabs -}}
+      {{- if index $seen $tab.type -}}
+        {{- errorf "codetabs shortcode: duplicate type '%s' found. Each tab must have a unique type. File: %s" $tab.type $.Position -}}
+      {{- end -}}
+      {{- $seen = merge $seen (dict $tab.type true) -}}
+      <button
+        class="codetabs__tab"
+        role="tab"
+        type="button"
+        id="{{ $groupId }}-tab-{{ $tab.type }}"
+        data-type="{{ $tab.type }}"
+        aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}"
+        aria-controls="{{ $groupId }}-panel-{{ $tab.type }}"
+        {{- if ne $i 0 }}tabindex="-1"{{ end }}
+      >
+        {{ $tab.label }}
+      </button>
+    {{- end -}}
+  </nav>
+  <div class="codetabs__panels">
+    {{ .Inner }}
+  </div>
 </div>

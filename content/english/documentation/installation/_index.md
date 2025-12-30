@@ -23,7 +23,8 @@ When you depend on JobRunr via Maven or Gradle, the following dependencies are r
 
 JobRunr is distributed as a standard java jar which is available on Maven Central. You can add these jars easily with either Maven or Gradle as follows:
 
-### Maven
+{{< codetabs category="dependency" label="Build tool" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
@@ -33,12 +34,14 @@ JobRunr is distributed as a standard java jar which is available on Maven Centra
 <!-- Add a JSON library, you can use either Jackson, Gson,
  Yasson (JSON-B compatible) or Kotlin Serialization. -->
 ```
-
-### Gradle
+{{< /codetab >}}
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 // Add a JSON library, you can use either Jackson, Gson,
 //  Yasson (JSON-B compatible) or Kotlin Serialization.
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 > For JSON serialization library installation and configuration, see the [Serialization documentation]({{< ref "documentation/serialization" >}}). JobRunr supports Jackson 2, Jackson 3, Gson, JSON-B, and Kotlin Serialization.

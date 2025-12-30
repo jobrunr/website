@@ -1,12 +1,42 @@
-{{ if not (.Parent.Scratch.Get "tabs") }}
-	{{ .Parent.Scratch.Set "tabs" slice }}
-{{ end }}
-{{ $.Parent.Scratch.Add "tabs" (dict "type" (.Get "type") "label" (.Get "label")) }}
+{{- /* Validate required parameters */ -}}
+{{- $label := .Get "label" -}}
+{{- $type := .Get "type" -}}
 
-<div class="tabpanel" data-type="{{ .Get "type" }}" aria-label="{{ .Get "label" }}">
-    {{ if (.Get "style") }}
-        {{ (.Get "style") | highlight (trim .Inner "\n") }}
-    {{ else }}
-        {{ .Inner }}
-    {{ end }}
+{{- if not $label -}}
+  {{- errorf "codetab shortcode: 'label' parameter is required. File: %s" .Position -}}
+{{- end -}}
+
+{{- /* Auto-generate type from label if not provided */ -}}
+{{- if not $type -}}
+  {{- $type = $label | urlize -}}
+{{- end -}}
+
+{{- /* Initialize tabs array if first child */ -}}
+{{- if not (.Parent.Store.Get "tabs") -}}
+  {{- .Parent.Store.Set "tabs" slice -}}
+{{- end -}}
+
+{{- /* Add this tab to parent's tabs array */ -}}
+{{- $.Parent.Store.Add "tabs" (dict "type" $type "label" $label) -}}
+
+{{- /* Get current index (length - 1) */ -}}
+{{- $tabs := .Parent.Store.Get "tabs" -}}
+{{- $index := len $tabs | sub 1 -}}
+
+{{- /* Get group ID from parent */ -}}
+{{- $groupId := printf "codetabs-%d" .Parent.Ordinal -}}
+
+{{- /* Build IDs */ -}}
+{{- $tabId := printf "%s-tab-%s" $groupId $type -}}
+{{- $panelId := printf "%s-panel-%s" $groupId $type -}}
+
+<div
+  class="codetabs__panel"
+  role="tabpanel"
+  id="{{ $panelId }}"
+  data-type="{{ $type }}"
+  aria-labelledby="{{ $tabId }}"
+  {{- if ne $index 0 }}hidden{{ end }}
+>
+  {{ .Inner | markdownify }}
 </div>

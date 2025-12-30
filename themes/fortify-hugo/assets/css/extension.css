@@ -73,3 +73,34 @@ dialog #pagefind-search .pagefind-ui__results {
 .badge.enterprise {
     background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
 }
+
+/* CodeTabs */
+.codetabs .codetabs__tablist {
+    @apply flex gap-1 mb-1 border-b border-gray-200 text-sm;
+}
+
+.codetabs .codetabs__tab {
+    @apply relative px-2.5 py-2 cursor-pointer;
+    @apply after:content-[''] after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5;
+    @apply after:bg-blue-500 after:scale-x-0;
+}
+
+.codetabs .codetabs__tab[aria-selected="true"] {
+    @apply text-blue-500 font-semibold after:scale-x-100;
+}
+
+.codetabs .codetabs__tab:hover {
+    @apply hover:text-blue-500 opacity-90 bg-light/100;
+}
+
+.codetabs .codetabs__tab:focus-visible {
+    @apply outline-none ring-2;
+}
+
+.codetabs .codetabs__panel[hidden] {
+    @apply hidden;
+}
+
+.codetabs .codetabs__panel:focus {
+    @apply outline-none;
+}
