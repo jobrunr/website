@@ -13,7 +13,8 @@ menu:
 
 Add a JSON-B compatible serialization library to your project dependencies. Below is an example for Yasson.
 
-### Maven
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
   <groupId>org.eclipse</groupId>
@@ -21,11 +22,14 @@ Add a JSON-B compatible serialization library to your project dependencies. Belo
   <version><!-- latest version --></version>
 </dependency>
 ```
+{{< /codetab >}}
 
-### Gradle
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'org.eclipse:yasson' // version omitted, use latest
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 > Other JSON-B implementations may work as well, but JobRunr's support is primarily tested against Yasson.
 
@@ -35,15 +39,39 @@ JobRunr automatically detects JSON-B on your classpath and uses it for serializa
 
 If auto-detection doesn't work, you can manually configure it:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```java
 JobRunr.configure()
   .useJsonMapper(new JsonbJsonMapper())
   //...
   .initialize();
 ```
+{{< /codetab >}}
 
-Or when using a supported framework, define a `JsonMapper` bean. Example for Spring (can easily be adapted for other frameworks):
+{{< codetab label="Micronaut" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
 
+@Singleton
+public JsonMapper jsonMapper() {
+  return new JsonbJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
+
+@Produces
+public JsonMapper jsonMapper() {
+  return new JsonbJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
 ```java
 import org.jobrunr.utils.mapper.JsonMapper;
 
@@ -52,6 +80,8 @@ public JsonMapper jsonMapper() {
   return new JsonbJsonMapper();
 }
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Custom JSON-B configuration
 

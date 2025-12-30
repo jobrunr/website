@@ -15,7 +15,8 @@ Gson, Google's JSON library, is known for its simplicity and zero-dependency des
 
 Add Gson to your project dependencies. Configuration for other build tools can be found on Maven Central: https://central.sonatype.com/artifact/com.google.code.gson/gson.
 
-### Maven
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
   <groupId>com.google.code.gson</groupId>
@@ -23,11 +24,14 @@ Add Gson to your project dependencies. Configuration for other build tools can b
   <version><!-- latest version --></version>
 </dependency>
 ```
+{{< /codetab >}}
 
-### Gradle
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'com.google.code.gson:gson' // version omitted, use latest
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Usage
 
@@ -35,23 +39,49 @@ JobRunr automatically detects Gson on your classpath and uses it for serializati
 
 If auto-detection doesn't work, you can manually configure it:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```java
 JobRunr.configure()
   .useJsonMapper(new GsonJsonMapper())
   //...
   .initialize();
 ```
+{{< /codetab >}}
 
-Or when using a supported framework, define a `JsonMapper` bean. Example for Spring (can easily be adapted for other frameworks):
+{{< codetab label="Micronaut" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
 
+@Singleton
+public JsonMapper jsonMapper() {
+  return new GsonJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
+
+@Produces
+public JsonMapper jsonMapper() {
+  return new GsonJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
 ```java
 import org.jobrunr.utils.mapper.JsonMapper;
 
 @Bean
 public JsonMapper jsonMapper() {
-    return new GsonJsonMapper();
+  return new GsonJsonMapper();
 }
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Custom Gson configuration
 

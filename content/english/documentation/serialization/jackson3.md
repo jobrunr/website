@@ -21,7 +21,8 @@ You can find out how to install Jackson 3 for your preferred build tool over on 
 
 > If you're using a framework, please consult its documentation. Frameworks often provide modules that auto-configure JSON serialization for you. For example, if you're using Spring Boot 4's `spring-boot-starter-web`, Jackson 3 is already provided.
 
-### Maven
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
   <groupId>tools.jackson.core</groupId>
@@ -29,11 +30,14 @@ You can find out how to install Jackson 3 for your preferred build tool over on 
   <version><!-- latest version --></version>
 </dependency>
 ```
+{{< /codetab >}}
 
-### Gradle
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation("tools.jackson.core:jackson-databind") // version is missing, try to always specify the latest version
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Usage
 
@@ -41,23 +45,49 @@ JobRunr automatically detects Jackson 3 on your classpath and uses it for serial
 
 If auto-detection doesn't work, you can manually configure it:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```java
 JobRunr.configure()
-    .useJsonMapper(new Jackson3JsonMapper())
-    //...
-    .initialize();
+  .useJsonMapper(new Jackson3JsonMapper())
+  //...
+  .initialize();
 ```
+{{< /codetab >}}
 
-Or when using a supported framework, define a `JsonMapper` bean. Example for Spring (can easily be adapted for other frameworks):
+{{< codetab label="Micronaut" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
 
+@Singleton
+public JsonMapper jsonMapper() {
+  return new Jackson3JsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
+
+@Produces
+public JsonMapper jsonMapper() {
+  return new Jackson3JsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
 ```java
 import org.jobrunr.utils.mapper.JsonMapper;
 
 @Bean
 public JsonMapper jsonMapper() {
-    return new Jackson3JsonMapper();
+  return new Jackson3JsonMapper();
 }
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Custom Jackson 3 configuration
 

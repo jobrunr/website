@@ -42,15 +42,39 @@ JobRunr automatically detects Kotlin Serialization on your classpath (checking f
 
 If auto-detection doesn't work, you can manually configure it:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```kotlin
 JobRunr.configure()
   .useJsonMapper(KotlinxSerializationJsonMapper())
   // ...
   .initialize()
 ```
+{{< /codetab >}}
 
-Or when using a supported framework, define a `JsonMapper` bean. Example for Spring (can easily be adapted for other frameworks):
+{{< codetab label="Micronaut" >}}
+```kotlin
+import org.jobrunr.utils.mapper.JsonMapper
 
+@Singleton
+fun jsonMapper(): JsonMapper {
+  return KotlinxSerializationJsonMapper()
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```kotlin
+import org.jobrunr.utils.mapper.JsonMapper
+
+@Produces
+fun jsonMapper(): JsonMapper {
+  return KotlinxSerializationJsonMapper()
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
 ```kotlin
 import org.jobrunr.utils.mapper.JsonMapper
 
@@ -59,6 +83,8 @@ fun jsonMapper(): JsonMapper {
   return KotlinxSerializationJsonMapper()
 }
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Custom Kotlin Serialization configuration
 

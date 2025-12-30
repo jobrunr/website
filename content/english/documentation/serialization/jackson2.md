@@ -17,7 +17,8 @@ Add Jackson 2 to your project dependencies, below are examples for Maven and Gra
 
 > If you're using a framework, please consult its documentation. Frameworks often provide modules that auto-configure JSON serialization for you. For example, if you're using Spring Boot 3's `spring-boot-starter-web`, Jackson 2 is already provided.
 
-### Maven
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
   <groupId>com.fasterxml.jackson.core</groupId>
@@ -25,11 +26,14 @@ Add Jackson 2 to your project dependencies, below are examples for Maven and Gra
   <version><!-- latest version --></version>
 </dependency>
 ```
+{{< /codetab >}}
 
-### Gradle
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'com.fasterxml.jackson.core:jackson-databind' // version omitted, use latest
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Usage
 
@@ -37,15 +41,39 @@ JobRunr automatically detects Jackson 2 on your classpath and uses it for serial
 
 If auto-detection doesn't work, you can manually configure it:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```java
 JobRunr.configure()
   .useJsonMapper(new JacksonJsonMapper())
   //...
   .initialize();
 ```
+{{< /codetab >}}
 
-Or when using a supported framework, define a `JsonMapper` bean. Example for Spring (can easily be adapted for other frameworks):
+{{< codetab label="Micronaut" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
 
+@Singleton
+public JsonMapper jsonMapper() {
+  return new JacksonJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+import org.jobrunr.utils.mapper.JsonMapper;
+
+@Produces
+public JsonMapper jsonMapper() {
+  return new JacksonJsonMapper();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
 ```java
 import org.jobrunr.utils.mapper.JsonMapper;
 
@@ -54,6 +82,8 @@ public JsonMapper jsonMapper() {
   return new JacksonJsonMapper();
 }
 ```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ## Custom Jackson 2 configuration
 
