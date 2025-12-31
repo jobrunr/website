@@ -188,3 +188,17 @@ input[name="username"] {
     position: absolute;
     left: -999999999px;
 }
+
+/* HEADING PERMALINKS */
+.heading-anchor {
+  @apply text-inherit no-underline;
+}
+
+.heading-anchor i {
+  @apply ml-2 text-gray-400 no-underline opacity-0 hover:opacity-100 focus:opacity-100 text-[0.7em];
+}
+
+
+.heading-anchor:hover i, .heading-anchor:focus i {
+  @apply opacity-100;
+}

@@ -1,0 +1,7 @@
+{{- /* Custom heading render hook with permalink support */ -}}
+
+<h{{ .Level }} id="{{ .Anchor }}" {{- with .Attributes.class }} class="{{ . }}" {{- end }}>
+  <a href="#{{ .Anchor }}" class="heading-anchor" aria-label="Permalink to {{ .PlainText }}" title="Copy link to {{ .PlainText }}">
+    {{ .Text }} <i class="fa-solid fa-link"></i>
+  </a>
+</h{{ .Level }}>
