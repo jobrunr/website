@@ -9,43 +9,49 @@ menu:
     weight: 10
 ---
 
-Integration with Spring cannot be easier using the ~`jobrunr-spring-boot-2-starter`~ or `jobrunr-spring-boot-3-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
+Integration with Spring cannot be easier using the `jobrunr-spring-boot-3-starter` or `jobrunr-spring-boot-4-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
-> **Important**: the `jobrunr-spring-boot-starter-2` is removed since JobRunr v8. In JobRunr Pro, support is still available.
+> [!IMPORTANT]
+> The `jobrunr-spring-boot-starter` and `jobrunr-spring-boot-2-starter` are no longer supported! In JobRunr Pro, support for Spring Boot 2 is still available.
 
 __To add JobRunr to your Spring project, these are the steps you need to take:__
-1. Depending on your version of Spring Boot, add the `jobrunr-spring-boot-3-starter` dependency to your project
+1. Depending on your version of Spring Boot, add the `jobrunr-spring-boot-4-starter` (or `jobrunr-spring-boot-3-starter`) dependency to your project
 2. Configure JobRunr via the Spring `application.properties` file
 3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
 
+> [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Spring? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
-{{< trial-button >}}
-
 ## Add the dependency to the starter
-As `jobrunr-spring-boot-3-starter` is available in Maven Central, all you need to do is add this dependency:
-### Maven
+As `jobrunr-spring-boot-4-starter` is available in Maven Central, all you need to do is add this dependency:
+
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency> 
     <groupId>org.jobrunr</groupId> 
-    <artifactId>jobrunr-spring-boot-3-starter</artifactId>
+    <artifactId>jobrunr-spring-boot-4-starter</artifactId>
     <version>${jobrunr.version}</version> 
 </dependency>
-```
-
-### Gradle
+{{< /codetab >}} 
+{{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr-spring-boot-3-starter:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-spring-boot-4-starter:${jobrunr.version}'
 ```
-<br/>
+{{< /codetab >}}
+{{< /codetabs >}}
 
-> Do note that if you are **not** working in a web environment, you also need to add either _Jackson_, _Gson_ or _Yasson_ for Json serialization. See the [installation]({{< ref "../../installation/_index.md" >}}) page for more info.
+> [!NOTE]
+> The `jobrunr-spring-boot-4-starter` artifact is available in JobRunr 8.3.0 and higher.
+
+> [!IMPORTANT]
+> Do note that if you are **not** working in a web environment, you also need to add a JSON serialization library. See the [serialization]({{< ref "../../serialization/_index.md" >}}) page for available options and configuration.
 
 
 ## Configure JobRunr
 JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:
 
-```
+```properties
 jobrunr.background-job-server.enabled=true
 jobrunr.dashboard.enabled=true
 ```
@@ -64,7 +70,7 @@ These are disabled by default so that your web application does not start proces
 
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
-```
+```properties
 jobrunr.database.skip-create=false
 jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema  or schema and tableprefix for all tables. e.g. MYSCHEMA._jobrunr)
 jobrunr.database.database-name=jobrunr # Override the default database name to use (e.g. use main application database)

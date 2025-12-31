@@ -10,9 +10,19 @@ menu:
 ---
 Integration with Quarkus cannot be easier using the `quarkus-jobrunr` extension! There is even a complete example project available at [https://github.com/jobrunr/example-quarkus](https://github.com/jobrunr/example-quarkus)
 
+__To add JobRunr to your Quarkus project, these are the steps you need to take:__
+1. Depending on your version of Spring Boot, add the `quarkus-jobrunr` dependency to your project
+2. Configure JobRunr via the Spring `application.properties` file
+3. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
+
+> [!PRO]
+> Do you want to create jobs that automatically participate in the transactions managed by Quarkus? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
+
 ## Add the dependency to the extension
 As the Quarkus Extension is available in Maven Central, all you need to do is add this dependency:
-### Maven
+
+{{< codetabs category="dependency" >}}
+{{< codetab label= "Maven" >}}
 ```xml
 <dependency> 
     <groupId>org.jobrunr</groupId> 
@@ -20,20 +30,21 @@ As the Quarkus Extension is available in Maven Central, all you need to do is ad
     <version>${jobrunr.version}</version> 
 </dependency>
 ```
-
-### Gradle
+{{< /codetab >}}
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'org.jobrunr:quarkus-jobrunr:${jobrunr.version}'
 ```
-<br/>
+{{< /codetab >}}
+{{< /codetabs >}}
 
-> Do note that you also need to add either [Jackson](https://search.maven.org/artifact/io.quarkus/quarkus-jackson) or [Yasson](https://search.maven.org/artifact/io.quarkus/quarkus-jsonb) for Json serialization. See the [installation]({{< ref "../../installation/_index.md" >}}) page for more info.
-
+> [!IMPORTANT]
+> Do note that if you are **not** working in a web environment, you also need to add a JSON serialization library. See the [serialization]({{< ref "../../serialization/_index.md" >}}) page for available options and configuration.
 
 ## Configure JobRunr
 JobRunr can be configured easily in your `application.properties`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.properties`:
 
-```
+```properties
 quarkus.jobrunr.background-job-server.enabled=true
 quarkus.jobrunr.dashboard.enabled=true
 
@@ -42,6 +53,7 @@ quarkus.jobrunr.dashboard.enabled=true
 These are disabled by default so that your web application does not start processing jobs by accident.
 
 
+> [!NOTE]
 > The `quarkus-jobrunr` extension will try to either use an existing `DataSource` bean for relational databases or it will use one of the provided NoSQL client beans (like `MongoClient` for MongoDB). <br/>
 > If no such bean is defined, you will either need to define it or create a `StorageProvider` bean yourself.
 
@@ -51,7 +63,7 @@ The JobRunr Quarkus extension not only adds distributed background Job Processin
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.properties`. Below you will find all settings including their default value.
 
-```
+```properties
 quarkus.jobrunr.database.skip-create=false
 quarkus.jobrunr.database.table-prefix= # allows to set a table prefix (e.g. schema for all tables)
 quarkus.jobrunr.database.datasource= # allows to specify a DataSource specifically for JobRunr

@@ -1,11 +1,14 @@
 /* Syntax highlighting styles for Hugo Chroma */
+.highlight {
+  @apply relative;
+}
 
 .highlight pre, .codeblock, figure.codeblock {
   @apply m-0;
 }
 
 pre {
-  @apply px-2 py-1;
+  @apply px-2 py-2;
   @apply rounded border border-border;
   @apply overflow-x-auto;
 }
@@ -24,4 +27,37 @@ pre code {
 :not(pre) > code {
   @apply bg-gray-100 px-1;
   font-family: monospace;
+}
+
+/* Code Copy Button */
+.code-copy-btn {
+  @apply absolute top-2 right-2;
+  @apply flex items-center;
+  @apply px-2 py-1.5;
+  @apply bg-white/50 hover:bg-white;
+  @apply border border-gray-300 rounded;
+  @apply text-xs text-gray-700;
+  @apply cursor-pointer transition-all duration-200;
+  @apply opacity-0;
+}
+
+.code-copy-btn i {
+  @apply opacity-50;
+}
+
+.highlight:hover .code-copy-btn, .highlight:has(pre:focus) .code-copy-btn {
+  @apply opacity-100;
+}
+
+.code-copy-btn:hover i,
+.code-copy-btn:focus-visible i {
+  @apply opacity-100;
+}
+
+.code-copy-btn:focus-visible {
+  @apply outline-none ring-2 ring-gray-400 ring-offset-1 opacity-100;
+}
+
+.code-copy-btn--copied {
+  @apply text-green-600 border-green-400 bg-green-50/90;
 }

@@ -17,52 +17,57 @@ __To add JobRunr to your Micronaut project, these are the steps you need to take
 3. Configure JobRunr via the Micronaut `application.yml` file
 4. Inject the `JobScheduler` or `JobRequestScheduler` bean and use it to create background jobs!
 
+> [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
-
-{{< trial-button >}}
 
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:
-### Maven
+
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>jobrunr-micronaut-feature</artifactId> 
     <version>${jobrunr.version}</version> 
 </dependency>
-...
- <build>
-      <plugins>
-         <plugin>
-              <groupId>org.apache.maven.plugins</groupId>
-              <artifactId>maven-compiler-plugin</artifactId>
-              <version>3.7.0</version>
-              <configuration>
-                  <source>1.8</source>
-                  <target>1.8</target>                  
-                  <annotationProcessorPaths>
-                      <path>
-                          <groupId>org.jobrunr</groupId>
-                          <artifactId>jobrunr-micronaut-annotations</artifactId>
-                          <version>${jobrunr.version}</version>
-                      </path>        
-                  </annotationProcessorPaths>
-              </configuration>
-          </plugin>
-   ....
+<!-- ... -->
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.7.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>                  
+                <annotationProcessorPaths>
+                    <path>
+                        <groupId>org.jobrunr</groupId>
+                        <artifactId>jobrunr-micronaut-annotations</artifactId>
+                        <version>${jobrunr.version}</version>
+                    </path>        
+                </annotationProcessorPaths>
+            </configuration>
+        </plugin>
+<!-- .... -->
 ```
-
-### Gradle
+{{< /codetab >}}
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'org.jobrunr:jobrunr-micronaut-feature:${jobrunr.version}'
 annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:${jobrunr.version}'
 ```
-<br/>
+{{< /codetab >}}
+{{< /codetabs >}}
+
+> [!IMPORTANT]
+> Do note that if you are **not** working in a web environment, you also need to add a JSON serialization library. See the [serialization]({{< ref "../../serialization/_index.md" >}}) page for available options and configuration.
 
 ## Configure JobRunr
 JobRunr can be configured easily in your `application.yml`. If you only want to schedule jobs, you don't need to do anything. If you want to have a `BackgroundJobServer` to process background jobs or the dashboard enabled, just add the following properties to the `application.yml`:
 
-```
+```yaml
 jobrunr:
   background-job-server:
     enabled: true
@@ -83,7 +88,7 @@ The JobRunr Micronaut integration not only adds distributed background Job Proce
 ## Advanced Configuration
 Every aspect of JobRunr can be configured via the `application.yaml`. Below you will find all settings including their default value.
 
-```
+```yaml
 jobrunr:
   database:
     skip-create: false
