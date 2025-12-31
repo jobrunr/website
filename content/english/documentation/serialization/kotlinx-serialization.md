@@ -32,13 +32,15 @@ dependencies {
 }
 ```
 
-> Note: we have not tested versions lower than 1.8.0 of kotlinx-serialization-json.
+> [!NOTE]
+> We have not tested versions lower than 1.8.0 of kotlinx-serialization-json.
 
 ## Usage
 
 JobRunr automatically detects Kotlin Serialization on your classpath (checking for `kotlinx.serialization.json.Json` and `org.jobrunr.kotlin.utils.mapper.KotlinxSerializationJsonMapper`) and uses it for serialization. When multiple JSON libraries are available, Kotlin Serialization has the highest priority in the [detection hierarchy]({{< ref "documentation/serialization#how-it-works" >}}).
 
-> Note: Pre JobRunr 8.4.0, unless you're using one of the framework starters, `KotlinxSerializationJsonMapper` is not configured by default.
+> [!NOTE]
+> Pre JobRunr 8.4.0, unless you're using one of the framework starters, `KotlinxSerializationJsonMapper` is not configured by default.
 
 If auto-detection doesn't work, you can manually configure it:
 
@@ -90,6 +92,7 @@ fun jsonMapper(): JsonMapper {
 
 Customize Kotlin Serialization by creating your own `KotlinxSerializationJsonMapper` instance. The class offers three constructors depending on your needs.
 
+> [!IMPORTANT]
 > Before proceeding, note that JobRunr may overwrite your custom configuration. Verify through testing that everything behaves as expected.
 
 ### Using a custom SerializersModule
@@ -123,4 +126,5 @@ val json = Json {
 val jsonMapper = KotlinxSerializationJsonMapper(json)
 ```
 
+> [!WARNING]
 > Using a pre-configured `Json` instance bypasses JobRunr's default configuration. Ensure your configuration includes necessary settings like `classDiscriminator = "@class"` for proper polymorphic serialization and that `jobRunrSerializersModule` is set.

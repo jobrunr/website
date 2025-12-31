@@ -13,12 +13,14 @@ Jackson 3 is the latest major version of the widely-used Jackson library and is 
 
 Jackson 3 supports is available in JobRunr 8.3.0 or later. It requires **JDK 17 or higher**. This is a requirement from Jackson 3 itself, not a JobRunr limitation.
 
+> [!NOTE]
 > JobRunr's Jackson 3 support is distributed as a multi-release JAR, allowing it to provide Java 17-specific functionality while maintaining compatibility with older Java versions for other JSON mappers.
 
 ## Installation
 
 You can find out how to install Jackson 3 for your preferred build tool over on Maven Central: https://central.sonatype.com/artifact/tools.jackson.core/jackson-databind. Below are snippets for Maven and Gradle.
 
+> [!NOTE]
 > If you're using a framework, please consult its documentation. Frameworks often provide modules that auto-configure JSON serialization for you. For example, if you're using Spring Boot 4's `spring-boot-starter-web`, Jackson 3 is already provided.
 
 {{< codetabs category="dependency" >}}
@@ -93,6 +95,7 @@ public JsonMapper jsonMapper() {
 
 You can customize the Jackson 3 configuration by creating your own instance of `Jackson3JsonMapper` and providing it to JobRunr. This is useful when you need to register additional Jackson modules for special types or allow additional polymorphic deserialization.
 
+> [!IMPORTANT]
 > Before proceeding, note that if you customize the configuration, JobRunr may overwrite your changes. You are responsible for verifying through testing that everything behaves as expected.
 
 The `Jackson3JsonMapper` class offers several constructors for different configuration needs.

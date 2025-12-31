@@ -31,6 +31,7 @@ implementation 'org.eclipse:yasson' // version omitted, use latest
 {{< /codetab >}}
 {{< /codetabs >}}
 
+> [!NOTE]
 > Other JSON-B implementations may work as well, but JobRunr's support is primarily tested against Yasson.
 
 ## Usage
@@ -87,6 +88,7 @@ public JsonMapper jsonMapper() {
 
 Customize JSON-B by creating your own `JsonbJsonMapper` instance with a configured `JsonbConfig`.
 
+> [!IMPORTANT]
 > Before proceeding, note that JobRunr may overwrite your custom configuration. Verify through testing that everything behaves as expected.
 
 ### Using JsonbConfig

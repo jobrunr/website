@@ -82,3 +82,84 @@
 .doc-card:hover h3 {
   @apply text-primary;
 }
+
+/* Alert shortcode styling */
+.alert {
+  @apply relative rounded-lg border border-l-4 mb-4 text-base;
+}
+
+.alert__header {
+  @apply inline-flex items-center gap-1.5;
+}
+
+.alert__header:not(:only-child) {
+  @apply mb-2 font-semibold;
+
+  .alert__icon {
+    @apply text-xs flex-shrink-0;
+  }
+
+  .alert__label {
+    @apply text-xs uppercase tracking-wide;
+  }
+}
+
+.alert__content {
+  @apply text-base;
+}
+
+.alert__content p:first-of-type {
+  @apply m-0;
+}
+
+.alert--note {
+  @apply border-slate-500 bg-slate-50/50 text-slate-900;
+}
+
+.alert--note .alert__header {
+  @apply text-slate-700;
+}
+
+.alert--tip {
+  @apply border-emerald-500 bg-emerald-50/50 text-emerald-900;
+}
+
+.alert--tip .alert__header {
+  @apply text-emerald-700;
+}
+
+.alert--important {
+  @apply border-indigo-500 bg-indigo-50/50 text-indigo-900;
+}
+
+.alert--important .alert__header {
+  @apply text-indigo-700;
+}
+
+.alert--warning {
+  @apply border-amber-500 bg-amber-50/50 text-amber-900;
+}
+
+.alert--warning .alert__header {
+  @apply text-amber-700;
+}
+
+.alert--caution {
+  @apply border-red-500 bg-red-50/50 text-red-900;
+}
+
+.alert--caution .alert__header {
+  @apply text-red-700;
+}
+
+.alert--pro {
+  @apply border-l-4 border-[#d99a3f] bg-[#f0ad4e]/35
+}
+
+.alert--pro .alert__header {
+  @apply font-bold text-amber-700;
+}
+
+.alert__content p:last-child {
+  @apply mb-0;
+}

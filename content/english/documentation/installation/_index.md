@@ -10,7 +10,8 @@ menu:
     weight: 5
 ---
 
-> __Important__: all your servers must run the same version of your code! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail!
+> [!IMPORTANT]
+> All your servers must run the same version of your code! If your webapp server has a newer version with a method signature that is not compatible with the server that processes your background jobs, a NoSuchMethod Exception will be thrown and job processing will fail!
 
 ## Requirements
 JobRunr works with Java 8 and up - You can integrate it with Spring framework, use it in Tomcat or any other Java framework.
@@ -44,4 +45,5 @@ implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 {{< /codetab >}}
 {{< /codetabs >}}
 
+> [!NOTE]
 > For JSON serialization library installation and configuration, see the [Serialization documentation]({{< ref "documentation/serialization" >}}). JobRunr supports Jackson 2, Jackson 3, Gson, JSON-B, and Kotlin Serialization.

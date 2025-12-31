@@ -15,6 +15,7 @@ Jackson 2 is a, if not the most, widely-used JSON serialization library in the J
 
 Add Jackson 2 to your project dependencies, below are examples for Maven and Gradle, configuration for other build tools can be found on Maven Central: https://central.sonatype.com/artifact/com.fasterxml.jackson.core/jackson-databind.
 
+> [!NOTE]
 > If you're using a framework, please consult its documentation. Frameworks often provide modules that auto-configure JSON serialization for you. For example, if you're using Spring Boot 3's `spring-boot-starter-web`, Jackson 2 is already provided.
 
 {{< codetabs category="dependency" >}}
@@ -89,6 +90,7 @@ public JsonMapper jsonMapper() {
 
 You can customize the Jackson 2 configuration by creating your own instance of `JacksonJsonMapper` and providing it to JobRunr. This is useful when you need to register additional Jackson modules or customize the `ObjectMapper` settings.
 
+> [!IMPORTANT]
 > Before proceeding, note that if you customize the configuration, JobRunr may overwrite your changes. You are responsible for verifying through testing that everything behaves as expected.
 
 The `JacksonJsonMapper` class offers several constructors for different configuration needs.
@@ -129,4 +131,5 @@ Unlike Jackson 3, JobRunr's `JacksonJsonMapper` automatically handles polymorphi
 
 That being said, polymorphic types should probably be considered as a last resort. It's possible to avoid them by making some design choices, similar to those discussed in the [Jackson 3 documentation]({{< ref "documentation/serialization/jackson3#exploring-alternatives-to-additional-polymorphic-type-validation" >}}). These design choices improve not only security but also maintainability and performance.
 
+> [!WARNING]
 > **Security consideration**: The `LaissezFaireSubTypeValidator` allows deserialization for all subtypes, without validation, which is convenient but requires careful handling of user inputs.

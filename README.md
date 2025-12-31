@@ -64,18 +64,18 @@ menu:
     weight: 95
 ```
 
-### Code tabs
+#### Code tabs
 
 Display code examples in multiple formats with synchronized tabs across the page.
 
-#### Features
+##### Features
 
 - **Global sync**: Clicking one tab activates all matching tabs on the page
 - **Persistence**: Remembers user preferences per category using localStorage
 - **Keyboard navigation**: Arrow keys, Home, and End for accessibility
 - **ARIA compliant**: Full accessibility support with proper roles and keyboard interaction
 
-#### Usage
+##### Usage
 
 Basic example with auto-generated tab types:
 
@@ -99,7 +99,7 @@ implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 {{< /codetabs >}}
 ````
 
-#### Parameters
+##### Parameters
 
 **`codetabs` shortcode:**
 - `category` (optional): Category for syncing tabs across page. If omitted, auto-generates from sorted tab types. Must be one of the allowed categories in `params.codetabs.allowedCategories`. Specifying the `category` is highly recommended.
@@ -109,9 +109,59 @@ implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 - `label` (required): Display text for the tab button.
 - `type` (optional): Unique identifier for the tab. Auto-generated from label using `urlize` if not provided.
 
-#### Best Practices
+##### Best Practices
 
 - Use explicit `category` for common patterns (dependency, framework, etc.) to ensure tabs sync correctly
 - Each `codetab` must have a unique `label` within its parent `codetabs`
 - Minimum 2 tabs required per `codetabs` block
 - Tab content supports full Markdown formatting
+
+
+#### Alerts
+
+Highlight important information using GitHub-style alert syntax.
+
+##### Usage
+
+```markdown
+> [!NOTE]
+> Useful information that users should know.
+
+> [!TIP]
+> Helpful advice for better results.
+
+> [!IMPORTANT]
+> Key information users need to know.
+
+> [!WARNING]
+> Urgent info requiring attention.
+
+> [!CAUTION]
+> Potential risks or destructive actions.
+
+> [!PRO]
+> JobRunr Pro features.
+```
+
+##### Custom Titles
+
+```markdown
+> [!NOTE] Version Requirement
+> All servers must run the same code version.
+```
+
+##### Callouts
+
+```markdown
+> [!TIP] Pro Tip
+```
+
+##### Available Types
+
+- **NOTE** - General information
+- **TIP** - Helpful suggestions
+- **IMPORTANT** - Critical information
+- **WARNING** - Caution required
+- **CAUTION** - Dangerous operations
+- **PRO** - Premium features
+

@@ -1,0 +1,24 @@
+{{- /* This is an alert blockquote */ -}}
+
+{{- /* Define icons and labels */ -}}
+{{- $icons := dict "note" "fa-circle-info" "tip" "fa-lightbulb" "important" "fa-circle-info" "warning" "fa-triangle-exclamation" "caution" "fa-circle-exclamation" "pro" "fa-crown" -}}
+
+{{- $icon := index $icons .AlertType -}}
+{{- $label := title .AlertType -}}
+
+{{- /* Use custom title if provided, otherwise use default label */ -}}
+{{- if .AlertTitle -}}
+  {{- $label = .AlertTitle -}}
+{{- end -}}
+
+<blockquote class="alert alert--{{ .AlertType }}">
+  <div class="alert__header">
+    <i class="fa-solid {{ $icon }} alert__icon"></i>
+    <div class="alert__label">{{ $label }}</div>
+  </div>
+  {{ with .Text }}
+  <div class="alert__content">
+    {{ . }}
+  </div>
+  {{ end }}
+</blockquote>

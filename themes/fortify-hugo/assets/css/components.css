@@ -156,7 +156,8 @@
   @apply prose-img:max-w-full prose-img:rounded-3xl;
   @apply prose-hr:border-border;
   @apply prose-p:text-lg prose-p:text-text;
-  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-[10px] prose-blockquote:border-primary prose-blockquote:bg-light prose-blockquote:px-8 prose-blockquote:py-10 prose-blockquote:font-secondary prose-blockquote:text-2xl prose-blockquote:not-italic prose-blockquote:text-text-dark;
+  @apply prose-blockquote:rounded-lg prose-blockquote:border prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-light/50;
+  @apply prose-blockquote:px-4 prose-blockquote:py-3 prose-blockquote:my-5 prose-blockquote:text-base prose-blockquote:not-italic prose-blockquote:text-text prose-blockquote:font-normal;
   @apply prose-strong:text-text-dark;
   @apply prose-a:text-primary prose-a:underline hover:prose-a:text-primary;
   @apply prose-li:text-text;

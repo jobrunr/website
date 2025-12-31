@@ -20,6 +20,7 @@ JobRunr supports the following JSON serialization libraries out of the box:
 - **[JSON-B](jsonb)** - Jakarta EE standard for JSON binding
 - **[Kotlin Serialization](kotlinx-serialization)** - Kotlin's multi-platform serialization library
 
+> [!NOTE]
 > You must include at least one of these libraries as a dependency in your project. JobRunr will automatically detect which library is available on the classpath and use it for serialization.
 
 ## How it works
@@ -54,8 +55,8 @@ For full confidence in your implementation, also extend:
 
 JobRunr's testing is quite extensive and some tests are there for legacy reasons, feel free to disable test cases that are not relevant to your use case.
 
+> [!CAUTION]
 > Testing is critical when implementing a custom `JsonMapper`. JobRunr's serialization requirements are complex, and incomplete testing can lead to job execution failures in production.
-
 
 ## Important considerations
 

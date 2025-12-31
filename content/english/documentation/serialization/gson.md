@@ -9,6 +9,7 @@ menu:
 
 Gson, Google's JSON library, is known for its simplicity and zero-dependency design. It handles most serialization needs out of the box without requiring extensive configuration. JobRunr supports Gson through the `GsonJsonMapper` implementation.
 
+> [!NOTE]
 > Gson is in maintenance mode, meaning that it may not see any new features.
 
 ## Installation
@@ -87,6 +88,7 @@ public JsonMapper jsonMapper() {
 
 Customize Gson by creating your own `GsonJsonMapper` instance. The class offers three constructors depending on your needs.
 
+> [!IMPORTANT]
 > Before proceeding, note that JobRunr may overwrite your custom configuration. Verify through testing that everything behaves as expected.
 
 ### Using GsonBuilder
@@ -109,4 +111,5 @@ Gson gson = // ... your existing Gson instance
 var jsonMapper = new GsonJsonMapper(gson);
 ```
 
-> Using this may prevent JobRunr from functioning properly. Prefer the builder or option or make sure that your `Gson` instance has all the configuration required by JobRunr.
+> [!WARNING]
+> Using this may prevent JobRunr from functioning properly. Prefer the builder option or make sure that your `Gson` instance has all the configuration required by JobRunr.
