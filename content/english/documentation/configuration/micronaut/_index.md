@@ -53,7 +53,7 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
 ```
 
 ### Gradle
-```java
+```groovy
 implementation 'org.jobrunr:jobrunr-micronaut-feature:${jobrunr.version}'
 annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:${jobrunr.version}'
 ```

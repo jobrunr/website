@@ -22,7 +22,7 @@ As the Quarkus Extension is available in Maven Central, all you need to do is ad
 ```
 
 ### Gradle
-```java
+```groovy
 implementation 'org.jobrunr:quarkus-jobrunr:${jobrunr.version}'
 ```
 <br/>

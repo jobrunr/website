@@ -34,7 +34,7 @@ As `jobrunr-spring-boot-3-starter` is available in Maven Central, all you need t
 ```
 
 ### Gradle
-```java
+```groovy
 implementation 'org.jobrunr:jobrunr-spring-boot-3-starter:${jobrunr.version}'
 ```
 <br/>
