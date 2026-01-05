@@ -27,7 +27,7 @@ plugins {
 
 dependencies {
   // versions are omitted, use the latest versions
-  implementation("org.jobrunr:jobrunr-kotlin-2.1-support) // replace 2.1 by the Kotlin version you're targeting
+  implementation("org.jobrunr:jobrunr-kotlin-2.1-support") // replace 2.1 by the Kotlin version you're targeting
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json")
 }
 ```
