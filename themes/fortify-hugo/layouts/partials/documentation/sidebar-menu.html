@@ -47,7 +47,7 @@
                   {{ $hasGrandChildren := .HasChildren }}
 
                   <li class="nav-item mb-0.5">
-                    <a href="{{ .URL | relLangURL }}" class="nav-link block rounded px-2 py-1 text-sm transition-colors{{ if $childActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
+                    <a href="{{ .URL | relLangURL }}" class="block rounded px-2 py-1 text-sm transition-colors{{ if $childActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
                       {{ .Name }}
                     </a>
 
@@ -58,7 +58,7 @@
                           {{ $grandChildURL := .URL | absLangURL }}
                           {{ $grandChildActive := eq $grandChildURL $pageURL }}
                           <li class="mb-0.5">
-                            <a href="{{ .URL | relLangURL }}" class="nav-link block rounded px-2 py-1 text-xs transition-colors{{ if $grandChildActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
+                            <a href="{{ .URL | relLangURL }}" class="block rounded px-2 py-1 text-xs transition-colors{{ if $grandChildActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-text-dark{{ end }}">
                               {{ .Name }}
                             </a>
                           </li>
