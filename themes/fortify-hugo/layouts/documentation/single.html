@@ -20,7 +20,10 @@
           {{ end }}
           <!-- Page Header -->
           <header class="mb-8">
-            <h1 class="text-4xl mt-2 mb-2">{{ .Title }}</h1>
+            <div class="flex items-center justify-between gap-4 my-2">
+              <h1 class="text-4xl my-0">{{ .Title }}</h1>
+              {{ partial "documentation/read-with-ai.html" . }}
+            </div>
             {{ $desc := or .Description .Params.subtitle }}
             {{ with $desc }}
             <p class="text-xl font-light text-text/70 mb-4">{{ . }}</p>

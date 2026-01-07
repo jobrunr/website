@@ -104,3 +104,84 @@ dialog #pagefind-search .pagefind-ui__results {
 .codetabs .codetabs__panel:focus {
     @apply outline-none;
 }
+
+/* Read with AI - Share documentation with AI assistants */
+
+.read-with-ai-wrapper {
+  @apply inline-block;
+}
+
+.read-with-ai-dropdown {
+  @apply relative inline-block;
+}
+
+.read-with-ai-btn {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg
+         bg-primary text-white font-medium text-sm
+         transition-all duration-200 ease-in-out
+         hover:bg-primary/90 hover:shadow-md
+         focus:outline-none focus:shadow-lg
+         active:scale-95;
+}
+
+.read-with-ai-btn__arrow {
+  @apply text-xs transition-transform duration-200;
+}
+
+.read-with-ai-btn[aria-expanded="true"] .read-with-ai-btn__arrow {
+  @apply rotate-180;
+}
+
+.read-with-ai-menu {
+  @apply absolute right-0 mt-2 w-56 origin-top-right
+         rounded-lg border border-border bg-white shadow-lg
+         py-1 z-50;
+}
+
+.read-with-ai-menu[hidden] {
+  @apply hidden;
+}
+
+.read-with-ai-menu__item {
+  @apply w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm
+         text-text transition-colors duration-150
+         hover:bg-light focus:bg-light
+         focus:outline-none no-underline;
+}
+
+.read-with-ai-menu__item i,
+.read-with-ai-menu__item svg {
+  @apply w-4 h-4 flex-shrink-0 text-text/60;
+}
+
+.read-with-ai-menu__item--success {
+  @apply text-emerald-600;
+}
+
+.read-with-ai-menu__item--success i,
+.read-with-ai-menu__item--success svg {
+  @apply text-emerald-600;
+}
+
+.read-with-ai-menu__icon {
+  @apply w-4 h-4;
+}
+
+.read-with-ai-menu__divider {
+  @apply my-1 h-px bg-border;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .read-with-ai-btn span {
+    @apply hidden;
+  }
+
+  .read-with-ai-btn {
+    @apply px-3;
+  }
+
+  .read-with-ai-menu {
+    @apply right-0 w-52;
+  }
+}

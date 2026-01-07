@@ -178,6 +178,9 @@ lazy = false
 link = "js/code-copy.js"
 lazy = false
 [[params.plugins.js]]
+link = "js/read-with-ai.js"
+lazy = false
+[[params.plugins.js]]
 link = "js/framework.js"
 lazy = false
 [[params.plugins.js]]
