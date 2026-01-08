@@ -8,10 +8,10 @@ date: 2025-12-04T11:12:23+02:00
 
 ## Job Description
 
-> Before you read further or apply, please take note of the following: <br/>
+> **Before you read further or apply, please take note of the following**: <br/>
 > • We're only looking for developers having a valid working visa for Belgium.<br/>
 > • As an agency, please do not contact us. We only hire directly.<br/>
-> • You're willing to come to our offices in Leuven (next to the railway station) for 4 days per week initially and 2 days per week after your first review (about 3 months).<br/>
+> • You're willing to come to our offices in Leuven (next to the railway station) for 4 days per week initially and 2 days per week after your first review (after about 3 months).<br/>
 > • You must be able to solve the unit tests in this [repo](https://github.com/rdehuyss/jobrunr-technical-interview) within 1 hour without the use of internet or local LLM help.
 
 
