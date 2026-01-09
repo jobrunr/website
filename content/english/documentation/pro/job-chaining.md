@@ -119,6 +119,25 @@ The notification will only be sent once the archive is created successfully, and
 </figcaption>
 </figure>
 
+### Getting the previous Job in the chain
+
+There are times where the next `Job` in the chain requires information from the previous job that was executed, for instance to retrieve [its JobResult]({{< ref "/documentation/pro/results.md" >}}).
+
+{{< codeblock title="Retrieving the previous job from the chain using `JobContext` and `StorageProvider`." >}}
+```java
+public void notifyViaSlack(JobContext context) {
+    var awaitedJobId = context.getAwaitedJob(); // can be null if this job has no ancestor
+    var awaitedJob = storageProvider.getJobById(awaitedJobId);
+    MyJobResult awaitedJobResult = awaitedJob.<MyJobResult>getResult();
+    
+    // use the result from the previous job...
+}
+```
+{{</ codeblock >}}
+
+> [!NOTE]
+> Note: You need access to `StorageProvider` to retrieve jobs - you can inject it if you're using a dependency injection framework.
+
 #### How does it work?
 - the first job (`archiveService.createArchive(folder)`) is enqueued and will start processing as soon as some worker threads are available
 - the second job (`notifyService.notifyViaSlack(String room, String message)`) will initially be saved using the `AWAITING` state.
