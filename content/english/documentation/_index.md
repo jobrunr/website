@@ -23,7 +23,7 @@ sitemap:
 <div style="padding: 1rem; background: black; border-radius: 8px; color:white;">
   <strong style="color:white;">JobRunr DocsGPT is here to help</strong><br>
   Trained on all our documentation, it's your fastest way to get unstuck.<br>
-  <a onclick="chatbase.open()" style="cursor: pointer; color:white; box-shadow: #ffffff 0 -1px inset;">Open the chatbot now →</a>
+  <a onclick="openChatbot()" style="cursor: pointer; color:white; box-shadow: #ffffff 0 -1px inset;">Open the chatbot now →</a>
 </div>
 
 

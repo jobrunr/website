@@ -51,6 +51,34 @@
       </div>
     </dialog>
 
+    <dialog id="chatbot-widget" class="chatbot-widget">
+      <div class="chatbot-widget__container">
+        <div class="chatbot-widget__content">
+          <iframe
+            loading="lazy"
+            id="chatbot-iframe"
+            src="https://www.chatbase.co/chatbot-iframe/Ht7EOrOtYiB3DUPqizGCE"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            title="JobRunr Documentation Chatbot">
+          </iframe>
+          <div class="chatbot-widget__loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            <p>Loading chatbot...</p>
+          </div>
+        </div>
+        <footer class="chatbot-widget__footer">
+          <button
+            class="chatbot-widget__close"
+            onclick="closeChatbot()"
+            aria-label="Close chatbot">
+            Close
+          </button>
+        </footer>
+      </div>
+    </dialog>
+
     <!-- footer -->
     {{ partial "essentials/footer.html" . }}
 
