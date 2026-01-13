@@ -77,7 +77,7 @@ JobRunrPro
 <br>
 
 #### Using Spring Boot / Quarkus / Micronaut
-```
+```properties
 jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
 ```
 
@@ -87,6 +87,7 @@ This configuration example tells JobRunr to use `SlidingTimeWindowRateLimiter` t
 ## How to use a configured rate limiter
 Once configured, `RateLimiters` share the same usage API. As usual, you may use either `@Job` or `JobBuilder` to set the value of `Job`'s attribute.
 
+> [!NOTE]
 > In the following snippet, `MY_RATE_LIMITER` is a constant of the name of the rate limiter (from this documentation that is `MY_RATE_LIMITER = "my-rate-limiter"`, i.e., the rate limiter name provided in the configuration).
 
 #### Using `@Job`
