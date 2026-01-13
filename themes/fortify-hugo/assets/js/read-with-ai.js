@@ -227,6 +227,13 @@
       dropdown.querySelectorAll('[data-action="open-widget"]').forEach(btn => {
         btn.addEventListener('click', handleWidgetOpen);
       });
+
+      // Close dropdown when clicking external links
+      dropdown.querySelectorAll('.read-with-ai-menu__item[href]').forEach(link => {
+        link.addEventListener('click', () => {
+          closeDropdown(dropdown);
+        });
+      });
     });
 
     document.addEventListener('click', handleOutsideClick);
