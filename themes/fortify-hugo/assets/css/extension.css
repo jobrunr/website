@@ -32,36 +32,36 @@
 }
 
 /* Search Modal Dialog */
-dialog {
+#search-modal {
     @apply border-0 rounded-md shadow-2xl p-0 m-auto;
 }
 
-dialog::backdrop {
+#search-modal::backdrop {
     @apply bg-black/60;
 }
 
-dialog .dialog__container {
+#search-modal .dialog__container {
     @apply p-4;
 }
 
-dialog .dialog__content {
+#search-modal .dialog__content {
     @apply overflow-y-auto overscroll-contain;
 }
 
-dialog .dialog__footer {
+#search-modal .dialog__footer {
     @apply pt-4;
 }
 
-dialog .dialog__footer .btn {
+#search-modal .dialog__footer .btn {
     @apply px-5 py-2.5 text-sm font-medium transition-all;
     @apply hover:bg-light rounded-md border border-border;
 }
 
-dialog #pagefind-search {
+#search-modal #pagefind-search {
     @apply h-[70vh] w-[80vw] max-w-[900px];
 }
 
-dialog #pagefind-search .pagefind-ui__results {
+#search-modal #pagefind-search .pagefind-ui__results {
     @apply overflow-x-auto;
 }
 
@@ -106,36 +106,40 @@ dialog #pagefind-search .pagefind-ui__results {
 }
 
 /* Read with AI - Share documentation with AI assistants */
-
-.read-with-ai-wrapper {
-  @apply inline-block;
+.read-with-ai-dropdown {
+  @apply relative;
 }
 
-.read-with-ai-dropdown {
-  @apply relative inline-block;
+.read-with-ai-btn-group {
+  @apply inline-flex items-stretch;
 }
 
 .read-with-ai-btn {
-  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg
-         bg-primary text-white font-medium text-sm
-         transition-all duration-200 ease-in-out
-         hover:bg-primary/90 hover:shadow-md
-         focus:outline-none focus:shadow-lg
-         active:scale-95;
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2;
+  @apply text-white font-medium text-sm;
+  @apply bg-primary hover:opacity-90;
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.read-with-ai-btn--primary {
+  @apply rounded-l-lg border-r border-white/20;
+}
+
+.read-with-ai-btn--dropdown {
+  @apply rounded-r-lg px-3;
 }
 
 .read-with-ai-btn__arrow {
   @apply text-xs transition-transform duration-200;
 }
 
-.read-with-ai-btn[aria-expanded="true"] .read-with-ai-btn__arrow {
+.read-with-ai-btn--dropdown[aria-expanded="true"] .read-with-ai-btn__arrow {
   @apply rotate-180;
 }
 
 .read-with-ai-menu {
-  @apply absolute right-0 mt-2 w-56 origin-top-right
-         rounded-lg border border-border bg-white shadow-lg
-         py-1 z-50;
+  @apply absolute z-50 right-0 mt-2 py-1 w-68 origin-top-right;
+  @apply rounded-lg border border-border bg-white shadow-lg;
 }
 
 .read-with-ai-menu[hidden] {
@@ -143,10 +147,8 @@ dialog #pagefind-search .pagefind-ui__results {
 }
 
 .read-with-ai-menu__item {
-  @apply w-full flex items-center gap-3 px-4 py-2.5 text-left text-sm
-         text-text transition-colors duration-150
-         hover:bg-light focus:bg-light
-         focus:outline-none no-underline;
+  @apply w-full flex items-center justify-start gap-3 px-4 py-2.5 text-sm text-left text-text font-normal;
+  @apply hover:bg-light focus:bg-light focus:outline-none no-underline;
 }
 
 .read-with-ai-menu__item i,
@@ -154,35 +156,29 @@ dialog #pagefind-search .pagefind-ui__results {
   @apply w-4 h-4 flex-shrink-0 text-text/60;
 }
 
-.read-with-ai-menu__item--success {
-  @apply text-emerald-600;
+.read-with-ai-menu__item-content {
+  @apply flex flex-col gap-0.5;
 }
 
-.read-with-ai-menu__item--success i,
-.read-with-ai-menu__item--success svg {
-  @apply text-emerald-600;
+.read-with-ai-menu__item-title {
+  @apply text-sm text-text;
 }
 
-.read-with-ai-menu__icon {
-  @apply w-4 h-4;
+.read-with-ai-menu__item-desc {
+  @apply text-xs opacity-70;
 }
 
 .read-with-ai-menu__divider {
   @apply my-1 h-px bg-border;
 }
 
-/* Responsive adjustments */
 @media (max-width: 640px) {
-  .read-with-ai-btn span {
-    @apply hidden;
-  }
-
-  .read-with-ai-btn {
-    @apply px-3;
-  }
-
   .read-with-ai-menu {
-    @apply right-0 w-52;
+    @apply left-0 right-auto origin-top-left;
+  }
+
+  .read-with-ai-btn--primary {
+    @apply px-3;
   }
 }
 

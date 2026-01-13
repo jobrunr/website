@@ -7,28 +7,16 @@
   const SUCCESS_TIMEOUT = 2000;
 
   /**
-   * Get the GitHub raw URL for the markdown source
-   * @returns {string} The GitHub raw URL
-   */
-  function getMarkdownURL() {
-    return window.__docMarkdownURL || '';
-  }
-
-  /**
    * Fetch markdown content from GitHub raw URL
+   * @param {string} url - The GitHub raw URL
    * @returns {Promise<string>} The markdown content
    */
-  async function fetchMarkdownContent() {
-    const url = getMarkdownURL();
-    if (!url) {
-      throw new Error('No GitHub raw URL available');
-    }
+  async function fetchMarkdownContent(url) {
+    if (!url) throw new Error('No GitHub raw URL available');
 
     try {
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch markdown: ${response.status} ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`Failed to fetch markdown: ${response.status} ${response.statusText}`);
       return await response.text();
     } catch (error) {
       console.error('Error fetching markdown:', error);
@@ -52,25 +40,23 @@
   }
 
   /**
-   * Show success feedback on the main dropdown button
+   * Show success feedback on the primary button
    * @param {HTMLElement} dropdown - The dropdown container
    * @param {string} message - Success message
    */
   function showSuccessFeedback(dropdown, message) {
-    const mainButton = dropdown.querySelector('.read-with-ai-btn');
-    if (!mainButton) return;
+    const primaryButton = dropdown.querySelector('.read-with-ai-btn--primary');
+    if (!primaryButton) return;
 
-    const span = mainButton.querySelector('span');
-    const firstIcon = mainButton.querySelector('i.fa-wand-magic-sparkles');
+    const span = primaryButton.querySelector('span');
+    const firstIcon = primaryButton.querySelector('i.fa-wand-magic-sparkles');
     const originalText = span.textContent;
 
-    // Update button to show success
     if (firstIcon) {
       firstIcon.className = 'fa-solid fa-check';
     }
     span.textContent = message;
 
-    // Restore original state after timeout
     setTimeout(() => {
       if (firstIcon) {
         firstIcon.className = 'fa-solid fa-wand-magic-sparkles';
@@ -80,29 +66,24 @@
   }
 
   /**
-   * Handle menu item click
+   * Handle copy button click
    * @param {Event} e - Click event
    */
-  async function handleMenuItemClick(e) {
+  async function handleCopyClick(e) {
     const button = e.currentTarget;
-    const action = button.dataset.action;
     const dropdown = button.closest('.read-with-ai-dropdown');
 
-    // Close the dropdown immediately
-    if (dropdown) {
-      closeDropdown(dropdown);
-    }
+    if (dropdown) closeDropdown(dropdown);
 
-    if (action === 'copy') {
-      try {
-        const markdown = await fetchMarkdownContent();
-        const copySuccess = await copyToClipboard(markdown);
-        if (copySuccess && dropdown) {
-          showSuccessFeedback(dropdown, 'Copied!');
-        }
-      } catch (error) {
-        console.error('Failed to copy markdown:', error);
+    try {
+      const markdownUrl = button.dataset.markdownUrl;
+      const markdown = await fetchMarkdownContent(markdownUrl);
+      const copySuccess = await copyToClipboard(markdown);
+      if (copySuccess && dropdown) {
+        showSuccessFeedback(dropdown, 'Copied!');
       }
+    } catch (error) {
+      console.error('Failed to copy markdown:', error);
     }
   }
 
@@ -111,17 +92,13 @@
    * @param {HTMLElement} dropdown - The dropdown container
    */
   function openDropdown(dropdown) {
-    const button = dropdown.querySelector('.read-with-ai-btn');
+    const button = dropdown.querySelector('.read-with-ai-btn--dropdown');
     const menu = dropdown.querySelector('.read-with-ai-menu');
 
     button.setAttribute('aria-expanded', 'true');
     menu.hidden = false;
 
-    // Focus first menu item
-    const firstItem = menu.querySelector('[role="menuitem"]');
-    if (firstItem) {
-      firstItem.focus();
-    }
+    menu.querySelector('[role="menuitem"]')?.focus();
   }
 
   /**
@@ -129,7 +106,7 @@
    * @param {HTMLElement} dropdown - The dropdown container
    */
   function closeDropdown(dropdown) {
-    const button = dropdown.querySelector('.read-with-ai-btn');
+    const button = dropdown.querySelector('.read-with-ai-btn--dropdown');
     const menu = dropdown.querySelector('.read-with-ai-menu');
 
     button.setAttribute('aria-expanded', 'false');
@@ -148,14 +125,28 @@
     if (isOpen) {
       closeDropdown(dropdown);
     } else {
-      // Close any other open dropdowns first
-      document.querySelectorAll('.read-with-ai-dropdown').forEach(other => {
-        if (other !== dropdown) {
-          closeDropdown(other);
-        }
-      });
       openDropdown(dropdown);
     }
+  }
+
+  /**
+   * Open the chatbot widget dialog
+   */
+  function openChatbotWidget() {
+    openChatbot();
+    document.body.classList.add('chatbot-open');
+  }
+
+  /**
+   * Handle widget open button click
+   * @param {Event} e - Click event
+   */
+  function handleWidgetOpen(e) {
+    const button = e.currentTarget;
+    const dropdown = button.closest('.read-with-ai-dropdown');
+
+    if (dropdown) closeDropdown(dropdown);
+    openChatbotWidget();
   }
 
   /**
@@ -194,7 +185,7 @@
         e.preventDefault();
         const dropdown = menu.closest('.read-with-ai-dropdown');
         closeDropdown(dropdown);
-        dropdown.querySelector('.read-with-ai-btn').focus();
+        dropdown.querySelector('.read-with-ai-btn--dropdown').focus();
         break;
 
       case 'Tab':
@@ -222,29 +213,25 @@
     const dropdowns = document.querySelectorAll('.read-with-ai-dropdown');
 
     dropdowns.forEach(dropdown => {
-      const button = dropdown.querySelector('.read-with-ai-btn');
+      const dropdownButton = dropdown.querySelector('.read-with-ai-btn--dropdown');
       const menu = dropdown.querySelector('.read-with-ai-menu');
-      const menuItems = dropdown.querySelectorAll('.read-with-ai-menu__item');
 
-      // Toggle dropdown on button click
-      button.addEventListener('click', toggleDropdown);
+      dropdownButton?.addEventListener('click', toggleDropdown);
+      menu?.addEventListener('keydown', handleMenuKeydown);
 
-      // Handle menu item clicks (only for buttons, not links)
-      menuItems.forEach(item => {
-        if (item.tagName === 'BUTTON') {
-          item.addEventListener('click', handleMenuItemClick);
-        }
+      // Handle all action buttons
+      dropdown.querySelectorAll('[data-action="copy"]').forEach(btn => {
+        btn.addEventListener('click', handleCopyClick);
       });
 
-      // Keyboard navigation
-      menu.addEventListener('keydown', handleMenuKeydown);
+      dropdown.querySelectorAll('[data-action="open-widget"]').forEach(btn => {
+        btn.addEventListener('click', handleWidgetOpen);
+      });
     });
 
-    // Close on outside click
     document.addEventListener('click', handleOutsideClick);
   }
 
-  // Initialize when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {

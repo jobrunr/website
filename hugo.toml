@@ -24,7 +24,7 @@ defaultContentLanguageInSubdir = true
 jobRunrVersion = "8.1.0"
 github_url = "https://github.com/jobrunr/jobrunr"
 github_website_url = "https://github.com/jobrunr/website"
-github_stars = "2.8K"
+github_website_raw_url = "https://raw.githubusercontent.com/jobrunr/website"
 enableTrialButton = true
 
 [params.codetabs]
