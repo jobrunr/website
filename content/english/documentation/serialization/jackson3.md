@@ -119,7 +119,7 @@ var jsonMapper = new Jackson3JsonMapper(jsonMapperBuilder);
 
 ### Allowing polymorphic type deserialization with Jackson 3
 
-> Upcoming feature. Planned for JobRunr 8.4.0.
+> Available since JobRunr 8.4.0.
 
 By default, Jackson 3 restricts polymorphic type deserialization for security reasons. You need to explicitly allow it when your job parameters use abstract types or interfaces, including java collections. That being said this should probably be considered as a last resort, it's possible to avoid it by making some design choices, [more on this below]({{< ref "#exploring-alternatives-to-additional-polymorphic-type-validation" >}}). 
 
