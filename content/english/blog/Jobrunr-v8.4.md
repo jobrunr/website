@@ -19,7 +19,7 @@ Say hi to **JobRunr v8.4.0** and **JobRunr Pro v8.4.0**! This release introduces
 
 * **Auto-configured Kotlin Serialization**: `KotlinxSerializationJsonMapper` is now automatically detected and configured when using the Fluent API. [PR #1461](https://github.com/jobrunr/jobrunr/pull/1461)
 
-* **Configurable Polymorphic Type Validators**: `Jackson3JsonMapper` now allows configuration of custom polymorphic type validators for enhanced security. [PR #1458](https://github.com/jobrunr/jobrunr/pull/1458)
+* **Configurable Polymorphic Type Validators**: `Jackson3JsonMapper` now allows configuration of custom polymorphic type validators for enhanced security ([see configuration guide]({{< ref "/documentation/serialization/jackson3#allowing-polymorphic-type-deserialization-with-jackson-3" >}})). [PR #1458](https://github.com/jobrunr/jobrunr/pull/1458)
 
 ### Kotlin + Bazel: Now It Just Works
 
@@ -60,9 +60,9 @@ JobRunr.configure()
 
 ## 💼 New in JobRunr Pro v8.4.0
 
-* **Flexible License Key Loading**: Next to the already existing options, we've added the option to load your license from a remote server or from a file (call also be a shared drive). This makes it eaven easier to manage your license and easily update a license across all your JobRunr Pro instances. [PR #772](https://github.com/jobrunr/jobrunr-pro/pull/772)
+* **Flexible License Key Loading**: Next to the already existing options, we've added the option to load your license from a remote server or from a file (call also be a shared drive). This makes it eaven easier to manage your license and easily update a license across all your JobRunr Pro instances ([see usage guide]({{< ref "/documentation/pro/installation#custom-license-key-providers" >}})). [PR #772](https://github.com/jobrunr/jobrunr-pro/pull/772)
 
-* **Configurable Graceful Shutdown**: Set a custom shutdown period when the StorageProvider becomes unhealthy. [PR #771](https://github.com/jobrunr/jobrunr-pro/pull/771)
+* **Configurable Graceful Shutdown**: Set a custom shutdown period when the StorageProvider becomes unhealthy ([see configuration guide]({{< ref "/documentation/pro/database-fault-tolerance#configuring-a-grace-period" >}})). [PR #771](https://github.com/jobrunr/jobrunr-pro/pull/771)
 
 * **PostgreSQL Performance on Mac**: Improved PostgreSQL performance for JobRunr on macOS. [PR #773](https://github.com/jobrunr/jobrunr-pro/pull/773)
 
