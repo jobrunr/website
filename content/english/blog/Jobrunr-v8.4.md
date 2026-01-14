@@ -11,7 +11,7 @@ tags:
   - micronaut
 ---
 
-Say hi to **JobRunr v8.4.0** and **JobRunr Pro v8.4.0**! This release introduces Kotlin class-based SAM conversions (enabling Bazel usage without config changes), improved `Jackson3JsonMapper` configuration, full support for Micronaut 4.10.0, and fixes for cron expression parsing and job assertion exception handling.
+Say hi to **JobRunr v8.4.0** and **JobRunr Pro v8.4.0**! This release introduces Kotlin class-based SAM conversions support (enabling Bazel usage without config changes), improved `Jackson3JsonMapper` configuration, full support for Micronaut 4.10.0, and fixes for cron expression parsing and job assertion exception handling.
 
 ## New Features
 
@@ -40,7 +40,7 @@ Thanks to [@johnnymo87](https://github.com/johnnymo87) for reporting this issue 
 `KotlinxSerializationJsonMapper` is now auto-configured when using the Fluent API. If you have `kotlinx-serialization-json` on your classpath, JobRunr will automatically use it:
 
 ```kotlin
-// No need to manually specify the JSON mapper anymore!
+// This now automatically configures KotlinxSerializationJsonMapper instead of JacksonJsonMapper!
 JobRunr.configure()
     .useStorageProvider(storageProvider)
     .initialize()
@@ -83,7 +83,8 @@ JobRunr.configure()
 
 Simply update your dependency version to `8.4.0` in Maven or Gradle:
 
-**Maven:**
+{{< codetabs category="dependency" >}}
+{{< codetab label="Maven" >}}
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
@@ -91,11 +92,13 @@ Simply update your dependency version to `8.4.0` in Maven or Gradle:
     <version>8.4.0</version>
 </dependency>
 ```
-
-**Gradle:**
+{{</ codetab >}}
+{{< codetab label="Gradle" >}}
 ```groovy
 implementation 'org.jobrunr:jobrunr:8.4.0'
 ```
+{{</ codetab >}}
+{{</ codetabs >}}
 
 Stay tuned for more updates, and don't forget to share your feedback with us!
 
