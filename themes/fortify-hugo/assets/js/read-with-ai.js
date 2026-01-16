@@ -129,24 +129,10 @@
     }
   }
 
-  /**
-   * Open the chatbot widget dialog
-   */
-  function openChatbotWidget() {
-    openChatbot();
-    document.body.classList.add('chatbot-open');
-  }
-
-  /**
-   * Handle widget open button click
-   * @param {Event} e - Click event
-   */
   function handleWidgetOpen(e) {
-    const button = e.currentTarget;
-    const dropdown = button.closest('.read-with-ai-dropdown');
-
+    const dropdown = e.currentTarget.closest('.read-with-ai-dropdown');
     if (dropdown) closeDropdown(dropdown);
-    openChatbotWidget();
+    window.chatbase?.open();
   }
 
   /**

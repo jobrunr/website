@@ -61,29 +61,6 @@
     document.querySelector(dialogId).close();
   }
 
-  // Chatbot functionality
-  const openChatbot = () => {
-    const widget = document.querySelector('#chatbot-widget');
-    const iframe = document.querySelector('#chatbot-iframe');
-    const loading = document.querySelector('.chatbot-widget__loading');
-
-    iframe.addEventListener('load', () => {
-      loading.style.display = 'none';
-    });
-
-    widget.show();
-
-    document.body.classList.add('chatbot-open');
-  };
-
-  const closeChatbot = () => {
-    const widget = document.querySelector('#chatbot-widget');
-    
-    widget.close();
-
-    document.body.classList.remove('chatbot-open');
-  };
-
   window.addEventListener('DOMContentLoaded', (event) => {
     new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true, openFilters: ['Type'] });
 
