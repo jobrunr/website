@@ -202,3 +202,21 @@ input[name="username"] {
 .heading-anchor:hover i, .heading-anchor:focus i {
   @apply opacity-100;
 }
+
+/* ERROR CONTAINER */
+.error-container {
+  @apply flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800;
+}
+
+.error-container i {
+  @apply text-red-500 text-lg;
+}
+
+.error-container p {
+  @apply m-0! text-sm;
+}
+
+/* AREA ALIAS */
+.area-alias {
+  @apply text-[6px] text-blue-400 mr-1.5 cursor-help;
+}
