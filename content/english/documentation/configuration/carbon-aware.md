@@ -67,6 +67,7 @@ To enable Carbon Aware Job Processing, configure a `CarbonAwareJobProcessingConf
 > [!TIP]
 > Selecting an area, by clicking on a row, in the [above list of supported areas]({{< ref "#areas" >}}) will automatically updated the below configuration examples to your chosen area.
 
+<div id="config-examples">
 {{< codetabs category="config-style" >}}
 {{< codetab label="Fluent API" >}}
 ```java
@@ -78,7 +79,7 @@ JobRunr
             .andCarbonAwareJobProcessingConfiguration(
                 usingStandardCarbonAwareJobProcessingConfiguration()
                     .andAreaCode("BE")
-                    // ....
+                    .andDataProvider("ENTSO-E")
             ))
     // ...
 ```
@@ -88,6 +89,7 @@ JobRunr
 ```properties
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
+jobrunr.background-job-server.carbon-aware-job-processing.data-provider=ENTSO-E
 jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000ms
 jobrunr.background-job-server.carbon-aware-job-processing.poll-interval-in-minutes=5
 ```
@@ -100,11 +102,13 @@ jobrunr:
     carbon-aware-job-processing:
       enabled: true
       area-code: BE
+      data-provider: ENTSO-E
       api-client-connect-timeout: 5000ms
       poll-interval-in-minutes: 5
 ```
 {{< /codetab >}}
 {{< /codetabs >}}
+</div>
 
 > [!IMPORTANT]
 > If you do not specify any carbon aware processing config, thus not enabling the carbon aware feature, but do schedule jobs with carbon aware margins, the jobs will still be scheduled at their usual time without taking the margins into account.
@@ -150,19 +154,19 @@ function renderProviderCard(provider) {
   `;
 }
 
-fetch('http://localhost:10000/carbon-intensity/data-providers')
+fetch('https://api.jobrunr.io/carbon-intensity/data-providers')
   .then(response => response.json())
   .then(providers => {
     document.getElementById('providers-container').innerHTML = providers.map(renderProviderCard).join('');
   })
   .catch((error) => {
-    document.getElementById('providers-error-container').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load data providers: ${error.message}</p></div>`;
+    document.getElementById('providers-error-container').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load data providers. Cause: ${error.message}</p></div>`;
   });
 
 
 let table;
 
-fetch('http://localhost:10000/carbon-intensity/areas')
+fetch('https://api.jobrunr.io/carbon-intensity/areas')
   .then(response => response.json())
   .then(areas => {
     table = new Tabulator("#areas-table", {
@@ -193,9 +197,12 @@ fetch('http://localhost:10000/carbon-intensity/areas')
       ]
     });
 
+    table.on("rowSelected", function(row) {
+      updateConfigExamples(row.getData());
+    });
   })
   .catch((error) => {
-    document.getElementById('areas-table').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load areas: ${error.message}</p></div>`;
+    document.getElementById('areas-table').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load areas. Cause: ${error.message}</p></div>`;
   });
 
 function filterByProvider(providerName) {
@@ -218,4 +225,38 @@ document.getElementById("areas-search").addEventListener("keyup", function() {
       ]
     ]);
 });
+
+let currentAreaCode = 'BE';
+let currentDataProvider = 'ENTSO-E';
+
+function escapeRegex(str) {
+  return str.replace(/-/g, '\\-');
+}
+
+function updateConfigExamples(area) {
+  const container = document.getElementById('config-examples');
+  if (!container) return;
+
+  const oldCode = escapeRegex(currentAreaCode);
+  const newCode = area.code;
+  const oldProvider = escapeRegex(currentDataProvider);
+  const newProvider = area.dataProvider;
+
+  container.querySelectorAll('pre code').forEach(codeBlock => {
+    let html = codeBlock.innerHTML;
+    // Java: andAreaCode("XX") and andDataProvider("YY")
+    html = html.replace(new RegExp(`(andAreaCode.*?")${oldCode}(")`), `$1${newCode}$2`);
+    html = html.replace(new RegExp(`(andDataProvider.*?")${oldProvider}(")`), `$1${newProvider}$2`);
+    // Properties: area-code=XX and data-provider=YY
+    html = html.replace(new RegExp(`(area-code.*?=.*?)${oldCode}(\\s|<|$)`), `$1${newCode}$2`);
+    html = html.replace(new RegExp(`(data-provider.*?=.*?)${oldProvider}(\\s|<|$)`), `$1${newProvider}$2`);
+    // YAML: area-code: XX and data-provider: YY
+    html = html.replace(new RegExp(`(area-code.*?:.*?>)${oldCode}(<)`), `$1${newCode}$2`);
+    html = html.replace(new RegExp(`(data-provider.*?:.*?>)${oldProvider}(<)`), `$1${newProvider}$2`);
+    codeBlock.innerHTML = html;
+  });
+
+  currentAreaCode = newCode;
+  currentDataProvider = newProvider;
+}
 </script>
