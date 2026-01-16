@@ -23,15 +23,14 @@ jobScheduler.scheduleRecurrently("id-2", "0 16 * * * [PT3H/PT3H]", x->doWork())
 
 These recurring jobs will create jobs in the `AWAITING` state (see _Pending Jobs_ in the Dashboard), ready to be `SCHEDULED` at the optimal time. JobRunr guarantees that all jobs will be executed within the margin; even if there is no data available or the margin is too small.
 
-> **More examples and details** on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) section.
+> More examples and details on how to schedule carbon aware jobs can be found in the [Background methods: Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) section.
 
 ## Architectural overview
 
 For jobs to be scheduled carbon aware, JobRunr needs to fetch carbon information from the _JobRunr Carbon Intensity API_ that acts as a buffer between JobRunr and ENTSO-E or any other future data provider. The API is hosted at `api.jobrunr.io/carbon-intensity` and is configurable in [JobRunr Pro]({{< ref "documentation/pro" >}}). 
 
-> **Note**: Please make sure that the firewall allows the JobRunr server to reach `api.jobrunr.io`. If not, JobRunr will fall back to regular scheduling. See [carbon aware jobs: important remarks]({{< ref "documentation/background-methods/carbon-aware-jobs/#-important-remarks" >}}).
-
-> **Note**: Currently, we only support the carbon aware feature for data centres within the European Union.
+> [!IMPORTANT]
+> Please make sure that the firewall allows the JobRunr server to reach `api.jobrunr.io`. If not, JobRunr will fall back to regular scheduling. See [carbon aware jobs: important remarks]({{< ref "documentation/background-methods/carbon-aware-jobs/#-important-remarks" >}}).
 
 Once it has carbon intensity data, you can add slack to a certain job schedule by providing a margin. JobRunr will then optimize that job within the specified margin based on the carbon intensity data. 
 
@@ -39,10 +38,37 @@ Below is a schematic overview of how this works:
 
 ![](/documentation/carbon-aware-context.png "The Carbon Aware API Context Diagram.")
 
+## Available Areas
+
+The Carbon Intensity API provides carbon intensity forecasts through various data providers, each covering different geographical regions.
+
+### Data Providers
+
+Below are the data providers integrated with the Carbon Intensity API:
+
+<div id="providers-container" class="data-providers"></div>
+<div id="providers-error-container"></div>
+
+### Areas
+
+The following table lists all geographical areas currently supported by the Carbon Intensity API:
+
+<div class="my-6">
+    <div class="mb-4">
+    <input type="text" id="areas-search" placeholder="Search areas..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+    </div>
+    <div id="areas-table"></div>
+</div>
+
 ## Configuration
 
-To enable Carbon Aware Job Processing, inject a `CarbonAwareJobProcessingConfiguration` into the background server configuration:
+To enable Carbon Aware Job Processing, configure a `CarbonAwareJobProcessingConfiguration` with your area code so that the correct energy data is taken into account. If you're unsure which region to select, browse the [supported areas above](#areas).
 
+> [!TIP]
+> Selecting an area, by clicking on a row, in the [above list of supported areas]({{< ref "#areas" >}}) will automatically updated the below configuration examples to your chosen area.
+
+{{< codetabs category="config-style" >}}
+{{< codetab label="Fluent API" >}}
 ```java
 JobRunr
     .configure()
@@ -56,27 +82,40 @@ JobRunr
             ))
     // ...
 ```
+{{< /codetab >}}
 
-> __Config remark:__ If you do not specify any carbon aware processing config, thus not enabling the carbon aware feature, but do schedule jobs with carbon aware margins, the jobs will still be scheduled at their usual time without taking the margins into account.
-
-The awaiting jobs request size allows to set the maximum number of carbon aware jobs to update from awaiting to scheduled state per database round-trip. If not set, it will default to `1000`.
-
-The processing config allows you to specify a few key parmeters including your area code so that the correct energy data is being taken into account. If you have no idea which region to select, the Carbon Intensity API lists all supported areas at https://api.jobrunr.io/carbon-intensity/areas!
-
-Of course, you can configure the Carbon Aware API with your favourite app framework such as [Spring]({{< ref "documentation/configuration/spring" >}}):
-
-```
+{{< codetab label="Properties" >}}
+```properties
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
 jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
 jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000ms
 jobrunr.background-job-server.carbon-aware-job-processing.poll-interval-in-minutes=5
 ```
+{{< /codetab >}}
+
+{{< codetab label="YAML" >}}
+```yaml
+jobrunr:
+  background-job-server:
+    carbon-aware-job-processing:
+      enabled: true
+      area-code: BE
+      api-client-connect-timeout: 5000ms
+      poll-interval-in-minutes: 5
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
+> [!IMPORTANT]
+> If you do not specify any carbon aware processing config, thus not enabling the carbon aware feature, but do schedule jobs with carbon aware margins, the jobs will still be scheduled at their usual time without taking the margins into account.
+
+The awaiting jobs request size allows to set the maximum number of carbon aware jobs to update from awaiting to scheduled state per database round-trip. If not set, it will default to `1000`.
 
 On the carbon aware job processing configuration class, the following parameters can be configured:
 
 - `enabled`---Enables the Carbon Aware feature. The `usingStandardCarbonAwareJobProcessingConfiguration()` Fluent API enables this by default. Without it, pending jobs will still be scheduled at their preferred time, without taking the margin into consideration.
-- `areaCode`---Allows to set the [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) areaCode of your datacenter (the area where your application is hosted; e.g. "BE", "US-CA", "IT-NO") in order to have more accurate carbon emissions forecasts. Unless specified, the forecast may be from any dataProvider that supports the areaCode. If you _do not_ specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee based on IP. 
-- `dataProvider`---Allows to set your preferred carbon intensity forecast dataProvider (e.g. "ENTSO-E", "Azure", ...). If you _do not_ specify a data provider, the first region matching the area code will be returned. For now, the only supported provider is "ENTSO-E". The Carbon Intensity API lists all supported data providers at https://api.jobrunr.io/carbon-intensity/providers. 
+- `areaCode`---Allows to set the [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) areaCode of your datacenter (the area where your application is hosted; e.g. "BE", "US-CA", "IT-NO") in order to have more accurate carbon emissions forecasts. Unless specified, the forecast may be from any dataProvider that supports the areaCode. If you _do not_ specify an area code, the Carbon Intensity API will try to determine the area of the JobRunr cluster callee based on IP. [See above]({{< ref "#areas" >}}) for the list of supported areas.
+- `dataProvider`---Allows to set your preferred carbon intensity forecast dataProvider (e.g. "ENTSO-E", "Azure", ...). If you _do not_ specify a data provider, the first region matching the area code will be returned. [See above]({{< ref "#data-providers" >}}) for the list of supported carbon intensity providers.
 - `externalCode`---Allows to set the code of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "IT-North").
 - `externalIdentifier`---Allows to set the identifier of an area as defined by your specified dataProvider in order to have more accurate carbon emissions forecasts (e.g. "10Y1001A1001A73I"). 
 - `apiClientConnectTimeout`---Allows to set the connect timeout for the API client (defaults to 3 seconds).
@@ -85,49 +124,14 @@ On the carbon aware job processing configuration class, the following parameters
 - {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} `andCarbonIntensityApiUrl`---Allows to set a custom Carbon Intensity API URL to create your own implementation. The area code, data provider, external code, and external provider settings will be passed in as a request parameter.
 - `pollIntervalInMinutes`---Allows to configure how often Carbon Aware Awaiting jobs will be picked up and processed (defaults to 5 minutes).
 
-> __Data provider remark:__ You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode`. 
+> [!NOTE]
+> You can only set either `areaCode`, `externalCode`, or `externalIdentifier` as region keys. A `dataProvider` is required in conjunction with the `externalCode` or `externalIdentifier`. 
 
 Once you have Carbon Aware Job Processing configured, it is time to take a look at how to enhance your jobs with the carbon aware margin: see [Carbon aware jobs]({{< ref "documentation/background-methods/carbon-aware-jobs" >}}) in the docs.
 
-## Available Areas
-
-The Carbon Intensity API provides carbon intensity forecasts through various data providers, each covering different geographical regions.
-
-### 🚧 Data Providers
-
-Below are the data providers integrated with the Carbon Intensity API:
-
-<!-- <div id="providers-container" class="data-providers"></div> -->
-🚧 Coming soon!
-
-### 🚧 Areas
-
-The following table lists all geographical areas currently supported by the Carbon Intensity API:
-
-<!-- <div class="my-6">
-    <div class="mb-4">
-    <input type="text" id="areas-search" placeholder="Search areas..." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-    </div>
-    <div id="areas-table"></div>
-</div> -->
-
-<!-- <script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script> -->
-
-🚧 Coming soon!
+<script type="text/javascript" src="https://unpkg.com/tabulator-tables@6.3.0/dist/js/tabulator.min.js"></script>
 
 <script>
-// Data providers configuration
-const providersData = [
-  {
-    name: 'ENTSO-E',
-    displayName: 'European Network of Transmission System Operators for Electricity',
-    description: 'ENTSO-E provides comprehensive electricity market data across Europe, including real-time generation mix and carbon intensity information for all EU member states.',
-    updateFrequency: 'Daily',
-    areaCount: 32
-  }
-  // More providers will be added here as they become available
-];
-
 function renderProviderCard(provider) {
   return `
     <article class="card">
@@ -140,90 +144,78 @@ function renderProviderCard(provider) {
         </div>
         <p class="card__content">${provider.description}</p>
         <div class="card__footer">
-            <a href="#available-areas" class="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium whitespace-nowrap">${provider.areaCount} areas →</a>
+            <a href="#areas" onclick="filterByProvider('${provider.name}')" class="text-xs text-blue-600 hover:text-blue-800 hover:underline font-medium whitespace-nowrap">${provider.amountOfSupportedAreas} areas →</a>
         </div>
     </article>
   `;
 }
 
-// Initial render
-document.getElementById('providers-container').innerHTML = providersData.map(renderProviderCard).join('');
+fetch('http://localhost:10000/carbon-intensity/data-providers')
+  .then(response => response.json())
+  .then(providers => {
+    document.getElementById('providers-container').innerHTML = providers.map(renderProviderCard).join('');
+  })
+  .catch((error) => {
+    document.getElementById('providers-error-container').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load data providers: ${error.message}</p></div>`;
+  });
 
 
-// Example data - this would be dynamically loaded from API
-const data = [
-  { displayName: 'Austria', areaCode: 'AT', externalCode: null, externalIdentifier: '10YAT-APG------L', timezone: 'Europe/Vienna', provider: 'ENTSO-E' },
-  { displayName: 'Belgium', areaCode: 'BE', externalCode: null, externalIdentifier: '10YBE----------2', timezone: 'Europe/Brussels', provider: 'ENTSO-E' },
-  { displayName: 'Bulgaria', areaCode: 'BG', externalCode: null, externalIdentifier: '10YCA-BULGARIA-R', timezone: 'Europe/Sofia', provider: 'ENTSO-E' },
-  { displayName: 'Croatia', areaCode: 'HR', externalCode: null, externalIdentifier: '10YHR-HEP------M', timezone: 'Europe/Zagreb', provider: 'ENTSO-E' },
-  { displayName: 'Czech Republic', areaCode: 'CZ', externalCode: null, externalIdentifier: '10YCZ-CEPS-----N', timezone: 'Europe/Prague', provider: 'ENTSO-E' },
-  { displayName: 'Denmark - West', areaCode: 'DK', externalCode: 'DK-West', externalIdentifier: '10YDK-1--------W', timezone: 'Europe/Copenhagen', provider: 'ENTSO-E' },
-  { displayName: 'Denmark - East', areaCode: 'DK', externalCode: 'DK-East', externalIdentifier: '10YDK-2--------M', timezone: 'Europe/Copenhagen', provider: 'ENTSO-E' },
-  { displayName: 'Estonia', areaCode: 'EE', externalCode: null, externalIdentifier: '10Y1001A1001A39I', timezone: 'Europe/Tallinn', provider: 'ENTSO-E' },
-  { displayName: 'Finland', areaCode: 'FI', externalCode: null, externalIdentifier: '10YFI-1--------U', timezone: 'Europe/Helsinki', provider: 'ENTSO-E' },
-  { displayName: 'France', areaCode: 'FR', externalCode: null, externalIdentifier: '10YFR-RTE------C', timezone: 'Europe/Paris', provider: 'ENTSO-E' },
-  { displayName: 'Germany', areaCode: 'DE', externalCode: null, externalIdentifier: '10Y1001A1001A83F', timezone: 'Europe/Berlin', provider: 'ENTSO-E' },
-  { displayName: 'Greece', areaCode: 'GR', externalCode: null, externalIdentifier: '10YGR-HTSO-----Y', timezone: 'Europe/Athens', provider: 'ENTSO-E' },
-  { displayName: 'Hungary', areaCode: 'HU', externalCode: null, externalIdentifier: '10YHU-MAVIR----U', timezone: 'Europe/Budapest', provider: 'ENTSO-E' },
-  { displayName: 'Ireland', areaCode: 'IE', externalCode: null, externalIdentifier: '10YIE-1001A00010', timezone: 'Europe/Dublin', provider: 'ENTSO-E' },
-  { displayName: 'Italy - North', areaCode: 'IT', externalCode: 'IT-North', externalIdentifier: '10Y1001A1001A73I', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
-  { displayName: 'Italy - Central North', areaCode: 'IT', externalCode: 'IT-CentralNorth', externalIdentifier: '10Y1001A1001A70O', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
-  { displayName: 'Italy - Central South', areaCode: 'IT', externalCode: 'IT-CentralSouth', externalIdentifier: '10Y1001A1001A71M', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
-  { displayName: 'Italy - South', areaCode: 'IT', externalCode: 'IT-South', externalIdentifier: '10Y1001A1001A788', timezone: 'Europe/Rome', provider: 'ENTSO-E' },
-  { displayName: 'Latvia', areaCode: 'LV', externalCode: null, externalIdentifier: '10YLV-1001A00074', timezone: 'Europe/Riga', provider: 'ENTSO-E' },
-  { displayName: 'Lithuania', areaCode: 'LT', externalCode: null, externalIdentifier: '10YLT-1001A0008Q', timezone: 'Europe/Vilnius', provider: 'ENTSO-E' },
-  { displayName: 'Netherlands', areaCode: 'NL', externalCode: null, externalIdentifier: '10YNL----------L', timezone: 'Europe/Amsterdam', provider: 'ENTSO-E' },
-  { displayName: 'Norway - South', areaCode: 'NO', externalCode: 'NO-South', externalIdentifier: '10YNO-2--------T', timezone: 'Europe/Oslo', provider: 'ENTSO-E' },
-  { displayName: 'Norway - North', areaCode: 'NO', externalCode: 'NO-North', externalIdentifier: '10YNO-4--------9', timezone: 'Europe/Oslo', provider: 'ENTSO-E' },
-  { displayName: 'Poland', areaCode: 'PL', externalCode: null, externalIdentifier: '10YPL-AREA-----S', timezone: 'Europe/Warsaw', provider: 'ENTSO-E' },
-  { displayName: 'Portugal', areaCode: 'PT', externalCode: null, externalIdentifier: '10YPT-REN------W', timezone: 'Europe/Lisbon', provider: 'ENTSO-E' },
-  { displayName: 'Romania', areaCode: 'RO', externalCode: null, externalIdentifier: '10YRO-TEL------P', timezone: 'Europe/Bucharest', provider: 'ENTSO-E' },
-  { displayName: 'Slovakia', areaCode: 'SK', externalCode: null, externalIdentifier: '10YSK-SEPS-----K', timezone: 'Europe/Bratislava', provider: 'ENTSO-E' },
-  { displayName: 'Slovenia', areaCode: 'SI', externalCode: null, externalIdentifier: '10YSI-ELES-----O', timezone: 'Europe/Ljubljana', provider: 'ENTSO-E' },
-  { displayName: 'Spain', areaCode: 'ES', externalCode: null, externalIdentifier: '10YES-REE------0', timezone: 'Europe/Madrid', provider: 'ENTSO-E' },
-  { displayName: 'Sweden - South', areaCode: 'SE', externalCode: 'SE-South', externalIdentifier: '10Y1001A1001A44P', timezone: 'Europe/Stockholm', provider: 'ENTSO-E' },
-  { displayName: 'Sweden - North', areaCode: 'SE', externalCode: 'SE-North', externalIdentifier: '10Y1001A1001A45N', timezone: 'Europe/Stockholm', provider: 'ENTSO-E' },
-  { displayName: 'Switzerland', areaCode: 'CH', externalCode: null, externalIdentifier: '10YCH-SWISSGRIDZ', timezone: 'Europe/Zurich', provider: 'ENTSO-E' }
-];
+let table;
 
-// Initialize Tabulator
-const table = new Tabulator("#areas-table", {
-  data: data,
-  height: 500,
-  layout: "fitColumns",
-  virtualDom: true,
-  virtualDomBuffer: 300,
-  rowHeight: 38,
-  selectableRows: 1,
-  columns: [
-    { title: "Display Name", field: "displayName", sorter: "string", minWidth: 200 },
-    { title: "Area Code", field: "areaCode", sorter: "string"},
-    { title: "External Code", field: "externalCode", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
-    { title: "External Identifier", field: "externalIdentifier", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
-    { title: "Timezone", field: "timezone", sorter: "string" },
-    { title: "Provider", field: "provider", sorter: "string" }
-  ],
-  placeholder: "No areas found",
-  initialSort: [
-    { column: "displayName", dir: "asc" }
-  ]
-});
+fetch('http://localhost:10000/carbon-intensity/areas')
+  .then(response => response.json())
+  .then(areas => {
+    table = new Tabulator("#areas-table", {
+      data: areas,
+      height: 500,
+      layout: "fitColumns",
+      virtualDom: true,
+      virtualDomBuffer: 300,
+      rowHeight: 38,
+      selectableRows: 1,
+      columns: [
+        { title: "Name", field: "displayName", sorter: "string", minWidth: 200, formatter: (cell) => {
+          const mainArea = cell.getRow().getData().mainAreaDisplayName;
+          if (mainArea) {
+            return `<span class="flex items-center"><i class="fa-solid fa-circle area-alias" title="Alias of ${mainArea}"></i>${cell.getValue()}<span>`;
+          }
+          return cell.getValue();
+        }},
+        { title: "Code", field: "code", sorter: "string", width: 120 },
+        { title: "External Code", field: "externalCode", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
+        { title: "External Identifier", field: "externalIdentifier", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
+        { title: "Timezone", field: "timezone", sorter: "string" },
+        { title: "Provider", field: "dataProvider", sorter: "string" }
+      ],
+      placeholder: "No areas found",
+      initialSort: [
+        { column: "displayName", dir: "asc" }
+      ]
+    });
 
-// Global search functionality
+  })
+  .catch((error) => {
+    document.getElementById('areas-table').innerHTML = `<div class="error-container"><i class="fa-solid fa-circle-exclamation"></i><p>Unable to load areas: ${error.message}</p></div>`;
+  });
+
+function filterByProvider(providerName) {
+  if (table) {
+    document.getElementById('areas-search').value = providerName;
+    table.setFilter('dataProvider', '=', providerName);
+  }
+}
+
 document.getElementById("areas-search").addEventListener("keyup", function() {
-  table.setFilter([
-    [
-      { field: "displayName", type: "like", value: this.value },
-      { field: "areaCode", type: "like", value: this.value },
-      { field: "externalCode", type: "like", value: this.value },
-      { field: "externalIdentifier", type: "like", value: this.value },
-      { field: "timezone", type: "like", value: this.value },
-      { field: "provider", type: "like", value: this.value }
-    ]
-  ]);
-});
-
-table.on("rowSelectionChanged", function(data, rows){
-  document.getElementById("selected-rows").innerHTML = data.length;
+    table?.setFilter([
+      [
+        { field: "displayName", type: "like", value: this.value },
+        { field: "code", type: "like", value: this.value },
+        { field: "externalCode", type: "like", value: this.value },
+        { field: "externalIdentifier", type: "like", value: this.value },
+        { field: "timezone", type: "like", value: this.value },
+        { field: "dataProvider", type: "like", value: this.value },
+        { field: "mainAreaDisplayName", type: "like", value: this.value }
+      ]
+    ]);
 });
 </script>
