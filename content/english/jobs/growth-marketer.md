@@ -4,6 +4,7 @@ summary: "Help us reach every Java developer on the planet and grow our open-sou
 translationKey: "growth-marketer"
 skip_meta: true
 date: 2026-01-16T17:15:00+02:00
+image: "/blog/thumb_hiring_marketer.png"
 ---
 
 ### Job Description
