@@ -1,6 +1,6 @@
 ---
-title: "All-round Growth Marketer at JobRunr"
-summary: "Help us reach every Java developer on the planet and grow our open-source community!"
+title: "Hiring All-round Growth Marketer at JobRunr"
+summary: "We are seeking an all-round growth marketer who loves to experiment. You will be responsible for the entire marketing funnel, from attracting open-source users to converting them into JobRunr Pro customers. "
 translationKey: "growth-marketer"
 skip_meta: true
 date: 2026-01-16T17:15:00+02:00
