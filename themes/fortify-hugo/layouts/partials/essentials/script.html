@@ -52,17 +52,4 @@
 <!-- google adsense -->
 {{ partialCached "adsense-script.html" . }}
 
-<script src="{{ "pagefind/pagefind-ui.js" | relURL }}"></script>  
-<script>
-  const openDialogAsModal = (dialogId) => {
-    document.querySelector(dialogId).showModal();
-  }
-  const closeDialog = (dialogId) => {
-    document.querySelector(dialogId).close();
-  }
-  window.addEventListener('DOMContentLoaded', (event) => {
-    new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true, openFilters: ['Type'] });
-
-    document.querySelector("#search-modal").addEventListener('click', ({target: dialog}) => dialog.nodeName === 'DIALOG' && dialog.close('dismiss'));
-  });
-</script>
+<script src="{{ "pagefind/pagefind-component-ui.js" | relURL }}" type="module"></script>

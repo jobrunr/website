@@ -40,16 +40,20 @@
       {{ block "main" . }}{{ end }}
     </main>
 
-     <dialog id="search-modal">
-      <div class="dialog__container">
-        <section class="dialog__content">
-          <div id="pagefind-search"></div>
-        </section>
-        <footer class="dialog__footer">
-          <button class="btn" onclick="closeDialog('#search-modal')">Close</button>
-        </footer>
-      </div>
-    </dialog>
+    <pagefind-config bundle-path="{{ "pagefind/" | relURL }}"></pagefind-config>
+    <pagefind-modal>
+      <pagefind-modal-header>
+        <pagefind-input></pagefind-input>
+      </pagefind-modal-header>
+      <pagefind-modal-body>
+        <pagefind-filter-pane open="Type"></pagefind-filter-pane>
+        <pagefind-summary></pagefind-summary>
+        <pagefind-results></pagefind-results>
+      </pagefind-modal-body>
+      <pagefind-modal-footer>
+        <pagefind-keyboard-hints></pagefind-keyboard-hints>
+      </pagefind-modal-footer>
+    </pagefind-modal>
 
     <!-- footer -->
     {{ partial "essentials/footer.html" . }}

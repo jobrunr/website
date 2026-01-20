@@ -31,38 +31,22 @@
     display: block;
 }
 
-/* Search Modal Dialog */
-dialog {
-    @apply border-0 rounded-md shadow-2xl p-0 m-auto;
+/* Pagefind Component UI */
+:root {
+    --pf-input-height: initial;
+    --pf-modal-max-width: min(80vw, 56rem);
 }
 
-dialog::backdrop {
-    @apply bg-black/60;
+pagefind-modal-trigger button {
+    @apply px-3! p-1.5!;
 }
 
-dialog .dialog__container {
-    @apply p-4;
+pagefind-modal-trigger button .pf-trigger-key {
+    @apply h-[1.25rem]!;
 }
 
-dialog .dialog__content {
-    @apply overflow-y-auto overscroll-contain;
-}
-
-dialog .dialog__footer {
-    @apply pt-4;
-}
-
-dialog .dialog__footer .btn {
-    @apply px-5 py-2.5 text-sm font-medium transition-all;
-    @apply hover:bg-light rounded-md border border-border;
-}
-
-dialog #pagefind-search {
-    @apply h-[70vh] w-[80vw] max-w-[900px];
-}
-
-dialog #pagefind-search .pagefind-ui__results {
-    @apply overflow-x-auto;
+pagefind-filter-pane {
+    @apply mb-2;
 }
 
 .badge {
