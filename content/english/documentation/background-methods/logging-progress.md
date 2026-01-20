@@ -56,9 +56,9 @@ public class MyService {
         
         for(int i = 0; i < 1000; i++) {
         	//do actual work
-            progressBar.increaseByOne();
+            progressBar.incrementSucceeded();
             // or you can also use
-            progressBar.setValue(i);
+            progressBar.setProgress(i);
         }
     }
 }
@@ -78,9 +78,9 @@ public class MySimpleJobRequestHandler implements JobRequestHandler<MySimpleJobR
         
         for(int i = 0; i < 1000; i++) {
         	//do actual work
-            progressBar.increaseByOne();
+            progressBar.incrementSucceeded();
             // or you can also use
-            progressBar.setValue(i);
+            progressBar.setProgress(i);
         }
     }
 }
