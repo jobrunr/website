@@ -28,6 +28,7 @@ In the below Maven or Gradle usage example you may want to replace the Spring Bo
 *   Quarkus: `quarkus-jobrunr-pro`
 *   Spring Boot 2: `jobrunr-pro-spring-boot-2-starter`
 *   Spring Boot 3: `jobrunr-pro-spring-boot-3-starter`
+*   Spring Boot 4: `jobrunr-pro-spring-boot-4-starter`
 
 Note for Kotlin Exposed Transaction support you want to include a Kotlin support artifact: see the [Transaction plugin documentation](/en/documentation/pro/transactions/) for more details.
 
@@ -115,4 +116,98 @@ The license is saved in the database and you can apply it in any of the followin
 * Save the license key to your `src/main/resources` folder (don't forget to **ignore this file** in your source control system!)
 * Upload the contents of the license key via the dashboard
 * Set the license contents via a property in case you are using a framework like Spring Boot by setting `jobrunr.license-key` equal to the contents of the license key.
+
+### Custom License Key Providers
+
+For advanced scenarios, you can provide your own `LicenseKeyProvider` to dynamically retrieve license keys from custom sources like secret managers, databases, or remote services.
+
+**When the provider is queried:**
+1. On initialization when the background job server is initiated
+2. Every 5 seconds when no license is available
+3. Once per day during normal operation (master server only)
+
+#### URL-based License Keys
+
+JobRunr provides a builtin `UrlLicenseKeyProvider`, it's automatically configured when you specify an HTTP, HTTPS, or file URL:
+
+{{< codetabs category="config-style" >}}
+{{< codetab label="Fluent API" >}}
+```java
+JobRunrPro
+    .configure()
+    // ...
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+        .andLicenseKeyProvider("https://example.com/license-key")
+    )
+    // ...
+```
+{{< /codetab >}}
+
+{{< codetab label="Properties" >}}
+```properties
+jobrunr.license-key=https://example.com/license-key
+```
+{{< /codetab >}}
+
+{{< codetab label="YAML" >}}
+```yaml
+jobrunr:
+  license-key: https://example.com/license-key
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
+The allowed values are:
+1. A JobRunr Pro license string
+2. A valid HTTP(S) URL to fetch the license (e.g., `https://example.com/license-key`)
+3. A file URI indicating the location of the license (e.g., `file://server/folder/license.key` or `file:./license.key`)
+
+> [!NOTE]
+> The `UrlLicenseKeyProvider` has a 5-second timeout by default. If retrieval fails, it returns `null` and retries according to the schedule above.
+
+#### Custom Provider Implementation
+
+For complete control, implement your own `LicenseKeyProvider`. You can configure it as below:
+
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
+```java
+JobRunrPro
+    .configure()
+    // ...
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+        .andLicenseKeyProvider(new MyCustomLicenseKeyProvider())
+    )
+    // ...
+```
+{{< /codetab >}}
+
+{{< codetab label="Micronaut" >}}
+```java
+@Singleton
+public LicenseKeyProvider licenseKeyProvider() {
+    return new MyCustomLicenseKeyProvider();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+@Produces
+public LicenseKeyProvider licenseKeyProvider() {
+    return new MyCustomLicenseKeyProvider();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
+```java
+@Bean
+public LicenseKeyProvider licenseKeyProvider() {
+    return new MyCustomLicenseKeyProvider();
+}
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
 

@@ -24,8 +24,44 @@ The moment JobRunr loses it’s connection to the database (or the database goes
 
 That’s why I decided that if there are too many exceptions because of the StorageProvider, JobRunr stops all background job processing. This can of course be monitored via the dashboard and health endpoints.
 
-### JobRunr Pro has your back
+## JobRunr Pro has your back
 **JobRunr Pro** increases resilience for this and pauses all job processing as soon as the StorageProvider goes down.
 It continues to monitor the database whether it comes up again and if so, automatically restarts processing on all the different `BackgroundJobServers`.
+
+### Configuring a Grace Period
+
+> Available since JobRunr Pro 8.4.0.
+
+By default JobRunr Pro waits indefinitely for database recovery. Instead you may prefer the server to shut down after a certain period. This is useful in containerized environments where you want orchestrators like Kubernetes to restart unhealthy pods.
+
+You can configure a grace period after which the server shuts down if the database hasn't recovered. Once shut down, health endpoints will report the server as down, allowing your orchestrator to take action.
+
+{{< codetabs category="config-style" >}}
+{{< codetab label="Fluent API" >}}
+```java
+JobRunrPro
+    .configure()
+    // ...
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+        .andStorageProviderUnhealthyGracePeriod(Duration.ofHours(1))
+    )
+    // ...
+```
+{{< /codetab >}}
+
+{{< codetab label="Properties" >}}
+```properties
+jobrunr.background-job-server.storage-provider-unhealthy-grace-period=1h
+```
+{{< /codetab >}}
+
+{{< codetab label="YAML" >}}
+```yaml
+jobrunr:
+  background-job-server:
+    storage-provider-unhealthy-grace-period: 1h
+```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 {{< trial-button >}}

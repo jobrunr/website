@@ -55,7 +55,7 @@
     {{ partial "essentials/footer.html" . }}
 
 
-    <!-- script (always cache it) -->
-    {{ partialCached "essentials/script.html" . }}
+    <!-- script (cache per section for conditional scripts) -->
+    {{ partialCached "essentials/script.html" . .Section }}
   </body>
 </html>

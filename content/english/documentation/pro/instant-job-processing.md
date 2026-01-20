@@ -18,7 +18,7 @@ JobRunr Pro achieves instant job processing by using a multicast (UDP) socket to
 
 By default, the address `udp://239.076.159.181:8379` is used, but this can be configured either by setting this property in your favourite framework:
 
-```
+```properties
 jobrunr.multicast-group-address=udp://239.076.159.181:8379
 ```
 
@@ -37,4 +37,5 @@ Be sure to configure this before the configuration of the dashboard and backgrou
 
 The multicast---and therefore, instant job processing---will be disabled if `null` is passed in. 
 
-> ⚠️ The multicast will also be disabled if the address cannot be resolved (i.e. a `SocketException` or `UnknownHostException` is thrown). Make sure to adjust your firewall configuration accordingly. JobRunr Pro will issue the warning "Could not create JobRunrMulticastSender" to inform the user of this problem.
+> [!WARNING]
+> The multicast will also be disabled if the address cannot be resolved (i.e. a `SocketException` or `UnknownHostException` is thrown). Make sure to adjust your firewall configuration accordingly. JobRunr Pro will issue the warning "Could not create JobRunrMulticastSender" to inform the user of this problem.

@@ -16,9 +16,11 @@ A `rate limiter` allows to control the execution rate of `Jobs` to avoid overwhe
 
 You can configure different rate limiters to be used within your system and rate limiters can be shared by different job types, however each job can only use one `rate limiter`.
 
+> [!IMPORTANT]
 > When using a rate limiter there may be a latency of `pollIntervalInSeconds` before a rate-limited `Job` can start processing due an extra state change from `AWAITING` to `ENQUEUED`.<br>
 > Please also note that you cannot use both a rate limiter and a [`mutex`]({{< ref "/documentation/pro/mutexes" >}}) on the same `Job`.
 
+> [!IMPORTANT]
 > **Recurring job**: Unless the rate-limiter is shared with other jobs, we don't recommend using a rate-limiter to limit the concurrency of a recurring job. By default, a recurring job cannot have multiple jobs running in parallel, therefore a rate-limiter is not needed. You can use the `RecurringJob` `maxConcurrentJobs` attribute to increase the allowed concurrency.
 
 On this page you will learn how to:
@@ -45,7 +47,7 @@ JobRunrPro
 <br>
 
 #### Using Spring Boot / Quarkus / Micronaut
-```
+```properties
 jobrunr.jobs.rate-limiter.concurrent-job-rate-limiter.my-rate-limiter=3
 ```
 
@@ -55,7 +57,8 @@ This configuration example tells JobRunr to use `ConcurrentJobRateLimiter` to ra
 
 A time window rate limiter works by limiting the amount of execution within a given time frame. JobRunr provides `SlidingTimeWindowRateLimiter` that implements the sliding window algorithm designed to reduce bursts.
 
-> When your `pollIntervalInSeconds` is smaller than the window duration, `SlidingTimeWindowRateLimiter` works on a best-effort basis and doesn't guaranty the respect of the limit.
+> [!WARNING]
+> When your `pollIntervalInSeconds` is greater than the window duration, `SlidingTimeWindowRateLimiter` works on a best-effort basis and doesn't guaranty the respect of the limit.
 
 ### Configuration
 
@@ -74,7 +77,7 @@ JobRunrPro
 <br>
 
 #### Using Spring Boot / Quarkus / Micronaut
-```
+```properties
 jobrunr.jobs.rate-limiter.sliding-time-window-rate-limiter.my-rate-limiter=2/PT5S
 ```
 
@@ -84,6 +87,7 @@ This configuration example tells JobRunr to use `SlidingTimeWindowRateLimiter` t
 ## How to use a configured rate limiter
 Once configured, `RateLimiters` share the same usage API. As usual, you may use either `@Job` or `JobBuilder` to set the value of `Job`'s attribute.
 
+> [!NOTE]
 > In the following snippet, `MY_RATE_LIMITER` is a constant of the name of the rate limiter (from this documentation that is `MY_RATE_LIMITER = "my-rate-limiter"`, i.e., the rate limiter name provided in the configuration).
 
 #### Using `@Job`
