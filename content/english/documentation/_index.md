@@ -35,12 +35,8 @@ sitemap:
 
 
 ## Architecture
-<figure>
 
-  ![Architecture](/documentation/architecture.webp)
-
-  <figcaption>JobRunr architecture</figcaption>
-</figure>
+![Architecture](/documentation/architecture.webp "JobRunr architecture")
 
 ## How does it all work?
 - You can enqueue, schedule or schedule a recurring background [Job](#job) using the [JobScheduler](#jobscheduler).

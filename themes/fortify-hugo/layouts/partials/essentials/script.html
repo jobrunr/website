@@ -52,7 +52,7 @@
 <!-- google adsense -->
 {{ partialCached "adsense-script.html" . }}
 
-<script src="{{ "pagefind/pagefind-ui.js" | relURL }}"></script>  
+<script src="{{ "pagefind/pagefind-ui.js" | relURL }}"></script>
 <script>
   const openDialogAsModal = (dialogId) => {
     document.querySelector(dialogId).showModal();
@@ -60,6 +60,7 @@
   const closeDialog = (dialogId) => {
     document.querySelector(dialogId).close();
   }
+
   window.addEventListener('DOMContentLoaded', (event) => {
     new PagefindUI({ element: "#pagefind-search", showImages: false, showSubResults: true, openFilters: ['Type'] });
 
