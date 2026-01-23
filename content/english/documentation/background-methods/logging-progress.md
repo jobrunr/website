@@ -14,6 +14,9 @@ Some jobs take a very long time to complete - generating 1000's of emails, do a 
 
 Say hello to job logging and the job progress bar.
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [JobRunr Logging & Progress Bar: See EXACTLY What Your Background Jobs Are Doing](https://youtu.be/ikaNX9MY350) on YouTube.
+
 ![](/documentation/job-progress.gif "The Job History progress bar is updated live as you schedule jobs.")
 
 ## Logging

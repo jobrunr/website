@@ -11,6 +11,9 @@ menu:
 
 Integration with Spring cannot be easier using the `jobrunr-spring-boot-3-starter` or `jobrunr-spring-boot-4-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [How to Run Background Jobs in Spring Boot 4 with JobRunr](https://youtu.be/72OJux5H2Ng) on YouTube.
+
 > [!IMPORTANT]
 > The `jobrunr-spring-boot-starter` and `jobrunr-spring-boot-2-starter` are no longer supported! In JobRunr Pro, support for Spring Boot 2 is still available.
 
