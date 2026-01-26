@@ -1,5 +1,5 @@
 ---
-title: "Building Reliable Financial Systems: How Axon Framework and JobRunr Pro Power Saga-Based Architectures"
+title: "Axon Framework + JobRunr Pro: Saga Deadlines Done Right"
 description: "Banks and fintechs are combining Axon Framework's event-driven architecture with JobRunr Pro's deadline management. Here's why this combination is so powerful for building resilient financial systems."
 image: /blog/giving-back.webp
 date: 2026-01-26T10:00:00+02:00
@@ -164,7 +164,7 @@ Axon Framework defines the `DeadlineManager` as an interface. The actual schedul
 | Implementation | Distributed | Job Search | `cancelAll` Performance | Monitoring | Maintenance Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `SimpleDeadlineManager` | No | N/A | N/A | None | Active |
-| `QuartzDeadlineManager` | Yes | No | Scans all jobs | None built-in | Sporadic (last stable: 2019) |
+| `QuartzDeadlineManager` | Yes | No | Scans all jobs | None built-in | Sporadic |
 | `DbSchedulerDeadlineManager` | Yes | No | Serializes & loops all tasks | Micrometer only | Active |
 | **`JobRunrProDeadlineManager`** | **Yes** | **Yes (by label)** | **Direct lookup** | **Dashboard + Micrometer + SSO** | **Active** |
 
@@ -174,11 +174,11 @@ _Table: Comparing Axon Framework deadline manager implementations_
 
 For years, Quartz was the default. But in production financial systems, its limitations become painful:
 
-- **11 database tables** just for the scheduler : Often more than the application's own schema
+- **11 database tables** just for the scheduler : That's a lot of schema overhead for a component that isn't your core business logic
 - **No job search capability** :  You can't look up deadlines by type, saga, or label
 - **`cancelAll` is expensive** : Without search, cancelling all deadlines of a given type requires scanning the entire job store
 - **No built-in monitoring** : no dashboard, no Micrometer integration, no way to see what's happening
-- **Sporadic maintenance** : the last stable release was in 2019. The `javax` to `jakarta` migration is still a pain point
+- **Sporadic maintenance** : Quartz went years without a stable release before 2.5.0 landed in late 2023, and the pace of updates remains slow
 - **Verbose, dated API** : [configuring Quartz for Axon](https://zambrovski.medium.com/configuring-quartz-deadlines-in-axon-framework-c26677caf8a0) requires significant boilerplate
 
 But perhaps the most damning issue is raw performance. Quartz maintains a separate lock table and requires multiple database round-trips per job:
@@ -377,7 +377,7 @@ public class PaymentTransferSaga {
 
 In this single saga, there are **three deadlines** scheduled and potentially cancelled. In a system processing 1,000 transfers per minute, that's up to **3,000 deadline schedules and 3,000 deadline cancellations per minute**. 
 
-With Quartz or db-scheduler, each `cancelAll` would scan the entire job store. With JobRunr Pro, each cancellation is a direct label-based lookup.
+With Quartz or db-scheduler, each `cancelAll` would scan the entire job store. With JobRunr Pro, each cancellation is a direct label-based index lookup.
 
 ## Key Takeaways
 
@@ -395,6 +395,20 @@ _Table: The practical impact of choosing JobRunr Pro as your deadline manager_
 
 For banks, fintechs, and any organization building on Axon Framework with the Saga pattern, JobRunr Pro is the infrastructure that helps make your deadlines reliable, observable, and fast.
 
+## Beyond Deadlines: How Financial Institutions Use JobRunr Pro
+
+Saga deadline management is what brings many Axon Framework users to JobRunr Pro, but once it's in their stack, teams quickly adopt it for the rest of their background processing. 
+
+Financial institutions like JPMorgan Chase, Raiffeisen Bank, and One Savings Bank run JobRunr Pro in production for workloads far beyond sagas:
+
+- **Generating monthly credit card statements and account reports**: millions of PDFs on a schedule, with [Priority Queues]({{< ref "documentation/pro/priority-queues" >}}) ensuring urgent regulatory reports skip the line
+- **End-of-day batch processing**: interest calculations, reconciliation runs, and settlement summaries migrated from mainframes using [Atomic Batches]({{< ref "documentation/pro/batches" >}}) that preserve transactional safety
+- **Fraud screening and KYC notifications**: short-running, latency-sensitive tasks that benefit from SmartQueue for significantly faster throughput
+- **Urgent corporate payment processing**: companies like Veefin Solutions use priority queues so critical transfers never wait behind lower-priority batch work
+- **Multi-tenant workload isolation**: Banks use [Dynamic Queues]({{< ref "documentation/pro/dynamic-queues" >}}) to ensure one heavy client never degrades performance for others
+- **Cross-datacenter monitoring**: distributed teams at insurance and banking companies use the [Multi-Cluster Dashboard]({{< ref "documentation/pro/jobrunr-pro-multi-dashboard" >}}) with [SSO]({{< ref "documentation/pro/sso-authentication" >}}) for a single-pane-of-glass view across all environments
+
+For a full overview of how financial institutions use JobRunr Pro, see our [Finance Solutions page](/en/finance/).
 
 ## Getting Started
 
