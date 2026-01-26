@@ -216,9 +216,6 @@ This is precisely why AxonIQ built the [JobRunr Pro extension](https://github.co
 
 When Axon's `JobRunrProDeadlineManager` schedules a deadline, it attaches a label. When the saga needs to cancel that deadline (because the expected event arrived), it doesn't scan the entire job store. It performs a **direct, indexed lookup by label** and cancels exactly the right jobs.
 
-<!-- TODO: Create image from the Mermaid diagram below and save as /blog/axon-deadline-cancel-flow.webp
--->
-
 ```mermaid
 flowchart LR
     A[Saga schedules deadline] -->|label: 'funds-reservation-deadline'| B[JobRunr Pro stores job with label]
@@ -277,9 +274,6 @@ And because it's JobRunr Pro, you also get:
 - **Micrometer integration**:  export deadline metrics to Prometheus, Grafana, or any monitoring tool
 - **SSO via OpenID**: restrict dashboard access to authorized personnel (a must for financial environments)
 - **Distributed processing**: deadlines are processed across all your application nodes automatically
-
-<!-- TODO: Create image from the Mermaid diagram below and save as /blog/axon-jobrunr-architecture.webp
--->
 
 ```mermaid
 flowchart TB
