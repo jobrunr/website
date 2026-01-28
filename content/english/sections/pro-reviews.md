@@ -14,7 +14,7 @@ list:
       We saw a 20% dev productivity boost, and our first-line support now solves 80% of job issues.
 
   - name: "Decathlon"
-    link: "/en/use-case/jobrunr-pro-prophia/"
+    link: "/en/use-case/jobrunr-pro-decathlon/"
     avatar: "/images/avatar/person-3.png"
     content: |
       We use JobRunr to orchestrate key processes in our logistics workflows across Europe.
