@@ -34,6 +34,14 @@ In this post, we'll walk through why this combination is so powerful, and why [A
 
 _Table: How Axon Framework and JobRunr Pro complement each other_
 
+## What is Axon Framework?
+
+[Axon Framework](https://docs.axoniq.io/) is a Java framework for building event-driven applications based on CQRS (Command Query Responsibility Segregation) and Event Sourcing. It provides the building blocks that make these patterns practical rather than theoretical: **aggregates** that enforce business rules and emit events, a **command bus** for dispatching operations, an **event store** that persists every state change as an immutable event, and **sagas** that coordinate long-running business processes across multiple services.
+
+Built and maintained by [AxonIQ](https://www.axoniq.io/), the framework is widely adopted in financial services, insurance, and government — industries where audit trails, traceability, and transactional integrity aren't optional. Optionally paired with **Axon Server** for distributed message routing and event storage, it scales from a single Spring Boot application to multi-node clusters processing billions of events.
+
+The key abstractions we'll focus on in this post are **event-sourced aggregates**, the **Saga pattern**, and the **`DeadlineManager` interface** — the extension point where JobRunr Pro plugs in.
+
 ## Why Banks Choose Event Sourcing
 
 Traditional CRUD systems store only the current state. When a regulator asks "what was the state of this account at 3:47 PM on March 12th?", you're stuck. 
@@ -72,26 +80,26 @@ A Saga breaks a complex business transaction into a sequence of local transactio
 ```mermaid
 sequenceDiagram
     participant Client
-    participant OrderSaga
+    participant TransferSaga
     participant AccountService
     participant FraudService
     participant ComplianceService
     participant PaymentGateway
 
-    Client->>OrderSaga: InitiateTransfer($5,000)
-    OrderSaga->>AccountService: ReserveFunds
-    AccountService-->>OrderSaga: FundsReserved ✓
+    Client->>TransferSaga: InitiateTransfer($5,000)
+    TransferSaga->>AccountService: ReserveFunds
+    AccountService-->>TransferSaga: FundsReserved ✓
 
-    OrderSaga->>FraudService: ScreenTransaction
-    FraudService-->>OrderSaga: FraudCheckPassed ✓
+    TransferSaga->>FraudService: ScreenTransaction
+    FraudService-->>TransferSaga: FraudCheckPassed ✓
 
-    OrderSaga->>ComplianceService: RunAMLCheck
-    ComplianceService-->>OrderSaga: ComplianceApproved ✓
+    TransferSaga->>ComplianceService: RunAMLCheck
+    ComplianceService-->>TransferSaga: ComplianceApproved ✓
 
-    OrderSaga->>PaymentGateway: ExecuteTransfer
-    PaymentGateway-->>OrderSaga: TransferCompleted ✓
+    TransferSaga->>PaymentGateway: ExecuteTransfer
+    PaymentGateway-->>TransferSaga: TransferCompleted ✓
 
-    Note over OrderSaga: But what if ComplianceService<br/>never responds?
+    Note over TransferSaga: But what if ComplianceService<br/>never responds?
 ```
 
 <!-- ![](/blog/axon-saga-payment-flow.webp "A payment transfer saga coordinating multiple services. But what happens when a service never responds?") -->
@@ -100,6 +108,7 @@ Here's what this looks like in Axon Framework:
 
 ```java
 @Saga
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PaymentTransferSaga {
 
     @Autowired
@@ -112,10 +121,10 @@ public class PaymentTransferSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "transferId")
     public void on(TransferInitiatedEvent event) {
-        this.transferId = event.getTransferId();
+        this.transferId = event.transferId();
 
         // Step 1: Reserve the funds
-        commandGateway.send(new ReserveFundsCommand(event.getSourceAccount(), event.getAmount()));
+        commandGateway.send(new ReserveFundsCommand(event.sourceAccount(), event.amount()));
 
         // Schedule a deadline: if funds aren't reserved within 30 seconds, compensate
         deadlineManager.schedule(
@@ -146,10 +155,14 @@ public class PaymentTransferSaga {
 }
 ```
 
->**Notice the pattern**: Schedule a deadline, wait for the expected event, cancel the deadline when it arrives, or take compensating action when it expires. 
+>**Notice the pattern**: Schedule a deadline, wait for the expected event, cancel the deadline when it arrives, or take compensating action when it expires.
 ><br/><br/>
 >
 >This is the heartbeat of every financial saga.
+
+An important detail: commands and events flow through Axon's own command bus and event store — they're dispatched and processed immediately. JobRunr Pro is _only_ involved when `deadlineManager.schedule()` is called. The deadline is the safety net that fires if the expected event never arrives, and that's the part that needs to be reliable, distributed, and observable.
+
+Two things worth noting in the code above. The `commandGateway` and `deadlineManager` fields are marked `transient` — they're Spring-injected dependencies that shouldn't be serialized when Axon persists the saga state. And the `@JsonAutoDetect` annotation ensures Jackson can serialize the saga's private fields (like `transferId`) between steps. Without it, those fields will be `null` when the next event handler runs — a subtle bug that's easy to miss.
 
 When a deadline is missed because the scheduler was too slow, a cancellation didn't go through, or a misfire wasn't handled, the consequences are concrete: stuck funds, duplicate compensations, regulatory fines, or customers who can't access their money. 
 
@@ -163,12 +176,14 @@ Axon Framework defines the `DeadlineManager` as an interface. The actual schedul
 
 | Implementation | Distributed | Job Search | `cancelAll` Performance | Monitoring | Maintenance Status |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| `SimpleDeadlineManager` | No | N/A | N/A | None | Active |
+| `SimpleDeadlineManager` | No (in-memory) | N/A | N/A | None | Active |
 | `QuartzDeadlineManager` | Yes | No | Scans all jobs | None built-in | Sporadic |
 | `DbSchedulerDeadlineManager` | Yes | No | Serializes & loops all tasks | Micrometer only | Active |
 | **`JobRunrProDeadlineManager`** | **Yes** | **Yes (by label)** | **Direct lookup** | **Dashboard + Micrometer + SSO** | **Active** |
 
 _Table: Comparing Axon Framework deadline manager implementations_
+
+The `SimpleDeadlineManager` keeps everything in memory on a single node — fine for local development and testing, but deadlines are lost on restart. For production, you need a distributed implementation, and that's where the trade-offs between Quartz, db-scheduler, and JobRunr Pro become important.
 
 ### Why Quartz Falls Short
 
@@ -199,6 +214,8 @@ JobRunr uses a single atomic operation with modern SQL:
 SELECT ... FROM jobs WHERE status='SCHEDULED' FOR UPDATE SKIP LOCKED LIMIT 1;
 ```
 
+The `SKIP LOCKED` clause is key: it lets concurrent workers each grab a different job without blocking each other, eliminating the need for a separate lock table entirely. One query does the work of five.
+
 The result? In a [benchmark of 500,000 jobs on PostgreSQL]({{< ref "quartz-vs-jobrunr.md" >}}), **JobRunr Pro processed jobs 18x faster than Quartz** (2,732 jobs/sec vs. 145 jobs/sec). 
 
 For deadline-heavy financial workloads with thousands of concurrent sagas, that difference is the gap between a system that keeps up and one that doesn't.
@@ -215,6 +232,8 @@ db-scheduler is simpler (just one table), but it has a critical limitation for d
 This is precisely why AxonIQ built the [JobRunr Pro extension](https://github.com/AxonFramework/extension-jobrunrpro). The key capability that makes it all work: **JobRunr Pro can search and filter jobs by status and label**.
 
 When Axon's `JobRunrProDeadlineManager` schedules a deadline, it attaches a label. When the saga needs to cancel that deadline (because the expected event arrived), it doesn't scan the entire job store. It performs a **direct, indexed lookup by label** and cancels exactly the right jobs.
+
+Axon's `DeadlineManager` API offers two cancellation methods: `cancelAll("deadline-name")` cancels all deadlines with that name across every saga instance, while `cancelAllWithinScope("deadline-name")` only cancels deadlines scoped to the current saga instance. In a system with thousands of concurrent transfer sagas, that distinction matters — and both are efficient with JobRunr Pro because they resolve to label-based lookups.
 
 ```mermaid
 flowchart LR
@@ -251,7 +270,26 @@ implementation 'org.axonframework.extensions.jobrunrpro:axon-jobrunrpro-spring-b
 {{< /codetab >}}
 {{< /codetabs >}}
 
-Spring Boot auto-configuration does the rest. If you already have a `JobScheduler` bean (from the `jobrunr-spring-boot-3-starter` or `jobrunr-spring-boot-4-starter`), the extension picks it up and creates the `JobRunrProDeadlineManager` automatically. No Quartz tables. No XML configuration. No boilerplate.
+You'll also need the JobRunr Pro Spring Boot starter itself, which provides the `JobScheduler` bean that the extension depends on:
+
+{{< codetabs category="dependency2" >}}
+{{< codetab label="Maven" >}}
+```xml
+<dependency>
+    <groupId>org.jobrunr</groupId>
+    <artifactId>jobrunr-pro-spring-boot-3-starter</artifactId>
+    <version>${jobrunr-pro.version}</version>
+</dependency>
+```
+{{< /codetab >}}
+{{< codetab label="Gradle" >}}
+```groovy
+implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:${jobrunr-pro.version}'
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
+With both dependencies in place, Spring Boot auto-configuration does the rest. The extension picks up the `JobScheduler` bean and creates the `JobRunrProDeadlineManager` automatically. No Quartz tables. No XML configuration. No boilerplate.
 
 Not using Spring Boot? The extension works just as well with plain Java using the builder pattern:
 
@@ -309,6 +347,7 @@ Let's put it all together with a complete payment transfer saga that uses `JobRu
 
 ```java
 @Saga
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public class PaymentTransferSaga {
 
     @Autowired
@@ -323,9 +362,9 @@ public class PaymentTransferSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "transferId")
     public void on(TransferInitiatedEvent event) {
-        this.transferId = event.getTransferId();
-        this.amount = event.getAmount();
-        this.sourceAccount = event.getSourceAccount();
+        this.transferId = event.transferId();
+        this.amount = event.amount();
+        this.sourceAccount = event.sourceAccount();
 
         commandGateway.send(new ReserveFundsCommand(sourceAccount, amount));
         deadlineManager.schedule(Duration.ofSeconds(30), "funds-reservation-deadline");
@@ -352,6 +391,8 @@ public class PaymentTransferSaga {
     }
 
     // --- Deadline handlers: compensating actions ---
+    // When a deadline fires, the expected event never arrived.
+    // These handlers undo what was already done and fail the transfer gracefully.
 
     @DeadlineHandler(deadlineName = "funds-reservation-deadline")
     public void onFundsTimeout() {
@@ -361,6 +402,7 @@ public class PaymentTransferSaga {
 
     @DeadlineHandler(deadlineName = "fraud-check-deadline")
     public void onFraudCheckTimeout() {
+        // Compensating action: release the reserved funds back to the source
         commandGateway.send(new ReleaseFundsCommand(sourceAccount, amount));
         commandGateway.send(new FailTransferCommand(transferId, "Fraud check timed out"));
         SagaLifecycle.end();
@@ -368,6 +410,7 @@ public class PaymentTransferSaga {
 
     @DeadlineHandler(deadlineName = "settlement-deadline")
     public void onSettlementTimeout() {
+        // Compensating action: release the reserved funds back to the source
         commandGateway.send(new ReleaseFundsCommand(sourceAccount, amount));
         commandGateway.send(new FailTransferCommand(transferId, "Settlement timed out"));
         SagaLifecycle.end();
@@ -412,6 +455,7 @@ For a full overview of how financial institutions use JobRunr Pro, see our [Fina
 
 ## Getting Started
 
+- **Runnable demo project**: [Axon + JobRunr Pro demo](https://github.com/jobrunr/axon-jobrunr-pro-demo) — a complete payment transfer saga with deadline management you can clone and run locally
 - **Axon Framework + JobRunr Pro extension**: [GitHub repository](https://github.com/AxonFramework/extension-jobrunrpro)
 - **Extension documentation**: [Axon docs](https://docs.axoniq.io/jobrunr-pro-extension-reference/4.11/)
 - **JobRunr Pro**: [Documentation]({{< ref "documentation/pro" >}}) | [Start a free trial]({{< ref "pro" >}})
