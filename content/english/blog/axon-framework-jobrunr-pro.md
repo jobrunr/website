@@ -272,7 +272,7 @@ implementation 'org.axonframework.extensions.jobrunrpro:axon-jobrunrpro-spring-b
 
 You'll also need the JobRunr Pro Spring Boot starter itself, which provides the `JobScheduler` bean that the extension depends on:
 
-{{< codetabs category="dependency2" >}}
+{{< codetabs category="dependency" >}}
 {{< codetab label="Maven" >}}
 ```xml
 <dependency>
