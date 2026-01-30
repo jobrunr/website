@@ -1,9 +1,9 @@
 ---
 title: "Axon Framework + JobRunr Pro: Saga Deadlines Done Right"
 description: "Banks and fintechs are combining Axon Framework's event-driven architecture with JobRunr Pro's deadline management. Here's why this combination is so powerful for building resilient financial systems."
-image: /blog/giving-back.webp
-date: 2026-01-26T10:00:00+02:00
-draft: true
+image: /blog/thumb-Axon.png
+date: 2026-01-30T10:00:00+02:00
+draft: false
 author: "Nicholas D'hondt"
 tags:
   - blog
@@ -61,11 +61,11 @@ For financial institutions, this is a regulatory requirement.
 
 _Table: Regulatory drivers for event sourcing in financial services_
 
-This is exactly why **Nets**, a major European payment processor, built their platform on Axon Framework. As they put it: event sourcing produces an _"out-of-the-box audit trail essential for compliance and regulatory purposes in financial services."_ 
+This is exactly why **[Nets](https://www.axoniq.io/use-cases/nets-payments)**, a major European payment processor, built their platform on Axon Framework. As they put it: event sourcing produces an _"out-of-the-box audit trail essential for compliance and regulatory purposes in financial services."_
 
-It's why a **Global Bank** built its Keystone Customer Lifecycle Management system, handling KYC, AML, and due diligence, on Axon with a 5-node cluster in Kubernetes. 
+It's why a **[Global Bank](https://www.axoniq.io/hubfs/collateral/cb-gb-2022-01.pdf)** built its Keystone Customer Lifecycle Management system, handling KYC, AML, and due diligence, on Axon with a 5-node cluster in Kubernetes.
 
-And it's why **Rabobank** processes billions of domain events daily on Axon Server Enterprise.
+And it's why **[The world's top banks](https://www.axoniq.io/blog/why-top-banks-choose-axoniq)** process billions of domain events daily on Axon Server Enterprise.
 
 ## The Saga Pattern: Coordinating Financial Transactions
 
@@ -185,53 +185,11 @@ _Table: Comparing Axon Framework deadline manager implementations_
 
 The `SimpleDeadlineManager` keeps everything in memory on a single node — fine for local development and testing, but deadlines are lost on restart. For production, you need a distributed implementation, and that's where the trade-offs between Quartz, db-scheduler, and JobRunr Pro become important.
 
-### Why Quartz Falls Short
-
-For years, Quartz was the default. But in production financial systems, its limitations become painful:
-
-- **11 database tables** just for the scheduler : That's a lot of schema overhead for a component that isn't your core business logic
-- **No job search capability** :  You can't look up deadlines by type, saga, or label
-- **`cancelAll` is expensive** : Without search, cancelling all deadlines of a given type requires scanning the entire job store
-- **No built-in monitoring** : no dashboard, no Micrometer integration, no way to see what's happening
-- **Sporadic maintenance** : Quartz went years without a stable release before 2.5.0 landed in late 2023, and the pace of updates remains slow
-- **Verbose, dated API** : [configuring Quartz for Axon](https://zambrovski.medium.com/configuring-quartz-deadlines-in-axon-framework-c26677caf8a0) requires significant boilerplate
-
-But perhaps the most damning issue is raw performance. Quartz maintains a separate lock table and requires multiple database round-trips per job:
-
-```sql
--- Quartz: 5 queries per job
-SELECT * FROM QRTZ_LOCKS WHERE ...;       -- Check lock
-INSERT INTO QRTZ_LOCKS ...;                -- Acquire lock
-SELECT * FROM QRTZ_TRIGGERS WHERE ...;     -- Get job
-UPDATE QRTZ_TRIGGERS SET ...;              -- Update status
-DELETE FROM QRTZ_LOCKS ...;                -- Release lock
-```
-
-JobRunr uses a single atomic operation with modern SQL:
-
-```sql
--- JobRunr: 1 query per job
-SELECT ... FROM jobs WHERE status='SCHEDULED' FOR UPDATE SKIP LOCKED LIMIT 1;
-```
-
-The `SKIP LOCKED` clause is key: it lets concurrent workers each grab a different job without blocking each other, eliminating the need for a separate lock table entirely. One query does the work of five.
-
-The result? In a [benchmark of 500,000 jobs on PostgreSQL]({{< ref "quartz-vs-jobrunr.md" >}}), **JobRunr Pro processed jobs 18x faster than Quartz** (2,732 jobs/sec vs. 145 jobs/sec). 
-
-For deadline-heavy financial workloads with thousands of concurrent sagas, that difference is the gap between a system that keeps up and one that doesn't.
-
-### The db-scheduler Trade-off
-
-db-scheduler is simpler (just one table), but it has a critical limitation for deadline management: **it cannot filter jobs**. The [Axon documentation](https://docs.axoniq.io/axon-framework-reference/4.11/deadlines/deadline-managers/) states this clearly:
-
-> _"Db-scheduler has no way to filter out tasks. This means that the `cancelAll` implementation will need to serialize all the task data, looping over it. If you have many active deadlines, this might take noticeable time and resources."_
-
-
 ## Why JobRunr Pro Is the Solution
 
 This is precisely why AxonIQ built the [JobRunr Pro extension](https://github.com/AxonFramework/extension-jobrunrpro). The key capability that makes it all work: **JobRunr Pro can search and filter jobs by status and label**.
 
-When Axon's `JobRunrProDeadlineManager` schedules a deadline, it attaches a label. When the saga needs to cancel that deadline (because the expected event arrived), it doesn't scan the entire job store. It performs a **direct, indexed lookup by label** and cancels exactly the right jobs.
+When Axon's `JobRunrProDeadlineManager` schedules a deadline, it attaches a label. When the saga needs to cancel that deadline (because the expected event arrived), it doesn't scan the entire job store. It performs a **direct lookup by label** and cancels exactly the right jobs.
 
 Axon's `DeadlineManager` API offers two cancellation methods: `cancelAll("deadline-name")` cancels all deadlines with that name across every saga instance, while `cancelAllWithinScope("deadline-name")` only cancels deadlines scoped to the current saga instance. In a system with thousands of concurrent transfer sagas, that distinction matters — and both are efficient with JobRunr Pro because they resolve to label-based lookups.
 
@@ -341,6 +299,48 @@ flowchart TB
 
 <!-- ![](/blog/axon-jobrunr-architecture.webp "Production architecture: multiple application nodes running Axon Framework with JobRunr Pro, backed by Axon Server and a shared database.") -->
 
+### Why Quartz Falls Short
+
+For years, Quartz was the default. But in production financial systems, its limitations become painful:
+
+- **11 database tables** just for the scheduler: That's a lot of schema overhead for a component that isn't your core business logic
+- **No job search capability**: You can't look up deadlines by type, saga, or label. The [Axon documentation](https://docs.axoniq.io/axon-framework-reference/4.11/deadlines/deadline-managers/) notes that the `QuartzDeadlineManager` doesn't support searching scheduled deadlines.
+- **`cancelAll` is expensive**: Without search, cancelling all deadlines of a given type requires scanning the entire job store
+- **No built-in monitoring**: no dashboard, no Micrometer integration, no way to see what's happening
+- **Sporadic maintenance**: Quartz went years without a stable release before 2.5.0 landed in late 2023, and the pace of updates remains slow
+- **Verbose, dated API**: [configuring Quartz for Axon](https://zambrovski.medium.com/configuring-quartz-deadlines-in-axon-framework-c26677caf8a0) requires significant boilerplate
+
+But perhaps the most damning issue is raw performance. Quartz maintains a separate lock table and requires multiple database round-trips per job:
+
+```sql
+-- Quartz: 5 queries per job
+SELECT * FROM QRTZ_LOCKS WHERE ...;       -- Check lock
+INSERT INTO QRTZ_LOCKS ...;                -- Acquire lock
+SELECT * FROM QRTZ_TRIGGERS WHERE ...;     -- Get job
+UPDATE QRTZ_TRIGGERS SET ...;              -- Update status
+DELETE FROM QRTZ_LOCKS ...;                -- Release lock
+```
+
+JobRunr uses a single atomic operation with modern SQL:
+
+```sql
+-- JobRunr: 1 query per job
+SELECT ... FROM jobs WHERE status='SCHEDULED' FOR UPDATE SKIP LOCKED LIMIT 1;
+```
+
+The `SKIP LOCKED` clause is key: it lets concurrent workers each grab a different job without blocking each other, eliminating the need for a separate lock table entirely. One query does the work of five.
+
+The result? In a [benchmark of 500,000 jobs on PostgreSQL]({{< ref "quartz-vs-jobrunr.md" >}}), **JobRunr Pro processed jobs 18x faster than Quartz** (2,732 jobs/sec vs. 145 jobs/sec).
+
+For deadline-heavy financial workloads with thousands of concurrent sagas, that difference is the gap between a system that keeps up and one that doesn't.
+
+### The db-scheduler Trade-off
+
+db-scheduler is simpler (just one table), but it has a critical limitation for deadline management: **it cannot filter jobs**. The [Axon documentation](https://docs.axoniq.io/axon-framework-reference/4.11/deadlines/deadline-managers/) states this clearly:
+
+> _"Db-scheduler has no way to filter out tasks. This means that the `cancelAll` implementation will need to serialize all the task data, looping over it. If you have many active deadlines, this might take noticeable time and resources."_
+
+
 ## A Real-World Example: Payment Transfer with Deadline Management
 
 Let's put it all together with a complete payment transfer saga that uses `JobRunrProDeadlineManager` for every critical timeout:
@@ -420,7 +420,7 @@ public class PaymentTransferSaga {
 
 In this single saga, there are **three deadlines** scheduled and potentially cancelled. In a system processing 1,000 transfers per minute, that's up to **3,000 deadline schedules and 3,000 deadline cancellations per minute**. 
 
-With Quartz or db-scheduler, each `cancelAll` would scan the entire job store. With JobRunr Pro, each cancellation is a direct label-based index lookup.
+With Quartz or db-scheduler, each `cancelAll` would scan the entire job store. With JobRunr Pro, each cancellation is a direct label-based lookup.
 
 ## Key Takeaways
 
@@ -455,7 +455,7 @@ For a full overview of how financial institutions use JobRunr Pro, see our [Fina
 
 ## Getting Started
 
-- **Runnable demo project**: [Axon + JobRunr Pro demo](https://github.com/jobrunr/axon-jobrunr-pro-demo) — a complete payment transfer saga with deadline management you can clone and run locally
+<!-- - **Runnable demo project**: [Axon + JobRunr Pro demo](https://github.com/jobrunr/axon-jobrunr-pro-demo) — a complete payment transfer saga with deadline management you can clone and run locally -->
 - **Axon Framework + JobRunr Pro extension**: [GitHub repository](https://github.com/AxonFramework/extension-jobrunrpro)
 - **Extension documentation**: [Axon docs](https://docs.axoniq.io/jobrunr-pro-extension-reference/4.11/)
 - **JobRunr Pro**: [Documentation]({{< ref "documentation/pro" >}}) | [Start a free trial]({{< ref "pro" >}})
