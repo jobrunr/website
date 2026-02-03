@@ -25,8 +25,8 @@ Are you running a multi-tenant application? Or do you have diverse types of jobs
 ## Load-balancing types
 JobRunr supports two different types of load-balancing:
 - **Round Robin Dynamic Queues**: here, each dynamic queue receives the same amount of resource usage
-- **Weighted Round Robin Dynamic Queues**: : here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
-- **Fixed amount of reserved workers**: : here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
+- **Weighted Round Robin Dynamic Queues**: here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
+- **Fixed amount of reserved workers**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
 
 ## Dashboard
 If you're using this feature, you can also enable an extra Dynamic Queues view in the dashboard. This view gives an immediate overview of the amount of jobs per dynamic queue.
