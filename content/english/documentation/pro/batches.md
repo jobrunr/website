@@ -85,7 +85,7 @@ public class NewsletterService {
 </figure>
 
 ## Chaining Batches
-Continuations allow you to chain multiple batches together. They will be executed once all background jobs of a parent batch finished. Consider the previous example where you have 1000 emails to send. If you want to make final action after sending, just add a continuation:
+Continuations allow you to chain multiple batches together. They will be executed once all background jobs of a parent batch finished. Consider the previous example where you have 1000 emails to send. If you want to make a final action after sending, just add a continuation:
 
 <figure>
 
