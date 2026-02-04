@@ -12,6 +12,9 @@ tags:
   - enterprise
 ---
 
+> [!TIP]
+> Would you rather watch a YouTube video where we explain how Axon and JobRunr Pro work together and walk you through a working code example? [Check the video on YouTube here](https://youtu.be/RQrIeYic__0).
+
 If you're building financial software in Java, chances are you've encountered two hard problems: keeping a reliable audit trail of every state change, and coordinating long-running business processes that span multiple services. 
 
 The first problem is often solved by **Event Sourcing**. The second mostly by the **Saga pattern**. And the framework most banks reach for to implement both? **Axon Framework**.
@@ -455,7 +458,7 @@ For a full overview of how financial institutions use JobRunr Pro, see our [Fina
 
 ## Getting Started
 
-<!-- - **Runnable demo project**: [Axon + JobRunr Pro demo](https://github.com/jobrunr/axon-jobrunr-pro-demo) — a complete payment transfer saga with deadline management you can clone and run locally -->
+ **Runnable demo project**: [Axon + JobRunr Pro demo](https://www.jobrunr.io/en/pro/) — a complete payment transfer saga with deadline management you can clone and run locally 
 - **Axon Framework + JobRunr Pro extension**: [GitHub repository](https://github.com/AxonFramework/extension-jobrunrpro)
 - **Extension documentation**: [Axon docs](https://docs.axoniq.io/jobrunr-pro-extension-reference/4.11/)
 - **JobRunr Pro**: [Documentation]({{< ref "documentation/pro" >}}) | [Start a free trial]({{< ref "pro" >}})
