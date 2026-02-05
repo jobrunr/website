@@ -13,7 +13,7 @@ basic_plan:
     - item: "Simple dashboard"
     - item: "Enqueueing & Scheduling of jobs"
     - item: "Automatic retry handling"
-    - item: "Carbon-aware job scheduling"
+    - item: "Carbon aware job scheduling"
     - item: "LGPL 3.0 License"
     - item: "Community support (Stack Overflow, GitHub)"
   button:
@@ -39,7 +39,7 @@ premium_plan:
     - item: "Transaction plugin"
     - item: "Priority queues"
     - item: "Workflow management (Batches & Chaining)"
-    - item: "Real-time scheduling"
+    - item: "Realtime scheduling"
     - item: "Priority Email / HelpDesk support"
   button:
     enable: true
@@ -52,23 +52,27 @@ premium_plan:
 
 enterprise_plan:
   title: "Enterprise"
-  description: "Built for mission-critical scale & includes unlimited PRD clusters"
+  description: "Built for critical scale. Includes unlimited PRD clusters."
   currency: ""
-  monthly_price: "On-Demand"
-  yearly_price: "On-Demand"
+  monthly_price: "Custom"
+  yearly_price: "Custom"
   list:
     - item: "Everything in JobRunr Business plus:"
     - item: "Unlimited recurring jobs"
     - item: "Unlimited clusters & microservices"
-    - item: "Multi-cluster dashboard"
+    - item: "Multicluster dashboard"
     - item: "Kubernetes autoscaling metrics"
     - item: "1 Panic Button / year"
     - item: "Custom procurement support"
     - item: "Priority feature requests"
   button:
     enable: true
-    label: "Contact Sales"
+    label: "Start a Free Trial"
+    link: "en/pro"
+  button_secondary:
+    enable: true
+    label: "Talk to a JobRunr expert"
     link: "en/get-jobrunr-pro-enterprise"
   currency_usd: ""
-  monthly_price_usd: "On-Demand"
+  monthly_price_usd: "Custom"
 ---

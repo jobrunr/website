@@ -10,6 +10,11 @@
           <p class="text-lg ">
             {{ .Params.description | markdownify }}
           </p>
+          {{ with .Params.target_audience }}
+          <p class="text-md mt-4 text-gray-600 italic">
+            {{ . | markdownify }}
+          </p>
+          {{ end }}
 
           {{ with .Params.button }}
               <ul class="flex flex-wrap justify-center gap-4 pt-10">
@@ -97,6 +102,11 @@
       
         
         <div class="col-12 pt-20">
+        {{ with .Params.features_intro }}
+        <div class="text-center mb-16" data-aos="fade-up-sm">
+          <h2 class="h3">{{ .title | markdownify }}</h2>
+        </div>
+        {{ end }}
         {{ with .Params.first_feature }}
             <div
               class="row gx-0 gy-5 mb-14 items-center last:mb-0 md:mb-28 max-lg:flex-col-reverse">
@@ -226,7 +236,13 @@
               <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="100">
                 <div
                   class="overflow-hidden">
+                  {{ if .video }}
+                  <video class="rounded-3xl w-full" autoplay loop muted playsinline>
+                    <source src="{{ .video }}" type="video/mp4">
+                  </video>
+                  {{ else }}
                   {{ partial "image" (dict "Src" .image "Alt" "essential feature" "Class" "rounded-3xl") }}
+                  {{ end }}
                 </div>
               </div>
               <div
@@ -272,6 +288,90 @@
                 {{ end }}
               </div>
             </div>
+          {{ end }}
+
+          {{ with .Params.fifth_feature }}
+            <div
+              class="row gx-0 gy-5 mb-14 items-center last:mb-0 md:mb-28 max-lg:flex-col-reverse">
+              <div
+                class="md:order-2 lg:col-6"
+                data-aos="fade-up-sm"
+                data-aos-delay="100">
+                <div
+                  class="overflow-hidden">
+                  {{ if .video }}
+                  <video class="rounded-3xl w-full" autoplay loop muted playsinline>
+                    <source src="{{ .video }}" type="video/mp4">
+                  </video>
+                  {{ else }}
+                  {{ partial "image" (dict "Src" .image "Alt" "essential feature" "Class" "rounded-3xl") }}
+                  {{ end }}
+                </div>
+              </div>
+              <div
+                class="lg:pe-20 lg:col-6"
+                data-aos="fade-up-sm"
+                data-aos-delay="300">
+                <h3 class="h4 mb-4">{{ .title | markdownify }}</h3>
+                <ul class="list list-dark mt-10 flex flex-col gap-4">
+                  {{ range .list }}
+                    <li>
+                      <p class="text-lg">{{ .item | markdownify }}</p>
+                    </li>
+                  {{ end }}
+                </ul>
+                {{ if .button.enable }}
+                  <a class="btn btn-primary mt-12" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden');" rel="noopener">
+                    {{ .button.label | markdownify }}
+                    <span class="icon-wrapper"
+                      ><span class="icon"
+                        ><svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 448 512"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                      ><span class="icon" aria-hidden="true"
+                        ><svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 448 512"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                    ></span>
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+
+          {{ with .Params.how_it_works }}
+          <div class="row mt-20 mb-14" data-aos="fade-up-sm">
+            <div class="col-12 text-center mb-12">
+              <h2 class="h3">{{ .title | markdownify }}</h2>
+            </div>
+            <div class="col-12">
+              <div class="flex flex-col md:flex-row justify-center gap-8 md:gap-12">
+                {{ range .steps }}
+                <div class="flex-1 max-w-xs text-center">
+                  <div class="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-tertiary text-white text-2xl font-bold">
+                    {{ .number }}
+                  </div>
+                  <h4 class="h5 mb-2">{{ .title | markdownify }}</h4>
+                  <p class="text-gray-600">{{ .description | markdownify }}</p>
+                </div>
+                {{ end }}
+              </div>
+            </div>
+          </div>
           {{ end }}
 
         </div>

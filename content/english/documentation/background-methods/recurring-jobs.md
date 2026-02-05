@@ -30,6 +30,8 @@ On this page you can learn about:
 - [Important remarks!](#important-remarks)
 
 
+> **Tools & Guides:** Build cron expressions with our [Cron Expression Generator](/en/tools/cron-expression-generator/) | Read our [Java Scheduling Guide](/en/blog/java-cron-jobs-guide/) for production patterns.
+
 > Note that JobRunr OSS supports up to **100 recurring jobs** (depending on the performance of your SQL or NoSQL database). Do you need to run more than 100 recurring jobs? This is supported in [JobRunr Pro](/en/pricing/)!
 
 > Note that recurring jobs may not be executed on the exact moment you specify using your CRON expression: Whenever JobRunr fetches all the jobs that are scheduled and need to be executed, it fetches all jobs that need to happen in the next poll interval and enqueues them immediately. This may result in a difference of a couple of seconds. If you need real-time scheduling, then have a look at [JobRunr Pro](/en/documentation/pro/real-time-scheduling).

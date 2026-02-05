@@ -1,47 +1,83 @@
 ---
-title: "JobRunr Pro increases developer productivity"
-description: "Thanks to the JobRunr Pro Dashboard!"
-description: "JobRunr Pro increases developer productivity as developers are less interrupted by first line support."
-keywords: ["First Line Support", "Second Line Support", "Developer productivity"]
+title: "How JobRunr Pro Reduced Support Interruptions by 20%"
+description: "See how one team cut developer interruptions from first line support by 20% using the JobRunr Pro Dashboard. Less firefighting, more feature development."
+keywords: ["developer productivity", "first line support", "job monitoring dashboard", "reduce developer interruptions", "jobrunr dashboard"]
 image: /blog/2022-05-09-astronaut-love.png
 date: 2022-05-17T20:00:00+02:00
+lastmod: 2026-02-05
 author: "Ronald Dehuysser"
 tags:
   - blog
+  - dashboard
+  - productivity
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
 
-## JobRunr Pro Dashboard - your first line support servant
-During a call with a JobRunr Pro customer I was surprised when they told me that the developers had a 20% increase in developer productivity since they switched from an in-house developped job scheduling system to JobRunr Pro.
+A customer recently told us something that stopped us in our tracks: their developers saw a **20% increase in productivity** after switching to JobRunr Pro. Not from faster job processing. Not from better APIs. From fewer interruptions.
 
-> Thanks to the JobRunr Pro Dashboard, the developers had less interruptions from 1st line support.
+> "Thanks to the JobRunr Pro Dashboard, our developers had fewer interruptions from first line support."
 
-### The difference between 1st, 2nd and 3rd line support
-In a nutshell, when a customer reports a problem the issue is first reviewed by first line support. They try to solve and provide support for common and basic problems customers have. For more complex tasks, there is the second line of support - often the developers who created the software with which a customer has a problem. Sometime even they need help for external services or highly technology-specific issues from third line support.
+That's a productivity gain most teams don't even think to measure.
 
-### How does JobRunr Pro help first line support?
-As first line support analysts are not always technical savvy, it's best to support them as much as possible in their day to day job using tools that are easy to use for them.
+## The Hidden Cost of Support Interruptions
 
-> Hello JobRunr Pro Dashboard!
+Every software team has support tiers. First line support handles common customer issues. When they can't solve something, they escalate to second line—usually the developers who built the system. Complex issues sometimes reach third line support for specialized help.
+
+The problem? Developers context-switch constantly. A single "quick question" from support can cost 15-30 minutes of focused work. Multiply that by several interruptions per day, and you're losing hours of productive development time every week.
+
+## How One Team Fixed This
+
+This particular customer did something smart: they gave first line support direct access to the [JobRunr Pro Dashboard](/en/documentation/pro/jobrunr-pro-dashboard/).
 
 <figure>
-<img src="/documentation/job-filters.gif" class="kg-image">
-<figcaption>Thanks to job filters, you can quickly find the job you are interested in.</figcaption>
+<video src="/documentation/jobrunr-pro-advanced-search.mp4" autoplay loop muted playsinline class="kg-image"></video>
+<figcaption>First line support can quickly find any job using filters and search</figcaption>
 </figure>
 
-As this company gave first line support access to the JobRunr Pro Dashboard and made sure to add the customer name in the job name, they can now easily find out if a job for a certain customer succeeded or failed. In case of a failure, they simply requeue the failed job and that often solves the issue for the customer. Thanks to this simple workflow, the developers are not being interrupted that much anymore and have more time to create new and awesome features!
+They also established a simple convention: include the customer name in every job name. Now when a customer reports an issue, support can:
 
-Is your application internal only? Even then the JobRunr Pro dashboard helps developers to be more productive as they can quickly find all the jobs they are interested in thanks to the searching capabilities. Are there a lot of failed jobs? Instead of queueing them one by one, they can reschedule them all saving precious time.
+1. Search for jobs by customer name
+2. See if the job succeeded or failed
+3. Check the error details if it failed
+4. Requeue the job with one click
 
-### Are you still running your own Job Scheduling Framework?
-Use JobRunr Pro and give back time to your developers.
+Most issues get resolved without ever pinging a developer.
 
-<div style="text-align: center; margin: -2rem 0 3rem 0;">
+> "Tasks that used to require constant oversight are now hands-off. It's a big relief for our small team."
+> **— Brent Young, Director of Engineering at Prophia**
+
+## Why This Works
+
+The dashboard isn't just for developers. It's designed so anyone on your team can use it:
+
+- **Search and filter** to find specific jobs instantly
+- **Clear status indicators** show what succeeded, failed, or is still processing
+- **One-click retry** for failed jobs—no code changes needed
+- **Batch operations** to requeue multiple failed jobs at once
+
+For internal applications, the benefits are just as real. Developers can quickly find their own jobs, troubleshoot issues, and bulk-retry failures without writing custom queries.
+
+> "We could have continued to fiddle around with our own internal task processing... but this is so much cleaner and easier. It's one less thing my team and I have to worry about."
+> **— Brent Young, Director of Engineering**
+
+## The Real Win
+
+When support teams can self-serve, developers get something priceless: uninterrupted time to build features.
+
+JobRunr Pro customers consistently report the same pattern:
+- Support resolves more issues independently
+- Developers spend less time answering "what happened to job X?"
+- Teams ship faster because they're not constantly context-switching
+
+> "For 90% of our jobs, we don't even think about them anymore—they run exactly how they should."
+> **— Brent Young, Director of Engineering at Prophia**
+
+## Try It Yourself
+
+If your developers are drowning in support requests about background jobs, the dashboard might be the fix you didn't know you needed.
+
+<div style="text-align: center;">
     {{< trial-button >}}
     <a href="/en/contact/" class="btn btn-black btn-lg" style="display: inline-block; margin: 2rem 0 0 0rem; height: 45px;">
-        <span>Get started with JobRunr!</span>
+        <span>Talk to us</span>
     </a>
 </div>
-

@@ -10,6 +10,8 @@ menu:
     weight: 21
 ---
 
+> **Deep Dive:** For a comprehensive guide on when virtual threads help (and when they hurt) for background jobs, read our [Virtual Threads and Background Jobs](/en/blog/virtual-threads-background-jobs-java/) blog post.
+
 [Virtual threads](https://openjdk.org/jeps/444) are lightweight threads finalized in JDK 21. The introduction of virtual threads allows programs to use a larger number of threads than the amount of threads made available by the underlying OS.
 
 A virtual thread only consumes an OS thread while performing calculations on the CPU, the OS thread is freed when performing a blocking I/O operation. This allows for an increased throughput as other virtual threads can execute while some are waiting due to I/O operations.

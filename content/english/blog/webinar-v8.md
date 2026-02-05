@@ -8,7 +8,6 @@ tags:
   - meta
   - message-queue
   - job-scheduler
-image: "/blog/launch-webinar.webp" 
 image: "/blog/launch-webinar.webp"
 slug: "webinar-v8"
 draft: true

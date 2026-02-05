@@ -2,7 +2,7 @@
 title: "Axon Framework + JobRunr Pro: Saga Deadlines Done Right"
 description: "Banks and fintechs are combining Axon Framework's event-driven architecture with JobRunr Pro's deadline management. Here's why this combination is so powerful for building resilient financial systems."
 image: /blog/thumb-Axon.png
-date: 2026-01-30T10:00:00+02:00
+date: 2026-02-05T10:00:00+02:00
 draft: false
 author: "Nicholas D'hondt"
 tags:

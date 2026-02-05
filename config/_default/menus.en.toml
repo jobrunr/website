@@ -35,14 +35,24 @@ weight = 3
 
 # footer menu left
 [[footer_01]]
+name = "Cron Generator"
+url = "/tools/cron-expression-generator/"
+weight = 1
+
+[[footer_01]]
+name = "JobRunr for Finance"
+url = "/finance/"
+weight = 2
+
+[[footer_01]]
 name = "Our License Model"
 url = "/understanding-your-license/"
-weight = 3
+weight = 4
 
 [[footer_01]]
 name = "Contact"
 pageRef = "/contact"
-weight = 5
+weight = 6
 
 [[footer_02]]
 name = "Terms"
