@@ -2,6 +2,7 @@
 title: "Cron Expression Generator for Java"
 description: "Build and validate cron expressions for JobRunr, Quartz, and Spring. See next execution times instantly. Free online tool."
 keywords: ["cron expression generator", "cron builder", "java cron expression", "crontab generator", "quartz cron expression", "spring cron expression"]
+image: /blog/thumb-cron-generator.jpg
 skip_meta: true
 ---
 
