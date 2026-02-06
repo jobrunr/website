@@ -17,7 +17,19 @@ tags:
 
 Running code on a schedule is one of those things that sounds simple until you actually try to do it right. Every hour, every day at midnight, every Monday at 9am. In Linux you'd just add a line to crontab and forget about it.
 
-In Java, you have more options than you probably want. Some are built into the language, some come from frameworks, and some actually work in production. We'll walk through all of them so you can pick the right one for your situation.
+In Java, you have more options than you probably want. Some are built into the language, some come from frameworks, and some are designed for distributed environments. 
+
+In this guide, we'll cover:
+
+- [**Cron expression basics**](#the-basics-what-is-a-cron-expression): the syntax and common patterns
+- [**ScheduledExecutorService**](#option-1-scheduledexecutorservice): Java's built-in option for simple intervals
+- [**Spring @Scheduled**](#option-2-spring-scheduled): annotation-based scheduling in Spring Boot
+- [**Quartz Scheduler**](#option-3-quartz-scheduler): the traditional enterprise choice
+- [**JobRunr**](#option-4-jobrunr-modern-approach): a modern approach with persistence and dashboards
+- [**Comparison table**](#comparison-table): feature comparison at a glance
+- [**Practical scenarios**](#handling-common-scenarios): weekday-only jobs, timezone handling, month-end processing
+
+By the end, you'll know which approach fits your situation and how to implement it.
 
 ## The Basics: What is a Cron Expression?
 
@@ -67,18 +79,7 @@ executor.scheduleWithFixedDelay(
 );
 ```
 
-**Pros:**
-- Built into Java, no dependencies
-- Simple API
-
-**Cons:**
-- No cron expression support (only fixed intervals)
-- Doesn't survive application restarts
-- Single server only
-- No visibility or monitoring
-- If a task throws an exception, the schedule stops
-
-This works for trivial cases. For anything production grade, keep reading.
+Simple and built-in, but no cron expressions, no persistence, and if a task throws an exception the schedule stops. Fine for trivial cases.
 
 ## Option 2: Spring @Scheduled
 
@@ -117,24 +118,9 @@ public class Application {
 }
 ```
 
-**Spring cron format:**
-- 6 fields: second, minute, hour, day, month, weekday
-- Day of week: 0=Sunday, or use names (MON, TUE, etc.)
-- Supports `?` for "no specific value" in day fields
+**Spring cron format:** 6 fields (second, minute, hour, day, month, weekday). Day of week: 0=Sunday or names (MON, TUE). Supports `?` for "no specific value".
 
-**Pros:**
-- Clean annotation syntax
-- Integrated with Spring ecosystem
-- Cron expressions supported
-
-**Cons:**
-- Doesn't survive restarts (in memory only)
-- Multiple instances = duplicate execution
-- No dashboard or monitoring
-- Failed tasks don't automatically retry
-- Can't schedule dynamically at runtime
-
-Spring `@Scheduled` is fine for development. In production with multiple instances, you'll have problems.
+Clean syntax, but in-memory only. Jobs don't survive restarts, and multiple instances cause duplicate execution.
 
 ## Option 3: Quartz Scheduler
 
@@ -162,31 +148,16 @@ CronTrigger trigger = TriggerBuilder.newTrigger()
 scheduler.scheduleJob(job, trigger);
 ```
 
-**Quartz cron format:**
-- 6 or 7 fields (year optional)
-- Uses `?` for day of month or day of week
-- Day of week: 1=Sunday through 7=Saturday, or SUN-SAT
+**Quartz cron format:** 6-7 fields (year optional). Uses `?` for day fields. Day of week: 1=Sunday through 7=Saturday.
 
-**Pros:**
-- Mature and battle tested
-- Can persist jobs to database
-- Clustering support
-
-**Cons:**
-- Verbose API
-- Complex configuration
-- 11+ database tables required
-- Dashboard not included
-- Maintenance has been sporadic
-
-Quartz works, but there are better options now. We wrote about [why teams are moving away from Quartz](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/).
+Mature and supports persistence/clustering, but verbose API, complex configuration, and 11+ database tables. We wrote about [why teams are moving away from Quartz](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/).
 
 ## Option 4: JobRunr (Modern Approach)
 
-[JobRunr](https://www.jobrunr.io) simplifies cron jobs in Java. Lambda syntax, built in dashboard, persistent storage.
+[JobRunr](https://www.jobrunr.io) simplifies cron jobs in Java. Lambda syntax or `@Recurring` annotations, built in dashboard, persistent storage.
 
 ```java
-// Schedule a recurring job
+// Schedule a recurring job with lambdas
 BackgroundJob.scheduleRecurrently(
     "daily-report",
     Cron.daily(9, 0),
@@ -199,6 +170,12 @@ BackgroundJob.scheduleRecurrently(
     "0 0 * * 1",
     () -> cleanupService.weeklyCleanup()
 );
+
+// Or use annotations (Spring Boot example)
+@Recurring(id = "hourly-sync", cron = "0 * * * *")
+public void syncData() {
+    // runs every hour
+}
 ```
 
 **JobRunr cron format:**
@@ -219,16 +196,27 @@ Cron.monthly()            // First of month at midnight
 Cron.monthly(15, 14, 30)  // 15th of month at 2:30 PM
 ```
 
-**Pros:**
-- Simple lambda syntax
-- Jobs persist in your database
-- Built in dashboard
-- Automatic retries on failure
-- Works with multiple instances (no duplicates)
-- Spring Boot, Quarkus, Micronaut integration
+Beyond cron expressions, JobRunr also supports fixed intervals using `Duration`:
 
-**Cons:**
-- Requires a database (but you probably have one)
+```java
+// Run every 30 seconds
+BackgroundJob.scheduleRecurrently(
+    "health-check",
+    Duration.ofSeconds(30),
+    () -> healthService.check()
+);
+
+// Run every 2 hours
+BackgroundJob.scheduleRecurrently(
+    "sync-data",
+    Duration.ofHours(2),
+    () -> syncService.sync()
+);
+```
+
+This is useful when you want a simple interval without thinking about cron syntax.
+
+Jobs persist in your database (or InMemory for development), with a built-in dashboard, automatic retries, and no duplicate execution across instances.
 
 ### Using Annotations (Spring Boot)
 
@@ -375,22 +363,33 @@ Open `/dashboard` to see your recurring jobs:
 ## Comparison Table
 
 | Feature | ScheduledExecutor | Spring @Scheduled | Quartz | JobRunr |
-|---------|-------------------|-------------------|--------|---------|
+|---------|:-----------------:|:-----------------:|:------:|:-------:|
+| **Scheduling** |
 | Cron expressions | ❌ | ✅ | ✅ | ✅ |
+| Fixed intervals | ✅ | ✅ | ✅ | ✅ |
+| Dynamic scheduling | ✅ | ❌ | ✅ | ✅ |
+| Timezone support | ❌ | ✅ | ✅ | ✅ |
+| **Reliability** |
 | Survives restarts | ❌ | ❌ | ✅ | ✅ |
 | Multiple instances | ❌ | ❌ | ✅ | ✅ |
-| Dashboard | ❌ | ❌ | ❌ | ✅ |
 | Automatic retries | ❌ | ❌ | ✅ | ✅ |
+| **Operations** |
+| Dashboard | ❌ | ❌ | ❌ | ✅ |
 | Simple API | ✅ | ✅ | ❌ | ✅ |
 | Database tables | 0 | 0 | 11+ | 4 |
+| External dependencies | None | Spring | Quartz | JobRunr |
 
 ## Handling Common Scenarios
 
 ### "Run at startup, then every hour"
 
+Recurring jobs are scheduled for the next matching time, not immediately. To run once at startup and then hourly:
+
 ```java
-// JobRunr handles this automatically
-// The job runs immediately if it's never run before
+// Run once immediately
+BackgroundJob.enqueue(() -> syncService.sync());
+
+// Then continue on schedule
 BackgroundJob.scheduleRecurrently(
     "hourly-sync",
     Cron.hourly(),
@@ -422,14 +421,9 @@ BackgroundJob.scheduleRecurrently(
 
 ### "Run on the last day of every month"
 
-Standard cron doesn't support "last day of month" directly. You can:
-
-1. Schedule for the 28th (safe for all months)
-2. Use application logic to check the date
-3. Schedule multiple jobs for 28th, 29th, 30th, 31st with date checks
+Standard cron doesn't support "last day of month" directly. With JobRunr OSS, you can check the date in your code:
 
 ```java
-// Option 2: check in code
 BackgroundJob.scheduleRecurrently(
     "month-end-report",
     Cron.daily(23, 59),
@@ -444,6 +438,24 @@ private boolean isLastDayOfMonth() {
     LocalDate today = LocalDate.now();
     return today.equals(today.withDayOfMonth(today.lengthOfMonth()));
 }
+```
+
+[JobRunr Pro](/en/documentation/pro/advanced-cron-expressions/) supports advanced cron expressions with `L` (last), `W` (weekday), and `#` (nth weekday):
+
+```java
+// Last day of every month at midnight (Pro only)
+BackgroundJob.scheduleRecurrently(
+    "month-end-report",
+    "0 0 L * *",
+    () -> reportService.monthEndReport()
+);
+
+// Last Friday of every month at 5 PM
+BackgroundJob.scheduleRecurrently(
+    "monthly-review",
+    "0 17 * * 5L",
+    () -> reviewService.monthlyReview()
+);
 ```
 
 ### "Run at a specific timezone"
@@ -483,7 +495,7 @@ BackgroundJob.scheduleRecurrently(
 JobRunr OSS is a solid choice. Quick to set up, persistent jobs, and a built-in dashboard to see what's happening.
 
 **For production applications:**
-JobRunr OSS handles most use cases well. If you need enterprise features like priority queues, smart queues, or advanced dashboard filters, consider [JobRunr Pro](/en/pro/).
+JobRunr OSS handles most use cases well. If you need enterprise features like priority queues, smart queues, advanced cron expressions, or [carbon-aware scheduling](/en/documentation/pro/carbon-aware-scheduling/) to run jobs when electricity is greenest, consider [JobRunr Pro](/en/pro/).
 
 **If you're already using Quartz:**
 Consider [migrating to JobRunr](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). The API is simpler and you get a dashboard.
