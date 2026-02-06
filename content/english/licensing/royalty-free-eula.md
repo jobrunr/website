@@ -25,6 +25,12 @@ __You may redistribute the Software as part of Your own products.__
 
 UNDER NO CIRCUMSTANCES MAY YOU USE THE SOFTWARE FOR A PRODUCT THAT IS INTENDED FOR SOFTWARE OR APPLICATION DEVELOPMENT PURPOSES.
 
+You may not input, feed, submit, or otherwise provide the Software, its Source Code, or Modifications, in whole or in substantial part, to any Artificial Intelligence tool, large language model, code generation assistant, or similar technology ("AI Tool") for the purpose of (i) generating source code that replicates, reproduces, or substitutes for the functionality of the Software or any part thereof, (ii) creating a competing product, library, or service derived from or substantially similar to the Software, or (iii) enabling any third party to do any of the foregoing.
+
+For the avoidance of doubt, You are permitted to (i) use AI Tools for general coding assistance within Your own Application that integrates with the Software, provided that the Software's Source Code is not used as input or context for such AI Tools, and (ii) reference the Software's publicly available API documentation and examples in AI Tool prompts.
+
+"AI Tool" means any software, service, or system that uses machine learning, deep learning, natural language processing, or similar techniques to generate, suggest, complete, or transform source code, including but not limited to tools such as GitHub Copilot, Cursor, Claude Code, ChatGPT, and their successors or equivalents.
+
 ## 5. TERMINATION
 This License Agreement and Your right to use the Software and Modifications will terminate immediately without notice if You fail to comply with the terms and conditions of this License Agreement. Upon termination, You agree to immediately cease using and destroy the Software or Modifications, including all accompanying documents. The provisions of sections 4, 5, 6, 7, 8, 9, 10 and 11 will survive any termination of this License Agreement.
 
