@@ -123,9 +123,10 @@ JobRunr's dashboard is embedded in your application. No separate deployment need
 - MySQL / MariaDB
 - Oracle
 - SQL Server
+- SQLite
+- DB2
+- H2
 - MongoDB
-- Redis
-- ElasticSearch
 
 JobRunr has broader storage support out of the box, including NoSQL options in the open source version.
 
@@ -147,23 +148,13 @@ If you're using Spring Boot (which many .NET developers move to), JobRunr has fi
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>7.3.2</version>
+    <version>8.3.1</version>
 </dependency>
 ```
 
 Add the dependency, configure your database, and you're done.
 
 ## What JobRunr Does Differently
-
-### Virtual Threads Support
-
-Java 21 introduced virtual threads. JobRunr supports them. This means you can process thousands of concurrent jobs with minimal resource usage. Hangfire doesn't have an equivalent because .NET uses async/await differently.
-
-```java
-jobRunr.configure()
-    .useVirtualThreadsForBackgroundJobWorkers()
-    .initialize();
-```
 
 ### Carbon Aware Scheduling
 
