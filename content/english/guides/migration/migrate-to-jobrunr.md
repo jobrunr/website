@@ -1,7 +1,14 @@
 ---
-title: "Migrate to JobRunr: Step by Step Guides"
+title: "Migrate to JobRunr"
 description: "Migration guides from Quartz, Spring @Scheduled, Hangfire, and custom schedulers to JobRunr. Make the switch in hours, not weeks."
 keywords: ["migrate from quartz", "quartz to jobrunr", "spring scheduled migration", "hangfire java alternative", "replace quartz scheduler"]
+weight: 20
+tags:
+    - Migration
+    - JobRunr
+hideFrameworkSelector: true
+aliases:
+    - /en/migrate-to-jobrunr/
 skip_meta: true
 ---
 
@@ -98,8 +105,6 @@ a.btn-primary {
 }
 </style>
 
-# Migrate to JobRunr
-
 Switching to JobRunr is straightforward. Most migrations take a few hours, not days. Pick your starting point below.
 
 <div class="quick-start">
@@ -107,8 +112,8 @@ Switching to JobRunr is straightforward. Most migrations take a few hours, not d
 <p>Already have jobs defined as methods in your codebase? JobRunr works with your existing code.</p>
 <ol>
 <li>Add the JobRunr dependency</li>
-<li>Initialize JobRunr</li>
-<li>Replace scheduling calls with <code>BackgroundJob.enqueue()</code></li>
+<li>Configure JobRunr (see the <a href="/en/documentation/">documentation</a>)</li>
+<li>Schedule your jobs using the JobRunr API</li>
 </ol>
 <p>Your job methods stay the same. Only the scheduling layer changes.</p>
 </div>
@@ -121,8 +126,8 @@ Switching to JobRunr is straightforward. Most migrations take a few hours, not d
 From Quartz Scheduler
 <span class="difficulty">Medium</span>
 </h3>
-<p class="time">⏱️ 2-4 hours for typical projects</p>
-<p>Quartz requires Job classes, triggers, and complex configuration. JobRunr uses simple lambdas.</p>
+<p class="time">2-4 hours for typical projects</p>
+<p>Quartz requires Job classes, triggers, and complex configuration. JobRunr uses simple lambdas or <code>JobRequest</code>/<code>JobRequestHandler</code>.</p>
 <div class="comparison-snippet">
 <div>
 <div class="label">BEFORE (Quartz)</div>
@@ -146,10 +151,10 @@ From Quartz Scheduler
 <ul>
 <li>Remove Job interface implementations</li>
 <li>Remove trigger configuration</li>
-<li>Replace with lambda calls</li>
-<li>Delete 11 Quartz tables, JobRunr uses 4</li>
+<li>Replace with lambda calls or job requests</li>
+<li>Delete 11 Quartz tables, JobRunr manages its own schema</li>
 </ul>
-<p><a href="/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/">📖 Full Quartz Migration Guide →</a></p>
+<p><a href="/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/">Full Quartz Migration Guide &rarr;</a></p>
 </div>
 
 <div class="migration-card">
@@ -158,7 +163,7 @@ From Quartz Scheduler
 From Spring @Scheduled
 <span class="difficulty easy">Easy</span>
 </h3>
-<p class="time">⏱️ 30 minutes to 1 hour</p>
+<p class="time">30 minutes to 1 hour</p>
 <p>Spring @Scheduled is simple but doesn't persist jobs or handle multiple instances. JobRunr adds reliability.</p>
 <div class="comparison-snippet">
 <div>
@@ -170,11 +175,11 @@ public void dailyReport() {
 </div>
 <div>
 <div class="label">AFTER (JobRunr)</div>
-<pre class="after">BackgroundJob.scheduleRecurrently(
-    "daily-report",
-    Cron.daily(9, 0),
-    () -> reportService.generate()
-);</pre>
+<pre class="after">@Recurring(id = "daily-report",
+    cron = "0 0 9 * * *")
+public void dailyReport() {
+    reportService.generate();
+}</pre>
 </div>
 </div>
 <p><strong>What you gain:</strong></p>
@@ -184,7 +189,7 @@ public void dailyReport() {
 <li>Built-in dashboard and monitoring</li>
 <li>Automatic retries on failure</li>
 </ul>
-<p><a href="/en/blog/java-cron-jobs-guide/">📖 Java Scheduling Guide →</a></p>
+<p><a href="/en/documentation/configuration/spring/">Spring Boot Starter Configuration &rarr;</a> | <a href="/en/blog/java-cron-jobs-guide/">Java Scheduling Guide &rarr;</a></p>
 </div>
 
 <div class="migration-card">
@@ -193,7 +198,7 @@ public void dailyReport() {
 From Spring Batch
 <span class="difficulty">Medium</span>
 </h3>
-<p class="time">⏱️ Varies by complexity</p>
+<p class="time">Varies by complexity</p>
 <p>Spring Batch is for ETL and chunk processing. JobRunr is for background tasks. You might need both, or just JobRunr.</p>
 <p><strong>Use JobRunr instead when:</strong></p>
 <ul>
@@ -207,7 +212,7 @@ From Spring Batch
 <li>You need chunk-based transaction management</li>
 <li>You're processing millions of records in a single job</li>
 </ul>
-<p><a href="/en/blog/spring-batch-vs-jobrunr/">📖 Spring Batch vs JobRunr →</a></p>
+<p><a href="/en/blog/spring-batch-vs-jobrunr/">Spring Batch vs JobRunr &rarr;</a></p>
 </div>
 
 <div class="migration-card">
@@ -216,7 +221,7 @@ From Spring Batch
 From Hangfire (.NET)
 <span class="difficulty easy">Easy</span>
 </h3>
-<p class="time">⏱️ 1-2 hours (API is nearly identical)</p>
+<p class="time">1-2 hours (API is nearly identical)</p>
 <p>Moving from .NET to Java? JobRunr's API was inspired by Hangfire. The concepts map directly.</p>
 <div class="comparison-snippet">
 <div>
@@ -240,7 +245,7 @@ From Hangfire (.NET)
 );</pre>
 </div>
 </div>
-<p><a href="/en/blog/hangfire-for-java/">📖 Hangfire for Java Guide →</a></p>
+<p><a href="/en/blog/hangfire-for-java/">Hangfire for Java Guide &rarr;</a></p>
 </div>
 
 <div class="migration-card">
@@ -249,17 +254,17 @@ From Hangfire (.NET)
 From Custom/Homegrown Scheduler
 <span class="difficulty">Varies</span>
 </h3>
-<p class="time">⏱️ Depends on current implementation</p>
+<p class="time">Depends on current implementation</p>
 <p>Built your own job scheduler? Time to stop maintaining it.</p>
 <p><strong>Common patterns to replace:</strong></p>
 <ul>
-<li>Database polling loops → JobRunr handles this</li>
-<li>Custom locking logic → Built into JobRunr</li>
-<li>Retry mechanisms → Automatic with exponential backoff</li>
-<li>Status tracking tables → JobRunr's 4 tables cover everything</li>
-<li>Admin UI → Built-in dashboard</li>
+<li>Database polling loops &rarr; JobRunr handles this</li>
+<li>Custom locking logic &rarr; Built into JobRunr</li>
+<li>Retry mechanisms &rarr; Automatic with exponential backoff</li>
+<li>Status tracking tables &rarr; JobRunr manages its own schema</li>
+<li>Admin UI &rarr; Built-in dashboard</li>
 </ul>
-<p><a href="/en/blog/distributed-job-scheduling-java/">📖 Why DIY Schedulers Fail →</a></p>
+<p><a href="/en/blog/distributed-job-scheduling-java/">Why DIY Schedulers Fail &rarr;</a></p>
 </div>
 
 ## Common Migration Questions
@@ -276,24 +281,9 @@ Yes. JobRunr doesn't interfere with existing schedulers. You can migrate increme
 
 JobRunr creates its own tables. Your existing job history stays in the old system. For most teams, this is fine. Starting fresh with JobRunr's cleaner data model is often preferred.
 
-If you need to migrate historical data, you can write a one-time migration script.
-
 ### Do I need to change my job code?
 
 Usually no. JobRunr calls your existing methods. You're changing how jobs are scheduled, not what they do.
-
-```java
-// Your existing service stays the same
-@Service
-public class EmailService {
-    public void sendWelcomeEmail(UUID userId) {
-        // This code doesn't change
-    }
-}
-
-// Only the scheduling call changes
-BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userId));
-```
 
 ### How do I handle in-flight jobs during migration?
 
@@ -303,26 +293,3 @@ BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userId));
 4. Shut down old scheduler
 
 For recurring jobs, schedule them in JobRunr before removing from the old system to avoid gaps.
-
-## Get Help
-
-Stuck on something? We're here to help:
-
-- [Documentation](/en/documentation/)
-- [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions)
-- [Contact Us](/en/contact/) for enterprise migration support
-
----
-
-<a href="/en/documentation/5-minute-intro/" class="btn-primary btn">
-Start with the 5-Minute Intro
-<span class="icon-wrapper"><span class="icon">
-<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-<path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
-</svg>
-</span><span class="icon" aria-hidden="true">
-<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-<path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
-</svg>
-</span></span>
-</a>
