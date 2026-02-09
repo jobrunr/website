@@ -35,26 +35,26 @@ Add a second server and everything breaks.
 
 Almost every team tries to build their own solution first. We did too, back in the day. It always starts the same way.
 
-### Approach 1: Database Locking
+### Approach 1: Database Coordination
 
-The idea: use your database as a coordination point. Before processing a job, acquire a lock. Release it when done.
+The idea: use your database as a coordination point. Use an optimistic compare-and-swap to claim jobs.
 
 ```java
 // Don't do this
 @Transactional
 public void processJob(Job job) {
-    // Try to acquire lock
+    // Try to claim the job with an optimistic update
     int updated = jdbcTemplate.update(
         "UPDATE jobs SET status = 'PROCESSING', worker = ? " +
         "WHERE id = ? AND status = 'PENDING'",
         workerId, job.getId()
     );
-    
+
     if (updated == 0) {
         // Another worker got it
         return;
     }
-    
+
     try {
         doWork(job);
         markComplete(job);
@@ -65,11 +65,11 @@ public void processJob(Job job) {
 ```
 
 **Why it fails:**
-- Lock contention tanks your database performance
-- Long running jobs hold locks, blocking other operations
-- Dead workers leave orphaned locks
+- Dead workers leave orphaned jobs stuck in PROCESSING state
 - You end up building a state machine for job lifecycle
 - Retries, delays, and recurring jobs need more tables and more code
+- Polling for available jobs adds constant database load
+- No visibility into what's happening across workers
 
 Within six months, you have 2,000 lines of job scheduling code that nobody wants to touch.
 
@@ -152,7 +152,7 @@ Several libraries handle distributed job scheduling in Java. Here are the main o
 
 ### JobRunr
 
-[JobRunr](https://www.jobrunr.io) is designed for distributed environments from the ground up. Every feature assumes you're running multiple instances.
+[JobRunr](https://www.jobrunr.io) is designed for distributed environments from the ground up. Every feature is designed to safely execute with multiple running instances. A new node can be added anytime by connecting to a shared database. See the [setup below](#setup) for how to configure it.
 
 ```java
 // Create a job from any instance
@@ -170,7 +170,7 @@ BackgroundJob.scheduleRecurrently("daily-cleanup", Cron.daily(),
 **How it handles distribution:**
 
 1. Jobs are stored in your database (PostgreSQL, MySQL, MongoDB, etc.)
-2. Workers poll for available jobs using optimistic locking
+2. Workers poll for available jobs using `FOR UPDATE SKIP LOCKED` on modern SQL databases, falling back to optimistic locking on databases that don't support it
 3. Exactly one worker picks up each job
 4. If a worker dies, the job is automatically rescheduled
 5. The built in dashboard shows everything
@@ -186,7 +186,7 @@ No message broker needed. No additional infrastructure. Just your existing datab
 
 ### db-scheduler
 
-[db-scheduler](https://github.com/kagkarlsson/db-scheduler) is a simpler alternative. Single table in your database. Minimal API.
+[db-scheduler](https://github.com/kagkarlsson/db-scheduler) is a lightweight alternative to Quartz. Single table in your database. Minimal API.
 
 ```java
 scheduler.schedule(
@@ -215,7 +215,7 @@ Trigger trigger = TriggerBuilder.newTrigger()
 scheduler.scheduleJob(job, trigger);
 ```
 
-Quartz requires jobs to implement a `Job` interface, uses 11 database tables for clustering, and has a steep learning curve with concepts like JobDetail, Trigger, and Scheduler. It works, but the API shows its age. Modern alternatives like JobRunr accomplish the same with simpler lambda-based syntax and fewer moving parts. If you're on Quartz and considering a switch, see our [migration guide](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/).
+Quartz requires jobs to implement a `Job` interface and has a steep learning curve with concepts like JobDetail, Trigger, and Scheduler. Its clustering mode feels like an afterthought: it requires manual configuration, depends on 11 database tables, and needs all cluster nodes to have synchronized clocks. It works, but the API shows its age. Modern alternatives like JobRunr accomplish the same with simpler syntax and fewer moving parts. If you're on Quartz and considering a switch, see our [migration guide](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/).
 
 ## JobRunr in Production
 
@@ -270,7 +270,7 @@ Initialize JobRunr:
 {{< codetab label="Fluent API" >}}
 ```java
 JobRunr.configure()
-    .useStorageProvider(new SqLiteStorageProvider(dataSource))
+    .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
     .useBackgroundJobServer()
     .useDashboard()
     .initialize();
@@ -303,7 +303,7 @@ That's it. JobRunr creates the necessary tables automatically.
 
 ### Define Jobs
 
-Jobs are just method calls. No special interfaces or annotations required.
+Jobs are just Java methods. No special interfaces or annotations required.
 
 ```java
 @Service
@@ -343,6 +343,11 @@ BackgroundJob.scheduleRecurrently(
 );
 ```
 
+> [!TIP]
+> If you're using a framework with dependency injection (Spring, Micronaut, Quarkus), prefer the injectable `JobScheduler` over the static `BackgroundJob` facade. It's easier to test and avoids potential issues when running multiple instances in the same JVM (e.g., in integration tests).
+
+JobRunr also supports a `JobRequest` / `JobRequestHandler` pattern as an alternative to lambdas. This is useful when you want to pass a data object instead of a method reference, or when you prefer a more explicit handler-based approach.
+
 ### Monitor
 
 Open the dashboard at `/dashboard`. You'll see:
@@ -368,13 +373,11 @@ When a job fails, you see the exception, the stack trace, and you can retry with
 
 ### How Many Workers?
 
-JobRunr automatically determines worker count based on available CPUs. By default, it matches the number of CPU cores, which is optimal for CPU bound jobs.
+JobRunr automatically determines worker count based on available CPUs. By default, it uses `availableProcessors * 8` workers with platform threads. This works well for typical workloads that mix CPU and I/O work.
 
-You can override this if needed:
+On Java 21+, JobRunr automatically detects and uses virtual threads, increasing the default to `availableProcessors * 16`. Since virtual threads have minimal overhead, this allows much higher concurrency for I/O bound workloads.
 
-- **CPU bound jobs:** Default is optimal (core count)
-- **I/O bound jobs:** Increase workers (2x to 4x core count)
-- **Virtual threads:** On Java 21+, JobRunr automatically enables virtual threads and sets workers to `availableProcessors * 16`
+You can override this based on your workload:
 
 ```yaml
 org:
@@ -383,11 +386,11 @@ org:
       worker-count: 20
 ```
 
-With virtual threads (Java 21+), JobRunr automatically detects and uses them. Since virtual threads have minimal overhead, you can safely increase worker count even higher if your workload benefits from more concurrency.
+Keep in mind that CPU cores aren't the only factor. Database connection pool size, available memory, and third party rate limits (e.g., an external API that caps requests per second) all influence how many workers you should configure. Match your worker count to your most constrained resource.
 
 ### Database Load
 
-JobRunr uses optimistic locking to coordinate workers. This generates some database queries, but less than you'd think.
+JobRunr uses `FOR UPDATE SKIP LOCKED` on modern SQL databases (PostgreSQL, MySQL, MariaDB) to coordinate workers efficiently. This avoids contention between workers and keeps database overhead minimal.
 
 For most applications, the overhead is negligible. If you're processing millions of jobs per day, consider:
 
@@ -407,12 +410,7 @@ For the dashboard, you can run it on any instance or dedicate a server to it. Th
 - You need fire and forget, delayed, and recurring jobs
 - You want a dashboard without extra infrastructure
 - You're running multiple application instances
-- You need retries, priorities, or batches
-
-**Use db-scheduler when:**
-- You need the simplest possible solution
-- You only have basic scheduling needs
-- You're comfortable without a dashboard
+- You need automatic retries with exponential backoff
 
 **Use a message queue when:**
 - You're doing event driven architecture
@@ -426,14 +424,7 @@ For the dashboard, you can run it on any instance or dedicate a server to it. Th
 
 ## Getting Started
 
-If you're starting a new project or migrating from a homegrown solution:
-
-1. [Add JobRunr](/en/documentation/installation/) to your project
-2. [Initialize JobRunr](/en/guides/intro/5-minute-quickstart/)
-3. [Write your first job](/en/documentation/5-minute-intro/)
-4. Deploy multiple instances and watch jobs distribute
-
-You'll have production grade distributed job scheduling in an afternoon.
+The setup above is all you need to get going. For more details, check out the [5-minute quickstart guide](/en/documentation/5-minute-intro/). Deploy multiple instances of your application and watch jobs distribute automatically.
 
 ---
 
