@@ -172,7 +172,7 @@ jobScheduler.create(aJob()
   .withDetails(() -> sampleService.executeExampleJob(name)));
 
 ```
-<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withDetails() lambda.</figcaption>
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withDetails() lambda. The example assumes you have access to an instance of `JobScheduler` (e.g., via dependency injection), you may also use the singleton `BackgroundJobScheduler`.</figcaption>
 </figure>
 
 With a `JobRequest`:
@@ -180,12 +180,12 @@ With a `JobRequest`:
 <figure>
 
 ```java
-jobScheduler.create(aJob()
+jobRequestScheduler.create(aJob()
   .withName("A job requested for " + name)
   .withAmountOfRetries(3)
   .withLabels("tenant-A", "from-rest-api")
   .withJobRequest(new MyJobRequest(id));
 
 ```
-<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withJobRequest() JobRequest.</figcaption>
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withJobRequest() JobRequest. The example assumes you have access to an instance of `JobRequestScheduler` (e.g., via dependency injection), you may also use the singleton `BackgroundJobRequestScheduler`.</figcaption>
 </figure>
