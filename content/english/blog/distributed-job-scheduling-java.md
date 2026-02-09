@@ -380,10 +380,9 @@ On Java 21+, JobRunr automatically detects and uses virtual threads, increasing 
 You can override this based on your workload:
 
 ```yaml
-org:
-  jobrunr:
-    background-job-server:
-      worker-count: 20
+jobrunr:
+  background-job-server:
+    worker-count: 20
 ```
 
 Keep in mind that CPU cores aren't the only factor. Database connection pool size, available memory, and third party rate limits (e.g., an external API that caps requests per second) all influence how many workers you should configure. Match your worker count to your most constrained resource.

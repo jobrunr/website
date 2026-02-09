@@ -1,6 +1,6 @@
 ---
 title: "Virtual Threads and Background Jobs: A Practical Guide for Java Developers"
-description: "Learn how Java 21 virtual threads change background job processing. Understand when to use them, common pitfalls, and how to get 10x throughput on I/O bound workloads."
+description: "Learn how Java 21 virtual threads change background job processing. Understand when to use them, common pitfalls, and how to maximize throughput on I/O bound workloads."
 keywords: ["virtual threads java", "java 21 virtual threads", "project loom", "virtual threads background jobs", "java concurrent processing"]
 image: /blog/virtual-threads-background-jobs.webp
 date: 2026-03-03T12:00:00+02:00
@@ -14,20 +14,20 @@ tags:
 
 Java 21 introduced virtual threads, and we've been getting a lot of questions about them. Should you use them for background jobs? Will they make your jobs faster?
 
-The short answer: it depends. Virtual threads can give you 10x throughput on I/O heavy workloads. But use them wrong and you might actually make things slower.
+The short answer: it depends. Virtual threads can significantly increase throughput on I/O heavy workloads, especially at scale. But use them wrong and you might actually make things slower.
 
 We've spent months testing virtual threads with JobRunr across different workload types. Here's what we learned.
 
 ## What Virtual Threads Actually Are
 
-Before Java 21, every thread in your application mapped to an operating system thread. OS threads are expensive. Each one consumes about 1MB of memory for its stack. Creating and destroying them takes time. Context switching between them has overhead.
+Before Java 21, every thread in your application mapped to an operating system thread. OS threads are expensive. Each one takes up [significant memory](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html) and OS resources. Creating and destroying them takes time. Context switching between them has overhead.
 
-Most applications limit themselves to a few hundred threads. More than that and you're fighting the OS.
+While you can run thousands of platform threads with the right JVM configuration and hardware, in practice most applications use thread pools to limit concurrency and avoid resource exhaustion.
 
-Virtual threads break this limit. They're managed by the JVM, not the OS. They're cheap to create (a few KB each), cheap to destroy, and cheap to context switch. You can have millions of them.
+Virtual threads change this. They're managed by the JVM, not the OS. They're cheap to create (a few KB each), cheap to destroy, and cheap to context switch. You can have millions of them.
 
 ```java
-// Old way: OS threads, limited to hundreds
+// Old way: OS threads, managed via thread pools
 ExecutorService executor = Executors.newFixedThreadPool(100);
 
 // New way: Virtual threads, scale to millions
@@ -68,7 +68,7 @@ With **virtual threads** (same hardware):
 - With enough carrier threads to handle the 5ms of CPU work each, all jobs complete in roughly the time of one job
 - **Total time: ~1-2 seconds** (limited by your external API's capacity)
 
-Same hardware, 15-30x throughput. The improvement scales with how I/O bound your jobs are.
+Same hardware, significantly higher throughput. The improvement scales with how I/O bound your jobs are and how many concurrent jobs you run.
 
 ## When Virtual Threads Help
 
@@ -126,11 +126,11 @@ Pinning negates the benefits of virtual threads. Your virtual thread holds onto 
 
 Virtual threads make it easy to open thousands of concurrent database connections. Your database probably can't handle that.
 
-If you have 1000 virtual threads each trying to query PostgreSQL, and your connection pool is sized at 50, 950 threads will block waiting for connections. That's fine, virtual threads handle blocking gracefully.
+If you have 1000 virtual threads each trying to query PostgreSQL, and your connection pool is sized at 50, 950 threads will block waiting for connections. While virtual threads handle blocking without consuming OS threads, those 950 jobs are still stuck waiting. With a connection pool like HikariCP, waiting threads may hit connection timeout limits and fail. Even without timeouts, jobs could wait minutes before getting a connection, hurting overall throughput.
 
-But if your connection pool is sized at 1000, you'll overwhelm PostgreSQL. Connection limits exist for a reason.
+The database connection pool becomes the bottleneck, and bottlenecks are always a problem — with or without virtual threads. If your connection pool is sized at 1000, you'll overwhelm PostgreSQL. Connection limits exist for a reason.
 
-**Solution:** Keep your connection pool reasonably sized. Virtual threads will queue for connections, which is the correct behavior.
+**Solution:** Keep your connection pool reasonably sized and be aware that it will be the limiting factor for database-heavy workloads. Size your worker count with your connection pool in mind.
 
 ## Practical Setup with JobRunr
 
@@ -140,12 +140,11 @@ JobRunr has first class virtual thread support. On JDK 21+, it uses virtual thre
 
 ```yaml
 # application.yml
-org:
-  jobrunr:
-    background-job-server:
-      enabled: true
-      thread-type: VirtualThreads  # Default on JDK 21+
-      worker-count: 160  # Higher count for I/O bound jobs
+jobrunr:
+  background-job-server:
+    enabled: true
+    thread-type: VirtualThreads  # Default on JDK 21+
+    worker-count: 160  # Higher count for I/O bound jobs
 ```
 
 Or in code:
@@ -156,19 +155,18 @@ JobRunr.configure()
     .useBackgroundJobServer(
         BackgroundJobServerConfiguration.usingStandardBackgroundJobServerConfiguration()
             .andWorkerCount(160))
-    .useVirtualThreadsForBackgroundJobWorkers() // Enable virtual threads
     .initialize();
 ```
 
 ### Tuning Worker Count
 
-With platform threads, worker count is typically set to CPU cores (or 2x cores for I/O bound work). With virtual threads, you can go much higher.
+JobRunr's default worker count is `availableProcessors * 8` for platform threads and `availableProcessors * 16` for virtual threads. With virtual threads, you can go much higher than the defaults.
 
-**I/O bound jobs:** Start with `availableProcessors * 16` (JobRunr's default for virtual threads). Test and increase if your jobs spend most time waiting on I/O.
+**I/O bound jobs:** Start with `availableProcessors * 16` (JobRunr's default for virtual threads). If your jobs spend most of their time waiting on I/O and you want significant throughput gains, increase to thousands of workers. As a rule of thumb, [if your application never has 10,000 virtual threads or more, it is unlikely to benefit from virtual threads](https://docs.oracle.com/en/java/javase/21/core/virtual-threads.html).
 
-**Mixed workload:** Lower the count. CPU bound jobs will occupy carrier threads longer, reducing effective parallelism.
+**Mixed workload:** Lower the count. CPU bound jobs will occupy carrier threads longer, reducing effective parallelism. However, in a JobRunr context, if your jobs are very short-running, they can be considered I/O bound — saving the result to the database will likely take longer than the job itself.
 
-**External rate limits:** Match your worker count to what external services can handle. 1000 concurrent jobs hitting a rate limited API at 100 requests per second will just cause retries.
+**External rate limits:** Match your worker count to what external services can handle. 1000 concurrent jobs hitting a rate limited API at 100 requests per second will just cause retries. With [JobRunr Pro's rate limiting](https://www.jobrunr.io/en/documentation/pro/rate-limiters/), you can control exactly how many jobs hit an external service per time window, so you don't have to worry about overwhelming downstream APIs.
 
 ### Monitoring
 
@@ -215,38 +213,16 @@ public void processBatch(List<UUID> ids) {
 Parallel streams use the common ForkJoinPool, not virtual threads. This can cause contention. Better:
 
 ```java
-// Better: let JobRunr handle parallelism
+// Better: let JobRunr handle parallelism using Stream-based enqueue
+// This performs better as jobs are saved in batches
 public void processBatch(List<UUID> ids) {
-    ids.forEach(id -> BackgroundJob.enqueue(() -> processItem(id)));
+    BackgroundJob.enqueue(ids.stream(), (id) -> processItem(id));
 }
 ```
 
 ### Avoiding Pinning
 
-Replace synchronized with ReentrantLock for I/O operations:
-
-```java
-// Before: pins virtual thread
-private final Object lock = new Object();
-
-public void process() {
-    synchronized (lock) {
-        database.query();
-    }
-}
-
-// After: releases carrier during I/O
-private final ReentrantLock lock = new ReentrantLock();
-
-public void process() {
-    lock.lock();
-    try {
-        database.query();
-    } finally {
-        lock.unlock();
-    }
-}
-```
+If you encounter pinning issues (synchronized blocks around I/O operations), the simplest fix is to upgrade to JDK 24 or higher. JDK 24 [resolves synchronized pinning](https://openjdk.org/jeps/491), so virtual threads will no longer be pinned inside synchronized blocks. This is much easier than refactoring your entire codebase to use `ReentrantLock`.
 
 ## Migration Path
 
