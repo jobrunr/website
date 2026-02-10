@@ -13,7 +13,8 @@ tags:
 
 In this guide, we will unfold JobRunr's observability features that go beyond simply logging. We'll explore how to enable publishing various metrics to integrate with your favourite monitoring platform. 
 
-> ⚠️ **Warning**: Adding any metrics to your application will generally impact performance as it adds extra computational/IO overhead. Only do this if you intent to monitor them and be sensible with metric scraping configurations.
+> [!WARNING]
+> Adding any metrics to your application will generally impact performance as it adds extra computational/IO overhead. Only do this if you intend to monitor them and be sensible with metric scraping configurations.
 
 > If you are interested in integrating tracing capabilities into your observability platform, please consult the [observability: tracing guide](/en/guides/advanced/observability-tracing).
 
@@ -182,7 +183,8 @@ This configuration adds instrumentation at to the `StorageProvider` (for framewo
 - The `StorageProvider` instrumentation adds different statistics to the metrics (e.g., job counts per state, number of recurring jobs and number of background job servers). These metrics are published with prefix `jobrunr.jobs.by-state` and identifiable by their tags. Therefore you'll need to provide a the tag of interest. For instance, if you are using a framework, the actual metric value can be retrieved by visiting `/metrics/jobrunr.jobs.by-state?tag=state:SUCCEEDED`.
 - The `BackgroundJobServer` instrumentation makes available metrics on resource usage by the server, e.g., CPU usage, memory usage, etc. These metrics are retrieved using `OperatingSystemMXBean`. The server metrics also include other background job server configuration values, such as the poll interval and the worker pool size but also the license key expiry date for JobRunr Pro users. These metrics are published with prefix `jobrunr.background-job-server`.
 
-> ⚠️ **Warning**: Be careful with enabling `StorageProvider` metrics as this generates more database load. Ideally, only enable it on the same server running the dashboard.
+> [!WARNING]
+> Be careful with enabling `StorageProvider` job stats metrics as this generates more database load. Ideally, only enable it on the same server running the dashboard.
 
 #### {{< badge version="professional" >}}JobRunr Pro {{< /badge >}} Job Timings {#job-timings}
 
@@ -257,7 +259,8 @@ With the above, if a Job is labelled with `customer:a`, the tag `job.labels.cust
 
 > Be extra careful when enabling this option and make sure the label values are finite to avoid the [_tag cardinality explosion_](https://www.robustperception.io/cardinality-is-key/). Otherwise, it could lead to huge performance issues and increased expenses.
 
-> 💡 JobRunr include other tags: e.g., the job type--`jobSignature`--, the priority queue name, the dynamic queue name, the server name and the server tag. Make sure the values of these attributes are always predictable and finite, for instance always give a name to your background job servers. You can rely on tools from you platform of choice to filter out some tags. For instance, you can [instruct Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) to only keep some labels with `labelkeep` or drop any label you don't want with `labeldrop`.
+> [!IMPORTANT]
+> JobRunr include other tags: e.g., the job type--`jobSignature`--, the priority queue name, the dynamic queue name, the server name and the server tag. **Make sure the values of these attributes are always predictable and finite**, for instance always give a name to your background job servers. You can rely on tools from you platform of choice to filter out some tags. For instance, you can [instruct Prometheus](https://prometheus.io/docs/prometheus/latest/configuration/configuration/) to only keep some labels with `labelkeep` or drop any label you don't want with `labeldrop`.
 
 ## Scrape and Visualize Metrics with Prometheus
 
@@ -270,6 +273,7 @@ First, let's make sure there is an endpoint from which Prometheus can fetch the 
 {{< framework type="fluent-api" >}}
 We'll have to expose `/prometheus` ourselves if we don't rely on a framework doing it for us:
 
+> [!NOTE]
 > If you're building your application with a framework, it may already provide a prometheus-compatible endpoint for you.
 
 ```java
