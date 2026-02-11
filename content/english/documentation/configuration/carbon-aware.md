@@ -65,7 +65,7 @@ The following table lists all geographical areas currently supported by the Carb
 To enable Carbon Aware Job Processing, configure a `CarbonAwareJobProcessingConfiguration` with your area code so that the correct energy data is taken into account. If you're unsure which region to select, browse the [supported areas above](#areas).
 
 > [!TIP]
-> Selecting an area, by clicking on a row, in the [above list of supported areas]({{< ref "#areas" >}}) will automatically updated the below configuration examples to your chosen area.
+> Selecting an area, by clicking on a row, in the [above list of supported areas]({{< ref "#areas" >}}) will automatically update the below configuration examples to your chosen area.
 
 <div id="config-examples">
 {{< codetabs category="config-style" >}}
