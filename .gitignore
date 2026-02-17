@@ -16,5 +16,6 @@ hugo_stats.json
 go.sum
 yarn.lock
 hugo
+.llm
 
 !/public/CNAME
