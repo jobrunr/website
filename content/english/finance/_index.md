@@ -106,9 +106,9 @@ explore_yourself:
       link: "try-jobrunr-pro"
     learn_more:
       enable: true
-      label: "Github code for the demo*"
+      label: "GitHub code for the demo*"
       link: "https://github.com/jobrunr/storyline-demo"
-  disclaimer: "* You need to have an active JobRunr pro (trial) license to be able to run the Github demo project"
+  disclaimer: "* You need to have an active JobRunr Pro (trial) license to be able to run the GitHub demo project"
 
 
 
