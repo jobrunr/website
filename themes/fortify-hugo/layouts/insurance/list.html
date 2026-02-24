@@ -1,0 +1,441 @@
+{{ define "main" }}
+
+<section class="section pt-20 pb-16 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-10" data-aos="fade-up-sm">
+        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
+          {{ .Params.hero.badge }}
+        </span>
+        <h1 class="h1 mb-6 text-gray-900">
+          {{ .Params.hero.title_start }}
+          <span class="text-primary">{{ .Params.hero.title_highlight }}</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          {{ .Params.hero.description }}
+        </p>
+
+        {{ with .Params.button }}
+              <ul class="flex flex-wrap justify-center gap-4 pt-10">
+                {{ if .get_started.enable }}
+                  <li data-aos="fade-up-sm" data-aos-delay="100">
+                    <a
+                      class="btn-primary btn"
+                      target="_self"
+                      onclick="openTrialModal()"
+                      rel="noopener">
+                      {{ .get_started.label | markdownify }}
+                      <span class="sr-only">Details</span>
+                      <span class="icon-wrapper"
+                        ><span class="icon">
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                          </svg>
+                        </span>
+                        <span class="icon" aria-hidden="true"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                          </svg>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                {{ end }}
+                {{ if .learn_more.enable }}
+                  <li data-aos="fade-up-sm" data-aos-delay="150">
+                    <a
+                      class="btn-outline-primary btn "
+                      href="{{ .learn_more.link }}"
+                      target="_self"
+                      rel="noopener">
+                      {{ .learn_more.label | markdownify }}
+                      <span class="sr-only">Details</span
+                      ><span class="icon-wrapper"
+                        ><span class="icon"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                        ><span class="icon" aria-hidden="true"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                      ></span>
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section py-10 bg-gray-50 border-y border-gray-200">
+  <div class="container">
+    <p class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8">
+      {{ .Params.social_proof.title }}
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 opacity-75 grayscale hover:grayscale-0 transition-all duration-500">
+        {{ range .Params.social_proof.logos }}
+        <img src='{{ (resources.Get .src).RelPermalink }}' alt="{{ .alt }}" class="h-8 md:h-10 w-auto max-w-[120px] md:max-w-[160px] object-contain">
+        {{ end }}
+    </div>
+  </div>
+</section>
+
+<section class="section bg-white">
+  <div class="container">
+    <div class="row items-center">
+      <div class="lg:col-6 mb-10 lg:mb-0" data-aos="fade-right">
+        <div class="bg-blue-50 p-8 rounded-2xl border border-blue-100 relative">
+          <svg class="absolute top-6 left-6 w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.896 14.913 16 16.017 16H19.017C19.569 16 20.017 15.552 20.017 15V9C20.017 8.448 19.569 8 19.017 8H15.017C14.465 8 14.017 8.448 14.017 9V11C14.017 11.552 13.569 12 13.017 12H12.017V5H22.017V15C22.017 16.657 20.674 18 19.017 18H16.017C15.465 18 15.017 18.448 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.896 5.9126 16 7.0166 16H10.0166C10.5686 16 11.0166 15.552 11.0166 15V9C11.0166 8.448 10.5686 8 10.0166 8H6.0166C5.4646 8 5.0166 8.448 5.0166 9V11C5.0166 11.552 4.5686 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.657 11.6736 18 10.0166 18H7.0166C6.4646 18 6.0166 18.448 6.0166 19V21H5.0166Z" /></svg>
+          <p class="text-xl font-medium text-gray-800 italic relative z-10 pt-6">
+            "{{ .Params.quote_section.text }}"
+          </p>
+          <div class="mt-6 flex items-center">
+            <div>
+              <p class="font-bold text-gray-900">{{ .Params.quote_section.author }}</p>
+              <p class="text-sm text-gray-600">{{ .Params.quote_section.role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-6 lg:pl-12" data-aos="fade-left">
+        <h2 class="h2 mb-6">{{ .Params.challenges_section.title }}</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          {{ .Params.challenges_section.description }}
+        </p>
+        <ul class="space-y-4">
+          {{ range .Params.challenges_section.items }}
+          <li class="flex items-start">
+            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-red-100 flex items-center justify-center mt-1">
+              <svg class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-bold text-gray-900">{{ .title }}</h4>
+              <p class="text-gray-600">{{ .description }}</p>
+            </div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-slate-900 text-white overflow-hidden relative">
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+        <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs>
+        <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+
+  <div class="container relative z-10">
+    <div class="row items-center">
+      <div class="lg:col-7 mb-10 lg:mb-0">
+        <h2 class="h2 text-white mb-4">{{ .Params.security_section.title }} <span class="text-green-400">{{ .Params.security_section.title_highlight }}</span></h2>
+        <p class="text-lg text-gray-300 mb-8">
+          {{ .Params.security_section.description }}
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          {{ range .Params.security_section.features }}
+          <div class="bg-white/10 backdrop-blur-sm p-5 rounded-lg border border-white/10">
+            <h4 class="font-bold text-lg mb-2 flex items-center text-white">
+              <svg class="w-5 h-5 mr-2 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              {{ .title }}
+            </h4>
+            <p class="text-sm text-gray-300">{{ .description }}</p>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="lg:col-5 flex justify-center lg:justify-end">
+        <div class="text-center">
+            <button onclick="openTrialModal()" class="bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-8 rounded-lg shadow-lg transition transform hover:-translate-y-1">
+                {{ .Params.security_section.cta_text }}
+            </button>
+            <p class="mt-4 text-sm text-gray-400">{{ .Params.security_section.cta_subtext }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-16">
+        <h2 class="h2 mb-4">{{ .Params.use_cases_section.title }}</h2>
+        <p class="text-lg text-gray-600">{{ .Params.use_cases_section.description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 finance-use-cases">
+        {{ range $index, $element := .Params.use_cases_section.cases }}
+        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+            <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+               {{ if eq $index 0 }}
+               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01" /></svg>
+               {{ else if eq $index 1 }}
+               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+               {{ else if eq $index 2 }}
+               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+               {{ else }}
+               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+               {{ end }}
+            </div>
+            <h3 class="h4 mb-3">{{ .title }}</h3>
+            {{/*  <p class="text-gray-600 mb-4 text-sm"><strong>Used by:</strong> {{ .used_by }}</p>  */}}
+            <p class="text-gray-700">
+                <strong>The Challenge:</strong> {{ .challenge }}
+            </p>
+            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                {{ range .solution_points }}
+                <li class="flex items-start"><span class="text-green-500 mr-2 mt-0.5 shrink-0">✔</span> <span>{{ . | safeHTML }}</span></li>
+                {{ end }}
+            </ul>
+        </div>
+        {{ end }}
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section bg-white">
+    <div class="container">
+        <div class="text-center mb-12">
+          <h2 class="h2 mb-4">{{ .Params.explore_yourself.title }}</h2>
+        <p class="text-lg text-gray-600">{{ .Params.explore_yourself.description }}</p>
+        <iframe class="mt-10" width="100%" height="600px" src="{{ .Params.explore_yourself.videourl }}">
+        </iframe>
+
+        {{ with .Params.explore_yourself.button }}
+              <ul class="flex flex-wrap justify-center gap-4 pt-10">
+                {{ if .get_started.enable }}
+                  <li data-aos="fade-up-sm" data-aos-delay="100">
+                    <a
+                      class="btn-primary btn"
+                      target="_self"
+                      onclick="openTrialModal()"
+                      rel="noopener">
+                      {{ .get_started.label | markdownify }}
+                      <span class="sr-only">Details</span>
+                      <span class="icon-wrapper"
+                        ><span class="icon">
+                          <svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                          </svg>
+                        </span>
+                        <span class="icon" aria-hidden="true"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                          </svg>
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                {{ end }}
+                {{ if .learn_more.enable }}
+                  <li data-aos="fade-up-sm" data-aos-delay="150">
+                    <a
+                      class="btn-outline-primary btn "
+                      href="{{ .learn_more.link }}"
+                      target="_self"
+                      rel="noopener">
+                      {{ .learn_more.label | markdownify }}
+                      <span class="sr-only">Details</span
+                      ><span class="icon-wrapper"
+                        ><span class="icon"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                        ><span class="icon" aria-hidden="true"
+                          ><svg
+                            stroke="currentColor"
+                            fill="currentColor"
+                            stroke-width="0"
+                            viewBox="0 0 448 512"
+                            height="1em"
+                            width="1em"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                      ></span>
+                    </a>
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+            <p class="mt-4">{{ .Params.explore_yourself.disclaimer }}</p>
+
+
+        </div>
+
+        <div class="overflow-x-auto relative shadow-lg sm:rounded-lg max-w-4xl mx-auto">
+
+        </div>
+    </div>
+</section>
+
+{{ partial "components/accordion.html" . }}
+
+{{ partial "call-to-action.html" . }}
+
+<div id="modal-backdrop" class="hidden fixed inset-0 z-40 bg-primary opacity-50" onclick="closeTrialModal()"></div>
+
+<div id="trial-modal" aria-hidden="true" class="hidden fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 max-h-full flex items-center justify-center">
+    <div class="relative w-full max-w-md max-h-full my-auto">
+        <div class="relative bg-white rounded-lg shadow-xl">
+            <div class="flex items-center justify-between p-4 rounded-t">
+                <h3 id="modal-title" class="text-xl font-semibold text-gray-900">
+                    Start Enterprise Evaluation
+                </h3>
+                <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="closeTrialModal()">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                </button>
+            </div>
+            <div class="flex items-center justify-between p-4 pt-0 pb-0">
+              <p class="text-sm text-gray-600">Request access to JobRunr Pro Enterprise including compliance documentation.</p>
+            </div>
+            <div class="p-6">
+                <form id="trial-form" action="#" method="POST">
+                    <div id="form-content">
+                        <div class="mb-4">
+                            <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email</label>
+                            <input type="email" id="business-email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="you@insurer.com" required>
+                        </div>
+                        <div class="mb-6">
+                            <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Company</label>
+                            <input type="text" id="company" name="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Insurance Company Name" required>
+                            <input type="text" name="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
+                        </div>
+                        <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Request Access</button>
+                    </div>
+                </form>
+
+                <div id="trial-success-message" class="hidden text-center">
+                    <p class="text-lg font-medium text-green-600 mb-4">
+                        Request Sent Successfully!
+                    </p>
+                    <p class="text-gray-700">
+                        Our Enterprise team will contact you shortly with your credentials and compliance documents.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  function openTrialModal() {
+    document.getElementById('trial-modal').classList.remove('hidden');
+    document.getElementById('modal-backdrop').classList.remove('hidden');
+  }
+
+  function closeTrialModal() {
+    document.getElementById('trial-modal').classList.add('hidden');
+    document.getElementById('modal-backdrop').classList.add('hidden');
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeTrialModal(); });
+
+    document.getElementById('trial-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const formContent = document.getElementById('form-content');
+        const successMessage = document.getElementById('trial-success-message');
+        const modalTitle = document.getElementById('modal-title');
+
+        const submitButton = form.querySelector('button[type="submit"]');
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending...';
+
+        const formData = {
+            email: form.elements.email.value,
+            company: form.elements.company.value,
+            form: 'enterprise_insurance_poc'
+        };
+
+        const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
+
+        fetch(n8nWebhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        })
+        .then(response => {
+            if (response.ok) {
+                formContent.classList.add('hidden');
+                successMessage.classList.remove('hidden');
+                modalTitle.textContent = 'Success!';
+            } else {
+                throw new Error('Webhook failed');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            submitButton.disabled = false;
+            submitButton.textContent = 'Request Access';
+            alert('There was an error. Please contact sales@jobrunr.io directly.');
+        });
+    });
+  });
+</script>
+
+{{ end }}
