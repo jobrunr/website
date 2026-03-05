@@ -76,12 +76,12 @@ code_section:
             List&lt;float[]&gt; embeddings = aiModel.embed(doc.getContent());
             vectorStore.save(doc.getId(), embeddings);
         }
-    - title: "Responsive Vector Search"
+    - title: "Keep Your API Fast"
       filename: "TicketService.java"
-      description: "Offload heavy embedding computation to the background so your API stays responsive. When a support ticket is resolved, its embedding is computed asynchronously. New tickets instantly find similar resolved ones."
+      description: "AI computation is too slow for the request path. Offload it to the background and respond instantly. In this example, a support ticket gets resolved and the embedding is computed asynchronously while the API returns in milliseconds."
       highlights:
-        - "<strong>Fire-and-forget</strong> embedding computation on ticket resolution"
-        - "<strong>API responds immediately</strong> while JobRunr handles the heavy lifting"
+        - "<strong>Fire-and-forget</strong> heavy computation on any data change"
+        - "<strong>API responds instantly</strong> while JobRunr handles the heavy lifting"
         - "<strong>Works with</strong> Oracle AI Vector Search, pgvector, any vector DB"
       links:
         - label: "Semantic Search tutorial"
