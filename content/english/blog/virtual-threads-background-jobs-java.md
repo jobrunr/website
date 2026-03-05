@@ -3,8 +3,9 @@ title: "Virtual Threads and Background Jobs: A Practical Guide for Java Develope
 description: "Learn how Java 21 virtual threads change background job processing. Understand when to use them, common pitfalls, and how to maximize throughput on I/O bound workloads."
 keywords: ["virtual threads java", "java 21 virtual threads", "project loom", "virtual threads background jobs", "java concurrent processing"]
 image: /blog/virtual-threads-background-jobs.webp
-date: 2026-03-03T12:00:00+02:00
+date: 2026-04-03T12:00:00+02:00
 author: "Nicholas D'hondt"
+draft: true
 tags:
   - blog
   - virtual threads
