@@ -129,6 +129,18 @@ Here is how you might integrate External Jobs in a Spring Boot application with 
 {{< codeblock >}}
 ```java
 @Service
+public class OrderService {
+
+    public void processOrder(String orderId) {
+        // Create an external job with a deterministic ID based on the order
+        BackgroundJob.create(anExternalJob()
+                .withId(JobId.fromIdentifier("order-" + orderId))
+                .withName("Process payment for order %s".formatted(orderId))
+                .withDetails(() -> paymentService.initiatePayment(orderId)));
+    }
+}
+
+@Service
 public class PaymentService {
 
     public void initiatePayment(String orderId) {
@@ -143,7 +155,8 @@ public class PaymentWebhookController {
 
     @PostMapping("/webhooks/payment")
     public ResponseEntity<Void> handlePaymentWebhook(@RequestBody PaymentEvent event) {
-        UUID jobId = jobIdStore.getJobIdForOrder(event.getOrderId());
+        // Reconstruct the job ID from the order ID, no need for a separate job ID store
+        UUID jobId = JobId.fromIdentifier("order-" + event.getOrderId());
 
         if (event.isSuccessful()) {
             BackgroundJob.signalExternalJobSucceeded(jobId, event.getTransactionId());
