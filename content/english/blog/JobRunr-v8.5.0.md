@@ -2,9 +2,8 @@
 title: "JobRunr & JobRunr Pro v8.5.0"
 description: "Introducing External Jobs, Dashboard Audit Logging, simplified Kotlin support, and faster startup times."
 image: "/blog/thubm-jr-v-850.png"
-date: 2026-03-05T12:00:00+02:00
+date: 2026-03-06T00:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
 tags:
   - blog
   - release
