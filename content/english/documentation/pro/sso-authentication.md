@@ -78,3 +78,30 @@ By default, JobRunr gives authenticated users the rights to perform any availabl
 
 See [the OpenID Authentication guide](/en/guides/authentication/openid-authentication/#mapping-claims-to-jobrunr-authorization-rules) on how to implement a custom `JobRunrUserProvider` to realize these restrictions.
 
+## OpenId Connect Providers
+
+Here you can find relevant information to setup your OpenId Connect Provider.
+
+### Microsoft Azure Entra OpenId
+To use Microsoft Azure Entra OpenId, there are some special settings that need to configured:
+- When registering JobRunr as an application for Entra, select `Web` for platform type and use the following redirect URI: `https://<your-jobrunr-dashboard-hostname>/oidc/auth_callback`
+- Under Certificates and Secrets, on the Client Secrets tab, create a new Client Secret and be sure to copy the secret value for later
+- To make sure Microsoft Azure Entra OpenId provides valid OpenID tokens, we need to expose an API. To do so, go to the Expose an API page and add a scope called `access_as_user`.
+- Next, we need the connect the created to scope to an authorized client application. On the Expose an API page, add a client application where you connect the client id and the authorized scope. The authorized scope will have the form of `api://<client-id>/access_as_user`
+- We now need to configure the API permissions. Navigate to the API permissions page and add the `openid`, `email` and `User.Read` permissions.
+- Last but not least, we must make sure Azure returns AccessTokens with the v2 format. On the Manifest page, on the tab 'Microsoft Graph App Manifest (New)' search for `requestedAccessTokenVersion` and set it to 2.
+- In your JobRunr OpenId settings, you now need to configure the following settings:
+
+<figure>
+
+```properties
+jobrunr.dashboard.openid-authentication.openid-configuration-url=<azure-entra-openid-configuration-endpoint> # available on Entra Overview Page under endpoints
+jobrunr.dashboard.openid-authentication.client-id=<client-id>
+jobrunr.dashboard.openid-authentication.client-secret=<client-secret> # the client-secret from step 2
+jobrunr.dashboard.openid-authentication.scope=openid api://<client-id>/access_as_user
+```
+</figure>
+
+##### References:
+- [How do I configure Microsoft Azure Entra for JobRunr Pro OpenId integration](https://github.com/jobrunr/jobrunr-pro/discussions/830)
+- [Making Azure AD OIDC Compliant](https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff)
