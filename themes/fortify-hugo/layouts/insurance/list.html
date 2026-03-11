@@ -355,8 +355,9 @@
                 <form id="trial-form" action="#" method="POST">
                     <div id="form-content">
                         <div class="mb-4">
-                            <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email</label>
+                            <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email (no personal email)</label>
                             <input type="email" id="business-email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="you@insurer.com" required>
+                            <p id="trial-email-error" class="mt-1 text-sm text-red-500" style="display: none;"></p>
                         </div>
                         <div class="mb-6">
                             <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Company</label>
@@ -381,6 +382,39 @@
 </div>
 
 <script>
+  const personalEmailDomains = [
+      'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.fr', 'hotmail.de',
+      'outlook.com', 'outlook.fr', 'outlook.de', 'live.com', 'live.co.uk', 'live.fr', 'live.nl',
+      'msn.com', 'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'yahoo.de', 'yahoo.co.in',
+      'ymail.com', 'rocketmail.com', 'aol.com', 'icloud.com', 'me.com', 'mac.com',
+      'mail.com', 'email.com', 'protonmail.com', 'proton.me', 'pm.me',
+      'zoho.com', 'yandex.com', 'yandex.ru', 'gmx.com', 'gmx.de', 'gmx.net',
+      'web.de', 'mail.ru', 'inbox.com', 'fastmail.com', 'tutanota.com', 'tuta.com',
+      'hey.com', 'qq.com', '163.com', '126.com', 'naver.com', 'hanmail.net',
+      'rediffmail.com', 'free.fr', 'laposte.net', 'orange.fr', 'wanadoo.fr',
+      'seznam.cz', 'wp.pl', 'o2.pl', 'interia.pl', 'libero.it', 'virgilio.it',
+      't-online.de', 'arcor.de', 'freenet.de', 'posteo.de', 'mailbox.org'
+  ];
+
+  function isPersonalEmail(email) {
+      const domain = email.split('@')[1]?.toLowerCase();
+      return domain && personalEmailDomains.includes(domain);
+  }
+
+  const trialEmailInput = document.getElementById('business-email');
+  const trialEmailError = document.getElementById('trial-email-error');
+
+  trialEmailInput.addEventListener('input', function() {
+      if (this.value && isPersonalEmail(this.value)) {
+          trialEmailError.textContent = 'Please use your professional email address instead of a personal one.';
+          trialEmailError.style.display = 'block';
+          this.setCustomValidity('Please use a professional email address.');
+      } else {
+          trialEmailError.style.display = 'none';
+          this.setCustomValidity('');
+      }
+  });
+
   function openTrialModal() {
     document.getElementById('trial-modal').classList.remove('hidden');
     document.getElementById('modal-backdrop').classList.remove('hidden');
@@ -396,6 +430,13 @@
 
     document.getElementById('trial-form').addEventListener('submit', function(e) {
         e.preventDefault();
+
+        if (isPersonalEmail(trialEmailInput.value)) {
+            trialEmailError.textContent = 'Please use your professional email address instead of a personal one.';
+            trialEmailError.style.display = 'block';
+            trialEmailInput.focus();
+            return;
+        }
 
         const form = e.target;
         const formContent = document.getElementById('form-content');

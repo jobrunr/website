@@ -32,8 +32,9 @@
             <input type="hidden" id="form-context" value=" {{ .formType }}">
             <div class="col-12">
               <label for="quote-email" class="form-label">
-                {{ T "email" }} <span class="text-red-500">*</span></label><input id="quote-email" name="email"
-                class="form-input" placeholder="youremail@email.com" required="" type="email" />
+                {{ T "email" }} (professional) <span class="text-red-500">*</span></label><input id="quote-email" name="email"
+                class="form-input" placeholder="you@yourcompany.com" required="" type="email" />
+              <p id="quote-email-error" class="mt-1 text-sm text-red-500" style="display: none;"></p>
             </div>
             <div class="col-12">
               <label for="quote-company-name" class="form-label">
@@ -58,25 +59,65 @@
   </div>
 </section>
 <script>
+const personalEmailDomains = [
+    'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.fr', 'hotmail.de',
+    'outlook.com', 'outlook.fr', 'outlook.de', 'live.com', 'live.co.uk', 'live.fr', 'live.nl',
+    'msn.com', 'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'yahoo.de', 'yahoo.co.in',
+    'ymail.com', 'rocketmail.com', 'aol.com', 'icloud.com', 'me.com', 'mac.com',
+    'mail.com', 'email.com', 'protonmail.com', 'proton.me', 'pm.me',
+    'zoho.com', 'yandex.com', 'yandex.ru', 'gmx.com', 'gmx.de', 'gmx.net',
+    'web.de', 'mail.ru', 'inbox.com', 'fastmail.com', 'tutanota.com', 'tuta.com',
+    'hey.com', 'qq.com', '163.com', '126.com', 'naver.com', 'hanmail.net',
+    'rediffmail.com', 'free.fr', 'laposte.net', 'orange.fr', 'wanadoo.fr',
+    'seznam.cz', 'wp.pl', 'o2.pl', 'interia.pl', 'libero.it', 'virgilio.it',
+    't-online.de', 'arcor.de', 'freenet.de', 'posteo.de', 'mailbox.org'
+];
+
+function isPersonalEmail(email) {
+    const domain = email.split('@')[1]?.toLowerCase();
+    return domain && personalEmailDomains.includes(domain);
+}
+
+const emailInput = document.getElementById('quote-email');
+const emailError = document.getElementById('quote-email-error');
+
+emailInput.addEventListener('input', function() {
+    if (this.value && isPersonalEmail(this.value)) {
+        emailError.textContent = 'Please use your professional email address instead of a personal one.';
+        emailError.style.display = 'block';
+        this.setCustomValidity('Please use a professional email address.');
+    } else {
+        emailError.style.display = 'none';
+        this.setCustomValidity('');
+    }
+});
+
 document.getElementById('n8n-quote-form').addEventListener('submit', function(event) {
     // 1. Prevent the default form submission
     event.preventDefault();
 
-    // 2. Get all the necessary elements
+    // 2. Check for personal email before submitting
+    if (isPersonalEmail(emailInput.value)) {
+        emailError.textContent = 'Please use your professional email address instead of a personal one.';
+        emailError.style.display = 'block';
+        emailInput.focus();
+        return;
+    }
+
+    // 3. Get all the necessary elements
     const formContainer = document.getElementById('n8n-quote-form-container');
     const form = event.target;
     const submitButton = document.getElementById('n8n-quote-submit');
     const errorMessage = document.getElementById('n8n-quote-error');
-    
+
     // Get all form input elements
-    const emailInput = document.getElementById('quote-email');
     const companyInput = document.getElementById('quote-company-name');
     const messageInput = document.getElementById('quote-message');
     const usernameInput = document.getElementById('quote-username');
 
-    const contextInput = document.getElementById('form-context'); // The new hidden field
+    const contextInput = document.getElementById('form-context');
 
-    const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe'; 
+    const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
 
     // 4. Prepare the data to send (as JSON)
     const formData = {

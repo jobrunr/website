@@ -10,6 +10,9 @@ menu:
     weight: 21
 ---
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [How to Set Up Carbon Aware Processing in JobRunr](https://www.youtube.com/watch?v=0IC3S6dZgaM) on YouTube.
+
 Carbon Aware Job Processing is a unique JobRunr feature that enables the scheduling of (recurring) jobs at the optimal carbon time; when the lowest amount of CO2 is being generated. This is made possible by integrating with external energy **data providers** such as the [ENTSO-E](https://www.entsoe.eu/) services for the European Union that provide actual energy data for the coming day(s). 
 
 By adding a margin to the schedule of your jobs, JobRunr will execute them when the lowest amount of CO2 is being generated. A few examples:

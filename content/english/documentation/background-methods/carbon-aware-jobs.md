@@ -12,6 +12,9 @@ menu:
     weight: 31
 ---
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [How to Set Up Carbon Aware Processing in JobRunr](https://www.youtube.com/watch?v=0IC3S6dZgaM) on YouTube.
+
 > **Configuration note**: In order to enable carbon aware capabilities for your jobs, please correctly setup the [Carbon Aware Job Processing Configuration]({{< ref "documentation/configuration/carbon-aware.md" >}}).
 
 Adding a margin to your regular (recurring) schedule allows your jobs to be executed at the optimal time: when the CO2 footprint for your local region is the lowest. Instead of immediately scheduling a job, it will be created in a new _pending_ mode and scheduled as soon as JobRunr receives carbon intensity data to optimize the carbon footprint of your job. 

@@ -8,6 +8,9 @@ tags:
     - Job scheduling
 ---
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [How to Set Up Carbon Aware Processing in JobRunr](https://www.youtube.com/watch?v=0IC3S6dZgaM) on YouTube.
+
 In this guide, we explore how to schedule (recurring) jobs to optimize the CO2 footprint of your server. If you haven't yet familiarized yourself with basic concepts of JobRunr such as scheduling a one-off job and a recurring job using a cron expression, take a look at the [Create and schedule jobs with JobRunr using only a Java lambda](/en/guides/intro/java-lambda/) guide first before delving into this one that assumes basic job scheduling knowledge. 
 
 ## The Use Case
