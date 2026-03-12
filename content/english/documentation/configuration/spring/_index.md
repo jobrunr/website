@@ -92,7 +92,7 @@ jobrunr.background-job-server.metrics.enabled=true # Micrometer integration: rep
 jobrunr.dashboard.enabled=false
 jobrunr.dashboard.port=8000 #the port on which to start the dashboard
 jobrunr.dashboard.username= # The username for the basic authentication which protects the dashboard. By default, no authentication is required
-jobrunr.dashboard.password=8000 # The password for the basic authentication user which protects the dashboard
+jobrunr.dashboard.password=# The password for the basic authentication user which protects the dashboard
 jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
 ```
 
