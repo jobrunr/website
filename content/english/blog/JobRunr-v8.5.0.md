@@ -171,6 +171,8 @@ public class PaymentWebhookController {
 
 The beauty of this approach: you get all of JobRunr's built-in retry logic, dashboard visibility, and state management without building any of it yourself.
 
+For a deeper dive with full working examples, check out the [External Jobs guide]({{< ref "guides/advanced/external-jobs" >}}).
+
 ---
 
 ## Dashboard Audit Logging (Pro)

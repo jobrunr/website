@@ -65,6 +65,8 @@ That's the entire API. Let's see it in action with two real-world scenarios.
 
 ## Scenario 1: GPU Video Generation with Polling
 
+![](/guides/External-jobs-gpu-example.png "A GPU video generation example using External Jobs")
+
 Imagine you're building an application that generates AI videos using a GPU cloud provider. The GPU work takes 10 to 30 seconds, far too long to keep a worker thread waiting. Here's how External Jobs handle this cleanly.
 
 ### Step 1: Create the External Job
