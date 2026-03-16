@@ -9,7 +9,7 @@ tags:
 hideFrameworkSelector: true
 ---
 
-In the real world, not every job completes inside your JVM. Some jobs depend on external systems, a GPU finishing an AI inference, a human approving content, a payment provider confirming a transaction. Traditional background job schedulers force you to keep a worker thread alive while waiting for these external results, wasting resources and limiting scalability.
+In the real world, not every job completes inside your JVM. Some jobs depend on external systems: a GPU finishing an AI inference, a human approving content, a payment provider confirming a transaction. Traditional background job schedulers force you to keep a worker thread alive while waiting for these external results, wasting resources and limiting scalability.
 
 JobRunr Pro's **External Jobs** solve this by decoupling the _trigger_ (starting the work) from the _completion signal_ (marking it done). The job is created and triggered by JobRunr, but its completion is signaled from outside: by a poller, a webhook handler, or even a human clicking a button.
 
@@ -32,33 +32,37 @@ The key insight: between PROCESSED and the final state, the job is just a row in
 
 ## The External Jobs API
 
-Creating an External Job uses the `JobBuilder` fluent API:
+Creating an External Job uses the `JobBuilder` fluent API. `BackgroundJob.create()` returns the assigned `JobId`, so you never need to generate your own key:
 
 ```java
 import static org.jobrunr.scheduling.JobBuilder.anExternalJob;
 
-BackgroundJob.create(anExternalJob()
-        .withId(JobId.fromIdentifier("my-unique-key"))
+var jobId = BackgroundJob.create(anExternalJob()
         .withName("Descriptive Job Name")
         .withLabels("category", "subcategory")
         .withQueue("high-prio")
-        .withDetails(() -> myService.triggerExternalWork("my-unique-key")));
+        .withDetails(() -> myService.triggerExternalWork()));
 ```
 
-The `withDetails` lambda defines the **trigger method**. This runs on a JobRunr worker thread and should _start_ the external work, not wait for it to finish.
+The `withDetails` lambda defines the **trigger method**. This runs on a JobRunr worker thread and should _start_ the external work, not wait for it to finish. Inside the trigger method, you can access the current job's ID via `ThreadLocalJobContext`:
+
+```java
+import org.jobrunr.server.runner.ThreadLocalJobContext;
+
+public void triggerExternalWork() {
+    UUID jobId = ThreadLocalJobContext.getJobContext().getJobId();
+    // use jobId to correlate the external work with this job
+}
+```
 
 When the external work completes, signal the job from anywhere in your application:
 
 ```java
 // On success
-BackgroundJob.signalExternalJobSucceeded(
-        JobId.fromIdentifier("my-unique-key"),
-        "Work completed successfully");
+BackgroundJob.signalExternalJobSucceeded(jobId, "Work completed successfully");
 
 // On failure
-BackgroundJob.signalExternalJobFailed(
-        JobId.fromIdentifier("my-unique-key"),
-        "Work failed: reason");
+BackgroundJob.signalExternalJobFailed(jobId, "Work failed: reason");
 ```
 
 That's the entire API. Let's see it in action with two real-world scenarios.
@@ -71,37 +75,42 @@ Imagine you're building an application that generates AI videos using a GPU clou
 
 ### Step 1: Create the External Job
 
-When a user submits a video prompt, create an External Job whose trigger calls the GPU API:
+When a user submits a video prompt, create an External Job whose trigger calls the GPU API. Notice that we don't generate our own job key. `BackgroundJob.create()` returns the assigned ID:
 
 ```java
 @Service
 public class GpuJobService {
 
     private final ReplicateService replicate;
-    private final Map<String, GpuJob> activeJobs = new ConcurrentHashMap<>();
+    private final Map<UUID, GpuJob> activeJobs = new ConcurrentHashMap<>();
 
-    public void launch(String prompt) {
-        String jobKey = "gpu-" + UUID.randomUUID();
-
-        BackgroundJob.create(anExternalJob()
-                .withId(JobId.fromIdentifier(jobKey))
+    public GpuJob launch(String prompt) {
+        var jobId = BackgroundJob.create(anExternalJob()
                 .withName("GPU Video: " + prompt)
                 .withLabels("gpu", "replicate")
                 .withQueue("high-prio")
-                .withDetails(() -> triggerPrediction(jobKey, prompt)));
+                .withDetails(() -> triggerPrediction(prompt)));
+
+        UUID jobKey = jobId.asUUID();
+        var job = new GpuJob(jobKey, prompt, null, "queued");
+        activeJobs.put(jobKey, job);
+        return job;
     }
 }
 ```
 
 ### Step 2: Implement the Trigger Method
 
-The trigger starts the GPU prediction and returns immediately. The job transitions from PROCESSING to PROCESSED:
+The trigger starts the GPU prediction and returns immediately. The job transitions from PROCESSING to PROCESSED. Inside the trigger, `ThreadLocalJobContext` provides access to the current job's ID:
 
 ```java
 /** Called by JobRunr when the External Job is picked up by a worker. */
-public void triggerPrediction(String jobKey, String prompt) {
+public void triggerPrediction(String prompt) {
+    var jobContext = ThreadLocalJobContext.getJobContext();
+    UUID jobKey = jobContext.getJobId();
+
     var prediction = replicate.createPrediction(prompt);
-    activeJobs.put(jobKey, new GpuJob(jobKey, prompt, prediction.id()));
+    activeJobs.put(jobKey, new GpuJob(jobKey, prompt, prediction.id(), prediction.status()));
     ensurePollerRunning();
 }
 ```
@@ -112,25 +121,25 @@ At this point, the worker thread is freed. The job sits in PROCESSED state while
 
 ### Step 3: Poll for Completion and Signal
 
-A separate poller checks the GPU provider's API and signals the External Job when the work finishes:
+A separate poller checks the GPU provider's API and signals the External Job when the work finishes. The signal methods accept a `UUID` directly:
 
 ```java
 public void pollPredictions() {
     for (var entry : activeJobs.entrySet()) {
-        String jobKey = entry.getKey();
+        UUID jobKey = entry.getKey();
         GpuJob job = entry.getValue();
 
         var prediction = replicate.getPrediction(job.predictionId());
 
         if (prediction.succeeded()) {
             BackgroundJob.signalExternalJobSucceeded(
-                    JobId.fromIdentifier(jobKey),
+                    jobKey,
                     "Video generated in %.1fs".formatted(prediction.predictTimeSeconds()));
             activeJobs.remove(jobKey);
 
         } else if (prediction.isTerminal()) {
             BackgroundJob.signalExternalJobFailed(
-                    JobId.fromIdentifier(jobKey),
+                    jobKey,
                     "Prediction failed: " + prediction.error());
             activeJobs.remove(jobKey);
         }
@@ -146,86 +155,84 @@ public void pollPredictions() {
 
 Some workflows require a human decision before a job can complete. Consider a content moderation pipeline: AI generates marketing copy, but a human must approve it before publication. This could take minutes, hours, or even days, and no job scheduler should block a thread for that.
 
+What makes this scenario interesting is that you can use **JobRunr itself as the source of truth**. Instead of maintaining a separate database table for approval requests, you store the generated content as job metadata and query the `StorageProvider` to list pending reviews. Labels let you filter approval jobs from other job types.
+
 ### Step 1: Create the External Job
 
-When a user requests AI-generated content, create an External Job. The trigger method generates the content, and then the job parks itself waiting for human review:
+When a user requests AI-generated content, create an External Job. The trigger method receives a `JobContext` parameter (auto-injected by JobRunr) to store metadata on the job:
 
 ```java
 @Service
 public class AiApprovalService {
 
-    private final ApprovalRepository repository;
-
     public void createReviewRequest(String productName) {
-        String jobKey = "review-" + UUID.randomUUID();
-
-        var request = new ApprovalRequest();
-        request.setJobKey(jobKey);
-        request.setProductName(productName);
-        request.setStatus("ANALYZING");
-        request = repository.save(request);
-
-        Long requestId = request.getId();
-
         BackgroundJob.create(anExternalJob()
-                .withId(JobId.fromIdentifier(jobKey))
                 .withName("AI Content Review: " + productName)
                 .withLabels("ai-review", productName)
                 .withQueue("high-prio")
                 .withAmountOfRetries(0)
-                .withDetails(() -> analyzeContent(requestId)));
+                .withDetails(() -> analyzeContent(productName, JobContext.Null)));
     }
 }
 ```
 
-### Step 2: The Trigger Generates Content
+No database table, no entity, no repository. The job itself holds everything we need.
 
-The trigger method runs the AI analysis. When it completes, the job automatically enters PROCESSED state, parked and waiting:
+### Step 2: The Trigger Generates Content and Stores It as Metadata
+
+The trigger method runs the AI analysis and saves the results as job metadata via `JobContext.saveMetadata()`. When it completes, the job automatically enters PROCESSED state, parked and waiting:
 
 ```java
 /** Called by JobRunr. AI generates marketing copy and a confidence score. */
-@Transactional
-public void analyzeContent(Long requestId) {
-    var request = repository.findById(requestId).orElseThrow();
-
-    String content = generateMarketingCopy(request.getProductName());
+public void analyzeContent(String productName, JobContext jobContext) {
+    String content = generateMarketingCopy(productName);
     double confidence = calculateConfidenceScore(content);
+    String recommendation = confidence > 0.85 ? "PUBLISH" : "NEEDS_REVIEW";
 
-    request.setContent(content);
-    request.setAiConfidence(confidence);
-    request.setAiRecommendation(confidence > 0.85 ? "PUBLISH" : "NEEDS_REVIEW");
-    request.setStatus("PENDING_REVIEW");
-    repository.save(request);
+    jobContext.saveMetadata("content", content);
+    jobContext.saveMetadata("aiConfidence", confidence);
+    jobContext.saveMetadata("aiRecommendation", recommendation);
 }
 ```
 
-### Step 3: Human Signals the Job
+The metadata is stored alongside the job in JobRunr's database. You can access it later when querying jobs via the `StorageProvider`.
 
-When a human reviewer clicks "Approve" or "Decline" in your UI, signal the External Job:
+### Step 3: List Pending Reviews via StorageProvider
+
+To build the approval dashboard, query the `StorageProvider` for PROCESSED jobs with the `ai-review` label. The `JobSearchRequest` API lets you filter by state and label in a single call:
 
 ```java
-@Transactional
-public void approve(Long requestId) {
-    var request = repository.findById(requestId).orElseThrow();
+private final StorageProvider storageProvider;
 
-    BackgroundJob.signalExternalJobSucceeded(
-            JobId.fromIdentifier(request.getJobKey()),
-            "Content approved by human reviewer");
+public List<ReviewItem> getPendingReviews() {
+    var request = aJobSearchRequest(StateName.PROCESSED)
+            .withLabel("ai-review").build();
+    return storageProvider.getJobList(request, Paging.AmountBasedList.descOnUpdatedAt(50))
+            .stream()
+            .map(job -> {
+                String content = (String) job.getMetadata().get("content");
+                double confidence = (double) job.getMetadata().get("aiConfidence");
+                String recommendation = (String) job.getMetadata().get("aiRecommendation");
+                String productName = job.getLabels().get(1);
+                return new ReviewItem(job.getId(), productName, content, confidence, recommendation);
+            })
+            .toList();
+}
+```
 
-    request.setStatus("APPROVED");
-    repository.save(request);
+This replaces the need for a custom database table entirely. JobRunr's storage, labels, and metadata give you everything you need to power the approval UI.
+
+### Step 4: Human Signals the Job
+
+When a human reviewer clicks "Approve" or "Decline" in your UI, signal the External Job using its UUID:
+
+```java
+public void approve(UUID jobId) {
+    BackgroundJob.signalExternalJobSucceeded(jobId, "Content approved by human reviewer");
 }
 
-@Transactional
-public void decline(Long requestId) {
-    var request = repository.findById(requestId).orElseThrow();
-
-    BackgroundJob.signalExternalJobFailed(
-            JobId.fromIdentifier(request.getJobKey()),
-            "Content declined by human reviewer");
-
-    request.setStatus("DECLINED");
-    repository.save(request);
+public void decline(UUID jobId) {
+    BackgroundJob.signalExternalJobFailed(jobId, "Content declined by human reviewer");
 }
 ```
 
@@ -257,7 +264,9 @@ With webhooks, the external system calls your endpoint when done, and your webho
 
 ## Conclusion
 
-External Jobs bring any external process under JobRunr's umbrella. Whether it's GPU inference, human approvals, third-party API callbacks, or payment confirmations, you get the same dashboard, the same monitoring, and the same retry/failure handling, but for work that happens outside your JVM. No worker threads are wasted, no timeouts are ticking, and the full job lifecycle is tracked and visible.
+External Jobs bring any external process under JobRunr's umbrella. Whether it's GPU inference, human approvals, third-party API callbacks, or payment confirmations, you get the same dashboard, the same monitoring, and the same retry/failure handling for work that happens outside your JVM. No worker threads are wasted, no timeouts are ticking, and the full job lifecycle is tracked and visible.
+
+Combined with `StorageProvider` queries, labels, and job metadata, External Jobs can even replace custom database tables for workflows like approval queues. JobRunr becomes both the scheduler and the source of truth.
 
 ## Resources
 
