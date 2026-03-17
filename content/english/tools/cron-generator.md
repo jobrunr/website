@@ -36,7 +36,7 @@ skip_meta: true
             </div>
         </div>
         <div class="cron-fields">
-            <button class="cron-btn btn-outline-primary btn" onclick="copyToClipboard()">
+            <button class="cron-btn btn-outline-primary btn" id="copyButton">
                 Copy Expression
             </button>
         </div>
@@ -47,18 +47,37 @@ skip_meta: true
                 <p>*</p>
                 <p>any value</p>
                 <p>,</p>
-                <p>value list separator</p>
+                <p>value list separator (e.g. 2,5)</p>
+                <p>-</p>
+                <p>range of values (e.g. 3-7)</p>
+                <p>/</p>
+                <p>step values (e.g. 2/3)</p>
             </div>
         </div>
+    </div>
+    <div class="runs-container">
+        <h4>Next 5 executions</h4>
+        <table class="datatable runs-table" id="nextRunsTable">
+            <tbody></tbody>
+        </table>
     </div>
 </div>
 
 <script>
-    const generalHints = [["*", "any value"], [",", "value list separator"], ["-", "range of values"], ["/", "step values"]];
-    
+    const generalHints = [["*", "any value"], [",", "value list separator (e.g. 2,5)"], ["-", "range of values (e.g. 3-7)"], ["/", "step values (e.g. 2/3)"]];
+    const minuteHints = [["0-59", "allowed values"]];
+    const hourHints = [["0-23", "allowed values"]];
+    const dayHints = [["0-31", "allowed values"], ["xW", "nearest weekday to x days after the first day of the month"], ["LW", "last weekday of the month"], ["L", "last day of the month"]];
+    const monthHints = [["1-12", "allowed values"], ["JAN - DEC", "alternative single values"]];
+    const dayOfWeekHints = [["0-6", "allowed values"], ["SUN - SAT", "alternative single values"], ["xL", "x days before the end of the month (incompatible with the same in the day field)"]];
+    const hintsLists = [minuteHints, hourHints, dayHints, monthHints, dayOfWeekHints];
+
     const cronInputField = document.getElementById("cronInput");
     const errorMessage = document.getElementById("errorMessage");
     const cronDescription = document.getElementById("cronDescription");
+    const nextRunsTable = document.getElementById("nextRunsTable").getElementsByTagName("tbody")[0];
+    const hintGrid = document.getElementById("hintGrid");
+    const copyButton = document.getElementById("copyButton");
     
     const backendUrl = "http://localhost:8080/api/";
 
@@ -66,13 +85,39 @@ skip_meta: true
         parseCron(cronInputField.value);
     });
 
+    ["click", "keyup"].forEach((e) => {
+        cronInputField.addEventListener(e, (event) => {
+            showHints(event);
+        });
+    });
+
+    cronInputField.addEventListener("blur", () => {
+        resetHints();
+    });
+
+    copyButton.addEventListener("click", () => {
+        navigator.clipboard.writeText(cronInputField.value.trim()).then(() => {
+            const original = copyButton.innerHTML;
+            copyButton.innerHTML = '✓ Copied!';
+            setTimeout(() => copyButton.innerHTML = original, 2000);
+        });
+    });
+
     async function parseCron(expression) {
         const sections = expression.trim().split(/\s+/);
         if (sections.length !== 5) {
-            console.log("Too short");
+            errorMessage.innerHTML = `Your cron expression is too short`;
+            cronDescription.innerHTML = "";
+            errorMessage.classList.remove("hidden");
             return;
         }
-        console.log(expression);
+
+        document.getElementById("field-minute").innerText = sections[0].trim();
+        document.getElementById("field-hour").innerText = sections[1].trim();
+        document.getElementById("field-day").innerText = sections[2].trim();
+        document.getElementById("field-month").innerText = sections[3].trim();
+        document.getElementById("field-weekday").innerText = sections[4].trim();
+
         let nextRuns;
         const response = await fetch(backendUrl + "evaluate-expression?expression=" + expression);
         const body = await response.json();
@@ -87,9 +132,15 @@ skip_meta: true
             } else {
                 cronDescription.innerHTML = "";
             }
+
+            nextRunsTable.innerHTML = "";
+            for (const run of nextRuns) {
+                const date = new Date(run);
+                const dateFormat = {weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
+                nextRunsTable.innerHTML += `<tr><td>${date.toLocaleDateString("en-GB", dateFormat)}</td></tr>`
+            }
         } else {
             if (body.toString().toLowerCase().startsWith("invalid")) {
-                console.log(body.toString());
                 const originalString = body.toString();
                 let cleanString = "The ";
                 cleanString += originalString.split(' ')[1].replaceAll("_", " ");
@@ -108,8 +159,27 @@ skip_meta: true
             }
             cronDescription.innerHTML = "";
             errorMessage.classList.remove("hidden");
-            return;
-        }   
-        console.log(nextRuns);
+        }
     }
+    function showHints(e) {
+        const selectedCharacter = e.target.selectionStart;
+        const substringToSelected = cronInputField.value.substring(0, selectedCharacter);
+        const sections = substringToSelected.trim().split(/\s+/);
+        
+        hintGrid.innerHTML = "";
+        for (const hint of generalHints) {
+            hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+        }
+        for (const hint of hintsLists[sections.length - 1]) {
+            hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+        }
+    }
+    function resetHints() {
+        hintGrid.innerHTML = "";
+        for (const hint of generalHints) {
+            hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+        }
+    }
+
+    parseCron(cronInputField.value);
 </script>

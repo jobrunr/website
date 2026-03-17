@@ -243,7 +243,7 @@ input[name="username"] {
 }
 
 .cron-field {
-    @apply text-center py-[0.75rem] px-[0.5rem] w-[15%] bg-[#ffffff1a] rounded-[1rem];
+    @apply text-center py-[0.75rem] px-[0.5rem] w-[15%] bg-[#ffffff1a] rounded-[1rem] truncate;
 }
 
 .cron-input-field {
@@ -271,7 +271,7 @@ input[name="username"] {
 }
 
 .hint-grid {
-    @apply grid grid-cols-2 gap-2 w-full;
+    @apply grid grid-cols-[1fr_2fr] gap-2 w-full;
 
     & p {
         @apply m-0 text-white;
@@ -292,4 +292,24 @@ input[name="username"] {
 
 .error-message {
     @apply text-[#f85149] w-[100%] text-center p-[0.5rem] mb-[1rem] rounded-[16px] border-solid border-[2px] border-[#f85149] text-[1.25rem];
+}
+
+.runs-container {
+    @apply rounded-[16px] border-solid border-[#E9EDF0] bg-[#f6f8fa] border-[3px] px-[1rem];
+
+    & > h4 {
+        @apply pl-[0.5rem];
+    }
+}
+
+.runs-table tr {
+    @apply border-y-[2px] border-y-[#E9EDF0];
+
+    & td {
+        @apply col-3;
+    }
+}
+
+.runs-table {
+    @apply w-full table-fixed;
 }
