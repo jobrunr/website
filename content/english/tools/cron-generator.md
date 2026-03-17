@@ -6,6 +6,7 @@ image: /blog/thumb-cron-generator.jpg
 skip_meta: true
 ---
 
+# TODO: Add support for seconds, update parser to include xW+y and x#y, make UI nicer
 <subtitle>Evaluating Cron expressions is simple with this tool which supports JobRunr's custom Cron notation</subtitle>
 
 <div class="container">
@@ -60,6 +61,102 @@ skip_meta: true
         <table class="datatable runs-table" id="nextRunsTable">
             <tbody></tbody>
         </table>
+    </div>
+    <div>
+        <h4>Common Presets</h4>
+        <div class="presets-area">
+            <button class="preset-item" onclick="setPreset('* * * * *')">
+                <code>* * * * *</code>
+                <p>Every minute</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('*/5 * * * *')">
+                <code>*/5 * * * *</code>
+                <p>Every 5 minutes</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('*/15 * * * *')">
+                <code>*/15 * * * *</code>
+                <p>Every 15 minutes</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 * * * *')">
+                <code>0 * * * *</code>
+                <p>Every hour</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 */2 * * *')">
+                <code>0 */2 * * *</code>
+                <p>Every 2 hours</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 9 * * *')">
+                <code>0 9 * * *</code>
+                <p>Daily at 9:00</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 * * *')">
+                <code>0 0 * * *</code>
+                <p>Daily at midnight</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 9 * * 1-5')">
+                <code>0 9 * * 1-5</code>
+                <p>Weekdays at 9:00</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 * * 0')">
+                <code>0 0 * * 0</code>
+                <p>Weekly on Sunday</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 1 * *')">
+                <code>0 0 1 * *</code>
+                <p>On the first of the month</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 1 1 *')">
+                <code>0 0 1 1 *</code>
+                <p>On the first of January</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 9,17 * * *')">
+                <code>0 9,17 * * *</code>
+                <p>At 9:00 and 17:00</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 LW * *')">
+                <code>0 0 LW * *</code>
+                <p>On the last weekday of each month</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 2W * *')">
+                <code>0 0 2W * *</code>
+                <p>Nearest weekday to 2 days after the first of the month</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 L * *')">
+                <code>0 0 L * *</code>
+                <p>On the last day of the month</p>
+            </button>
+            <button class="preset-item" onclick="setPreset('0 0 * * 4L')">
+                <code>0 0 * * 4L</code>
+                <p>On the last Thursday of the month</p>
+            </button>
+        </div>
+    </div>
+    <div>
+        <h4>Code Examples</h4>
+{{< codetabs category="framework" >}}
+{{< codetab label="JobRunr" >}}
+<pre class="language-java"><code>// Using cron expression
+BackgroundJob.scheduleRecurrently("my-job", "<span id="code-cron-1">0 9 * * *</span>",
+    () -> myService.doWork());
+// Or use the Cron helper class, below is for every day at 9am
+BackgroundJob.scheduleRecurrently("my-job", Cron.daily(<span id="code-hour">9</span>, <span id="code-minute">0</span>),
+() -> myService.doWork());</code></pre>
+{{< /codetab>}}
+{{< codetab label="Spring" >}}
+<pre class="language-java"><code>@Scheduled(cron = "<span id="code-cron-2">0 0 9 * * *</span>")
+public void scheduledTask() {
+    myService.doWork();
+}
+// Note: Spring uses 6 fields (includes seconds)</code></pre>
+{{< /codetab>}}
+{{< codetab label="Quartz" >}}
+<pre class="language-java"><code>CronTrigger trigger = TriggerBuilder.newTrigger()
+    .withIdentity("myTrigger")
+    .withSchedule(CronScheduleBuilder.cronSchedule("<span id="code-cron-3">0 0 9 * * ?</span>"))
+    .build();
+// Note: Quartz uses 6-7 fields and ? for day fields</code></pre>
+{{< /codetab>}}
+{{< /codetabs >}}
     </div>
 </div>
 
@@ -119,6 +216,7 @@ skip_meta: true
         document.getElementById("field-weekday").innerText = sections[4].trim();
 
         let nextRuns;
+        expression = expression.replace("+", "%2B");
         const response = await fetch(backendUrl + "evaluate-expression?expression=" + expression);
         const body = await response.json();
         if (response.status === 200) {
@@ -132,6 +230,10 @@ skip_meta: true
             } else {
                 cronDescription.innerHTML = "";
             }
+
+            document.getElementById("code-cron-1").innerHTML = expression;
+            document.getElementById("code-cron-2").innerHTML = "0 " + expression;
+            document.getElementById("code-cron-3").innerHTML = "0 " + expression.substring(0, expression.length - 1) + "?";
 
             nextRunsTable.innerHTML = "";
             for (const run of nextRuns) {
@@ -155,7 +257,7 @@ skip_meta: true
 
                 errorMessage.innerHTML = cleanString;
             } else {
-                errorMessage.innerHTML = `Something went wrong while validating`;
+                errorMessage.innerHTML = body.toString();
             }
             cronDescription.innerHTML = "";
             errorMessage.classList.remove("hidden");
@@ -179,6 +281,10 @@ skip_meta: true
         for (const hint of generalHints) {
             hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
         }
+    }
+    function setPreset(preset) {
+        cronInputField.value = preset;
+        parseCron(cronInputField.value);
     }
 
     parseCron(cronInputField.value);

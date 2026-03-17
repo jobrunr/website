@@ -313,3 +313,23 @@ input[name="username"] {
 .runs-table {
     @apply w-full table-fixed;
 }
+
+.presets-area {
+    @apply flex gap-2 flex-wrap justify-center;
+}
+
+.preset-item {
+    @apply w-[225px] flex flex-col gap-2 rounded-[16px] border-solid border-[#E9EDF0] border-[2px] p-[1rem];
+
+    & p {
+        @apply text-left m-0 text-[1rem] italic;
+    }
+
+    & code {
+        @apply rounded-[16px];
+    }
+
+    &:hover {
+        @apply cursor-pointer;
+    }
+}
