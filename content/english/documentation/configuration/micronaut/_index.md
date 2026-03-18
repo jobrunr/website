@@ -20,6 +20,9 @@ __To add JobRunr to your Micronaut project, these are the steps you need to take
 > [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
+> [!PRO]
+> Need more details about classes and methods? Check out our [JavaDocs for Micronaut](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-micronaut-feature/latest) for the complete API reference.
+
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:
 

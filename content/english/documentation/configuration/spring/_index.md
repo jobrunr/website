@@ -25,6 +25,9 @@ __To add JobRunr to your Spring project, these are the steps you need to take:__
 > [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Spring? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
+> [!PRO]
+> Need more details about classes and methods? Check out our JavaDocs for [SpringBoot 2](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-2-starter/latest), [SpringBoot 3](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-3-starter/latest) or [SpringBoot 4](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-4-starter/latest) for the complete API reference.
+
 ## Add the dependency to the starter
 As `jobrunr-spring-boot-4-starter` is available in Maven Central, all you need to do is add this dependency:
 

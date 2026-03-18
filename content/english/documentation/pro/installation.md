@@ -11,6 +11,9 @@ menu:
     weight: 1
 ---
 
+> [!TIP]
+> Need more details about classes and methods? Check out the [JavaDocs](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro/latest) for the complete API reference.
+
 ## Getting the JobRunr Pro Artifact
 
 ### Private Maven Repository
@@ -209,5 +212,3 @@ public LicenseKeyProvider licenseKeyProvider() {
 ```
 {{< /codetab >}}
 {{< /codetabs >}}
-
-
