@@ -1,59 +1,75 @@
 ---
-title: "Cron Expression Generator for Java"
+title: "Cron Expression Converter for Java"
 description: "Build and validate cron expressions for JobRunr, Quartz, and Spring. See next execution times instantly. Free online tool."
 keywords: ["cron expression generator", "cron builder", "java cron expression", "crontab generator", "quartz cron expression", "spring cron expression"]
 image: /blog/thumb-cron-generator.jpg
 skip_meta: true
 ---
 
-# TODO: Add support for seconds, update parser to include xW+y and x#y, make UI nicer
-<subtitle>Evaluating Cron expressions is simple with this tool which supports JobRunr's custom Cron notation</subtitle>
+<p>
+    Evaluating Cron expressions is simple with this tool which supports JobRunr's custom Cron notation, whether you want
+    to schedule something to occur every minute, or on the last weekday of the month, all of this is possible to see and
+    test with the cron expression converter.
+</p>
 
 <div class="container">
     <div class="cron-container-input">
-        <input type="text" id="cronInput" class="cron-input-field" value="0 9 * * *" placeholder="* * * * *" autocomplete="off" spellcheck="false">
+        <input type="text" id="cronInput" class="cron-input-field" value="0 0 9 * * *" placeholder="* * * * * *" autocomplete="off" spellcheck="false">
         <div id="cronDescription" class="cron-description">Every day at 9:00 AM</div>
         <div id="errorMessage" class="error-message hidden"></div>
         <div class="cron-fields">
+            <div class="cron-field" id="secondsFieldContainer">
+                <input class="cron-field-value" id="field-second" value="0">
+                <p class="cron-field-label">Second</p>
+            </div>
             <div class="cron-field">
-                <p class="cron-field-value" id="field-minute">0</p>
+                <input class="cron-field-value" id="field-minute" value="0">
                 <p class="cron-field-label">Minute</p>
             </div>
             <div class="cron-field">
-                <p class="cron-field-value" id="field-hour">9</p>
+                <input class="cron-field-value" id="field-hour" value="9">
                 <p class="cron-field-label">Hour</p>
             </div>
             <div class="cron-field">
-                <p class="cron-field-value" id="field-day">*</p>
+                <input class="cron-field-value" id="field-day" value="*">
                 <p class="cron-field-label">Day</p>
             </div>
             <div class="cron-field">
-                <p class="cron-field-value" id="field-month">*</p>
+                <input class="cron-field-value" id="field-month" value="*">
                 <p class="cron-field-label">Month</p>
             </div>
             <div class="cron-field">
-                <p class="cron-field-value" id="field-weekday">*</p>
+                <input class="cron-field-value" id="field-weekday" value="*">
                 <p class="cron-field-label">Day of Week</p>
             </div>
         </div>
         <div class="cron-fields">
-            <button class="cron-btn btn-outline-primary btn" id="copyButton">
+            <button class="btn-outline-primary btn" id="copyButton">
                 Copy Expression
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg>
             </button>
         </div>
-        <hr class="cron-divider">
-        <div class="cron-fields-col">
-            <p class="cron-title">Syntax hints</p>
-            <div id="hintGrid" class="hint-grid">
-                <p>*</p>
-                <p>any value</p>
-                <p>,</p>
-                <p>value list separator (e.g. 2,5)</p>
-                <p>-</p>
-                <p>range of values (e.g. 3-7)</p>
-                <p>/</p>
-                <p>step values (e.g. 2/3)</p>
+        <blockquote class="alert alert--tip hidden" id="secondsTip">
+            <div class="alert__header">
+                <i class="fa-solid fa-lightbulb alert__icon"></i>
+                <div class="alert__label">Tip</div>
             </div>
+            <div class="alert__content">
+                <p>Did you know JobRunr also supports seconds for cron statements, just add a 6th digit at the start of the expression to use this!</p>
+            </div>
+        </blockquote>
+    </div>
+    <div class="cron-fields-col">
+        <p class="cron-title">Syntax hints</p>
+        <div id="hintGrid" class="hint-grid">
+            <p>*</p>
+            <p>any value</p>
+            <p>,</p>
+            <p>value list separator (e.g. 2,5)</p>
+            <p>-</p>
+            <p>range of values (e.g. 3-7)</p>
+            <p>/</p>
+            <p>step values (e.g. 2/3)</p>
         </div>
     </div>
     <div class="runs-container">
@@ -65,68 +81,68 @@ skip_meta: true
     <div>
         <h4>Common Presets</h4>
         <div class="presets-area">
-            <button class="preset-item" onclick="setPreset('* * * * *')">
-                <code>* * * * *</code>
+            <button class="preset-item" onclick="setPreset('0 * * * * *')">
+                <code>0 * * * * *</code>
                 <p>Every minute</p>
             </button>
-            <button class="preset-item" onclick="setPreset('*/5 * * * *')">
-                <code>*/5 * * * *</code>
+            <button class="preset-item" onclick="setPreset('0 */5 * * * *')">
+                <code>0 */5 * * * *</code>
                 <p>Every 5 minutes</p>
             </button>
-            <button class="preset-item" onclick="setPreset('*/15 * * * *')">
-                <code>*/15 * * * *</code>
+            <button class="preset-item" onclick="setPreset('0 */15 * * * *')">
+                <code>0 */15 * * * *</code>
                 <p>Every 15 minutes</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 * * * *')">
-                <code>0 * * * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 * * * *')">
+                <code>0 0 * * * *</code>
                 <p>Every hour</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 */2 * * *')">
-                <code>0 */2 * * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 */2 * * *')">
+                <code>0 0 */2 * * *</code>
                 <p>Every 2 hours</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 9 * * *')">
-                <code>0 9 * * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 9 * * *')">
+                <code>0 0 9 * * *</code>
                 <p>Daily at 9:00</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 * * *')">
-                <code>0 0 * * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 * * *')">
+                <code>0 0 0 * * *</code>
                 <p>Daily at midnight</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 9 * * 1-5')">
-                <code>0 9 * * 1-5</code>
+            <button class="preset-item" onclick="setPreset('0 0 9 * * 1-5')">
+                <code>0 0 9 * * 1-5</code>
                 <p>Weekdays at 9:00</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 * * 0')">
-                <code>0 0 * * 0</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 * * 0')">
+                <code>0 0 0 * * 0</code>
                 <p>Weekly on Sunday</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 1 * *')">
-                <code>0 0 1 * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 1 * *')">
+                <code>0 0 0 1 * *</code>
                 <p>On the first of the month</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 1 1 *')">
-                <code>0 0 1 1 *</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 1 1 *')">
+                <code>0 0 0 1 1 *</code>
                 <p>On the first of January</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 9,17 * * *')">
-                <code>0 9,17 * * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 9,17 * * *')">
+                <code>0 0 9,17 * * *</code>
                 <p>At 9:00 and 17:00</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 LW * *')">
-                <code>0 0 LW * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 LW * *')">
+                <code>0 0 0 LW * *</code>
                 <p>On the last weekday of each month</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 2W * *')">
+            <button class="preset-item" onclick="setPreset('0 0 0 2W * *')">
                 <code>0 0 2W * *</code>
                 <p>Nearest weekday to 2 days after the first of the month</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 L * *')">
-                <code>0 0 L * *</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 L * *')">
+                <code>0 0 0 L * *</code>
                 <p>On the last day of the month</p>
             </button>
-            <button class="preset-item" onclick="setPreset('0 0 * * 4L')">
-                <code>0 0 * * 4L</code>
+            <button class="preset-item" onclick="setPreset('0 0 0 * * 4L')">
+                <code>0 0 0 * * 4L</code>
                 <p>On the last Thursday of the month</p>
             </button>
         </div>
@@ -164,10 +180,10 @@ public void scheduledTask() {
     const generalHints = [["*", "any value"], [",", "value list separator (e.g. 2,5)"], ["-", "range of values (e.g. 3-7)"], ["/", "step values (e.g. 2/3)"]];
     const minuteHints = [["0-59", "allowed values"]];
     const hourHints = [["0-23", "allowed values"]];
-    const dayHints = [["0-31", "allowed values"], ["xW", "nearest weekday to x days after the first day of the month"], ["LW", "last weekday of the month"], ["L", "last day of the month"]];
+    const dayHints = [["0-31", "allowed values"], ["xW", "nearest weekday to x days after the first day of the month (e.g. 2W)"], ["LW", "last weekday of the month"], ["L", "last day of the month"], ["xW+/-y", "y days before (-) or after (+) the nearest weekday to x days after the first of the month (e.g. 1W+2)"]];
     const monthHints = [["1-12", "allowed values"], ["JAN - DEC", "alternative single values"]];
-    const dayOfWeekHints = [["0-6", "allowed values"], ["SUN - SAT", "alternative single values"], ["xL", "x days before the end of the month (incompatible with the same in the day field)"]];
-    const hintsLists = [minuteHints, hourHints, dayHints, monthHints, dayOfWeekHints];
+    const dayOfWeekHints = [["0-6", "allowed values"], ["SUN - SAT", "alternative single values"], ["xL", "x days before the end of the month (incompatible with the same in the day field)"], ["x#y", "the y th x day of the week (e.g. 5#3 = the third Friday)"]];
+    const hintsLists = [minuteHints, minuteHints, hourHints, dayHints, monthHints, dayOfWeekHints];
 
     const cronInputField = document.getElementById("cronInput");
     const errorMessage = document.getElementById("errorMessage");
@@ -202,21 +218,32 @@ public void scheduledTask() {
 
     async function parseCron(expression) {
         const sections = expression.trim().split(/\s+/);
-        if (sections.length !== 5) {
-            errorMessage.innerHTML = `Your cron expression is too short`;
+        if (sections.length < 5 || sections.length > 6) {
+            errorMessage.innerHTML = `Your cron expression is not the right length`;
             cronDescription.innerHTML = "";
             errorMessage.classList.remove("hidden");
             return;
         }
+        const startAt = sections.length === 5 ? 'm' : 's';
 
-        document.getElementById("field-minute").innerText = sections[0].trim();
-        document.getElementById("field-hour").innerText = sections[1].trim();
-        document.getElementById("field-day").innerText = sections[2].trim();
-        document.getElementById("field-month").innerText = sections[3].trim();
-        document.getElementById("field-weekday").innerText = sections[4].trim();
+        if (startAt === 's') {
+            document.getElementById("secondsFieldContainer").classList.remove("hidden");
+            document.getElementById("field-second").value = sections[0].trim();
+            document.getElementById("secondsTip").classList.add("hidden");
+        }
+        if (startAt === 'm') {
+            document.getElementById("secondsFieldContainer").classList.add("hidden");
+            document.getElementById("secondsTip").classList.remove("hidden");
+        }
+        document.getElementById("field-minute").value = sections[startAt === 's' ? 1 : 0].trim();
+        document.getElementById("field-hour").value = sections[startAt === 's' ? 2 : 1].trim();
+        document.getElementById("field-day").value = sections[startAt === 's' ? 3 : 2].trim();
+        document.getElementById("field-month").value = sections[startAt === 's' ? 4 : 3].trim();
+        document.getElementById("field-weekday").value = sections[startAt === 's' ? 5 : 4].trim();
 
         let nextRuns;
         expression = expression.replace("+", "%2B");
+        expression = expression.replace("#", "%23");
         const response = await fetch(backendUrl + "evaluate-expression?expression=" + expression);
         const body = await response.json();
         if (response.status === 200) {
@@ -232,13 +259,13 @@ public void scheduledTask() {
             }
 
             document.getElementById("code-cron-1").innerHTML = expression;
-            document.getElementById("code-cron-2").innerHTML = "0 " + expression;
-            document.getElementById("code-cron-3").innerHTML = "0 " + expression.substring(0, expression.length - 1) + "?";
+            document.getElementById("code-cron-2").innerHTML = expression;
+            document.getElementById("code-cron-3").innerHTML = expression.substring(0, expression.length - 1) + "?";
 
             nextRunsTable.innerHTML = "";
             for (const run of nextRuns) {
                 const date = new Date(run);
-                const dateFormat = {weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric"};
+                const dateFormat = {weekday: "long", month: "long", day: "numeric", year: "numeric", hour: "numeric", minute: "numeric", second: "numeric"};
                 nextRunsTable.innerHTML += `<tr><td>${date.toLocaleDateString("en-GB", dateFormat)}</td></tr>`
             }
         } else {
@@ -272,8 +299,14 @@ public void scheduledTask() {
         for (const hint of generalHints) {
             hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
         }
-        for (const hint of hintsLists[sections.length - 1]) {
-            hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+        if (cronInputField.value.split(/\s+/).length !== 6) {
+            for (const hint of hintsLists[sections.length]) {
+                hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+            }
+        } else {
+            for (const hint of hintsLists[sections.length - 1]) {
+                hintGrid.innerHTML += `<p>${hint[0]}</p><p>${hint[1]}</p>`;
+            }
         }
     }
     function resetHints() {
@@ -288,4 +321,94 @@ public void scheduledTask() {
     }
 
     parseCron(cronInputField.value);
+
+    document.getElementById("field-second").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-second").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[0] = newValue.trim();
+        } else {
+            return;
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
+
+    document.getElementById("field-minute").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-minute").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[1] = newValue.trim();
+        } else {
+            fields[0] = newValue.trim();
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
+
+    document.getElementById("field-hour").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-hour").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[2] = newValue.trim();
+        } else {
+            fields[1] = newValue.trim();
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
+
+    document.getElementById("field-day").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-day").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[3] = newValue.trim();
+        } else {
+            fields[2] = newValue.trim();
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
+
+    document.getElementById("field-month").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-month").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[4] = newValue.trim();
+        } else {
+            fields[3] = newValue.trim();
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
+
+    document.getElementById("field-weekday").addEventListener("keyup", () => {
+        let newValue = document.getElementById("field-weekday").value;
+        if (newValue === "") {
+            return;
+        }
+        let fields = cronInputField.value.trim().split(/\s+/);
+        if (fields.length === 6) {
+            fields[5] = newValue.trim();
+        } else {
+            fields[4] = newValue.trim();
+        }
+        cronInputField.value = fields.join(" ");
+        parseCron(cronInputField.value);
+    });
 </script>

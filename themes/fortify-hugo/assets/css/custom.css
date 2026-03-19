@@ -222,28 +222,20 @@ input[name="username"] {
 }
 
 /* Cron Page */
-.container {
-    @apply flex flex-col gap-5;
-}
-
 .cron-container-input {
-    @apply flex flex-col bg-[#16213e] rounded-[16px] p-[2rem] mb-2;
-}
-
-.cron-btn {
-    @apply mx-auto mt-4 rounded-[3rem] border-none px-4 py-2 text-[0.9rem] cursor-pointer;
+    @apply flex flex-col gap-2 bg-primary rounded-[1rem] p-[2rem] mb-2;
 }
 
 .cron-fields {
-    @apply flex items-center justify-center gap-4;
+    @apply flex items-center justify-center gap-4 mb-2;
 }
 
 .cron-fields-col {
-    @apply flex flex-col items-center justify-center gap-4;
+    @apply flex flex-col items-center justify-center;
 }
 
 .cron-field {
-    @apply text-center py-[0.75rem] px-[0.5rem] w-[15%] bg-[#ffffff1a] rounded-[1rem] truncate;
+    @apply text-center py-[0.75rem] px-[0.5rem] w-[15%] bg-[#ffffff2a] rounded-[1rem] truncate;
 }
 
 .cron-input-field {
@@ -255,11 +247,11 @@ input[name="username"] {
 }
 
 .cron-field-value {
-    @apply text-[#58a6ff] font-bold text-[2rem] m-0;
+    @apply text-white font-bold text-[2rem] m-0 bg-transparent border-none text-center w-full outline-none outline-transparent;
 }
 
 .cron-field-label {
-    @apply text-[#8b949e] uppercase text-[0.9rem] mb-0;
+    @apply text-white uppercase text-[0.9rem] mb-0;
 }
 
 .cron-description {
@@ -274,7 +266,7 @@ input[name="username"] {
     @apply grid grid-cols-[1fr_2fr] gap-2 w-full;
 
     & p {
-        @apply m-0 text-white;
+        @apply m-0;
     }
 
     & p:nth-child(odd) {
@@ -286,20 +278,12 @@ input[name="username"] {
     }
 }
 
-.cron-title {
-    @apply text-white m-1;
-}
-
 .error-message {
     @apply text-[#f85149] w-[100%] text-center p-[0.5rem] mb-[1rem] rounded-[16px] border-solid border-[2px] border-[#f85149] text-[1.25rem];
 }
 
 .runs-container {
-    @apply rounded-[16px] border-solid border-[#E9EDF0] bg-[#f6f8fa] border-[3px] px-[1rem];
-
-    & > h4 {
-        @apply pl-[0.5rem];
-    }
+    @apply rounded-[1rem] bg-light px-[1rem];
 }
 
 .runs-table tr {
@@ -310,23 +294,19 @@ input[name="username"] {
     }
 }
 
-.runs-table {
-    @apply w-full table-fixed;
-}
-
 .presets-area {
     @apply flex gap-2 flex-wrap justify-center;
 }
 
 .preset-item {
-    @apply w-[225px] flex flex-col gap-2 rounded-[16px] border-solid border-[#E9EDF0] border-[2px] p-[1rem];
+    @apply w-[225px] flex flex-col gap-2 rounded-[1rem] border-solid border-[#E9EDF0] border-[2px] p-[1rem];
 
     & p {
         @apply text-left m-0 text-[1rem] italic;
     }
 
     & code {
-        @apply rounded-[16px];
+        @apply rounded-[1rem];
     }
 
     &:hover {
