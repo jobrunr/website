@@ -30,7 +30,7 @@ We kept looking at projects like [OpenClaw](https://github.com/openclaw), a pers
 
 Full transparency: the first version of ClawRunr was vibe coded. I sat down with AI assistance and had a working proof of concept in a few days. Multi-channel support, LLM integration, task management. It worked.
 
-Then Ronald, our CTA and co-founder, read the code.
+Then Ronald, our CTO and co-founder, read the code.
 
 AI slop. Outdated dependencies. Patterns that looked right but made no sense if you actually understood what they were doing. The kind of codebase where you're afraid to change anything because you have no idea why it works.
 
