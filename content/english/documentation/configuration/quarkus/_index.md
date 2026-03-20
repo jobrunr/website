@@ -18,6 +18,9 @@ __To add JobRunr to your Quarkus project, these are the steps you need to take:_
 > [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Quarkus? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
+> [!PRO]
+> Need more details about classes and methods? Check out our [JavaDocs for Quarkus](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/quarkus-jobrunr-pro/latest) for the complete API reference.
+
 ## Add the dependency to the extension
 As the Quarkus Extension is available in Maven Central, all you need to do is add this dependency:
 

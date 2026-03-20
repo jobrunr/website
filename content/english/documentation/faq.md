@@ -16,6 +16,7 @@ sitemap:
 ---
 
 ## BackgroundJobServer FAQ
+
 ### Does JobRunr need open ports for distributing jobs?
 No, JobRunr does not require an open port for distributing the workload - this is orchestrated via the `StorageProvider`.
 
@@ -140,4 +141,7 @@ public class JobMessageListener implements MessageListener {
     }
 }
 ```
+## Other FAQ
 
+### Are the Javadocs available?
+Yes, the Javadocs for JobRunr Pro are [publicly available](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro/latest).
