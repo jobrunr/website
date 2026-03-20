@@ -180,5 +180,5 @@ But we don't want to build this alone. ClawRunr is a community project. If you'r
 
 Try it out. Break it. Tell us what's missing. Open an issue. Submit a PR.
 
-**Website:** [ClawRunr.io](https://JavaClaw.io)<br/>
+**Website:** [ClawRunr.io](https://ClawRunr.io)<br/>
 **GitHub:** [github.com/jobrunr/ClawRunr](https://github.com/jobrunr/JavaClaw)
