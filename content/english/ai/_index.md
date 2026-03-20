@@ -112,14 +112,14 @@ code_section:
         }
     - title: "AI Agent Scheduling"
       filename: "AgentSchedulingTool.java"
-      description: "AI agents need to schedule tasks, run periodic jobs, and survive application restarts. AgentRunr, an open-source Java AI agent runtime, uses JobRunr as its scheduling backbone."
+      description: "AI agents need to schedule tasks, run periodic jobs, and survive application restarts. JavaClaw, an open-source Java AI agent runtime, uses JobRunr as its scheduling backbone."
       highlights:
         - "<strong>Agents self-schedule</strong> work through tool calls"
         - "<strong>Persistent tasks</strong> survive application restarts"
         - "<strong>Full visibility</strong> via the JobRunr dashboard"
       links:
-        - label: "AgentRunr on GitHub"
-          url: "https://github.com/iNicholasBE/AgentRunr"
+        - label: "JavaClaw on GitHub"
+          url: "https://github.com/jobrunr/javaclaw"
       code: |
         <span style="color:#546e7a">// AI agents can schedule their own tasks via tool calls</span>
         <span style="color:#7c8da6">@Tool</span>(<span style="color:#a5d6ad">"Schedule a recurring task for the agent"</span>)
@@ -251,8 +251,8 @@ accordion:
       description: "Connect multiple application instances to the same database and JobRunr automatically distributes jobs across all workers. No configuration changes needed. A med-tech company achieved 10x throughput improvement by simply adding more instances to their medical image analysis pipeline."
     - title: "Does JobRunr add infrastructure complexity?"
       description: "No. JobRunr uses your existing SQL database for storage. No Redis, no RabbitMQ, no Kafka, no additional infrastructure. Add the Maven or Gradle dependency, set two config properties, and you're running background AI jobs with a built-in dashboard."
-    - title: "What is AgentRunr?"
-      description: "AgentRunr is an open-source Java AI agent runtime that uses JobRunr as its scheduling backbone. It demonstrates how AI agents can self-schedule cron jobs, one-shot tasks, and recurring work through tool calls. JobRunr persists these tasks so they survive application restarts, and the dashboard provides full visibility into agent-scheduled work."
+    - title: "What is JavaClaw?"
+      description: "JavaClaw is an open-source Java AI agent runtime that uses JobRunr as its scheduling backbone. It demonstrates how AI agents can self-schedule cron jobs, one-shot tasks, and recurring work through tool calls. JobRunr persists these tasks so they survive application restarts, and the dashboard provides full visibility into agent-scheduled work."
 ---
 
 ### Step 1: Add the dependency
