@@ -89,7 +89,7 @@ public interface JobRequest extends JobRunrJob {
 ```
 
 ### JobRequestHandler
-A `JobRequestHandler` is an interface that that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
+A `JobRequestHandler` is an interface that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
 
 ### Job annotation
 The `@Job` annotation allows you to manage certain aspects from a Job like the name and the label (visible in the dashboard), the amount of retries and various other aspects like the `queue`, the `server tag` and the `mutex` if you are using JobRunr Pro.
