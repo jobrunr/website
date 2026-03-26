@@ -6,8 +6,8 @@ layout: "insurance"
 
 hero:
   badge: "Trusted by Europe's Leading Insurers"
-  title_start: "1.6 million policyholders."
-  title_highlight: "Zero margin for a failed batch run."
+  title_start: "Millions of policyholders depend on jobs that run at 3 AM."
+  title_highlight: "Yours can't afford to fail."
   description: "Claims processing, policy renewals, regulatory reporting. Your background jobs are the backbone of policyholder trust. JobRunr Pro makes them unbreakable."
 
 button:
@@ -17,7 +17,7 @@ button:
       link: "try-jobrunr-pro"
     learn_more:
       enable: true
-      label: "Talk to a scheduling expert"
+      label: "Talk to our dev team"
       link: "mailto:nicholas@jobrunr.io?subject=JobRunr%20Insurance%20Inquiry"
 
 social_proof:
