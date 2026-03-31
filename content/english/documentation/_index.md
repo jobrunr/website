@@ -1,5 +1,5 @@
 ---
-title: "Documentation"
+title: "Introduction"
 translationKey: "documentation"
 keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "java scheduler", "java cron", "job runner", "jobrunner", "JVM background jobs", "background job processing JVM"]
 description: "Run background jobs on the JVM with ease with persistence, automatic retries, and monitoring."
@@ -8,8 +8,8 @@ lastmod: 2026-03-31T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:
-    identifier: overview
-    name: Overview
+    identifier: introduction
+    name: Introduction
     weight: 1
 sitemap:
   priority: 0.9
