@@ -32,7 +32,7 @@ sitemap:
 JobRunr is an easy way to perform fire-and-forget, delayed and recurring asynchronous tasks on the JVM, using only Java 8 lambdas, with distributed execution across multiple instances. Jobs are persisted in your existing database so nothing gets lost across restarts or failures. Automatic retries handle the unexpected, while a built-in dashboard gives you real-time visibility into every job.
 
 ```java
-BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userId));
+BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userEmail));
 ```
 
 That one line is a durable, distributed background job. JobRunr serializes the lambda to JSON, stores it in your existing database, and returns to the caller immediately — a `BackgroundJobServer` picks it up and executes it, whether on the same JVM or across a cluster.
