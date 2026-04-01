@@ -40,9 +40,9 @@ The JobRunr dashboard is built on [React](https://react.dev).<br>
 [License: MIT](https://github.com/bradymholt/cRonstrue/blob/master/LICENSE)
 
 ### react-timeago — by Naman Goel
-[react-timeago](https://github.com/nmn/react-timeago) renders live relative timestamps ("3 minutes ago") throughout the dashboard without any manual refresh logic.<br>
+[react-timeago](https://github.com/nmn/react-timeago) renders live relative timestamps ("3 minutes ago") throughout the dashboard.<br>
 [License: MIT](https://github.com/nmn/react-timeago/blob/master/LICENSE)
 
 ### react-syntax-highlighter
-[react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) powers syntax-highlighted stack traces in the job detail view.<br>
+[react-syntax-highlighter](https://github.com/react-syntax-highlighter/react-syntax-highlighter) powers syntax-highlighted on the dashboard.<br>
 [License: MIT](https://github.com/react-syntax-highlighter/react-syntax-highlighter/blob/master/LICENSE)
