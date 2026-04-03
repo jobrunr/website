@@ -33,11 +33,8 @@ If you're using this feature, you can also enable an extra Dynamic Queues view i
 
 ![](/documentation/dynamic-queues.png "An overview of all the different dynamic queues")
 
-## Usage
-Using dynamic queues is as easy as adding a label to your job! 
-
-### Configuration
-###### Round Robin Dynamic Queues
+## Configuration
+##### Round Robin Dynamic Queues
 _Configuring Round Robin Dynamic Queues by means of the Fluent API_:<br/>
 You can configure your round robin dynamic queues easily by means of the Fluent API:
 
@@ -68,7 +65,7 @@ jobrunr.jobs.dynamic-queue.round-robin.title=Tenants
 </figure>
 
 
-###### Weighted Round Robin Dynamic Queues
+##### Weighted Round Robin Dynamic Queues
 _Configuring Weighted Round Robin Dynamic Queues by means of the Fluent API_:<br/>
 You can again easily configure your weighted round robin dynamic queues by means of the Fluent API:
 
@@ -100,7 +97,7 @@ jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
 
 You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
 
-###### Fixed amount of reserved workers
+##### Fixed amount of reserved workers
 
 You can reserve a fix amount of workers for different queues using the fluent API or properties as follows:
 
@@ -131,7 +128,7 @@ jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.title=Tenants
 ```
 </figure>
 
-### Usage
+## Usage
 Using dynamic queues could not have been easier thanks to Job Labels:
 
 __Using the `@Job` annotation__:
