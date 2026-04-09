@@ -28,8 +28,7 @@ JobRunr supports four different types of load-balancing:
 - **Weighted Round Robin Dynamic Queues**: here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
 - **Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
   
-> [!NOTE]
-> Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
+> **Note**: Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
 
 - **Lenient Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. If there are more jobs than reserved workers, workers from the unreserved pool will run the extra jobs.
 
@@ -143,8 +142,7 @@ jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
 
 You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
 
-> [!NOTE]
-> Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
+> **Note**: Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
 
 ##### Lenient fixed amount of reserved workers
 
