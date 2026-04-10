@@ -2,15 +2,15 @@
 title: "Observability for Java Background Jobs: Logs, Metrics, and Traces"
 description: "Background jobs fail silently. This article explores the Java observability ecosystem and shows how to bring logs, metrics, and traces to asynchronous job processing."
 images:
-  - /blog/FeaturedImage-Observability.webp
-image: /blog/FeaturedImage-Observability.webp
-date: 2026-02-15T09:00:00+02:00
+  - /blog/observability-in-java-background-job-processing.webp
+image: /blog/observability-in-java-background-job-processing.webp
+date: 2026-04-10T09:00:00+02:00
 author: "Ismaila Abdoulahi"
 tags:
   - blog
   - observability
   - job scheduling
-draft: true
+draft: false
 ---
 
 <div style="text-align: center;margin: -2em 0 2em;">
