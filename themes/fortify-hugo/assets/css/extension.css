@@ -74,6 +74,18 @@
     background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
 }
 
+.badge-sm {
+    @apply px-1 rounded text-light text-center inline-block font-semibold;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    vertical-align: middle;
+    background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
+}
+
+.badge-sm.enterprise {
+    background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
+}
+
 /* CodeTabs */
 .codetabs .codetabs__tablist {
     @apply flex gap-1 mb-1 border-b border-gray-200 text-sm;

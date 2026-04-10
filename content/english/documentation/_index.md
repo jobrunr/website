@@ -1,154 +1,226 @@
 ---
-title: "Documentation"
+title: "Introduction"
 translationKey: "documentation"
-keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "java scheduler", "java cron", "job runner", "jobrunner"]
-subtitle: "The architecture and terminology behind JobRunr"
-description: "Find out all about the architecture and terminology behind JobRunr"
+keywords: ["Java Job Manager", "Quartz Alternative", "Spring Batch Alternative", "Distributed Java Job Processing", "Background Job Scheduling", "java scheduler", "java cron", "job runner", "jobrunner", "JVM background jobs", "background job processing JVM"]
+description: "Run background jobs on the JVM with ease with persistence, automatic retries, and monitoring."
 date: 2020-04-30T11:12:23+02:00
+lastmod: 2026-03-31T00:00:00+02:00
+layout: "documentation"
+menu:
+  sidebar:
+    identifier: introduction
+    name: Introduction
+    weight: 1
 sitemap:
   priority: 0.9
   changeFreq: monthly
 ---
-<style>
-#mobile-notice {
-  display: none;
-}
 
-@media only screen and (max-width: 600px) {
-  #mobile-notice {
-    display: block;
-  }
-}
-</style>
-<div style="padding: 1rem; background: black; border-radius: 8px; color:white;">
-  <strong style="color:white;">JobRunr DocsGPT is here to help</strong><br>
+<div class="block sm:hidden mb-4">
+
+> Visiting via your mobile phone? The JobRunr website is more extensive on desktop.
+</div>
+
+<div class="p-4 bg-black rounded-lg text-white mb-6">
+  <strong class="text-white">JobRunr DocsGPT is here to help</strong><br>
   Trained on all our documentation, it's your fastest way to get unstuck.<br>
-  <a onclick="chatbase.open()" style="cursor: pointer; color:white; box-shadow: #ffffff 0 -1px inset;">Open the chatbot now →</a>
+  <a onclick="chatbase.open()" class="cursor-pointer text-white underline">Open the chatbot now →</a>
 </div>
 
+## What is JobRunr?
 
+JobRunr is an easy way to perform fire-and-forget, delayed and recurring asynchronous tasks on the JVM, using only Java 8 lambdas, with distributed execution across multiple instances. Jobs are persisted in your existing database so nothing gets lost across restarts or failures. Automatic retries handle the unexpected, while a built-in dashboard gives you real-time visibility into every job.
 
-<div id="mobile-notice" style="margin-top: 1rem">
+```java
+BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userEmail));
+```
 
-> Visiting via your mobile phone? Note that the JobRunr website is more extensive on desktop.
-</div>
+That one line is a durable, distributed background job. JobRunr serializes the lambda to JSON, stores it in your existing database, and returns to the caller immediately — a `BackgroundJobServer` picks it up and executes it, whether on the same JVM or across a cluster.
 
+## Why JobRunr?
 
-## Architecture
+**Developer-friendly API:** Simple and flexible, designed to fit any software architecture with minimal dependencies and few changes to your existing codebase.
 
-![Architecture](/documentation/architecture.webp "JobRunr architecture")
+**Persistent storage:** JobRunr stores jobs in the same SQL or NoSQL database your application already uses (PostgreSQL, MySQL, MongoDB, and more). No extra infrastructure to operate.
 
-## How does it all work?
-- You can enqueue, schedule or schedule a recurring background [Job](#job) using the [JobScheduler](#jobscheduler).
-- The [JobScheduler](#jobscheduler) analyses and decomposes the lambda to a JSON object and saves it into the [StorageProvider](#storage-provider).
-- JobRunr immediately returns to the caller so that it is not blocking
-- One or more [BackgroundJobServers](#backgroundjobserver) poll the [StorageProvider](#storage-provider) for new enqueued jobs and process them
-- When a job has been processed, it updates the state in the [StorageProvider](#storage-provider) and fetches the next job to perform
+**Fault-tolerant:** Every job is retried automatically up to 10 times with exponential back-off if it fails. JobRunr handles transient failures (e.g., network blips, downstream outages, application restarts) so you don't have to.
+
+**Built-in observability:** Thanks to the built-in dashboard, it's easy to monitor your jobs in real time: inspect any job, see why it failed, requeue or delete it.
+
+**No separate deployment:** JobRunr is a library, not a service. There is no separate deployment required, it starts when your application starts.
+
+**Distributed processing:** Scale out by running more instances of your application, each one automatically joins the processing cluster and picks up jobs, with guaranteed single execution.
+
+## How JobRunr works
+
+```mermaid
+flowchart LR
+    scheduler["JobScheduler"]
+    subgraph cluster["BackgroundJobServer Cluster"]
+      server1["Server 1"]
+      server2["Server 2"]
+      server3["... Server N"]
+    end
+
+    db[("Storage Provider")]
+    dashboard["Dashboard"]
+
+    scheduler <-->|Persist Job & return immediately| db
+    db -->|Claim & perform Job| server1
+    db -->|Claim & perform Job| server2
+    db -->|Claim & perform Job| server3
+    server1 -->|Update Job state| db
+    server2 -->|Update Job state| db
+    server3 -->|Update Job state| db
+    db -.->|Monitor Jobs| dashboard
+```
+
+1. Your code calls `BackgroundJob.enqueue()` (or `schedule()`, or `scheduleRecurrently()`).
+2. The [JobScheduler]({{< ref "#scheduling-jobs--recurring-jobs" >}}) inspects the lambda using ASM, serializes the type, method, and arguments to JSON, and writes a `Job` record to the [StorageProvider]({{< ref "#persisting-jobs-with-a-storageprovider" >}}). Control returns to the caller right after this.
+3. One or more [BackgroundJobServers]({{< ref "#processing-jobs-with-a-backgroundjobserver" >}}) poll the StorageProvider for new enqueued jobs and process them. Additionally, the longest running server is automatically elected as master, it handles housekeeping (enqueue scheduled jobs, schedule recurring jobs, delete jobs, etc.).
+4. On success the job is marked `SUCCEEDED`. On failure the [RetryFilter]({{< ref "#handling-failures" >}}) reschedules it with exponential back-off.
+5. A Dashboard allows to follow to monitor your job scheduling system.
+
+## Where to go next
+
+- **Learning the basics of JobRunr?** Keep on reading this page. 
+- **Just getting started?** Follow the [5-minute intro]({{< ref "documentation/5-minute-intro" >}}) or the [quickstart guide](/en/guides/intro/5-minute-quickstart/).
+- **Adding JobRunr to your project?** See [Installation]({{< ref "documentation/installation" >}}) and pick a [StorageProvider]({{< ref "documentation/installation/storage" >}}).
+- **Integrating with your framework?** Choose your setup: [Spring Boot]({{< ref "documentation/configuration/spring" >}}), [Micronaut]({{< ref "documentation/configuration/micronaut" >}}), [Quarkus]({{< ref "documentation/configuration/quarkus" >}}), or the [Fluent API]({{< ref "documentation/configuration/fluent" >}}).
+- **Need enterprise features?** [JobRunr Pro]({{< ref "documentation/pro" >}}) adds batches, job chaining (aka workflows), priority queues, rate limiting, SSO, and more.
 
 {{< trial-button >}}
 
-## Terminology
-### Job
+---
+
+## Core concepts
+
+### Scheduling Jobs & Recurring Jobs
+
 At the core of JobRunr, we have the `Job` entity - it contains the name, the signature, the `JobDetails` (the type, the method to execute and all arguments) and the history - including all states - of the background job itself. A `Job` is a unit of work that should be performed outside of the current execution context, e.g. in a background thread, other process, or even on different server – all is possible with JobRunr, without any additional configuration.
 
-<figure>
+A `RecurringJob` is in essence a `Job` with a `cron` expression or a fixed interval attached. The master node checks for due recurring jobs on each poll cycle and and schedules them. More technically, a `RecurringJob` creates multiple `Jobs` during its lifetime.
+
+#### Creating jobs
+
+You may create jobs in two ways, either using a `JobLambda` or using a `JobRequest`.
+
+**Via a Java 8 lambda** — pass a lambda referencing the method to execute. JobRunr uses ASM to inspect it and extract the type, method name, and arguments.
 
 ```java
-BackgroundJob.enqueue(() -> System.out.println("Simple!"));
+BackgroundJob.enqueue(() -> emailService.sendWelcomeEmail(userEmail));
 ```
-<figcaption>Instead of calling the method immediately, JobRunr serializes the type (System), static field (out) and method name (println, with all the parameter types to identify it later), and all the given arguments, and stores it as Json using a StorageProvider. It will then later be processed by a BackgroundJobServer<figcaption>
-</figure>
 
-### RecurringJob
-A `RecurringJob` is in essence a `Job` with a CRON schedule or a fixed interval. A special component within JobRunr called the `ProcessRecurringJobsTask` checks the recurring jobs and then enqueues them as fire-and-forget jobs when the time has come to run the job in question.
+`BackgroundJob` is a convenience class with static helper methods; it delegates to the `JobScheduler` under the hood. You can also inject and use `JobScheduler` directly, which is preferable for testability.
 
-### Storage Provider
-A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to Json and placed into storage, no data is kept in a process’ memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for RDBMS and NoSQL solutions.
+Delayed and recurring jobs follow the same pattern:
 
+```java
+// Run once, 5 days from now
+BackgroundJob.schedule(Instant.now().plus(5, DAYS), () -> emailService.sendFollowUp(userEmail));
+
+// Run every day
+BackgroundJob.scheduleRecurrently("daily-report", Cron.daily(), () -> reportService.sendDailyReport());
+```
+
+When using Spring, Micronaut, or Quarkus, you can also declare recurring jobs declaratively with the `@Recurring` annotation — JobRunr will register them automatically on startup.
+
+The lambda approach is the least invasive option — no new classes to create. It works with both Java and Kotlin lambdas.
+
+**Via a `JobRequest`** — implement the `JobRequest` interface to carry the job's data, and pair it with a `JobRequestHandler` that performs the work. This follows the command/handler pattern and is a good fit when you want a clear separation between job data and job logic.
+
+```java
+// The request carries the data
+public class SendEmailRequest implements JobRequest {
+    private final String userId;
+    // ...
+    @Override
+    public Class<SendEmailRequestHandler> getJobRequestHandler() {
+        return SendEmailRequestHandler.class;
+    }
+}
+
+// The handler performs the work
+public class SendEmailRequestHandler implements JobRequestHandler<SendEmailRequest> {
+    @Override
+    public void run(SendEmailRequest request) {
+        // do the work
+    }
+}
+```
+
+To create a `Job` using this pattern you have to use `BackgroundJobRequest` or `JobRequestScheduler`. For instance, registering the above `JobRequest` can be done as follows:
+
+```java
+BackgroundJobRequest.enqueue(new SendEmailRequest(userId));
+```
+
+`BackgroundJobRequest` and `JobRequestScheduler` offer the same APIs as `BackgroundJob` and `JobScheduler`.
+
+#### Configuring jobs
+
+Two mechanisms let you provide additional information to a `Job`: its name, number of retries, labels, and more.
+
+**`@Job` annotation** — place it on the method being executed.
+
+```java
+@Job(name = "Send welcome email", retries = 3)
+public void sendWelcomeEmail(String userEmail) { ... }
+```
+
+> [!TIP]
+> `@Job` supports parameter substitution using `%0`, `%1`, etc. to reference method arguments by position — e.g. `"Send welcome email to %0"` resolves to `"Send welcome email to email@example.com"` at runtime.
+
+**`JobBuilder`** — use it when you need greater flexibility, e.g., a computed job name. It wraps either a lambda or a `JobRequest`.
+
+```java
+BackgroundJob.create(JobBuilder.aJob()
+    .withName("Send welcome email to " + userEmail)
+    .withAmountOfRetries(3)
+    .withDetails(() -> emailService.sendWelcomeEmail(userEmail)));
+```
+
+### Persisting Jobs with a StorageProvider
+
+A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to JSON and placed into storage, no data is kept in a process' memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for [both RDBMS and NoSQL](({{< ref "documentation/installation/storage" >}})) solutions.
+
+JobRunr supports Jackson, Gson, JSON-B, and Kotlin Serialization. See [Serialization]({{< ref "documentation/serialization" >}}) for setup instructions.
+
+> [!IMPORTANT]
 > This is the main decision you must make, and the only configuration required before you start using the framework.
 
-### BackgroundJob
-`BackgroundJob` is a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the JobScheduler. You are completely free to choose how to enqueue background jobs - either using the static helper methods in the `BackgroundJob` class or either directly on the `JobScheduler` class. It may help readability but can make things more difficult to test.
+### Processing Jobs with a BackgroundJobServer
 
-### JobScheduler
-The `JobScheduler` is responsible for analyzing the lambda, collecting all the required job parameters, creating background jobs and saving them into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+The `BackgroundJobServer` runs inside your application process and is responsible for executing jobs. It polls the `StorageProvider` for work, claims jobs atomically so the same job is never processed twice, and invokes the target method. Because all state lives in the storage provider, jobs are never lost — even if a server is terminated mid-processing, another server will pick up and retry the job after restart.
 
-### BackgroundJobRequest
-`BackgroundJobRequest` is also a class that allows to enqueue background jobs using static helper methods - it in fact delegates everything to the `JobRequestScheduler`. You are again completely free to choose how to enqueue background jobs - either using the static helper methods in the `BackgroundJobRequest` class or either directly on the `JobRequestScheduler` class. It may help readability but can make things more difficult to test.
+Run more instances of your application to scale out — each one starts a `BackgroundJobServer` and automatically joins the cluster. One server is elected **master**: it handles recurring job scheduling and housekeeping tasks. The rest act as workers.
 
-### JobRequestScheduler
-The `JobScheduler` is responsible for transforming a `JobRequest` together with its internal data to a background job and save it into the `StorageProvider`. This process is very fast and once it is stored in the `StorageProvider`, it returns to the caller immediately.
+> [!IMPORTANT]
+> By default, the `BackgroundJobServer` is disabled. You need to explicitly enable it.
 
-### JobRequest
-A `JobRequest` is an interface that allows to create a background job. It can contain extra data that also will be serialized and will be saved into the `StorageProvider`. When you implement this interface, you will need to provide the `JobRequestHandler`-class which will process your `JobRequest`.
+> [!CAUTION]
+> Never start more than one `BackgroundJobServer` within the same JVM instance.
 
-```java
-public interface JobRequest extends JobRunrJob {
-    Class<? extends JobRequestHandler> getJobRequestHandler();
-}
-```
+#### Accessing your application IoC container
 
-### JobRequestHandler
-A `JobRequestHandler` is an interface that will be used to run the background job during job execution. As a parameter, it will receive the `JobRequest` and can thus access all data that was provided when the job was created.
+When executing a job, JobRunr needs to resolve an instance of the class that holds the job method. By default it instantiates the class directly, but most applications use an [IoC container](https://en.wikipedia.org/wiki/Inversion_of_control) like Spring, Micronaut, or Quarkus. The `JobActivator` interface lets you plug in your container: given a class, it returns a fully initialized instance. When using a framework integration, JobRunr configures this automatically.
 
-### Job annotation
-The `@Job` annotation allows you to manage certain aspects from a Job like the name and the label (visible in the dashboard), the amount of retries and various other aspects like the `queue`, the `server tag` and the `mutex` if you are using JobRunr Pro.
+#### Handling failures
 
-### JobBuilder
-The `JobBuilder` is an alternative to the `@Job` annotation and also allows you to configure all the different aspects from a Job. The difference is that using the `JobBuilder` certain aspects can be set at runtime which is not possible via the `@Job` annotation.
+When a job fails, the built-in `RetryFilter` automatically reschedules it with exponential back-off — 10 attempts by default. After all retries are exhausted the job moves to `FAILED`, where it stays visible in the dashboard until you act on it. It is never silently dropped.
 
-### BackgroundJobServer
-The `BackgroundJobServer` class processes background jobs by querying the StorageProvider. Roughly speaking, it’s a set of background threads that listen to the storage provider for new background jobs, and perform them by first de-serializing the stored type, method and arguments and then executing it.
+You can customize retry behaviour with the `@Job` annotation or a `JobBuilder`, or implement your own `RetryFilter` or custom `RetryPolicy` in JobRunr Pro.
 
-You can place this `BackgroundJobServer` in any process you want - even if you terminate a process, your background jobs will be retried automatically after restart. So in a basic configuration for a web application, you don’t need to use any Windows services for background processing anymore.
+#### Extending JobRunr with JobFilters
 
-> <u>**IMPORTANT:**</u>
-> <br/>**Remark 1**: You should have always 1 `BackgroundJobServer` running as it is responsible to see whether any jobs need to be processed.
-> <br/>**Remark 2**: You should have only 1 `BackgroundJobServer` per application / JVM instance. If you want to process more jobs or you want to distribute the jobs over multiple JVM's, you must launch a complete new instance of your application. **Starting multiple `BackgroundJobServers` within the same JVM instance is bad practice and should NOT be done.**
+JobRunr exposes `JobFilter` hooks at every stage of the job lifecycle: before and after job creation (`JobClientFilter`), before and after processing (`JobServerFilter`), and on state transitions (`ElectStateFilter`, `ApplyStateFilter`). This lets you add custom logic — auditing, notifications, ... — without touching your job methods.
 
-### JobActivator
-Most enterprise applications make use of an [IoC framework](https://en.wikipedia.org/wiki/Inversion_of_control) like [Spring](https://github.com/spring-projects/spring-framework) or [Guice](https://github.com/google/guice) - we of course support these IoC frameworks. The `JobActivator` is a Java 8 functional interface and has the responsability to lookup the correct class on which the background job method is defined.
+### Monitoring Jobs via the Dashboard
 
-<figure>
+The `JobRunrDashboardWebServer` is a built-in web UI available at `http://localhost:8000` by default. It gives you a real-time view of all jobs and servers — monitor job states, inspect failures with full stack traces, requeue or delete jobs, and keep an eye on your processing cluster.
 
-```java
-public interface JobActivator {
-    <T> T activateJob(Class<T> type);
-}
-```
-<figcaption>Given a class, the JobActivator must return a instance of that class that is completely initialized</figcaption>
-</figure>
+> [!IMPORTANT]
+> By default, the dashboard is disabled. You need to explicitly enable it.
 
-### JobRunrDashboardWebServer
-The `JobRunrDashboardWebserver` gives insights in all jobs that are enqueued, being processed, have succeeded or have failed. You can see on which `BackgroundJobServer` a background job is being processed, the current state it is in and in case of a failure, have a look at why it failed.
-The dashboard exists out of a React frontend and makes use of a REST API.
-
-### JobMapper
-The `JobMapper` is used to serialize and deserialize the job to Json as all jobs are stored in the `StorageProvider` as Json. It uses the `JsonMapper` underneath and has some utility functions to serialize a Job and a RecurringJob.
-
-### JsonMapper
-The `JsonMapper` is the abstraction layer above either [Jackson](https://github.com/FasterXML/jackson), [Gson](https://github.com/google/gson) or [Json-B](http://json-b.net/). It is used by the JobMapper and the JobRunrDashboardWebServer to map domain objects like `Job` and `RecurringJob` to json entities for the REST API.
-
-### JobFilter
-The `JobFilter` allows you to extend and intervene with background jobs in JobRunr. There are several types of JobFilters:
-
-- `JobClientFilter`: filters that are called before and after the job is created
-- `JobServerFilter`: filters that are called before and after the processing of the job
-- `ElectStateFilter`: a filter that decides the new state based on the old state
-- `ApplyStateFilter`: filters that are called when a state change happens within a job
-
-### RetryFilter
-This is a default filter of type `ElectStateFilter` and is automatically added for each job which is run by JobRunr. When a job fails, the `RetryFilter` will automatically retry the job 10 times with an exponential back-off policy. Is some API server down while processing jobs? No worries, JobRunr has you covered.
-
-### JobContext
-If access is needed to info about the background job itself (like the id of the job, the name, the state, ...) within the execution, the `JobContext` comes in handy. Using it is simple: if you use Java 8 lambdas you just need to pass an extra parameter of type `JobContext.Null` to your background job method and at execution time an instance will be injected into your background job method. If you use a `JobRequest` then it is available as a default method on `JobRequestHandler` interface.
-
-> Note: that this is best avoided as it couples your domain logic tightly with JobRunr.
-
-<figure>
-
-```java
-BackgroundJob.enqueue(() -> myService.doWork(JobContext.Null));
-```
-<figcaption>When executing the doWork method of myService, JobContext will be available</figcaption>
-</figure>
+> [!PRO]
+> Need advanced search, authentication, a custom context path, or embedding within your framework's server? See [JobRunr Pro Dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard" >}}).

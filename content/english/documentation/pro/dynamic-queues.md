@@ -2,7 +2,7 @@
 version: "pro"
 title: "Dynamic Queues"
 subtitle: "Dynamic Queues - also knows as load-balancing or multi-tenancy support - guarantees some fair-use!"
-keywords: ["dynamic queues", "load balancing", "multi tenancy support", "priority queues", "multi tenant application", "types of load balancing", "multitenant application", "multi tenant system", "example of multi tenant application", "multitenant applications", "weighted round robin load balancing", "load balancer spring boot", "load balancer spring", "loadbalancing"]
+keywords: ["dynamic queues", "load balancing", "multi tenancy support", "priority queues", "multi tenant application", "types of load balancing", "multitenant application", "multi tenant system", "example of multi tenant application", "multitenant applications", "weighted round robin load balancing", "load balancer spring boot", "load balancer spring", "loadbalancing", "fixed size", "lenient"]
 date: 2020-08-27T11:12:23+02:00
 layout: "documentation"
 menu: 
@@ -23,21 +23,22 @@ Are you running a multi-tenant application? Or do you have diverse types of jobs
 
 
 ## Load-balancing types
-JobRunr supports two different types of load-balancing:
+JobRunr supports four different types of load-balancing:
 - **Round Robin Dynamic Queues**: here, each dynamic queue receives the same amount of resource usage
 - **Weighted Round Robin Dynamic Queues**: here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
-- **Fixed amount of reserved workers**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
+- **Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
+  
+> **Note**: Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
+
+- **Lenient Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. If there are more jobs than reserved workers, workers from the unreserved pool will run the extra jobs.
 
 ## Dashboard
 If you're using this feature, you can also enable an extra Dynamic Queues view in the dashboard. This view gives an immediate overview of the amount of jobs per dynamic queue.
 
 ![](/documentation/dynamic-queues.png "An overview of all the different dynamic queues")
 
-## Usage
-Using dynamic queues is as easy as adding a label to your job! 
-
-### Configuration
-###### Round Robin Dynamic Queues
+## Configuration
+##### Round Robin Dynamic Queues
 _Configuring Round Robin Dynamic Queues by means of the Fluent API_:<br/>
 You can configure your round robin dynamic queues easily by means of the Fluent API:
 
@@ -68,7 +69,7 @@ jobrunr.jobs.dynamic-queue.round-robin.title=Tenants
 </figure>
 
 
-###### Weighted Round Robin Dynamic Queues
+##### Weighted Round Robin Dynamic Queues
 _Configuring Weighted Round Robin Dynamic Queues by means of the Fluent API_:<br/>
 You can again easily configure your weighted round robin dynamic queues by means of the Fluent API:
 
@@ -100,7 +101,7 @@ jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
 
 You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
 
-###### Fixed amount of reserved workers
+##### Fixed amount of reserved workers
 
 You can reserve a fix amount of workers for different queues using the fluent API or properties as follows:
 
@@ -131,7 +132,50 @@ jobrunr.jobs.dynamic-queue.fixed-worker-pool-size.title=Tenants
 ```
 </figure>
 
-### Usage
+<figure>
+
+```
+jobrunr.jobs.dynamic-queue.weighted-round-robin.label-prefix=tenant:
+jobrunr.jobs.dynamic-queue.weighted-round-robin.title=Tenants
+jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
+```
+
+You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
+
+> **Note**: Lenient Fixed Worker Size Dynamic Queues are an upcoming feature in JobRunr 8.6.0
+
+##### Lenient fixed amount of reserved workers
+
+You can reserve a lenient fix amount of workers for different queues using the fluent API or properties as follows:
+
+_Fluent API_:
+
+{{< codeblock title="Notice the `LenientFixedSizeWorkerPoolDynamicQueuePolicy` where we add the label prefix `tenant`. We've reserved 9 workers out of 20. We also enable the extra Dynamic Queue view in the dashboard and name it 'Tenants'">}}
+```java
+JobRunrPro.configure()
+    .useStorageProvider(SqlStorageProviderFactory.using(dataSource))
+    .useBackgroundJobServer(usingStandardBackgroundJobServerConfiguration()
+            .andWorkerCount(20)
+            .andDynamicQueuePolicy(new LenientFixedSizeWorkerPoolDynamicQueuePolicy("tenant:", Map.of("Tenant-A", 6, "Tenant-B", 3)))
+    .useDashboard(usingStandardDashboardConfiguration()
+            .andDynamicQueueConfiguration("Tenants", "tenant:"))
+    .initialize();
+```
+{{</ codeblock >}}
+
+_Properties (Spring Boot)_:
+
+<figure>
+
+```java
+jobrunr.jobs.dynamic-queue.lenient-fixed-worker-pool-size.queues.Tenant-A=6
+jobrunr.jobs.dynamic-queue.lenient-fixed-worker-pool-size.queues.Tenant-B=3
+jobrunr.jobs.dynamic-queue.lenient-fixed-worker-pool-size.label-prefix=tenant:
+jobrunr.jobs.dynamic-queue.lenient-fixed-worker-pool-size.title=Tenants
+```
+</figure>
+
+## Usage
 Using dynamic queues could not have been easier thanks to Job Labels:
 
 __Using the `@Job` annotation__:
