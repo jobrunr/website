@@ -8,9 +8,13 @@ We want our licensing to be simple and fair. You may have seen our license is fo
 
 This page explains exactly what one cluster is and what your license covers.
 
-The short answer is: **A Pro Business license covers all your applications that connect to one production JobRunr database.**
+The short answer is: **A Pro Business license covers all your applications that connect to one production JobRunr database, meaning a single set of JobRunr tables.**
 
 A **JobRunr Pro Enterprise license** on the other hand is truly **unlimited**. You can use it with as many clusters or databases as you want.
+
+## What is a "JobRunr Database"?
+
+A JobRunr Database is one set of tables used by JobRunr to store and manage background jobs. This set (also called collections) includes tables for jobs, recurring jobs, metadata, and background job servers, and optionally a table for migrations.
 
 ## What is a "Production Cluster"?
 
