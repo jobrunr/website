@@ -15,6 +15,8 @@ menu:
 
 Are you running a multi-tenant application? Or do you have diverse types of jobs where certain types of jobs could potentially trigger peak workloads? Use JobRunr's built-in dynamic queues to make sure that there is some fair-use and all jobs get a fair amount of resources!
 
+{{< demo-callout step="11" label="Fair Play" >}}
+
 > **Note**: JobRunr Pro supports unlimited dynamic queues and they can be used together with the [priority queues]({{< ref "/documentation/pro/priority-queues.md" >}}).
 
 ## Example Use Cases

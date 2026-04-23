@@ -15,6 +15,8 @@ menu:
 
 JobRunr's job chaining and workflow capabilities enhance software development efficiency by enabling logical task sequencing and complex workflow management. This setup ensures tasks execute in order, maintaining data integrity and operational consistency, especially when subsequent processes depend on earlier outcomes. The Pro version offers advanced controls and insights, further optimizing performance and providing you with an instant overview of your business process.
 
+{{< demo-callout step="8" label="Alert the Team" >}}
+
 > This comes in really handy when using [Batches]({{< ref "batches.md" >}}) - start a new step in your business process when a whole bunch of related jobs have finished.
 
 ### Job chaining via `continueWith` and `onFailure`

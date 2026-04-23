@@ -15,6 +15,8 @@ menu:
 
 When running multiple JobRunr clusters (i.e. different applications running on separate JobRunr tables), it becomes tedious to monitor all the different  dashboards. The _Multi-Cluster Dashboard_ is here to make this task easier. 
 
+{{< demo-callout step="4" label="Dashboard First Look" >}}
+
 The Multi-Cluster Dashboard provides a unified view of multiple JobRunr Pro clusters (i.e., independent schedulers). We designed it to be as easy to use as possible. In fact, from a user perspective, it has the same feel and set of features as the regular [JobRunr Pro Dashboard]({{< ref "jobrunr-pro-dashboard.md" >}}), with a few additional markers to quickly distinguish between clusters.
 
 <!-- Monitoring multiple instances can get tiresome when running a lot of different JobRunr clusters, all running their own jobs, for instance when deploying multiple single-tenant SaaS applications. With the _Multi Dashboard_, your one-stop job shop, you can **monitor the health of all clusters at once** within one dashboard server. -->

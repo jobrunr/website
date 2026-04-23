@@ -1,0 +1,8 @@
+{{- $step := .Get "step" -}}
+{{- $label := .Get "label" -}}
+{{- $url := printf "https://finance.demo.jobrunr.io/storyline/step/%s" $step -}}
+<div style="border-left: 4px solid var(--color-tertiary, #4ed1a1); background: #f6fbf9; padding: 1rem 1.25rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0;">
+  <p style="margin: 0 0 0.4rem; font-weight: 600;">▶ See it in the live demo</p>
+  <p style="margin: 0 0 0.6rem;">Walk through <strong>Step {{ $step }}{{ with $label }} — {{ . }}{{ end }}</strong> in our hosted neobank demo. No install needed.</p>
+  <a href="{{ $url }}" target="_blank" rel="noopener" style="font-weight: 600;">Open this step in the demo →</a>
+</div>

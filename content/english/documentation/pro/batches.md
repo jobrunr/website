@@ -15,6 +15,8 @@ menu:
 
 Batches allow you to create a bunch of background jobs atomically. This means that if there was an exception during the creation of background jobs, none of them will be processed. Consider you want to send 1000 emails to your clients, and they really want to receive these emails. Here is the old way:
 
+{{< demo-callout step="7" label="Batch Processing" >}}
+
 ```java
 public class NewsletterService {
 

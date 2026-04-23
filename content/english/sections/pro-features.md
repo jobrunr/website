@@ -9,9 +9,9 @@ button:
       label: "Start your free trial"
       link: "try-jobrunr-pro"
     learn_more:
-      enable: false
-      label: "See it in action"
-      link: "#demo-section"
+      enable: true
+      label: "Try the live demo"
+      link: "https://finance.demo.jobrunr.io/storyline"
 features_intro:
   title: "5 reasons enterprise teams choose JobRunr Pro"
 first_feature:

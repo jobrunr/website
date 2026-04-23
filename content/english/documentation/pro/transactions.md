@@ -15,6 +15,8 @@ menu:
 
 The JobRunr [Spring Boot Starter]({{<ref "/documentation/configuration/spring/_index.md">}}), [Micronaut integration]({{<ref "/documentation/configuration/micronaut/_index.md">}}) (*), [Quarkus extension]({{<ref "/documentation/configuration/quarkus/_index.md">}}) come with an `@Transactional` plugin that makes sure your jobs join the transaction created by the framework. You can also benefit from this plugin when using Kotlin with [Exposed ORM](https://github.com/JetBrains/Exposed).
 
+{{< demo-callout step="6" label="Don't Charge Twice" >}}
+
 > (*) See important remarks at the end of this page.
 
 {{< codeblock title="Thanks to the `@Transactional` support, the whole method - including the job scheduling - is transactional." >}}

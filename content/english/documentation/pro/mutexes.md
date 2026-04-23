@@ -15,6 +15,8 @@ menu:
 
 A `mutex` is a mutually exclusive flag. It acts as a gate keeper to a resource allowing only one `Job` to use it and postpones all others jobs using the same `mutex`.
 
+{{< demo-callout step="12" label="One Printer, Many Jobs" >}}
+
 > You cannot use both a mutex and a [rate limiter]({{< ref "/documentation/pro/rate-limiters" >}}) on the same `Job`.
 
 > **Recurring job**: Unless the mutex is shared with other jobs, we don't recommend using a mutex to limit the concurrency of a recurring job. By default, a recurring job cannot have multiple jobs running in parallel, therefore a mutex is not needed.

@@ -15,6 +15,8 @@ menu:
 
 Do you need to replace an already enqueued job? Or a job that is already being processed? Thanks to the JobRunr Pro `enqueueOrReplace` and `scheduleOrReplace` you can update the existing job easily.
 
+{{< demo-callout step="20" label="Replacing Outdated Jobs" >}}
+
 <figure>
 
 ```java

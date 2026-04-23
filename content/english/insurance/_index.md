@@ -17,8 +17,8 @@ button:
       link: "try-jobrunr-pro"
     learn_more:
       enable: true
-      label: "Talk to our dev team"
-      link: "mailto:nicholas@jobrunr.io?subject=JobRunr%20Insurance%20Inquiry"
+      label: "Try the live demo"
+      link: "https://finance.demo.jobrunr.io/storyline"
 
 social_proof:
   title: "Trusted by Insurance Engineering Teams at"
@@ -92,20 +92,18 @@ use_cases_section:
         - "<strong>Fairness:</strong>&nbsp;One line of business never starves another, even during catastrophe events."
 
 explore_yourself:
-  title: "See JobRunr Pro in action"
-  description: "Explore our JobRunr Pro demo at your own pace."
+  title: "Try JobRunr Pro yourself"
+  description: "Walk through 21 hands-on scenarios in our hosted demo. No installation, no setup. Just open it in your browser and see how JobRunr Pro handles real-world workflows like the ones your insurance platform runs every night."
+  demo_button:
+    label: "Launch the interactive demo"
+    link: "https://finance.demo.jobrunr.io/storyline"
+  alt_options_title: "Prefer to watch a walkthrough or run it locally?"
   videourl: https://www.youtube.com/embed/tTHbpOIyPfQ?si=7mSUSMoL7LkEyLoR
-
-  button:
-    get_started:
-      enable: true
-      label: "Get a trial license"
-      link: "try-jobrunr-pro"
-    learn_more:
-      enable: true
-      label: "Github code for the demo*"
-      link: "https://github.com/jobrunr/storyline-demo"
-  disclaimer: "* You need to have an active JobRunr pro (trial) license to be able to run the Github demo project"
+  video_caption: "Watch a video walkthrough of the same demo."
+  github:
+    label: "View source on GitHub"
+    link: "https://github.com/jobrunr/storyline-demo"
+    disclaimer: "Running the demo locally requires an active JobRunr Pro (trial) license."
 
 comparison_table:
   title: "Why JobRunr Pro Enterprise for Insurance?"

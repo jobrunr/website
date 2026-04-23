@@ -17,8 +17,8 @@ button:
       link: "try-jobrunr-pro"
     learn_more:
       enable: true
-      label: "Talk to a scheduling expert"
-      link: "mailto:info@jobrunr.io?subject=JobRunr%20Enterprise%20Inquiry"
+      label: "Try the live demo"
+      link: "https://finance.demo.jobrunr.io/storyline"
 social_proof:
   title: "Trusted by Engineering Teams at"
   logos:
@@ -95,20 +95,18 @@ use_cases_section:
 
 
 explore_yourself:
-  title: "See JobRunr Pro in action"
-  description: "Explore our JobRunr Pro demo at your own pace."
+  title: "Try JobRunr Pro yourself"
+  description: "Walk through 21 hands-on scenarios in our hosted neobank demo. No installation, no setup. Just open it in your browser and feel how JobRunr Pro handles real financial workflows."
+  demo_button:
+    label: "Launch the interactive demo"
+    link: "https://finance.demo.jobrunr.io/storyline"
+  alt_options_title: "Prefer to watch a walkthrough or run it locally?"
   videourl: https://www.youtube.com/embed/tTHbpOIyPfQ?si=7mSUSMoL7LkEyLoR
-
-  button:
-    get_started:
-      enable: true
-      label: "Get a trial license"
-      link: "try-jobrunr-pro"
-    learn_more:
-      enable: true
-      label: "GitHub code for the demo*"
-      link: "https://github.com/jobrunr/storyline-demo"
-  disclaimer: "* You need to have an active JobRunr Pro (trial) license to be able to run the GitHub demo project"
+  video_caption: "Watch a video walkthrough of the same demo."
+  github:
+    label: "View source on GitHub"
+    link: "https://github.com/jobrunr/storyline-demo"
+    disclaimer: "Running the demo locally requires an active JobRunr Pro (trial) license."
 
 
 

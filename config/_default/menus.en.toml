@@ -35,6 +35,11 @@ weight = 3
 
 # footer menu left
 [[footer_01]]
+name = "Live Interactive Demo"
+url = "https://finance.demo.jobrunr.io/storyline"
+weight = 0
+
+[[footer_01]]
 name = "Cron Generator"
 url = "/tools/cron-expression-generator/"
 weight = 1
