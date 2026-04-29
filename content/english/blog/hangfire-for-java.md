@@ -3,7 +3,7 @@ title: "Hangfire for Java: Why JobRunr is What .NET Developers Are Looking For"
 description: "If you're a .NET developer moving to Java or looking for Hangfire's equivalent in the Java ecosystem, JobRunr offers the same developer experience with even more features."
 keywords: ["hangfire java", "hangfire alternative java", "background jobs java", "dotnet to java migration", "jobrunr vs hangfire"]
 image: /blog/hangfire-for-java.webp
-date: 2026-04-03T09:00:00+02:00
+date: 2026-04-29T09:00:00+02:00
 author: "Nicholas D'hondt"
 tags:
   - blog
@@ -147,8 +147,8 @@ If you're using Spring Boot (which many .NET developers move to), JobRunr has fi
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
-    <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>8.3.1</version>
+    <artifactId>jobrunr-spring-boot-4-starter</artifactId>
+    <version>8.5.0</version>
 </dependency>
 ```
 
@@ -161,7 +161,7 @@ Add the dependency, configure your database, and you're done.
 JobRunr can [schedule jobs to run when electricity is greenest](/en/documentation/background-methods/carbon-aware-jobs/). This is unique to JobRunr.
 
 ```java
-BackgroundJob.schedule(CarbonAware.between(now, now.plusHours(5)),
+BackgroundJob.schedule(CarbonAware.between(now, now.plus(5, HOURS)),
     () -> generateReport());
 ```
 
