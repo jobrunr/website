@@ -84,15 +84,21 @@ var multiClusterWebServer = new MultiClusterWebServer(
         ,
         usingStandardMultiClusterConfiguration()
                 .andStorageProviderClusters(
-                        new StorageProviderClusterConfiguration("Accounting", provider1),
-                        new StorageProviderClusterConfiguration("Human Resources", provider2)
+                        new StorageProviderClusterConfiguration(cluser1UUID, "Accounting", provider1),
+                        new StorageProviderClusterConfiguration(cluster2UUID, "Human Resources", provider2)
                 )
                 .andRestApiClusters(
-                        new RestApiClusterConfiguration("Order fulfillment", "https://order-fulfillment-service.acme.com")
+                        new RestApiClusterConfiguration(cluster3UUID, "Order fulfillment", "https://order-fulfillment-service.acme.com")
                 )
 );
 multiClusterWebServer.start();
 ```
+
+> [!NOTE]
+> In versions preceding v8.6.0 the clusterUUID is not a required parameter.
+> 
+> If you do not explicitly configure a cluster id when creating the background job server for the cluster, you will need
+> to retrieve the automatically generated id from the metadata table with id "id-cluster".
 
 Running this example will start a web server reachable at `http://localhost:8000/multi/dashboard`. The `MultiClusterWebServer` will serve requests by querying the two with `StorageProvider`s (i.e., `provider1` and `provider2`) and one JobRunr cluster web server at `https://order-fulfillment-service.acme.com`.
 
