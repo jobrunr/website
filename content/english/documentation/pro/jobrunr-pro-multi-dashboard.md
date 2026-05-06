@@ -84,18 +84,18 @@ var multiClusterWebServer = new MultiClusterWebServer(
         ,
         usingStandardMultiClusterConfiguration()
                 .andStorageProviderClusters(
-                        new StorageProviderClusterConfiguration(cluser1UUID, "Accounting", provider1),
-                        new StorageProviderClusterConfiguration(cluster2UUID, "Human Resources", provider2)
+                        new StorageProviderClusterConfiguration(accountingClusterId, "Accounting", provider1),
+                        new StorageProviderClusterConfiguration(humanResourcesClusterId, "Human Resources", provider2)
                 )
                 .andRestApiClusters(
-                        new RestApiClusterConfiguration(cluster3UUID, "Order fulfillment", "https://order-fulfillment-service.acme.com")
+                        new RestApiClusterConfiguration(orderFulfillmentClusterId, "Order fulfillment", "https://order-fulfillment-service.acme.com")
                 )
 );
 multiClusterWebServer.start();
 ```
 
 > [!NOTE]
-> In versions preceding v8.6.0 the clusterUUID is not a required parameter.
+> In versions preceding v8.6.0 the clusterId is not a required parameter.
 > 
 > If you do not explicitly configure a cluster id when creating the background job server for the cluster, you will need
 > to retrieve the automatically generated id from the metadata table with id "id-cluster".
