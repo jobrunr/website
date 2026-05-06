@@ -24,7 +24,7 @@ JobRunr Pro's **External Jobs** solve this by decoupling the _trigger_ (starting
 An External Job follows a slightly different lifecycle than a regular job:
 
 1. **ENQUEUED**: the job is created and placed on a queue
-2. **PROCESSING**: a worker picks up the job and executes the _trigger method_. This is where you start the external work (e.g., call a GPU API, send an email for approval)
+2. **PROCESSING**: a worker picks up the job and executes the _trigger method_. This is where you start the external work (e.g., call a GPU API, send an email for approval). If a job timeout is set up, it starts counting from this moment onwards.
 3. **PROCESSED**: the trigger method completes. The job is now _parked_, consuming no worker threads, no resources. It simply waits
 4. **SUCCEEDED** or **FAILED**: your code signals the job's final outcome from outside
 

@@ -42,9 +42,13 @@ jobScheduler.create(aJob()
 
 <br>
 
-> <b>Important:</b> If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
+> [!IMPORTANT] If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
 
 ## Configuration
 Job time-outs don't require any configuration.
+
+## External jobs and timeouts
+
+External jobs can time out just like regular jobs, so they don't remain in `PROCESSED` state indefinitely while waiting for a signal. The timeout countdown for external jobs begins the moment it starts processing (going into `PROCESSING` state) and continues as the job remains in `PROCESSED` state awaiting the external signal confirming its success or failure.
 
 {{< trial-button >}}
