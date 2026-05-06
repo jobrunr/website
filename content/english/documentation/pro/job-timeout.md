@@ -15,7 +15,7 @@ menu:
 
 Do you have jobs that take forever due to some 3th party libraries that are unreliable? Or are your job executions sometimes stuck due to networking issues? With JobRunr Pro, you can have your jobs fail automatically if they take too long. 
 
-**Note**: The timeout countdown for an external job begins the moment it starts processing, and continues as the job remains in `PROCESSED` state awaiting the external signal confirming its success or failure. 
+> **Note**: The timeout countdown for an external job begins the moment it starts processing, and continues as the job remains in `PROCESSED` state awaiting the external signal confirming its success or failure. 
 
 {{< demo-callout step="13" label="The Hung Job" >}}
 
