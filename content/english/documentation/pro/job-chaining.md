@@ -128,7 +128,7 @@ There are times where the next `Job` in the chain requires information from the 
 {{< codeblock title="Retrieving the previous job from the chain using `JobContext` and `StorageProvider`." >}}
 ```java
 public void notifyViaSlack(JobContext context) {
-    var awaitedJobId = context.getAwaitedJob(); // can be null if this job has no ancestor
+    var awaitedJobId = context.getAwaitedJobId(); // can be null if this job has no ancestor
     var awaitedJob = storageProvider.getJobById(awaitedJobId);
     MyJobResult awaitedJobResult = awaitedJob.<MyJobResult>getResult();
     
