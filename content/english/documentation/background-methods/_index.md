@@ -169,10 +169,10 @@ jobScheduler.create(aJob()
   .withName("A job requested for " + name)
   .withAmountOfRetries(3)
   .withLabels("tenant-A", "from-rest-api")
-  .withDetails(() -> sampleService.executeExampleJob(name)));
+  .withJobLambda(() -> sampleService.executeExampleJob(name)));
 
 ```
-<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withDetails() lambda. The example assumes you have access to an instance of `JobScheduler` (e.g., via dependency injection), you may also use the singleton `BackgroundJobScheduler`.</figcaption>
+<figcaption>This enqueues a background job using a JobBuilder where all the Job details like name, amountOfRetries and labels can be set using the builder. The JobBuilder receives the actual job via the withJobLambda() method. The example assumes you have access to an instance of `JobScheduler` (e.g., via dependency injection), you may also use the singleton `BackgroundJobScheduler`.</figcaption>
 </figure>
 
 With a `JobRequest`:

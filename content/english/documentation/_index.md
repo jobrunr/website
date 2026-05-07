@@ -177,7 +177,7 @@ public void sendWelcomeEmail(String userEmail) { ... }
 BackgroundJob.create(JobBuilder.aJob()
     .withName("Send welcome email to " + userEmail)
     .withAmountOfRetries(3)
-    .withDetails(() -> emailService.sendWelcomeEmail(userEmail)));
+    .withJobLambda(() -> emailService.sendWelcomeEmail(userEmail)));
 ```
 
 ### Persisting Jobs with a StorageProvider

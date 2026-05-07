@@ -107,12 +107,12 @@ private NotifyService notifyService;
 public void createArchiveAndNotify(String folder) {
     JobId createArchiveJobId = BackgroundJob
         .create(aJob()
-            .withDetails(() -> archiveService.createArchive(folder)));
+            .withJobLambda(() -> archiveService.createArchive(folder)));
 
     JobId notifyViaSlackJobId = BackgroundJob
         .create(aJob()
             .runAfterSuccessOf(createArchiveJobId)
-            .withDetails(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
+            .withJobLambda(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
 }
 
 ```

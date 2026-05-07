@@ -30,7 +30,7 @@ JobRunr supports four different types of load-balancing:
 - **Round Robin Dynamic Queues**: here, each dynamic queue receives the same amount of resource usage
 - **Weighted Round Robin Dynamic Queues**: here, certain dynamic queues can be configured with an optional weight. A queue with a weight of 2 will be checked twice as often as a queue with a weight of 1.
 - **Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. Could be of use when you want some of your jobs to run as soon as they are enqueued, without waiting for other jobs enqueued earlier to finish processing.
-- **Lenient Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. If there are more jobs than reserved workers, workers from the unreserved pool will run the extra jobs when possible.
+- **Lenient Fixed Worker Size Dynamic Queues**: here, a certain number of workers are reserved, so only jobs from the assigned queue can run on those reserved workers. If there are more jobs than reserved workers, workers from the unreserved pool will run the extra jobs.
 
 ## Dashboard
 If you're using this feature, you can also enable an extra Dynamic Queues view in the dashboard. This view gives an immediate overview of the amount of jobs per dynamic queue.
@@ -154,9 +154,7 @@ jobrunr.jobs.dynamic-queue.weighted-round-robin.queues.tenantB=5
 
 You can also create the configuration programatically by creating a `dynamicQueuePolicy` bean yourself in the same vein as the one passed in in the above Fluent API example.
 
-### Lenient fixed amount of reserved workers
-
-With a _lenient_ fixed number of reserved workers, job processing behaves the same as the strict variant, except that jobs with dedicated workers can also run on unreserved workers when capacity is available.
+##### Lenient fixed amount of reserved workers
 
 You can reserve a lenient fix amount of workers for different queues using the fluent API or properties as follows:
 
@@ -213,7 +211,7 @@ If you prefer the `JobBuilder` pattern, this is also really easy:
 jobScheduler.create(aJob()
     .withName("Job " + i + " for tenant " + tenant)
     .withLabels("tenant:" + tenant)
-    .withDetails(() -> myService.runBackgroundWork(input)))
+    .withJobLambda(() -> myService.runBackgroundWork(input)))
 ```
 <figcaption>We can use the JobBuilder to create a Job and assign it a label.<br/>Note how we re-use the previously configured label prefix `tenant:`.</figcaption>
 </figure>

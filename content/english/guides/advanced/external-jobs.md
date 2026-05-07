@@ -40,11 +40,11 @@ import static org.jobrunr.scheduling.JobBuilder.anExternalJob;
 var jobId = BackgroundJob.create(anExternalJob()
         .withName("Descriptive Job Name")
         .withLabels("category", "subcategory")
-        .withQueue("high-prio")
-        .withDetails(() -> myService.triggerExternalWork()));
+        .withPriorityQueue("high-prio")
+        .withJobLambda(() -> myService.triggerExternalWork()));
 ```
 
-The `withDetails` lambda defines the **trigger method**. This runs on a JobRunr worker thread and should _start_ the external work, not wait for it to finish. Inside the trigger method, you can access the current job's ID via `ThreadLocalJobContext`:
+The `withJobLambda` lambda defines the **trigger method**. This runs on a JobRunr worker thread and should _start_ the external work, not wait for it to finish. Inside the trigger method, you can access the current job's ID via `ThreadLocalJobContext`:
 
 ```java
 import org.jobrunr.server.runner.ThreadLocalJobContext;
@@ -88,8 +88,8 @@ public class GpuJobService {
         var jobId = BackgroundJob.create(anExternalJob()
                 .withName("GPU Video: " + prompt)
                 .withLabels("gpu", "replicate")
-                .withQueue("high-prio")
-                .withDetails(() -> triggerPrediction(prompt)));
+                .withPriorityQueue("high-prio")
+                .withJobLambda(() -> triggerPrediction(prompt)));
 
         UUID jobKey = jobId.asUUID();
         var job = new GpuJob(jobKey, prompt, null, "queued");
@@ -169,9 +169,9 @@ public class AiApprovalService {
         BackgroundJob.create(anExternalJob()
                 .withName("AI Content Review: " + productName)
                 .withLabels("ai-review", productName)
-                .withQueue("high-prio")
+                .withPriorityQueue("high-prio")
                 .withAmountOfRetries(0)
-                .withDetails(() -> analyzeContent(productName, JobContext.Null)));
+                .withJobLambda(() -> analyzeContent(productName, JobContext.Null)));
     }
 }
 ```

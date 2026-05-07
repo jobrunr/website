@@ -227,7 +227,7 @@ public class MyJob extends Job {
 ```java
 jobScheduler.create(aJob()
         .withMutex("virus-scanner")
-        .withDetails(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
+        .withJobLambda(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
 
 @Job(mutex = "virus-scanner")
 public void onlyProcessOneJobAtTheSameTime() {

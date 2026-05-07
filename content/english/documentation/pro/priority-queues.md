@@ -58,8 +58,8 @@ If you are using the `JobBuilder`, queues are also really easy to use and you ca
 ```java
 public void startJobOnQueue(JobQueue jobQueue) { // JobQueue can be an enum value
     jobScheduler.create(aJob()
-        .withQueue(jobQueue)
-        .withDetails(() -> System.out.println("This job will start on the given queue"));
+        .withPriorityQueue(jobQueue)
+        .withJobLambda(() -> System.out.println("This job will start on the given queue"));
 }
 ```
 
@@ -76,7 +76,7 @@ Using the fluent API, first specify all the queues as Strings (or string constan
 ```java
 JobRunrPro
     .configure()
-    .useQueues(DefaultQueue, HighPrioQueue, DefaultQueue, LowPrioQueue)
+    .usePriorityQueues(DefaultQueue, HighPrioQueue, DefaultQueue, LowPrioQueue)
     ...
 ```
 <figcaption>When configuring queues, specify the default queue for all jobs first and then specify all the queues, going from highest priority to lowest priority. Using constants keeps the code readable.</figcaption>

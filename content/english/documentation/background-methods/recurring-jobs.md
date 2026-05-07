@@ -90,7 +90,7 @@ private JobScheduler jobScheduler;
 
 jobScheduler.createRecurrently(aRecurringJob()
     .withCron(Cron.daily())
-    .withDetails(() -> System.out.println("I'm created by the builder!"));
+    .withJobLambda(() -> System.out.println("I'm created by the builder!"));
     
 ```
 </figure>
@@ -128,7 +128,7 @@ private JobScheduler jobScheduler;
 
 jobScheduler.createRecurrently(aRecurringJob()
     .withInterval(Duration.ofDays(3))
-    .withDetails(() -> System.out.println("I'm created by the builder!"));
+    .withJobLambda(() -> System.out.println("I'm created by the builder!"));
     
 ```
 </figure>
@@ -171,7 +171,7 @@ If you are using the `JobBuilder` pattern, this becomes:
 BackgroundJob.createRecurrently(aRecurringJob()
     .withId("some-id")
     .withCron("0 12 * */2")
-    .withDetails(() -> System.out.println("Powerful!")));
+    .withJobLambda(() -> System.out.println("Powerful!")));
 ```
 </figure>
 
@@ -215,7 +215,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
     .withId("some-id")
     .withCron(Cron.daily())
     .withDeleteAt(Instant.parse("2025-06-01T14:00:00Z"))
-    .withDetails(() -> System.out.println("Schedule me up to the 2025-06-01T14:00:00Z")));
+    .withJobLambda(() -> System.out.println("Schedule me up to the 2025-06-01T14:00:00Z")));
 ```
 </figure>
 
@@ -320,7 +320,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
     .withId("some-id")
     .withCron("0 12 * */2")
     .withScheduleJobsSkippedDuringDowntime()
-    .withDetails(() -> System.out.println("Powerful!")));
+    .withJobLambda(() -> System.out.println("Powerful!")));
 ```
 </figure>
 
@@ -355,7 +355,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
     .withId("some-id")
     .withInterval(Duration.ofMinutes(5))
     .withMaxConcurrentJobs(4)
-    .withDetails(() -> System.out.println("Powerful!")));
+    .withJobLambda(() -> System.out.println("Powerful!")));
 ```
 </figure>
 

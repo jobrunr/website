@@ -36,14 +36,13 @@ When you are using the `JobBuilder` pattern, you can pass the serverTag via the 
 ```java
 jobScheduler.create(aJob()
         .withProcessTimeOut(Duration.ofMinutes(5))
-        .withDetails(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
+        .withJobLambda(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
 ```
 </figure>
 
 <br>
 
-> [!IMPORTANT] 
-> If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
+> [!IMPORTANT] If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
 
 ## Configuration
 Job time-outs don't require any configuration.
