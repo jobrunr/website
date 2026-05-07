@@ -72,6 +72,8 @@ The `MultiClusterConfiguration` allows to specify the clusters to query from at 
 
 > You may choose to not provide this configuration and instead [use auto-discovery]({{< ref "#auto-discovery" >}}) to register clusters at runtime.
 
+> We expect the Multi-Cluster Dashboard to be deployed as a standalone application (e.g., inside a docker container). Therefore we require the use of JDK 21 or higher and internally use `Jackson` for JSON serialization needs.
+
 Below is a more advanced configuration:
 
 ```java
@@ -84,11 +86,11 @@ var multiClusterWebServer = new MultiClusterWebServer(
         ,
         usingStandardMultiClusterConfiguration()
                 .andStorageProviderClusters(
-                        new StorageProviderClusterConfiguration("Accounting", provider1),
-                        new StorageProviderClusterConfiguration("Human Resources", provider2)
+                        new StorageProviderClusterConfiguration(accountingClusterId, "Accounting", provider1),
+                        new StorageProviderClusterConfiguration(humanResourcesClusterId, "Human Resources", provider2)
                 )
                 .andRestApiClusters(
-                        new RestApiClusterConfiguration("Order fulfillment", "https://order-fulfillment-service.acme.com")
+                        new RestApiClusterConfiguration(orderFulfillmentClusterId, "Order fulfillment", "https://order-fulfillment-service.acme.com")
                 )
 );
 multiClusterWebServer.start();
@@ -96,7 +98,23 @@ multiClusterWebServer.start();
 
 Running this example will start a web server reachable at `http://localhost:8000/multi/dashboard`. The `MultiClusterWebServer` will serve requests by querying the two with `StorageProvider`s (i.e., `provider1` and `provider2`) and one JobRunr cluster web server at `https://order-fulfillment-service.acme.com`.
 
-> We expect the Multi-Cluster Dashboard to be deployed as a standalone application (e.g., inside a docker container). Therefore we require the use of JDK 21 or higher and internally use `Jackson` for JSON serialization needs.
+> [!NOTE]
+> In versions preceding v8.6.0 the clusterId is not a required parameter.
+
+#### How to get the clusterId
+If you are providing a `StorageProviderClusterConfiguration` you can get its cluster id by executing this query
+`provider1.getMetadata("id", "cluster")`.
+
+If you are using `RestApiClusterConfiguration`, you can call the endpoint `/api/cluster/cluster-id` within a cluster to be able to get the
+cluster id.
+For example: `https://order-fulfillment-service.acme.com/api/cluster/cluster-id`.
+
+If you have auto-discovery enabled you do not have to do this manually, we handle it for you.
+
+> [!IMPORTANT]
+> The cluster id is generated automatically when the background job server has connected for the first time 
+> to the database for that cluster. 
+> If this is not the case, the cluster id would be missing and the multi-cluster dashboard would fail to start.
 
 ### Auto-discovery
 
