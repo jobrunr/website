@@ -42,7 +42,8 @@ jobScheduler.create(aJob()
 
 <br>
 
-> [!IMPORTANT] If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
+> [!IMPORTANT] 
+> If your `Job` times out, it will go to the `FAILED` state automatically. Using the default `Job` configuration, it will automatically retry thanks to the exponential back-off policy. Depending on your business need, this may not be the desired and it can make sense to change the amount of retries to for example 0.
 
 ## Configuration
 Job time-outs don't require any configuration.
