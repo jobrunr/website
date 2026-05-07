@@ -213,7 +213,7 @@ If you prefer the `JobBuilder` pattern, this is also really easy:
 jobScheduler.create(aJob()
     .withName("Job " + i + " for tenant " + tenant)
     .withLabels("tenant:" + tenant)
-    .withDetails(() -> myService.runBackgroundWork(input)))
+    .withJobLambda(() -> myService.runBackgroundWork(input)))
 ```
 <figcaption>We can use the JobBuilder to create a Job and assign it a label.<br/>Note how we re-use the previously configured label prefix `tenant:`.</figcaption>
 </figure>

@@ -36,7 +36,7 @@ When you are using the `JobBuilder` pattern, you can pass the serverTag via the 
 ```java
 jobScheduler.create(aJob()
         .withProcessTimeOut(Duration.ofMinutes(5))
-        .withDetails(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
+        .withJobLambda(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
 ```
 </figure>
 

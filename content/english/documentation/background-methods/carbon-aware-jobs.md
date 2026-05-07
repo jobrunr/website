@@ -60,7 +60,7 @@ Or you can use the `JobBuilder` to achieve the same result:
 BackgroundJob.create(aJob()
     .withName("Send welcome email to newly registered users")
     .scheduleAt(CarbonAware.between(now, now.plus(5, HOURS)))
-    .withDetails(() -> myService.sendNewlyRegisteredEmail()));
+    .withJobLambda(() -> myService.sendNewlyRegisteredEmail()));
 ```
 
 With the `JobBuilder`, it is possible to pass in an instance of `Temporal` using `scheduleAt()` or an instance of `TemporalAmount` using `scheduleIn()` to schedule the job to run after the specified duration from now. For Carbon Aware jobs, we again create a `CarbonAwarePeriod`.
