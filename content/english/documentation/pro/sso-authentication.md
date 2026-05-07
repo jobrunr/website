@@ -13,7 +13,7 @@ menu:
 
 {{< trial-button >}}
 
-JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has fine grained authorization rules that be sued for role based access control, e.g., readOnly, allowAll, ...
+JobRunr Pro Enterprise comes with out-of-the-box Single Sign On (SSO) support and adds the possibility to protect the dashboard from prying eyes. Using the OpenId Connect Integration, you can decide which users have access and has fine grained authorization rules that be used for role based access control, e.g., readOnly, allowAll, ...
 
 Please consult our [Secure your JobRunr Dashboard with your OpenID Provider](/en/guides/authentication/openid-authentication/) guide to get started with JobRunr Pro and your OpenID provider of choice.
 
@@ -26,8 +26,9 @@ The following settings can be used to configure JobRunr:
 - **Client Secret**---the client secret that is configured in your OpenID Authorization server
 - **Scope**---the optional scope; if `null` the default `"openid email profile"` will be used
 - **Accepted Audience**---the optional JWT audience claim passed into the OID provider (being mapped to a `Set<String>` there can be multiple audiences provided)
+- **Authentication Mode**---the optional configuration for which authentication mode you want to use, by default this is `CLIENT_SECRET`, you can also configure this to be `PKCE`
 
-In addition of the JobRunr configuration settings, be sure to configure your OpenID provider to redirect back to the JobRunr Pro dashboard after logging in (see below).
+In addition to the JobRunr configuration settings, be sure to configure your OpenID provider to redirect back to the JobRunr Pro dashboard after logging in (see below).
 
 ### Using a framework
 
@@ -40,6 +41,7 @@ jobrunr.dashboard.openid-authentication.client-id="client-id"
 jobrunr.dashboard.openid-authentication.client-secret="client-secret"
 jobrunr.dashboard.openid-authentication.scope="scope" # if null, the default "openid email profile" is used
 jobrunr.dashboard.openid-authentication.accepted-audience="my-app" # optional but recommended, if provided, the claims must be issued to at least one of the accepted audience
+jobrunr.dashboard.openid-authentication.openid-client-authentication-mode="CLIENT_SECRET" # optional, if provided, configures the authentication mode, default value is CLIENT_SECRET
 ````
 
 > **Quarkus**: You'll need to prefix the properties with `quarkus.`, e.g., `quarkus.jobrunr.dashboard.openid-authentication.client-id="client-id"` and replace `jobrunr.dashboard.enabled=true` by `quarkus.jobrunr.dashboard.included=true`
@@ -77,6 +79,25 @@ In addition, you an logout by visiting `/oidc/logout`. This will logout the user
 By default, JobRunr gives authenticated users the rights to perform any available action on the dashboard. They can view jobs and server statuses, as well as trigger or delete jobs, and pause, or resume servers. You can restrict specific user actions (e.g. only viewing, not deleting, ...) by mapping claims to JobRunr-specific roles.
 
 See [the OpenID Authentication guide](/en/guides/authentication/openid-authentication/#mapping-claims-to-jobrunr-authorization-rules) on how to implement a custom `JobRunrUserProvider` to realize these restrictions.
+
+## Using PKCE for authentication for public client
+Starting in JobRunr Pro v8.6.0 you can use PKCE as an authentication mode for your application instead of client_secret.
+
+To configure JobRunr to use PKCE as an authentication method you have to configure the `jobrunr.dashboard.openid-authentication.openid-client-authentication-mode` property
+to have the value `PKCE`. You do not have to provide a client secret to work with PKCE, when configured for PKCE JobRunr accepts a null value for this.
+
+If you are providing us with an instance of `OpenIdConnectSettings` then you will have to specify it as follows (you can also still add the accepted audience when creating the `OpenIdConnectSettings`):
+```java
+OpenIdConnectSettings openIdConnectSettings = new OpenIdConnectSettings(
+    "your-well-known-openid-configuration-url",
+    "client-id",
+    null,
+    "scope",
+    OpenIdClientAuthenticationMode.PKCE
+);
+```
+
+Make sure to also configure your identity provider to be set up for PKCE connections. The necessary configurations vary per provider.
 
 ## OpenId Connect Providers
 
