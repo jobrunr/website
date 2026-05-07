@@ -109,6 +109,8 @@ If you are using `RestApiClusterConfiguration`, you can call the endpoint `/api/
 cluster id.
 For example: `https://order-fulfillment-service.acme.com/api/cluster/cluster-id`.
 
+If you have auto-discovery enabled you do not have to do this manually, we handle it for you.
+
 > [!IMPORTANT]
 > The cluster id is generated automatically when the background job server has connected for the first time 
 > to the database for that cluster. 
