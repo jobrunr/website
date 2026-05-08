@@ -22,7 +22,8 @@ Java 26 ships with the new `--illegal-final-field-mutation=deny` flag, which mak
 
 We dropped every final field mutation from the codebase. JobRunr now runs cleanly on JDK 26 with the strict flag enabled. [PR #1529](https://github.com/jobrunr/jobrunr/pull/1529)
 
-> **Note**: the Multi-Cluster Dashboard web server in JobRunr Pro still uses one final field mutation internally, so it remains incompatible with `--illegal-final-field-mutation=deny`. We are tracking that for a follow-up release.
+> [!NOTE]
+> The Multi-Cluster Dashboard web server still performs final field mutation for JSON serialization and is not compatible with the `--illegal-final-field-mutation=deny` flag.
 
 ---
 
@@ -34,9 +35,7 @@ Quarkus 3.33 is the newest LTS line, and JobRunr now officially supports it. If 
 
 ## Faster Recurring Jobs
 
-If you run many recurring jobs, this one is for you. Looking up the latest scheduled instant of a recurring job previously used an `ORDER BY scheduledAt DESC LIMIT 1` query. On busy installs that grew expensive.
-
-We replaced it with a single `MAX(scheduledAt)` aggregate. The result: recurring jobs now handle equivalent volumes to earlier 7.x and 8.x versions on the same hardware, without you changing a thing. [PR #1549](https://github.com/jobrunr/jobrunr/pull/1549)
+JobRunr OSS should be able to easily handle up to 100 recurring jobs. In earlier versions of JobRunr v8, an index was not being picked up in heavy workload environments and JobRunr struggles to keep up with recurring jobs scheduling. With the fix in 8.6, recurring jobs now handle equivalent volumes to earlier 7.x and 8.x versions on the same hardware, without you changing a thing. [PR #1549](https://github.com/jobrunr/jobrunr/pull/1549)
 
 ---
 
@@ -78,7 +77,7 @@ The same rename applies to `RecurringJobBuilder` and the `JobTestBuilder` / `Rec
 
 Multi-line log statements used to collapse into a single line in the dashboard's job log view, which made structured output (stack traces, formatted JSON, table-style messages) painful to read.
 
-The dashboard now preserves whitespace and line breaks via `white-space: pre-wrap`, so your logs render exactly the way they were written. Thanks to [@RomanJobRunr](https://github.com/RomanJobRunr) for the first contribution! [PR #1533](https://github.com/jobrunr/jobrunr/pull/1533) (closes [#1524](https://github.com/jobrunr/jobrunr/issues/1524))
+The dashboard now preserves whitespace and line breaks via `white-space: pre-wrap`, so your logs render exactly the way they were written. [PR #1533](https://github.com/jobrunr/jobrunr/pull/1533) (closes [#1524](https://github.com/jobrunr/jobrunr/issues/1524))
 
 ---
 
@@ -95,7 +94,7 @@ This applies to both the Spring Boot 3 and Spring Boot 4 starters.
 ## Bug Fixes
 
 * **HikariDataSource graceful shutdown**. Fixed a race condition where running jobs were interrupted but did not get a chance to release the `HikariDataSource` before it closed. [PR #1528](https://github.com/jobrunr/jobrunr/pull/1528)
-* **MongoDB write exception on server reannounce**. Fixed a write exception thrown when a Background Job Server announces itself again after going down. [PR #1541](https://github.com/jobrunr/jobrunr/pull/1541)
+* **MongoDB write exception on server reannounce**. Fixed a write exception thrown when a Background Job Server announces itself again after going down. Thanks to [@RomanJobRunr](https://github.com/RomanJobRunr) for the first contribution! [PR #1541](https://github.com/jobrunr/jobrunr/pull/1541)
 * **Jackson 3 / Kotlin Serialization collection deserialization**. Fixed deserialization of collection-typed job parameters when using `Jackson3JsonMapper` or `KotlinxSerializationJsonMapper`. [PR #1548](https://github.com/jobrunr/jobrunr/pull/1548)
 
 ### Maintenance
