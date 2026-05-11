@@ -371,6 +371,7 @@
   function openTrialModal() {
     document.getElementById('trial-modal').classList.remove('hidden');
     document.getElementById('modal-backdrop').classList.remove('hidden');
+    (window.dataLayer = window.dataLayer || []).push({ event: 'trial_modal_opened' });
   }
 
   function closeTrialModal() {
@@ -418,6 +419,7 @@
                 formContent.classList.add('hidden');
                 successMessage.classList.remove('hidden');
                 modalTitle.textContent = 'Success!';
+                (window.dataLayer = window.dataLayer || []).push({ event: 'trial_form_submitted', form_type: 'enterprise_finance_poc' });
             } else {
                 throw new Error('Webhook failed');
             }

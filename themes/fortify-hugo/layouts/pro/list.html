@@ -311,7 +311,7 @@
             <tr class="bg-white">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900"></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"></td>
-              <td class="py-4 px-6 text-center bg-black text-white"><a class="underline" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden');" rel="noopener">Start your free trial</a></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><a class="underline" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">Start your free trial</a></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><a class="underline" href="{{ "/en/get-jobrunr-pro-enterprise" }}">Get In Touch </a></td>
             </tr>
           </tbody>
@@ -425,6 +425,7 @@
       e.preventDefault();
       modal.classList.remove('hidden');
       backdrop.classList.remove('hidden');
+      (window.dataLayer = window.dataLayer || []).push({ event: 'trial_modal_opened' });
     };
 
     const close = () => {
@@ -488,9 +489,11 @@ document.getElementById('trial-form').addEventListener('submit', function(e) {
             // Hide the form and show success message
             formContent.classList.add('hidden');
             successMessage.classList.remove('hidden');
-            
+
             // Update the modal title for a clearer confirmation
             modalTitle.textContent = 'Success!';
+
+            (window.dataLayer = window.dataLayer || []).push({ event: 'trial_form_submitted', form_type: 'trial' });
         } else {
             // Handle non-OK N8N response
             throw new Error('N8N webhook returned a non-success status.');
