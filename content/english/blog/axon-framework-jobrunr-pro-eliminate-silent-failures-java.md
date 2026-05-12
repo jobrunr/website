@@ -2,7 +2,7 @@
 title: "Axon Framework + JobRunr Pro Eliminates Silent Failures in Distributed Java"
 description: "Axon Framework handles event sourcing and long-running workflows. JobRunr Pro enforces time boundaries on every step. Together, they build distributed Java systems that recover, and prove it."
 image: /blog/axon_jobrunr_header.webp
-date: 2026-04-29T10:00:00+02:00
+date: 2026-05-12T00:00:00+02:00
 draft: false
 author: "AxonIQ"
 slug: "axon-framework-jobrunr-pro-eliminate-silent-failures-java"
@@ -11,9 +11,6 @@ tags:
   - meta
   - axon-framework
   - enterprise
-_build:
-  list: never
-  render: always
 ---
 
 If you're building distributed systems in Java, you're already familiar with two problems that never fully go away.
