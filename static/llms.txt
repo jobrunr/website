@@ -1,0 +1,125 @@
+# JobRunr
+
+> JobRunr is a library that lets Java developers run background jobs on the JVM with persistence, automatic retries, distributed processing, and a built-in dashboard. It works with Spring Boot, Quarkus, Micronaut, or plain Java and supports SQL and NoSQL storage. JobRunr Pro adds enterprise features like batches, job chaining, priority queues, rate limiters, mutexes, transactions, observability, and SSO.
+
+This file is a curated index of JobRunr documentation, guides, and reference material. It is designed to help LLM-powered tools (Claude, Cursor, Codex, Copilot, ChatGPT) reason about JobRunr and answer developer questions accurately. Every link below resolves to a page on https://www.jobrunr.io.
+
+## Getting started
+
+- [Introduction](https://www.jobrunr.io/en/documentation/): What JobRunr is, what it does, and why you would use it for background job processing on the JVM.
+- [5 minute intro](https://www.jobrunr.io/en/documentation/5-minute-intro/): The shortest possible walkthrough from zero to a running job.
+- [5 minute quickstart guide](https://www.jobrunr.io/en/guides/intro/5-minute-quickstart/): Add JobRunr to a Java project, schedule a recurring job, and see it in the dashboard.
+- [What is JobRunr?](https://www.jobrunr.io/en/guides/intro/what-is-jobrunr/): The problem JobRunr solves and where it fits in a typical Java stack.
+- [Installation](https://www.jobrunr.io/en/documentation/installation/): Maven and Gradle dependencies, supported Java versions, and module overview.
+- [Storage](https://www.jobrunr.io/en/documentation/installation/storage/): Supported SQL and NoSQL databases and how to configure each one.
+
+## Configuration
+
+- [Configuration overview](https://www.jobrunr.io/en/documentation/configuration/): Entry point for configuring JobRunr in any environment.
+- [Fluent API](https://www.jobrunr.io/en/documentation/configuration/fluent/): Configure JobRunr programmatically in plain Java.
+- [Spring Boot starter](https://www.jobrunr.io/en/documentation/configuration/spring/): The recommended way to wire JobRunr into a Spring Boot application.
+- [Quarkus extension](https://www.jobrunr.io/en/documentation/configuration/quarkus/): Native Quarkus integration with GraalVM-friendly defaults.
+- [Micronaut integration](https://www.jobrunr.io/en/documentation/configuration/micronaut/): Native Micronaut integration.
+- [Virtual Threads](https://www.jobrunr.io/en/documentation/configuration/virtual-threads/): How to run JobRunr workers on virtual threads (Project Loom).
+- [Metrics](https://www.jobrunr.io/en/documentation/configuration/metrics/): Expose JobRunr metrics to Micrometer, Prometheus, and other monitoring systems.
+- [Carbon Aware Processing](https://www.jobrunr.io/en/documentation/configuration/carbon-aware/): Schedule recurring jobs in greener time windows to reduce CO2 footprint.
+
+## Background methods
+
+- [Background methods overview](https://www.jobrunr.io/en/documentation/background-methods/): How JobRunr turns a Java 8 lambda into a persisted, distributed background job.
+- [Enqueueing jobs](https://www.jobrunr.io/en/documentation/background-methods/enqueueing-jobs/): Fire-and-forget jobs using lambdas or JobRequest objects, individually or in bulk.
+- [Scheduling jobs](https://www.jobrunr.io/en/documentation/background-methods/scheduling-jobs/): Schedule a one-off job at a future time.
+- [Recurring jobs](https://www.jobrunr.io/en/documentation/background-methods/recurring-jobs/): CRON-based and interval-based recurring jobs.
+- [Passing arguments](https://www.jobrunr.io/en/documentation/background-methods/passing-arguments/): How JobRunr serializes and deserializes arguments to background jobs.
+- [Logging and progress](https://www.jobrunr.io/en/documentation/background-methods/logging-progress/): Stream logs and progress bars to the dashboard from inside a job.
+- [Dealing with exceptions](https://www.jobrunr.io/en/documentation/background-methods/dealing-with-exceptions/): How the RetryFilter handles failures, exponential backoff, and dead-letter behavior.
+- [Deleting jobs](https://www.jobrunr.io/en/documentation/background-methods/deleting-jobs/): Cancel jobs that are scheduled, enqueued, or processing.
+- [Background job dependencies](https://www.jobrunr.io/en/documentation/background-methods/background-jobs-dependencies/): Inject services into job classes via Spring, Quarkus, Micronaut, or a custom IoC container.
+- [Best practices](https://www.jobrunr.io/en/documentation/background-methods/best-practices/): Patterns for keeping jobs idempotent, observable, and resilient.
+- [Dashboard](https://www.jobrunr.io/en/documentation/background-methods/dashboard/): The built-in web dashboard for monitoring jobs and servers.
+- [Carbon Aware Jobs](https://www.jobrunr.io/en/documentation/background-methods/carbon-aware-jobs/): Run jobs inside a time window that minimizes grid carbon intensity.
+
+## Serialization
+
+- [Serialization overview](https://www.jobrunr.io/en/documentation/serialization/): JobRunr supports multiple JSON serialization libraries; pick the one already in your stack.
+- [Jackson 2](https://www.jobrunr.io/en/documentation/serialization/jackson2/): Use Jackson 2.x.
+- [Jackson 3](https://www.jobrunr.io/en/documentation/serialization/jackson3/): Use Jackson 3.x.
+- [Gson](https://www.jobrunr.io/en/documentation/serialization/gson/): Use Google's Gson.
+- [JSON-B](https://www.jobrunr.io/en/documentation/serialization/jsonb/): Use Jakarta JSON Binding.
+- [Kotlin Serialization](https://www.jobrunr.io/en/documentation/serialization/kotlinx-serialization/): Use Kotlin's kotlinx.serialization.
+
+## JobRunr Pro
+
+- [JobRunr Pro overview](https://www.jobrunr.io/en/documentation/pro/): Commercial features that extend JobRunr for enterprise workloads.
+- [Pro installation](https://www.jobrunr.io/en/documentation/pro/installation/): Configure the private artifact repository and license key.
+- [Pro dashboard](https://www.jobrunr.io/en/documentation/pro/jobrunr-pro-dashboard/): Extended dashboard with search, filtering, and team features.
+- [Multi-Cluster Dashboard](https://www.jobrunr.io/en/documentation/pro/jobrunr-pro-multi-dashboard/): One dashboard across multiple JobRunr clusters.
+- [Batches](https://www.jobrunr.io/en/documentation/pro/batches/): Create a group of background jobs atomically.
+- [Job chaining](https://www.jobrunr.io/en/documentation/pro/job-chaining/): Compose jobs into sequential or parallel workflows.
+- [Job filters](https://www.jobrunr.io/en/documentation/pro/job-filters/): Hook into the job lifecycle with custom Java beans.
+- [Job time-outs](https://www.jobrunr.io/en/documentation/pro/job-timeout/): Cancel jobs that exceed a configured runtime.
+- [Real-time scheduling](https://www.jobrunr.io/en/documentation/pro/real-time-scheduling/): Schedule and enqueue jobs with strict timing guarantees.
+- [Instant Job Processing](https://www.jobrunr.io/en/documentation/pro/instant-job-processing/): Start processing enqueued jobs immediately without polling delay.
+- [Priority queues](https://www.jobrunr.io/en/documentation/pro/priority-queues/): Ensure critical jobs run before less important ones.
+- [Dynamic queues](https://www.jobrunr.io/en/documentation/pro/dynamic-queues/): Load-balanced and multi-tenant fair-use queues.
+- [Rate limiters](https://www.jobrunr.io/en/documentation/pro/rate-limiters/): Concurrent and time-window rate limiters for external API safety.
+- [Mutexes](https://www.jobrunr.io/en/documentation/pro/mutexes/): Postpone jobs until a shared mutex is free.
+- [Transactions](https://www.jobrunr.io/en/documentation/pro/transactions/): Out-of-the-box @Transactional support per framework.
+- [Server tags](https://www.jobrunr.io/en/documentation/pro/server-tags/): Route jobs to specific servers based on tags.
+- [Replace jobs](https://www.jobrunr.io/en/documentation/pro/replace-jobs/): Replace a job that is running with outdated information.
+- [Job results](https://www.jobrunr.io/en/documentation/pro/results/): Retrieve the return value of a completed job.
+- [Custom delete policy](https://www.jobrunr.io/en/documentation/pro/custom-delete-policy/): Control retention of succeeded and deleted jobs.
+- [Advanced CRON expressions](https://www.jobrunr.io/en/documentation/pro/advanced-cron-expressions/): CRON parser with second-level precision and complex calendars.
+- [Database migrations](https://www.jobrunr.io/en/documentation/pro/database-migrations/): Migrate the JobRunr schema with Flyway or Liquibase.
+- [Job migrations (CI/CD)](https://www.jobrunr.io/en/documentation/pro/migrations/): Continuous delivery without breaking running jobs.
+- [Database fault tolerance](https://www.jobrunr.io/en/documentation/pro/database-fault-tolerance/): Keep jobs running through transient database outages.
+- [Observability](https://www.jobrunr.io/en/documentation/pro/observability/): Tracing and metrics integration with OpenTelemetry, Datadog, New Relic, and others.
+- [Issue tracking integration](https://www.jobrunr.io/en/documentation/pro/issuetracking-integration/): Auto-create tickets in Jira, GitHub, GitLab when jobs fail.
+- [SSO authentication](https://www.jobrunr.io/en/documentation/pro/sso-authentication/): Secure the dashboard with OpenID Connect.
+
+## Guides
+
+- [Guides overview](https://www.jobrunr.io/en/guides/): Practical, task-oriented walkthroughs for setting up and operating JobRunr.
+- [Java lambda](https://www.jobrunr.io/en/guides/intro/java-lambda/): Enqueue and schedule jobs using Java 8 lambdas.
+- [JobRequest pattern](https://www.jobrunr.io/en/guides/intro/java-job-request/): Enqueue and schedule jobs using JobRequest and JobRequestHandler.
+- [Reduce carbon impact with Carbon Aware Jobs](https://www.jobrunr.io/en/guides/intro/how-to-reduce-carbon-impact-with-carbon-aware-jobs/): Schedule recurring jobs in greener grid windows.
+
+### Authentication
+
+- [Anonymous authentication](https://www.jobrunr.io/en/guides/authentication/anonymous-authentication/): Restrict dashboard access without users.
+- [Basic authentication](https://www.jobrunr.io/en/guides/authentication/basic-authentication/): Username and password protection for the dashboard.
+- [OpenID authentication](https://www.jobrunr.io/en/guides/authentication/openid-authentication/): Enterprise SSO via OpenID Connect.
+
+### Database
+
+- [Flyway migrations](https://www.jobrunr.io/en/guides/database/flyway-migrations/): Run JobRunr's schema migrations through Flyway.
+- [Liquibase migrations](https://www.jobrunr.io/en/guides/database/liquibase-migrations/): Run JobRunr's schema migrations through Liquibase.
+
+### Advanced
+
+- [External Jobs](https://www.jobrunr.io/en/guides/advanced/external-jobs/): Track work that completes outside the JVM (GPU inference, human approvals).
+- [Caching Maven artifacts](https://www.jobrunr.io/en/guides/advanced/caching-maven-artifacts/): Mirror the JobRunr Pro private artifact repository.
+- [Kubernetes autoscaling](https://www.jobrunr.io/en/guides/advanced/k8s-autoscaling/): Autoscale JobRunr workers on Kubernetes using JobRunr metrics.
+- [Observability metrics](https://www.jobrunr.io/en/guides/advanced/observability-metrics/): Expose JobRunr metrics to Prometheus, Datadog, etc.
+- [Observability tracing](https://www.jobrunr.io/en/guides/advanced/observability-tracing/): Distributed tracing for JobRunr Pro jobs.
+
+### Migration
+
+- [Migrate to JobRunr](https://www.jobrunr.io/en/guides/migration/migrate-to-jobrunr/): Migration playbooks from Quartz, Spring @Scheduled, Hangfire, and custom schedulers.
+- [Upgrade to v8](https://www.jobrunr.io/en/guides/migration/v8/): Step-by-step upgrade from JobRunr v7 to v8.
+
+## Reference
+
+- [References (JavaDoc, release notes)](https://www.jobrunr.io/en/documentation/references/): API references and version history for JobRunr and JobRunr Pro.
+- [FAQ](https://www.jobrunr.io/en/documentation/faq/): Architecture, terminology, and common questions.
+- [JobRunr compared to alternatives](https://www.jobrunr.io/en/documentation/alternatives/): How JobRunr compares to Quartz, Spring Batch, Hangfire, and message queues.
+- [CRON expression generator](https://www.jobrunr.io/en/tools/cron-expression-generator/): Free tool to build and test CRON expressions.
+- [GitHub repository](https://github.com/jobrunr/jobrunr): Source code, issues, and releases for the open-source library.
+
+## Optional
+
+- [Blog](https://www.jobrunr.io/en/blog/): Release notes, technical deep-dives, and comparisons.
+- [Use cases](https://www.jobrunr.io/en/use-case/): Customer stories from Decathlon, Juvare, Prophia, Fincarna, and others.
+- [Licensing](https://www.jobrunr.io/en/licensing/): LGPL terms for open source and EULAs for JobRunr Pro.
+- [About](https://www.jobrunr.io/en/about/): The team behind JobRunr.
+- [Contact](https://www.jobrunr.io/en/contact/): Reach the JobRunr team.
