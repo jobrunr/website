@@ -117,6 +117,35 @@ implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
 - Tab content supports full Markdown formatting
 
 
+#### Code annotations (conum)
+
+Annotate specific lines in a code block with numbered badges, then explain them in a legend below. The badges are not included when the user copies the code.
+
+##### Usage
+
+Place `{{< conum N >}}` inline in the code block next to the line you want to call out, then follow the block with a `{{< conum-legend >}}` containing a matching ordered list:
+
+````markdown
+```java
+JobRunr.configure() {{< conum 1 >}}
+    .useStorageProvider(new InMemoryStorageProvider())
+    .useBackgroundJobServer()
+    .initialize();
+
+BackgroundJob.enqueue(() -> myService.doWork()); {{< conum 2 >}}
+```
+
+{{< conum-legend >}}
+1. Configure and start JobRunr: sets up storage and the background job server.
+2. Enqueue a fire-and-forget job: executed as soon as a worker is free.
+{{< /conum-legend >}}
+````
+
+##### Notes
+
+- Numbers in the legend are styled automatically via CSS counters — write a plain ordered list inside `{{< conum-legend >}}`.
+- Badge numbers are rendered via CSS `::before` and are excluded from clipboard copy.
+
 #### Alerts
 
 Highlight important information using GitHub-style alert syntax.
