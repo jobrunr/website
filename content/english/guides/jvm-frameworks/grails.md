@@ -38,11 +38,12 @@ dependencies {
 }
 ```
 
-> **Pitfall:** The `jobrunr-spring-boot-3-starter` is compiled against Spring Framework 6. Putting it on a Grails 8 (Spring Framework 7) classpath fails at bean wiring time. Always match the starter to your Spring Boot major version.
+> [!WARNING] Pitfall
+> The `jobrunr-spring-boot-3-starter` is compiled against Spring Framework 6. Putting it on a Grails 8 (Spring Framework 7) classpath fails at bean wiring time. Always match the starter to your Spring Boot major version.
 
 ## 2. Wire JobRunr to GORM's DataSource
 
-Grails configures its `DataSource` through the `dataSource:` block in `application.yml`, not through the `spring.datasource.*` keys Spring Boot's `DataSourceAutoConfiguration` looks for. JobRunr's auto-configured `StorageProvider` is annotated `@ConditionalOnBean(DataSource.class)` and evaluates that condition before the GORM-managed `DataSource` is registered. The result varies by Spring Boot version and bean ordering, so the safer fix is to register the `StorageProvider` yourself.
+Grails configures its `DataSource` through the `dataSource:` block in `application.yml`, not through the `spring.datasource.*` keys Spring Boot's `DataSourceAutoConfiguration` looks for. JobRunr's auto-configured `StorageProvider` depends on `@ConditionalOnBean(DataSource.class)`, but GORM registers its `DataSource` late, via `beanFactory.registerSingleton(...)` inside `HibernateGormAutoConfiguration` rather than a normal `@Bean`. The interaction with Spring Boot 4's stricter conditional evaluation is fragile enough that the safer default is to register the `StorageProvider` yourself.
 
 Create `src/main/groovy/your/package/jobrunr/JobRunrStorageConfig.groovy`:
 
@@ -90,7 +91,7 @@ Three things matter in that class:
 
 1. **`StorageProvider` bean**: built directly from the GORM-managed `DataSource`.
 2. **`setJobMapper(...)` called eagerly**: JobRunr's `RecurringJobPostProcessor` (which processes `@Recurring` annotations) runs during Spring bean initialisation. Without an eager mapper you get a `NullPointerException` inside `RecurringJobTable`.
-3. **`JobFilterRegistrar` bean**: JobRunr 8.x auto-configuration does not inject `JobFilter` beans into the `BackgroundJobServer`. Without this registrar any custom `ApplyStateFilter` or `ElectStateFilter` is silently ignored.
+3. **`JobFilterRegistrar` bean**: JobRunr OSS never auto-registers `JobFilter` beans on the `BackgroundJobServer`; you wire them up yourself. Without this registrar any custom `ApplyStateFilter` or `ElectStateFilter` is silently ignored.
 
 Next, import the config and `HibernateGormAutoConfiguration` into your `Application.groovy`, and component-scan the `src/main/groovy` package so Spring picks up your `@Component` handlers:
 
@@ -104,7 +105,8 @@ class Application extends GrailsAutoConfiguration {
 }
 ```
 
-> **Note:** Do not put `@CompileStatic` on `Application.groovy`. `GrailsAutoConfiguration`'s lifecycle hooks (`doWithSpring`, `doWithApplicationContext`, `doWithDynamicMethods`) dispatch into Groovy closures and break the moment you statically compile them.
+> [!WARNING] Pitfall
+> Do not put `@CompileStatic` on `Application.groovy`. `GrailsAutoConfiguration`'s lifecycle hooks (`doWithSpring`, `doWithApplicationContext`, `doWithDynamicMethods`) dispatch into Groovy closures and break the moment you statically compile them.
 
 ## 3. Configure JobRunr in application.yml
 
@@ -139,9 +141,11 @@ environments:
             password: ''
 ```
 
-> **Pitfall:** `DB_CLOSE_DELAY=-1` is required. Without it, H2's in-memory database is destroyed when the last JDBC connection closes. JobRunr opens connections during startup to run migrations, then closes them, and by the time your first job runs the tables are gone (_"Table JOBRUNR_RECURRING_JOBS not found"_).
+> [!WARNING] Pitfall
+> `DB_CLOSE_DELAY=-1` is required. Without it, H2's in-memory database is destroyed when the last JDBC connection closes. JobRunr opens connections during startup to run migrations, then closes them, and by the time your first job runs the tables are gone (_"Table JOBRUNR_RECURRING_JOBS not found"_).
 
-> **Tip:** For production swap H2 for PostgreSQL, MySQL, Oracle, SQL Server, or MongoDB. JobRunr discovers the database through the same `DataSource` bean, so no extra configuration is needed beyond your Grails `dataSource:` block. See the [storage configuration documentation]({{< ref "documentation/installation/storage" >}}) for details.
+> [!TIP]
+> For production swap H2 for PostgreSQL, MySQL, Oracle, SQL Server, or MongoDB. JobRunr discovers the database through the same `DataSource` bean, so no extra configuration is needed beyond your Grails `dataSource:` block. See the [storage configuration documentation]({{< ref "documentation/installation/storage" >}}) for details.
 
 ## 4. Why Groovy needs the JobRequest pattern
 
@@ -220,7 +224,8 @@ class OrderController {
 }
 ```
 
-> **Pitfall:** Put `@Job` on the `run()` method, not on a delegated business method. JobRunr records the job as a call to `run(Request)` and never looks at private helpers you call from inside it.
+> [!WARNING] Pitfall
+> Put `@Job` on the `run()` method, not on a delegated business method. JobRunr records the job as a call to `run(Request)` and never looks at private helpers you call from inside it.
 
 ## 6. Run it and watch the dashboard
 
@@ -319,9 +324,9 @@ class ImportProductsJobRequestHandler implements JobRequestHandler<ImportProduct
 
 {{< img src="/guides/grails-dashboard-progress.png" alt="JobRunr dashboard showing a Grails job mid-import with progress bar and log lines" class="rounded-lg" >}}
 
-> **Note for JobRunr 8.x:** Use `context.logger()` and `context.progressBar(n)`; do not construct `JobDashboardLogger` yourself. The progress-bar method is `incrementSucceeded()` (renamed from `increaseByOne()` in earlier versions). `JobDashboardLogger.info()` takes a single `String`, so use Groovy interpolation rather than SLF4J `{}` placeholders.
-
 ### Retries with exponential backoff
+
+When a job throws, JobRunr does not just retry immediately; it waits longer between each attempt (a few seconds, then minutes, then hours). The default is 10 attempts. When they are all exhausted the job lands in the dashboard's **Failed** tab with its full stack trace, where you can inspect it and requeue manually.
 
 Override the default per job:
 
@@ -330,12 +335,12 @@ Override the default per job:
 void run(OrderJobRequest request) { /* ... */ }
 ```
 
-Or set the global default in `application.yml` (`jobrunr.jobs.default-number-of-retries: 10`). See the [dealing with exceptions documentation]({{< ref "documentation/background-methods/dealing-with-exceptions" >}}).
+Or set the global default in `application.yml` with `jobrunr.jobs.default-number-of-retries`. One thing to watch: every retry re-runs your handler from the top, so any side effect that isn't idempotent (sending email, charging a card) will happen again. Make the work idempotent or split the side effect into its own job. See the [dealing with exceptions documentation]({{< ref "documentation/background-methods/dealing-with-exceptions" >}}) for the full retry strategy.
 
 ## 8. Production considerations
 
 - **Switch to a persistent database.** Replace the H2 dev `dataSource` with PostgreSQL, MySQL, or any of the other [supported storage backends]({{< ref "documentation/installation/storage" >}}); JobRunr discovers it through the same Grails-managed `DataSource`.
-- **Lock down the dashboard.** It binds to all interfaces on port 8000 with no authentication by default. Either set `jobrunr.dashboard.username` and `password`, or front it with a reverse proxy. See the [basic authentication guide]({{< ref "guides/authentication/basic-authentication" >}}) and the [OpenID guide]({{< ref "guides/authentication/openid-authentication" >}}).
+- **Lock down the dashboard.** It binds to all interfaces on port 8000 with no authentication by default. In OSS you can set `jobrunr.dashboard.username` and `jobrunr.dashboard.password` for a single-user HTTP basic-auth gate, or front the dashboard with a reverse proxy that handles auth. For multi-user access, role-based authorization, or OpenID, JobRunr Pro ships dedicated authentication providers (see the [Pro basic authentication guide]({{< ref "guides/authentication/basic-authentication" >}}) and [Pro OpenID guide]({{< ref "guides/authentication/openid-authentication" >}})).
 - **Control schema migrations.** If your DBA owns DDL, set `jobrunr.database.skip-create: true` and apply the migrations through your existing toolchain. See the [Flyway]({{< ref "guides/database/flyway-migrations" >}}) and [Liquibase]({{< ref "guides/database/liquibase-migrations" >}}) guides.
 
 ## What's next?
