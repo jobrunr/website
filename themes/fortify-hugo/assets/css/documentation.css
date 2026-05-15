@@ -163,3 +163,24 @@
 .alert__content p:last-child {
   @apply mb-0;
 }
+
+.conum-badge,
+.conum-legend ol li::before {
+  @apply inline-flex items-center justify-center rounded-full bg-primary text-white text-xs shrink-0 min-w-[1.4em] h-[1.4em] select-none;
+}
+
+.conum-badge::before {
+  content: attr(data-n);
+}
+
+.conum-legend ol li::before {
+  content: counter(conum);
+}
+
+.conum-legend ol {
+  @apply list-none pl-0 [counter-reset:conum];
+}
+
+.conum-legend ol li {
+  @apply flex items-baseline gap-2 mb-1 [counter-increment:conum];
+}
