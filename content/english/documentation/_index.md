@@ -16,11 +16,6 @@ sitemap:
   changeFreq: monthly
 ---
 
-<div class="block sm:hidden mb-4">
-
-> Visiting via your mobile phone? The JobRunr website is more extensive on desktop.
-</div>
-
 <div class="p-4 bg-black rounded-lg text-white mb-6">
   <strong class="text-white">JobRunr DocsGPT is here to help</strong><br>
   Trained on all our documentation, it's your fastest way to get unstuck.<br>
@@ -43,11 +38,11 @@ That one line is a durable, distributed background job. JobRunr serializes the l
 
 **Persistent storage:** JobRunr stores jobs in the same SQL or NoSQL database your application already uses (PostgreSQL, MySQL, MongoDB, and more). No extra infrastructure to operate.
 
-**Fault-tolerant:** Every job is retried automatically up to 10 times with exponential back-off if it fails. JobRunr handles transient failures (e.g., network blips, downstream outages, application restarts) so you don't have to.
+**Fault-tolerant:** By default, every job is retried automatically up to 10 times with exponential back-off if it fails. JobRunr handles transient failures (e.g., network blips, downstream outages, application restarts) so you don't have to.
 
-**Built-in observability:** Thanks to the built-in dashboard, it's easy to monitor your jobs in real time: inspect any job, see why it failed, requeue or delete it.
+**Built-in observability:** A built-in Web UI provides a centralized dashboard for monitoring jobs in real time: inspect any job, diagnose failures, and requeue or delete jobs with a single click.
 
-**No separate deployment:** JobRunr is a library, not a service. There is no separate deployment required, it starts when your application starts.
+**No separate deployment needed:** JobRunr is a library, not a service. Include it in your application and you won't need a separate deployment. You can also choose to deploy it as a microservice.
 
 **Distributed processing:** Scale out by running more instances of your application, each one automatically joins the processing cluster and picks up jobs, with guaranteed single execution.
 

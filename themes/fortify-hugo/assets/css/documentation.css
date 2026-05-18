@@ -166,7 +166,15 @@
 
 .conum-badge,
 .conum-legend ol li::before {
-  @apply inline-flex items-center justify-center rounded-full bg-primary text-white text-xs shrink-0 min-w-[1.4em] h-[1.4em] select-none;
+  @apply inline-flex items-center justify-center rounded-full bg-primary text-white shrink-0 min-w-[1.4em] h-[1.4em] select-none;
+}
+
+.conum-legend ol li::before {
+  @apply text-[12px];
+}
+
+.conum-badge {
+  @apply text-xs;
 }
 
 .conum-badge::before {
@@ -178,9 +186,13 @@
 }
 
 .conum-legend ol {
-  @apply list-none pl-0 [counter-reset:conum];
+  @apply list-none pl-7 [counter-reset:conum];
 }
 
 .conum-legend ol li {
-  @apply flex items-baseline gap-2 mb-1 [counter-increment:conum];
+  @apply relative mb-1 [counter-increment:conum];
+}
+
+.conum-legend ol li::before {
+  @apply absolute -left-7 top-[.3rem];
 }
