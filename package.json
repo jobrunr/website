@@ -6,7 +6,8 @@
   "author": "Themefisher",
   "scripts": {
     "dev": "hugo server",
-    "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
+    "build": "hugo --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic && npm run build:mcp",
+    "build:mcp": "node ./scripts/build-mcp-index.js",
     "preview": "hugo server --disableFastRender --navigateToChanged --templateMetrics --templateMetricsHints --watch --forceSyncStatic -e production --minify",
     "dev:example": "cd exampleSite && hugo server --themesDir ../..",
     "build:example": "cd exampleSite && hugo --themesDir ../.. --gc --minify --templateMetrics --templateMetricsHints --forceSyncStatic",
@@ -18,12 +19,13 @@
     "format": "prettier -w ."
   },
   "dependencies": {
-    "tailwindcss": "^4.1.13",
     "@tailwindcss/forms": "^0.5.10",
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.13",
+    "gray-matter": "^4.0.3",
     "prettier": "^3.5.2",
     "prettier-plugin-go-template": "0.0.15",
     "prettier-plugin-tailwindcss": "^0.6.11"
