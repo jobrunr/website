@@ -17,7 +17,7 @@ JobRunr is a small Java library that handles fire-and-forget, scheduled, and rec
 
 Wiring it into Grails takes a little more than the Spring Boot starter promises. GORM owns the `DataSource`, so JobRunr's auto-configuration can't find it. Groovy closures also don't compile to the same bytecode as Java lambdas, so JobRunr's flagship `BackgroundJob.enqueue(() -> ...)` API does not work from Groovy. This guide covers both, then walks you through scheduled, recurring, and progress-tracking jobs.
 
-A full runnable demo lives at [iNicholasBE/grails-jobrunr](https://github.com/iNicholasBE/grails-jobrunr). Clone it if you want to follow along.
+A full runnable demo lives at [jobrunr/example-grails](https://github.com/jobrunr/example-grails). Clone it if you want to follow along.
 
 ## Prerequisites
 
@@ -346,7 +346,7 @@ Or set the global default in `application.yml` with `jobrunr.jobs.default-number
 
 ## What's next?
 
-- **Clone the full demo:** [iNicholasBE/grails-jobrunr](https://github.com/iNicholasBE/grails-jobrunr). Six end-to-end patterns (fire-and-forget, scheduled, two flavours of recurring, retries, progress bar, bulk enqueue, custom `ApplyStateFilter`) plus a reference table of every Grails-specific pitfall.
+- **Clone the full demo:** [jobrunr/example-grails](https://github.com/jobrunr/example-grails). Six end-to-end patterns (fire-and-forget, scheduled, two flavours of recurring, retries, progress bar, bulk enqueue, custom `ApplyStateFilter`) plus a reference table of every Grails-specific pitfall.
 - **Already on Spring Boot, Micronaut, or Quarkus?** Use the matching starter and auto-configuration makes setup a one-liner. See the [Spring Boot]({{< ref "documentation/configuration/spring" >}}), [Micronaut]({{< ref "documentation/configuration/micronaut" >}}), and [Quarkus]({{< ref "documentation/configuration/quarkus" >}}) guides.
 - **Save energy with Carbon Aware scheduling:** Defer non-critical recurring jobs to greener moments on the grid. See the [Carbon Aware documentation]({{< ref "documentation/configuration/carbon-aware" >}}).
 - **Ready to scale?** [JobRunr Pro](/en/pro/) adds priority queues, batches, complex workflows, async job filters, and a multi-cluster dashboard.
