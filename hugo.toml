@@ -28,7 +28,7 @@ github_website_raw_url = "https://raw.githubusercontent.com/jobrunr/website"
 enableTrialButton = true
 
 [params.codetabs]
-allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style"]
+allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style", "ide"]
 
 ########################### Services #############################
 [services]

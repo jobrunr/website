@@ -1,6 +1,7 @@
 ---
 title: "Integrating JobRunr with Apache Grails"
 description: Add JobRunr to a Grails 8 application, bridge GORM's DataSource, work around Groovy's lambda limitation with the JobRequest pattern, and watch your first background job run live in the dashboard.
+image: /guides/grails-demo-ui.png
 weight: 10
 tags:
     - Grails
