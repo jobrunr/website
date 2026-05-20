@@ -28,8 +28,8 @@ challenges_section:
   items:
     - title: "Spot prices change by the minute"
       description: "The same instance can be four times cheaper in another region, or half the price an hour from now. Tracking that across AWS and Google Cloud is a full-time job. So most teams give up and pay on-demand."
-    - title: "Preemptions break your jobs"
-      description: "You move a batch job to spot. It gets preempted three times. You miss your SLA. You move it back to on-demand. Spot only works if something else handles the failover for you."
+    - title: "Sudden shutdowns break your jobs"
+      description: "You move a batch job to spot. It gets killed three times. You miss your SLA. You move it back to on-demand. Spot only works if something else handles the failover for you."
     - title: "Your jobs know they can wait. Your infrastructure doesn't."
       description: "A nightly report can wait until 3 AM, when spot is cheapest. A user-facing PDF needs to run now. Neither of those signals lives anywhere your spot manager can read. So you either run everything as if it were urgent, or you build the deadline logic yourself."
     - title: "Even when you find cheaper capacity, you can't use it"
@@ -38,13 +38,13 @@ challenges_section:
 how_it_works:
   id: "how-it-works"
   title: "One method. Same JobRunr API you already use."
-  description: "Tell JobRunr Spot when you need the result and what you're willing to pay. We watch spot pricing across AWS and Google Cloud, run your job when it fits, and re-dispatch if the instance gets preempted. The API mirrors the carbon-aware jobs API you may already know from JobRunr Pro."
+  description: "Tell JobRunr Spot when you need the result and what you're willing to pay. We watch spot pricing across AWS and Google Cloud, run your job when it fits, and re-dispatch if the instance gets killed. The API mirrors the carbon-aware jobs API you may already know from JobRunr Pro."
   filename: "ReportService.java"
   highlights:
     - "<strong>Set a deadline:</strong> we pick the cheapest moment to run inside your window"
     - "<strong>Runs in your own AWS and GCP accounts:</strong> your data, your VPC, your existing cloud setup. We're just the broker."
     - "<strong>CPU and GPU both supported:</strong> starting with CPU in the September release"
-    - "<strong>Automatic failover:</strong> spot instance preempted? Re-dispatched on the next cheapest match"
+    - "<strong>Automatic failover:</strong> spot instance killed? Re-dispatched on the next cheapest match"
     - "<strong>One outbound WebSocket:</strong> no firewall changes, no webhook setup"
   code: |
     <span style="color:#546e7a">// Run a PDF report sometime in the next 4 hours,</span>
@@ -80,7 +80,7 @@ audience_section:
     - title: "Java teams running heavy batch work"
       description: "PDF generation, ETL, video transcoding, report rendering, image processing. You're paying on-demand and the bill grows every quarter."
     - title: "Teams who tried spot and got burned"
-      description: "Preemptions killed your throughput. You missed an SLA. You quietly moved back to on-demand. We handle the failover so spot actually works."
+      description: "Sudden shutdowns killed your throughput. You missed an SLA. You quietly moved back to on-demand. We handle the failover so spot actually works."
     - title: "Teams planning to add AI workloads"
       description: "GPU brokering ships right after CPU. Capture the CPU savings now and the GPU savings later, with the same API and the same dashboard. No rewrite when you scale into inference."
 
@@ -116,7 +116,7 @@ accordion:
     - title: "Will it work with the JobRunr OSS version?"
       description: "Yes. JobRunr Spot connects to your existing JobRunr or JobRunr Pro instance over a single outbound WebSocket. You don't change how you define jobs. The spot features are opt-in per job."
     - title: "How will pricing work?"
-      description: "You pay AWS and Google Cloud directly for the compute, just like today. You keep the full 60 to 80 percent spot saving. JobRunr Spot charges a flat platform fee for the orchestration: webhook relay, multi-provider broker, failover, cost optimization, dashboard. Free tier covers small workloads. Pro and Enterprise tiers add higher limits, dedicated infrastructure, and SLAs. Final numbers come out of the design partner conversations."
+      description: "You pay AWS and Google Cloud directly for the compute, and the 60 to 80 percent spot saving stays with you. Our own pricing on top of that is still open. A flat platform fee, a small percentage of spot spend, tiered usage: we're not locked into any model yet. That's one of the things we want to figure out together with design partners, so we land on something that actually works for the teams using it."
     - title: "Is this replacing JobRunr Pro?"
       description: "No. JobRunr Pro keeps doing what it does inside your app: priority queues, batches, workflows, multi-cluster dashboard. JobRunr Spot handles what needs to happen outside your app: the public webhook, the multi-provider broker, the cost optimization."
     - title: "What if I'm not sure my use case fits?"
