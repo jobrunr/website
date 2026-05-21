@@ -64,6 +64,10 @@ jobs:
           # If your Hugo site is NOT in repo root, add: --source path/to/site
           npm run build || hugo --minify
           test -d public
+      - name: Build MCP index
+        run: |
+          npm install gray-matter@4.0.3
+          node ./scripts/build-mcp-index.js
       - name: Index with Pagefind
         run: npx -y pagefind --site public
       - name: Upload artifact
