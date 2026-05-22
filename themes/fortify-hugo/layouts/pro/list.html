@@ -35,6 +35,8 @@
     </section>
   {{ end }}
 
+  {{ partial "components/brand-logo.html" . }}
+
   <section class="section">
     <div class="container">
       <div class="bg-dark px-10 py-12 xl:p-16 rounded-[40px] text-center" data-aos="fade-up-sm">
@@ -323,7 +325,26 @@
 
 
   {{ partial "components/accordion.html" . }}
-  {{ partial "call-to-action.html" . }}
+
+  <section class="section mb-14">
+    <div class="container">
+      <div class="bg-dark px-10 py-16 xl:p-20 rounded-[40px] text-center" data-aos="fade-up-sm">
+        <h2 class="text-light mb-4 h3">Start your free 1 month JobRunr Pro trial</h2>
+        <p class="text-light text-lg mb-8 max-w-2xl mx-auto">
+          Unlock priority queues, workflows, rate limiting, and the Pro dashboard for 1 month. No credit card required.
+        </p>
+        <a class="btn btn-primary-light cursor-pointer" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">
+          Start your free trial
+          <span class="icon-wrapper"
+            ><span class="icon"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+            ><span class="icon" aria-hidden="true"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+          ></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
 
   <!-- Trial Modal -->
@@ -334,14 +355,14 @@
           <div class="relative bg-white rounded-lg shadow-xl">
               <div class="flex items-center justify-between p-4 rounded-t">
                   <h3 id="modal-title" class="text-xl font-semibold text-gray-900">
-                      Get Your Free 14-Day JobRunr Pro Trial
+                      Get Your Free 1 Month JobRunr Pro Trial
                   </h3>
                   <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="document.getElementById('trial-modal').classList.add('hidden'); document.getElementById('modal-backdrop').classList.add('hidden');">
                       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                   </button>
               </div>
               <div class="flex items-center justify-between p-4 pt-0 pb-0">
-                <p>Unlock Priority Queues, Job Workflows, Enhanced Search on the Dashboard and so much more for 14 days.</p>
+                <p>Unlock Priority Queues, Job Workflows, Enhanced Search on the Dashboard and so much more for 1 month.</p>
               </div>
               <div class="p-6">
 
@@ -357,7 +378,7 @@
                               <input type="text" id="company" name="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Company Name" required>
                               <input type="text" name="username" id="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
                           </div>
-                          <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 14-Day Pro Trial</button>
+                          <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 1 Month Pro Trial</button>
                       </div>
                   </form>
                   

@@ -1,8 +1,7 @@
 ---
-title: "Stop losing critical jobs in production."
-subtitle: "JobRunr Pro"
-target_audience: "Built for teams where jobs can't fail."
-description: "JobRunr Pro gives you priority queues, workflow management, and a powerful dashboard. Stop firefighting. Start shipping."
+title: "Move to Pro before your workarounds become infrastructure."
+subtitle: "Outgrowing JobRunr OSS?"
+description: "Get production-grade visibility, workflows, rate limiting, priority queues and support, without building it all yourself."
 button:
     get_started:
       enable: true
@@ -12,10 +11,24 @@ button:
       enable: true
       label: "Try the live demo"
       link: "https://finance.demo.jobrunr.io/storyline"
+oss_to_pro_signals:
+  title: "When should teams move from OSS to Pro?"
+  lead: "You should consider Pro when:"
+  items:
+    - item: "Your team is building custom dashboards around OSS"
+    - item: "Failed jobs are discovered through support tickets"
+    - item: "You need rate limiting, mutexes or deduplication"
+    - item: "Different workloads need different priorities"
+    - item: "Multiple services or teams need one place to monitor jobs"
+    - item: "Background jobs are tied to revenue, customers or compliance"
+  button:
+    enable: true
+    label: "Compare OSS vs Pro"
+    link: "#comparison-table"
 features_intro:
   title: "5 reasons enterprise teams choose JobRunr Pro"
 first_feature:
-  title: "1. Never let urgent jobs wait in line"
+  title: "1. Stop finding out about failed jobs from customers"
   image: "/images/pro-features/queues.webp"
   list:
     - item: "Use up to 5 priority queues to process urgent jobs like payments or notifications immediately."
@@ -26,7 +39,7 @@ first_feature:
     label: "Explore All Pro Features"
     link: "#comparison-table"
 second_feature:
-  title: "2. Stop building fragile scripts"
+  title: "2. Your team didn't sign up to build a workflow engine"
   description: "JobRunr Pro lets you create powerful workflows, atomic batches, and job chains to automate complex business logic with smart failure handling."
   image: "/images/pro-features/jobrunr-pro-batch.webp"
   sub_feature:
@@ -38,7 +51,7 @@ second_feature:
       icon: "fa-solid fa-boxes-stacked"
 
 third_feature:
-  title: "3. See every job across every cluster"
+  title: "3. One unified dashboard for every service, team and job"
   description: "Go beyond a single dashboard. JobRunr Pro gives you a central view of all your clusters and precise control to protect your systems."
   image: "/images/pro-features/multi-cluster-dashboard-filter.gif"
   sub_feature:
@@ -49,7 +62,7 @@ third_feature:
       description: "Protect external APIs and services by setting rate limits on specific jobs to prevent overloads."
       icon: "fa-solid fa-shield-halved"
 forth_feature:
-  title: "4. Let support solve issues without escalating to engineering"
+  title: "4. Let support retry jobs without pulling engineers into every incident"
   video: "/documentation/jobrunr-pro-advanced-search.mp4"
   list:
     - item: "The Pro dashboard gives your team full visibility with advanced filters, job history, and retries with a single click."
@@ -59,7 +72,7 @@ forth_feature:
     label: ""
     link: ""
 fifth_feature:
-  title: "5. Pass security audits without stress"
+  title: "5. Keep job processing visible, traceable and audit-ready"
   image: "/images/pro-features/queues.webp"
   list:
     - item: "Secure your dashboard with SSO integration for centralized user management."
