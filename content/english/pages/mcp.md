@@ -3,6 +3,7 @@ meta_title: "JobRunr MCP Server | Live JobRunr docs in Claude, Cursor, Copilot"
 title: "Use JobRunr from inside your AI assistant"
 description: "The JobRunr MCP server gives Claude Code, Cursor, VS Code, Windsurf, and any Model Context Protocol client live access to JobRunr documentation. Add one URL and your assistant stops making things up."
 date: 2026-05-18
+image: /blog/mcp-server.webp
 ---
 
 Your AI assistant has opinions about JobRunr. Some of them are wrong: invented method signatures, configuration properties spelled three different ways, Pro features described as if they were OSS. You've probably worked around it more than once.
