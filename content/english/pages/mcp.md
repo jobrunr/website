@@ -85,4 +85,4 @@ Drop [`/llms.txt`](/llms.txt) into any LLM context. Same docs, curated as a link
 
 ## Source
 
-The server is open source: [github.com/iNicholasBE/jobrunr-docs-mcp](https://github.com/iNicholasBE/jobrunr-docs-mcp). Issues and PRs welcome.
+The server is open source: [github.com/jobrunr/docs-mcp-server](https://github.com/jobrunr/docs-mcp-server). Issues and PRs welcome.
