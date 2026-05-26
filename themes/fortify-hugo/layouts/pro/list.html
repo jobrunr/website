@@ -468,6 +468,23 @@
   });
 
 
+function getStoredUtm() {
+    try {
+        const raw = localStorage.getItem('jr_utm');
+        if (!raw) return {};
+        const data = JSON.parse(raw);
+        if (!data || !data.ts || !data.params) return {};
+        const MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+        if (Date.now() - data.ts > MAX_AGE) {
+            localStorage.removeItem('jr_utm');
+            return {};
+        }
+        return data.params;
+    } catch (e) {
+        return {};
+    }
+}
+
 document.getElementById('trial-form').addEventListener('submit', function(e) {
     e.preventDefault();
 
@@ -489,13 +506,13 @@ document.getElementById('trial-form').addEventListener('submit', function(e) {
     submitButton.disabled = true;
     submitButton.textContent = 'Sending...';
 
-    // Collect form data
-    const formData = {
+    // Collect form data, merging any stored UTM tags (30-day TTL, last-touch)
+    const formData = Object.assign({
         email: form.elements.email.value,
         company: form.elements.company.value,
         username: form.elements.username.value,
-        form: 'trial' 
-    };
+        form: 'trial'
+    }, getStoredUtm());
 
     // This is the Webhook URL you get from your N8N workflow.
     const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';

@@ -9,14 +9,14 @@ Your AI assistant has opinions about JobRunr. Some of them are wrong: invented m
 
 The JobRunr MCP server fixes that. It serves the full `jobrunr.io` documentation as a hybrid search index (BM25 plus ONNX MiniLM embeddings) over the [Model Context Protocol](https://modelcontextprotocol.io). Point your editor at one URL and the assistant searches the actual docs instead of guessing.
 
-**Endpoint:** `https://jobrunr-docs-mcp.fly.dev/sse`
+**Endpoint:** `https://mcp.jobrunr.io/sse`
 
 ## Wire it up
 
 {{< codetabs category="ide" label="IDE" >}}
 {{< codetab label="Claude Code" type="claude-code" >}}
 ```bash
-claude mcp add --transport sse jobrunr-docs https://jobrunr-docs-mcp.fly.dev/sse
+claude mcp add --transport sse jobrunr-docs https://mcp.jobrunr.io/sse
 ```
 
 Restart Claude Code, then `/mcp` to confirm. Ask it anything about JobRunr and `search_jobrunr_docs` fires on its own.
@@ -28,7 +28,7 @@ Add to `~/.cursor/mcp.json`:
 {
   "mcpServers": {
     "jobrunr-docs": {
-      "url": "https://jobrunr-docs-mcp.fly.dev/sse"
+      "url": "https://mcp.jobrunr.io/sse"
     }
   }
 }
@@ -40,7 +40,7 @@ Restart Cursor. The four JobRunr tools appear under Settings → MCP.
 Same SSE URL, whichever MCP config UI your client exposes:
 
 ```
-https://jobrunr-docs-mcp.fly.dev/sse
+https://mcp.jobrunr.io/sse
 ```
 
 A one-line `url` entry is usually enough. Restart after saving.
@@ -52,7 +52,7 @@ For any other MCP client, or to inspect the JSON-RPC traffic:
 npx @modelcontextprotocol/inspector
 ```
 
-Transport **SSE**, URL **`https://jobrunr-docs-mcp.fly.dev/sse`**, click Connect. You'll see the four tools, their schemas, and can call them by hand.
+Transport **SSE**, URL **`https://mcp.jobrunr.io/sse`**, click Connect. You'll see the four tools, their schemas, and can call them by hand.
 {{< /codetab >}}
 {{< /codetabs >}}
 
@@ -74,7 +74,7 @@ The index rebuilds on every `jobrunr.io` deploy and stays in sync within minutes
 If you ever want a liveness check:
 
 ```bash
-curl https://jobrunr-docs-mcp.fly.dev/actuator/health
+curl https://mcp.jobrunr.io/actuator/health
 # {"status":"UP",...}
 ```
 
