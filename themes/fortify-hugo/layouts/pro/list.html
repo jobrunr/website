@@ -465,6 +465,12 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
     modal.querySelectorAll('[data-close-modal]').forEach(btn => btn.addEventListener('click', close));
+
+    if (window.location.hash === '#trial' || new URLSearchParams(window.location.search).has('trial')) {
+      modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+      (window.dataLayer = window.dataLayer || []).push({ event: 'trial_modal_opened' });
+    }
   });
 
 
