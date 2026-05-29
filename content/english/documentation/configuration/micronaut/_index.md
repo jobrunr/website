@@ -32,7 +32,7 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>jobrunr-micronaut-feature</artifactId> 
-    <version>${jobrunr.version}</version> 
+    <version>{{< param "JobRunrVersion" >}}</version> 
 </dependency>
 <!-- ... -->
 <build>
@@ -48,7 +48,7 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
                     <path>
                         <groupId>org.jobrunr</groupId>
                         <artifactId>jobrunr-micronaut-annotations</artifactId>
-                        <version>${jobrunr.version}</version>
+                        <version>{{< param "JobRunrVersion" >}}</version>
                     </path>        
                 </annotationProcessorPaths>
             </configuration>
@@ -58,8 +58,8 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
 {{< /codetab >}}
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr-micronaut-feature:${jobrunr.version}'
-annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-micronaut-feature:{{< param "JobRunrVersion" >}}'
+annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:{{< param "JobRunrVersion" >}}'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}

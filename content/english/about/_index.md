@@ -33,9 +33,9 @@ core_values:
   stats:
     # Based on available data and common metrics for a growing OSS project
     - label: "Monthly Downloads"
-      value: "300K+" # Based on monthly downloads snippet
+      value: "1M+" # Based on monthly downloads snippet
     - label: "Stars on Github"
-      value: "2.8K" 
+      value: "3K" 
     - label: "Trees Planted (Since 2020)"
       value: "24.5K" 
 

@@ -30,13 +30,13 @@ As the Quarkus Extension is available in Maven Central, all you need to do is ad
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>quarkus-jobrunr</artifactId> 
-    <version>${jobrunr.version}</version> 
+    <version>{{< param "JobRunrVersion" >}}</version> 
 </dependency>
 ```
 {{< /codetab >}}
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:quarkus-jobrunr:${jobrunr.version}'
+implementation 'org.jobrunr:quarkus-jobrunr:{{< param "JobRunrVersion" >}}'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}

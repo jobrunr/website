@@ -37,12 +37,12 @@ As `jobrunr-spring-boot-4-starter` is available in Maven Central, all you need t
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>jobrunr-spring-boot-4-starter</artifactId>
-    <version>${jobrunr.version}</version> 
+    <version>{{< param "JobRunrVersion" >}}</version> 
 </dependency>
 {{< /codetab >}} 
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr-spring-boot-4-starter:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-spring-boot-4-starter:{{< param "JobRunrVersion" >}}'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}

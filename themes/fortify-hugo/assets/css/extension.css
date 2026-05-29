@@ -128,7 +128,7 @@
 
 .read-with-ai-btn {
   @apply inline-flex items-center justify-center gap-2 px-4 py-2;
-  @apply text-white font-medium text-sm;
+  @apply text-white font-medium text-sm whitespace-nowrap;
   @apply bg-primary hover:opacity-90;
   @apply transition-all duration-200 ease-in-out;
 }

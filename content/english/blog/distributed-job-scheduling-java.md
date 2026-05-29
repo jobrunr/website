@@ -231,7 +231,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -240,7 +240,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -249,7 +249,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-micronaut-feature</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -257,8 +257,8 @@ Add the dependency:
 ```xml
 <dependency>
     <groupId>org.jobrunr</groupId>
-    <artifactId>jobrunr-quarkus-extension</artifactId>
-    <version>${jobrunr.version}</version>
+    <artifactId>jobrunr-quarkus</artifactId>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -423,7 +423,7 @@ For the dashboard, you can run it on any instance or dedicate a server to it. Th
 
 ## Getting Started
 
-The setup above is all you need to get going. For more details, check out the [5-minute quickstart guide](/en/documentation/5-minute-intro/). Deploy multiple instances of your application and watch jobs distribute automatically.
+The setup above is all you need to get going. For more details, check out the [quickstart guides]({{< ref "documentation/getting-started" >}}). Deploy multiple instances of your application and watch jobs distribute automatically.
 
 ---
 

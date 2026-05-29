@@ -94,7 +94,7 @@ If you chose Maven as build tool, you can add JobRunr as follows:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 {{</ codeblock >}}
 

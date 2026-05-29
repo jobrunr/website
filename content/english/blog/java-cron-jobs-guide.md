@@ -250,7 +250,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -259,7 +259,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -268,7 +268,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-micronaut-feature</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
@@ -277,7 +277,7 @@ Add the dependency:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-quarkus-extension</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 {{< /codetab >}}
