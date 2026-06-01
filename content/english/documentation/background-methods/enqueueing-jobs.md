@@ -58,7 +58,7 @@ JobId jobId = BackgroundJobRequest.enqueue(new MyJobRequest());
 
 JobId jobId = BackgroundJob.create(aJob()
     .withName("Generate sales report")
-    .<SalesReportService>withDetails(service -> service.generateSalesReport()));
+    .<SalesReportService>withJobLambda(service -> service.generateSalesReport()));
 ```
 <figcaption>This enqueues a background job using the JobBuilder. All Job properties are properties are configurable when using the JobBuilder, including the name and the amount of retries.</figcaption>
 </figure>
@@ -125,7 +125,7 @@ private SalesReportService salesReportService;
  
 jobScheduler.create(aJob()
     .withName("Generate sales report")
-    .withDetails(() -> salesReportService.generateSalesReport()));
+    .withJobLambda(() -> salesReportService.generateSalesReport()));
 ```
 <figcaption>Enqueueing background jobs scheduling using the JobBuilder pattern.</figcaption>
 </figure>

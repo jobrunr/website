@@ -43,6 +43,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 
+<!-- UTM capture (30-day lifetime, last-touch; consumed by trial form) -->
+<script>
+(function () {
+  try {
+    var FIELDS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+    var params = new URLSearchParams(window.location.search);
+    var captured = {};
+    FIELDS.forEach(function (f) {
+      var v = params.get(f);
+      if (v) captured[f] = v;
+    });
+    if (Object.keys(captured).length > 0) {
+      localStorage.setItem('jr_utm', JSON.stringify({ params: captured, ts: Date.now() }));
+    }
+  } catch (e) { /* storage unavailable, skip */ }
+})();
+</script>
+
+
 <!-- Ahref SEO Analytics-->
 <script src="https://analytics.ahrefs.com/analytics.js" data-key="FxPiSUnylvcdN5mJWbu2rQ" async></script>
 
@@ -165,4 +184,4 @@ silktideCookieBannerManager.updateCookieBannerConfig({
 {{/* {{ partialCached "crisp-chat.html" . }} */}}
 
 <!-- Mermaid -->
-{{/*  {{ partial "mermaid/assets/js" . }}  */}}
+{{   partial "mermaid/assets/js" . }}  

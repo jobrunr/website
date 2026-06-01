@@ -25,7 +25,7 @@
           {{ end }}
 
           <div class="nav-section{{ if $sectionActive }} active{{ end }}" data-section>
-            <div class="section-header group mb-1 flex items-center justify-between rounded transition-colors px-2 py-1.5 {{ if $isActive }} bg-primary{{ else }} hover:bg-body{{ end }}">
+            <div class="section-header group mb-1 flex items-center justify-between rounded transition-colors px-2 py-1 {{ if $isActive }} bg-primary{{ else }} hover:bg-body{{ end }}">
               <a href="{{ .URL | relLangURL }}" class="section-link flex-1 text-sm transition-colors{{ if $isActive }} text-white{{ else }} text-text-dark group-hover:text-primary{{ end }}">
                 {{ .Name }}
               </a>
@@ -49,6 +49,7 @@
                   <li class="nav-item mb-0.5">
                     <a href="{{ .URL | relLangURL }}" class="block rounded px-2 py-1 text-sm transition-colors{{ if $childActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-primary{{ end }}">
                       {{ .Name }}
+                      <!-- {{ with .Page }}{{ if eq .Params.version "pro" }}<span class="badge-sm{{ if $childActive }} opacity-60{{ end }}">B</span>{{ else if eq .Params.version "enterprise" }}<span class="badge-sm enterprise{{ if $childActive }} opacity-60{{ end }}">E</span>{{ end }}{{ end }} -->
                     </a>
 
                     {{/* Show grandchildren (3rd level) if any */}}
@@ -60,6 +61,7 @@
                           <li class="mb-0.5">
                             <a href="{{ .URL | relLangURL }}" class="block rounded px-2 py-1 text-xs transition-colors{{ if $grandChildActive }} bg-primary text-white hover:bg-primary hover:text-white{{ else }} text-text hover:bg-body hover:text-primary{{ end }}">
                               {{ .Name }}
+                              <!-- {{ with .Page }}{{ if eq .Params.version "pro" }}<span class="badge-sm{{ if $grandChildActive }} opacity-60{{ end }}">B</span>{{ else if eq .Params.version "enterprise" }}<span class="badge-sm enterprise{{ if $grandChildActive }} opacity-60{{ end }}">E</span>{{ end }}{{ end }} -->
                             </a>
                           </li>
                         {{ end }}

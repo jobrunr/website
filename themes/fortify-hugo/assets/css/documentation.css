@@ -163,3 +163,36 @@
 .alert__content p:last-child {
   @apply mb-0;
 }
+
+.conum-badge,
+.conum-legend ol li::before {
+  @apply inline-flex items-center justify-center rounded-full bg-primary text-white shrink-0 min-w-[1.4em] h-[1.4em] select-none;
+}
+
+.conum-legend ol li::before {
+  @apply text-[12px];
+}
+
+.conum-badge {
+  @apply text-xs;
+}
+
+.conum-badge::before {
+  content: attr(data-n);
+}
+
+.conum-legend ol li::before {
+  content: counter(conum);
+}
+
+.conum-legend ol {
+  @apply list-none pl-7 [counter-reset:conum];
+}
+
+.conum-legend ol li {
+  @apply relative mb-1 [counter-increment:conum];
+}
+
+.conum-legend ol li::before {
+  @apply absolute -left-7 top-[.3rem];
+}

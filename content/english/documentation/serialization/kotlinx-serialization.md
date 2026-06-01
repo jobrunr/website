@@ -7,13 +7,16 @@ menu:
     parent: serialization
 ---
 
-[Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization) is Kotlin's official multiplatform serialization library, using compile-time code generation instead of runtime reflection. JobRunr supports Kotlin Serialization through the `KotlinxSerializationJsonMapper` implementation, available in the `jobrunr-kotlin-[VERSION]-support` packages (`[VERSION]` is to be replaced with a Kotlin version, e.g., `2.2`).
+[Kotlin Serialization](https://github.com/Kotlin/kotlinx.serialization) is Kotlin's official multiplatform serialization library, using compile-time code generation instead of runtime reflection. JobRunr supports Kotlin Serialization through the `KotlinxSerializationJsonMapper` implementation, available in the `jobrunr-kotlin-support`.
 
 ## Requirements
 
 Kotlin Serialization support requires:
 - **JobRunr 8.0 or later**
-- **`jobrunr-kotlin-2.1-support` or later** (the version number indicates the Kotlin version supported by the package)
+- **`jobrunr-kotlin-support`**
+
+> [!NOTE]
+> Prior to JobRunr 8.5.0, the Kotlin support artifact was published as `jobrunr-kotlin-[VERSION]-support` (`[VERSION]` is to be replaced with a Kotlin version, e.g., `2.2`).
 
 ## Installation
 
@@ -27,7 +30,7 @@ plugins {
 
 dependencies {
   // versions are omitted, use the latest versions
-  implementation("org.jobrunr:jobrunr-kotlin-2.1-support") // replace 2.1 by the Kotlin version you're targeting
+  implementation("org.jobrunr:jobrunr-kotlin-support")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-json")
 }
 ```

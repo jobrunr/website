@@ -2,7 +2,6 @@
 title: "JobRunr and JobRunr Pro v8.0.0!"
 description: "We're proud to announce the latest release, JobRunr & JobRunr Pro v8.0.0"
 image: "/blog/ReleaseVisual.webp"
-image: /blog/ReleaseVisual.webp
 date: 2025-07-07T09:00:00+02:00
 author: "The JobRunr Team"
 tags:

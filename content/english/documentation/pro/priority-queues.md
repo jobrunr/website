@@ -15,6 +15,8 @@ menu:
 
 Are you processing millions of jobs? Do you have some high priority jobs that need to finish fast? Use JobRunr priority queues to make sure that critical jobs cut in front of already enqueued jobs.
 
+{{< demo-callout step="10" label="VIP Treatment" >}}
+
 > **Note**: JobRunr Pro supports up to 5 different priority queues and they can be used together with the [load-balancing feature]({{< ref "/documentation/pro/dynamic-queues.md" >}}).
 
 ## Usage
@@ -56,8 +58,8 @@ If you are using the `JobBuilder`, queues are also really easy to use and you ca
 ```java
 public void startJobOnQueue(JobQueue jobQueue) { // JobQueue can be an enum value
     jobScheduler.create(aJob()
-        .withQueue(jobQueue)
-        .withDetails(() -> System.out.println("This job will start on the given queue"));
+        .withPriorityQueue(jobQueue)
+        .withJobLambda(() -> System.out.println("This job will start on the given queue"));
 }
 ```
 
@@ -74,7 +76,7 @@ Using the fluent API, first specify all the queues as Strings (or string constan
 ```java
 JobRunrPro
     .configure()
-    .useQueues(DefaultQueue, HighPrioQueue, DefaultQueue, LowPrioQueue)
+    .usePriorityQueues(DefaultQueue, HighPrioQueue, DefaultQueue, LowPrioQueue)
     ...
 ```
 <figcaption>When configuring queues, specify the default queue for all jobs first and then specify all the queues, going from highest priority to lowest priority. Using constants keeps the code readable.</figcaption>
@@ -88,7 +90,7 @@ For the Spring / Micronaut / Quarkus, you can just define the queues in your con
 ```
 jobrunr.queues.default-queue-name=Default
 jobrunr.queues.names=HighPrio, Default, LowPrio
-#jobrunr.queues.from-enum=jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums van not be used in an annotation
+#jobrunr.queues.from-enum=jobrunr.examples.services.JobRunrQueues # you can also pass the fully qualified name to an enum but due to the Java compiler, enums can not be used in annotations
   
 ```
 <figcaption>Just define the default queue name and the other queue names using your configuration.</figcaption>

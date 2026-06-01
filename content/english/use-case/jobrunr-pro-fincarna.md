@@ -124,7 +124,7 @@ override fun startProcessingWorkflow(batchId: String): JobProId {
             .withName("Data Preparation")
             .withLabels("batch-$batchId")
             .withAmountOfRetries(2)
-            .withDetails { prepareStagingTable(batchId) }
+            .withJobLambda { prepareStagingTable(batchId) }
     )
 
     // Step 2: Create partitions and process chunks
@@ -134,7 +134,7 @@ override fun startProcessingWorkflow(batchId: String): JobProId {
             .withLabels("batch-$batchId")
             .withAmountOfRetries(1)
             .runAfter(preparationJobId)
-            .withDetails { createAndProcessPartitions(batchId) }
+            .withJobLambda { createAndProcessPartitions(batchId) }
     )
 
     // Step 3: Finalize batch
@@ -144,7 +144,7 @@ override fun startProcessingWorkflow(batchId: String): JobProId {
             .withLabels("batch-$batchId")
             .withAmountOfRetries(3)
             .runAfter(partitionJobId)
-            .withDetails { finalizeBatch(batchId) }
+            .withJobLambda { finalizeBatch(batchId) }
     )
 
     // Register failure handlers
@@ -178,16 +178,16 @@ It’s like having a dedicated express lane for VIP traffic without the overhead
 jobScheduler.create(
     aJob()                      
         .withName("Send Authorization OTP")
-        .withQueue("High-prio") // Top priority
-        .withDetails(() -> notificationService.sendHighPriorityOtp(userId)) 
+        .withPriorityQueue("High-prio") // Top priority
+        .withJobLambda(() -> notificationService.sendHighPriorityOtp(userId)) 
 );
 
 // Standard Priority: Business as usual
 jobScheduler.create(
     aJob()
         .withName("Send Authorization OTP")
-        .withQueue("Default") // Default priority
-        .withDetails(() -> feeService.calculate(transactionId)) 
+        .withPriorityQueue("Default") // Default priority
+        .withJobLambda(() -> feeService.calculate(transactionId)) 
 );
 
 
@@ -195,12 +195,12 @@ jobScheduler.create(
 jobScheduler.create(
     aJob()
         .withName("Generate Monthly Statement PDF")
-        .withQueue("LowPrio") // Background fill
-        .withDetails (() -> statementService.generatePdf(accountId))
+        .withPriorityQueue("LowPrio") // Background fill
+        .withJobLambda (() -> statementService.generatePdf(accountId))
 );
 ```
 
-This simple `withQueue` argument saved us from the "noisy neighbor" problem. Now, no matter how heavy our batch processing gets, real-time customer interactions always take precedence.
+This simple `withPriorityQueue` argument saved us from the "noisy neighbor" problem. Now, no matter how heavy our batch processing gets, real-time customer interactions always take precedence.
 
 
 ### [Spring Boot Integration](/en/documentation/configuration/spring/)

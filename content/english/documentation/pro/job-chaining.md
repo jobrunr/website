@@ -15,6 +15,8 @@ menu:
 
 JobRunr's job chaining and workflow capabilities enhance software development efficiency by enabling logical task sequencing and complex workflow management. This setup ensures tasks execute in order, maintaining data integrity and operational consistency, especially when subsequent processes depend on earlier outcomes. The Pro version offers advanced controls and insights, further optimizing performance and providing you with an instant overview of your business process.
 
+{{< demo-callout step="8" label="Alert the Team" >}}
+
 > This comes in really handy when using [Batches]({{< ref "batches.md" >}}) - start a new step in your business process when a whole bunch of related jobs have finished.
 
 ### Job chaining via `continueWith` and `onFailure`
@@ -105,12 +107,12 @@ private NotifyService notifyService;
 public void createArchiveAndNotify(String folder) {
     JobId createArchiveJobId = BackgroundJob
         .create(aJob()
-            .withDetails(() -> archiveService.createArchive(folder)));
+            .withJobLambda(() -> archiveService.createArchive(folder)));
 
     JobId notifyViaSlackJobId = BackgroundJob
         .create(aJob()
             .runAfterSuccessOf(createArchiveJobId)
-            .withDetails(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
+            .withJobLambda(() -> notifyService.notifyViaSlack("ops-team", "The following folder was archived: " + folder)));
 }
 
 ```
@@ -126,7 +128,7 @@ There are times where the next `Job` in the chain requires information from the 
 {{< codeblock title="Retrieving the previous job from the chain using `JobContext` and `StorageProvider`." >}}
 ```java
 public void notifyViaSlack(JobContext context) {
-    var awaitedJobId = context.getAwaitedJob(); // can be null if this job has no ancestor
+    var awaitedJobId = context.getAwaitedJobId(); // can be null if this job has no ancestor
     var awaitedJob = storageProvider.getJobById(awaitedJobId);
     MyJobResult awaitedJobResult = awaitedJob.<MyJobResult>getResult();
     

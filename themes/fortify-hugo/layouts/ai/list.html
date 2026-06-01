@@ -1,0 +1,265 @@
+{{ define "main" }}
+
+<!-- Hero Section -->
+<section class="section pt-20 pb-16 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-10" data-aos="fade-up-sm">
+        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
+          {{ .Params.hero.badge }}
+        </span>
+        <h1 class="h1 mb-6 text-gray-900">
+          {{ .Params.hero.title_start }}
+          <span class="text-primary">{{ .Params.hero.title_highlight }}</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          {{ .Params.hero.description | safeHTML }}
+        </p>
+
+        {{ with .Params.button }}
+        <ul class="flex flex-wrap justify-center gap-4 pt-6">
+          {{ if .get_started.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="100">
+            <a class="btn-primary btn" href="{{ .get_started.link }}" target="_self" rel="noopener">
+              {{ .get_started.label | markdownify }}
+              <span class="sr-only">Details</span>
+              <span class="icon-wrapper"><span class="icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span><span class="icon" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span>
+            </a>
+          </li>
+          {{ end }}
+          {{ if .learn_more.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="150">
+            <a class="btn-outline-primary btn" href="{{ .learn_more.link }}" target="_self" rel="noopener">
+              {{ .learn_more.label | markdownify }}
+              <span class="sr-only">Details</span>
+              <span class="icon-wrapper"><span class="icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span><span class="icon" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Challenges Section: Quote + Pain Points -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="row items-center">
+      <div class="lg:col-6 mb-10 lg:mb-0" data-aos="fade-right">
+        <div class="bg-blue-50 p-8 rounded-2xl border border-blue-100 relative">
+          <svg class="absolute top-6 left-6 w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21L14.017 18C14.017 16.896 14.913 16 16.017 16H19.017C19.569 16 20.017 15.552 20.017 15V9C20.017 8.448 19.569 8 19.017 8H15.017C14.465 8 14.017 8.448 14.017 9V11C14.017 11.552 13.569 12 13.017 12H12.017V5H22.017V15C22.017 16.657 20.674 18 19.017 18H16.017C15.465 18 15.017 18.448 15.017 19V21H14.017ZM5.0166 21L5.0166 18C5.0166 16.896 5.9126 16 7.0166 16H10.0166C10.5686 16 11.0166 15.552 11.0166 15V9C11.0166 8.448 10.5686 8 10.0166 8H6.0166C5.4646 8 5.0166 8.448 5.0166 9V11C5.0166 11.552 4.5686 12 4.0166 12H3.0166V5H13.0166V15C13.0166 16.657 11.6736 18 10.0166 18H7.0166C6.4646 18 6.0166 18.448 6.0166 19V21H5.0166Z" /></svg>
+          <p class="text-xl font-medium text-gray-800 italic relative z-10 pt-6">
+            "{{ .Params.quote_section.text }}"
+          </p>
+          <div class="mt-6 flex items-center">
+            <div>
+              <p class="font-bold text-gray-900">{{ .Params.quote_section.author }}</p>
+              <p class="text-sm text-gray-600">{{ .Params.quote_section.role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-6 lg:pl-12" data-aos="fade-left">
+        <h2 class="h2 mb-6">{{ .Params.challenges_section.title }}</h2>
+        <p class="text-lg text-gray-600 mb-6">
+          {{ .Params.challenges_section.description }}
+        </p>
+        <ul class="space-y-4">
+          {{ range .Params.challenges_section.items }}
+          <li class="flex items-start">
+            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-red-100 flex items-center justify-center mt-1">
+              <svg class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <div class="ml-4">
+              <h4 class="text-lg font-bold text-gray-900">{{ .title }}</h4>
+              <p class="text-gray-600">{{ .description }}</p>
+            </div>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code Examples Section -->
+<section id="ai-patterns" class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-16" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.code_section.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.code_section.description }}</p>
+    </div>
+
+    {{ range $index, $example := .Params.code_section.examples }}
+    <div class="row items-center mb-20 {{ if (modBool $index 2) }}flex-row-reverse{{ end }}" data-aos="fade-up-sm">
+      <div class="lg:col-5 {{ if (modBool $index 2) }}lg:pl-12{{ else }}lg:pr-12{{ end }} mb-8 lg:mb-0">
+        <div class="flex items-center mb-4">
+          <div class="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary mr-3">
+            <span class="text-lg font-bold">{{ add $index 1 }}</span>
+          </div>
+          <h3 class="h4 mb-0">{{ .title }}</h3>
+        </div>
+        <p class="text-gray-600 mb-4">{{ .description }}</p>
+        <ul class="space-y-2 mb-4">
+          {{ range .highlights }}
+          <li class="flex items-start text-sm text-gray-700">
+            <span class="text-green-500 mr-2 mt-0.5">&#10003;</span>
+            <span>{{ . | safeHTML }}</span>
+          </li>
+          {{ end }}
+        </ul>
+        {{ with .links }}
+        <div class="flex flex-wrap gap-3 mt-4">
+          {{ range . }}
+          <a href="{{ .url }}" class="text-sm font-medium text-primary hover:underline">{{ .label }} &rarr;</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+      <div class="lg:col-7">
+        <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg">
+          <div class="flex items-center px-4 py-3 bg-slate-800 border-b border-slate-700">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <span class="ml-3 text-xs text-slate-400 font-mono">{{ .filename }}</span>
+          </div>
+          <pre class="p-5 text-sm leading-relaxed overflow-x-auto"><code class="language-java text-slate-300">{{ .code | safeHTML }}</code></pre>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Use Cases Section -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="text-center mb-16">
+      <h2 class="h2 mb-4">{{ .Params.use_cases_section.title }}</h2>
+      <p class="text-lg text-gray-600">{{ .Params.use_cases_section.description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {{ range $index, $element := .Params.use_cases_section.cases }}
+      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition">
+        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
+          {{ if eq $index 0 }}
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
+          {{ else if eq $index 1 }}
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+          {{ else if eq $index 2 }}
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" /></svg>
+          {{ else }}
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+          {{ end }}
+        </div>
+        <h3 class="h4 mb-3">{{ .title }}</h3>
+        <p class="text-gray-700 mb-4">{{ .description }}</p>
+        <ul class="space-y-2 text-sm text-gray-600">
+          {{ range .solution_points }}
+          <li class="flex items-center"><span class="text-green-500 mr-2">&#10003;</span> {{ . | safeHTML }}</li>
+          {{ end }}
+        </ul>
+        {{ with .link }}
+        <a href="{{ .url }}" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">{{ .label }} &rarr;</a>
+        {{ end }}
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Works With Your Stack Section -->
+<section class="section bg-slate-900 text-white overflow-hidden relative">
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+
+  <div class="container relative z-10">
+    <div class="text-center mb-12">
+      <h2 class="h2 text-white mb-4">{{ .Params.stack_section.title }}</h2>
+      <p class="text-lg text-gray-300">{{ .Params.stack_section.description }}</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      {{ range .Params.stack_section.categories }}
+      <div class="bg-white/10 backdrop-blur-sm p-6 rounded-lg border border-white/10">
+        <h4 class="font-bold text-lg mb-3 text-white">{{ .title }}</h4>
+        <ul class="space-y-2">
+          {{ range .items }}
+          <li class="text-sm text-gray-300 flex items-center">
+            <svg class="w-4 h-4 mr-2 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            {{ . }}
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Comparison Table -->
+{{ with .Params.comparison_table }}
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="h2 mb-4">{{ .title }}</h2>
+    </div>
+    <div class="overflow-x-auto relative shadow-lg sm:rounded-lg max-w-4xl mx-auto">
+      <table class="w-full text-sm text-left text-gray-600">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-100 border-b">
+          <tr>
+            {{ range .headers }}
+            <th scope="col" class="py-4 px-6">{{ . }}</th>
+            {{ end }}
+          </tr>
+        </thead>
+        <tbody>
+          {{ range $i, $row := .rows }}
+          <tr class="{{ if (modBool $i 2) }}bg-white{{ else }}bg-gray-50{{ end }} border-b">
+            <td class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap">{{ $row.challenge }}</td>
+            <td class="py-4 px-6 text-red-600">{{ $row.without }}</td>
+            <td class="py-4 px-6 text-green-700 font-medium">{{ $row.with_jobrunr }}</td>
+          </tr>
+          {{ end }}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Getting Started Section -->
+{{ with .Params.getting_started }}
+<section class="section bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-8" data-aos="fade-up-sm">
+        <div class="text-center mb-12">
+          <h2 class="h2 mb-4">{{ .title }}</h2>
+          <p class="text-lg text-gray-600">{{ .description }}</p>
+        </div>
+        <div class="content">
+          {{ $.Content }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- FAQ Accordion -->
+{{ partial "components/accordion.html" . }}
+
+<!-- Call to action -->
+{{ partial "call-to-action.html" . }}
+
+{{ end }}

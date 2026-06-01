@@ -14,6 +14,8 @@ menu:
 
 A `rate limiter` allows to control the execution rate of `Jobs` to avoid overwhelming some resources like external APIs or databases. JobRunr provides [`mutexes`]({{< ref "/documentation/pro/mutexes" >}}) as a mean to only allow a single execution from a set of `Jobs` at a time. Rate limiters gives more flexibility, the amount of concurrent jobs can be configured using the `ConcurrentJobRateLimiter` or the limit may be set over a time window using `SlidingTimeWindowRateLimiter`. 
 
+{{< demo-callout step="15" label="Go Easy on Your Partners" >}}
+
 You can configure different rate limiters to be used within your system and rate limiters can be shared by different job types, however each job can only use one `rate limiter`.
 
 > [!IMPORTANT]

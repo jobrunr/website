@@ -11,6 +11,9 @@ menu:
     weight: 1
 ---
 
+> [!TIP]
+> Need more details about classes and methods? Check out the [JavaDocs](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro/latest) for the complete API reference.
+
 ## Getting the JobRunr Pro Artifact
 
 ### Private Maven Repository
@@ -64,7 +67,7 @@ To use JobRunr Pro, just use the following Maven coordinates:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-pro-spring-boot-3-starter</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 
@@ -100,7 +103,7 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:${jobrunr.version}'
+  implementation 'org.jobrunr:jobrunr-pro-spring-boot-3-starter:{{< param "JobRunrVersion" >}}'
 }
 ```
 
@@ -209,5 +212,3 @@ public LicenseKeyProvider licenseKeyProvider() {
 ```
 {{< /codetab >}}
 {{< /codetabs >}}
-
-

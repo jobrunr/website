@@ -20,6 +20,9 @@ __To add JobRunr to your Micronaut project, these are the steps you need to take
 > [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Micronaut? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
+> [!PRO]
+> Need more details about classes and methods? Check out our [JavaDocs for Micronaut](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-micronaut-feature/latest) for the complete API reference.
+
 ## Add the dependency to the extension
 As the Micronaut Integration is available in Maven Central, all you need to do is add this dependency:
 
@@ -29,7 +32,7 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>jobrunr-micronaut-feature</artifactId> 
-    <version>${jobrunr.version}</version> 
+    <version>{{< param "JobRunrVersion" >}}</version> 
 </dependency>
 <!-- ... -->
 <build>
@@ -45,7 +48,7 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
                     <path>
                         <groupId>org.jobrunr</groupId>
                         <artifactId>jobrunr-micronaut-annotations</artifactId>
-                        <version>${jobrunr.version}</version>
+                        <version>{{< param "JobRunrVersion" >}}</version>
                     </path>        
                 </annotationProcessorPaths>
             </configuration>
@@ -55,8 +58,8 @@ As the Micronaut Integration is available in Maven Central, all you need to do i
 {{< /codetab >}}
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr-micronaut-feature:${jobrunr.version}'
-annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-micronaut-feature:{{< param "JobRunrVersion" >}}'
+annotationProcessor 'org.jobrunr:jobrunr-micronaut-annotations:{{< param "JobRunrVersion" >}}'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}

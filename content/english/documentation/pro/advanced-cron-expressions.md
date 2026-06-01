@@ -55,7 +55,7 @@ You can also create some more fancier CRON expressions like:
 <figure>
 
 ```java
-BackgroundJob.scheduleRecurrently("0 0 LW-3 * *", () -> System.out.println("Three days before the business day of the month!")); 
+BackgroundJob.scheduleRecurrently("0 0 LW-3 * *", () -> System.out.println("Three days before the last business day of the month!")); 
 ```
 <figcaption>This will run at midnight three days before the last business day of the month</figcaption>
 </figure>

@@ -60,6 +60,6 @@ JobRunr's testing is quite extensive and some tests are there for legacy reasons
 
 ## Important considerations
 
-- **Simple arguments** - Job parameters are serialized and stored in your database. Large JSON payloads also increase database load and add unnecessary serialization overhead. Pass IDs instead of entire entities to minimize storage overhead.
+- **Simple arguments** - Job parameters are serialized and stored in your database. Large JSON payloads also increase database load and add unnecessary serialization overhead. Pass IDs instead of entire entities to minimize storage overhead. If you pass an entity, it may also be stale by the time the job is executed.
 - **Interoperability** - Test extensively when switching to another `JsonMapper`, JobRunr does not guarantee interoperability.
 - **Code consistency** - All servers must run the same code version. Method signature changes between deploys may cause job execution to fail.

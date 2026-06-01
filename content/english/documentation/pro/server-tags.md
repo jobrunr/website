@@ -38,7 +38,7 @@ When you are using the `JobBuilder` pattern, you can pass the serverTag via the 
 ```java
 jobScheduler.create(aJob()
         .withServerTag(LINUX)
-        .withDetails(() -> System.out.println("This will only run on a server tagged with LINUX"));
+        .withJobLambda(() -> System.out.println("This will only run on a server tagged with LINUX"));
 ```
 </figure>
 <br>

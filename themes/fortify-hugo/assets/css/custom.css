@@ -1,25 +1,17 @@
 /* TABLES */
 .content table:not(.datatable) {
+    /* display: block; */
+    overflow-x: auto;
     background:
-      radial-gradient(ellipse at left,rgba(0,0,0,.2) 0,transparent 75%) 0,
-      radial-gradient(ellipse at right,rgba(0,0,0,.2) 0,transparent 75%) 100%;
-    background-attachment: scroll,scroll;
+        /* masks (local - cover shadows at edges) */
+        linear-gradient(90deg, #fff 20px, transparent) left,
+        linear-gradient(270deg, #fff 20px, transparent) right,
+        /* shadows (scroll - always at edges) */
+        radial-gradient(ellipse at left, rgba(0,0,0,.2) 0, transparent 75%) left,
+        radial-gradient(ellipse at right, rgba(0,0,0,.2) 0, transparent 75%) right;
+    background-size: 20px 100%, 20px 100%, 10px 100%, 10px 100%;
     background-repeat: no-repeat;
-    background-size: 10px 100%,10px 100%;
-}
-
-
-.content table:not(.datatable) td:first-child {
-    background-image: linear-gradient(90deg,#fff 50%,rgba(255,255,255,0));
-    background-repeat: no-repeat;
-    background-size: 20px 100%
-}
-
-.content table:not(.datatable) td:last-child {
-    background-image: linear-gradient(270deg,#fff 50%,rgba(255,255,255,0));
-    background-position: 100% 0;
-    background-repeat: no-repeat;
-    background-size: 20px 100%
+    background-attachment: local, local, scroll, scroll;
 }
 
 .content table:not(.datatable) tbody, .content table thead {
@@ -201,4 +193,22 @@ input[name="username"] {
 
 .heading-anchor:hover i, .heading-anchor:focus i {
   @apply opacity-100;
+}
+
+/* ERROR CONTAINER */
+.error-container {
+  @apply flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800;
+}
+
+.error-container i {
+  @apply text-red-500 text-lg;
+}
+
+.error-container p {
+  @apply m-0! text-sm;
+}
+
+/* AREA ALIAS */
+.area-alias {
+  @apply text-[6px] text-blue-400 mr-1.5 cursor-help;
 }

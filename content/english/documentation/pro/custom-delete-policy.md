@@ -74,7 +74,7 @@ If you prefer the `JobBuilder` pattern, you can again pass the `deleteOnSuccess`
 jobScheduler.create(aJob()
         .withDeleteOnSuccess(Duration.ofHours(1))
         .withDeleteOnFailure(Duration.ofHours(8))
-        .withDetails(() -> System.out.println("This job will move to the deleted state after 1 hour if it succeeded and after 8 hours if it failed."));
+        .withJobLambda(() -> System.out.println("This job will move to the deleted state after 1 hour if it succeeded and after 8 hours if it failed."));
 ```
 </figure>
 

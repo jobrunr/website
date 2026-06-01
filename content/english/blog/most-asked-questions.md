@@ -26,7 +26,7 @@ Integration is designed to be plug-and-play. Here is the standard setup for Spri
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-4-starter</artifactId>
-    <version>8.3.1</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 ```
 

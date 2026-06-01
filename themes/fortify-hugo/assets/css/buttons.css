@@ -100,3 +100,7 @@
   @apply border-border bg-transparent bg-white text-text-dark hover:border-secondary hover:bg-secondary hover:text-text-dark;
   @apply [&:hover_.icon-wrapper]:bg-dark [&:hover_svg]:text-light [&_.icon-wrapper]:bg-light [&_svg]:text-text-dark;
 }
+
+.btn-even-padding {
+  @apply px-8 py-3;
+}

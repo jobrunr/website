@@ -64,6 +64,10 @@ jobs:
           # If your Hugo site is NOT in repo root, add: --source path/to/site
           npm run build || hugo --minify
           test -d public
+      - name: Build MCP index
+        run: |
+          npm install gray-matter@4.0.3
+          node ./scripts/build-mcp-index.js
       - name: Index with Pagefind
         run: npx -y pagefind --site public
       - name: Upload artifact
@@ -81,3 +85,18 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Notify MCP server to reindex
+        env:
+          MCP_REINDEX_SECRET: ${{ secrets.MCP_REINDEX_SECRET }}
+        run: |
+          if [ -z "$MCP_REINDEX_SECRET" ]; then
+            echo "MCP_REINDEX_SECRET not set, skipping reindex ping"
+            exit 0
+          fi
+          ts=$(date +%s)
+          sig=$(printf '%s' "$ts" | openssl dgst -sha256 -hmac "$MCP_REINDEX_SECRET" -hex | awk '{print $2}')
+          curl -fsS -X POST https://jobrunr-docs-mcp.fly.dev/admin/reindex \
+            -H "X-Reindex-Timestamp: $ts" \
+            -H "X-Reindex-Signature: $sig" \
+            --max-time 180 || echo "reindex ping failed (non-fatal)"

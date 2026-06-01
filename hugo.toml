@@ -21,14 +21,14 @@ defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 
 [params]
-jobRunrVersion = "8.1.0"
+jobRunrVersion = "8.6.1"
 github_url = "https://github.com/jobrunr/jobrunr"
 github_website_url = "https://github.com/jobrunr/website"
-github_stars = "2.8K"
+github_website_raw_url = "https://raw.githubusercontent.com/jobrunr/website"
 enableTrialButton = true
 
 [params.codetabs]
-allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style"]
+allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style", "ide"]
 
 ########################### Services #############################
 [services]
@@ -176,6 +176,9 @@ link = "js/codetabs.js"
 lazy = false
 [[params.plugins.js]]
 link = "js/code-copy.js"
+lazy = false
+[[params.plugins.js]]
+link = "js/read-with-ai.js"
 lazy = false
 [[params.plugins.js]]
 link = "js/framework.js"

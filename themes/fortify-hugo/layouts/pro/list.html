@@ -34,6 +34,29 @@
       </div>
     </section>
   {{ end }}
+
+  {{ partial "components/brand-logo.html" . }}
+
+  <section class="section">
+    <div class="container">
+      <div class="bg-dark px-10 py-12 xl:p-16 rounded-[40px] text-center" data-aos="fade-up-sm">
+        <h2 class="text-light mb-4 h3">See JobRunr Pro at work, before you commit</h2>
+        <p class="text-light text-lg mb-8 max-w-2xl mx-auto">
+          Walk through 21 hands-on scenarios in our hosted neobank demo. Priority queues, batches, dynamic queues, the dashboard. All running live, no install needed.
+        </p>
+        <a class="btn btn-primary-light" href="https://finance.demo.jobrunr.io/storyline" target="_blank" rel="noopener">
+          Launch the interactive demo
+          <span class="icon-wrapper"
+            ><span class="icon"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+            ><span class="icon" aria-hidden="true"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+          ></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container">
       <div class="row">
@@ -87,7 +110,7 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-               <a class="dashed-underline" href="{{ "documentation/background-methods/enqueueing-jobs/" | relLangURL }}"> Enqueueing & Scheduling Jobs (Fire-and-Forget)</a>
+               <a class="dashed-underline" href="{{ "documentation/background-methods/enqueueing-jobs/" | relLangURL }}"> Enqueueing & Scheduling Jobs (Fire and Forget)</a>
               </th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
@@ -95,14 +118,14 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/background-methods/carbon-aware-jobs/" | relLangURL }}">Carbon-Aware Job Scheduling</th></a>
+                <a class="dashed-underline" href="{{ "documentation/background-methods/carbon-aware-jobs/" | relLangURL }}">Carbon Aware Job Scheduling</th></a>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/pro/real-time-scheduling/" | relLangURL }}">Real-Time Scheduling & Enqueueing (Instant execution)</th></a>
+                <a class="dashed-underline" href="{{ "documentation/pro/real-time-scheduling/" | relLangURL }}">Realtime Scheduling & Enqueueing (Instant execution)</th></a>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
@@ -115,7 +138,7 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/background-methods/dealing-with-exceptions/" | relLangURL }}">Automatic Retry Handling (Exponential Back-off)</a></th>
+                <a class="dashed-underline" href="{{ "documentation/background-methods/dealing-with-exceptions/" | relLangURL }}">Automatic Retry Handling (Exponential Backoff)</a></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
@@ -129,7 +152,7 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/pro/job-timeout/" | relLangURL }}">Job Time-outs</a></th>
+                <a class="dashed-underline" href="{{ "documentation/pro/job-timeout/" | relLangURL }}">Job Timeouts</a></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
@@ -170,7 +193,7 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/pro/dynamic-queues/" | relLangURL }}">Dynamic Queues (Fair-Usage Multi-Tenancy)</a></th>
+                <a class="dashed-underline" href="{{ "documentation/pro/dynamic-queues/" | relLangURL }}">Dynamic Queues (Fair Usage Multitenancy)</a></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
               <td class="py-4 px-6 text-center bg-black text-white"><span class="table-check-icon"></span></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
@@ -218,7 +241,7 @@
             </tr>
             <tr class="bg-white border-b border-gray-100">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900">
-                <a class="dashed-underline" href="{{ "documentation/pro/jobrunr-pro-multi-dashboard/" | relLangURL }}">Multi-Cluster Dashboard</a></th>
+                <a class="dashed-underline" href="{{ "documentation/pro/jobrunr-pro-multi-dashboard/" | relLangURL }}">Multicluster Dashboard</a></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900">❌</td>
               <td class="py-4 px-6 text-center bg-black text-white">❌</td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><span class="table-check-icon"></span></td>
@@ -290,7 +313,7 @@
             <tr class="bg-white">
               <th scope="row" class="py-4 px-6 font-medium text-gray-900"></th>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"></td>
-              <td class="py-4 px-6 text-center bg-black text-white"><a class="underline" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden');" rel="noopener">Start your free trial</a></td>
+              <td class="py-4 px-6 text-center bg-black text-white"><a class="underline" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">Start your free trial</a></td>
               <td class="py-4 px-6 text-center bg-[#FAFAFA] text-gray-900"><a class="underline" href="{{ "/en/get-jobrunr-pro-enterprise" }}">Get In Touch </a></td>
             </tr>
           </tbody>
@@ -302,7 +325,26 @@
 
 
   {{ partial "components/accordion.html" . }}
-  {{ partial "call-to-action.html" . }}
+
+  <section class="section mb-14">
+    <div class="container">
+      <div class="bg-dark px-10 py-16 xl:p-20 rounded-[40px] text-center" data-aos="fade-up-sm">
+        <h2 class="text-light mb-4 h3">Start your free 1 month JobRunr Pro trial</h2>
+        <p class="text-light text-lg mb-8 max-w-2xl mx-auto">
+          Unlock priority queues, workflows, rate limiting, and the Pro dashboard for 1 month. No credit card required.
+        </p>
+        <a class="btn btn-primary-light cursor-pointer" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">
+          Start your free trial
+          <span class="icon-wrapper"
+            ><span class="icon"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+            ><span class="icon" aria-hidden="true"
+              ><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+          ></span>
+        </a>
+      </div>
+    </div>
+  </section>
 
 
   <!-- Trial Modal -->
@@ -313,29 +355,30 @@
           <div class="relative bg-white rounded-lg shadow-xl">
               <div class="flex items-center justify-between p-4 rounded-t">
                   <h3 id="modal-title" class="text-xl font-semibold text-gray-900">
-                      Get Your Free 14-Day JobRunr Pro Trial
+                      Get Your Free 1 Month JobRunr Pro Trial
                   </h3>
                   <button type="button" class="text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" onclick="document.getElementById('trial-modal').classList.add('hidden'); document.getElementById('modal-backdrop').classList.add('hidden');">
                       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
                   </button>
               </div>
               <div class="flex items-center justify-between p-4 pt-0 pb-0">
-                <p>Unlock Priority Queues, Job Workflows, Enhanced Search on the Dashboard and so much more for 14 days.</p>
+                <p>Unlock Priority Queues, Job Workflows, Enhanced Search on the Dashboard and so much more for 1 month.</p>
               </div>
               <div class="p-6">
 
                   <form id="trial-form" action="#" method="POST">
                       <div id="form-content">
                           <div class="mb-4">
-                              <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email</label>
-                              <input type="email" id="business-email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="you@company.com" required>
+                              <label for="business-email" class="block mb-2 text-sm font-medium text-gray-900">Business Email (no personal email)</label>
+                              <input type="email" id="business-email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="you@yourcompany.com" required>
+                              <p id="trial-email-error" class="mt-1 text-sm text-red-500" style="display: none;"></p>
                           </div>
                           <div class="mb-6">
                               <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Company</label>
                               <input type="text" id="company" name="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Your Company Name" required>
                               <input type="text" name="username" id="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
                           </div>
-                          <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 14-Day Pro Trial</button>
+                          <button type="submit" class="w-full text-white btn-primary font-medium rounded-lg text-sm px-5 py-2.5 text-center">Start My 1 Month Pro Trial</button>
                       </div>
                   </form>
                   
@@ -353,6 +396,39 @@
       </div>
   </div>
   <script>
+    const personalEmailDomains = [
+        'gmail.com', 'googlemail.com', 'hotmail.com', 'hotmail.co.uk', 'hotmail.fr', 'hotmail.de',
+        'outlook.com', 'outlook.fr', 'outlook.de', 'live.com', 'live.co.uk', 'live.fr', 'live.nl',
+        'msn.com', 'yahoo.com', 'yahoo.co.uk', 'yahoo.fr', 'yahoo.de', 'yahoo.co.in',
+        'ymail.com', 'rocketmail.com', 'aol.com', 'icloud.com', 'me.com', 'mac.com',
+        'mail.com', 'email.com', 'protonmail.com', 'proton.me', 'pm.me',
+        'zoho.com', 'yandex.com', 'yandex.ru', 'gmx.com', 'gmx.de', 'gmx.net',
+        'web.de', 'mail.ru', 'inbox.com', 'fastmail.com', 'tutanota.com', 'tuta.com',
+        'hey.com', 'qq.com', '163.com', '126.com', 'naver.com', 'hanmail.net',
+        'rediffmail.com', 'free.fr', 'laposte.net', 'orange.fr', 'wanadoo.fr',
+        'seznam.cz', 'wp.pl', 'o2.pl', 'interia.pl', 'libero.it', 'virgilio.it',
+        't-online.de', 'arcor.de', 'freenet.de', 'posteo.de', 'mailbox.org'
+    ];
+
+    function isPersonalEmail(email) {
+        const domain = email.split('@')[1]?.toLowerCase();
+        return domain && personalEmailDomains.includes(domain);
+    }
+
+    const trialEmailInput = document.getElementById('business-email');
+    const trialEmailError = document.getElementById('trial-email-error');
+
+    trialEmailInput.addEventListener('input', function() {
+        if (this.value && isPersonalEmail(this.value)) {
+            trialEmailError.textContent = 'Please use your professional email address instead of a personal one.';
+            trialEmailError.style.display = 'block';
+            this.setCustomValidity('Please use a professional email address.');
+        } else {
+            trialEmailError.style.display = 'none';
+            this.setCustomValidity('');
+        }
+    });
+
     document.addEventListener('DOMContentLoaded', () => {
     const triggers = document.querySelectorAll(
       'main a[href*="pro"]' +
@@ -370,6 +446,7 @@
       e.preventDefault();
       modal.classList.remove('hidden');
       backdrop.classList.remove('hidden');
+      (window.dataLayer = window.dataLayer || []).push({ event: 'trial_modal_opened' });
     };
 
     const close = () => {
@@ -388,11 +465,42 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
 
     modal.querySelectorAll('[data-close-modal]').forEach(btn => btn.addEventListener('click', close));
+
+    if (window.location.hash === '#trial' || new URLSearchParams(window.location.search).has('trial')) {
+      modal.classList.remove('hidden');
+      backdrop.classList.remove('hidden');
+      (window.dataLayer = window.dataLayer || []).push({ event: 'trial_modal_opened' });
+    }
   });
 
 
+function getStoredUtm() {
+    try {
+        const raw = localStorage.getItem('jr_utm');
+        if (!raw) return {};
+        const data = JSON.parse(raw);
+        if (!data || !data.ts || !data.params) return {};
+        const MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+        if (Date.now() - data.ts > MAX_AGE) {
+            localStorage.removeItem('jr_utm');
+            return {};
+        }
+        return data.params;
+    } catch (e) {
+        return {};
+    }
+}
+
 document.getElementById('trial-form').addEventListener('submit', function(e) {
     e.preventDefault();
+
+    // Check for personal email before submitting
+    if (isPersonalEmail(trialEmailInput.value)) {
+        trialEmailError.textContent = 'Please use your professional email address instead of a personal one.';
+        trialEmailError.style.display = 'block';
+        trialEmailInput.focus();
+        return;
+    }
 
     const form = e.target;
     const formContent = document.getElementById('form-content');
@@ -404,13 +512,13 @@ document.getElementById('trial-form').addEventListener('submit', function(e) {
     submitButton.disabled = true;
     submitButton.textContent = 'Sending...';
 
-    // Collect form data
-    const formData = {
+    // Collect form data, merging any stored UTM tags (30-day TTL, last-touch)
+    const formData = Object.assign({
         email: form.elements.email.value,
         company: form.elements.company.value,
         username: form.elements.username.value,
-        form: 'trial' 
-    };
+        form: 'trial'
+    }, getStoredUtm());
 
     // This is the Webhook URL you get from your N8N workflow.
     const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
@@ -425,9 +533,11 @@ document.getElementById('trial-form').addEventListener('submit', function(e) {
             // Hide the form and show success message
             formContent.classList.add('hidden');
             successMessage.classList.remove('hidden');
-            
+
             // Update the modal title for a clearer confirmation
             modalTitle.textContent = 'Success!';
+
+            (window.dataLayer = window.dataLayer || []).push({ event: 'trial_form_submitted', form_type: 'trial' });
         } else {
             // Handle non-OK N8N response
             throw new Error('N8N webhook returned a non-success status.');

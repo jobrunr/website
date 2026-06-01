@@ -10,6 +10,11 @@
           <p class="text-lg ">
             {{ .Params.description | markdownify }}
           </p>
+          {{ with .Params.target_audience }}
+          <p class="text-md mt-4 text-gray-600 italic">
+            {{ . | markdownify }}
+          </p>
+          {{ end }}
 
           {{ with .Params.button }}
               <ul class="flex flex-wrap justify-center gap-4 pt-10">
@@ -18,7 +23,7 @@
                     <a
                       class="btn-primary btn"
                       target="_self"
-                      onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden');"
+                      onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});"
                       rel="noopener">
                       {{ .get_started.label | markdownify }}
                       <span class="sr-only">Details</span>
@@ -94,9 +99,44 @@
             {{ end }}
         </div>
 
-      
-        
+        {{ with .Params.oss_to_pro_signals }}
+          <div class="col-12 pt-20" data-aos="fade-up-sm">
+            <div class="text-center mb-12">
+              <h2 class="h3 mb-4">{{ .title | markdownify }}</h2>
+              {{ with .lead }}
+                <p class="text-lg">{{ . | markdownify }}</p>
+              {{ end }}
+            </div>
+            <div class="row g-4">
+              {{ range .items }}
+                <div class="md:col-6 lg:col-4">
+                  <div class="rounded-3xl bg-light h-full p-6 flex items-start gap-4">
+                    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-tertiary text-white">
+                      <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"></path></svg>
+                    </div>
+                    <p class="text-base">{{ .item | markdownify }}</p>
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+            {{ with .button }}
+              {{ if .enable }}
+                <div class="text-center mt-12">
+                  <a class="btn btn-primary btn-even-padding" href="{{ .link }}">
+                    {{ .label | markdownify }}
+                  </a>
+                </div>
+              {{ end }}
+            {{ end }}
+          </div>
+        {{ end }}
+
         <div class="col-12 pt-20">
+        {{ with .Params.features_intro }}
+        <div class="text-center mb-16" data-aos="fade-up-sm">
+          <h2 class="h3">{{ .title | markdownify }}</h2>
+        </div>
+        {{ end }}
         {{ with .Params.first_feature }}
             <div
               class="row gx-0 gy-5 mb-14 items-center last:mb-0 md:mb-28 max-lg:flex-col-reverse">
@@ -226,7 +266,13 @@
               <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="100">
                 <div
                   class="overflow-hidden">
+                  {{ if .video }}
+                  <video class="rounded-3xl w-full" autoplay loop muted playsinline>
+                    <source src="{{ .video }}" type="video/mp4">
+                  </video>
+                  {{ else }}
                   {{ partial "image" (dict "Src" .image "Alt" "essential feature" "Class" "rounded-3xl") }}
+                  {{ end }}
                 </div>
               </div>
               <div
@@ -243,6 +289,69 @@
                 </ul>
                 {{ if .button.enable }}
                   <a class="btn btn-primary mt-12" href="{{ .button.link }}">
+                    {{ .button.label | markdownify }}
+                    <span class="icon-wrapper"
+                      ><span class="icon"
+                        ><svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 448 512"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                      ><span class="icon" aria-hidden="true"
+                        ><svg
+                          stroke="currentColor"
+                          fill="currentColor"
+                          stroke-width="0"
+                          viewBox="0 0 448 512"
+                          height="1em"
+                          width="1em"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
+                    ></span>
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+
+          {{ with .Params.fifth_feature }}
+            <div
+              class="row gx-0 gy-5 mb-14 items-center last:mb-0 md:mb-28 max-lg:flex-col-reverse">
+              <div
+                class="md:order-2 lg:col-6"
+                data-aos="fade-up-sm"
+                data-aos-delay="100">
+                <div
+                  class="overflow-hidden">
+                  {{ if .video }}
+                  <video class="rounded-3xl w-full" autoplay loop muted playsinline>
+                    <source src="{{ .video }}" type="video/mp4">
+                  </video>
+                  {{ else }}
+                  {{ partial "image" (dict "Src" .image "Alt" "essential feature" "Class" "rounded-3xl") }}
+                  {{ end }}
+                </div>
+              </div>
+              <div
+                class="lg:pe-20 lg:col-6"
+                data-aos="fade-up-sm"
+                data-aos-delay="300">
+                <h3 class="h4 mb-4">{{ .title | markdownify }}</h3>
+                <ul class="list list-dark mt-10 flex flex-col gap-4">
+                  {{ range .list }}
+                    <li>
+                      <p class="text-lg">{{ .item | markdownify }}</p>
+                    </li>
+                  {{ end }}
+                </ul>
+                {{ if .button.enable }}
+                  <a class="btn btn-primary mt-12" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"

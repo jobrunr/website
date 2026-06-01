@@ -140,11 +140,12 @@ In many cases you can design your application to avoid additional polymorphic ty
 ##### Keep job arguments simple
 
 Avoid passing entire entities or complex domain objects as job parameters. While convenient, this practice creates several problems:
+- Serialized entity becomes stale, no longer reflecting the latest changes
 - Large JSON payloads increase database storage and I/O overhead
 - Serialization and deserialization add processing time to every job
 - Changes to entity structure can make the parameters non deserializable and prevent jobs from running
 
-Instead, pass only the minimal data needed - typically just an identifier and fetch the full entity when at execution time.
+Instead, pass only the minimal data needed - typically just an identifier and fetch the full entity at execution time.
 
 ```java
 // Avoid this

@@ -28,7 +28,7 @@ You can also use the `JobBuilder` to achieve the same result:
 BackgroundJob.create(aJob()
     .withName("Send welcome email to newly registered users")
     .scheduleIn(Duration.ofDays(1))
-    .<EmailService>withDetails(x -> x.sendNewlyRegisteredEmail()));
+    .<EmailService>withJobLambda(x -> x.sendNewlyRegisteredEmail()));
 ```
 <figcaption>Scheduling emails is also possible using the JobBuilder pattern</figcaption>
 </figure>

@@ -18,6 +18,10 @@ tags:
     .post-full-content img {display: inline-block; margin: 0 auto}
 </style>
 
+> [!TIP]
+> **Update**: Carbon Aware Processing is now available! Watch our video tutorial to see how to set it up:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/0IC3S6dZgaM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="margin-left: auto; margin-right: auto;"></iframe>
 
 We are excited to share a new development at JobRunr: together with our partner [MindWave](https://www.mindwave.com/), we’re integrating carbon-aware job scheduling capabilities into our platform. This innovative feature, set to be added in JobRunr v8, marks a significant step forward in [our mission](/en/blog/2024-01-18-trees-planted/) to merge cutting-edge technology with environmental stewardship. With the introduction of carbon-aware jobs, JobRunr is pioneering a solution that optimizes job execution for ecological impact, specifically by leveraging periods of high renewable energy availability to minimize carbon footprint. This feature will be available in JobRunr OSS and JobRunr Pro.
 

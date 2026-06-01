@@ -1,12 +1,12 @@
 ---
 enable: true
-title: "Ready to build reliable background jobs?"
-description: "You focus on your business logic. We'll take care of scheduling your background jobs reliably."
+title: "Try JobRunr yourself, no install required"
+description: "Walk through 21 hands-on scenarios in our hosted demo and feel how JobRunr handles real-world workflows. Open it in your browser, no setup, no signup."
 image: "/images/cta-bg.png"
 button:
   enable: true
-  label: "Get Started with JobRunr"
-  link: "get-started"
+  label: "Launch the interactive demo"
+  link: "https://finance.demo.jobrunr.io/storyline"
 
 # don't create a separate page
 build:

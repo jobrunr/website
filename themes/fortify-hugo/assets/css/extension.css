@@ -58,6 +58,18 @@ pagefind-filter-pane {
     background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
 }
 
+.badge-sm {
+    @apply px-1 rounded text-light text-center inline-block font-semibold;
+    font-size: 0.6rem;
+    line-height: 1.5;
+    vertical-align: middle;
+    background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
+}
+
+.badge-sm.enterprise {
+    background: linear-gradient(135deg, #f0ad4e 0%, #d99a3f 100%);
+}
+
 /* CodeTabs */
 .codetabs .codetabs__tablist {
     @apply flex gap-1 mb-1 border-b border-gray-200 text-sm;
@@ -87,4 +99,81 @@ pagefind-filter-pane {
 
 .codetabs .codetabs__panel:focus {
     @apply outline-none;
+}
+
+/* Read with AI - Share documentation with AI assistants */
+.read-with-ai-dropdown {
+  @apply relative;
+}
+
+.read-with-ai-btn-group {
+  @apply inline-flex items-stretch;
+}
+
+.read-with-ai-btn {
+  @apply inline-flex items-center justify-center gap-2 px-4 py-2;
+  @apply text-white font-medium text-sm whitespace-nowrap;
+  @apply bg-primary hover:opacity-90;
+  @apply transition-all duration-200 ease-in-out;
+}
+
+.read-with-ai-btn--primary {
+  @apply rounded-l-lg border-r border-white/20;
+}
+
+.read-with-ai-btn--dropdown {
+  @apply rounded-r-lg px-3;
+}
+
+.read-with-ai-btn__arrow {
+  @apply text-xs transition-transform duration-200;
+}
+
+.read-with-ai-btn--dropdown[aria-expanded="true"] .read-with-ai-btn__arrow {
+  @apply rotate-180;
+}
+
+.read-with-ai-menu {
+  @apply absolute z-50 right-0 mt-2 py-1 w-68 origin-top-right;
+  @apply rounded-lg border border-border bg-white shadow-lg;
+}
+
+.read-with-ai-menu[hidden] {
+  @apply hidden;
+}
+
+.read-with-ai-menu__item {
+  @apply w-full flex items-center justify-start gap-3 px-4 py-2.5 text-sm text-left text-text font-normal;
+  @apply hover:bg-light focus:bg-light focus:outline-none no-underline;
+}
+
+.read-with-ai-menu__item i,
+.read-with-ai-menu__item svg {
+  @apply w-4 h-4 flex-shrink-0 text-text/60;
+}
+
+.read-with-ai-menu__item-text {
+  @apply flex flex-col gap-0.5;
+}
+
+.read-with-ai-menu__item-title {
+  @apply text-sm text-text;
+}
+
+.read-with-ai-menu__item-desc {
+  @apply text-xs opacity-70;
+}
+
+.read-with-ai-menu__divider {
+  @apply my-1 h-px bg-border;
+}
+
+@media (max-width: 640px) {
+  .read-with-ai-menu {
+    @apply left-0 right-auto origin-top-left;
+  }
+
+  .read-with-ai-btn--primary {
+    @apply px-3;
+  }
 }

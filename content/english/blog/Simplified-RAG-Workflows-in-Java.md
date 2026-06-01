@@ -94,7 +94,7 @@ If you chose Maven as build tool, you can add JobRunr as follows:
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr-spring-boot-3-starter</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 {{</ codeblock >}}
 
@@ -227,7 +227,7 @@ public class MyJob extends Job {
 ```java
 jobScheduler.create(aJob()
         .withMutex("virus-scanner")
-        .withDetails(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
+        .withJobLambda(() -> System.out.println("This will not run parallel as it is guarded by a mutex"));
 
 @Job(mutex = "virus-scanner")
 public void onlyProcessOneJobAtTheSameTime() {

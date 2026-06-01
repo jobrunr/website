@@ -11,6 +11,9 @@ menu:
 
 Integration with Spring cannot be easier using the `jobrunr-spring-boot-3-starter` or `jobrunr-spring-boot-4-starter`! There is even a complete example project available at [https://github.com/jobrunr/example-spring](https://github.com/jobrunr/example-spring).
 
+> [!TIP]
+> Prefer watching? Check out the full tutorial: [How to Run Background Jobs in Spring Boot 4 with JobRunr](https://youtu.be/72OJux5H2Ng) on YouTube.
+
 > [!IMPORTANT]
 > The `jobrunr-spring-boot-starter` and `jobrunr-spring-boot-2-starter` are no longer supported! In JobRunr Pro, support for Spring Boot 2 is still available.
 
@@ -22,6 +25,9 @@ __To add JobRunr to your Spring project, these are the steps you need to take:__
 > [!PRO]
 > Do you want to create jobs that automatically participate in the transactions managed by Spring? Then checkout [JobRunr Pro]({{<ref "transactions.md">}})!
 
+> [!PRO]
+> Need more details about classes and methods? Check out our JavaDocs for [SpringBoot 2](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-2-starter/latest), [SpringBoot 3](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-3-starter/latest) or [SpringBoot 4](https://repo.jobrunr.io/javadoc/releases/org/jobrunr/jobrunr-pro-spring-boot-4-starter/latest) for the complete API reference.
+
 ## Add the dependency to the starter
 As `jobrunr-spring-boot-4-starter` is available in Maven Central, all you need to do is add this dependency:
 
@@ -31,12 +37,12 @@ As `jobrunr-spring-boot-4-starter` is available in Maven Central, all you need t
 <dependency> 
     <groupId>org.jobrunr</groupId> 
     <artifactId>jobrunr-spring-boot-4-starter</artifactId>
-    <version>${jobrunr.version}</version> 
+    <version>{{< param "JobRunrVersion" >}}</version> 
 </dependency>
 {{< /codetab >}} 
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr-spring-boot-4-starter:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr-spring-boot-4-starter:{{< param "JobRunrVersion" >}}'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}
@@ -88,6 +94,8 @@ jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72h #deleted
 jobrunr.background-job-server.metrics.enabled=true # Micrometer integration: reports server metrics (cpu usage, memory usage, worker pool size, etc.)
 jobrunr.dashboard.enabled=false
 jobrunr.dashboard.port=8000 #the port on which to start the dashboard
+jobrunr.dashboard.username= # The username for the basic authentication which protects the dashboard. By default, no authentication is required
+jobrunr.dashboard.password= # The password for the basic authentication user which protects the dashboard
 jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
 ```
 

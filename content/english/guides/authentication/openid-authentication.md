@@ -36,6 +36,9 @@ OpenID Connect provides a robust and standardized way to verify user identities.
 
 Moreover, OpenID providers typically support advanced security features such as multi-factor authentication, further strengthening the login process. For developers, integrating OpenID simplifies the authentication flow by providing a consistent protocol for secure logins across multiple identity providers. This makes OpenID Connect an ideal solution for securing the JobRunr Dashboard, delivering both strong security and a enhanced user experience.
 
+
+> Also see our [SSO documentation](/en/documentation/pro/sso-authentication/) for more details.
+
 ## Enabling OpenID Authentication and Authorization in JobRunr
 
 As we’ll see in this section, enabling the OpenID integration to secure the dashboard is quite simple. The process usually consists of three simple steps.

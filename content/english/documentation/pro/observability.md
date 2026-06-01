@@ -15,6 +15,8 @@ menu:
 
 Although the JobRunr Pro Dashboard gives instant insights how your jobs are doing, you may already have an observability platform like [Jaeger](https://www.jaegertracing.io/), [HoneyComb](https://www.honeycomb.io) or [New Relic](https://newrelic.com) running. JobRunr Pro out-of-the box integrates with many of these observability platforms so you can keep on top of things.
 
+{{< demo-callout step="18" label="Metrics That Matter" >}}
+
 
 ## Micrometer Job Timings
 

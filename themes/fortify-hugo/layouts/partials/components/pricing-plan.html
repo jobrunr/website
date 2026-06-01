@@ -126,8 +126,8 @@
             >
           </div>
           <ul class="list list-tertiary">
-            {{ range .list }}
-              <li class="mb-2 text-lg ">
+            {{ range $index, $item := .list }}
+              <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">
                 {{ .item | markdownify }}
               </li>
             {{ end }}
@@ -198,8 +198,8 @@
               }}</span>
           </div>
           <ul class="list list-tertiary">
-            {{ range .list }}
-              <li class="mb-2 text-lg ">{{ .item | markdownify }}</li>
+            {{ range $index, $item := .list }}
+              <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">{{ .item | markdownify }}</li>
             {{ end }}
           </ul>
 

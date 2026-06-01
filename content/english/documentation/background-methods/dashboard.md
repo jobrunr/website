@@ -58,7 +58,7 @@ This is of-course also possible using the `JobBuilder` pattern:
 jobScheduler.create(aJob()
     .withName("Sending email to " + to)
     .withLabels("tenant:" + tenant, "email")
-    .withDetails(() -> emailService.sendEmail(tenant, from, to, subject, body)))
+    .withJobLambda(() -> emailService.sendEmail(tenant, from, to, subject, body)))
 ```
 <figcaption>We can use the JobBuilder pattern to provide the dashboard with a readable Job name and some labels.</figcaption>
 </figure>

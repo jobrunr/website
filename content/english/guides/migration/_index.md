@@ -1,6 +1,6 @@
 ---
-title: "JobRunr Migration Guides"
-description: Follow these specific guides on how to migrate your JobRunr instances to the latest and greatest version. 
+title: "Migration Guides"
+description: Migrate to JobRunr from other schedulers, or upgrade between JobRunr versions.
 weight: 99
 tags:
     - Migration

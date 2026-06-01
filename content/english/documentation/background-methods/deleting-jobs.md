@@ -92,4 +92,4 @@ while (true) {
 <figcaption>By manually checking if the current thread is interrupted, you can throw an <em>InterrupedException</em> that will be handled by JobRunr.</figcaption>
 </figure>
 
-More examples can be found in the JobRunr [end-to-end tests](https://github.com/jobrunr/jobrunr/blob/master/core/src/test/java/org/jobrunr/scheduling/BackgroundJobTest.java#L346-L413).
+More examples can be found in the JobRunr [end-to-end tests](https://github.com/jobrunr/jobrunr/blob/master/core/src/test/java/org/jobrunr/scheduling/BackgroundJobByJobLambdaTest.java#L541-L630).
