@@ -16,7 +16,7 @@ banner:
     get_started:
       enable: true
       label: "Get Started with JobRunr"
-      link: "/en/guides/intro/5-minute-quickstart/"
+      link: "/en/documentation/getting-started/java"
     learn_more:
       enable: true
       label: "Try JobRunr Pro"
@@ -64,6 +64,6 @@ pricing:
 # Customers Review
 customer_reviews:
   title: "Trusted by developers worldwide"
-  subtitle: "300,000+ Monthly Downloads"
+  subtitle: "1,000,000+ Monthly Downloads"
   description: "Don't trust our word on it. Read what these industry leaders have to say about JobRunr"
 ---

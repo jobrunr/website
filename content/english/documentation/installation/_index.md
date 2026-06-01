@@ -7,7 +7,7 @@ layout: "documentation"
 menu: 
   sidebar:
     identifier: installation
-    weight: 5
+    weight: 3
 ---
 
 > [!IMPORTANT]
@@ -30,7 +30,7 @@ JobRunr is distributed as a standard java jar which is available on Maven Centra
 <dependency>
     <groupId>org.jobrunr</groupId>
     <artifactId>jobrunr</artifactId>
-    <version>${jobrunr.version}</version>
+    <version>{{< param "JobRunrVersion" >}}</version>
 </dependency>
 <!-- Add a JSON library, you can use either Jackson, Gson,
  Yasson (JSON-B compatible) or Kotlin Serialization. -->
@@ -38,7 +38,7 @@ JobRunr is distributed as a standard java jar which is available on Maven Centra
 {{< /codetab >}}
 {{< codetab label="Gradle" >}}
 ```groovy
-implementation 'org.jobrunr:jobrunr:${jobrunr.version}'
+implementation 'org.jobrunr:jobrunr:{{< param "JobRunrVersion" >}}'
 // Add a JSON library, you can use either Jackson, Gson,
 //  Yasson (JSON-B compatible) or Kotlin Serialization.
 ```

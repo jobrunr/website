@@ -79,7 +79,7 @@ flowchart LR
 ## Where to go next
 
 - **Learning the basics of JobRunr?** Keep on reading this page. 
-- **Just getting started?** Follow the [5-minute intro]({{< ref "documentation/5-minute-intro" >}}) or the [quickstart guide](/en/guides/intro/5-minute-quickstart/).
+- **Just getting started?** Pick a [quick-start guide]({{< ref "documentation/getting-started" >}}) depending on your stack. You'll be up and running in 5 minutes!
 - **Adding JobRunr to your project?** See [Installation]({{< ref "documentation/installation" >}}) and pick a [StorageProvider]({{< ref "documentation/installation/storage" >}}).
 - **Integrating with your framework?** Choose your setup: [Spring Boot]({{< ref "documentation/configuration/spring" >}}), [Micronaut]({{< ref "documentation/configuration/micronaut" >}}), [Quarkus]({{< ref "documentation/configuration/quarkus" >}}), or the [Fluent API]({{< ref "documentation/configuration/fluent" >}}).
 - **Need enterprise features?** [JobRunr Pro]({{< ref "documentation/pro" >}}) adds batches, job chaining (aka workflows), priority queues, rate limiting, SSO, and more.
