@@ -34,7 +34,7 @@
 /* Pagefind Component UI */
 :root {
     --pf-input-height: initial;
-    --pf-modal-max-width: min(80vw, 56rem);
+    --pf-modal-max-width: min(95vw, 64rem);
 }
 
 pagefind-modal-trigger button {
@@ -49,6 +49,11 @@ pagefind-filter-pane {
     @apply mb-2;
 }
 
+.pf-modal-body {
+    @apply md:grid! md:grid-cols-[14rem_minmax(0,1fr)]! md:items-start! md:gap-x-6!;
+}
+
+/* Pro plan badges */
 .badge {
     @apply py-1 px-2 rounded text-sm mr-2 text-light text-center inline-block;
     background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
