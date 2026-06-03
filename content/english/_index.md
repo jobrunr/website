@@ -48,10 +48,18 @@ how_it_works:
       description: "Ensure your most critical jobs run first. Stop low-priority tasks from blocking high-priority jobs."
       icon: "fa-solid fa-list-ol"
       link: "/en/documentation/pro/priority-queues/"
-    - title: "Batches & job chaining (Pro)"
-      description: "Create a bunch of background jobs atomically and chain a new job which will run when the complete batch finishes."
-      icon: "fa-solid fa-link"
+    - title: "Batches (Pro)"
+      description: "Create a bunch of background jobs atomically and get notified the moment the whole batch finishes."
+      icon: "fa-solid fa-layer-group"
       link: "/en/documentation/pro/batches/"
+    - title: "Workflows (Pro)"
+      description: "Chain jobs into clear, sequential workflows so each step only runs once the previous one succeeds."
+      icon: "fa-solid fa-diagram-project"
+      link: "/en/documentation/pro/job-chaining/"
+    - title: "External jobs (Pro)"
+      description: "Track work that finishes outside your JVM, like GPU inference or human approval, and signal it done from anywhere."
+      icon: "fa-solid fa-satellite-dish"
+      link: "/en/guides/advanced/external-jobs/"
 
 
 
@@ -66,4 +74,28 @@ customer_reviews:
   title: "Trusted by developers worldwide"
   subtitle: "300,000+ Monthly Downloads"
   description: "Don't trust our word on it. Read what these industry leaders have to say about JobRunr"
+
+# JobRunr for AI
+jobrunr_for_ai:
+  badge: "JobRunr for AI"
+  title: "Run your Java AI workloads in the background"
+  description: "Embedding generation, RAG sync, and ML pipelines run reliably in the background, backed by your existing database. Works with Spring AI, LangChain4j, and any LLM."
+  tags:
+    - "RAG embedding sync"
+    - "Fire-and-forget embeddings"
+    - "AI agent scheduling"
+  button:
+    enable: true
+    label: "Explore JobRunr for AI"
+    link: "/en/ai/"
+
+# JobRunr Spot CTA banner
+spot_cta:
+  enable: true
+  badge: "Private beta live now"
+  title: "Save 60 to 80% on your cloud bill."
+  description: "Run your background jobs on spot instances in your own AWS and Google Cloud."
+  button:
+    label: "Join the JobRunr Spot private beta"
+    link: "/en/spot/"
 ---

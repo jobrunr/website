@@ -159,7 +159,7 @@
             <div class="row g-4 justify-center">
               {{ range .features }}
                 <div
-                  class="md:col-6 lg:col-4"
+                  class="md:col-6 lg:col-3"
                   data-aos="fade-up-sm"
                   data-aos-delay="0">
                   <a href="{{ .link }}" class="block h-full">
@@ -249,11 +249,139 @@
     </section>
   {{ end }}
   <!-- /Customer Reviews -->
-  
+
+  <!-- JobRunr for AI -->
+  {{ with .Params.jobrunr_for_ai }}
+    <section class="section bg-[#FAFAFA]">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="text-center lg:col-8" data-aos="fade-up-sm">
+            <p class="mb-2 font-medium text-tertiary">{{ .badge }}</p>
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            <p class="text-lg mb-6">{{ .description | markdownify }}</p>
+            {{ with .tags }}
+              <ul class="flex flex-wrap justify-center gap-2 mb-8">
+                {{ range . }}
+                  <li
+                    class="bg-blue-50 text-blue-600 px-3 py-1 rounded-md text-sm font-medium">
+                    {{ . }}
+                  </li>
+                {{ end }}
+              </ul>
+            {{ end }}
+            {{ with .button }}
+              {{ if .enable }}
+                <a
+                  class="btn btn-primary"
+                  href="{{ .link }}"
+                  target="_self"
+                  rel="noopener">
+                  {{ .label }}
+                  <span class="sr-only">Details</span>
+                  <span class="icon-wrapper"
+                    ><span class="icon"
+                      ><svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 448 512"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
+                    ></span
+                    ><span class="icon" aria-hidden="true"
+                      ><svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 448 512"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
+                    ></span
+                  ></span>
+                </a>
+              {{ end }}
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+  <!-- /JobRunr for AI -->
+
    <!-- Key Features -->
   {{ partial "components/key-features.html" . }}
   <!-- /Key Features -->
-  
+
+  <!-- Spot CTA -->
+  {{ with .Params.spot_cta }}
+    {{ if .enable }}
+      <section class="section">
+        <div class="container">
+          <div
+            class="bg-slate-900 text-white rounded-3xl px-8 py-12 lg:px-16"
+            data-aos="fade-up-sm">
+            <div
+              class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+              <div>
+                <span
+                  class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
+                  {{ .badge }}
+                </span>
+                <h2 class="text-light mb-2">{{ .title | markdownify }}</h2>
+                <p class="text-gray-300 text-lg mb-0">
+                  {{ .description | markdownify }}
+                </p>
+              </div>
+              <div class="shrink-0">
+                <a
+                  class="btn btn-primary"
+                  href="{{ .button.link }}"
+                  target="_self"
+                  rel="noopener">
+                  {{ .button.label }}
+                  <span class="sr-only">Details</span>
+                  <span class="icon-wrapper"
+                    ><span class="icon"
+                      ><svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 448 512"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
+                    ></span
+                    ><span class="icon" aria-hidden="true"
+                      ><svg
+                        stroke="currentColor"
+                        fill="currentColor"
+                        stroke-width="0"
+                        viewBox="0 0 448 512"
+                        height="1em"
+                        width="1em"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
+                    ></span
+                  ></span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{ end }}
+  {{ end }}
+  <!-- /Spot CTA -->
+
   <!-- Pricing -->
   <section class="section">
     <div class="container">
