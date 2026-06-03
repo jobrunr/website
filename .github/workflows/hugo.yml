@@ -96,7 +96,7 @@ jobs:
           fi
           ts=$(date +%s)
           sig=$(printf '%s' "$ts" | openssl dgst -sha256 -hmac "$MCP_REINDEX_SECRET" -hex | awk '{print $2}')
-          curl -fsS -X POST https://jobrunr-docs-mcp.fly.dev/admin/reindex \
+          curl -fsS -X POST https://mcp.jobrunr.io/admin/reindex \
             -H "X-Reindex-Timestamp: $ts" \
             -H "X-Reindex-Signature: $sig" \
             --max-time 180 || echo "reindex ping failed (non-fatal)"
