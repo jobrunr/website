@@ -111,9 +111,9 @@ public class DocumentAnalysisAgent {
 
 [`continueWith`](https://www.jobrunr.io/en/documentation/pro/job-chaining/) is part of JobRunr Pro. Each step is still its own retryable job, and a later step only runs once the previous one has succeeded, so a failure retries that single step instead of the whole pipeline. You still want each step to be safe to repeat ([why idempotence matters in Java job scheduling](https://www.jobrunr.io/en/blog/idempotence-in-java-job-scheduling/)).
 
-In the dashboard, every step shows up as its own job. A recurring job kicks off one chain per document, and the workers process `Summarize`, `Embed`, and `Notify` across all of them in parallel. If any single step fails, only that step retries.
+You can also watch a job move through its steps live in the dashboard. Here the document analysis job has finished summarizing and embedding and is on its final step, with a progress bar showing two of three steps done. When something fails, you can see exactly where it was.
 
-![Each step of the document analysis agent runs as its own retryable job in the JobRunr dashboard](/blog/agent-multi-step-flow.png)
+![A multi-step job in the JobRunr dashboard, on its final step with a progress bar showing two of three steps complete](/blog/agent-job-progress.png)
 
 JobRunr also covers a couple of layers for you: it claims each job atomically, so the same job is never processed twice at once even across a cluster, and if you enqueue with your own `JobId` it will not create a duplicate job for that id.
 
