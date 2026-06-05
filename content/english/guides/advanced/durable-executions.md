@@ -9,6 +9,7 @@ tags:
     - Reliability
     - Advanced
 hideFrameworkSelector: true
+draft: true
 ---
 
 Most real jobs do more than one thing. Fulfilling an order means charging the customer, reserving stock, and sending a confirmation. Onboarding a user means creating an account, provisioning resources, and emailing a welcome message. These steps run one after another inside a single job.
