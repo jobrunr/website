@@ -95,6 +95,9 @@ Now go back to the scenario from the top of this post. The job charges the custo
 
 If a step throws, it is not marked complete, so the retry runs it again. And `runStepOnce` can return a value to feed into the next step, so you can pass results down the chain.
 
+> [!NOTE]
+> There is a small difference between editions in *when* a completed step is saved. JobRunr Pro writes the job state to the database the moment a step finishes, so recovery after an abrupt crash resumes from exactly the last completed step. JobRunr OSS saves state on its normal poll interval, so a hard crash in the window since the last save can replay the step that had just finished.
+
 ```java
 // runStepOnce returns the step's result and stores it, so a later
 // replay reuses the value instead of recomputing it.

@@ -81,7 +81,9 @@ That is the whole change. The job is now durable. If it fails at `reserve-invent
 3. If it does not exist, JobRunr runs the task. On success, it writes `jr_step_<stepId> = true`.
 4. If the task throws, the marker is **not** written. The exception is wrapped in a `StepExecutionException` and propagates, so the job fails and is retried. On the next run, the step runs again because it was never marked complete.
 
-Because the markers live in the same database as the job, they survive everything the job itself survives: retries, server restarts, and failovers to another node. The job picks up its own progress from where the last attempt left it.
+Because the markers live in the same database as the job, they outlive the process running it. When a step throws, JobRunr saves the job, markers and all, as it moves it to the failed state, so an ordinary retry always resumes precisely from the step that failed.
+
+> There is a subtle difference in *when* the markers are saved for a job that is still running. JobRunr Pro writes the job state to the database the moment a step finishes, so even an abrupt crash (a killed pod, a lost node) resumes from exactly the last completed step. JobRunr OSS saves state on its normal poll interval, like any other job, so a hard crash in the window since the last save can re-run the step that had just finished. Retries on a thrown exception resume precisely in both. Either way, keep each step idempotent.
 
 There is also a helper to query progress yourself:
 
