@@ -1,198 +1,250 @@
 {{ define "main" }}
-  <!-- Banner -->
-  {{ with .Params.banner }}
-    <section class="pb-0 pt-16">
-      <div class="container">
-        <div class="row justify-center">
-          <div class="mb-8 text-center md:col-9 lg:col-11">
-            <h1 class="mb-4 text-h3 lg:text-h1" data-aos="fade-up-sm">
-              {{ .title | markdownify }}
-            </h1>
-            <p class="mb-8 text-lg " data-aos="fade-up-sm">
-              {{ .description | markdownify }}
-            </p>
-            {{ with .button }}
-              <ul class="flex flex-wrap justify-center gap-4">
-                {{ if .get_started.enable }}
-                  <li data-aos="fade-up-sm" data-aos-delay="100">
-                    <a
-                      class="btn-primary btn"
-                      href="{{ .get_started.link }}"
-                      target="_self"
-                      rel="noopener">
-                      {{ .get_started.label | markdownify }}
-                      <span class="sr-only">Details</span>
-                      <span class="icon-wrapper"
-                        ><span class="icon">
-                          <svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            stroke-width="0"
-                            viewBox="0 0 448 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
-                          </svg>
-                        </span>
-                        <span class="icon" aria-hidden="true"
-                          ><svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            stroke-width="0"
-                            viewBox="0 0 448 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
-                          </svg>
-                        </span>
-                      </span>
-                    </a>
-                  </li>
+<!-- Banner -->
+{{ with .Params.banner }}
+<section class="pb-0 pt-16">
+  <div class="container">
+    <div class="grid gap-y-14 xl:grid-cols-[5fr_7fr] xl:items-center xl:gap-x-14">
+      <div class="mx-auto text-center md:w-3/4 lg:w-11/12 xl:w-full xl:text-left xl:mb-4">
+        <h1 class="mb-6 text-h3 lg:text-h1" data-aos="fade-up-sm">
+          {{ .title | markdownify }}
+        </h1>
+        <p class="mb-8 text-lg" data-aos="fade-up-sm">
+          {{ .description | markdownify }}
+        </p>
+        {{ with .button }}
+        <ul class="flex flex-wrap justify-center gap-4 xl:justify-start">
+          {{ if .get_started.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="100">
+            <a
+              class="btn-primary btn"
+              href="{{ .get_started.link }}"
+              target="_self"
+              rel="noopener"
+            >
+              {{ .get_started.label | markdownify }}
+              <span class="sr-only">Details</span>
+              <span class="icon-wrapper">
+                <span class="icon">
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                  </svg>
+                </span>
+                <span class="icon" aria-hidden="true">
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                  </svg>
+                </span>
+              </span>
+            </a>
+          </li>
+          {{ end }} {{ if .learn_more.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="150">
+            <a
+              class="btn-outline-primary btn"
+              href="{{ .learn_more.link }}"
+              target="_self"
+              rel="noopener"
+            >
+              {{ .learn_more.label | markdownify }}
+              <span class="sr-only">Details</span><span class="icon-wrapper"><span class="icon">
+                <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                  </svg>
+                </span><span class="icon" aria-hidden="true">
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                  </svg>
+                </span></span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+
+      <!-- Interactive Examples Section - FLOATING EDITOR -->
+      {{ with .examples }}
+      <div class="min-w-0">
+        <div class="mb-14">
+          <div class="relative">
+            <!-- Browser window (dashboard mock-up behind the editor) -->
+            <div class="hero-browser">
+              <div class="hero-browser__header">
+                <div class="hero-browser__dots">
+                  <div class="hero-browser__dot bg-red-400"></div>
+                  <div class="hero-browser__dot bg-yellow-400"></div>
+                  <div class="hero-browser__dot bg-green-400"></div>
+                </div>
+                <div class="hero-browser__nav">
+                  <button type="button" data-nav="prev" aria-label="Previous example">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                  </button>
+                  <button type="button" data-nav="next" aria-label="Next example">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </button>
+                </div>
+                <div class="hero-browser__address">
+                  <svg fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+                  </svg>
+                  <span data-hero-address>{{ (index . 0).dashboard_url | default "localhost:8000/dashboard" }}</span>
+                </div>
+              </div>
+
+              <!-- Prefetch non-active screenshots so tab switches are instant -->
+              {{ range $index, $example := . }}{{ if gt $index 0 }}
+              <link rel="prefetch" as="image" href="{{ .dashboard_image | relURL }}" />
+              {{ end }}{{ end }}
+
+              <!-- Dashboard screenshots (stacked; toggled per active tab) -->
+              <div class="hero-browser__screen">
+                {{ range $index, $example := . }}
+                <div
+                  class="hero-browser__panel{{ if ne $index 0 }} hidden{{ end }}"
+                  data-dashboard-panel="{{ .id }}"
+                >
+                  {{ partial "image" (dict
+                    "Src" .dashboard_image
+                    "Alt" .dashboard_alt
+                    "Class" "w-full h-auto"
+                    "Resize" false
+                    "Size" "1920x999"
+                  ) }}
+                </div>
                 {{ end }}
-                {{ if .learn_more.enable }}
-                  <li data-aos="fade-up-sm" data-aos-delay="150">
-                    <a
-                      class="btn-outline-primary btn "
-                      href="{{ .learn_more.link }}"
-                      target="_self"
-                      rel="noopener">
-                      {{ .learn_more.label | markdownify }}
-                      <span class="sr-only">Details</span
-                      ><span class="icon-wrapper"
-                        ><span class="icon"
-                          ><svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            stroke-width="0"
-                            viewBox="0 0 448 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
-                        ><span class="icon" aria-hidden="true"
-                          ><svg
-                            stroke="currentColor"
-                            fill="currentColor"
-                            stroke-width="0"
-                            viewBox="0 0 448 512"
-                            height="1em"
-                            width="1em"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                              d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span
-                      ></span>
-                    </a>
-                  </li>
+                <div class="hero-browser__fade"></div>
+              </div>
+            </div>
+
+            <!-- Code editor (top-anchored: top stays put, grows downward) -->
+            <div class="hero-editor" data-aos="fade-up-sm" data-aos-delay="150">
+              <!-- File tabs -->
+              <div class="hero-editor__header">
+                <div
+                  class="hero-editor__tabs"
+                  role="tablist"
+                  aria-label="JobRunr code examples"
+                >
+                  {{ range $index, $example := . }}
+                  <button
+                    class="hero-editor__tab"
+                    type="button"
+                    role="tab"
+                    id="hero-tab-{{ .id }}"
+                    aria-controls="hero-panel-{{ .id }}"
+                    aria-selected="{{ if eq $index 0 }}true{{ else }}false{{ end }}"
+                    tabindex="{{ if eq $index 0 }}0{{ else }}-1{{ end }}"
+                    data-file-tab="{{ .id }}"
+                    data-address="{{ .dashboard_url }}"
+                    title="{{ .title }}"
+                  >
+                    <svg class="hero-editor__tab-icon" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path d="M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.131-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0 0-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0 0 .07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0 0 .553.457 3.393.639"/>
+                    </svg>
+                    <span class="hero-editor__tab-name">{{ .filename }}</span>
+                  </button>
+                  {{ end }}
+                </div>
+              </div>
+
+              <!-- Code panels (one shown at a time; stage height animated on switch) -->
+              <div class="hero-editor__code">
+                {{ range $index, $example := . }}
+                <div
+                  class="hero-editor__panel{{ if ne $index 0 }} hidden{{ end }}"
+                  role="tabpanel"
+                  id="hero-panel-{{ .id }}"
+                  aria-labelledby="hero-tab-{{ .id }}"
+                  data-code-panel="{{ .id }}"
+                >
+                  {{ highlight (trim .code "\n") .language "" }}
+                </div>
                 {{ end }}
-              </ul>
-            {{ end }}
+              </div>
+
+              <!-- Status bar -->
+              <div class="hero-editor__statusbar">
+                <div class="hero-editor__lang">
+                  <svg fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+                  </svg>
+                  <span>Java</span>
+                </div>
+                <span class="hero-editor__encoding">UTF-8</span>
+              </div>
+            </div>
           </div>
-          {{ with .image }}
-            <div
-              class="col-12 lg:pt-2 order-2 "
-              data-aos="fade-up-sm"
-              data-aos-delay="400">
-              <div class="max-h-[510px] overflow-hidden">
-                {{ partial "image" (dict "Src" .main "Alt" "Banner" "Class" "w-full" "Resize" false) }}
-              </div>
-            </div>
-            <div class="col-12 pb-4 pt-8 lg:pb-0 order-1">
+        </div>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+  <div>
+    {{ partial "image" (dict "Src" .image.bg_image "Alt" "Background Pattern"
+    "Class" `pointer-events-none absolute top-0 -z-10 !h-full lg:!h-auto w-full
+    !object-cover object-[center_top]` "Resize" false) }}
+  </div>
+</section>
+{{ end }}
+<!-- /Banner -->
+
+<!-- Brand Logo -->
+{{ partial "components/brand-logo.html" . }}
+<!-- /Brand Logo -->
+
+<!-- How it Works -->
+{{ with .Params.how_it_works }}
+<section class="section bg-white">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
+        <p class="mb-2 text-tertiary font-medium">
+          {{ .subtitle | markdownify }}
+        </p>
+        <h2 class="mb-6">{{ .title | markdownify }}</h2>
+        <p class="text-lg">{{ .description | markdownify }}</p>
+      </div>
+      <div class="col-12 pt-20">
+        <div class="row g-4 justify-center">
+          {{ range .features }}
+          <div
+            class="md:col-6 lg:col-3"
+            data-aos="fade-up-sm"
+            data-aos-delay="0"
+          >
+            <a href="{{ .link }}" class="block h-full">
               <div
-                class="flex flex-wrap justify-center gap-4 px-4 lg:flex-nowrap lg:justify-between lg:px-0">
+                class="h-full min-h-full rounded-xl bg-light px-6 py-12 text-center transition-all duration-300 ease-in-out md:rounded-3xl border-2 border-transparent hover:scale-[1.03] hover:border-primary"
+              >
                 <div
-                  class="lg:mt-8 rotate-left-lg-fix"
-                  data-aos="fade-in"
-                  data-aos-duration="400"
-                  data-aos-delay="200">
-                  {{ partial "image" (dict "Src" .left "Alt" "Banner left" "Class" `min-[350px]:h-[80px]! lg:h-[72px]! shadow-sm rounded-md md:rounded-xl w-auto` "Resize" false) }}
+                  class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary"
+                >
+                  <i class="text-xl object-cove text-white {{ .icon }}"></i>
                 </div>
-                <div
-                  class="rotate-middle-lg-fix"
-                  data-aos="fade-in"
-                  data-aos-duration="400"
-                  data-aos-delay="350">
-                  {{ partial "image" (dict "Src" .middle "Alt" "Banner middle" "Class" `shadow-sm min-[350px]:h-[80px]! lg:h-[98px]! rounded-md md:rounded-xl w-auto` "Resize" false) }}
-                </div>
-                <div
-                  class="rotate-right-lg-fix"
-                  data-aos="fade-in"
-                  data-aos-duration="400"
-                  data-aos-delay="500">
-                  {{ partial "image" (dict "Src" .right "Alt" "Banner right" "Class" `shadow-sm min-[350px]:h-[80px]! lg:h-[84px]!
-                    rounded-md md:rounded-xl w-auto` "Resize" false)
-                  }}
-                </div>
+                <h3 class="h5 mb-2">{{ .title | markdownify }}</h3>
+                <p>{{ .description | markdownify }}</p>
               </div>
-            </div>
+            </a>
+          </div>
           {{ end }}
         </div>
       </div>
-      <div class="">
-        {{ partial "image" (dict "Src" .image.bg_image "Alt" "Background Pattern" "Class" `pointer-events-none absolute top-0 -z-10 !h-full lg:!h-auto w-full !object-cover object-[center_top]` "Resize" false) }}
-      </div>
-    </section>
-  {{ end }}
-  <!-- /Banner -->
+    </div>
+  </div>
+</section>
+{{ end }}
 
-  <!-- Brand Logo -->
-  {{ partial "components/brand-logo.html" . }}
-  <!-- /Brand Logo -->
+<!-- /How it Works -->
 
-  <!-- How it Works -->
-{{ with .Params.how_it_works }}
-    <section class="section bg-white">
-      <div class="container">
-        <div class="row">
-          <div class="mx-auto text-center lg:col-10" data-aos="fade-up-sm">
-            <p class="mb-2 text-tertiary font-medium">
-              {{ .subtitle | markdownify }}
-            </p>
-            <h2 class="mb-6">{{ .title | markdownify }}</h2>
-            <p class="text-lg ">{{ .description | markdownify }}</p>
-          </div>
-          <div class="col-12 pt-20">
-            <div class="row g-4 justify-center">
-              {{ range .features }}
-                <div
-                  class="md:col-6 lg:col-3"
-                  data-aos="fade-up-sm"
-                  data-aos-delay="0">
-                  <a href="{{ .link }}" class="block h-full">
-                    <div
-                      class="h-full min-h-full rounded-xl bg-light px-6 py-12 text-center transition-all duration-300 ease-in-out md:rounded-3xl border-2 border-transparent hover:scale-[1.03] hover:border-primary">
-                      <div
-                        class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-tertiary">
-                        <i class="text-xl object-cove text-white {{ .icon }}"></i>
-                      </div>
-                      <h3 class="h5 mb-2">{{ .title | markdownify }}</h3>
-                      <p>{{ .description | markdownify }}</p>
-                    </div>
-                  </a>
-                </div>
-              {{ end }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-
-
-
-  <!-- /How it Works -->
-
-
-
-  <!-- Essential Features 
+<!-- Essential Features
   <!-- {{ partial "components/essential-features.html" . }} -->
-  <!-- /Essential Feature -->
+<!-- /Essential Feature -->
 
-  <!-- Explained Features 
+<!-- Explained Features
   <section class="section">
     <div class="container">
       <div class="row">
@@ -215,197 +267,189 @@
   </section>
   <!-- /Features Explained -->
 
-  <!-- Customer Reviews -->
-  {{ with .Params.customer_reviews }}
-    <section class="section">
-      <div class="container">
-        <div class="row">
-          <div
-            class="mx-auto text-center lg:col-8 xl:col-9"
-            data-aos="fade-up-sm">
-            <p class="mb-2 font-medium text-tertiary">
-              {{ .subtitle | markdownify }}
-            </p>
-            <h2 class="mb-6">{{ .title | markdownify }}</h2>
-            <p class="text-lg ">{{ .description | markdownify }}</p>
-          </div>
-          <div
-            class="col-12 pt-20"
-            data-aos="fade-up-sm"
-            data-aos-delay="200">
-            <div class="row g-4 justify-center">
-              {{ $number := 3 }}
-              {{ with site.GetPage "sections/customer-reviews" }}
-                {{ $reviews := .Params.list | first $number }}
-
-                {{ range $reviews }}
-                  {{ partial "components/customer-reviews.html" . }}
-                {{ end }}
-              {{ end }}
-            </div>
-          </div>
-        </div>
+<!-- Customer Reviews -->
+{{ with .Params.customer_reviews }}
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center lg:col-8 xl:col-9" data-aos="fade-up-sm">
+        <p class="mb-2 font-medium text-tertiary">
+          {{ .subtitle | markdownify }}
+        </p>
+        <h2 class="mb-6">{{ .title | markdownify }}</h2>
+        <p class="text-lg">{{ .description | markdownify }}</p>
       </div>
-    </section>
-  {{ end }}
-  <!-- /Customer Reviews -->
-
-  <!-- JobRunr for AI -->
-  {{ with .Params.jobrunr_for_ai }}
-    <section class="section bg-[#FAFAFA]">
-      <div class="container">
-        <div class="row justify-center">
-          <div class="text-center lg:col-8" data-aos="fade-up-sm">
-            <p class="mb-2 font-medium text-tertiary">{{ .badge }}</p>
-            <h2 class="mb-4">{{ .title | markdownify }}</h2>
-            <p class="text-lg mb-6">{{ .description | markdownify }}</p>
-            {{ with .tags }}
-              <ul class="flex flex-wrap justify-center gap-2 mb-8">
-                {{ range . }}
-                  <li
-                    class="bg-blue-50 text-blue-600 px-3 py-1 rounded-md text-sm font-medium">
-                    {{ . }}
-                  </li>
-                {{ end }}
-              </ul>
-            {{ end }}
-            {{ with .button }}
-              {{ if .enable }}
-                <a
-                  class="btn btn-primary"
-                  href="{{ .link }}"
-                  target="_self"
-                  rel="noopener">
-                  {{ .label }}
-                  <span class="sr-only">Details</span>
-                  <span class="icon-wrapper"
-                    ><span class="icon"
-                      ><svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 448 512"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
-                    ></span
-                    ><span class="icon" aria-hidden="true"
-                      ><svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 448 512"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
-                    ></span
-                  ></span>
-                </a>
-              {{ end }}
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-  <!-- /JobRunr for AI -->
-
-   <!-- Key Features -->
-  {{ partial "components/key-features.html" . }}
-  <!-- /Key Features -->
-
-  <!-- Spot CTA -->
-  {{ with .Params.spot_cta }}
-    {{ if .enable }}
-      <section class="section">
-        <div class="container">
-          <div
-            class="bg-slate-900 text-white rounded-3xl px-8 py-12 lg:px-16"
-            data-aos="fade-up-sm">
-            <div
-              class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
-              <div>
-                <span
-                  class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
-                  {{ .badge }}
-                </span>
-                <h2 class="text-light mb-2">{{ .title | markdownify }}</h2>
-                <p class="text-gray-300 text-lg mb-0">
-                  {{ .description | markdownify }}
-                </p>
-              </div>
-              <div class="shrink-0">
-                <a
-                  class="btn btn-primary"
-                  href="{{ .button.link }}"
-                  target="_self"
-                  rel="noopener">
-                  {{ .button.label }}
-                  <span class="sr-only">Details</span>
-                  <span class="icon-wrapper"
-                    ><span class="icon"
-                      ><svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 448 512"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
-                    ></span
-                    ><span class="icon" aria-hidden="true"
-                      ><svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        stroke-width="0"
-                        viewBox="0 0 448 512"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg
-                    ></span
-                  ></span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    {{ end }}
-  {{ end }}
-  <!-- /Spot CTA -->
-
-  <!-- Pricing -->
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div
-          class="mx-auto text-center lg:col-8"
-          data-aos="fade-up-sm">
-          <p class="mb-2 font-medium text-tertiary">
-            {{ .Params.pricing.subtitle | markdownify }}
-          </p>
-          <h1 class="h2 mb-6">{{ .Params.pricing.title | markdownify }}</h1>
-          <p class="text-lg ">
-            {{ .Params.pricing.description | markdownify }}
-          </p>
-        </div>
-        <div class="col-12 pt-20">
-          {{ partial "components/pricing-plan.html" . }}
+      <div class="col-12 pt-20" data-aos="fade-up-sm" data-aos-delay="200">
+        <div class="row g-4 justify-center">
+          {{ $number := 3 }} {{ with site.GetPage "sections/customer-reviews" }}
+          {{ $reviews := .Params.list | first $number }} {{ range $reviews }} {{
+          partial "components/customer-reviews.html" . }} {{ end }} {{ end }}
         </div>
       </div>
     </div>
-  </section>
-  <!-- /Pricing -->
+  </div>
+</section>
+{{ end }}
+<!-- /Customer Reviews -->
 
-  <!-- Call to action -->
-  {{ partial "call-to-action.html" . }}
-  <!-- /Call to action -->
+<!-- JobRunr for AI -->
+{{ with .Params.jobrunr_for_ai }}
+<section class="section bg-[#FAFAFA]">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-8" data-aos="fade-up-sm">
+        <p class="mb-2 font-medium text-tertiary">{{ .badge }}</p>
+        <h2 class="mb-4">{{ .title | markdownify }}</h2>
+        <p class="text-lg mb-6">{{ .description | markdownify }}</p>
+        {{ with .tags }}
+        <ul class="flex flex-wrap justify-center gap-2 mb-8">
+          {{ range . }}
+          <li
+            class="bg-blue-50 text-blue-600 px-3 py-1 rounded-md text-sm font-medium"
+          >
+            {{ . }}
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }} {{ with .button }} {{ if .enable }}
+        <a
+          class="btn btn-primary"
+          href="{{ .link }}"
+          target="_self"
+          rel="noopener"
+        >
+          {{ .label }}
+          <span class="sr-only">Details</span>
+          <span class="icon-wrapper"
+            ><span class="icon">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 448 512"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                ></path>
+              </svg> </span
+            ><span class="icon" aria-hidden="true">
+              <svg
+                stroke="currentColor"
+                fill="currentColor"
+                stroke-width="0"
+                viewBox="0 0 448 512"
+                height="1em"
+                width="1em"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                ></path></svg></span
+          ></span>
+        </a>
+        {{ end }} {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+<!-- /JobRunr for AI -->
+
+<!-- Key Features -->
+{{ partial "components/key-features.html" . }}
+<!-- /Key Features -->
+
+<!-- Spot CTA -->
+{{ with .Params.spot_cta }} {{ if .enable }}
+<section class="section">
+  <div class="container">
+    <div
+      class="bg-slate-900 text-white rounded-3xl px-8 py-12 lg:px-16"
+      data-aos="fade-up-sm"
+    >
+      <div
+        class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8"
+      >
+        <div>
+          <span
+            class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4"
+          >
+            {{ .badge }}
+          </span>
+          <h2 class="text-light mb-2">{{ .title | markdownify }}</h2>
+          <p class="text-gray-300 text-lg mb-0">
+            {{ .description | markdownify }}
+          </p>
+        </div>
+        <div class="shrink-0">
+          <a
+            class="btn btn-primary"
+            href="{{ .button.link }}"
+            target="_self"
+            rel="noopener"
+          >
+            {{ .button.label }}
+            <span class="sr-only">Details</span>
+            <span class="icon-wrapper"
+              ><span class="icon"
+                ><svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 448 512"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                  ></path></svg></span
+              ><span class="icon" aria-hidden="true"
+                ><svg
+                  stroke="currentColor"
+                  fill="currentColor"
+                  stroke-width="0"
+                  viewBox="0 0 448 512"
+                  height="1em"
+                  width="1em"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"
+                  ></path></svg></span
+            ></span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }} {{ end }}
+<!-- /Spot CTA -->
+
+<!-- Pricing -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center lg:col-8" data-aos="fade-up-sm">
+        <p class="mb-2 font-medium text-tertiary">
+          {{ .Params.pricing.subtitle | markdownify }}
+        </p>
+        <h1 class="h2 mb-6">{{ .Params.pricing.title | markdownify }}</h1>
+        <p class="text-lg">{{ .Params.pricing.description | markdownify }}</p>
+      </div>
+      <div class="col-12 pt-20">
+        {{ partial "components/pricing-plan.html" . }}
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /Pricing -->
+
+<!-- Call to action -->
+{{ partial "call-to-action.html" . }}
+<!-- /Call to action -->
 {{ end }}

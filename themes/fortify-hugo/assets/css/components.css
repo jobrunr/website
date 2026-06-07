@@ -26,7 +26,7 @@
 
 /* Container */
 .container {
-  @apply mx-auto px-4 sm:max-w-full! xl:max-w-[1200px]!;
+  @apply mx-auto px-4 sm:max-w-full! xl:max-w-[1536px]!;
 }
 
 /* List */
