@@ -7,7 +7,6 @@ images:
 image: /blog/what-is-durable-execution-java.webp
 date: 2026-06-05T10:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
 tags:
   - blog
   - durable execution
@@ -66,11 +65,13 @@ This is also where durable execution overlaps heavily with [distributed job sche
 
 ## How JobRunr Delivers Durable Execution
 
-Here is the part that surprises people. If you run JobRunr, you already have most of this, and a lot of it is in the free, open-source version.
+Here is the part that surprises people. If you run JobRunr, you already have most of this, and a lot of it is in the open-source version.
 
 **Your jobs are persisted, not held in memory.** When you enqueue a job, JobRunr serializes it and stores it in your existing SQL or NoSQL database. No Redis, no separate message broker, just the database you already run. If your application goes down and comes back up, the job is still there, waiting to be processed. That is the persistence principle, with zero extra infrastructure.
 
-**Failed jobs retry automatically with back-off.** Out of the box, JobRunr retries a failing job up to 10 times with a smart exponential back-off policy. This is the default in the open-source version, not a paid add-on. You can read the details in [Dealing with exceptions]({{<ref "documentation/background-methods/dealing-with-exceptions.md">}}). That is the automatic-retries principle, for free.
+**No separate service to deploy.** JobRunr is a library, not a server you stand up and redeploy on its own. Add it to your application and it runs in-process, or run it as its own microservice if you prefer. Either way there is no extra system to operate, monitor, or keep in sync with your releases.
+
+**Failed jobs retry automatically with back-off.** Out of the box, JobRunr retries a failing job up to 10 times with a smart exponential back-off policy. You can read the details in [Dealing with exceptions]({{<ref "documentation/background-methods/dealing-with-exceptions.md">}}). That is the automatic-retries principle, handled for you.
 
 **Crashed-server jobs get noticed.** JobRunr watches for zombie jobs, which are jobs that were being processed on a server node that crashed. It elects a master node to coordinate this housekeeping, so a job stuck on a dead worker does not silently vanish.
 
@@ -110,7 +111,9 @@ jobContext.runStepOnce("send-confirmation",
 
 On a retry that skips `charge-customer`, the stored `chargeId` is replayed, so the confirmation still references the original charge.
 
-Now the honest part, because it matters. JobRunr gives you durable *jobs* with exactly-once *steps* on top of the database you already have. It is not a full deterministic-replay engine that rebuilds every in-memory local variable after a crash the way Temporal does. For the large majority of background work, the reservation jobs, the report generation, the multi-step pipelines, the API integrations, that lighter guarantee is exactly what you need, and you get it without running another service. It is durable enough, on infrastructure you already operate.
+Now the honest part. JobRunr gives you durable *jobs* with exactly-once *steps*, and it stores each step's result and replays it on a retry, all on the database you already have. That covers the large majority of background work, the reservation jobs, the report generation, the multi-step pipelines, the API integrations, and you get it without running another service.
+
+Where a dedicated engine like Temporal goes further is long-running waits as first-class primitives, pausing a single function for days with a durable `sleep`, or blocking until an external signal arrives with a durable `await`. JobRunr reaches those same outcomes a different way. A delay is just a scheduled job, waiting on an outside system is what JobRunr Pro's [External Jobs]({{<ref "guides/advanced/external-jobs.md">}}) are for, and sequencing work across jobs is [job chaining]({{<ref "documentation/pro/job-chaining.md">}}). For the everyday case you need none of it, and what you do need runs on infrastructure you already operate.
 
 
 ## The Short Version
