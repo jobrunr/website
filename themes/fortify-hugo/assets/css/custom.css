@@ -212,3 +212,131 @@ input[name="username"] {
 .area-alias {
   @apply text-[6px] text-blue-400 mr-1.5 cursor-help;
 }
+
+/* HERO: EDITOR + BROWSER (homepage banner) */
+
+.hero-editor, .hero-browser {
+  @apply overflow-hidden rounded-xl border border-gray-200 shadow-lg;
+}
+
+/* Editor window */
+.hero-editor {
+  @apply relative z-20 mx-4 -mt-24 md:mx-0 md:mt-0 max-w-full md:w-[88%];
+  @apply md:absolute md:-bottom-10 md:left-4;
+}
+
+.hero-editor .hero-editor__header {
+  @apply border-b border-gray-200 bg-gray-100;
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs {
+  @apply flex items-center overflow-x-auto scrollbar-thin;
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab {
+  @apply flex items-center gap-2 border-r border-b-2 border-gray-200 border-b-transparent px-3 py-2.5 transition-colors;
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab:hover {
+  @apply bg-gray-50;
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab:focus-visible {
+  @apply ring-2 ring-inset;
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab[aria-selected="true"] {
+  @apply bg-gray-50;
+  border-bottom-color: var(--color-primary);
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab-icon {
+  @apply h-4 w-4 text-[#E76F00];
+}
+
+.hero-editor .hero-editor__header .hero-editor__tabs .hero-editor__tab-name {
+  @apply whitespace-nowrap font-mono text-sm;
+}
+
+.hero-editor .hero-editor__code {
+  @apply overflow-hidden;
+}
+
+.hero-editor .hero-editor__code .hero-editor__panel {
+  @apply bg-white text-xs;
+}
+
+.hero-editor .hero-editor__code .hero-editor__panel .highlight pre {
+  @apply border-0 p-4 h-36;
+}
+
+.hero-editor .hero-editor__statusbar {
+  @apply flex items-center justify-between border-t border-gray-200 bg-gray-100 px-3 py-1 text-xs;
+}
+
+.hero-editor .hero-editor__statusbar .hero-editor__lang {
+  @apply flex items-center gap-1 text-gray-600;
+}
+
+.hero-editor .hero-editor__statusbar .hero-editor__lang svg {
+  @apply h-3 w-3 text-green-600;
+}
+
+.hero-editor .hero-editor__statusbar .hero-editor__encoding {
+  @apply text-gray-500;
+}
+
+/* Browser window (dashboard mock-up behind the editor) */
+.hero-browser .hero-browser__header {
+  @apply flex items-center gap-3 border-b border-gray-200 bg-gray-100 px-4 py-1.5;
+}
+
+.hero-browser .hero-browser__header .hero-browser__dots {
+  @apply flex gap-2;
+}
+
+.hero-browser .hero-browser__header .hero-browser__dots .hero-browser__dot {
+  @apply h-3 w-3 rounded-full;
+}
+
+.hero-browser .hero-browser__header .hero-browser__nav {
+  @apply ml-2 flex items-center gap-2;
+}
+
+.hero-browser .hero-browser__header .hero-browser__nav button {
+  @apply cursor-pointer rounded text-gray-400 transition-colors hover:text-gray-600;
+}
+
+.hero-browser .hero-browser__header .hero-browser__nav button:focus-visible {
+  @apply outline-none ring-2 ring-inset;
+}
+
+.hero-browser .hero-browser__header .hero-browser__nav svg {
+  @apply h-4 w-4;
+}
+
+.hero-browser .hero-browser__header .hero-browser__address {
+  @apply flex flex-1 items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-1 overflow-hidden;
+}
+
+.hero-browser .hero-browser__header .hero-browser__address svg {
+  @apply h-3.5 w-3.5 text-green-600 shrink-0;
+}
+
+.hero-browser .hero-browser__header .hero-browser__address span {
+  @apply font-mono text-xs text-gray-600 truncate;
+}
+
+.hero-browser .hero-browser__screen {
+  @apply relative grid max-h-[500px] overflow-hidden bg-white;
+}
+
+.hero-browser .hero-browser__screen .hero-browser__panel {
+  @apply col-start-1 row-start-1;
+}
+
+/* Bottom fade so the screenshot dissolves toward the floating editor */
+.hero-browser .hero-browser__screen .hero-browser__fade {
+  @apply pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 sm:h-56;
+  @apply bg-linear-to-t from-white via-white/80 to-transparent;
+}

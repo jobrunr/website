@@ -27,7 +27,7 @@
             {{/* FIX 1: Iterates and orders by 'weight' (from lowest to highest).
             This ensures all child pages in the guides section are included and sorted correctly. */}}
             {{ range .Pages.ByWeight }}
-              <div class="md:col-6">
+              <div class="md:col-6 xl:col-4">
                 {{ partial "guide-card.html" (dict "context" .) }}
               </div>
             {{ end }}

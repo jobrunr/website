@@ -31,9 +31,6 @@ path = "github.com/gethugothemes/hugo-modules/adsense"
 path = "github.com/gethugothemes/hugo-modules/accordion"
 
 [[imports]]
-path = "github.com/gethugothemes/hugo-modules/table-of-contents"
-
-[[imports]]
 path = "github.com/gethugothemes/hugo-modules/tab"
 
 [[imports]]

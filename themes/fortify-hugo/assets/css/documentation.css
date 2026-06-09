@@ -53,20 +53,70 @@
 }
 
 /* Table of Contents styling */
-.docs-toc .toc-content ul {
-  @apply m-0 list-none pl-3;
+
+.content .docs-toc nav a {
+  @apply font-normal;
 }
 
-.docs-toc .toc-content li {
-  @apply mb-2;
+.content .docs-toc nav li {
+  @apply m-0;
 }
 
-.docs-toc .toc-content a {
-  @apply text-text no-underline transition-colors hover:text-primary;
+/* Hide the TOC chrome on pages without headings (empty nav) */
+.docs-toc:has(#TableOfContents:empty) {
+  @apply hidden;
 }
 
-.docs-toc .toc-content ul ul {
-  @apply mt-1 pl-3;
+
+.toc-content ol,
+.toc-content ul {
+  @apply m-0 list-none p-0;
+}
+
+.toc-content ol ol,
+.toc-content ul ul {
+  @apply mt-0.5 ml-3;
+}
+
+.toc-content li {
+  @apply mb-0;
+}
+
+.toc-content a {
+  @apply block py-1 pl-2 pr-2;
+  @apply border-l-2 border-transparent hover:border-l-[var(--color-border)];
+  @apply text-text/85 no-underline transition-colors hover:text-text-dark;
+}
+
+.toc-content a.active {
+  @apply border-l-[var(--color-primary)] font-medium text-text-dark;
+}
+
+/* Rail: a left "track" */
+.docs-toc .toc-content nav {
+  @apply border-l border-border;
+}
+
+details.docs-toc .toc-content nav {
+  @apply border-0;
+  @apply py-3;
+}
+
+/* Inline collapsible variant (small/medium screens) */
+details.docs-toc > summary {
+  @apply list-none;
+}
+
+details.docs-toc > summary::-webkit-details-marker {
+  @apply hidden;
+}
+
+details.docs-toc .toc-chevron {
+  @apply transition-transform duration-200;
+}
+
+details.docs-toc[open] .toc-chevron {
+  @apply rotate-180;
 }
 
 /* Smooth scrolling for anchor links in documentation */

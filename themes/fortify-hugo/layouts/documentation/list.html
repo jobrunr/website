@@ -1,14 +1,14 @@
 {{ define "main" }}
 <section class="section pt-8">
   <div class="container">
-    <div class="row">
+    <div class="row lg:gap-x-4 2xl:gap-x-10">
       <!-- Sidebar Navigation -->
-      <div class="lg:col-3 lg:pl-0">
+      <div class="lg:max-w-75">
         {{ partial "documentation/sidebar-menu.html" . }}
       </div>
 
       <!-- Main Content Area -->
-      <main class="lg:col-9" data-pagefind-body>
+      <main class="lg:flex-1 lg:min-w-0" data-pagefind-body>
         {{ partial "pagefind-filters.html" . }}
         <article class="content">
           {{ if eq .Params.version "pro"}}
@@ -29,6 +29,9 @@
             <p class="text-xl font-light text-text/70 mb-4">{{ . }}</p>
             {{ end }}
           </header>
+
+          <!-- Table of Contents - inline, collapsible (small/medium screens) -->
+          {{ partial "documentation/toc.html" "inline" }}
 
           <!-- Main Content from _index.md -->
           <div class="docs-content">
@@ -57,6 +60,9 @@
           {{ end }} -->
         </article>
       </main>
+
+      <!-- Table of Contents - sticky right rail (large screens) -->
+      {{ partial "documentation/toc.html" "rail" }}
     </div>
   </div>
 </section>

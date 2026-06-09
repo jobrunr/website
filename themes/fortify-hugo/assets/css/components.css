@@ -26,7 +26,12 @@
 
 /* Container */
 .container {
-  @apply mx-auto px-4 sm:max-w-full! xl:max-w-[1200px]!;
+  @apply mx-auto px-4 sm:max-w-full! xl:max-w-[1536px]!;
+}
+
+/* Article pages (blog, use-case, guides) keep the classic reading width */
+.article-page .container {
+  @apply max-w-300!;
 }
 
 /* List */

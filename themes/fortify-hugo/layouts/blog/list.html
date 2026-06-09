@@ -33,8 +33,7 @@
           data-aos-delay="200">
           <div class="row gx-4 gy-5 justify-start md:gx-5">
             {{ range $paginator.Pages }}
-              {{/* This div now uses md:col-6 to force 2 columns */}}
-              <div class=" md:col-6">
+              <div class="md:col-6 xl:col-4">
                 {{ partial "components/blog-card" (dict "Context" .) }}
               </div>
             {{ end }}

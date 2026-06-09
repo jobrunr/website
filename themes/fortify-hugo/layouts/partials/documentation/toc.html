@@ -1,0 +1,58 @@
+{{- /*
+  Table of Contents partial, shared by documentation single + list templates.
+  Context: the variant string — "inline" (collapsible, small/medium screens)
+  or "rail" (sticky, large screens). The page is read from the global `page`.
+*/ -}}
+{{- $variant := . -}}
+
+{{- if eq $variant "inline" -}}
+<details class="docs-toc xl:hidden mb-8 rounded-lg border border-border bg-light" data-pagefind-ignore>
+  <summary class="flex cursor-pointer select-none items-center justify-between gap-2 px-4 py-2 text-sm font-semibold uppercase text-text/60">
+    <span class="flex items-center gap-2">
+      <i class="fa-solid fa-list-ul text-text/60"></i>
+      On this page
+    </span>
+    <i class="fa-solid fa-chevron-down toc-chevron text-xs text-text/60"></i>
+  </summary>
+  <div class="toc-content text-sm">
+    {{ page.TableOfContents }}
+  </div>
+</details>
+
+{{- else if eq $variant "rail" -}}
+<aside class="hidden xl:col-3 xl:block xl:max-w-75" data-pagefind-ignore>
+  <div class="docs-toc sticky top-1 max-h-[calc(100vh-153px)] overflow-y-auto">
+    <h4 class="mb-3 text-xs font-semibold uppercase tracking-wide text-text/60">On this page</h4>
+    <div class="toc-content text-sm">
+      {{ page.TableOfContents }}
+    </div>
+  </div>
+</aside>
+<script>
+(() => {
+  const links = new Map(
+    [...document.querySelectorAll("aside .toc-content a[href^='#']")].map((a) => [
+      decodeURIComponent(a.hash.slice(1)),
+      a,
+    ])
+  );
+  if (!links.size) return;
+  const entries = {};
+  const observer = new IntersectionObserver(
+    (changed) => {
+      changed.forEach((e) => (entries[e.target.id] = e));
+      const visible = Object.values(entries)
+        .filter((e) => e.isIntersecting)
+        .map((e) => e.target.id);
+      if (!visible.length) return;
+      links.forEach((a, id) => a.classList.toggle("active", visible.includes(id)));
+    },
+    { rootMargin: "0px", threshold: 0.2 }
+  );
+  links.forEach((_, id) => {
+    const h = document.getElementById(id);
+    if (h) observer.observe(h);
+  });
+})();
+</script>
+{{- end -}}
