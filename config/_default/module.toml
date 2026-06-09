@@ -7,9 +7,6 @@ min = "0.124.1"
 # path = "github.com/gethugothemes/hugo-modules/search"
 
 [[imports]]
-path = "github.com/gethugothemes/hugo-modules/pwa"
-
-[[imports]]
 path = "github.com/gethugothemes/hugo-modules/images"
 
 [[imports]]
