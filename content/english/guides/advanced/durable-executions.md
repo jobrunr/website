@@ -37,9 +37,33 @@ public void fulfillOrder(String orderId) {
 
 Now imagine `reserve` throws because the inventory service is briefly unavailable. JobRunr catches the exception, marks the job as failed, and schedules a retry with exponential back-off. That retry calls `fulfillOrder` again from the beginning, so `charge` runs a second time. The customer has now paid twice for one order.
 
-You could try to guard every step with your own "have I done this already?" checks, stored in your own tables. That is a lot of bookkeeping to write and maintain for something every multi-step job needs. Durable executions give you that bookkeeping for free.
+You could try to guard every step with your own "have I done this already?" checks, stored in your own tables. That looks something like this:
 
-## The runStepOnce API
+```java
+public void fulfillOrder(String orderId) {
+    OrderProgress progress = orderProgressRepository.findByOrderId(orderId);
+
+    if (!progress.hasCompleted("charge-payment")) {
+        paymentGateway.charge(orderId);
+        progress.markCompleted("charge-payment");
+        orderProgressRepository.save(progress);
+    }
+    if (!progress.hasCompleted("reserve-inventory")) {
+        inventoryService.reserve(orderId);
+        progress.markCompleted("reserve-inventory");
+        orderProgressRepository.save(progress);
+    }
+    if (!progress.hasCompleted("send-confirmation")) {
+        emailService.sendConfirmation(orderId);
+        progress.markCompleted("send-confirmation");
+        orderProgressRepository.save(progress);
+    }
+}
+```
+
+It works, but now you own an extra table, a repository, and a guard block around every step, and the three lines of business logic are buried in bookkeeping you get to repeat in every multi-step job you write. Durable executions give you that bookkeeping for free.
+
+## Durable execution with JobRunr
 
 `JobContext` exposes two `runStepOnce` methods. The first runs a step with no return value, the second returns a value you can pass to the next step:
 
@@ -69,9 +93,10 @@ public void fulfillOrder(String orderId, JobContext jobContext) {
 
 That is the whole change. The job is now durable. If it fails at `reserve-inventory` and is retried, `charge-payment` is skipped and execution resumes at `reserve-inventory`.
 
+> [!IMPORTANT]
 > The step id is the identity of the step. Keep it stable across deployments and make sure it is unique within the job. If you rename a step id, JobRunr treats it as a brand new step that has never run.
 
-## How it works under the hood
+## How durable execution works under the hood
 
 `runStepOnce` is built on JobRunr's job metadata, which is stored in your database alongside the job. The mechanism is simple and worth understanding:
 
@@ -82,15 +107,16 @@ That is the whole change. The job is now durable. If it fails at `reserve-invent
 
 Because the markers live in the same database as the job, they outlive the process running it. When a step throws, JobRunr saves the job, markers and all, as it moves it to the failed state, so an ordinary retry always resumes precisely from the step that failed.
 
-> There is a subtle difference in *when* the markers are saved for a job that is still running. JobRunr Pro writes the job state to the database the moment a step finishes, so even an abrupt crash (a killed pod, a lost node) resumes from exactly the last completed step. JobRunr OSS saves state on its normal poll interval, like any other job, so a hard crash in the window since the last save can re-run the step that had just finished. Retries on a thrown exception resume precisely in both. Either way, keep each step idempotent.
-
 There is also a helper to query progress yourself:
 
 ```java
 boolean done = jobContext.hasCompletedStep("charge-payment");
 ```
 
-## Watch it resume
+> [!CAUTION]
+> There is a subtle difference in *when* the markers are saved for a job that is still running. JobRunr Pro writes the job state to the database the moment a step finishes, so even an abrupt crash (a killed pod, a lost node) resumes from exactly the last completed step. JobRunr OSS saves state on its normal poll interval, like any other job, so a hard crash in the window since the last save can re-run the step that had just finished. Retries on a thrown exception resume precisely in both. Either way, keep each step idempotent.
+
+## Watch a retried job resume in the dashboard
 
 Let's run the fulfillment job for real and make the inventory step fail on its first attempt. We use `jobContext.logger()` so each step writes a line to the JobRunr dashboard. The log line sits inside the step, so a skipped step produces no line. That makes the resume visible at a glance:
 
@@ -126,7 +152,7 @@ Open the two processing entries and the resume is unmistakable. Attempt 1 logs `
 
 ![](/guides/durable-executions-job-history.png "Expanded job history. The first attempt logs the charge and the reserve before failing. The second attempt resumes at reserve-inventory with no charge line, then sends the confirmation and finishes.")
 
-## Passing values between steps
+## Passing values between steps and control flow
 
 When a step produces something the next step needs, use the `runStepOnce` overload that returns a value. JobRunr stores the result, so on a later run the stored value is replayed instead of recomputing it:
 
@@ -144,6 +170,27 @@ public void fulfillOrder(String orderId, JobContext jobContext) {
 
 On a retry that skips `charge-payment`, the original `chargeId` is returned from the stored result, so the confirmation email still references the correct charge.
 
+Replayed results do more than carry data forward: they also let you make **control flow** decisions that stay consistent across retries. Branch on the result of a step and every attempt takes the same path, because the branch is evaluated against the stored result, not a fresh call:
+
+```java
+public void fulfillOrder(String orderId, JobContext jobContext) {
+    PaymentResult payment = jobContext.runStepOnce("charge-payment",
+            () -> paymentGateway.charge(orderId));
+
+    if (payment.requiresManualReview()) {
+        jobContext.runStepOnce("flag-for-review",
+                () -> reviewService.flagForReview(orderId, payment.chargeId()));
+        return;
+    }
+
+    jobContext.runStepOnce("reserve-inventory", () -> inventoryService.reserve(orderId));
+    jobContext.runStepOnce("send-confirmation",
+            () -> emailService.sendConfirmation(orderId, payment.chargeId()));
+}
+```
+
+If this job fails at `reserve-inventory` and is retried, the `if` runs again, but against the replayed `payment` result, so the retry follows the exact branch the first attempt took. This determinism is what makes branching safe in a durable execution: base your decisions on stored step results, not on values that can change between attempts. Code outside a step re-runs on every attempt, so keep it free of side effects, and if a decision depends on something non-deterministic like the current time or a random draw, wrap that decision in its own `runStepOnce` so the outcome is recorded and replayed too. Jack Vanlightly's [Demystifying Determinism in Durable Execution](https://jack-vanlightly.com/blog/2025/11/24/demystifying-determinism-in-durable-execution) is a great deep dive into why this matters.
+
 ## Steps are exactly-once, but design them to be safe
 
 Durable executions guarantee that a **completed** step is never run again. They do not make the *currently running* step safe on their own. If a step does two things and the job dies between them, the whole step re-runs on the retry, because it was never marked complete.
@@ -154,7 +201,7 @@ A few more things worth knowing:
 
 - **Step ids must be stable and unique.** Reusing an id across two different steps will mark the second one complete before it runs. Renaming an id makes JobRunr think it is a new step.
 - **Retries are configurable.** By default JobRunr retries a failed job up to 10 times with exponential back-off. Durable executions make each of those retries cheap, because only the unfinished work runs.
-- **It is not a workflow engine.** `runStepOnce` makes a single job durable. For fan-out, branching, and coordinating many jobs, look at [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) and [batches]({{<ref "documentation/pro/batches.md">}}) in JobRunr Pro.
+- **It is not a workflow engine.** `runStepOnce` makes a single job with multiple steps durable. For fan-out, branching, and coordinating many jobs, look at [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) and [batches]({{<ref "documentation/pro/batches.md">}}) in JobRunr Pro.
 
 ## When to use durable executions
 
