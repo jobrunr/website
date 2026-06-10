@@ -5,7 +5,7 @@ title: "JobRunr - Distributed Java Background Job Scheduler"
 # Banner
 banner:
   title: "Never lose a background job again."
-  description: "A simple to use Java library for durable background jobs. <br />Backed by your existing database. Open-source and free for commercial use."
+  description: "A simple to use Java library for durable background jobs.<br /> Backed by your existing database. Open-source and free for commercial use."
   image:
     bg_image: "/images/bg-pattern.png"
   button:
