@@ -7,10 +7,6 @@ body {
   @apply font-primary!;
 }
 
-p br {
-  @apply max-lg:hidden;
-}
-
 .h1, h1,
 .h2, h2,
 .h3, h3,

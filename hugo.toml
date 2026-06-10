@@ -63,7 +63,7 @@ target = 'css'
 
 ############################# Outputs ############################
 [outputs]
-home = ["HTML", "RSS", "WebAppManifest"]
+home = ["HTML", "RSS"]
 # home = ["HTML", "RSS", "WebAppManifest", "SearchIndex"]
 
 ############################# Imaging ############################

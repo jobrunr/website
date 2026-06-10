@@ -1,6 +1,6 @@
 {{ define "main" }}
   {{ $isBlogSingle := and .IsPage (eq .Section "blog") }}
-  <section class="section" data-pagefind-body>
+  <section class="section article-page" data-pagefind-body>
     {{ partial "pagefind-filters.html" . }}
     <div class="container">
       <div class="row justify-center">
@@ -50,7 +50,7 @@
   </section>
 
   <!-- Related posts -->
-  <section class="section overflow-hidden">
+  <section class="section overflow-hidden article-page">
     <div class="container">
       <div class="row">
         {{ with site.GetPage "blog/_index" }}

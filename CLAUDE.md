@@ -78,6 +78,24 @@ See [README.md](README.md) for full documentation on JobRunr's custom shortcodes
 - **Code tabs** (`codetabs`/`codetab`) - Synchronized tabs for Maven/Gradle, Java/Kotlin, configuration properties examples, etc.
 - **Alerts** - GitHub-style alerts (`NOTE`, `TIP`, `WARNING`, `CAUTION`, `PRO`)
 
+## Blog Diagrams (inline SVG)
+
+For an explanatory diagram inside a post (not the header image), author a self-contained SVG, save it under `assets/blog/`, and embed it with the `svg` shortcode, which inlines the file so it stays crisp and scalable:
+```markdown
+{{< svg "assets/blog/<name>.svg" >}}
+```
+The path is relative to the project root. Reference example: `assets/blog/durable-execution-replay.svg`, a side-by-side "replay the whole job vs resume from the last completed step" comparison used in `blog/what-is-durable-execution-java.md`.
+
+Conventions that keep diagrams on-brand and rendering reliably:
+- Blog content sits on a **white** background. Use light panels with dark text and semantic accents: green for completed/success, red for failure, amber for wasteful re-runs, grey (dashed) for skipped.
+- **Do not put unicode glyphs (`✓ ✕ ↓ ↻`) in `<text>`.** They render as empty boxes when the visitor's font lacks them. Draw checks, crosses, and arrows as `<path>`/`<line>` instead.
+- Make it responsive: set both `width`/`height` **and** `viewBox`, plus `style="max-width:100%;height:auto;"` on the root `<svg>`.
+- Add a short caption underneath using a centered `<small>` (see the durable execution post).
+- Generating one with a script (e.g. Python building the SVG string) is fine. Render it to PNG and eyeball it before committing, since a glyph or sizing mistake is invisible until it renders.
+- Mermaid fenced code blocks also render (see `blog/axon-framework-jobrunr-pro.md`) and suit quick flow/sequence diagrams. Hand-authored SVG gives more control over styling.
+
+The post **header image** is a separate concern: a 1279x718 branded card referenced via the `image` front matter and stored as `assets/blog/<slug>.webp`.
+
 ## Documentation Pages
 
 Documentation uses sidebar navigation controlled by front matter:

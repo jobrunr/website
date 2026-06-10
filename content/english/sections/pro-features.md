@@ -9,7 +9,7 @@ button:
       link: "try-jobrunr-pro"
     learn_more:
       enable: true
-      label: "Try the live demo"
+      label: "See the code"
       link: "https://finance.demo.jobrunr.io/storyline"
 oss_to_pro_signals:
   title: "When should teams move from OSS to Pro?"

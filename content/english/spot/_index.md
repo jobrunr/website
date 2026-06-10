@@ -3,11 +3,11 @@ title: "JobRunr Spot | Run background jobs on spot, save 60 to 80%"
 description: "JobRunr Spot runs your background jobs on the cheapest spot instances across AWS and Google Cloud. Save 60 to 80% on your cloud bill. CPU and GPU both supported, starting with CPU. Launching September 2026. Join the private beta waitlist."
 layout: "spot"
 sitemap:
-  priority: 0.1
-  changeFreq: never
+  priority: 0.8
+  changeFreq: weekly
 
 hero:
-  badge: "Launching September 2026 · Private beta"
+  badge: "Private beta live now"
   title_start: "Background jobs on spot, in your own cloud."
   title_highlight: "60 to 80% off your cloud bill."
   description: "JobRunr Spot finds the cheapest spot instance in your own AWS and Google Cloud accounts, dispatches your job there, and re-runs it if the instance gets killed."

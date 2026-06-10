@@ -18,6 +18,7 @@
 
 <!-- main script -->
 {{ $scripts = $scripts | append (resources.Get "js/main.js") }}
+{{ $scripts = $scripts | append (resources.Get "js/hero.js") }}
 {{ $scripts = $scripts | resources.Concat "js/script.js" }}
 
 {{ $scriptsLazy = $scriptsLazy | resources.Concat "js/script-lazy.js" }}
@@ -40,9 +41,6 @@
   crossorigin="anonymous"
   integrity="{{ $scriptsLazy.Data.Integrity }}"
   src="{{ $scriptsLazy.RelPermalink }}"></script>
-
-<!-- progressive web app -->
-{{ partialCached "pwa.html" . }}
 
 
 <!-- cookie consent -->
