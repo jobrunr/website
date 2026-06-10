@@ -9,19 +9,18 @@ tags:
     - Reliability
     - Advanced
 hideFrameworkSelector: true
-draft: true
 ---
 
 Most real jobs do more than one thing. Fulfilling an order means charging the customer, reserving stock, and sending a confirmation. Onboarding a user means creating an account, provisioning resources, and emailing a welcome message. These steps run one after another inside a single job.
 
 So what happens when the job fails halfway through? A flaky API call throws on step two, the pod gets evicted, or the database blips. JobRunr retries the job, which is exactly what you want. But the retry runs the method again from the top, and now you have just charged the customer twice.
 
-This is the problem **durable executions** solve. With JobRunr's `runStepOnce`, each step records that it completed. When the job is retried, the steps that already succeeded are skipped, and execution resumes at the first step that did not. The customer is charged once, no matter how many times the job runs. This feature ships in JobRunr v8 and is available in the open-source version.
+This is the problem **durable executions** solve. With JobRunr's `runStepOnce`, each step records that it completed. When the job runs again, the steps that already succeeded are skipped, and execution resumes at the first step that did not. The customer is charged once, even though the job ran more than once.
 
 ## Prerequisites
 
 - JobRunr 8.0.0 or later
-- You already know how to enqueue a job and configure JobRunr
+- You already know how to [enqueue a job]({{<ref "documentation/background-methods/enqueueing-jobs.md">}}) and [configure JobRunr]({{<ref "documentation/configuration/_index.md">}})
 - Basic understanding of the JobRunr job lifecycle (ENQUEUED → PROCESSING → SUCCEEDED), and that failed jobs are retried automatically
 
 ## The problem: a retry repeats everything
@@ -127,18 +126,6 @@ Open the two processing entries and the resume is unmistakable. Attempt 1 logs `
 
 ![](/guides/durable-executions-job-history.png "Expanded job history. The first attempt logs the charge and the reserve before failing. The second attempt resumes at reserve-inventory with no charge line, then sends the confirmation and finishes.")
 
-To prove it beyond the logs, the demo records every executed step in a small audit table and exposes a count per step. After the job finishes, each step has executed exactly once, even though the job ran twice:
-
-```text
-GET /orders/order-1001/audit
-
-[
-  { "step": "charge-payment",    "times_executed": 1 },
-  { "step": "reserve-inventory", "times_executed": 1 },
-  { "step": "send-confirmation", "times_executed": 1 }
-]
-```
-
 ## Passing values between steps
 
 When a step produces something the next step needs, use the `runStepOnce` overload that returns a value. JobRunr stores the result, so on a later run the stored value is replayed instead of recomputing it:
@@ -167,7 +154,7 @@ A few more things worth knowing:
 
 - **Step ids must be stable and unique.** Reusing an id across two different steps will mark the second one complete before it runs. Renaming an id makes JobRunr think it is a new step.
 - **Retries are configurable.** By default JobRunr retries a failed job up to 10 times with exponential back-off. Durable executions make each of those retries cheap, because only the unfinished work runs.
-- **It is not a workflow engine.** `runStepOnce` makes a single job durable. For fan-out, branching, and coordinating many jobs, look at job chaining and batches in JobRunr Pro.
+- **It is not a workflow engine.** `runStepOnce` makes a single job durable. For fan-out, branching, and coordinating many jobs, look at [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) and [batches]({{<ref "documentation/pro/batches.md">}}) in JobRunr Pro.
 
 ## When to use durable executions
 
@@ -181,11 +168,6 @@ For a job that does one thing, or where every operation is naturally idempotent,
 
 ## Conclusion
 
-Durable executions turn an ordinary multi-step job into one that survives failure. By wrapping each step in `runStepOnce`, you let JobRunr remember what has already happened and resume exactly where it left off. A retry no longer means starting over, it means continuing. The customer is charged once, the email is sent once, and the work that already succeeded is never redone.
+Durable executions turn an ordinary multi-step job into one that survives failure. By wrapping each step in `runStepOnce`, you let JobRunr remember what has already happened and resume exactly where it left off. A retry no longer means starting over, it means continuing. The customer is charged once, the email is sent once, and a retry does not redo the work that already succeeded.
 
 The mechanism is small, it runs on the database you already have, and it is part of JobRunr's open-source core. Combined with idempotent steps, it gives you crash-proof jobs without a separate workflow engine.
-
-## Resources
-
-- A complete working example, including the order fulfillment job, the failing inventory service, and the audit endpoint, is available at https://github.com/iNicholasBE/durable-executions-demo.
-- [Why is Idempotence Important in Java Job Scheduling?](/en/blog/idempotence-in-java-job-scheduling/)

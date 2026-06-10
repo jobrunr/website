@@ -111,6 +111,8 @@ jobContext.runStepOnce("send-confirmation",
 
 On a retry that skips `charge-customer`, the stored `chargeId` is replayed, so the confirmation still references the original charge.
 
+For a hands-on walkthrough, with a runnable demo and the JobRunr dashboard showing a job resume after a failure, see the [durable executions guide]({{<ref "guides/advanced/durable-executions.md">}}).
+
 Now the honest part. JobRunr gives you durable *jobs* with exactly-once *steps*, and it stores each step's result and replays it on a retry, all on the database you already have. That covers the large majority of background work, the reservation jobs, the report generation, the multi-step pipelines, the API integrations, and you get it without running another service.
 
 Where a dedicated engine like Temporal goes further is long-running waits as first-class primitives, pausing a single function for days with a durable `sleep`, or blocking until an external signal arrives with a durable `await`. JobRunr reaches those same outcomes a different way. A delay is just a scheduled job, waiting on an outside system is what JobRunr Pro's [External Jobs]({{<ref "guides/advanced/external-jobs.md">}}) are for, and sequencing work across jobs is [job chaining]({{<ref "documentation/pro/job-chaining.md">}}). For the everyday case you need none of it, and what you do need runs on infrastructure you already operate.
