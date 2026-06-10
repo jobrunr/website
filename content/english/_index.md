@@ -24,13 +24,13 @@ banner:
       title: "Execute jobs instantly"
       description: "Fire-and-forget jobs run once, almost immediately. Perfect for offloading non-critical tasks."
       code: |
+        BackgroundJob.enqueue(() -> processOrder(orderId, JobContext.Null));
+
         public void processOrder(UUID orderId, JobContext context) {
           context.runStepOnce("order-confirmation", () -> orderService.sendConfirmation(orderId));
           context.runStepOnce("warehouse-notification", () -> orderService.notifyWarehouse(orderId));
           context.runStepOnce("shipment-initiation", () -> orderService.initiateShipment(orderId));
         }
-
-        BackgroundJob.enqueue(() -> processOrder(orderId, JobContext.Null));
       language: "java"
       dashboard_image: "/dashboard/succeeded-jobs-oss.webp"
       dashboard_alt: "JobRunr Dashboard showing enqueued jobs being processed"
