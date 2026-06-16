@@ -55,6 +55,8 @@ Then, to enqueue or schedule it, we can use `BackgroundJobRequest` or `JobReques
 BackgroundJobRequest.enqueue(NewsletterSubscriptionJobRequest("user@example.com"))
 ```
 
+### Examples
+
 This pattern has been successfully applied to schedule jobs in both Scala and Groovy using JobRunr:
 
 - [Integrating JobRunr into Play Framework](https://tanin.nanakorn.com/integrate-jobrunr-into-play-framework/) by [Tanin Na Nakorn](https://github.com/tanin47) shows how to integrate JobRunr into Play Framework using Scala.
@@ -62,9 +64,14 @@ This pattern has been successfully applied to schedule jobs in both Scala and Gr
 
 ## Integrating JobRunr in other JVM frameworks
 
+> [!NOTE]
+> This section uses APIs introduced in JobRunr 8.7.0.
+
 JobRunr has official integrations for Micronaut, Quarkus, and Spring Boot. These integrations provide a native experience: auto-configuration using existing framework resources (e.g., a `DataSource` bean), property-based configuration, dependency injection for JobRunr's core objects, etc.
 
 A simple start using JobRunr is by configuring the library using the Fluent API which is framework agnostic. This approach is enough for most users.
+
+### Initializing JobRunr and exposing Beans
 
 The example below shows how to wire up JobRunr using Jakarta EE CDI, a similar approach can be adapted for any framework that supports bean injection.
 
@@ -80,48 +87,44 @@ public class JobRunrConfiguration {
 
     @Produces
     @Singleton
-    public JobRunrInitializationResult initializeJobRunr(StorageProvider storageProvider) {
-        var configurationResult = JobRunr.configure() // Using JobRunr Pro? Replace `JobRunr` by `JobRunrPro`
+    public JobRunrConfigurationResult initializeJobRunr(StorageProvider storageProvider) {
+        return JobRunr.configure() // Using JobRunr Pro? Replace `JobRunr` by `JobRunrPro`
             .useJobActivator(this::jobInstanceProvider)
             .useStorageProvider(storageProvider)
-            .useBackgroundJobServerIf(
-                /* initBackgroundJobServer */ true, 
+            .useBackgroundJobServer(
                 BackgroundJobServerConfiguration.usingStandardBackgroundJobServerConfiguration(),
                 /* startServerOnInit*/ false
             )
-            .useDashboard()
-            .initialize();
-
-        return new JobRunrInitializationResult(
-            configurationResult.getJobScheduler(),
-            configurationResult.getJobRequestScheduler(),
-            JobRunr.getBackgroundJobServer()
-        ); {{<conum 2>}}
+            .useDashboard(
+                JobRunrDashboardWebServerConfiguration.usingStandardDashboardConfiguration(),
+                /* startServerOnInit*/ false
+            )
+            .initialize(); {{<conum 2>}}
     }
 
     @Produces
     @Singleton
-    public JobScheduler jobScheduler(JobRunrInitializationResult initializationResult) {
-        return initializationResult.jobScheduler(); {{<conum 3>}}
+    public JobScheduler jobScheduler(JobRunrConfigurationResult configurationResult) {
+        return configurationResult.getJobScheduler(); {{<conum 3>}}
     }
 
     @Produces
     @Singleton
-    public JobRequestScheduler jobRequestScheduler(JobRunrInitializationResult initializationResult) {
-        return initializationResult.jobRequestScheduler(); {{<conum 4>}}
+    public JobRequestScheduler jobRequestScheduler(JobRunrConfigurationResult configurationResult) {
+        return configurationResult.getJobRequestScheduler(); {{<conum 4>}}
     }
 
     @Produces
     @Singleton
-    public BackgroundJobServer backgroundJobServer(JobRunrInitializationResult initializationResult) {
-        return initializationResult.backgroundJobServer(); {{<conum 5>}}
+    public BackgroundJobServer backgroundJobServer(JobRunrConfigurationResult configurationResult) {
+        return configurationResult.getBackgroundJobServer(); {{<conum 5>}}
     }
 
-    public static record JobRunrInitializationResult(
-        JobScheduler jobScheduler,
-        JobRequestScheduler jobRequestScheduler,
-        BackgroundJobServer backgroundJobServer
-    ) {}
+    @Produces
+    @Singleton
+    public JobRunrDashboardWebServer dashboardWebServer(JobRunrConfigurationResult configurationResult) {
+        return configurationResult.getDashboardWebServer(); {{<conum 6>}}
+    }
 
     private <T> T jobInstanceProvider(Class<T> aClass) {
         try {
@@ -137,44 +140,55 @@ The configuration class initializes JobRunr once at startup and registers its co
 
 {{< conum-legend >}}
 1. The [`StorageProvider`]({{< ref "documentation/installation/storage" >}}) is built from the framework-managed `DataSource`. It is mandatory dependency: JobRunr uses it to persist and retrieve job state.
-2. JobRunr is initialized with the `StorageProvider` bean and a CDI-backed `JobActivator` (see the note below). The [dashboard]({{< ref "documentation/background-methods/dashboard" >}}) is enabled and a `BackgroundJobServer` is created, but job processing is not started yet (`startServerOnInit: false`). The initialization result is wrapped in a holder bean so the objects can each be exposed individually.
+2. JobRunr is initialized with the `StorageProvider` bean and a CDI-backed `JobActivator` (see the note below). Both the `BackgroundJobServer` and the [dashboard]({{< ref "documentation/background-methods/dashboard" >}}) are configured, but neither is started yet (`startServerOnInit: false`); they are started from the lifecycle hooks (see below). The initialization result is wrapped in a holder bean so the objects can each be exposed individually.
 3. The [`JobScheduler`]({{< ref "documentation/background-methods#java-8-lambdas" >}}) is registered as a bean that can be injected to schedule jobs using Java 8 lambdas.
 4. The [`JobRequestScheduler`]({{< ref "documentation/background-methods#via-a-jobrequest" >}}) is registered as a bean that can be injected to schedule jobs using a `JobRequest`.
 5. The `BackgroundJobServer` is registered as a bean so it can be started and stopped from lifecycle hooks (see below).
+6. The [`JobRunrDashboardWebServer`]({{< ref "documentation/background-methods/dashboard" >}}) is registered as a bean for the same reason: it was created with `startServerOnInit: false`, so it is started and stopped from the lifecycle hooks alongside the `BackgroundJobServer`.
 {{< /conum-legend >}}
 
 > [!IMPORTANT]
 > The [`JobActivator`]({{< ref "documentation/background-methods/background-jobs-dependencies" >}}) is a functional interface that tells JobRunr how to resolve job service instances at execution time. Without it, JobRunr falls back to calling the default no-arg constructor, so job classes will not have their dependencies injected. By wiring it to CDI, JobRunr retrieves fully initialized instances from the container each time a job runs.
 
-With the beans in place, the last step is to tie job processing to the application lifecycle: start the `BackgroundJobServer` once the application is ready and shut it down cleanly when the application stops:
+### Tying JobRunr to the application lifecycle
+
+With the beans in place, the last step is to tie job processing to the application lifecycle: start the `BackgroundJobServer` and the `JobRunrDashboardWebServer` once the application is ready and shut them down cleanly when the application stops. Both were created with `startServerOnInit: false`, so they are started here:
 
 ```java
 @ApplicationScoped
 public class JobRunrStarter {
     private final BackgroundJobServer backgroundJobServer;
+    private final JobRunrDashboardWebServer dashboardWebServer;
+    private final StorageProvider storageProvider;
 
-    public JobRunrStarter(BackgroundJobServer backgroundJobServer, StorageProvider storageProvider) {
+    public JobRunrStarter(BackgroundJobServer backgroundJobServer, JobRunrDashboardWebServer dashboardWebServer, StorageProvider storageProvider) {
         this.backgroundJobServer = backgroundJobServer;
+        this.dashboardWebServer = dashboardWebServer;
         this.storageProvider = storageProvider;
     }
 
     void startup(@Observes StartupEvent event) {
+        dashboardWebServer.start();
         backgroundJobServer.start();
     }
 
     void shutdown(@Observes ShutdownEvent event) {
         backgroundJobServer.stop();
+        dashboardWebServer.stop();
         storageProvider.close();
     }
 }
 ```
 
-> [!NOTE]
-> The example always starts the [job dashboard]({{< ref "documentation/background-methods/dashboard" >}}). Use `useDashboardIf(condition)` instead to conditionally enable it based on an application property or environment variable.
-
 The configuration above covers the essentials, but the [Fluent API]({{< ref "documentation/configuration/fluent#advanced-configuration" >}}) supports much more. As requirements grow, `.configure()` can be extended with additional options: publishing metrics via Micrometer with `.useMicroMeter(...)`, or enabling [dynamic queues]({{< ref "documentation/pro/dynamic-queues" >}}) load balancing (a JobRunr Pro feature).
 
 For a reference on what a fully automated framework integration looks like, the [Spring Boot Starter](https://github.com/jobrunr/jobrunr/tree/master/framework-support/jobrunr-spring-boot-4-starter/src/main/java/org/jobrunr/spring/autoconfigure) is a good example.
+
+### Examples
+
+A similar strategy has been employed in the below examples:
+
+- [Integrating JobRunr into Play Framework](https://tanin.nanakorn.com/integrate-jobrunr-into-play-framework/) by [Tanin Na Nakorn](https://github.com/tanin47) shows how to integrate JobRunr into Play Framework.
 
 ## Next steps
 

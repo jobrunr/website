@@ -30,7 +30,7 @@ The quickstart guides show you how to introduce background job scheduling into y
   </a>
 </div>
 
-> Your language is not listed above? See the [Other JVM stacks guide]({{< ref "documentation/getting-started/other" >}}) for how to integrate JobRunr in Scala, Groovy, and more.
+> Your language is not listed above? See the [Other JVM stacks guide]({{< ref "documentation/getting-started/other#scheduling-jobs-in-jvm-languages-other-than-java-and-kotlin-using-jobrunr" >}}) for how to integrate JobRunr in Scala, Groovy, and more.
 
 ## Frameworks
 
@@ -49,4 +49,4 @@ The quickstart guides show you how to introduce background job scheduling into y
   </a>
 </div>
 
-> Your framework is not listed above? See the [Other JVM stacks guide]({{< ref "documentation/getting-started/other" >}}) for how to integrate JobRunr in Grails, Play, Open Liberty and more.
+> Your framework is not listed above? See the [Other JVM stacks guide]({{< ref "documentation/getting-started/other#integrating-jobrunr-in-other-jvm-frameworks" >}}) for how to integrate JobRunr in Grails, Play, Open Liberty and more.
