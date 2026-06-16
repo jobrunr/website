@@ -56,7 +56,7 @@ Another option in JobRunr Pro, is to export the SQL Scripts in [Flyway](https://
 To do so, use the `DatabaseSqlMigrationFileProvider`:
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} (-DtablePrefix=...) (-DdatabaseManager=...) (-Doutput=...)
+java -cp jobrunr-{{< param "JobRunrVersion" >}}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} (-DtablePrefix=...) (-DdatabaseManager=...) (-Doutput=...)
   where:
     - databaseType is one of 'cockroach', 'db2', 'h2', 'mariadb', 'mysql', 'oracle', 'postgres', 'sqlite', 'sqlserver'
     - databaseManager is one of 'none', 'liquibase', 'flyway' (defaults to none)
@@ -67,7 +67,7 @@ java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseS
 You can always apply the scripts yourself by means of the `DatabaseSqlMigrationFileProvider`:
 
 ```
-java -cp jobrunr-${jobrunr.version}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
+java -cp jobrunr-{{< param "JobRunrVersion" >}}.jar org.jobrunr.storage.sql.common.DatabaseSqlMigrationFileProvider {databaseType} ({tablePrefix})
 ```
 
 This will generate all database related scripts and allows you to manually setup and update your database.

@@ -423,7 +423,7 @@ For the dashboard, you can run it on any instance or dedicate a server to it. Th
 
 ## Getting Started
 
-The setup above is all you need to get going. For more details, check out the [5-minute quickstart guide](/en/documentation/5-minute-intro/). Deploy multiple instances of your application and watch jobs distribute automatically.
+The setup above is all you need to get going. For more details, check out the [quickstart guides]({{< ref "documentation/getting-started" >}}). Deploy multiple instances of your application and watch jobs distribute automatically.
 
 ---
 
