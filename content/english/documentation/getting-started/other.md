@@ -1,9 +1,8 @@
 ---
 title: "JobRunr in Other Frameworks and JVM Languages"
-subtitle: "No official integration for your framework or language? Here is how to get up and running."
 description: "Learn how to use JobRunr with any JVM language or frameworks that lacks an official integration, including Grails, Play Framework, Scala, and Groovy."
 keywords: ["jobrunr grails", "jobrunr scala", "jobrunr groovy", "jobrunr play framework", "jobrunr custom framework", "jobrequest jobrunr", "jobactivator jobrunr", "jobrunr unsupported frameworks", "jvm background jobs"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

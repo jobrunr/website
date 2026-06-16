@@ -1,9 +1,8 @@
 ---
 title: "Background Job Scheduling in Quarkus"
-subtitle: "Schedule background jobs in a Quarkus application using the JobRunr Quarkus extension."
 description: "Learn how to schedule fire-and-forget, delayed, and recurring background jobs in a Quarkus application using the JobRunr Quarkus extension."
 keywords: ["quarkus background jobs", "jobrunr quarkus", "quarkus job scheduler", "schedule jobs quarkus", "recurring job quarkus", "quarkus async job", "jobrunr quarkus extension"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

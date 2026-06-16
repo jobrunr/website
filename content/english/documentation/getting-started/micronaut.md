@@ -1,9 +1,8 @@
 ---
 title: "Background Job Scheduling in Micronaut"
-subtitle: "Schedule background jobs in a Micronaut application using the JobRunr Micronaut integration."
 description: "Learn how to schedule fire-and-forget, delayed, and recurring background jobs in a Micronaut application using the JobRunr Micronaut integration."
 keywords: ["micronaut background jobs", "jobrunr micronaut", "micronaut job scheduler", "schedule jobs micronaut", "recurring job micronaut", "micronaut async job", "jobrunr micronaut integration"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

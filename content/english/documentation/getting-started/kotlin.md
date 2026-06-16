@@ -1,9 +1,8 @@
 ---
 title: "Background Job Scheduling in Kotlin"
-subtitle: "Schedule background jobs in a Kotlin application using Kotlin lambdas and Kotlin Serialization."
 description: "Learn how to schedule fire-and-forget, delayed, and recurring background jobs in a Kotlin application using JobRunr with Kotlin lambdas and Kotlin Serialization."
 keywords: ["kotlin background jobs", "jobrunr kotlin", "kotlin job scheduler", "schedule jobs kotlin", "recurring job kotlin", "kotlin serialization jobrunr", "koin jobrunr", "jobrunr kotlin support"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

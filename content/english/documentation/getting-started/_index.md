@@ -1,8 +1,8 @@
 ---
 title: "Getting started"
-subtitle: "Quickstart guides for adding background job scheduling to any JVM application."
+description: "Quickstart guides for adding background job scheduling to any JVM application."
 keywords: ["getting started", "quickstart", "java", "spring boot", "quarkus", "micronaut", "kotlin", "setup"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

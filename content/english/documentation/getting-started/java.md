@@ -1,9 +1,8 @@
 ---
 title: "Background Job Scheduling in Java"
-subtitle: "Schedule background jobs in any Java application with just a few lines of code."
 description: "Learn how to schedule fire-and-forget, delayed, and recurring background jobs in a plain Java application using JobRunr's Fluent API."
 keywords: ["java background jobs", "java job scheduler", "schedule jobs java", "recurring job java", "java cron job", "background task java", "plain java jobrunr", "jobrunr fluent api", "java async job", "standalone jobrunr"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:

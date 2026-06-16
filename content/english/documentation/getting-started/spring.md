@@ -1,9 +1,8 @@
 ---
 title: "Background Job Scheduling in Spring Boot"
-subtitle: "Schedule background jobs in a Spring Boot application with auto-configuration and zero boilerplate."
 description: "Learn how to schedule fire-and-forget, delayed, and recurring background jobs in a Spring Boot application using the JobRunr Spring Boot Starter. A persistent, distributed alternative to @Scheduled."
 keywords: ["spring boot background jobs", "spring boot job scheduler", "spring boot task scheduling", "spring boot cron job", "jobrunr spring boot starter", "quartz scheduler spring boot", "ShedLock spring boot"]
-date: 2026-05-28T00:00:00+02:00
+date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:
