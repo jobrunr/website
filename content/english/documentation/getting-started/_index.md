@@ -12,7 +12,7 @@ menu:
 sitemap:
   priority: 0.9
   changeFreq: monthly
-aliases: ["/en/documentation/5-minute-intro", "/en/guides/intro/5-minute-quickstart", "/en/documentation/get-started", "/en/documentation/quickstart"]
+aliases: ["/documentation/5-minute-intro", "/guides/intro/5-minute-quickstart", "/documentation/get-started", "/documentation/quickstart"]
 ---
 
 The quickstart guides show you how to introduce background job scheduling into your JVM application. Pick your stack to get started — you'll be up and running in under 5 minutes.
