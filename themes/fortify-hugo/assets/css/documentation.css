@@ -124,12 +124,25 @@ details.docs-toc[open] .toc-chevron {
   scroll-margin-top: 6rem;
 }
 
-/* Documentation card hover effects */
+/* Documentation card */
+.doc-card {
+  @apply flex items-center gap-4 rounded-lg border border-border bg-body p-5 no-underline transition-all hover:border-primary hover:shadow-md;
+}
+
 .doc-card a {
   @apply text-inherit no-underline;
 }
 
-.doc-card:hover h3 {
+.doc-card .doc-card__title {
+  @apply font-semibold text-text m-0;
+}
+
+.doc-card svg {
+  @apply w-full h-full;
+}
+
+.doc-card:hover h3,
+.doc-card:hover .doc-card__title {
   @apply text-primary;
 }
 

@@ -8,7 +8,7 @@ tags:
     - JobRunr
 hideFrameworkSelector: true
 aliases:
-    - /en/migrate-to-jobrunr/
+    - /migrate-to-jobrunr/
 skip_meta: true
 ---
 
