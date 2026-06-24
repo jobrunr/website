@@ -35,6 +35,8 @@
 
 {{/* main style */}}
 
+<link rel="stylesheet" href="{{ "pagefind/pagefind-component-ui.css" | relURL }}" />
+
 {{ $mainCSS := resources.Get "css/main.css" }}
 {{ $tailwindOpts := dict "inlineImports" true }}
 {{ $tailwindCSS := $mainCSS | css.TailwindCSS $tailwindOpts }}
@@ -65,5 +67,3 @@
   integrity="{{ $stylesLazy.Data.Integrity }}"
   media="print"
   onload="this.media='all'; this.onload=null;" />
-
-<link rel="stylesheet" href="{{ "pagefind/pagefind-ui.css" | relURL }}">

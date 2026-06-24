@@ -31,40 +31,29 @@
     display: block;
 }
 
-/* Search Modal Dialog */
-#search-modal {
-    @apply border-0 rounded-md shadow-2xl p-0 m-auto;
+/* Pagefind Component UI */
+:root {
+    --pf-input-height: initial;
+    --pf-modal-max-width: min(95vw, 64rem);
 }
 
-#search-modal::backdrop {
-    @apply bg-black/60;
+pagefind-modal-trigger button {
+    @apply px-3! p-1.5!;
 }
 
-#search-modal .dialog__container {
-    @apply p-4;
+pagefind-modal-trigger button .pf-trigger-key {
+    @apply h-[1.25rem]!;
 }
 
-#search-modal .dialog__content {
-    @apply overflow-y-auto overscroll-contain;
+pagefind-filter-pane {
+    @apply mb-2;
 }
 
-#search-modal .dialog__footer {
-    @apply pt-4;
+.pf-modal-body {
+    @apply md:grid! md:grid-cols-[14rem_minmax(0,1fr)]! md:items-start! md:gap-x-6!;
 }
 
-#search-modal .dialog__footer .btn {
-    @apply px-5 py-2.5 text-sm font-medium transition-all;
-    @apply hover:bg-light rounded-md border border-border;
-}
-
-#search-modal #pagefind-search {
-    @apply h-[70vh] w-[80vw] max-w-[900px];
-}
-
-#search-modal #pagefind-search .pagefind-ui__results {
-    @apply overflow-x-auto;
-}
-
+/* Pro plan badges */
 .badge {
     @apply py-1 px-2 rounded text-sm mr-2 text-light text-center inline-block;
     background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
