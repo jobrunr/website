@@ -19,6 +19,7 @@
 <!-- main script -->
 {{ $scripts = $scripts | append (resources.Get "js/main.js") }}
 {{ $scripts = $scripts | append (resources.Get "js/hero.js") }}
+{{ $scripts = $scripts | append (resources.Get "js/newsletter.js") }}
 {{ $scripts = $scripts | resources.Concat "js/script.js" }}
 
 {{ $scriptsLazy = $scriptsLazy | resources.Concat "js/script-lazy.js" }}
