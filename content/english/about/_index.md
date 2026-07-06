@@ -2,7 +2,7 @@
 meta_title: "About JobRunr | Reliable Java Background Processing"
 title: "JobRunr, Built by Developers to Solve the Java Background Processing Pain"
 subtitle: "Our Story"
-description: "JobRunr is a reliable, open-source job scheduling solution built by Rosoco BV, dedicated to saving developer time and promoting eco-friendly software."
+description: "JobRunr is a reliable, open-source job scheduling solution built by JobRunr BV, dedicated to saving developer time and promoting eco-friendly software."
 left_image: "/images/about/team.jpeg" 
 right_image: "/images/key-features/4.webp" 
 quote:
@@ -10,7 +10,7 @@ quote:
   quote_line: "/images/about/quote-line.png"
   quote_bg_shape: "/images/about/quote-bg-shape.png"
   name: "Ronald Dehuysser"
-  designation: "Founder, Rosoco BV (JobRunr)"
+  designation: "Founder, JobRunr BV"
   content: |
     As a developer, I saw the same broken pattern everywhere: teams wasting weeks building fragile job schedulers with missing features like automatic retries and monitoring. JobRunr was built to solve that problem once and for all.
 
