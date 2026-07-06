@@ -30,7 +30,7 @@ This guide builds the same newsletter example as the [Java quickstart]({{< ref "
 
 ## Step 1: Add the JobRunr Spring Boot Starter
 
-If you are starting from scratch, generate a project at [start.spring.io](https://start.spring.io/) with the **Spring Web** dependency selected. The web starter pulls in Jackson, JobRunr will automatically pick it up for its [JSON serialization]({{< ref "/documentation/serialization.md" >}}) needs.
+If you are starting from scratch, generate a project at [start.spring.io](https://start.spring.io/) with the **Spring Web** dependency selected. The web starter pulls in Jackson, JobRunr will automatically pick it up for its [JSON serialization]({{< ref "/documentation/serialization.md" >}}) needs. While you're there, you can also search for and add JobRunr as a dependency, so you can move straight on to the next step.
 
 Add the JobRunr starter to your project:
 
