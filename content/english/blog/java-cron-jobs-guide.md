@@ -495,7 +495,7 @@ BackgroundJob.scheduleRecurrently(
 JobRunr OSS is a solid choice. Quick to set up, persistent jobs, and a built-in dashboard to see what's happening.
 
 **For production applications:**
-JobRunr OSS handles most use cases well. If you need enterprise features like priority queues, smart queues, advanced cron expressions, or [carbon-aware scheduling](/en/documentation/pro/carbon-aware-scheduling/) to run jobs when electricity is greenest, consider [JobRunr Pro](/en/pro/).
+JobRunr OSS handles most use cases well. If you need enterprise features like priority queues, smart queues, advanced cron expressions, or [carbon-aware scheduling](/en/documentation/background-methods/carbon-aware-jobs/) to run jobs when electricity is greenest, consider [JobRunr Pro](/en/pro/).
 
 **If you're already using Quartz:**
 Consider [migrating to JobRunr](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). The API is simpler and you get a dashboard.

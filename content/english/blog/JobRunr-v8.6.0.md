@@ -112,7 +112,7 @@ A huge thank you to **[@keldkemp](https://github.com/keldkemp)** and **[@RomanJo
 
 ### ⚠️ Breaking Change: Multi-Cluster Dashboard requires `clusterId`
 
-If you run the Multi-Cluster Dashboard, every cluster must now register itself with an explicit `clusterId`. This removes a class of edge cases where two clusters could end up sharing identity in the dashboard. See the [migration guide](/en/documentation/pro/multi-cluster-dashboard/) before upgrading.
+If you run the Multi-Cluster Dashboard, every cluster must now register itself with an explicit `clusterId`. This removes a class of edge cases where two clusters could end up sharing identity in the dashboard. See the [migration guide](/en/documentation/pro/jobrunr-pro-multi-dashboard/) before upgrading.
 
 ### New Features
 

@@ -7,6 +7,8 @@ image: /blog/modern-alternatives-to-quartz.png
 date: 2024-10-31T16:00:00+02:00
 lastmod: 2026-02-05T00:00:00+02:00
 author: "Ismaila Abdoulahi"
+aliases:
+  - /java-scheduler-comparison/
 tags:
   - blog
 ---
@@ -80,7 +82,7 @@ Used and trusted by industry leaders, the open source version of **JobRunr provi
 
 **2026 Update:** JobRunr now supports [virtual threads](/en/documentation/configuration/virtual-threads/) out of the box on JDK 21+, enabling significantly higher throughput for I/O bound jobs.
 
-[Get started with JobRunr](/en/documentation/5-minute-intro/) | [See the full feature comparison](/en/java-scheduler-comparison/) | [Watch Ronald present JobRunr at Spring I/O 2022](https://www.youtube.com/watch?v=2KFeeFuM9og)
+[Get started with JobRunr](/en/documentation/5-minute-intro/) | [See how JobRunr compares to Quartz](/en/blog/quartz-vs-jobrunr/) | [Watch Ronald present JobRunr at Spring I/O 2022](https://www.youtube.com/watch?v=2KFeeFuM9og)
 
 <figure>
 <img src="/documentation/jobs-enqueued.webp" class="kg-image" style="height: 400px">
