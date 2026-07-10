@@ -1,7 +1,7 @@
 ---
 title: "Durable Execution Without a Workflow Engine: Just Your Database and JobRunr"
 description: "Durable execution does not require a separate workflow engine. Here is the honest cost of Temporal-style engines, a real crash test of JobRunr's runStepOnce, and how to decide what your Java team actually needs."
-keywords: ["durable execution", "durable execution java", "temporal alternative java", "do i need a workflow engine", "jobrunr vs temporal", "runsteponce", "exactly once java", "idempotent jobs", "database backed durable execution"]
+keywords: ["durable execution", "durable execution java", "do i need a workflow engine", "runsteponce", "exactly once java", "idempotent jobs", "database backed durable execution"]
 images:
   - /blog/durable-execution-without-a-workflow-engine.webp
 image: /blog/durable-execution-without-a-workflow-engine.webp
