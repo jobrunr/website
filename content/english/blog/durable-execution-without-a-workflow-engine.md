@@ -7,6 +7,7 @@ images:
 image: /blog/durable-execution-without-a-workflow-engine.webp
 date: 2026-07-09T10:00:00+02:00
 author: "Nicholas D'hondt"
+draft: true
 tags:
   - blog
   - durable execution

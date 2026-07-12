@@ -5,9 +5,11 @@ keywords: ["jobrunr vs temporal", "temporal alternative java", "temporal java sd
 images:
   - /blog/jobrunr-vs-temporal.webp
 image: /blog/jobrunr-vs-temporal.webp
-date: 2026-07-10T10:00:00+02:00
+date: 2026-07-12T10:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
+draft: false
+aliases:
+  - /blog/durable-execution-without-a-workflow-engine/
 tags:
   - blog
   - job scheduling
@@ -89,6 +91,10 @@ Temporal's co-creator Maxim Fateev frames the tool the same way we do here: not 
 
 [JobRunr](https://github.com/jobrunr/jobrunr) approaches the same goal from the opposite direction. It is a lightweight library, not a platform. You add one dependency, point it at the SQL or NoSQL database your application already uses, and any Java method or lambda becomes a persistent background job. Jobs are serialized to the database, workers across all your app instances poll for them, failed jobs retry with exponential back-off, and jobs stranded on a crashed server are picked up again automatically. A built-in dashboard shows every job in real time.
 
+{{< svg "assets/blog/temporal-vs-jobrunr-architecture.svg" >}}
+
+<div style="text-align:center;margin:-1em 0 2em;"><small style="font-size:80%;">What each tool adds to your architecture. Temporal brings its own cluster and persistence store; JobRunr rides along inside the application and database you already run.</small></div>
+
 For multi-step work, JobRunr v8 added [durable executions]({{<ref "guides/advanced/durable-executions.md">}}) through `JobContext.runStepOnce`, in the free open-source version. You name each step, JobRunr checkpoints it in the job's own database row when it completes, and a retry skips every completed step. The same order workflow from the Temporal example looks like this:
 
 ```java
@@ -104,14 +110,17 @@ public class OrderFulfillmentJob {
 }
 ```
 
-One class, 12 lines, plain Java. There is no determinism contract because nothing is replayed from a history. This is ordinary code with checkpoints, so you can read the clock, generate UUIDs, and log freely. Notice the second argument to `charge`: the job id is stable across every retry and recovery, which makes `jobContext.getJobId()` a ready-made [idempotency]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}) key for your payment provider. More on why you need that below, with either tool.
+One class, 12 lines, plain Java. Because nothing is replayed from a history, there is no engine-enforced determinism contract: reading the clock or generating a UUID will not break a replay, and you can log freely. But be precise about what that buys you. A retry still re-runs the method from the top and only skips completed steps, so code *outside* the steps executes again on every attempt. A softer version of Temporal's rule survives: any value that must be identical across attempts belongs inside a step. Notice the second argument to `charge`: the job id is stable across every retry and recovery, which makes `jobContext.getJobId()` a ready-made [idempotency]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}) key for your payment provider. More on why you need that below, with either tool.
 
-Steps can also return values, and the result is stored and replayed into later runs:
+That "inside a step" rule is what the value-returning `runStepOnce` overload is for. The result is stored with the job and replayed into every later run:
 
 ```java
+Instant startedAt = jobContext.runStepOnce("started-at", () -> Instant.now());
 String chargeId = jobContext.runStepOnce("charge-payment", () -> paymentService.charge(orderId));
 jobContext.runStepOnce("send-confirmation", () -> mailService.sendConfirmation(orderId, chargeId));
 ```
+
+On a retry, `startedAt` and `chargeId` come back from the stored results instead of being recomputed. A bare `Instant.now()` at the top of the method would hand every attempt a different timestamp, so a check like "is this payment stale?" could flip its answer between attempt one and attempt three. Wrapped in a step, every attempt sees the same instant. The same applies to control flow: branch on stored step results and every retry follows the path the first attempt took. So the difference with Temporal is not that JobRunr repeals determinism. It is who enforces it and how far it reaches. In Temporal, non-deterministic workflow code breaks the replay mechanism itself, so the SDK polices your clock, your random numbers, and your data structures. In JobRunr, the engine does not care what you do between steps; you only have to checkpoint the specific values your logic depends on across retries. The [durable executions guide]({{<ref "guides/advanced/durable-executions.md">}}) walks through this in more detail.
 
 ## When should you use JobRunr?
 
@@ -131,7 +140,7 @@ JobRunr is the right choice when the steps are the hard problem and the orchestr
 | **Extra infrastructure** | Temporal server and its persistence store, or Temporal Cloud | None, reuses your existing database |
 | **Durability model** | Event-sourced history + deterministic replay | Checkpointed steps stored with the job |
 | **Code for a 3-step workflow** | 4 types, ~50 lines | 1 class, 12 lines |
-| **Determinism contract** | Yes, workflow code must be deterministic | No, ordinary Java |
+| **Determinism contract** | Yes, enforced by the SDK: non-deterministic workflow code breaks replay | Not enforced by the engine; store values that must survive retries as step results |
 | **Languages** | Java, Go, TypeScript, Python, .NET, PHP, Ruby | JVM (Java, Kotlin, Scala) |
 | **Signals, queries, durable timers** | Built-in primitives | Scheduled jobs, plus [External Jobs]({{<ref "guides/advanced/external-jobs.md">}}) and [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) in Pro |
 | **Recurring work** | Schedules API | Built-in recurring jobs with cron, one line |
@@ -171,13 +180,19 @@ That is a **95x difference in committed transactions** for identical work, and i
 
 Footprint follows the same pattern: the JobRunr module needs 11 jars (5.4 MB shaded), the Temporal module pulls in 38 jars (33 MB) through its gRPC and protobuf stack.
 
-The methodology, fairness notes, and raw numbers are in the [benchmark repo](https://github.com/iNicholasBE/temporal-vs-jobrunr-benchmark), and the deeper argument about whether you need a workflow engine at all is in [Durable Execution Without a Workflow Engine]({{<ref "blog/durable-execution-without-a-workflow-engine.md">}}).
+The methodology, fairness notes, and raw numbers are in the [benchmark repo](https://github.com/iNicholasBE/temporal-vs-jobrunr-benchmark).
 
 ## The question both tools make you answer: exactly-once
 
 Here is the detail that levels the playing field, straight from Temporal's own documentation. Temporal executes your workflow *logic* exactly once, but your Activities, the steps that actually charge cards and call APIs, "may be executed multiple times" ([activity definition docs](https://docs.temporal.io/activity-definition#idempotency)). A process can always die after the side effect happens but before its completion is recorded. No engine can remove that window, which is why Temporal tells you to make activities [idempotent]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}).
 
 JobRunr is under the same law of physics and says so just as plainly. `runStepOnce` guarantees a completed step is never re-run on a *retry*. Across a *hard crash*, JobRunr OSS checkpoints step state at its poll interval, so a step that finished just before the crash can replay on recovery. JobRunr Pro closes most of that window by writing step state the moment a step completes. Either way, the discipline is the same one Temporal requires: give the money-moving step a stable idempotency key, and the replay becomes a no-op. Both implementations in our benchmark do exactly that, with one line each.
+
+We did not take our own word for it. The [benchmark repo](https://github.com/iNicholasBE/temporal-vs-jobrunr-benchmark) includes a crash test that writes a ledger row for every step execution, run once with an ordinary exception plus retry, and once with a `kill -9` fired right after the payment step completed but before its checkpoint reached the database:
+
+{{< svg "assets/blog/runsteponce-crash-test-ledger.svg" >}}
+
+<div style="text-align:center;margin:-1em 0 2em;"><small style="font-size:80%;">The crash test ledger. On a normal retry every completed step is skipped. After a hard crash inside the checkpoint window, the in-flight steps replay, which is exactly the case the idempotency key covers.</small></div>
 
 So the real comparison is never "exactly-once versus at-least-once". Both tools give you durable orchestration with at-least-once side effects. The difference is what you pay to get it.
 
@@ -188,6 +203,10 @@ For orchestration that outgrows a single method, the two tools diverge in style.
 If you find yourself modelling a state machine with dozens of branches, human approvals, and cross-language hops, that is Temporal territory and we will happily say so. If your "workflow" is a chain of Java jobs with fan-out and a wait or two, you do not need to operate a second distributed system to get it.
 
 ## Key takeaways
+
+{{< svg "assets/blog/temporal-vs-jobrunr-decision-tree.svg" >}}
+
+<div style="text-align:center;margin:-1em 0 2em;"><small style="font-size:80%;">Three questions decide it. Answer yes to any of them and Temporal earns its platform; answer no to all three and a database-backed scheduler covers you.</small></div>
 
 Choose **Temporal** when the orchestration itself is your product: deeply branching workflows that live for months, coordination across services in multiple languages, signals and queries as core primitives, and a hard requirement for the complete event history of every execution. Budget for the platform work that comes with it.
 
