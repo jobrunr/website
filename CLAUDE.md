@@ -90,7 +90,13 @@ Conventions that keep diagrams on-brand and rendering reliably:
 - Blog content sits on a **white** background. Use light panels with dark text and semantic accents: green for completed/success, red for failure, amber for wasteful re-runs, grey (dashed) for skipped.
 - **Do not put unicode glyphs (`✓ ✕ ↓ ↻`) in `<text>`.** They render as empty boxes when the visitor's font lacks them. Draw checks, crosses, and arrows as `<path>`/`<line>` instead.
 - Make it responsive: set both `width`/`height` **and** `viewBox`, plus `style="max-width:100%;height:auto;"` on the root `<svg>`.
-- Add a short caption underneath using a centered `<small>` (see the durable execution post).
+- Add a short caption by wrapping the shortcode in semantic markup, not inline-styled divs:
+  ```markdown
+  <figure>
+  {{< svg "assets/blog/<name>.svg" >}}
+  <figcaption>One or two sentences explaining what the diagram shows.</figcaption>
+  </figure>
+  ```
 - Generating one with a script (e.g. Python building the SVG string) is fine. Render it to PNG and eyeball it before committing, since a glyph or sizing mistake is invisible until it renders.
 - Mermaid fenced code blocks also render (see `blog/axon-framework-jobrunr-pro.md`) and suit quick flow/sequence diagrams. Hand-authored SVG gives more control over styling.
 
@@ -121,6 +127,10 @@ menu:
     - `blog/Simplified-RAG-Workflows-in-Java.md`
     - `blog/2022-10-05-JobRunr-and-daylight-saving-time.md`
     - `blog/axon-framework-jobrunr-pro.md`
+  - Be even-handed, especially in comparison posts: write a decision guide, not a pitch. Give other tools their legitimate wins and state plainly when JobRunr is not the right choice.
+  - Don't oversell. Name the limitations and responsibilities that remain with the reader no matter which tool they pick, and where JobRunr OSS and Pro behave differently, say so instead of letting one claim stand for both.
+  - Keep exact figures in the section where they are substantiated; in intros and takeaways prefer softer phrasing over repeating precise numbers.
+  - Prefer "JVM" over "Java" when the point applies to Kotlin/Scala too.
 
 ## Code Style
 
