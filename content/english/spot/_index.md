@@ -7,10 +7,10 @@ sitemap:
   changeFreq: weekly
 
 hero:
-  badge: "Private beta live now"
+  badge: "Private beta live now on AWS"
   title_start: "Background jobs on spot, in your own cloud."
   title_highlight: "60 to 80% off your cloud bill."
-  description: "JobRunr Spot finds the cheapest spot instance in your own AWS and Google Cloud accounts, dispatches your job there, and re-runs it if the instance gets killed."
+  description: "JobRunr Spot watches your job queue and boots your app on the cheapest spot instance in your own cloud account when jobs start waiting. If the instance gets reclaimed, your cluster picks the jobs back up."
 
 button:
   primary:
@@ -30,34 +30,35 @@ challenges_section:
       description: "The same instance can be four times cheaper in another region, or half the price an hour from now. Tracking that across AWS and Google Cloud is a full-time job. So most teams give up and pay on-demand."
     - title: "Sudden shutdowns break your jobs"
       description: "You move a batch job to spot. It gets killed three times. You miss your SLA. You move it back to on-demand. Spot only works if something else handles the failover for you."
-    - title: "Your jobs know they can wait. Your infrastructure doesn't."
-      description: "A nightly report can wait until 3 AM, when spot is cheapest. A user-facing PDF needs to run now. Neither of those signals lives anywhere your spot manager can read. So you either run everything as if it were urgent, or you build the deadline logic yourself."
+    - title: "Your autoscaler watches CPU, not your job queue"
+      description: "By the time CPU metrics trigger a scale-up, your jobs have already been waiting. What you actually want is extra capacity the moment the queue backs up, torn down the moment it drains. Teaching a generic autoscaler to react to job latency means custom metrics and glue code nobody wants to maintain."
     - title: "Even when you find cheaper capacity, you can't use it"
       description: "The cheapest spot right now might be a different region, a different AZ, or a different instance family. Your Terraform pins all three. By the time you redeploy to capture the saving, the price has already moved."
 
 how_it_works:
   id: "how-it-works"
-  title: "One method. Same JobRunr API you already use."
-  description: "Tell JobRunr Spot when you need the result and what you're willing to pay. We watch spot pricing across AWS and Google Cloud, run your job when it fits, and re-dispatch if the instance gets killed. The API mirrors the carbon-aware jobs API you may already know from JobRunr Pro."
-  filename: "ReportService.java"
+  title: "Configure it once. JobRunr scales itself onto spot."
+  description: "Give JobRunr Spot your cloud credentials and the Docker image of your app. It watches its own job queue: when jobs start waiting longer than the latency you set, it boots your image on the cheapest spot instance that matches your hardware requirements. That worker joins your cluster and processes jobs like any other node, and it all shuts down again once the queue is quiet."
+  filename: "JobRunrConfiguration.java"
   highlights:
-    - "<strong>Set a deadline:</strong> we pick the cheapest moment to run inside your window"
-    - "<strong>Runs in your own AWS and GCP accounts:</strong> your data, your VPC, your existing cloud setup. We're just the broker."
-    - "<strong>CPU and GPU both supported:</strong> starting with CPU in the September release"
-    - "<strong>Automatic failover:</strong> spot instance killed? Re-dispatched on the next cheapest match"
-    - "<strong>One outbound WebSocket:</strong> no firewall changes, no webhook setup"
+    - "<strong>Your queue is the scaling signal:</strong> capacity appears when jobs start waiting and disappears when the queue drains. No custom CloudWatch metrics, no launch templates."
+    - "<strong>Runs in your own cloud account:</strong> your data, your VPC, your existing cloud setup. AWS today, Google Cloud next. We're just the broker."
+    - "<strong>Cheapest match across regions:</strong> the broker compares spot prices across the regions you allow and picks the cheapest instance that fits your hardware requirements"
+    - "<strong>Automatic failover:</strong> spot instance reclaimed mid-job? Your cluster notices the dead worker and the remaining nodes pick its jobs back up"
+    - "<strong>Verifiable savings:</strong> the dashboard tracks what your spot instances cost against what the same hours would have cost on-demand"
   code: |
-    <span style="color:#546e7a">// Run a PDF report sometime in the next 4 hours,</span>
-    <span style="color:#546e7a">// on the cheapest spot CPU we can find across AWS and Google Cloud</span>
-    <span style="color:#c792ea">BackgroundJob</span>.<span style="color:#82aaff">schedule</span>(
-        <span style="color:#c792ea">CostAware</span>.<span style="color:#82aaff">between</span>(now, now.<span style="color:#82aaff">plus</span>(<span style="color:#f78c6c">4</span>, <span style="color:#c792ea">HOURS</span>)).<span style="color:#82aaff">on</span>(<span style="color:#c792ea">CPU</span>),
-        () -> reportService.<span style="color:#82aaff">generatePdf</span>(reportId));
-
-    <span style="color:#546e7a">// GPU works the same way:</span>
-    <span style="color:#c792ea">BackgroundJob</span>.<span style="color:#82aaff">schedule</span>(
-        <span style="color:#c792ea">CostAware</span>.<span style="color:#82aaff">between</span>(now, now.<span style="color:#82aaff">plus</span>(<span style="color:#f78c6c">6</span>, <span style="color:#c792ea">HOURS</span>)).<span style="color:#82aaff">on</span>(<span style="color:#c792ea">GPU</span>, <span style="color:#a5d6ad">"A100"</span>),
-        () -> myService.<span style="color:#82aaff">runInference</span>(input));
-  caption: "This shows the shape of the API. Final method names may change based on what design partners tell us. Inspired by the carbon-aware jobs API in JobRunr Pro."
+    <span style="color:#546e7a">// Configure once: JobRunr boots your Docker image on the</span>
+    <span style="color:#546e7a">// cheapest spot instance whenever your job queue backs up</span>
+    <span style="color:#c792ea">JobRunr</span>.<span style="color:#82aaff">configure</span>()
+        .<span style="color:#82aaff">useStorageProvider</span>(storageProvider)
+        .<span style="color:#82aaff">useCostAware</span>(<span style="color:#82aaff">usingStandardCostAwareConfiguration</span>(
+                <span style="color:#c792ea">new</span> <span style="color:#c792ea">CostAwareAwsEC2ProviderConfiguration</span>(accessKeyId, secretAccessKey, accountRegion, registryReaderRole),
+                <span style="color:#a5d6ad">"url-to-your-docker-image"</span>)
+            .<span style="color:#82aaff">andUsingRegions</span>(<span style="color:#c792ea">new</span> <span style="color:#c792ea">String</span>[]{<span style="color:#a5d6ad">"eu-north-1"</span>, <span style="color:#a5d6ad">"eu-west-1"</span>})
+            .<span style="color:#82aaff">andSpotInstanceAmount</span>(<span style="color:#f78c6c">1</span>, <span style="color:#f78c6c">5</span>)
+            .<span style="color:#82aaff">andScaleUpLatency</span>(<span style="color:#c792ea">Duration</span>.<span style="color:#82aaff">ofMinutes</span>(<span style="color:#f78c6c">1</span>)))
+        .<span style="color:#82aaff">initialize</span>();
+  caption: "This shows the shape of the configuration API. Final method names may change based on what design partners tell us."
 
 email_section:
   id: "waitlist"
@@ -66,7 +67,7 @@ email_section:
   button_label: "Join the waitlist"
   form_note: "We'll reach out before the private beta opens. No spam, ever."
   success_title: "You're on the list."
-  success_message: "We'll be in touch before the private beta opens. In the meantime, check out the External Jobs feature in JobRunr v8.5.0. It's the foundation everything here is built on."
+  success_message: "We'll be in touch before the private beta opens. In the meantime, the best preparation is making your jobs safe to re-run: spot instances can disappear mid-job, and JobRunr simply runs the job again on another worker."
   package_items:
     - "Early access before the September public release"
     - "Direct input on the API, pricing, and provider roadmap"
@@ -112,13 +113,13 @@ accordion:
     - title: "Is CPU the only thing supported at launch?"
       description: "Yes, but only because we want to ship something stable. GPU brokering is the very next milestone, on the same API and dashboard. Most Java workloads are CPU-bound (PDF, ETL, reporting, transcoding), so starting there gives the most teams an immediate win."
     - title: "What about the GPU side?"
-      description: "Same API, same dashboard, same limit-order pricing. You'll pass GPU and the model you need (A100, H100, L4) instead of CPU. If your team is already thinking about AI workloads, tell us in the waitlist follow-up and we'll keep you in the loop on GPU access specifically."
+      description: "Same configuration, same dashboard. You'll specify the GPU and the model you need (A100, H100, L4) in your hardware requirements instead of CPU only; GPU memory is already a configuration option. If your team is already thinking about AI workloads, tell us in the waitlist follow-up and we'll keep you in the loop on GPU access specifically."
     - title: "Will it work with the JobRunr OSS version?"
-      description: "Yes. JobRunr Spot connects to your existing JobRunr or JobRunr Pro instance over a single outbound WebSocket. You don't change how you define jobs. The spot features are opt-in per job."
+      description: "Yes. It's configuration, not a rewrite. You point JobRunr Spot at your cloud account and the Docker image of your app, and the spot workers join your existing JobRunr cluster like any other node. You don't change how you define jobs."
     - title: "How will pricing work?"
       description: "You pay AWS and Google Cloud directly for the compute, and the 60 to 80 percent spot saving stays with you. Our own pricing on top of that is still open. A flat platform fee, a small percentage of spot spend, tiered usage: we're not locked into any model yet. That's one of the things we want to figure out together with design partners, so we land on something that actually works for the teams using it."
     - title: "Is this replacing JobRunr Pro?"
-      description: "No. JobRunr Pro keeps doing what it does inside your app: priority queues, batches, workflows, multi-cluster dashboard. JobRunr Spot handles what needs to happen outside your app: the public webhook, the multi-provider broker, the cost optimization."
+      description: "No. JobRunr Pro keeps doing what it does inside your app: priority queues, batches, workflows, multi-cluster dashboard. JobRunr Spot handles what happens outside your app: watching spot prices, booting and retiring instances in your cloud account, and reporting what you actually saved."
     - title: "What if I'm not sure my use case fits?"
       description: "Sign up anyway and tell us in the follow-up email. We'd rather hear about a use case we hadn't thought of than miss a design partner who would have been a great fit."
 ---
