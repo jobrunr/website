@@ -7,7 +7,7 @@ images:
 image: /blog/cost-aware-spot-scaling.webp
 date: 2026-07-21T09:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
+draft: false
 tags:
   - blog
   - job scheduling
@@ -17,7 +17,7 @@ tags:
 
 Most job queues have a shape: quiet for hours, then a report run or an import lands and your workers are behind for twenty minutes. You can size your fleet for the spike and pay for idle capacity all day, or size it for the average and let the queue build. Neither feels right, which is why "just add another small worker VM" is such a common compromise.
 
-We have been building a third option into JobRunr: **cost-aware scaling**. When the queue latency crosses a threshold, JobRunr asks a pricing service for the cheapest AWS spot instance that meets your hardware requirements, boots your worker image on it, lets it drain the backlog, and terminates it when the queue is quiet again. Spot capacity is AWS's spare capacity, sold at a steep discount (AWS itself says [up to 90% off on-demand](https://aws.amazon.com/ec2/spot/)) with the catch that AWS can reclaim it with two minutes' notice. That catch is exactly why we think background jobs are the perfect workload for it, and later in this post we kill a node mid-run to back that up.
+We have been building a third option into JobRunr: **[cost-aware scaling]({{<ref "spot/_index.md">}})**. When the queue latency crosses a threshold, JobRunr asks a pricing service for the cheapest AWS spot instance that meets your hardware requirements, boots your worker image on it, lets it drain the backlog, and terminates it when the queue is quiet again. Spot capacity is AWS's spare capacity, sold at a steep discount (AWS itself says [up to 90% off on-demand](https://aws.amazon.com/ec2/spot/)) with the catch that AWS can reclaim it with two minutes' notice. That catch is exactly why we think background jobs are the perfect workload for it, and later in this post we kill a node mid-run to back that up.
 
 If this sounds familiar, it is the same idea as our [carbon-aware scheduling]({{<ref "documentation/background-methods/carbon-aware-jobs.md">}}), pointed at a different signal: instead of waiting for the greenest electricity, the scheduler shops for the cheapest compute.
 
@@ -51,9 +51,9 @@ The scaling logic is deliberately boring. Every poll cycle, JobRunr looks at how
 
 ## The discount is real, and it grows with instance size
 
-Every price in this post is a live pair we measured: the spot price JobRunr actually paid, and the on-demand price of the *same instance type* fetched from the AWS pricing API at provisioning time.
+Every price in this post is a live pair we measured: the spot price JobRunr actually paid, and the on-demand price of that same provisioned instance type fetched from the AWS pricing API at provisioning time. One nuance worth knowing: JobRunr targets the cheapest spot pool that satisfies your minimum spec, but if that pool has no capacity at that moment, it provisions a pricier type that does. The discount you see is therefore always measured against the instance you were actually given, not against a hand-picked baseline.
 
-![Measured spot vs on-demand prices](/blog/cost-aware-spot-discount.png "Both pairs measured in eu-north-1 on the same day. The percentage is against the identical instance type, not against some convenient baseline.")
+![Measured spot vs on-demand prices](/blog/cost-aware-spot-discount.png "Both pairs measured in eu-north-1 on the same day. Each percentage compares the spot price we paid with the on-demand price of the instance type JobRunr actually provisioned.")
 
 Our small-job experiments landed on a t3.small at **$0.0082/hour instead of $0.0216**. When we raised the minimum spec to 8 vCPU / 16 GiB, the API picked a t3.2xlarge at **$0.1078 instead of $0.3456, which is 69% off**. We had expected the discount to shrink on bigger instances; it went the other way.
 
@@ -79,11 +79,11 @@ That last number is worth staring at. The convenient way to say it: with this fe
 
 ## The part everyone worries about: we killed the node mid-run
 
-Spot instances can be reclaimed by AWS at any moment, and that is the reason most teams never try them. So we simulated the worst case ourselves: during a 40-job burst, while the spot node was processing **17 jobs**, we terminated the EC2 instance out from under it. No drain, no warning. That is harsher than a real reclaim, which at least gives you a [two-minute notice](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html).
+Spot instances can be reclaimed by AWS at any moment, and that is the reason most teams never try them. So we simulated the worst case ourselves: during a 40-job burst, while the spot node was processing **17 jobs**, we terminated the EC2 instance out from under it. No drain, no warning. AWS does announce a real reclaim with a [two-minute notice](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-instance-termination-notices.html), but JobRunr deliberately does not listen for it: a reclaimed node is handled exactly like any other server crash, so a hard kill with zero warning is precisely the event the design has to survive.
 
 ![Chaos test timeline](/blog/cost-aware-chaos-timeline.png)
 
-Eleven seconds after the terminate call, all 17 in-flight jobs were back in the queue: the dying container's JobRunr shut down gracefully and re-queued its own work as `Retry 1 of 10`. The coordinator noticed the backlog, provisioned a replacement, and every one of the 40 jobs finished. **Zero jobs lost.** (Full disclosure on the asterisk in the timeline: our test coordinator itself crashed mid-test for an unrelated reason we cover in the lessons below, so the replacement timings are from after we fixed that.)
+Eleven seconds after the terminate call, all 17 in-flight jobs were back in the queue: the dying container's JobRunr shut down gracefully and re-queued its own work as `Retry 1 of 10`. The coordinator noticed the backlog, provisioned a replacement, and every one of the 40 jobs finished. **Zero jobs lost.** (Full disclosure on the asterisk in the timeline: our test coordinator itself crashed mid-test for an unrelated reason, a database connection issue in our own test harness rather than anything in the scaling feature, so the replacement timings are from after we fixed that.)
 
 There is no magic here, and that is the point. JobRunr executes jobs [at-least-once with automatic retries]({{<ref "documentation/background-methods/dealing-with-exceptions.md">}}) whether your worker dies from a spot reclaim, a deploy, or a kernel panic. Spot interruption is just another server crash, and job schedulers have been surviving those forever. The discipline that remains yours is the same one you already needed: [idempotent jobs]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}), because a job that ran halfway will run again.
 
@@ -121,10 +121,9 @@ Where an always-on worker still wins is latency: capacity that already exists re
 
 A day of deliberately rough testing surfaced real sharp edges, some ours, some yours to hold:
 
-* **Give JobRunr a pooled `DataSource`.** Our test coordinator used a raw `PGSimpleDataSource` and transient connection timeouts to Aurora killed it twice; with HikariCP in front, zero incidents for the rest of the day. We also found (and are fixing) a related bug where a failed startup task could leave a server heartbeating but not promoting scheduled jobs.
-* **Set `scaleDownLatency` at least as long as your typical job.** Scale-down currently fires when the *queue* is empty, even if workers are mid-job. Nothing is lost, the jobs re-queue exactly like in the chaos test, but you pay a retry round. Drain-before-terminate is on the list.
+* **Set `scaleDownLatency` at least as long as your typical job.** Scale-down currently fires when the *queue* is empty, even if workers are mid-job. Nothing is lost, the jobs re-queue exactly like in the chaos test, but you pay a retry round. Draining a node before terminating it could be a nice refinement someday; for now the retry is the design, so size your scale-down window accordingly.
 * **Your spot image's worker count is the real throughput dial.** The nodes come up with JobRunr's default of 8 workers per vCPU, which is how one machine swallowed 60 jobs at once. Tune it to what your jobs actually saturate: CPU-bound work wants fewer, IO-bound work wants more.
-* **Start the pricing service ahead of time.** It needs one 5-minute collection cycle before it can rank pools.
+* **A freshly started pricing service is blind for its first minutes.** It needs one 5-minute collection cycle of live spot prices before it can rank pools. This one bit us because our test day started from a cold instance; by the time this ships, the service your scheduler talks to will already be warm.
 
 For transparency: the complete test day, every provisioning, the chaos test, the big node and all the tooling included, cost **$0.012** in AWS spend.
 

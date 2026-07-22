@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <!-- Hero Section -->
-<section class="section pt-20 pb-16 bg-white">
+<section class="section pt-20 pb-10 bg-white">
   <div class="container">
     <div class="row justify-center">
       <div class="text-center lg:col-9" data-aos="fade-up-sm">
@@ -43,44 +43,37 @@
   </div>
 </section>
 
-<!-- Challenges / Problem Section -->
-<section class="section bg-gray-50">
+<!-- Proof Strip -->
+{{ with .Params.proof_section }}
+<section class="pb-16 bg-white">
   <div class="container">
-    <div class="text-center mb-16" data-aos="fade-up-sm">
-      <h2 class="h2 mb-4">{{ .Params.challenges_section.title }}</h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.challenges_section.description }}</p>
-    </div>
-
-    <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      {{ range $index, $item := .Params.challenges_section.items }}
-      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
-        <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-6 text-primary">
-          {{ if eq $index 0 }}
-          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 11c0-1.1.9-2 2-2h4a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2v-8a2 2 0 012-2h4M9 11V7a3 3 0 016 0v4"/></svg>
-          {{ else if eq $index 1 }}
-          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17l6-6 4 4 8-8M21 7h-5M21 7v5"/></svg>
-          {{ else if eq $index 2 }}
-          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17H5a2 2 0 01-2-2v-3m6 5h10m-10 0v-3m10 3h0a2 2 0 002-2v-3m-2 5v-3m-8-7h0M5 7h0a2 2 0 00-2 2v3m18-5h0a2 2 0 012 2v3M5 7V5a2 2 0 012-2h10a2 2 0 012 2v2"/></svg>
-          {{ else }}
-          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-          {{ end }}
-        </div>
-        <h3 class="h4 mb-3">{{ .title }}</h3>
-        <p class="text-gray-600">{{ .description }}</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-5xl mx-auto" data-aos="fade-up-sm">
+      {{ range .stats }}
+      <div class="bg-gray-50 rounded-xl border border-gray-100 p-6 text-center">
+        <div class="text-3xl md:text-4xl font-bold text-primary mb-2">{{ .value }}</div>
+        <p class="text-sm text-gray-600">{{ .label }}</p>
       </div>
       {{ end }}
     </div>
+    <p class="text-center text-sm text-gray-500 mt-6" data-aos="fade-up-sm">
+      {{ .caption }}
+      <a href="{{ .caption_link }}" class="text-primary font-medium hover:underline">{{ .caption_link_label }}</a>
+    </p>
   </div>
 </section>
+{{ end }}
 
-<!-- How It Works / Code Section -->
-<section id="{{ .Params.how_it_works.id }}" class="section bg-white">
+<!-- How It Works / Code Section (merged with challenges) -->
+<section id="{{ .Params.how_it_works.id }}" class="section bg-gray-50">
   <div class="container">
+    <div class="text-center mb-14" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.how_it_works.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.how_it_works.description }}</p>
+    </div>
+
     <div class="row items-center" data-aos="fade-up-sm">
       <div class="lg:col-5 lg:pr-12 mb-8 lg:mb-0">
-        <h2 class="h2 mb-4">{{ .Params.how_it_works.title }}</h2>
-        <p class="text-gray-600 mb-4">{{ .Params.how_it_works.description }}</p>
-        <ul class="space-y-2 mb-4">
+        <ul class="space-y-3">
           {{ range .Params.how_it_works.highlights }}
           <li class="flex items-start text-sm text-gray-700">
             <span class="text-green-500 mr-2 mt-0.5">&#10003;</span>
@@ -99,10 +92,207 @@
             </div>
             <span class="ml-3 text-xs text-slate-400 font-mono">{{ .Params.how_it_works.filename }}</span>
           </div>
-          <pre class="p-5 text-sm leading-relaxed overflow-x-auto"><code class="language-java text-slate-300">{{ .Params.how_it_works.code | safeHTML }}</code></pre>
+          <pre class="p-5 text-sm leading-relaxed overflow-x-auto" style="background:#0f172a;border:none"><code class="language-java" style="color:#cbd5e1">{{ .Params.how_it_works.code | safeHTML }}</code></pre>
         </div>
         <p class="text-sm text-gray-500 text-center mt-4">{{ .Params.how_it_works.caption }}</p>
       </div>
+    </div>
+
+    {{ with .Params.how_it_works.screenshot }}
+    <div class="max-w-5xl mx-auto mt-14" data-aos="fade-up-sm">
+      <img src="{{ (resources.Get .src).RelPermalink }}" alt="{{ .alt }}" class="w-full rounded-xl border border-gray-200 shadow-lg" loading="lazy">
+      <p class="text-sm text-gray-500 text-center mt-3">{{ .caption }}</p>
+    </div>
+    {{ end }}
+  </div>
+</section>
+
+<!-- Savings Calculator -->
+{{ with .Params.calculator_section }}
+<style>
+  .calc-opt { border: 1px solid #d1d5db; color: #374151; background: #fff; border-radius: 9999px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; transition: all .2s ease; cursor: pointer; }
+  .calc-opt:hover { border-color: #744cbf; color: #744cbf; }
+  .calc-opt.active { background: #744cbf; border-color: #744cbf; color: #fff; }
+  .calc-pill { display: inline-block; border-radius: 9999px; padding: 0.25rem 0.85rem; font-size: 0.875rem; font-weight: 600; }
+  .calc-pill-strong { background: rgba(0, 240, 181, .15); color: #00F0B5; }
+  .calc-pill-caveat { background: rgba(251, 191, 36, .15); color: #fbbf24; }
+  .calc-pill-nofit { background: rgba(248, 113, 113, .15); color: #f87171; }
+  .calc-count-btn { width: 2.25rem; height: 2.25rem; border: 1px solid #d1d5db; border-radius: 9999px; color: #374151; font-weight: 600; transition: all .2s ease; cursor: pointer; }
+  .calc-count-btn:hover { border-color: #744cbf; color: #744cbf; }
+</style>
+<section id="{{ .id }}" class="section bg-white">
+  <div class="container">
+    <div class="text-center mb-12" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .description }}</p>
+    </div>
+
+    <div class="max-w-6xl mx-auto bg-gray-50 rounded-xl border border-gray-100 p-6 md:p-10" data-aos="fade-up-sm">
+      <div class="grid lg:grid-cols-5 gap-10">
+
+        <!-- Questions -->
+        <div class="lg:col-span-3 space-y-8">
+          <div>
+            <p class="font-semibold text-gray-900 mb-3"><span class="text-primary mr-1">1.</span> Where do your background jobs run today?</p>
+            <div class="flex flex-wrap gap-2" id="calc-provider" role="group" aria-label="Cloud provider">
+              <button type="button" class="calc-opt active" data-value="aws" aria-pressed="true">AWS</button>
+              <button type="button" class="calc-opt" data-value="gcp" aria-pressed="false">Google Cloud</button>
+              <button type="button" class="calc-opt" data-value="vps" aria-pressed="false">Another cloud or VPS</button>
+              <button type="button" class="calc-opt" data-value="onprem" aria-pressed="false">On-prem</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-gray-900 mb-3"><span class="text-primary mr-1">2.</span> What shape is your workload?</p>
+            <div class="flex flex-wrap gap-2" id="calc-shape" role="group" aria-label="Workload shape">
+              <button type="button" class="calc-opt active" data-value="bursty" aria-pressed="true">Quiet with bursts</button>
+              <button type="button" class="calc-opt" data-value="steady" aria-pressed="false">Steady all day</button>
+              <button type="button" class="calc-opt" data-value="spiky" aria-pressed="false">Rare heavy spikes</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-gray-900 mb-3"><span class="text-primary mr-1">3.</span> Are your jobs safe to re-run?</p>
+            <div class="flex flex-wrap gap-2" id="calc-retriable" role="group" aria-label="Job retriability">
+              <button type="button" class="calc-opt active" data-value="yes" aria-pressed="true">Yes</button>
+              <button type="button" class="calc-opt" data-value="mostly" aria-pressed="false">Mostly, a few critical ones</button>
+              <button type="button" class="calc-opt" data-value="no" aria-pressed="false">No, or not sure</button>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-gray-900 mb-3"><span class="text-primary mr-1">4.</span> Closest worker instance size, and how many?</p>
+            <div class="flex flex-wrap items-center gap-3">
+              <select id="calc-size" class="border border-gray-300 rounded-lg px-3 py-2 text-sm text-gray-700 bg-white focus:outline-none focus:border-primary" aria-label="Instance size">
+                <option value="t3.small">t3.small &middot; 2 vCPU &middot; 2 GB</option>
+                <option value="t3.medium">t3.medium &middot; 2 vCPU &middot; 4 GB</option>
+                <option value="t3.large" selected>t3.large &middot; 2 vCPU &middot; 8 GB</option>
+                <option value="t3.xlarge">t3.xlarge &middot; 4 vCPU &middot; 16 GB</option>
+                <option value="t3.2xlarge">t3.2xlarge &middot; 8 vCPU &middot; 32 GB</option>
+              </select>
+              <div class="flex items-center gap-2">
+                <button type="button" id="calc-count-minus" class="calc-count-btn" aria-label="Fewer instances">&minus;</button>
+                <input type="number" id="calc-count" value="3" min="1" max="20" class="w-16 text-center border border-gray-300 rounded-lg px-2 py-2 text-sm text-gray-700 focus:outline-none focus:border-primary" aria-label="Number of instances">
+                <button type="button" id="calc-count-plus" class="calc-count-btn" aria-label="More instances">+</button>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <p class="font-semibold text-gray-900 mb-3"><span class="text-primary mr-1">5.</span> How many hours a day are those workers actually busy? <span id="calc-busy-label" class="text-primary">6h</span></p>
+            <input type="range" id="calc-busy" min="1" max="24" step="1" value="6" class="w-full" style="accent-color: #744cbf" aria-label="Busy hours per day">
+            <div class="flex justify-between text-xs text-gray-400 mt-1"><span>1h</span><span>24h</span></div>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="lg:col-span-2">
+          <div class="bg-slate-900 rounded-xl p-6 md:p-8 text-white lg:sticky lg:top-24">
+            <span id="calc-verdict" class="calc-pill calc-pill-strong">Strong fit</span>
+
+            <div class="mt-6 space-y-3">
+              <div class="flex items-baseline justify-between gap-4">
+                <span class="text-sm text-slate-400" id="calc-today-label">Today, on-demand 24/7</span>
+                <span class="text-lg font-semibold text-slate-200 whitespace-nowrap" id="calc-today">$189</span>
+              </div>
+              <div class="flex items-baseline justify-between gap-4">
+                <span class="text-sm text-slate-400" id="calc-spot-label">Same capacity on Spot</span>
+                <span class="text-lg font-semibold text-slate-200 whitespace-nowrap" id="calc-spot">$17</span>
+              </div>
+              <div class="border-t border-white/10 pt-4">
+                <span class="text-sm text-slate-400">You'd keep</span>
+                <div class="flex items-baseline gap-2">
+                  <span class="text-3xl font-bold text-secondary" id="calc-savings">$172/mo</span>
+                  <span class="text-sm text-slate-400" id="calc-savings-pct">91% less</span>
+                </div>
+              </div>
+            </div>
+
+            <ul class="mt-5 space-y-2 text-sm text-slate-300">
+              <li class="flex items-start"><span class="text-green-400 mr-2 mt-0.5">&#10003;</span><span id="calc-layer1"></span></li>
+              <li class="flex items-start"><span class="text-green-400 mr-2 mt-0.5">&#10003;</span><span id="calc-layer2"></span></li>
+            </ul>
+
+            <p id="calc-caveat" class="mt-4 text-sm text-slate-300 border-l-2 border-secondary pl-3"></p>
+
+            <button type="button" id="calc-cta" class="mt-6 w-full bg-primary hover:bg-secondary text-white hover:text-text-dark font-medium py-3 px-8 rounded-full transition duration-300">Join the waitlist</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xs text-gray-400 mt-8 text-center max-w-3xl mx-auto">
+        {{ .footnote }}
+        <a href="{{ .footnote_link }}" class="underline hover:text-primary">{{ .footnote_link_label }}</a>
+      </p>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Chaos Test Section -->
+{{ with .Params.chaos_section }}
+<section class="section bg-slate-900 text-white overflow-hidden relative">
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="chaos-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#chaos-grid)" />
+    </svg>
+  </div>
+
+  <div class="container relative z-10">
+    <div class="row justify-center">
+      <div class="lg:col-8" data-aos="fade-up-sm">
+        <span class="inline-block py-1 px-3 rounded-full bg-red-500/10 text-red-400 text-sm font-semibold mb-4">Chaos test</span>
+        <h2 class="h2 text-white mb-6">{{ .title }}</h2>
+        {{ range .paragraphs }}
+        <p class="text-lg text-slate-300 mb-4">{{ . }}</p>
+        {{ end }}
+        <a href="{{ .link }}" class="inline-flex items-center gap-2 text-secondary font-medium mt-2 hover:underline">
+          {{ .link_label }}
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Honest Fit Section -->
+{{ with .Params.honest_fit_section }}
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-16" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      {{ range $index, $item := .items }}
+      <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+        <h3 class="h4 mb-3">{{ .title }}</h3>
+        <p class="text-gray-600">{{ .description | safeHTML }}</p>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}
+
+<!-- Audience / Who It's For -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="text-center mb-16" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.audience_section.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.audience_section.description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {{ range $index, $item := .Params.audience_section.items }}
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+        <h3 class="h4 mb-3">{{ .title }}</h3>
+        <p class="text-gray-600">{{ .description }}</p>
+      </div>
+      {{ end }}
     </div>
   </div>
 </section>
@@ -123,12 +313,17 @@
         <p class="text-lg text-gray-300 mb-8">{{ .Params.email_section.description }}</p>
 
         <div id="waitlist-form-container">
-          <form id="spot-waitlist-form" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-6">
-            <input type="email" id="spot-waitlist-email" name="email" placeholder="your@email.dev" required autocomplete="email"
-              class="flex-1 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
-            <button type="submit" class="bg-primary hover:bg-secondary text-white hover:text-text-dark font-medium py-3 px-8 rounded-full transition duration-300 whitespace-nowrap">
-              {{ .Params.email_section.button_label }}
-            </button>
+          <form id="spot-waitlist-form" class="max-w-lg mx-auto mb-6">
+            <div class="flex flex-col sm:flex-row gap-3">
+              <input type="email" id="spot-waitlist-email" name="email" placeholder="your@email.dev" required autocomplete="email"
+                class="flex-1 bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+              <button type="submit" class="bg-primary hover:bg-secondary text-white hover:text-text-dark font-medium py-3 px-8 rounded-full transition duration-300 whitespace-nowrap">
+                {{ .Params.email_section.button_label }}
+              </button>
+            </div>
+            <input type="text" id="spot-waitlist-workload" name="workload" autocomplete="off"
+              placeholder="{{ .Params.email_section.workload_placeholder }}"
+              class="mt-3 w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-sm">
           </form>
           <p class="text-sm text-gray-400">{{ .Params.email_section.form_note }}</p>
         </div>
@@ -153,25 +348,6 @@
   </div>
 </section>
 
-<!-- Audience / Who It's For -->
-<section class="section bg-white">
-  <div class="container">
-    <div class="text-center mb-16" data-aos="fade-up-sm">
-      <h2 class="h2 mb-4">{{ .Params.audience_section.title }}</h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.audience_section.description }}</p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-      {{ range $index, $item := .Params.audience_section.items }}
-      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
-        <h3 class="h4 mb-3">{{ .title }}</h3>
-        <p class="text-gray-600">{{ .description }}</p>
-      </div>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
 <!-- Social Proof -->
 <section class="section py-10 bg-gray-50 border-y border-gray-200">
   <div class="container">
@@ -191,10 +367,12 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // ---------- Waitlist form ----------
     document.getElementById('spot-waitlist-form').addEventListener('submit', function(e) {
       e.preventDefault();
 
       const email = document.getElementById('spot-waitlist-email').value;
+      const workload = (document.getElementById('spot-waitlist-workload') || {}).value || '';
       const formContainer = document.getElementById('waitlist-form-container');
       const successMsg = document.getElementById('waitlist-success');
       const submitBtn = this.querySelector('button[type="submit"]');
@@ -203,6 +381,7 @@
 
       const formData = {
         email: email,
+        workload: workload,
         form: 'jobrunr_spot_waitlist_2026'
       };
 
@@ -226,14 +405,153 @@
         submitBtn.disabled = false;
         alert('Something went wrong. Please email us at hello@jobrunr.io to join the waitlist.');
       });
-
-      if (typeof gtag === 'function') {
-        gtag('event', 'conversion', {
-          'send_to': 'AW-XXXXXXXXX/XXXXXXXXXX',
-          'event_callback': function() {}
-        });
-      }
     });
+
+    // ---------- Savings calculator ----------
+    const calcRoot = document.getElementById('calculator');
+    if (!calcRoot) return;
+
+    // Price pairs from the 2026-07-20 test day live price collection.
+    // t3.small and t3.2xlarge are the measured N1 pairs; middle sizes interpolated.
+    const CALC_PRICES = {
+      't3.small':   { od: 0.0216, spot: 0.0082 },
+      't3.medium':  { od: 0.0432, spot: 0.0158 },
+      't3.large':   { od: 0.0864, spot: 0.0302 },
+      't3.xlarge':  { od: 0.1728, spot: 0.0570 },
+      't3.2xlarge': { od: 0.3456, spot: 0.1078 }
+    };
+    const HOURS_PER_MONTH = 730;
+    const DAYS_PER_MONTH = 30.4;
+
+    const state = { provider: 'aws', shape: 'bursty', retriable: 'yes', size: 't3.large', count: 3, busy: 6 };
+
+    const el = id => document.getElementById(id);
+
+    function fmtMoney(v) {
+      if (v >= 100) return '$' + Math.round(v).toLocaleString('en-US');
+      return '$' + v.toFixed(2);
+    }
+
+    function wireGroup(groupId, key) {
+      const group = el(groupId);
+      group.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state[key] = btn.dataset.value;
+          group.querySelectorAll('button').forEach(b => {
+            b.classList.toggle('active', b === btn);
+            b.setAttribute('aria-pressed', b === btn ? 'true' : 'false');
+          });
+          update();
+        });
+      });
+    }
+
+    function clampCount(v) { return Math.min(20, Math.max(1, isNaN(v) ? 1 : v)); }
+
+    function verdictFor() {
+      // Returns { label, cls, caveat }
+      if (state.retriable === 'no') {
+        return {
+          label: 'Probably not a fit as-is', cls: 'calc-pill-nofit',
+          caveat: "Jobs that can't be re-run should stay on your stable servers with retries set to 0. If that describes your whole queue, Spot isn't for you. Not sure? Most background jobs are safe to re-run, so sign up and tell us about yours."
+        };
+      }
+      if ((state.provider === 'vps' || state.provider === 'onprem') && state.shape === 'steady' && state.busy >= 18) {
+        return {
+          label: 'A budget VPS wins on raw price', cls: 'calc-pill-nofit',
+          caveat: "Above roughly 18 attached hours per day, the cheapest external VPS beats spot on raw price, and we'd rather tell you that now. If your load ever turns bursty, come back."
+        };
+      }
+      if (state.provider === 'gcp') {
+        return {
+          label: 'A fit, once Google Cloud ships', cls: 'calc-pill-caveat',
+          caveat: "The beta is AWS-only today and Google Cloud is next on the roadmap, so these numbers use AWS price pairs. Join the waitlist and mention GCP, you'll be first in line."
+        };
+      }
+      if (state.retriable === 'mostly') {
+        return {
+          label: 'Fit, with one caveat', cls: 'calc-pill-caveat',
+          caveat: "Pin the few critical jobs to your stable servers with retries set to 0 (JobRunr Pro can enforce that with server tags), and let everything else burst on spot."
+        };
+      }
+      if (state.provider === 'vps' || state.provider === 'onprem') {
+        return {
+          label: 'Fit, with one caveat', cls: 'calc-pill-caveat',
+          caveat: "Spot boots burst workers in your own AWS account, so these numbers assume you have one for the burst capacity. Your current servers keep running wherever they are."
+        };
+      }
+      if (state.shape === 'steady') {
+        return {
+          label: 'Strong fit', cls: 'calc-pill-strong',
+          caveat: "On AWS there is no break-even. Even a spot worker attached 24/7 still costs 62% less than the same instance on-demand, measured."
+        };
+      }
+      return {
+        label: 'Strong fit', cls: 'calc-pill-strong',
+        caveat: "In our tests, extra capacity was processing jobs 64 to 80 seconds after the queue backed up, and 2.5 hours of backlog was gone in 8 minutes for $0.002."
+      };
+    }
+
+    function update() {
+      const p = CALC_PRICES[state.size];
+      const today = state.count * p.od * HOURS_PER_MONTH;
+      const withSpot = state.count * p.spot * state.busy * DAYS_PER_MONTH;
+      const savings = Math.max(0, today - withSpot);
+      const pct = today > 0 ? Math.round((savings / today) * 100) : 0;
+      const discount = Math.round((1 - p.spot / p.od) * 100);
+
+      el('calc-busy-label').textContent = state.busy + 'h';
+      el('calc-today-label').textContent = state.count + ' × ' + state.size + ' on-demand, 24/7';
+      el('calc-today').textContent = fmtMoney(today) + '/mo';
+      el('calc-spot-label').textContent = 'Same capacity on Spot, ~' + state.busy + 'h/day';
+      el('calc-spot').textContent = fmtMoney(withSpot) + '/mo';
+      el('calc-savings').textContent = fmtMoney(savings) + '/mo';
+      el('calc-savings-pct').textContent = pct + '% less';
+
+      el('calc-layer1').textContent = 'Same instance, ' + discount + '% less at spot (62 to 69% measured range)';
+      el('calc-layer2').textContent = state.busy >= 24
+        ? 'Attached 24/7: the whole saving is the spot discount itself'
+        : 'You only pay while workers are attached: about ' + state.busy + 'h a day instead of 24';
+
+      const v = verdictFor();
+      const pill = el('calc-verdict');
+      pill.textContent = v.label;
+      pill.className = 'calc-pill ' + v.cls;
+      el('calc-caveat').textContent = v.caveat;
+    }
+
+    wireGroup('calc-provider', 'provider');
+    wireGroup('calc-shape', 'shape');
+    wireGroup('calc-retriable', 'retriable');
+
+    el('calc-size').addEventListener('change', e => { state.size = e.target.value; update(); });
+
+    const countInput = el('calc-count');
+    countInput.addEventListener('input', () => { state.count = clampCount(parseInt(countInput.value, 10)); update(); });
+    countInput.addEventListener('blur', () => { countInput.value = state.count; });
+    el('calc-count-minus').addEventListener('click', () => { state.count = clampCount(state.count - 1); countInput.value = state.count; update(); });
+    el('calc-count-plus').addEventListener('click', () => { state.count = clampCount(state.count + 1); countInput.value = state.count; update(); });
+
+    el('calc-busy').addEventListener('input', e => { state.busy = parseInt(e.target.value, 10); update(); });
+
+    el('calc-cta').addEventListener('click', () => {
+      const p = CALC_PRICES[state.size];
+      const today = state.count * p.od * HOURS_PER_MONTH;
+      const withSpot = state.count * p.spot * state.busy * DAYS_PER_MONTH;
+      const shapeLabels = { bursty: 'Bursty workload', steady: 'Steady workload', spiky: 'Spiky workload' };
+      const providerLabels = { aws: 'on AWS', gcp: 'on Google Cloud', vps: 'on another cloud/VPS', onprem: 'on-prem' };
+      const retriableLabels = { yes: 'retriable jobs', mostly: 'mostly retriable jobs', no: 'non-retriable jobs' };
+      const summary = shapeLabels[state.shape] + ' ' + providerLabels[state.provider] + ', '
+        + state.count + 'x ' + state.size + ', ~' + state.busy + 'h/day busy, ' + retriableLabels[state.retriable]
+        + '. Calculator estimate: ' + fmtMoney(today) + '/mo now, ' + fmtMoney(withSpot) + '/mo on Spot.';
+      const workloadInput = el('spot-waitlist-workload');
+      if (workloadInput) workloadInput.value = summary;
+      document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
+      const emailInput = el('spot-waitlist-email');
+      if (emailInput) setTimeout(() => emailInput.focus({ preventScroll: true }), 600);
+    });
+
+    update();
   });
 </script>
 

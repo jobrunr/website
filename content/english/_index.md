@@ -148,9 +148,9 @@ jobrunr_for_ai:
 # JobRunr Spot CTA banner
 spot_cta:
   enable: true
-  badge: "Private beta live now"
-  title: "Save 60 to 80% on your cloud bill."
-  description: "Run your background jobs on spot instances in your own AWS and Google Cloud."
+  badge: "Private beta on AWS"
+  title: "Burst workers for your job queue, at spot prices."
+  description: "When the queue backs up, JobRunr boots workers in your own AWS account at 62 to 69% below on-demand, measured. Your existing servers keep running like today."
   button:
     label: "Join the private beta"
     link: "/en/spot/"
