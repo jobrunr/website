@@ -1,0 +1,287 @@
+{{ define "main" }}
+
+<!-- Hero Section -->
+<section class="section pt-20 pb-16 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-8" data-aos="fade-up-sm">
+        <span class="inline-block py-1 px-3 rounded-full bg-blue-50 text-blue-600 text-sm font-semibold mb-4">
+          {{ .Params.hero.badge }}
+        </span>
+        <div class="text-6xl mb-6">&#127829;</div>
+        <h1 class="h1 mb-6 text-gray-900">
+          {{ .Params.hero.title_start }}
+          <span class="text-primary">{{ .Params.hero.title_highlight }}</span>
+        </h1>
+        <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          {{ .Params.hero.description | safeHTML }}
+        </p>
+
+        {{ with .Params.button }}
+        <ul class="flex flex-wrap justify-center gap-4 pt-6">
+          {{ if .primary.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="100">
+            <a class="btn-primary btn" href="{{ .primary.link }}" target="_self" rel="noopener">
+              {{ .primary.label | markdownify }}
+              <span class="sr-only">Details</span>
+              <span class="icon-wrapper"><span class="icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span><span class="icon" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span>
+            </a>
+          </li>
+          {{ end }}
+          {{ if .secondary.enable }}
+          <li data-aos="fade-up-sm" data-aos-delay="150">
+            <a class="btn-outline-primary btn" href="{{ .secondary.link }}" target="_self" rel="noopener">
+              {{ .secondary.label | markdownify }}
+              <span class="sr-only">Details</span>
+              <span class="icon-wrapper"><span class="icon"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span><span class="icon" aria-hidden="true"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 448 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path></svg></span></span>
+            </a>
+          </li>
+          {{ end }}
+        </ul>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Tiers Section -->
+<section id="{{ .Params.tiers_section.id }}" class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-16" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.tiers_section.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.tiers_section.description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto items-stretch">
+      {{ range $index, $tier := .Params.tiers_section.tiers }}
+      <div class="bg-white p-8 rounded-xl shadow-sm border {{ if $tier.featured }}border-primary shadow-md relative{{ else }}border-gray-100{{ end }} hover:shadow-md transition flex flex-col" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+        {{ if $tier.featured }}
+        <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-xs font-semibold py-1 px-3 rounded-full whitespace-nowrap">{{ $tier.badge }}</span>
+        {{ end }}
+        <h3 class="h4 mb-1">{{ $tier.name }}</h3>
+        <div class="text-4xl font-bold text-primary mb-3">{{ $tier.amount }}</div>
+        <p class="text-gray-600 mb-6">{{ $tier.tagline }}</p>
+        <ul class="space-y-3 mt-auto">
+          {{ range $tier.items }}
+          <li class="flex items-start text-sm text-gray-700">
+            <span class="text-green-500 mr-2 mt-0.5">&#10003;</span>
+            <span>{{ . }}</span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- What We Ask / What We Don't Section -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="text-center mb-16" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.return_section.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.return_section.description }}</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm">
+        <h3 class="h5 mb-6 flex items-center">
+          <span class="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mr-3">&#10003;</span>
+          We ask
+        </h3>
+        <ul class="space-y-4">
+          {{ range .Params.return_section.asks }}
+          <li class="flex items-start text-sm text-gray-700">
+            <span class="text-green-500 mr-2 mt-0.5">&#10003;</span>
+            <span>{{ . | safeHTML }}</span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm" data-aos-delay="100">
+        <h3 class="h5 mb-6 flex items-center">
+          <span class="w-8 h-8 bg-red-100 text-red-500 rounded-lg flex items-center justify-center mr-3">&#10007;</span>
+          We never ask
+        </h3>
+        <ul class="space-y-4">
+          {{ range .Params.return_section.no_asks }}
+          <li class="flex items-start text-sm text-gray-700">
+            <span class="text-red-400 mr-2 mt-0.5">&#10007;</span>
+            <span>{{ . | safeHTML }}</span>
+          </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightning Talk Section -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="row items-center" data-aos="fade-up-sm">
+      <div class="lg:col-5 lg:pr-12 mb-8 lg:mb-0">
+        <h2 class="h2 mb-4">{{ .Params.talk_section.title }}</h2>
+        <p class="text-gray-600 mb-6">{{ .Params.talk_section.description | safeHTML }}</p>
+        <div class="space-y-4">
+          {{ range .Params.talk_section.flavours }}
+          <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+            <h3 class="h6 mb-2">{{ .title }}</h3>
+            <p class="text-sm text-gray-600">{{ .description }}</p>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="lg:col-7">
+        <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-3">{{ .Params.talk_section.code_title }}</p>
+        <div class="bg-slate-900 rounded-xl overflow-hidden shadow-lg">
+          <div class="flex items-center px-4 py-3 bg-slate-800 border-b border-slate-700">
+            <div class="flex gap-1.5">
+              <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+            </div>
+            <span class="ml-3 text-xs text-slate-400 font-mono">{{ .Params.talk_section.filename }}</span>
+          </div>
+          <pre class="p-5 text-sm leading-relaxed overflow-x-auto"><code class="language-java text-slate-300">{{ .Params.talk_section.code | safeHTML }}</code></pre>
+        </div>
+        <p class="text-sm text-gray-500 text-center mt-4">{{ .Params.talk_section.caption }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Application Form Section -->
+<section id="{{ .Params.apply_section.id }}" class="section bg-slate-900 text-white overflow-hidden relative">
+  <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#grid)" />
+    </svg>
+  </div>
+
+  <div class="container relative z-10">
+    <div class="row justify-center">
+      <div class="lg:col-8 text-center">
+        <h2 class="h2 text-white mb-4">{{ .Params.apply_section.title }}</h2>
+        <p class="text-lg text-gray-300 mb-8">{{ .Params.apply_section.description }}</p>
+
+        <div id="jug-form-container">
+          <form id="jug-form" class="max-w-lg mx-auto mb-6 text-left">
+            <div class="grid sm:grid-cols-2 gap-3">
+              <input type="text" id="jug-organizer" name="organizer" placeholder="Your name" required autocomplete="name"
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+              <input type="email" id="jug-email" name="email" placeholder="your@email.dev" required autocomplete="email"
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+              <input type="text" id="jug-name" name="jug" placeholder="JUG name" required
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+              <input type="text" id="jug-city" name="city" placeholder="City, country" required
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+            </div>
+            <input type="url" id="jug-event-link" name="event_link" placeholder="Link to your event or meetup page" required
+              class="mt-3 w-full bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+            <div class="grid sm:grid-cols-2 gap-3 mt-3">
+              <input type="text" id="jug-event-date" name="event_date" placeholder="Event date (e.g. 15 Oct 2026)" required
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+              <input type="number" id="jug-attendance" name="attendance" placeholder="Expected attendees" required min="1"
+                class="bg-white/10 border border-white/20 text-white placeholder-gray-400 rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base">
+            </div>
+            <select id="jug-tier" name="tier" required
+              class="mt-3 w-full bg-white/10 border border-white/20 text-white rounded-lg px-4 py-3 focus:outline-none focus:border-primary text-base [&>option]:text-gray-900">
+              <option value="" disabled selected>Which tier?</option>
+              <option value="pizza-150">Pizza sponsor (€150)</option>
+              <option value="talk-own-story-250">Pizza + lightning talk: our member's own story (€250)</option>
+              <option value="talk-in-a-box-250">Pizza + lightning talk: the talk in a box (€250)</option>
+            </select>
+            <button type="submit" class="mt-4 w-full bg-primary hover:bg-secondary text-white hover:text-text-dark font-medium py-3 px-8 rounded-full transition duration-300">
+              {{ .Params.apply_section.button_label }}
+            </button>
+          </form>
+          <p class="text-sm text-gray-400">{{ .Params.apply_section.form_note }}</p>
+        </div>
+
+        <div id="jug-success" class="hidden">
+          <div class="bg-white/10 backdrop-blur-sm p-8 rounded-xl border border-white/10 max-w-lg mx-auto">
+            <h3 class="text-xl font-bold text-white mb-2">{{ .Params.apply_section.success_title }}</h3>
+            <p class="text-gray-300">{{ .Params.apply_section.success_message }}</p>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto mt-10">
+          {{ range .Params.apply_section.package_items }}
+          <div class="flex items-start text-left">
+            <svg class="w-5 h-5 mr-2 text-green-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <span class="text-sm text-gray-300">{{ . }}</span>
+          </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Social Proof -->
+<section class="section py-10 bg-gray-50 border-y border-gray-200">
+  <div class="container">
+    <p class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wider mb-8">
+      {{ .Params.social_proof.title }}
+    </p>
+    <div class="flex flex-wrap justify-center items-center gap-6 md:gap-10 opacity-75 grayscale hover:grayscale-0 transition-all duration-500">
+      {{ range .Params.social_proof.logos }}
+      <img src='{{ (resources.Get .src).RelPermalink }}' alt="{{ .alt }}" class="h-8 md:h-10 w-auto max-w-[120px] md:max-w-[160px] object-contain">
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+{{ partial "components/accordion.html" . }}
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('jug-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const formContainer = document.getElementById('jug-form-container');
+      const successMsg = document.getElementById('jug-success');
+      const submitBtn = this.querySelector('button[type="submit"]');
+
+      submitBtn.disabled = true;
+
+      const formData = {
+        organizer: document.getElementById('jug-organizer').value,
+        email: document.getElementById('jug-email').value,
+        jug: document.getElementById('jug-name').value,
+        city: document.getElementById('jug-city').value,
+        event_link: document.getElementById('jug-event-link').value,
+        event_date: document.getElementById('jug-event-date').value,
+        attendance: document.getElementById('jug-attendance').value,
+        tier: document.getElementById('jug-tier').value,
+        form: 'jug_fund_2026'
+      };
+
+      const n8nWebhookUrl = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
+
+      fetch(n8nWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+      .then(response => {
+        if (response.ok) {
+          formContainer.classList.add('hidden');
+          successMsg.classList.remove('hidden');
+        } else {
+          throw new Error('Submission failed');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        submitBtn.disabled = false;
+        alert('Something went wrong. Please email nicholas@jobrunr.io with your JUG name and event link.');
+      });
+    });
+  });
+</script>
+
+{{ end }}
