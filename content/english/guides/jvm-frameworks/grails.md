@@ -146,7 +146,7 @@ environments:
 > `DB_CLOSE_DELAY=-1` is required. Without it, H2's in-memory database is destroyed when the last JDBC connection closes. JobRunr opens connections during startup to run migrations, then closes them, and by the time your first job runs the tables are gone (_"Table JOBRUNR_RECURRING_JOBS not found"_).
 
 > [!TIP]
-> For production swap H2 for PostgreSQL, MySQL, Oracle, SQL Server, or MongoDB. JobRunr discovers the database through the same `DataSource` bean, so no extra configuration is needed beyond your Grails `dataSource:` block. See the [storage configuration documentation]({{< ref "documentation/installation/storage" >}}) for details.
+> For production swap H2 for PostgreSQL, MySQL, Oracle, SQL Server, or MongoDB. JobRunr discovers the database through the same `DataSource` bean, so no extra configuration is needed beyond your Grails `dataSource:` block. See the [storage configuration documentation]({{< ref "documentation/storage" >}}) for details.
 
 ## 4. Why Groovy needs the JobRequest pattern
 
@@ -340,7 +340,7 @@ Or set the global default in `application.yml` with `jobrunr.jobs.default-number
 
 ## 8. Production considerations
 
-- **Switch to a persistent database.** Replace the H2 dev `dataSource` with PostgreSQL, MySQL, or any of the other [supported storage backends]({{< ref "documentation/installation/storage" >}}); JobRunr discovers it through the same Grails-managed `DataSource`.
+- **Switch to a persistent database.** Replace the H2 dev `dataSource` with PostgreSQL, MySQL, or any of the other [supported storage backends]({{< ref "documentation/storage" >}}); JobRunr discovers it through the same Grails-managed `DataSource`.
 - **Lock down the dashboard.** It binds to all interfaces on port 8000 with no authentication by default. In OSS you can set `jobrunr.dashboard.username` and `jobrunr.dashboard.password` for a single-user HTTP basic-auth gate, or front the dashboard with a reverse proxy that handles auth. For multi-user access, role-based authorization, or OpenID, JobRunr Pro ships dedicated authentication providers (see the [Pro basic authentication guide]({{< ref "guides/authentication/basic-authentication" >}}) and [Pro OpenID guide]({{< ref "guides/authentication/openid-authentication" >}})).
 - **Control schema migrations.** If your DBA owns DDL, set `jobrunr.database.skip-create: true` and apply the migrations through your existing toolchain. See the [Flyway]({{< ref "guides/database/flyway-migrations" >}}) and [Liquibase]({{< ref "guides/database/liquibase-migrations" >}}) guides.
 

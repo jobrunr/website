@@ -175,7 +175,7 @@ Most of this code sets up the HTTP server. Here is what JobRunr contributes:
 > `useBackgroundJobServer` and `useDashboard` are opt-in. Both accept configuration options, and each has a conditional variant (`useBackgroundJobServerIf`, `useDashboardIf`) that lets you toggle them via an environment variable or application argument.
 
 > [!IMPORTANT]
-> Jobs stored in `InMemoryStorageProvider` do not survive restarts. When you are ready to go to production, swap it for a real database. See [Storage]({{< ref "documentation/installation/storage" >}}).
+> Jobs stored in `InMemoryStorageProvider` do not survive restarts. When you are ready to go to production, swap it for a real database. See [Storage]({{< ref "documentation/storage" >}}).
 
 ## Step 4: Try it out
 
@@ -223,7 +223,7 @@ Open the dashboard at [http://localhost:8000/dashboard](http://localhost:8000/da
 
 ## Next steps
 
-- **Use a real database:** `InMemoryStorageProvider` is fine for local development. Before going to production, switch to a persistent [StorageProvider]({{< ref "documentation/installation/storage" >}}) backed by your existing SQL or NoSQL database.
+- **Use a real database:** `InMemoryStorageProvider` is fine for local development. Before going to production, switch to a persistent [StorageProvider]({{< ref "documentation/storage" >}}) backed by your existing SQL or NoSQL database.
 - **Configure the job scheduler:** The [Fluent API reference]({{< ref "documentation/configuration/fluent" >}}) covers worker counts, custom retry policies, JMX, Micrometer metrics, and more.
 - **Adopt a framework:** Moving to Spring Boot, Quarkus, or Micronaut? The dedicated integrations auto-configure JobRunr from your application properties file.
 - {{< badge >}}JobRunr Pro{{< /badge >}}**Scale with JobRunr Pro:** Unlock batches, job chaining, priority queues, rate limiting, and an advanced dashboard. See [JobRunr Pro]({{< ref "documentation/pro" >}}).

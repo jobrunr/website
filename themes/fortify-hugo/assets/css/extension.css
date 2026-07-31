@@ -80,6 +80,7 @@
     line-height: 1.5;
     vertical-align: middle;
     background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.15);
 }
 
 .badge-sm.enterprise {

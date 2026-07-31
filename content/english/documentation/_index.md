@@ -80,7 +80,7 @@ flowchart LR
 
 - **Learning the basics of JobRunr?** Keep on reading this page. 
 - **Just getting started?** Pick a [quick-start guide]({{< ref "documentation/getting-started" >}}) depending on your stack. You'll be up and running in 5 minutes!
-- **Adding JobRunr to your project?** See [Installation]({{< ref "documentation/installation" >}}) and pick a [StorageProvider]({{< ref "documentation/installation/storage" >}}).
+- **Adding JobRunr to your project?** See [Installation]({{< ref "documentation/installation" >}}) and pick a [StorageProvider]({{< ref "documentation/storage" >}}).
 - **Integrating with your framework?** Choose your setup: [Spring Boot]({{< ref "documentation/configuration/spring" >}}), [Micronaut]({{< ref "documentation/configuration/micronaut" >}}), [Quarkus]({{< ref "documentation/configuration/quarkus" >}}), or the [Fluent API]({{< ref "documentation/configuration/fluent" >}}).
 - **Need enterprise features?** [JobRunr Pro]({{< ref "documentation/pro" >}}) adds batches, job chaining (aka workflows), priority queues, rate limiting, SSO, and more.
 
@@ -177,7 +177,7 @@ BackgroundJob.create(JobBuilder.aJob()
 
 ### Persisting Jobs with a StorageProvider
 
-A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to JSON and placed into storage, no data is kept in a process' memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for [both RDBMS and NoSQL](({{< ref "documentation/installation/storage" >}})) solutions.
+A `StorageProvider` is a place where JobRunr keeps all the information related to background job processing. All the details like types, method names, arguments, etc. are serialized to JSON and placed into storage, no data is kept in a process' memory. The `StorageProvider` is abstracted in JobRunr well enough to be implemented for [both RDBMS and NoSQL]({{< ref "documentation/storage" >}}) solutions.
 
 JobRunr supports Jackson, Gson, JSON-B, and Kotlin Serialization. See [Serialization]({{< ref "documentation/serialization" >}}) for setup instructions.
 

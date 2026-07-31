@@ -106,7 +106,7 @@ JobRunr will need to save your jobs in a SQL or NoSQL database by means of a `S
 ```
 {{< /codeblock >}}
 
-> H2 is just one of many databases supported by JobRunr, [find out more here]({{< ref "/documentation/installation/storage" >}}).
+> H2 is just one of many databases supported by JobRunr, [find out more here]({{< ref "documentation/storage" >}}).
 
 ### 3. Configure JobRunr using Spring's application.properties.
 To configure JobRunr, you can leverage the `application.properties` file from Spring Boot.  In this example, we will enable all off JobRunr’s features including the actual job processing and the scheduler’s Web UI (for monitoring purposes).

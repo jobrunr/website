@@ -70,7 +70,7 @@ jobrunr.database.type=mem
 The first two are `false` by default so your web application does not accidentally start processing jobs. The third tells JobRunr to use an in-memory store so no database setup is required for this example.
 
 > [!IMPORTANT]
-> `jobrunr.database.type=mem` does not survive restarts. Before going to production, remove it and configure a real database. JobRunr will pick up the existing Spring `DataSource` automatically. See [Storage]({{< ref "documentation/installation/storage" >}}).
+> `jobrunr.database.type=mem` does not survive restarts. Before going to production, remove it and configure a real database. JobRunr will pick up the existing Spring `DataSource` automatically. See [Storage]({{< ref "documentation/storage" >}}).
 
 > [!TIP]
 > Most aspects of JobRunr are configurable via `application.properties`: worker count, retry policy, poll interval, dashboard port, and more. See the [Spring Boot Starter configuration reference]({{< ref "documentation/configuration/spring" >}}) for all available properties.
@@ -215,7 +215,7 @@ Open the dashboard at [http://localhost:8000/dashboard](http://localhost:8000/da
 
 ## Next steps
 
-- **Use a real database:** H2 is fine for local development but data is lost on restart. Before going to production, configure a persistent database. JobRunr picks up any `DataSource` bean automatically — see [Storage]({{< ref "documentation/installation/storage" >}}) for all supported databases.
+- **Use a real database:** H2 is fine for local development but data is lost on restart. Before going to production, configure a persistent database. JobRunr picks up any `DataSource` bean automatically — see [Storage]({{< ref "documentation/storage" >}}) for all supported databases.
 - **Configure the starter:** Worker count, retry policy, poll interval, and dashboard credentials are all configurable via `application.properties`. See the full [Spring Boot Starter reference]({{< ref "documentation/configuration/spring" >}}).
 - **Explore health and metrics:** The starter registers Spring Boot Actuator health indicators automatically. Micrometer metrics are also available to plug into your observability platform of choice.
 - {{< badge >}}JobRunr Pro{{< /badge >}} **Scale with JobRunr Pro:** Unlock batches, job chaining, priority queues, rate limiting, transaction-aware job creation, and an advanced dashboard. See [JobRunr Pro]({{< ref "documentation/pro" >}}).

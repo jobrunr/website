@@ -11,7 +11,7 @@ This file is a curated index of JobRunr documentation, guides, and reference mat
 - [Java project quickstart](https://www.jobrunr.io/en/documentation/getting-started/java/): Add JobRunr to a Java project, schedule a recurring job, and see it in the dashboard.
 - [What is JobRunr?](https://www.jobrunr.io/en/guides/intro/what-is-jobrunr/): The problem JobRunr solves and where it fits in a typical Java stack.
 - [Installation](https://www.jobrunr.io/en/documentation/installation/): Maven and Gradle dependencies, supported Java versions, and module overview.
-- [Storage](https://www.jobrunr.io/en/documentation/installation/storage/): Supported SQL and NoSQL databases and how to configure each one.
+- [Storage](https://www.jobrunr.io/en/documentation/storage/): Supported SQL and NoSQL databases and how to configure each one.
 
 ## Configuration
 

@@ -108,7 +108,7 @@ JobRunr v8 removes support for Redis and Elasticsearch storage providers, drops 
 Before upgrading, check your application for these critical changes.
 
 1. **Property Prefix:** Update your application.properties to remove org. from all JobRunr configurations.  
-2. **Storage Providers:** Support for Redis and Elasticsearch has been removed. You must migrate to a supported [**database**](https://www.jobrunr.io/en/documentation/installation/storage/).  
+2. **Storage Providers:** Support for Redis and Elasticsearch has been removed. You must migrate to a supported [**database**](https://www.jobrunr.io/en/documentation/storage/).  
 3. **API Signatures:** Methods that accepted Set\<String\> for labels now expect List\<String\> to support ordered labels in the dashboard.
 
 For a complete checklist, visit our [**v8 Migration Guide**](https://www.jobrunr.io/en/guides/migration/v8/).

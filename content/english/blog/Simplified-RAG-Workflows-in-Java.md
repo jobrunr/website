@@ -260,7 +260,7 @@ Download the [free version](https://github.com/jobrunr/jobrunr) or explore the a
 JobRunr automates job scheduling and error handling, making RAG workflows simpler, reliable, and easier to scale. It simplifies embedding synchronization by allowing developers to create functions or methods and control the level of parallelization. Additionally, JobRunr retries failed jobs automatically if, for instance, a resource like a URL is temporarily unavailable.
 
 #### Can JobRunr handle vector database integration?
-Yes, JobRunr supports [many databases](/en/documentation/installation/storage/), e.g., PostgreSQL with a pgvector extension, ensuring efficient storage and retrieval for RAG systems. It can be easily extended to support any DB of your choice.
+Yes, JobRunr supports [many databases](/en/documentation/storage/), e.g., PostgreSQL with a pgvector extension, ensuring efficient storage and retrieval for RAG systems. It can be easily extended to support any DB of your choice.
 
 #### What are the benefits of using JobRunr in Java AI projects?
 JobRunr offers parallel processing, fault tolerance, and real-time monitoring, making it ideal for AI workflows built with Java.

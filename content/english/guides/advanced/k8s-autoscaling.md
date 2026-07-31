@@ -36,7 +36,7 @@ In case you prefer to get straight to the solution, you can view the code from t
 ### Kubernetes deployment
 To run your application in the cluster with the autoscaling capability, we will need to deploy several services:
 - [KEDA](https://keda.sh/) for autoscaling functionality,
-- any [database supported by JobRunr]({{<ref "documentation/installation/storage/_index.md">}}),
+- any [database supported by JobRunr]({{<ref "documentation/storage">}}),
 - your application running JobRunr.
 
 First, deploy your JobRunr application. You will need to enable the dashboard to use the [JobRunr Pro metrics API](#jobrunr-pro-metrics-api) which is going to be used to trigger autoscaling. You can deploy the background job server together with the dashboard or separately but make sure that the metrics API is always available for KEDA to fetch the metrics. 

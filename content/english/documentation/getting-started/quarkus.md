@@ -67,7 +67,7 @@ quarkus.jobrunr.database.type=mem
 The first two are `false` by default so your web application does not accidentally start processing jobs. The third tells JobRunr to use an in-memory store so no database setup is required for this example.
 
 > [!IMPORTANT]
-> `quarkus.jobrunr.database.type=mem` does not survive restarts. Before going to production, remove it and configure a real database. JobRunr will pick up the existing Quarkus `DataSource` automatically. See [Storage]({{< ref "documentation/installation/storage" >}}).
+> `quarkus.jobrunr.database.type=mem` does not survive restarts. Before going to production, remove it and configure a real database. JobRunr will pick up the existing Quarkus `DataSource` automatically. See [Storage]({{< ref "documentation/storage" >}}).
 
 > [!TIP]
 > Most aspects of JobRunr are configurable via `application.properties`: worker count, retry policy, poll interval, dashboard port, and more. See the [Quarkus Extension configuration reference]({{< ref "documentation/configuration/quarkus" >}}) for all available properties.
@@ -215,7 +215,7 @@ Open the dashboard at [http://localhost:8000/dashboard](http://localhost:8000/da
 
 ## Next steps
 
-- **Use a real database:** The in-memory store is fine for local development but data is lost on restart. Before going to production, configure a persistent database. JobRunr picks up any `DataSource` bean automatically. See [Storage]({{< ref "documentation/installation/storage" >}}) for all supported databases.
+- **Use a real database:** The in-memory store is fine for local development but data is lost on restart. Before going to production, configure a persistent database. JobRunr picks up any `DataSource` bean automatically. See [Storage]({{< ref "documentation/storage" >}}) for all supported databases.
 - **Configure the extension:** Worker count, retry policy, poll interval, and dashboard port are all configurable via `application.properties`. See the full [Quarkus Extension reference]({{< ref "documentation/configuration/quarkus" >}}).
 - **Explore health and metrics:** The extension registers Smallrye health checks automatically. Micrometer metrics are also available to plug into your observability platform of choice.
 - {{< badge >}}JobRunr Pro{{< /badge >}} **Scale with JobRunr Pro:** Unlock batches, job chaining, priority queues, rate limiting, transaction-aware job creation, and an advanced dashboard. See [JobRunr Pro]({{< ref "documentation/pro" >}}).

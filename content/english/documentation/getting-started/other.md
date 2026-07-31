@@ -138,7 +138,7 @@ public class JobRunrConfiguration {
 The configuration class initializes JobRunr once at startup and registers its core objects as CDI beans, making them available for injection across the application.
 
 {{< conum-legend >}}
-1. The [`StorageProvider`]({{< ref "documentation/installation/storage" >}}) is built from the framework-managed `DataSource`. It is mandatory dependency: JobRunr uses it to persist and retrieve job state.
+1. The [`StorageProvider`]({{< ref "documentation/storage" >}}) is built from the framework-managed `DataSource`. It is mandatory dependency: JobRunr uses it to persist and retrieve job state.
 2. JobRunr is initialized with the `StorageProvider` bean and a CDI-backed `JobActivator` (see the note below). Both the `BackgroundJobServer` and the [dashboard]({{< ref "documentation/background-methods/dashboard" >}}) are configured, but neither is started yet (`startServerOnInit: false`); they are started from the lifecycle hooks (see below). The initialization result is wrapped in a holder bean so the objects can each be exposed individually.
 3. The [`JobScheduler`]({{< ref "documentation/background-methods#java-8-lambdas" >}}) is registered as a bean that can be injected to schedule jobs using Java 8 lambdas.
 4. The [`JobRequestScheduler`]({{< ref "documentation/background-methods#via-a-jobrequest" >}}) is registered as a bean that can be injected to schedule jobs using a `JobRequest`.
