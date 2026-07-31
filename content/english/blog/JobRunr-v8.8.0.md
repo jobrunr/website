@@ -4,7 +4,6 @@ description: "Quieter logs when your database hiccups, SmallRye now optional for
 image: "/blog/thubm-jr-v-880.png"
 date: 2026-07-31T12:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
 tags:
   - blog
   - release
