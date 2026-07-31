@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="392" viewBox="0 0 920 392" style="max-width:100%;height:auto;" role="img" aria-label="Decision tree: if your steps run outside the JVM, if workflows are authored outside your codebase, or if the workflow is mostly moving data between systems, choose Kestra. If none of those apply, a library like JobRunr covers you.">
+<rect x="10" y="12" width="900" height="368" rx="16" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="1.5"/>
+<text x="460" y="46" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" font-weight="800" fill="#101828">Three questions decide it</text>
+
+<rect x="44" y="70" width="832" height="52" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="72" y="93" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14.5" font-weight="700" fill="#101828">1. Do any steps run outside the JVM?</text>
+<text x="72" y="111" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#667085">Python, shell, dbt, or a connector into another system rather than your own Java code</text>
+
+<rect x="44" y="132" width="832" height="52" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="72" y="155" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14.5" font-weight="700" fill="#101828">2. Are workflows authored outside your codebase?</text>
+<text x="72" y="173" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#667085">by data engineers or ops, in a UI, without waiting for your release train</text>
+
+<rect x="44" y="194" width="832" height="52" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="72" y="217" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14.5" font-weight="700" fill="#101828">3. Is the workflow mostly moving data between systems?</text>
+<text x="72" y="235" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#667085">S3 to Snowflake to Slack, assembled from connectors rather than written in Java</text>
+
+<line x1="255" y1="256" x2="255" y2="276" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 251 276 L 259 276 L 255 282 Z" fill="#98A2B3"/>
+<line x1="665" y1="256" x2="665" y2="276" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 661 276 L 669 276 L 665 282 Z" fill="#98A2B3"/>
+
+<rect x="44" y="288" width="422" height="74" rx="12" fill="#FEF3E6" stroke="#F79009" stroke-width="1.8"/>
+<text x="255" y="315" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="15.5" font-weight="800" fill="#B54708">Yes to any: Kestra</text>
+<text x="255" y="337" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#B54708">The orchestration reaches past your application,</text>
+<text x="255" y="353" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#B54708">so the platform earns what it costs to run.</text>
+
+<rect x="454" y="288" width="422" height="74" rx="12" fill="#E7F8F0" stroke="#12B886" stroke-width="1.8"/>
+<text x="665" y="315" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="15.5" font-weight="800" fill="#0B7A55">No to all three: JobRunr</text>
+<text x="665" y="337" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#0B7A55">The work is Java steps in one application,</text>
+<text x="665" y="353" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#0B7A55">so a library covers it without a server.</text>
+</svg>

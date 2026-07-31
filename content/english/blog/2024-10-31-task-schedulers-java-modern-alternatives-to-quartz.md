@@ -117,7 +117,7 @@ In addition to providing features such as retries, scalability, delayed and recu
 
 #### Kestra
 
-[Kestra](https://kestra.io/) is an open-source **workflow automation platform that makes job scheduling easy**. The engine is written in Java but aims at running any task in any programming language. Kestra is a great **low-code alternative to Quartz**. It provides several hundreds of plugin allowing to extract data from any database, cloud storage, or API, and run scripts in any language.
+[Kestra](https://kestra.io/) is an open-source **workflow automation platform that makes job scheduling easy**. The engine is written in Java but aims at running any task in any programming language. Kestra is a great **low-code alternative to Quartz**. It provides a large plugin catalogue (1,800+ at the time of writing) allowing to extract data from any database, cloud storage, or API, and run scripts in any language.
 
 Kestra **provides a UI for writing or configuring workflows**. This UI can also be used to monitor the system and track workflow state changes.
 

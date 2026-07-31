@@ -17,11 +17,14 @@ tags:
   - temporal
 ---
 
-Search for durable execution in Java and you will quickly land on two very different answers. One is Temporal, a dedicated workflow orchestration platform with its own server cluster. The other is JobRunr, a job scheduling library that runs inside your application on the database you already have. Both promise the same headline: multi-step work that survives crashes, retries automatically, and never re-runs a completed step.
+Search for durable execution in Java and you will quickly land on two very different answers. One is **Temporal**, a dedicated workflow orchestration platform with its own server cluster. The other is **JobRunr**, a job scheduling library that runs inside your application on the database you already have. Both promise the same headline: multi-step work that survives crashes, retries automatically, and never re-runs a completed step.
 
 We did not want to compare marketing pages, so we implemented the exact same three-step order workflow in both, pushed 1000 orders through each on two different machines, and instrumented PostgreSQL on both sides to count every transaction. The full project, harness, and results are [on GitHub](https://github.com/iNicholasBE/temporal-vs-jobrunr-benchmark) so you can rerun everything yourself.
 
-> **Short answer:** Temporal is a workflow orchestration platform. You deploy and operate it as its own distributed system, and in return you get deterministic replay, signals, durable timers, and multi-language orchestration. JobRunr is a Java library. You add a dependency, point it at your existing database, and get persistent jobs with checkpointed steps through `runStepOnce`, with nothing new to deploy. Neither makes your code magically resilient: both run side effects at-least-once, so the [idempotency]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}) homework is yours either way, and Temporal additionally requires you to keep workflow code deterministic. For deeply branching, polyglot, long-lived orchestrations, Temporal earns its keep. For the multi-step background jobs most Java services actually run, JobRunr delivers the same durability guarantee at a fraction of the code, infrastructure, and CPU. The numbers are below.
+> **Short answer:** Temporal is a workflow orchestration platform. You deploy and operate it as its own distributed system, and in return you get deterministic replay, signals, durable timers, and multi-language orchestration. JobRunr is a Java library. You add a dependency, point it at your existing database, and get persistent jobs with checkpointed steps through `runStepOnce`, with nothing new to deploy. 
+><br/> 
+><br/> 
+> Neither makes your code magically resilient: both run side effects at-least-once, so the [idempotency]({{<ref "blog/Idempotence-in-java-job-scheduling.md">}}) homework is yours either way, and Temporal additionally requires you to keep workflow code deterministic. For deeply branching, polyglot, long-lived orchestrations, Temporal earns its keep. For the multi-step background jobs most Java services actually run, JobRunr delivers the same durability guarantee at a fraction of the code, infrastructure, and CPU.
 
 This post will break down the differences. As with our [Spring Batch comparison]({{<ref "blog/spring-batch-vs-jobrunr.md">}}), we are not here to declare a universal winner. We are here to give you a clear, honest comparison, with real code and measured numbers, so you can pick the right tool for your project.
 
@@ -80,7 +83,6 @@ Four types and around 50 lines for three sequential calls, before the worker boo
 
 What a platform buys you is orchestration power. Temporal shines when the coordination itself is the hard problem. Choose it when:
 
-* Your **application is best modelled as workflows**: long-lived processes whose earlier results steer the steps that follow, and you want that model as your architecture, not just its durability.
 * One workflow **coordinates services written in several languages**. Temporal has SDKs for Java, Go, TypeScript, Python, .NET, PHP, and Ruby, and a workflow in one language can drive activities in another.
 * You need **signals, queries, durable timers, and child workflows as first-class primitives**: a workflow that sleeps for thirty days without holding a thread, or pauses mid-flight until a human approves and then branches on the answer.
 * Your workflows **branch deeply and live for weeks or months**, and you want the full event history of every execution for replay-based debugging and audit.
@@ -101,7 +103,8 @@ Temporal's co-creator Maxim Fateev frames the tool the same way we do here: not 
 <figcaption>What each tool adds to your architecture. Temporal brings its own cluster and persistence store; JobRunr rides along inside the application and database you already run.</figcaption>
 </figure>
 
-For multi-step work, JobRunr v8 added [durable executions]({{<ref "guides/advanced/durable-executions.md">}}) through `JobContext.runStepOnce`, in the free open-source version. You name each step, JobRunr checkpoints it in the job's own database row when it completes, and a retry skips every completed step. The same order workflow from the Temporal example looks like this:
+For multi-step work, JobRunr v8 added [durable executions]({{<ref "guides/advanced/durable-executions.md">}}) through `JobContext.runStepOnce`, in the free open-source version. You name each step, JobRunr checkpoints it in the job's own database row when it completes, and a retry skips every completed step. 
+The same order workflow from the Temporal example looks like this with JobRunr:
 
 ```java
 public class OrderFulfillmentJob {
@@ -140,27 +143,6 @@ On a retry, `startedAt` and `chargeId` come back from the stored results instead
 
 JobRunr is not the right choice, today, when a single workflow needs complex control flow with long pauses: a multi-step job runs from top to bottom, so it cannot suspend itself for a fixed duration mid-method or block on an external signal. It is also JVM-only, so you cannot use it in cross language applications. If those are hard requirements, Temporal is the better choice. That said, [JobRunr Pro](/en/pro) closes the control-flow gap with a different model: instead of one method that suspends, [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) composes the workflow out of jobs, where delays and external signals become links in the chain. More on that below.
 
-## A head-to-head comparison
-
-| Feature | Temporal | JobRunr |
-| :---- | :---- | :---- |
-| **What it is** | Workflow orchestration platform | Background job scheduling library |
-| **Runs as** | Separate server cluster (4 services) + own database + your worker fleet | A library inside your application |
-| **Extra infrastructure** | Temporal server and its persistence store, or Temporal Cloud | None, reuses your existing database |
-| **Durability model** | Event-sourced history + deterministic replay | Checkpointed steps stored with the job |
-| **Code for a 3-step workflow** | 4 types, ~50 lines | 1 class, 12 lines |
-| **Determinism contract** | Yes, enforced by the SDK: non-deterministic workflow code breaks replay | Not enforced by the engine; store values that must survive retries as step results |
-| **Languages** | Java, Go, TypeScript, Python, .NET, PHP, Ruby | JVM (Java, Kotlin, Scala) |
-| **Signals, queries, durable timers** | Built-in primitives | Scheduled jobs, plus [External Jobs]({{<ref "guides/advanced/external-jobs.md">}}) and [job chaining]({{<ref "documentation/pro/job-chaining.md">}}) in Pro |
-| **Recurring work** | Schedules API | Built-in recurring jobs with cron, one line |
-| **Side-effect guarantee** | Activities run at-least-once, must be idempotent | Steps run at-least-once, must be idempotent |
-| **Deploying changes** | Versioning discipline for in-flight workflows (worker versioning, `getVersion` patches) | Redeploy normally, keep job method signatures stable for queued jobs |
-| **Testing** | Time-skipping test framework (`TestWorkflowEnvironment`) | Jobs are plain methods, test with plain JUnit |
-| **Monitoring** | Web UI with full event history | Built-in real-time dashboard |
-| **Learning curve** | Steep (replay model, versioning, operations) | Minimal |
-| **License and pricing** | MIT-licensed server, paid Temporal Cloud | LGPL-3.0 open-source core, paid [Pro](/en/pro) subscription |
-
-Note the side-effect row: it is identical on purpose, and it surprises people. We will come back to it.
 
 ## The numbers: the same 1000 orders on both
 
@@ -170,10 +152,12 @@ Wherever the harness forced a choice, we made it in Temporal's favor: the real p
 
 | 1000 orders, 24 workers | Mac: JobRunr | Mac: Temporal | Hetzner: JobRunr | Hetzner: Temporal |
 | :--- | ---: | ---: | ---: | ---: |
-| Instant steps | **1.4 s** | 14.3 s | **1.8 s** | 13.6 s |
-| 25 ms per step | **8.4 s** | 15.4 s | **8.4 s** | 13.7 s |
-| CPU, all processes | **3.9 cpu-s** | 38.9 cpu-s | **13.3 cpu-s** | 83.2 cpu-s |
-| Peak memory | **340 MB** | 996 MB | **388 MB** | 868 MB |
+| **Instant steps** | 1.4 s | 14.3 s | 1.8 s | 13.6 s |
+| **25 ms per step** | 8.4 s | 15.4 s | 8.4 s | 13.7 s |
+| **CPU, all processes** | 3.9 cpu-s | 38.9 cpu-s | 13.3 cpu-s | 83.2 cpu-s |
+| **Peak memory** | 340 MB | 996 MB | 388 MB | 868 MB |
+
+<small>cpu-s means CPU-seconds: the total processor time consumed across every process involved, databases included. We highlight it because it is the column that maps to cost: wall-clock time is what you wait for, CPU-seconds are what you provision and pay for.</small>
 
 The telling comparison is between the two scenarios. Give every step 25 ms of simulated API latency and JobRunr slows down by exactly that work, from 1.4 to 8.4 seconds, while Temporal registers almost no difference on either machine. The 75 ms of real work per order was already hiding inside the engine's per-order cost of task dispatches, gRPC round trips, and durable history writes. At this job size, you are not waiting on your code, you are waiting on the orchestrator.
 
@@ -184,9 +168,9 @@ To see where that cost lives, we re-ran the instant-steps scenario with `pg_stat
 
 | Measured over 1000 orders | JobRunr | Temporal |
 | :--- | ---: | ---: |
-| Database transactions committed | **1,181** | 113,218 |
-| Writes per order | ~1.2 commits | ~113 commits |
-| Event history rows | none needed | 12,004 |
+| **Database transactions committed** | 1,181 | 113,218 |
+| **Writes per order** | ~1.2 commits | ~113 commits |
+| **Event history rows** | none needed | 12,004 |
 
 That is a **95x difference in committed transactions** for identical work, and it is not a bug on Temporal's side. Temporal is an event-sourcing system, so it durably records every state transition of every workflow (our three-step workflow produces 23 history events), and that record is precisely what powers replay debugging and the complete audit trail. JobRunr stores derived state instead: one insert and two in-place updates per job, with the step checkpoints riding along on those saves and the writes batched across jobs, which is why 1000 orders need only around 1,200 commits. Neither model is wrong, but one of them pays roughly a hundred durable transactions per order for a history you may never look at, and that bill lands on your CPU, your latency, and your database whether you needed the history or not. Admittedly, this picture could differ in JobRunr Pro where each step writes to the database on completion.
 
