@@ -8,8 +8,8 @@
 {{ $claudeURL := printf "https://claude.ai/new?q=%s" ($prompt | urlquery) }}
 
 {{ $mcpName := "jobrunr-docs" }}
-{{ $mcpURL := "https://mcp.jobrunr.io/sse" }}
-{{ $vscodeConfig := dict "name" $mcpName "type" "sse" "url" $mcpURL | jsonify }}
+{{ $mcpURL := "https://mcp.jobrunr.io/mcp" }}
+{{ $vscodeConfig := dict "name" $mcpName "type" "http" "url" $mcpURL | jsonify }}
 {{ $vscodeInstallURL := printf "vscode:mcp/install?%s" ($vscodeConfig | urlquery) }}
 {{ $cursorConfig := dict "url" $mcpURL | jsonify | base64Encode }}
 {{ $cursorInstallURL := printf "cursor://anysphere.cursor-deeplink/mcp/install?name=%s&config=%s" $mcpName ($cursorConfig | urlquery) }}
