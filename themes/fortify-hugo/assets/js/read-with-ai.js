@@ -88,6 +88,22 @@
   }
 
   /**
+   * Handle copy of a literal string held in data-copy-text
+   * @param {Event} e - Click event
+   */
+  async function handleCopyTextClick(e) {
+    const button = e.currentTarget;
+    const dropdown = button.closest('.read-with-ai-dropdown');
+
+    if (dropdown) closeDropdown(dropdown);
+
+    const copySuccess = await copyToClipboard(button.dataset.copyText);
+    if (copySuccess && dropdown) {
+      showSuccessFeedback(dropdown, 'Copied!');
+    }
+  }
+
+  /**
    * Open a dropdown menu
    * @param {HTMLElement} dropdown - The dropdown container
    */
@@ -208,6 +224,10 @@
       // Handle all action buttons
       dropdown.querySelectorAll('[data-action="copy"]').forEach(btn => {
         btn.addEventListener('click', handleCopyClick);
+      });
+
+      dropdown.querySelectorAll('[data-action="copy-text"]').forEach(btn => {
+        btn.addEventListener('click', handleCopyTextClick);
       });
 
       dropdown.querySelectorAll('[data-action="open-widget"]').forEach(btn => {
