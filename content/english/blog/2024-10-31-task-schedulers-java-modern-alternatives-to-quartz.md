@@ -105,7 +105,15 @@ There are several job scheduling alternatives to Quartz that are aimed at a broa
 
 Using these tools means you'll **have to get used to the terminology they use**. In particular, you'll have to accept that every task, even the simplest, must be defined as a workflow.
 
-Here we'll briefly introduce two such workflow engines that work well with Java applications: [Temporal](#temporal) and [Kestra](#kestra).
+Here we'll briefly introduce two such workflow engines that work well with Java applications: [Kestra](#kestra) and [Temporal](#temporal).
+
+#### Kestra
+
+[Kestra](https://kestra.io/) is an open-source **workflow automation platform that makes job scheduling easy**. The engine is written in Java, but tasks can run in any programming language. Kestra is a great **low-code alternative to Quartz**: workflows are declared in YAML rather than assembled in code, and a plugin catalogue of 1,800+ integrations lets you read from any database, cloud storage or API, and run scripts in any language.
+
+Kestra **provides a UI for writing or configuring workflows**. This UI can also be used to monitor the system and track workflow state changes.
+
+Kestra also has all the **essential features required for job scheduling**: reliable distributed system, retries, delayed and recurring executions. On top of that it can trigger workflows on **events** rather than time alone, such as a file landing in object storage, a message on a queue, or a webhook. That, together with the ability to orchestrate work **outside the JVM**, is the main reason to reach for a workflow engine instead of an in-application scheduler.
 
 #### Temporal
 
@@ -115,20 +123,12 @@ Very similar to pure Java-based solutions like JobRunr or Quartz, Temporal provi
 
 In addition to providing features such as retries, scalability, delayed and recurring executions, Temporal also provides a user interface that **allows you to monitor workflow execution** to detect failed tasks.
 
-#### Kestra
-
-[Kestra](https://kestra.io/) is an open-source **workflow automation platform that makes job scheduling easy**. The engine is written in Java but aims at running any task in any programming language. Kestra is a great **low-code alternative to Quartz**. It provides a large plugin catalogue (1,800+ at the time of writing) allowing to extract data from any database, cloud storage, or API, and run scripts in any language.
-
-Kestra **provides a UI for writing or configuring workflows**. This UI can also be used to monitor the system and track workflow state changes.
-
-Kestra also has all the **essential features required for job scheduling**: reliable distributed system, retries, delayed and recurring executions, etc.
-
 ## Conclusion
 
 For a long time, there was no real alternative to Quartz for job scheduling in Java. This is no longer the case, as there are several modern tools available to developers. These tools are simpler to use while providing the essential building blocks to achieve reliable and distributed scheduling.
 
 You may be looking for a persistent task scheduling library that integrates seamlessly into a Java application. In this case, we highly recommend trying out our solution JobRunr. DB Scheduler is another option that can give you satisfactory results.
 
-You can also take a look at workflow engines such as Temporal or Kestra. These are especially useful if your tasks are written in different programming languages.
+You can also take a look at workflow engines such as Kestra or Temporal. These are especially useful if your tasks are written in different programming languages.
 
 With these diverse tools at their disposal, Java developers can now select the one that best meets their needs, rather than relying on a single option.
