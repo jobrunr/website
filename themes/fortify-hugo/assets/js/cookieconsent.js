@@ -1,28 +1,18 @@
-window.addEventListener("load", (event) => {
-  setTimeout(() => {
-    // cookieconsent can be blocked in which case this crashes.
-    window.cookieconsent?.initialise({
-      "palette": {
-        "popup": {
-          "background": "#000"
-        },
-        "button": {
-          "background": "transparent",
-          "border": "#fff",
-          "text": "#fff"
-        }
+window.addEventListener("load", () => {
+  // cookieconsent can be blocked in which case this crashes.
+  window.cookieconsent?.initialise({
+    "palette": {
+      "popup": {
+        "background": "#000"
       },
-      "content": {
-        "link": "Learn more about cookies"
+      "button": {
+        "background": "transparent",
+        "border": "#fff",
+        "text": "#fff"
       }
-    });
-  }, 5000);
+    },
+    "content": {
+      "link": "Learn more about cookies"
+    }
+  });
 });
-
-var links = document.querySelectorAll('a');
-for (var i = 0; i < links.length; i++) {
-  if (links[i].hostname != window.location.hostname) {
-    links[i].target = '_blank';
-    links[i].rel = 'noopener';
-  }
-}
