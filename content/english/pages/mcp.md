@@ -10,14 +10,14 @@ Your AI assistant has opinions about JobRunr. Some of them are wrong: invented m
 
 The JobRunr MCP server fixes that. It serves the full `jobrunr.io` documentation as a hybrid search index (BM25 plus ONNX MiniLM embeddings) over the [Model Context Protocol](https://modelcontextprotocol.io). Point your editor at one URL and the assistant searches the actual docs instead of guessing.
 
-**Endpoint:** `https://mcp.jobrunr.io/sse`
+**Endpoint:** `https://mcp.jobrunr.io/mcp`
 
 ## Wire it up
 
 {{< codetabs category="ide" label="IDE" >}}
 {{< codetab label="Claude Code" type="claude-code" >}}
 ```bash
-claude mcp add --transport sse jobrunr-docs https://mcp.jobrunr.io/sse
+claude mcp add --transport http jobrunr-docs https://mcp.jobrunr.io/mcp
 ```
 
 Restart Claude Code, then `/mcp` to confirm. Ask it anything about JobRunr and `search_jobrunr_docs` fires on its own.
@@ -29,7 +29,7 @@ Add to `~/.cursor/mcp.json`:
 {
   "mcpServers": {
     "jobrunr-docs": {
-      "url": "https://mcp.jobrunr.io/sse"
+      "url": "https://mcp.jobrunr.io/mcp"
     }
   }
 }
@@ -38,10 +38,10 @@ Add to `~/.cursor/mcp.json`:
 Restart Cursor. The four JobRunr tools appear under Settings → MCP.
 {{< /codetab >}}
 {{< codetab label="VS Code / Windsurf" type="vscode" >}}
-Same SSE URL, whichever MCP config UI your client exposes:
+Same URL, whichever MCP config UI your client exposes:
 
 ```
-https://mcp.jobrunr.io/sse
+https://mcp.jobrunr.io/mcp
 ```
 
 A one-line `url` entry is usually enough. Restart after saving.
@@ -50,12 +50,18 @@ A one-line `url` entry is usually enough. Restart after saving.
 For any other MCP client, or to inspect the JSON-RPC traffic:
 
 ```bash
-npx @modelcontextprotocol/inspector
+npx @modelcontextprotocol/inspector --cli https://mcp.jobrunr.io/mcp --transport http --method tools/list
 ```
 
-Transport **SSE**, URL **`https://mcp.jobrunr.io/sse`**, click Connect. You'll see the four tools, their schemas, and can call them by hand.
+Drop the `--cli` flags for the browser UI: transport **Streamable HTTP**, URL **`https://mcp.jobrunr.io/mcp`**, click Connect. You'll see the four tools, their schemas, and can call them by hand.
 {{< /codetab >}}
 {{< /codetabs >}}
+
+> [!NOTE]
+> Added the server before August 2026? You'll have it on the older `https://mcp.jobrunr.io/sse` URL. That
+> endpoint still works, but it uses a transport the Model Context Protocol has since deprecated. Re-add the
+> server with the URL above to move to Streamable HTTP — in Claude Code that's `claude mcp remove jobrunr-docs`
+> followed by the command in the tab above.
 
 ## What your assistant can do
 
