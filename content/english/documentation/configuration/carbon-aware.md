@@ -54,7 +54,7 @@ Below are the data providers integrated with the Carbon Intensity API:
 
 ### Areas
 
-The following table lists all geographical areas currently supported by the Carbon Intensity API:
+The following table lists all geographical areas currently supported by the Carbon Intensity API. Click a row to tailor the [configuration examples below](#configuration) to that area.
 
 <div class="my-6">
     <div class="mb-4">
@@ -63,12 +63,17 @@ The following table lists all geographical areas currently supported by the Carb
     <div id="areas-table"></div>
 </div>
 
+> [!NOTE]
+> Areas labelled _alias of …_ give a familiar name — a region, a city — to a main area that is less commonly known, such as a US Balancing Authority. An alias resolves to the forecast of its main area. The two don't always cover exactly the same territory, so an alias is the closest available match rather than an exact one.
+
 ## Configuration
 
 To enable Carbon Aware Job Processing, configure a `CarbonAwareJobProcessingConfiguration` with your area code so that the correct energy data is taken into account. If you're unsure which region to select, browse the [supported areas above](#areas).
 
-> [!TIP]
-> Selecting an area, by clicking on a row, in the [above list of supported areas]({{< ref "#areas" >}}) will automatically update the below configuration examples to your chosen area.
+<blockquote id="config-area-status" class="alert alert--warning">
+<div class="alert__header"><i class="fa-solid fa-triangle-exclamation alert__icon"></i><div class="alert__label">Placeholders</div></div>
+<div class="alert__content"><p>The snippets below are incomplete on purpose: an area code that doesn't match where your application runs yields a forecast for the wrong region. Pick your data center's area in the <a href="#areas">list above</a> to fill them in. The data provider is optional — drop the line and the Carbon Intensity API picks one that covers your area.</p></div>
+</blockquote>
 
 <div id="config-examples">
 {{< codetabs category="config-style" >}}
@@ -81,8 +86,8 @@ JobRunr
             .andCarbonAwaitingJobsRequestSize(1000)
             .andCarbonAwareJobProcessingConfiguration(
                 usingStandardCarbonAwareJobProcessingConfiguration()
-                    .andAreaCode("BE")
-                    .andDataProvider("ENTSO-E")
+                    .andAreaCode("YOUR-AREA-CODE")
+                    .andDataProvider("YOUR-DATA-PROVIDER")
             ))
     // ...
 ```
@@ -91,8 +96,8 @@ JobRunr
 {{< codetab label="Properties" >}}
 ```properties
 jobrunr.background-job-server.carbon-aware-job-processing.enabled=true
-jobrunr.background-job-server.carbon-aware-job-processing.area-code=BE
-jobrunr.background-job-server.carbon-aware-job-processing.data-provider=ENTSO-E
+jobrunr.background-job-server.carbon-aware-job-processing.area-code=YOUR-AREA-CODE
+jobrunr.background-job-server.carbon-aware-job-processing.data-provider=YOUR-DATA-PROVIDER
 jobrunr.background-job-server.carbon-aware-job-processing.api-client-connect-timeout=5000ms
 jobrunr.background-job-server.carbon-aware-job-processing.poll-interval-in-minutes=5
 ```
@@ -104,8 +109,8 @@ jobrunr:
   background-job-server:
     carbon-aware-job-processing:
       enabled: true
-      area-code: BE
-      data-provider: ENTSO-E
+      area-code: YOUR-AREA-CODE
+      data-provider: YOUR-DATA-PROVIDER
       api-client-connect-timeout: 5000ms
       poll-interval-in-minutes: 5
 ```
@@ -178,21 +183,28 @@ fetch('https://api.jobrunr.io/carbon-intensity/areas')
       layout: "fitColumns",
       virtualDom: true,
       virtualDomBuffer: 300,
-      rowHeight: 38,
+      rowHeight: 44,
       selectableRows: 1,
+      columnDefaults: { tooltip: true, headerTooltip: true },
       columns: [
-        { title: "Name", field: "displayName", sorter: "string", minWidth: 200, formatter: (cell) => {
-          const mainArea = cell.getRow().getData().mainAreaDisplayName;
-          if (mainArea) {
-            return `<span class="flex items-center"><i class="fa-solid fa-circle area-alias" title="Alias of ${mainArea}"></i>${cell.getValue()}<span>`;
+        { title: "Name", field: "displayName", sorter: "string", minWidth: 220, frozen: true,
+          tooltip: (e, cell) => {
+            const mainArea = cell.getRow().getData().mainAreaDisplayName;
+            return mainArea ? `${cell.getValue()} — alias of ${mainArea}` : cell.getValue();
+          },
+          formatter: (cell) => {
+            const mainArea = cell.getRow().getData().mainAreaDisplayName;
+            if (mainArea) {
+              return `<span class="area-name">${cell.getValue()}</span><span class="area-alias">alias of ${mainArea}</span>`;
+            }
+            return cell.getValue();
           }
-          return cell.getValue();
-        }},
-        { title: "Code", field: "code", sorter: "string", width: 120 },
-        { title: "External Code", field: "externalCode", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
-        { title: "External Identifier", field: "externalIdentifier", sorter: "string", formatter: (cell) => cell.getValue() || '-' },
-        { title: "Timezone", field: "timezone", sorter: "string" },
-        { title: "Provider", field: "dataProvider", sorter: "string" }
+        },
+        { title: "Code", field: "code", sorter: "string", minWidth: 110, width: 110 },
+        { title: "Provider", field: "dataProvider", sorter: "string", minWidth: 170 },
+        { title: "Timezone", field: "timezone", sorter: "string", minWidth: 160 },
+        { title: "External Code", field: "externalCode", sorter: "string", minWidth: 150, formatter: (cell) => cell.getValue() || '-' },
+        { title: "External Identifier", field: "externalIdentifier", sorter: "string", minWidth: 170, formatter: (cell) => cell.getValue() || '-' },
       ],
       placeholder: "No areas found",
       initialSort: [
@@ -229,37 +241,37 @@ document.getElementById("areas-search").addEventListener("keyup", function() {
     ]);
 });
 
-let currentAreaCode = 'BE';
-let currentDataProvider = 'ENTSO-E';
+// Wrap the placeholders in the config snippets so selecting an area can swap
+// them by text content instead of re-parsing the highlighted HTML each time.
+const configPlaceholders = { areaCode: 'YOUR-AREA-CODE', dataProvider: 'YOUR-DATA-PROVIDER' };
 
-function escapeRegex(str) {
-  return str.replace(/-/g, '\\-');
-}
+(function markConfigPlaceholders() {
+  const container = document.getElementById('config-examples');
+  if (!container) return;
+
+  container.querySelectorAll('pre code').forEach(codeBlock => {
+    let html = codeBlock.innerHTML;
+    Object.entries(configPlaceholders).forEach(([name, placeholder]) => {
+      html = html.replaceAll(placeholder, `<span data-config-token="${name}">${placeholder}</span>`);
+    });
+    codeBlock.innerHTML = html;
+  });
+})();
 
 function updateConfigExamples(area) {
   const container = document.getElementById('config-examples');
   if (!container) return;
 
-  const oldCode = escapeRegex(currentAreaCode);
-  const newCode = area.code;
-  const oldProvider = escapeRegex(currentDataProvider);
-  const newProvider = area.dataProvider;
-
-  container.querySelectorAll('pre code').forEach(codeBlock => {
-    let html = codeBlock.innerHTML;
-    // Java: andAreaCode("XX") and andDataProvider("YY")
-    html = html.replace(new RegExp(`(andAreaCode.*?")${oldCode}(")`), `$1${newCode}$2`);
-    html = html.replace(new RegExp(`(andDataProvider.*?")${oldProvider}(")`), `$1${newProvider}$2`);
-    // Properties: area-code=XX and data-provider=YY
-    html = html.replace(new RegExp(`(area-code.*?=.*?)${oldCode}(\\s|<|$)`), `$1${newCode}$2`);
-    html = html.replace(new RegExp(`(data-provider.*?=.*?)${oldProvider}(\\s|<|$)`), `$1${newProvider}$2`);
-    // YAML: area-code: XX and data-provider: YY
-    html = html.replace(new RegExp(`(area-code.*?:.*?>)${oldCode}(<)`), `$1${newCode}$2`);
-    html = html.replace(new RegExp(`(data-provider.*?:.*?>)${oldProvider}(<)`), `$1${newProvider}$2`);
-    codeBlock.innerHTML = html;
+  const values = { areaCode: area.code, dataProvider: area.dataProvider };
+  container.querySelectorAll('[data-config-token]').forEach(token => {
+    token.textContent = values[token.dataset.configToken];
   });
 
-  currentAreaCode = newCode;
-  currentDataProvider = newProvider;
+  const status = document.getElementById('config-area-status');
+  if (status) {
+    status.className = 'alert alert--tip';
+    status.innerHTML = `<div class="alert__header"><i class="fa-solid fa-circle-check alert__icon"></i><div class="alert__label">Area selected</div></div>
+      <div class="alert__content"><p>Snippets updated for <strong>${area.displayName}</strong> (${area.code}) via ${area.dataProvider}. <a href="#areas">Pick another area</a>.</p></div>`;
+  }
 }
 </script>

@@ -22,7 +22,7 @@
 
 /* Tabulator container */
 #areas-table.tabulator {
-  @apply rounded border border-gray-200 shadow-sm;
+  @apply rounded border border-gray-200 shadow-sm text-sm;
 }
 
 #areas-table.tabulator, 
@@ -85,6 +85,16 @@
 .tabulator .tabulator-row .tabulator-cell,
 .tabulator .tabulator-header .tabulator-col {
   @apply border-r-0;
+}
+
+.tabulator .tabulator-row .tabulator-cell.tabulator-frozen {
+  @apply border-r border-gray-200;
+  background-color: inherit;
+}
+
+.tabulator .tabulator-header .tabulator-col.tabulator-frozen {
+  @apply border-r border-gray-200 bg-white;
+  z-index: 12; /* above the resize handles of the columns scrolling underneath */
 }
 
 .tabulator .tabulator-header .tabulator-col-resize-handle {
@@ -209,8 +219,17 @@ input[name="username"] {
 }
 
 /* AREA ALIAS */
+.area-name,
 .area-alias {
-  @apply text-[6px] text-blue-400 mr-1.5 cursor-help;
+  @apply block overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+.area-alias {
+  @apply text-[11px] italic text-gray-500 leading-tight;
+}
+
+.tabulator .tabulator-row.tabulator-selected .area-alias {
+  @apply text-white/80;
 }
 
 /* HERO: EDITOR + BROWSER (homepage banner) */
