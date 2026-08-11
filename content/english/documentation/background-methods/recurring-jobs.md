@@ -4,6 +4,7 @@ subtitle: "Schedule recurring jobs with a single line of code using any CRON exp
 keywords: ["java recurring job", "java cron job", "cron", "crontab", "java cron", "cron interval", "cron expression", "recurring jobs", "distributed job scheduler"]
 description: "Create a CRON job in Java using JobRunr with only one line of code."
 date: 2020-09-16T11:12:23+02:00
+lastmod: 2026-08-10
 layout: "documentation"
 menu: 
   sidebar: 
@@ -180,7 +181,23 @@ The methods above will create a new recurring job if no recurring job with that 
 > Identifiers should be unique - use unique identifiers for each recurring job, otherwise you’ll end with a single job.
 
 ## Deleting recurring jobs
-You can remove an existing recurring job either via the dashboard or by calling the `BackgroundJob.delete` method with the id of the recurring job. It does not throw an exception when there is no such recurring job.
+You can remove an existing recurring job either via the dashboard or by calling the `BackgroundJob.deleteRecurringJob` method with the id of the recurring job. It does not throw an exception when there is no such recurring job.
+
+```java
+BackgroundJob.deleteRecurringJob("some-recurring-job-id");
+```
+
+> [!IMPORTANT]
+> Before deleting a recurring job or changing its schedule, please make sure to also **cleanup the jobs scheduled ahead of time for the changing recurring jobs**. You can do this using the StorageProvider or the Dashboard. Note that in **JobRunr Pro, the changes are detected** and JobRunr will do this cleanup for you. 
+
+> [!TIP]
+> Pausing a recurring job by deleting and recreating it, is not going to work. If you're using JobRunr Pro [use the pausing feature]({{< ref "#pause-and-resume-recurring-jobs" >}}). If you're using JobRunr OSS delete the old recurring job and create a new one using a different ID.
+
+### What happens when you delete the code
+Recurring jobs are saved to the `StorageProvider`, so removing the code that registered one does not always remove the recurring job itself.
+
+- **`@Recurring` annotated methods**: as of JobRunr v8, removing an annotated method, or the `@Recurring` annotation from the method, also removes the corresponding recurring job from the `StorageProvider` on the next startup.
+- **Programmatically registered jobs** (`scheduleRecurrently` or `createRecurrently`): these are *not* cleaned up automatically. Deleting the code that registered one leaves the recurring job in the `StorageProvider` and it keeps scheduling jobs, and changing its id registers a second recurring job instead of renaming the first. Delete these explicitly, via the dashboard or `BackgroundJob.deleteRecurringJob(id)`.
 
 ## Pause and Resume recurring jobs
 {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
@@ -368,5 +385,3 @@ BackgroundJob.createRecurrently(aRecurringJob()
 > __Remark 3:__ please note that the __cron interval__ or __duration__ for your recurring jobs __must be more than your `pollIntervalInSeconds`__. If your `pollIntervalInSeconds` is greater than your cron interval or duration of your recurring jobs, JobRunr will launch multiple instances of the same recurring job to keep up. This means that the same recurring job will be launched multiple times at the same moment.
 
 > __Remark 4:__ also note that the __smallest possible cron interval__ for your recurring jobs is __every 5 seconds__. JobRunr prevents creating recurring jobs with cron values less than every 5 seconds (e.g. every second) as it would generate too much load on your StorageProvider (SQL or noSQL database).
-
-> __Remark 5:__ before deleting a recurring job or changing its schedule, please make sure to also **cleanup the jobs scheduled ahead of time for the changing recurring jobs**. You can do this using the StorageProvider or the Dashboard. Note that in JobRunr Pro, the changes are detected and JobRunr will do this cleanup for you. 

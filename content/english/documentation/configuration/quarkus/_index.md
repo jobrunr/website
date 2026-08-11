@@ -2,6 +2,7 @@
 title: "Quarkus Extension"
 subtitle: "JobRunr has excellent support for Quarkus thanks to the JobRunr Quarkus Extension"
 date: 2021-08-24T11:12:23+02:00
+lastmod: 2026-08-10
 layout: "documentation"
 menu: 
   sidebar:
@@ -73,16 +74,22 @@ quarkus.jobrunr.database.datasource= # allows to specify a DataSource specifical
 quarkus.jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and a NoSQL one), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
 quarkus.jobrunr.jobs.default-number-of-retries=10 # the default number of retries for a failing job
 quarkus.jobrunr.jobs.retry-back-off-time-seed=3 # the default time seed for the exponential back-off policy.
+quarkus.jobrunr.jobs.delete-succeeded-jobs-after=36h # succeeded jobs will go to the deleted state after 36 hours
+quarkus.jobrunr.jobs.permanently-delete-deleted-jobs-after=72h # deleted jobs will be deleted permanently after 72 hours
 quarkus.jobrunr.job-scheduler.enabled=true # allows to enable the JobScheduler or JobRequestScheduler (this is a runtime configuration)
 quarkus.jobrunr.background-job-server.included=true # allows to include or exclude the BackgroundJobServer resources (this is a build time configuration)
 quarkus.jobrunr.background-job-server.enabled=false # allows to enable or disable the background job server (this is a runtime configuration)
 quarkus.jobrunr.background-job-server.worker-count= # this value normally is defined by the amount of CPU's that are available
 quarkus.jobrunr.background-job-server.poll-interval=15 # check for new work every 15 seconds
-quarkus.jobrunr.background-job-server.delete-succeeded-jobs-after=36h # succeeded jobs will go to the deleted state after 36 hours
-quarkus.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72h # deleted jobs will be deleted permanently after 72 hours
+quarkus.jobrunr.background-job-server.delete-succeeded-jobs-after=36h # DEPRECATED, use quarkus.jobrunr.jobs.delete-succeeded-jobs-after
+quarkus.jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72h # DEPRECATED, use quarkus.jobrunr.jobs.permanently-delete-deleted-jobs-after
+quarkus.jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=10s # how long to wait for running jobs to finish when the server is stopped
 quarkus.jobrunr.background-job-server.metrics.enabled=false # Micrometer integration: reports server metrics (cpu usage, memory usage, worker pool size, etc.)
 quarkus.jobrunr.dashboard.included=true # allows to include or exclude the Dashboard web server resources (this is a build time configuration)
 quarkus.jobrunr.dashboard.enabled=false # allows to enable or disable the Dashboard web server (this is a runtime configuration)
 quarkus.jobrunr.dashboard.port=8000 # the port on which to start the dashboard
 quarkus.jobrunr.miscellaneous.allow-anonymous-data-usage=true # this sends the amount of succeeded jobs for marketing purposes
 ```
+
+> [!NOTE]
+> Since JobRunr 8.8.1, the job retention settings moved from `quarkus.jobrunr.background-job-server.*` to `quarkus.jobrunr.jobs.*`. The old properties still work but are deprecated - prefer the `quarkus.jobrunr.jobs.*` form in new configuration.

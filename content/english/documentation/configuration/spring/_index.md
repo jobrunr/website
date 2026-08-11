@@ -2,6 +2,7 @@
 title: "Spring Boot Starter"
 subtitle: "JobRunr has excellent Spring support thanks to the jobrunr-spring-boot-starter"
 date: 2021-08-24T11:12:23+02:00
+lastmod: 2026-08-10
 layout: "documentation"
 menu: 
   sidebar:
@@ -84,13 +85,16 @@ jobrunr.database.datasource= # allows to specify a DataSource specifically for J
 jobrunr.database.type= # if you have multiple supported storage providers available in your application (e.g. an SQL DataSource and a NoSQL one), it allows to specify which database to choose. Valid values are 'sql', 'mongodb'.
 jobrunr.jobs.default-number-of-retries=10 #the default number of retries for a failing job
 jobrunr.jobs.retry-back-off-time-seed=3 #the default time seed for the exponential back-off policy.
+jobrunr.jobs.delete-succeeded-jobs-after=36h #succeeded jobs will go to the deleted state after 36 hours
+jobrunr.jobs.permanently-delete-deleted-jobs-after=72h #deleted jobs will be deleted permanently after 72 hours
 jobrunr.jobs.metrics.enabled=false #Micrometer integration - this was true in v5.
 jobrunr.job-scheduler.enabled=true
 jobrunr.background-job-server.enabled=false
 jobrunr.background-job-server.worker-count= #this value normally is defined by the amount of CPU's that are available
 jobrunr.background-job-server.poll-interval-in-seconds=15 #check for new work every 15 seconds
-jobrunr.background-job-server.delete-succeeded-jobs-after=36h #succeeded jobs will go to the deleted state after 36 hours
-jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72h #deleted jobs will be deleted permanently after 72 hours
+jobrunr.background-job-server.delete-succeeded-jobs-after=36h # DEPRECATED, use jobrunr.jobs.delete-succeeded-jobs-after
+jobrunr.background-job-server.permanently-delete-deleted-jobs-after=72h # DEPRECATED, use jobrunr.jobs.permanently-delete-deleted-jobs-after
+jobrunr.background-job-server.interrupt-jobs-await-duration-on-stop=10s #how long to wait for running jobs to finish when the server is stopped
 jobrunr.background-job-server.metrics.enabled=true # Micrometer integration: reports server metrics (cpu usage, memory usage, worker pool size, etc.)
 jobrunr.dashboard.enabled=false
 jobrunr.dashboard.port=8000 #the port on which to start the dashboard
@@ -98,5 +102,8 @@ jobrunr.dashboard.username= # The username for the basic authentication which pr
 jobrunr.dashboard.password= # The password for the basic authentication user which protects the dashboard
 jobrunr.miscellaneous.allow-anonymous-data-usage=true #this sends the amount of succeeded jobs for marketing purposes
 ```
+
+> [!NOTE]
+> Since JobRunr 8.8.1, the job retention settings moved from `jobrunr.background-job-server.*` to `jobrunr.jobs.*`. The old properties still work but are deprecated - prefer the `jobrunr.jobs.*` form in new configuration.
 
 See the [Carbon Aware Job Processing docs](/en/documentation/configuration/carbon-aware/) for info on how to configure Carbon Aware specific properties. 

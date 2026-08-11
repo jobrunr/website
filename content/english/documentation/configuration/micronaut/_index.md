@@ -2,6 +2,7 @@
 title: "Micronaut Integration"
 subtitle: "JobRunr has excellent support for Micronaut thanks to the JobRunr Micronaut Integration"
 date: 2021-08-24T11:12:23+02:00
+lastmod: 2026-08-10
 layout: "documentation"
 menu: 
   sidebar:
@@ -101,12 +102,15 @@ jobrunr:
   jobs:
     default-number-of-retries:10 #the default number of retries for a failing job
     retry-back-off-time-seed:3 #the default time seed for the exponential back-off policy.
+    delete-succeeded-jobs-after: 36h #succeeded jobs will go to the deleted state after 36 hours
+    permanently-delete-deleted-jobs-after: 72h #deleted jobs will be deleted permanently after 72 hours
   background-job-server:
     enabled: false
     worker-count: #this value normally is defined by the amount of CPU's that are available
     poll-interval-in-seconds: 15 #check for new work every 15 seconds
-    delete-succeeded-jobs-after: 36
-    permanently-delete-deleted-jobs-after: 72
+    delete-succeeded-jobs-after: 36 # DEPRECATED, use jobrunr.jobs.delete-succeeded-jobs-after
+    permanently-delete-deleted-jobs-after: 72 # DEPRECATED, use jobrunr.jobs.permanently-delete-deleted-jobs-after
+    interrupt-jobs-await-duration-on-stop: 10s #how long to wait for running jobs to finish when the server is stopped
     metrics:
       enabled: true # Micrometer integration: reports server metrics (cpu usage, memory usage, worker pool size, etc.)
   dashboard:
@@ -115,3 +119,6 @@ jobrunr:
   miscellaneous:
     allow-anonymous-data-usage: true #this sends the amount of succeeded jobs for marketing purposes
 ```
+
+> [!NOTE]
+> Since JobRunr 8.8.1, the job retention settings moved from `jobrunr.background-job-server.*` to `jobrunr.jobs.*`. The old properties still work but are deprecated - prefer the `jobrunr.jobs.*` form in new configuration.

@@ -131,6 +131,7 @@ menu:
   - Don't oversell. Name the limitations and responsibilities that remain with the reader no matter which tool they pick, and where JobRunr OSS and Pro behave differently, say so instead of letting one claim stand for both.
   - Keep exact figures in the section where they are substantiated; in intros and takeaways prefer softer phrasing over repeating precise numbers.
   - Prefer "JVM" over "Java" when the point applies to Kotlin/Scala too.
+  - When an existing page is updated, also add or update last modification date, the `lastmod` frontmatter
 
 ## Code Style
 
