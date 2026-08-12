@@ -4,16 +4,19 @@ const initUptimeKumaStatus = () => {
 
     const fallbackImg = container.dataset.fallbackImg
 
-    container.querySelectorAll('img').forEach(badge => {
-        badge.addEventListener('error', () => {
+    container.querySelectorAll('img[data-badge]').forEach(badge => {
+        const live = new Image()
+        live.onload = () => badge.src = live.src
+        live.onerror = () => {
             badge.src = fallbackImg
-            badge.title = "JobRunr Stats Server is down"
-        })
+            badge.title = "Could not reach the JobRunr status server"
+        }
+        live.src = badge.dataset.badge
     })
 }
 
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initUptimeKumaStatus)
-} else {
+if (document.readyState === 'complete') {
     initUptimeKumaStatus()
+} else {
+    window.addEventListener('load', initUptimeKumaStatus)
 }
