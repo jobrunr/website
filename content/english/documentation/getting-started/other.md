@@ -59,7 +59,7 @@ BackgroundJobRequest.enqueue(NewsletterSubscriptionJobRequest("user@example.com"
 This pattern has been successfully applied to schedule jobs in both Scala and Groovy using JobRunr:
 
 - [Integrating JobRunr into Play Framework](https://tanin.nanakorn.com/integrate-jobrunr-into-play-framework/) by [Tanin Na Nakorn](https://github.com/tanin47) shows how to integrate JobRunr into Play Framework using Scala.
-- [Integrating JobRunr with Apache Grails]({{< ref "guides/jvm-frameworks/grails" >}}) shows how to integrate JobRunr in Apache Grails, a Groovy framework built on top of Spring Boot.
+- [Integrating JobRunr with Apache Grails]({{< ref "guides/jvm-frameworks/grails" >}}) shows how to integrate JobRunr in Apache Grails, a Groovy framework built on top of Spring Boot. See also [Background Jobs with JobRunr in Grails 8](https://grails.apache.org/guides/grails-jobrunr/8/guide/index.html) by James Fredley. 
 
 ## Integrating JobRunr in other JVM frameworks
 
@@ -188,6 +188,7 @@ For a reference on what a fully automated framework integration looks like, the 
 A similar strategy has been employed in the below examples:
 
 - [Integrating JobRunr into Play Framework](https://tanin.nanakorn.com/integrate-jobrunr-into-play-framework/) by [Tanin Na Nakorn](https://github.com/tanin47) shows how to integrate JobRunr into Play Framework.
+- [Background Jobs with JobRunr in Grails 8](https://grails.apache.org/guides/grails-jobrunr/8/guide/index.html) by James Fredley shows how to integrate JobRunr into Grails 8.
 
 ## Next steps
 
