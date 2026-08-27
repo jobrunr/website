@@ -1,0 +1,10 @@
+{{/*  Pre-rendered per step, so the wizard JS only ever toggles `hidden` on the step containers.  */}}
+{{ $current := .current }}
+<div class="mb-6 flex items-center gap-3">
+  {{ range $i := seq 1 3 }}
+    <span
+      class="h-1.5 w-10 rounded-full {{ if le $i $current }}bg-tertiary{{ else }}bg-border{{ end }}"
+      aria-hidden="true"></span>
+  {{ end }}
+  <span class="text-sm font-medium opacity-70">Step {{ $current }} of 3</span>
+</div>

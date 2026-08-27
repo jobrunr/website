@@ -3,7 +3,7 @@ title: "JobRunr and the EU Cyber Resilience Act"
 meta_title: "JobRunr and the EU Cyber Resilience Act | Due Diligence"
 description: "Is JobRunr CRA compliant? JobRunr BV is an open-source steward for JobRunr OSS and a manufacturer for JobRunr Pro under Regulation (EU) 2024/2847. Here is our scoping, our disclosure policy, our supported versions and what we provide for your due diligence file."
 keywords: ["is jobrunr cra compliant", "jobrunr cyber resilience act", "jobrunr sbom", "jobrunr security policy", "jobrunr vulnerability disclosure", "jobrunr dora", "cra component due diligence"]
-draft: true
+draft: false
 #
 # ---------------------------------------------------------------------------
 # INTERNAL NOTE (YAML comments, never rendered).

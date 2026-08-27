@@ -1,0 +1,35 @@
+{{ define "main" }}
+  <section class="section">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-7" data-aos="fade-up-sm">
+          <div class="rounded-2xl bg-light p-8 text-center md:p-12">
+            <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-tertiary">
+              <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <h1 class="h3 mb-4">{{ .Title | markdownify }}</h1>
+            <p class="mb-8 text-lg">{{ .Params.body | markdownify }}</p>
+            <a class="btn btn-primary btn-even-padding" href="{{ .Params.cta_link }}" target="_blank" rel="noopener">
+              {{ .Params.cta_label }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // The page carries no entitlement logic, so guard the event rather than the page.
+    (function () {
+      try {
+        if (sessionStorage.getItem('jr_purchase_tracked')) return;
+        sessionStorage.setItem('jr_purchase_tracked', '1');
+      } catch (e) {
+        /* storage unavailable, accept a possible duplicate rather than losing the event */
+      }
+      (window.dataLayer = window.dataLayer || []).push({ event: 'purchase_completed' });
+    })();
+  </script>
+{{ end }}

@@ -5,12 +5,12 @@ description: "Get production-grade visibility, workflows, rate limiting, priorit
 button:
     get_started:
       enable: true
-      label: "Start your free trial"
-      link: "try-jobrunr-pro"
+      label: "Start using JobRunr Pro now"
+      link: "start-jobrunr-pro/"
     learn_more:
       enable: true
-      label: "See the code"
-      link: "https://finance.demo.jobrunr.io/storyline"
+      label: "Take the guided tour"
+      link: "https://finance.demo.jobrunr.io/tour"
 oss_to_pro_signals:
   title: "When should teams move from OSS to Pro?"
   lead: "You should consider Pro when:"
@@ -24,7 +24,7 @@ oss_to_pro_signals:
   button:
     enable: true
     label: "Compare OSS vs Pro"
-    link: "#comparison-table"
+    link: "pricing/#comparison-table"
 features_intro:
   title: "5 reasons enterprise teams choose JobRunr Pro"
 first_feature:
@@ -37,7 +37,7 @@ first_feature:
   button:
     enable: true
     label: "Explore All Pro Features"
-    link: "#comparison-table"
+    link: "pricing/#comparison-table"
 second_feature:
   title: "2. Your team didn't sign up to build a workflow engine"
   description: "JobRunr Pro lets you create powerful workflows, atomic batches, and job chains to automate complex business logic with smart failure handling."
@@ -80,19 +80,10 @@ fifth_feature:
     - item: "Your data never leaves your infrastructure. JobRunr runs inside your JVM with no external dependencies."
   button:
     enable: true
-    label: "Start your free trial"
-    link: "try-jobrunr-pro"
+    label: "Start using JobRunr Pro now"
+    link: "start-jobrunr-pro/"
 
-how_it_works:
-  title: "Three steps. That's it."
-  steps:
-    - number: "1"
-      title: "Request a free trial"
-      description: "Get started with a 14-day trial license to explore all JobRunr Pro features."
-    - number: "2"
-      title: "Build your P.O.C."
-      description: "Our support team is ready to help you make your proof of concept successful."
-    - number: "3"
-      title: "Purchase a yearly license"
-      description: "We'll work with your team to ensure a smooth transition from your POC to production without any license interruptions."
+# don't create a separate page
+build:
+  render: "never"
 ---

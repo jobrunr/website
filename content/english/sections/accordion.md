@@ -20,7 +20,10 @@ list:
   - title: "How can I convince my manager to buy Pro?"
     description: "We can help. We prepared an email with 5 clear reasons that frame Pro as an investment that saves development time, reduces infrastructure costs, and lowers production risk. [You can find the email template here.](/en/convince-your-boss)"
   - title: "We are a startup or nonprofit. Do you have special pricing?"
-    description: "Yes. We offer special plans for startups, freelancers, and nonprofits. We also offer royalty free licenses if you want to redistribute JobRunr. Please reach out to us, and we will find a plan that works for you."
+    description: "Yes. Startup pricing is €1,200 per year while you stay eligible, meaning under 10 people and under €1M annual revenue, and you can apply straight from the [pricing page](/en/pricing). We also offer special plans for freelancers and nonprofits, and royalty free licenses if you want to redistribute JobRunr. Please reach out to us, and we will find a plan that works for you."
   - title: "We are an existing customer. Does our pricing change?"
     description: "No. Your current pricing is locked in. This is our way of saying thank you for your early support."
+# don't create a separate page
+build:
+  render: "never"
 ---

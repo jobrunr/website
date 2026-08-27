@@ -28,6 +28,10 @@ copyright = ""
 #footer description
 footer_description = "The ultimate library for background processing in Java. Distributed, persistent, and reliable job scheduling."
 
+# n8n forms endpoint. Every form on the site posts here, discriminated by a `form:` field.
+# config/development/params.toml overrides this so `hugo server` never posts to the live pipeline.
+n8n_webhook_url = "https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe"
+
 # background pattern
 [header]
 bg_image = "/images/header-bg.jpg"
@@ -38,11 +42,17 @@ bg_image = "/images/header-bg.jpg"
 enable = false
 preloader = "" # use jpg, png, svg or gif format.
 
+# Start API (jobrunr-start-api). Both flags stay false until the backend is deployed.
+[start_api]
+base_url = "https://start.jobrunr.io"
+github_oauth_enabled = false
+checkout_enabled = false
+
 # Navigation button
 [navigation_button]
 enable = true
-label = "Get Started"
-link = "get-started"
+label = "Start for free"
+link = "get-started/"
 
 # search
 # search module: https://github.com/gethugothemes/hugo-modules/tree/master/search

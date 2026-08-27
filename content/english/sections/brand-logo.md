@@ -9,4 +9,7 @@ brand:
     - image: "/images/brand-logo/Capgemini-logo.webp"
     - image: "/images/brand-logo/intuit-logo.svg"
     - image: "/images/brand-logo/adobe-logo.png"
+# don't create a separate page
+build:
+  render: "never"
 ---

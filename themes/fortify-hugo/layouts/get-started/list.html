@@ -1,24 +1,53 @@
 {{ define "main" }}
-  <section class="section">
+  {{/*  Tight top padding on purpose: the three choices, the numbers and the logo strip
+        all have to land above the fold on a laptop.  */}}
+  <section class="section pt-4 md:pt-6">
     <div class="container">
-      <div class="row justify-center">
-        <div class="lg:col-10">
-          
-          <div class="text-center mb-16">
-            <h1 class="h2 md:h1">{{ .Title | markdownify }}</h1>
-            {{ with .Params.description }}
-            <p class="text-lg mt-4">
-              {{ . | markdownify }}
-            </p>
-            {{ end }}
-          </div>
+      <div class="row g-4">
+        <!-- Left: the three paths -->
+        <div class="lg:col-6" data-aos="fade-up-sm">
+          <div class="bg-light rounded-2xl p-5 md:p-8">
+            <h1 class="h3 mb-5">{{ .Title | markdownify }}</h1>
 
-          <div class="content">
-            {{ .Content }}
+            <div class="flex flex-col gap-3">
+              {{ range .Params.options }}
+                <a
+                  id="{{ .id }}"
+                  data-choice="{{ .choice }}"
+                  class="block rounded-xl border border-border bg-white p-4 transition-colors hover:border-tertiary md:p-5"
+                  href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                  {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                  <span class="mb-1 flex items-center gap-2 text-lg font-medium text-text-dark">
+                    {{ .title | markdownify }}
+                    {{ if .external }}
+                      <svg class="h-4 w-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    {{ end }}
+                  </span>
+                  <span class="block">{{ .text | markdownify }}</span>
+                </a>
+              {{ end }}
+            </div>
           </div>
-          
+        </div>
+
+        <!-- Right: trust column -->
+        <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="200">
+          {{ partial "components/trust-column.html" . }}
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.querySelectorAll('[data-choice]').forEach(function (card) {
+      card.addEventListener('click', function () {
+        (window.dataLayer = window.dataLayer || []).push({
+          event: 'get_started_choice',
+          choice: card.dataset.choice
+        });
+      });
+    });
+  </script>
 {{ end }}

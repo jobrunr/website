@@ -38,6 +38,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 
+<!-- n8n forms endpoint, bridged to JS. Single source of truth is site.Params.n8n_webhook_url,
+     which config/development/params.toml overrides so local work never posts to the live pipeline. -->
+<script>
+window.JR_N8N_WEBHOOK = "{{ site.Params.n8n_webhook_url }}";
+</script>
+
+
 <!-- UTM capture (30-day lifetime, last-touch; consumed by trial form) -->
 <script>
 (function () {

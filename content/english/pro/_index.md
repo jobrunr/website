@@ -1,7 +1,7 @@
 ---
 title: "JobRunr Pro"
 description: "Stop losing critical jobs in production? Priority queues, workflow management, and enterprise dashboard for Java teams."
-aliases: ["jobrunr-pro", "try-jobrunr-pro", "pricing", "pro/try-jobrunr-pro"]
+aliases: ["jobrunr-pro", "try-jobrunr-pro", "pro/try-jobrunr-pro"]
 
 
 # Customers Review

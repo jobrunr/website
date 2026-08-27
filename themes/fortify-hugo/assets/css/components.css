@@ -180,3 +180,20 @@
     @apply mb-0;
   }
 }
+/* Pricing tooltips.
+   Defined as named classes here (rather than utilities toggled from JS) so Tailwind's
+   class detection through hugo_stats.json always sees them. */
+.pricing-tip {
+  @apply relative cursor-help border-b border-dotted border-current outline-none;
+}
+
+.pricing-tip-bubble {
+  @apply pointer-events-none invisible absolute bottom-full left-0 z-30 mb-2 w-64 rounded-lg border border-border bg-white px-4 py-3 text-base leading-snug text-text-dark opacity-0 shadow-lg transition-opacity duration-200;
+}
+
+.pricing-tip:hover .pricing-tip-bubble,
+.pricing-tip:focus .pricing-tip-bubble,
+.pricing-tip:focus-within .pricing-tip-bubble,
+.pricing-tip.is-open .pricing-tip-bubble {
+  @apply pointer-events-auto visible opacity-100;
+}

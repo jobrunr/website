@@ -5,10 +5,9 @@ list:
     link: "/en/use-case/jobrunr-pro-prophia/"
     avatar: "/images/avatar/person-3.png"
     content: |
-      We slashed our infrastructure costs and we scaled to 25,000+ leases nightl without issues.
+      We slashed our infrastructure costs and we scaled to 25,000+ leases nightly without issues.
 
   - name: "Tracer.ai"
-    link: "/en/use-case/jobrunr-pro-prophia/"
     avatar: "/images/avatar/person-3.png"
     content: |
       We saw a 20% dev productivity boost, and our first-line support now solves 80% of job issues.
@@ -19,4 +18,7 @@ list:
     content: |
       We use JobRunr to orchestrate key processes in our logistics workflows across Europe.
 
+# don't create a separate page
+build:
+  render: "never"
 ---

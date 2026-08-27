@@ -1,0 +1,90 @@
+<!-- Trust column, shown next to the funnel forms.
+     Order matters: proof, then the numbers, then the logo strip, all three meant to sit above the
+     fold on a laptop. The quote is the one thing that can afford to be scrolled to. -->
+{{ with site.GetPage "sections/trust-column" }}
+  <div class="flex flex-col gap-4">
+    {{ with .Params.proof }}
+      <div class="rounded-2xl border border-border p-5 md:p-6">
+        <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
+          {{ .title | markdownify }}
+        </p>
+        <p class="text-lg font-medium text-text-dark">{{ .quote | markdownify }}</p>
+        {{ with .link }}
+          <a class="mt-2 inline-block text-base font-medium text-tertiary hover:underline" href="{{ .url }}">
+            {{ .label }} →
+          </a>
+        {{ end }}
+      </div>
+    {{ end }}
+
+    {{ with .Params.stats }}
+      <div class="rounded-2xl border border-border p-5 md:p-6">
+        <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
+          {{ .title | markdownify }}
+        </p>
+        <ul class="list list-tertiary">
+          {{ range $stat := .list }}
+            <li class="mb-1 text-lg">
+              {{/*  Link only when the referenced page really exists in this build. A draft page is
+                    absent from a production build, so the item degrades to plain text instead of
+                    shipping a link to a 404.  */}}
+              {{- $target := "" -}}
+              {{- with $stat.page }}{{ $target = site.GetPage . }}{{ end -}}
+              {{- if $target -}}
+                <a class="dashed-underline hover:text-tertiary" href="{{ $target.RelPermalink }}">{{ $stat.item }}</a>
+              {{- else if $stat.url -}}
+                <a class="dashed-underline hover:text-tertiary" href="{{ $stat.url }}">{{ $stat.item }}</a>
+              {{- else -}}
+                {{ $stat.item | markdownify }}
+              {{- end -}}
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    {{ end }}
+
+    {{ with site.GetPage "sections/brand-logo" }}
+      {{ with .Params.brand }}
+        <div class="rounded-2xl border border-border p-5 md:p-6">
+          <p class="mb-4 text-sm font-medium tracking-wide text-tertiary uppercase">
+            {{ .title | markdownify }}
+          </p>
+          {{/*  Sized so all six logos hold one row inside the column, which keeps the card short
+                enough for the whole trust stack to stay above the fold.  */}}
+          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 opacity-60 grayscale">
+            {{ range .logo }}
+              <div class="flex aspect-[3.125/1] w-20 items-center">
+                {{ partial "image" (dict "Src" .image "Alt" "Brand Logo" "Class" "!h-6 object-contain") }}
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      {{ end }}
+    {{ end }}
+
+    {{ with .Params.quote }}
+      <div class="rounded-2xl border border-border p-5 md:p-6">
+        <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
+          {{ .title | markdownify }}
+        </p>
+        <blockquote class="text-lg font-medium text-text-dark">
+          &ldquo;{{ .content | markdownify }}&rdquo;
+        </blockquote>
+        <p class="mt-2 text-base">
+          <strong class="text-text-dark">{{ .author }}</strong>
+          {{- with .designation }}<span class="opacity-70">, {{ . }}</span>{{ end }}
+        </p>
+        {{ with .link }}
+          <a
+            class="mt-1 inline-block text-base font-medium text-tertiary hover:underline"
+            href="{{ .url }}"
+            target="_blank"
+            rel="noopener">
+            {{ .label }} →
+          </a>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+{{ end }}
+<!-- /Trust column -->

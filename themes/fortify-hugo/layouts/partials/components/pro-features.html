@@ -23,7 +23,7 @@
                     <a
                       class="btn-primary btn"
                       target="_self"
-                      onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});"
+                      href="{{ .get_started.link | relLangURL }}"
                       rel="noopener">
                       {{ .get_started.label | markdownify }}
                       <span class="sr-only">Details</span>
@@ -122,7 +122,7 @@
             {{ with .button }}
               {{ if .enable }}
                 <div class="text-center mt-12">
-                  <a class="btn btn-primary btn-even-padding" href="{{ .link }}">
+                  <a class="btn btn-primary btn-even-padding" href="{{ .link | relLangURL }}">
                     {{ .label | markdownify }}
                   </a>
                 </div>
@@ -162,7 +162,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" href="{{ .button.link }}">
+                  <a class="btn btn-primary mt-12" href="{{ .button.link | relLangURL }}">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"
@@ -288,7 +288,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" href="{{ .button.link }}">
+                  <a class="btn btn-primary mt-12" href="{{ .button.link | relLangURL }}">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"
@@ -351,7 +351,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" target="_self" onclick="document.getElementById('trial-modal').classList.remove('hidden'); document.getElementById('modal-backdrop').classList.remove('hidden'); (window.dataLayer=window.dataLayer||[]).push({event:'trial_modal_opened'});" rel="noopener">
+                  <a class="btn btn-primary mt-12" target="_self" href="{{ .button.link | relLangURL }}" rel="noopener">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"

@@ -1,69 +1,375 @@
 {{ define "main" }}
-  <!-- Pricing -->
+  <!-- Hero: the H1 and nothing else -->
+  <section class="section pb-0">
+    <div class="container">
+      <div class="row">
+        <div class="mx-auto text-center lg:col-8" data-aos="fade-up-sm">
+          <h1 class="h2">{{ .Title | markdownify }}</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Plans -->
   <section class="section">
     <div class="container">
       <div class="row">
-        <div
-          class="mx-auto text-center lg:col-8"
-          data-aos="fade-up-sm">
-          <p class="mb-2 font-medium text-tertiary">
-            {{ .Params.subtitle | markdownify }}
-          </p>
-          <h1 class="h2 mb-6">{{ .Params.title | markdownify }}</h1>
-          <p class="text-lg ">
-            {{ .Params.description | markdownify }}
-          </p>
-        </div>
-        <div class="col-12 pt-20">
+        <div class="col-12">
           {{ partial "components/pricing-plan.html" . }}
         </div>
       </div>
     </div>
   </section>
 
-  <!--Brand Logo -->
-  {{ partial "components/brand-logo.html" . }}
-  <!--/Brand Logo -->
+  {{/*  Buy now lives in this layout, never in components/pricing-plan.html,
+        because that partial is also rendered on the home page.  */}}
+  {{ if site.Params.start_api.checkout_enabled }}
+    {{ with .Params.buy_now }}
+      <section class="section pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="rounded-2xl bg-light p-6 md:p-10" data-aos="fade-up-sm">
+                <div class="flex flex-col items-start gap-6 lg:flex-row lg:items-center lg:justify-between">
+                  <div>
+                    <h2 class="h5 mb-2">{{ .title | markdownify }}</h2>
+                    <p class="text-lg">{{ .text | markdownify }}</p>
+                  </div>
+                  <div class="flex flex-wrap items-end gap-4">
+                    <div>
+                      <label for="cluster-quantity" class="form-label">{{ .quantity_label }}</label>
+                      <select id="cluster-quantity" class="form-input">
+                        {{ range seq 1 (.max_quantity | default 10) }}
+                          <option value="{{ . }}">{{ . }}</option>
+                        {{ end }}
+                      </select>
+                    </div>
+                    <button type="button" id="buy-now" class="btn btn-primary btn-even-padding">{{ .button }}</button>
+                  </div>
+                </div>
+                <p id="buy-now-error" class="mt-4 hidden text-sm text-red-500"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {{ end }}
+  {{ end }}
 
-  <!-- Customer Reviews -->
-  {{ with .Params.customer_reviews }}
-    <section class="section">
+  <!-- Startup and enterprise -->
+  <section class="section pt-0">
+    <div class="container">
+      <div class="row g-4">
+        {{ with .Params.startup }}
+          <div class="lg:col-6" data-aos="fade-up-sm">
+            <div class="flex min-h-full flex-col items-start gap-4 rounded-2xl border border-border p-6 md:p-10">
+              <h2 class="h5">{{ .title | markdownify }}</h2>
+              <p class="text-lg">
+                <strong class="text-text-dark">{{ .price }}</strong> {{ .text | markdownify }}
+              </p>
+              <button type="button" id="startup-apply" class="btn btn-primary btn-even-padding mt-auto">{{ .button }}</button>
+            </div>
+          </div>
+        {{ end }}
+        {{ with .Params.enterprise }}
+          <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="150">
+            <div class="flex min-h-full flex-col items-start gap-4 rounded-2xl border border-border p-6 md:p-10">
+              <h2 class="h5">{{ .title | markdownify }}</h2>
+              <p class="text-lg">{{ .text | markdownify }}</p>
+              <a class="btn btn-primary btn-even-padding mt-auto" href="{{ .link | relLangURL }}">{{ .button }}</a>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <!-- Anchor teaser -->
+  {{ with .Params.compare }}
+    <section class="section pt-0">
       <div class="container">
         <div class="row">
-          <div
-            class="mx-auto text-center lg:col-8 xl:col-9"
-            data-aos="fade-up-sm">
-            <p class="mb-2 font-medium text-tertiary">
-              {{ .subtitle | markdownify }}
-            </p>
-            <h2 class="mb-6">{{ .title | markdownify }}</h2>
-            <p class="text-lg ">{{ .description | markdownify }}</p>
-          </div>
-          <div
-            class="col-12 pt-20"
-            data-aos="fade-up-sm"
-            data-aos-delay="200">
-            <div class="row g-4 justify-center">
-              {{ $number := 3 }}
-              {{ with site.GetPage "sections/customer-reviews" }}
-                {{ $reviews := .Params.list | first $number }}
-                {{ range $reviews }}
-                  {{ partial "components/customer-reviews.html" . }}
-                {{ end }}
-              {{ end }}
-            </div>
+          <div class="mx-auto text-center lg:col-8">
+            <a class="text-lg font-medium text-tertiary hover:underline" href="#comparison-table">
+              {{ .label }} ↓
+            </a>
           </div>
         </div>
       </div>
     </section>
   {{ end }}
-  <!-- /Customer Reviews -->
 
-  <!-- Faq -->
+  {{ partial "components/comparison-table.html" . }}
+
+  {{ partial "components/brand-logo.html" . }}
+
   {{ partial "components/accordion.html" . }}
-  <!-- /Faq -->
 
-  <!-- Call to action -->
   {{ partial "call-to-action.html" . }}
-  <!-- /Call to action -->
+
+  <!-- Startup application modal -->
+  {{ with .Params.startup_modal }}
+    <div
+      id="startup-backdrop"
+      class="hidden fixed inset-0 z-40 bg-primary opacity-50"></div>
+
+    <div
+      id="startup-modal"
+      aria-hidden="true"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="startup-modal-title"
+      class="hidden fixed top-0 left-0 right-0 z-50 flex max-h-full w-full items-center justify-center overflow-y-auto p-4 md:inset-0">
+      <div class="relative my-auto max-h-full w-full max-w-md">
+        <div class="relative rounded-lg bg-white shadow-xl">
+          <div class="flex items-center justify-between p-4">
+            <h2 id="startup-modal-title" class="text-xl font-semibold text-gray-900">{{ .title }}</h2>
+            <button
+              type="button"
+              id="startup-close"
+              aria-label="Close"
+              class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          <div class="px-4 pb-2">
+            <p>{{ .lead }}</p>
+          </div>
+          <div class="p-4">
+            <form id="startup-form" action="#" method="POST" novalidate>
+              <div class="mb-4">
+                <label for="startup-email" class="form-label">
+                  {{ .email_label }} <span class="text-red-500">*</span>
+                </label>
+                <input id="startup-email" name="email" type="email" class="form-input" placeholder="you@yourcompany.com" required />
+              </div>
+              <div class="mb-4">
+                <label for="startup-company" class="form-label">
+                  {{ .company_label }} <span class="text-red-500">*</span>
+                </label>
+                <input id="startup-company" name="company" type="text" class="form-input" placeholder="Your company name" required />
+              </div>
+              <div class="mb-4">
+                <label for="startup-team-size" class="form-label">{{ .team_size_label }}</label>
+                <select id="startup-team-size" class="form-input">
+                  {{ range .team_sizes }}
+                    <option value="{{ . }}">{{ . }}</option>
+                  {{ end }}
+                </select>
+              </div>
+              <div class="mb-4">
+                <label class="flex cursor-pointer items-start gap-3">
+                  <input id="startup-eligibility" type="checkbox" class="mt-1.5 shrink-0" required />
+                  <span>{{ .confirm_label }} <span class="text-red-500">*</span></span>
+                </label>
+              </div>
+              <!-- Honeypot, off-screen so a real visitor never sees it -->
+              <input
+                id="startup-username"
+                name="username"
+                type="text"
+                placeholder="Your username"
+                tabindex="-1"
+                aria-hidden="true"
+                autocomplete="new-username"
+                style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
+              <p id="startup-error" class="mb-3 hidden text-sm text-red-500"></p>
+              <button type="submit" id="startup-submit" class="btn btn-primary btn-even-padding w-full justify-center">
+                {{ .submit }}
+              </button>
+            </form>
+            <div id="startup-success" class="hidden text-center">
+              <p class="text-lg font-medium text-tertiary">{{ .success }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{ end }}
+
+  <script>
+    (function () {
+      function push(payload) {
+        (window.dataLayer = window.dataLayer || []).push(payload);
+      }
+
+      // UTM values captured site-wide in partials/essentials/head.html (30-day TTL, last touch).
+      function getStoredUtm() {
+        try {
+          var raw = localStorage.getItem('jr_utm');
+          if (!raw) return {};
+          var data = JSON.parse(raw);
+          if (!data || !data.ts || !data.params) return {};
+          if (Date.now() - data.ts > 30 * 24 * 60 * 60 * 1000) {
+            localStorage.removeItem('jr_utm');
+            return {};
+          }
+          return data.params;
+        } catch (e) {
+          return {};
+        }
+      }
+
+      // ---- pricing tooltips: hover and focus are CSS, tap needs a toggle ----
+      var openTip = null;
+      document.querySelectorAll('.pricing-tip').forEach(function (tip) {
+        tip.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (openTip && openTip !== tip) openTip.classList.remove('is-open');
+          var nowOpen = !tip.classList.contains('is-open');
+          tip.classList.toggle('is-open', nowOpen);
+          openTip = nowOpen ? tip : null;
+          if (nowOpen) push({ event: 'pricing_tooltip_opened', item: tip.textContent.trim().split('\n')[0] });
+        });
+        tip.addEventListener('keydown', function (event) {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            tip.click();
+          }
+        });
+      });
+      document.addEventListener('click', function (event) {
+        if (openTip && !openTip.contains(event.target)) {
+          openTip.classList.remove('is-open');
+          openTip = null;
+        }
+      });
+
+      // ---- startup application modal ----
+      var modal = document.getElementById('startup-modal');
+      var backdrop = document.getElementById('startup-backdrop');
+      var openButton = document.getElementById('startup-apply');
+
+      if (modal && backdrop && openButton) {
+        var form = document.getElementById('startup-form');
+        var submit = document.getElementById('startup-submit');
+        var errorEl = document.getElementById('startup-error');
+        var success = document.getElementById('startup-success');
+
+        function openModal() {
+          modal.classList.remove('hidden');
+          backdrop.classList.remove('hidden');
+          modal.setAttribute('aria-hidden', 'false');
+          document.getElementById('startup-email').focus();
+          push({ event: 'startup_application_opened' });
+        }
+
+        function closeModal() {
+          modal.classList.add('hidden');
+          backdrop.classList.add('hidden');
+          modal.setAttribute('aria-hidden', 'true');
+        }
+
+        openButton.addEventListener('click', openModal);
+        backdrop.addEventListener('click', closeModal);
+        document.getElementById('startup-close').addEventListener('click', closeModal);
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') closeModal();
+        });
+
+        form.addEventListener('submit', function (event) {
+          event.preventDefault();
+          errorEl.classList.add('hidden');
+
+          // Honeypot: a filled `username` is a bot, so drop the submission silently.
+          if (form.elements.username.value) return;
+
+          var email = document.getElementById('startup-email').value.trim();
+          var company = document.getElementById('startup-company').value.trim();
+          var eligible = document.getElementById('startup-eligibility').checked;
+          if (!email || !company) {
+            errorEl.textContent = 'Please fill in your email and company name.';
+            errorEl.classList.remove('hidden');
+            return;
+          }
+          if (!eligible) {
+            errorEl.textContent = 'Please confirm you meet the eligibility rule.';
+            errorEl.classList.remove('hidden');
+            return;
+          }
+
+          var label = submit.textContent;
+          submit.disabled = true;
+          submit.textContent = 'Sending...';
+
+          var payload = Object.assign(
+            {
+              form: 'startup-application',
+              email: email,
+              company: company,
+              team_size: document.getElementById('startup-team-size').value,
+              eligibility_confirmed: true,
+              username: form.elements.username.value
+            },
+            getStoredUtm()
+          );
+
+          fetch(window.JR_N8N_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Webhook returned a non-success status.');
+              form.classList.add('hidden');
+              success.classList.remove('hidden');
+              push({ event: 'startup_application_submitted' });
+            })
+            .catch(function (err) {
+              console.error('Error submitting startup application:', err);
+              submit.disabled = false;
+              submit.textContent = label;
+              errorEl.textContent = 'There was an error sending your application. Please try again or email us at nicholas@jobrunr.io.';
+              errorEl.classList.remove('hidden');
+            });
+        });
+      }
+
+      // ---- buy now ----
+      var buyNow = document.getElementById('buy-now');
+      if (buyNow) {
+        var buyError = document.getElementById('buy-now-error');
+        buyNow.addEventListener('click', function () {
+          var quantity = Number(document.getElementById('cluster-quantity').value);
+          buyError.classList.add('hidden');
+          var label = buyNow.textContent;
+          buyNow.disabled = true;
+          buyNow.textContent = 'Opening checkout...';
+          push({ event: 'checkout_started', quantity: quantity });
+
+          fetch('{{ site.Params.start_api.base_url }}/checkout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ quantity: quantity })
+          })
+            .then(function (response) {
+              if (!response.ok) throw new Error('Checkout returned a non-success status.');
+              return response.json();
+            })
+            .then(function (data) {
+              if (!data || !data.url) throw new Error('Checkout returned no url.');
+              window.location.href = data.url;
+            })
+            .catch(function (err) {
+              console.error('Error starting checkout:', err);
+              buyNow.disabled = false;
+              buyNow.textContent = label;
+              buyError.textContent = 'We could not open the checkout. Please try again or email us at nicholas@jobrunr.io.';
+              buyError.classList.remove('hidden');
+            });
+        });
+      }
+    })();
+  </script>
+
+  <!-- Microsoft Clarity (funnel pages, so the pricing page stays diagnosable) -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x1pw19d1of");
+  </script>
 {{ end }}

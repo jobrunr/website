@@ -6,7 +6,7 @@ image: "/images/cta-bg.png"
 button:
   enable: true
   label: "Launch the interactive demo"
-  link: "https://finance.demo.jobrunr.io/storyline"
+  link: "https://finance.demo.jobrunr.io/tour"
 
 # don't create a separate page
 build:

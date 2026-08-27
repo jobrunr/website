@@ -1,0 +1,543 @@
+{{ define "main" }}
+  {{ $s1 := .Params.step1 }}
+  {{ $s2 := .Params.step2 }}
+  {{ $s3 := .Params.step3 }}
+
+  {{/*  Same tight top padding as the chooser, so the form and the trust column
+        both land above the fold on a laptop.  */}}
+  <section class="section pt-4 md:pt-6">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Left: the flow -->
+        <div class="lg:col-6" data-aos="fade-up-sm">
+          <div class="rounded-2xl bg-light p-5 md:p-8">
+            <!-- Step 1 -->
+            <div id="flow-step-1">
+              {{ partial "components/flow-step-indicator.html" (dict "current" 1) }}
+              <h1 class="h3 mb-3">{{ $s1.heading | markdownify }}</h1>
+              <p class="mb-6 text-lg">{{ $s1.lead | markdownify }}</p>
+
+              <p id="flow-already-requested" class="mb-6 hidden text-lg font-medium text-tertiary">
+                Already requested. Continue to the questions below.
+              </p>
+
+              <form id="flow-form-1" class="row g-4" action="#" method="POST" novalidate>
+                <div class="col-12">
+                  <label for="flow-email" class="form-label">
+                    {{ $s1.email_label }} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="flow-email"
+                    name="email"
+                    type="email"
+                    class="form-input"
+                    placeholder="you@yourcompany.com"
+                    autocomplete="email"
+                    required />
+                  <p class="mt-2 text-sm opacity-70">{{ $s1.email_hint }}</p>
+                </div>
+                <div class="col-12">
+                  <label for="flow-company" class="form-label">
+                    {{ $s1.company_label }} <span class="text-red-500">*</span>
+                  </label>
+                  <input
+                    id="flow-company"
+                    name="company"
+                    type="text"
+                    class="form-input"
+                    placeholder="Your company name"
+                    autocomplete="organization"
+                    required />
+                  <!-- Honeypot. Positioned off-screen rather than display:none, which bots skip. -->
+                  <input
+                    id="flow-username"
+                    name="username"
+                    type="text"
+                    placeholder="Your username"
+                    tabindex="-1"
+                    aria-hidden="true"
+                    autocomplete="new-username"
+                    style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
+                </div>
+                <div class="col-12">
+                  <p id="flow-error-1" class="mb-3 hidden text-sm text-red-500"></p>
+                  <button type="submit" id="flow-submit-1" class="btn btn-primary btn-even-padding">
+                    {{ $s1.submit }}
+                  </button>
+                </div>
+              </form>
+
+              {{ if site.Params.start_api.github_oauth_enabled }}
+                <div class="my-6 flex items-center gap-4">
+                  <span class="h-px flex-1 bg-border"></span>
+                  <span class="text-sm opacity-70">{{ $s1.divider }}</span>
+                  <span class="h-px flex-1 bg-border"></span>
+                </div>
+                <a
+                  id="flow-github"
+                  class="flex w-full items-center justify-center gap-2 rounded-md border border-border bg-white px-4 py-3 text-base font-medium text-text-dark transition-colors hover:border-primary hover:text-primary"
+                  href="{{ site.Params.start_api.base_url }}/auth/github">
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  {{ $s1.github_label }}
+                </a>
+              {{ end }}
+            </div>
+            <!-- /Step 1 -->
+
+            <!-- Step 2 -->
+            <div id="flow-step-2" class="hidden">
+              {{ partial "components/flow-step-indicator.html" (dict "current" 2) }}
+              <h2 class="h3 mb-3">{{ $s2.heading | markdownify }}</h2>
+              <p class="mb-2 text-lg">{{ $s2.lead | markdownify }}</p>
+              <p id="flow-signed-in" class="mb-4 hidden text-lg font-medium text-tertiary"></p>
+
+              <form id="flow-form-2" class="row g-4" action="#" method="POST" novalidate>
+                <div id="flow-gh-company-row" class="col-12 hidden">
+                  <label for="flow-gh-company" class="form-label">{{ $s1.company_label }}</label>
+                  <input
+                    id="flow-gh-company"
+                    type="text"
+                    class="form-input"
+                    placeholder="Your company name"
+                    autocomplete="organization" />
+                </div>
+
+                {{ range $index, $q := $s2.questions }}
+                  <div class="col-12">
+                    <p class="form-label">{{ add $index 1 }}. {{ $q.label | markdownify }}</p>
+
+                    {{ if eq $q.type "radio" }}
+                      <div class="flex flex-col gap-2">
+                        {{ range $q.options }}
+                          <label class="flex cursor-pointer items-start gap-3 text-lg">
+                            <input
+                              type="radio"
+                              name="{{ $q.name }}"
+                              data-answer="{{ $q.name }}"
+                              value="{{ .value }}"
+                              class="mt-1.5 shrink-0" />
+                            <span>{{ .label | default .value }}</span>
+                          </label>
+                        {{ end }}
+                      </div>
+                      {{ with $q.extra_field }}
+                        <label for="flow-{{ . }}" class="form-label mt-4">{{ $q.extra_label }}</label>
+                        <input
+                          id="flow-{{ . }}"
+                          type="text"
+                          data-answer="{{ . }}"
+                          class="form-input"
+                          placeholder="Conference, blog post, a colleague, ..." />
+                      {{ end }}
+
+                    {{ else if eq $q.type "select" }}
+                      {{/*  A question can carry several selects (language + framework) and still count as one.  */}}
+                      {{ $fields := $q.fields | default (slice (dict "name" $q.name "options" $q.options)) }}
+                      <div class="grid gap-4 {{ if gt (len $fields) 1 }}sm:grid-cols-2{{ end }}">
+                        {{ range $field := $fields }}
+                          <div>
+                            {{ with $field.label }}
+                              <label for="flow-{{ $field.name }}" class="mb-1 block text-base opacity-80">{{ . }}</label>
+                            {{ end }}
+                            <select id="flow-{{ .name }}" data-answer="{{ .name }}" class="form-input">
+                              <option value="">Choose one</option>
+                              {{ range .options }}
+                                <option value="{{ .value }}">{{ .label | default .value }}</option>
+                              {{ end }}
+                            </select>
+                          </div>
+                        {{ end }}
+                      </div>
+
+                    {{ else if eq $q.type "checkbox" }}
+                      <div class="flex flex-col gap-2">
+                        {{ range $q.options }}
+                          <label class="flex cursor-pointer items-start gap-3 text-lg">
+                            <input
+                              type="checkbox"
+                              name="{{ $q.name }}"
+                              data-answer="{{ $q.name }}"
+                              value="{{ .value }}"
+                              class="mt-1.5 shrink-0" />
+                            <span>{{ .label | default .value }}</span>
+                          </label>
+                        {{ end }}
+                      </div>
+                      {{ with $q.other_field }}
+                        <input
+                          id="flow-{{ . }}"
+                          type="text"
+                          data-answer="{{ . }}"
+                          class="form-input mt-3"
+                          placeholder="{{ $q.other_placeholder }}" />
+                      {{ end }}
+                    {{ end }}
+                  </div>
+                {{ end }}
+
+                <div class="col-12">
+                  <p id="flow-error-2" class="mb-3 hidden text-sm text-red-500"></p>
+                  <button type="submit" id="flow-submit-2" class="btn btn-primary btn-even-padding">
+                    {{ $s2.submit }}
+                  </button>
+                  <p class="mt-4">
+                    <a id="flow-skip" class="cursor-pointer text-base font-medium text-tertiary hover:underline">
+                      {{ $s2.skip }}
+                    </a>
+                  </p>
+                </div>
+              </form>
+            </div>
+            <!-- /Step 2 -->
+
+            <!-- Step 3 -->
+            <div id="flow-step-3" class="hidden">
+              {{ partial "components/flow-step-indicator.html" (dict "current" 3) }}
+              <h2 class="h3 mb-3">{{ $s3.heading | markdownify }}</h2>
+              <p class="mb-6 text-lg">{{ $s3.body | markdownify }}</p>
+              <a class="btn btn-primary btn-even-padding" href="{{ $s3.cta_link }}" target="_blank" rel="noopener">
+                {{ $s3.cta_label }}
+              </a>
+              {{ with site.Params.trust_center_url }}
+                <p class="mt-6">
+                  <a class="text-base font-medium text-tertiary hover:underline" href="{{ . }}">
+                    {{ $s3.trust_label }} →
+                  </a>
+                </p>
+              {{ end }}
+            </div>
+            <!-- /Step 3 -->
+          </div>
+        </div>
+
+        <!-- Right: trust column -->
+        <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="200">
+          {{ partial "components/trust-column.html" . }}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var BASE = "{{ "start-jobrunr-pro/" | relLangURL }}";
+      var STORAGE_KEY = 'jr_start_flow';
+
+      var steps = {
+        1: document.getElementById('flow-step-1'),
+        2: document.getElementById('flow-step-2'),
+        3: document.getElementById('flow-step-3')
+      };
+      var form1 = document.getElementById('flow-form-1');
+      var form2 = document.getElementById('flow-form-2');
+      var submit1 = document.getElementById('flow-submit-1');
+      var submit2 = document.getElementById('flow-submit-2');
+      var error1 = document.getElementById('flow-error-1');
+      var error2 = document.getElementById('flow-error-2');
+      var alreadyRequested = document.getElementById('flow-already-requested');
+      var signedIn = document.getElementById('flow-signed-in');
+      var ghCompanyRow = document.getElementById('flow-gh-company-row');
+      var ghCompany = document.getElementById('flow-gh-company');
+      var skipLink = document.getElementById('flow-skip');
+
+      var currentStep = 1;
+      var detailsSubmitted = false;
+
+      function push(payload) {
+        (window.dataLayer = window.dataLayer || []).push(payload);
+      }
+
+      // UTM values captured site-wide in partials/essentials/head.html (30-day TTL, last touch).
+      function getStoredUtm() {
+        try {
+          var raw = localStorage.getItem('jr_utm');
+          if (!raw) return {};
+          var data = JSON.parse(raw);
+          if (!data || !data.ts || !data.params) return {};
+          var MAX_AGE = 30 * 24 * 60 * 60 * 1000;
+          if (Date.now() - data.ts > MAX_AGE) {
+            localStorage.removeItem('jr_utm');
+            return {};
+          }
+          return data.params;
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function loadState() {
+        try {
+          return JSON.parse(sessionStorage.getItem(STORAGE_KEY)) || {};
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function saveState(state) {
+        try {
+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          /* storage unavailable, the flow still works for this page view */
+        }
+      }
+
+      var state = loadState();
+
+      // Keeps whatever else is in the query. Visitors arriving from /en/pro/?trial&utm_source=...
+      // carry their UTMs here, and overwriting the query outright would drop them from the URL.
+      function urlForStep(n) {
+        var params = new URLSearchParams(location.search);
+        params.set('step', String(n));
+        return BASE + '?' + params.toString();
+      }
+
+      function showStep(n) {
+        currentStep = n;
+        for (var i = 1; i <= 3; i++) {
+          steps[i].classList.toggle('hidden', i !== n);
+        }
+        push({ event: 'start_flow_step_viewed', step: n });
+        try {
+          history.replaceState(null, '', urlForStep(n));
+        } catch (e) {
+          /* replaceState can throw on some file:// or sandboxed contexts */
+        }
+        if (n === 3) push({ event: 'start_flow_completed' });
+      }
+
+      function showError(el, message) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+
+      function hideError(el) {
+        el.classList.add('hidden');
+      }
+
+      function companyValue() {
+        if (ghCompany && ghCompany.value.trim()) return ghCompany.value.trim();
+        return state.company || '';
+      }
+
+      // Reads whatever is filled in right now. Unanswered questions are simply absent,
+      // which is what makes the partial capture below meaningful.
+      function collectAnswers() {
+        var answers = {};
+        form2.querySelectorAll('[data-answer]').forEach(function (el) {
+          var key = el.dataset.answer;
+          if (el.type === 'checkbox') {
+            if (el.checked) {
+              answers[key] = answers[key] || [];
+              answers[key].push(el.value);
+            }
+          } else if (el.type === 'radio') {
+            if (el.checked) answers[key] = el.value;
+          } else if (el.value && el.value.trim()) {
+            answers[key] = el.value.trim();
+          }
+        });
+        return answers;
+      }
+
+      function detailsPayload(extra) {
+        return Object.assign(
+          { email: state.email || '', company: companyValue(), form: 'trial-details' },
+          extra || {},
+          collectAnswers(),
+          getStoredUtm()
+        );
+      }
+
+      // Step 1 commits before step 2 is ever shown, so abandoning the flow still leaves a normal lead.
+      form1.addEventListener('submit', function (event) {
+        event.preventDefault();
+        hideError(error1);
+
+        // Honeypot: a filled `username` is a bot, so drop the submission silently.
+        if (form1.elements.username.value) return;
+
+        var email = form1.elements.email.value.trim();
+        var company = form1.elements.company.value.trim();
+        if (!email || !company) {
+          showError(error1, 'Please fill in your email and company name.');
+          return;
+        }
+
+        var label = submit1.textContent;
+        submit1.disabled = true;
+        submit1.textContent = 'Sending...';
+
+        var payload = Object.assign(
+          {
+            email: email,
+            company: company,
+            username: form1.elements.username.value,
+            form: 'trial',
+            source: 'start-flow'
+          },
+          getStoredUtm()
+        );
+
+        fetch(window.JR_N8N_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Webhook returned a non-success status.');
+            state.email = email;
+            state.company = company;
+            state.posted = true;
+            saveState(state);
+            push({ event: 'trial_form_submitted', form_type: 'trial' });
+            showStep(2);
+          })
+          .catch(function (err) {
+            console.error('Error submitting form:', err);
+            submit1.disabled = false;
+            submit1.textContent = label;
+            showError(error1, 'There was an error sending your request. Please try again or email us at nicholas@jobrunr.io.');
+          });
+      });
+
+      form2.addEventListener('submit', function (event) {
+        event.preventDefault();
+        hideError(error2);
+
+        // Nothing filled in is the same intent as the "answer by email" link, so don't post noise.
+        if (!Object.keys(collectAnswers()).length) {
+          detailsSubmitted = true;
+          showStep(3);
+          return;
+        }
+
+        var label = submit2.textContent;
+        submit2.disabled = true;
+        submit2.textContent = 'Sending...';
+
+        fetch(window.JR_N8N_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(detailsPayload())
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Webhook returned a non-success status.');
+            detailsSubmitted = true;
+            push({ event: 'start_flow_details_submitted' });
+            showStep(3);
+          })
+          .catch(function (err) {
+            console.error('Error submitting answers:', err);
+            submit2.disabled = false;
+            submit2.textContent = label;
+            showError(error2, 'There was an error sending your answers. Please try again, or continue and we will ask you by email.');
+          });
+      });
+
+      skipLink.addEventListener('click', function () {
+        detailsSubmitted = true;
+        showStep(3);
+      });
+
+      // People abandon halfway through five questions. Send whatever is filled in when they leave,
+      // flagged `partial` so n8n knows never to let it overwrite a complete set.
+      // `keepalive` is used rather than sendBeacon so the payload stays application/json like every
+      // other form on the site, which is what lets it reuse the `trial-details` branch unchanged.
+      function sendPartial() {
+        if (currentStep !== 2 || detailsSubmitted) return;
+        if (!Object.keys(collectAnswers()).length) return;
+        detailsSubmitted = true;
+        try {
+          fetch(window.JR_N8N_WEBHOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(detailsPayload({ partial: true })),
+            keepalive: true
+          });
+        } catch (e) {
+          /* best effort only, the lead itself was already recorded at step 1 */
+        }
+      }
+
+      window.addEventListener('pagehide', sendPartial);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'hidden') sendPartial();
+      });
+
+      // base64url payload of the JWT handed back by the start API. No signature check needed:
+      // the lead was already posted server-side, so a forged token only prefills a form.
+      function decodeJwtPayload(token) {
+        try {
+          var part = token.split('.')[1];
+          if (!part) return null;
+          part = part.replace(/-/g, '+').replace(/_/g, '/');
+          while (part.length % 4) part += '=';
+          return JSON.parse(decodeURIComponent(escape(atob(part))));
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function start() {
+        if (location.hash.indexOf('#gh=') === 0) {
+          push({ event: 'github_oauth_returned' });
+          var claims = decodeJwtPayload(location.hash.slice(4));
+          // Strip the token from the URL before any analytics beacon can read page_location.
+          try {
+            history.replaceState(null, '', urlForStep(2));
+          } catch (e) {
+            /* non-fatal, the token is short lived anyway */
+          }
+          if (claims && claims.email) {
+            state.email = claims.email;
+            state.name = claims.name || '';
+            state.company = '';
+            state.posted = true;
+            saveState(state);
+            signedIn.textContent = 'Signed in as ' + claims.email;
+            signedIn.classList.remove('hidden');
+            ghCompanyRow.classList.remove('hidden');
+            showStep(2);
+            return;
+          }
+        }
+
+        var requested = new URLSearchParams(location.search).get('step');
+        if (state.posted && (requested === '2' || requested === '3')) {
+          showStep(Number(requested));
+          return;
+        }
+        if (state.posted) {
+          // Coming back to a completed step 1: never post the same lead twice.
+          alreadyRequested.classList.remove('hidden');
+          form1.classList.add('hidden');
+          showStep(2);
+          return;
+        }
+        showStep(1);
+      }
+
+      {{ if site.Params.start_api.github_oauth_enabled }}
+        var githubButton = document.getElementById('flow-github');
+        if (githubButton) {
+          githubButton.addEventListener('click', function () {
+            push({ event: 'github_oauth_started' });
+          });
+        }
+      {{ end }}
+
+      start();
+    })();
+  </script>
+
+  <!-- Microsoft Clarity (funnel pages, so the flow stays diagnosable) -->
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "x1pw19d1of");
+  </script>
+{{ end }}

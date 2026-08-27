@@ -18,7 +18,7 @@ button:
     learn_more:
       enable: true
       label: "Try the live demo"
-      link: "https://finance.demo.jobrunr.io/storyline"
+      link: "https://finance.demo.jobrunr.io/tour"
 
 social_proof:
   title: "Trusted by Insurance Engineering Teams at"
@@ -96,7 +96,7 @@ explore_yourself:
   description: "Walk through 21 hands-on scenarios in our hosted demo. No installation, no setup. Just open it in your browser and see how JobRunr Pro handles real-world workflows like the ones your insurance platform runs every night."
   demo_button:
     label: "Launch the interactive demo"
-    link: "https://finance.demo.jobrunr.io/storyline"
+    link: "https://finance.demo.jobrunr.io/tour"
   alt_options_title: "Prefer to watch a walkthrough or run it locally?"
   videourl: https://www.youtube.com/embed/tTHbpOIyPfQ?si=7mSUSMoL7LkEyLoR
   video_caption: "Watch a video walkthrough of the same demo."

@@ -1,0 +1,6 @@
+# Development-only overrides. `hugo server` runs the development environment, CI runs production,
+# so every form on the site is automatically sandboxed while working locally.
+#
+# Point this at a request bin (https://webhook.site, https://pipedream.com/requestbin, ...) before
+# testing forms, and assert the payloads there. Never copy a bin URL into config/_default/params.toml.
+n8n_webhook_url = "https://webhook.site/00000000-0000-0000-0000-000000000000"

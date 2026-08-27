@@ -1,4 +1,6 @@
-const NEWSLETTER_WEBHOOK = 'https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe';
+// Set in partials/essentials/head.html from site.Params.n8n_webhook_url.
+// No fallback on purpose: a fallback would silently defeat the development sandbox.
+const NEWSLETTER_WEBHOOK = window.JR_N8N_WEBHOOK;
 
 document.querySelectorAll('[data-newsletter]').forEach((wrapper) => {
   const field = (name) => wrapper.querySelector(`[data-newsletter-field="${name}"]`);

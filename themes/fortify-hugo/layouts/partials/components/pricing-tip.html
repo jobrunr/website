@@ -1,0 +1,10 @@
+{{/*  Wraps a pricing line in a focusable tooltip. Falls back to the plain text when there is no tip.
+      Params: text (string, markdownified by the caller's context is not assumed), tip (string, optional).  */}}
+{{ if .tip }}
+  <span class="pricing-tip" tabindex="0" role="button" aria-label="{{ .text }}. {{ .tip }}">
+    {{ .text | markdownify }}
+    <span class="pricing-tip-bubble" role="tooltip">{{ .tip }}</span>
+  </span>
+{{ else }}
+  {{ .text | markdownify }}
+{{ end }}

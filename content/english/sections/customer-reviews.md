@@ -23,4 +23,7 @@ list:
 
       It’s rare to find a tool that makes such a big impact without creating more work for us. It’s the kind of tool you wish you’d found sooner.
 
+# don't create a separate page
+build:
+  render: "never"
 ---

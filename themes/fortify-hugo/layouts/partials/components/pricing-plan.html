@@ -50,13 +50,15 @@
           </div>
           <ul class="list list-tertiary">
             {{ range .list }}
-              <li class="mb-2 text-lg ">{{ .item | markdownify }}</li>
+              <li class="mb-2 text-lg">
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
+              </li>
             {{ end }}
           </ul>
 
           {{ if .button.enable }}
           <div class="mt-auto">
-            <a class="btn-dark btn mt-auto" href="{{ .button.link | absURL }}"
+            <a class="btn-dark btn mt-auto" href="{{ .button.link | relLangURL }}"
               >{{ .button.label | markdownify }}<span class="icon-wrapper"
                 ><span class="icon"
                   ><svg
@@ -115,20 +117,17 @@
                 data-usd-price-monthly="{{ .monthly_price_usd | default .monthly_price | markdownify }}"
                 >{{ .monthly_price | markdownify }}</span>
             </strong>
-            <span
-              class="text-monthly text-lg  group-[.has-dark-bg]:text-light"
-              >{{ .billed_monthly | markdownify }}</span
-            ><span
-              class="text-yearly hidden text-lg  group-[.has-dark-bg]:text-light"
-              >{{ .billed_yearly
-                | markdownify
-              }}</span
-            >
+            <span class="text-monthly text-lg group-[.has-dark-bg]:text-light">
+              {{ partial "components/pricing-tip.html" (dict "text" .billed_monthly "tip" .billed_monthly_tip) }}
+            </span>
+            <span class="text-yearly hidden text-lg group-[.has-dark-bg]:text-light">
+              {{ partial "components/pricing-tip.html" (dict "text" .billed_yearly "tip" .billed_yearly_tip) }}
+            </span>
           </div>
           <ul class="list list-tertiary">
             {{ range $index, $item := .list }}
               <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">
-                {{ .item | markdownify }}
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
               </li>
             {{ end }}
           </ul>
@@ -136,7 +135,7 @@
           <div>  
           <a
               class="btn btn-light hover:bg-slate-600 mt-auto"
-              href="{{ .button.link | absURL }}"
+              href="{{ .button.link | relLangURL }}"
               >{{ .button.label }}<span class="icon-wrapper"
                 ><span class="icon"
                   ><svg
@@ -199,13 +198,15 @@
           </div>
           <ul class="list list-tertiary">
             {{ range $index, $item := .list }}
-              <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">{{ .item | markdownify }}</li>
+              <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
+              </li>
             {{ end }}
           </ul>
 
           {{ if .button.enable }}
           <div class="mt-auto">
-            <a class="btn mt-auto btn-dark" href="{{ .button.link | absURL }}"
+            <a class="btn mt-auto btn-dark" href="{{ .button.link | relLangURL }}"
               >{{ .button.label | markdownify }}<span class="icon-wrapper"
                 ><span class="icon"
                   ><svg

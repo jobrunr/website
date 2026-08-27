@@ -18,4 +18,7 @@ main_feature:
     enable: true
     label: "Try JobRunr Pro for free"
     link: "pro"
+# don't create a separate page
+build:
+  render: "never"
 ---

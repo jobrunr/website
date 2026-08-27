@@ -12,31 +12,33 @@ name = "JobRunr Pro"
 pageRef = "/pro"
 weight = 2
 
+[[main]]
+name = "Pricing"
+pageRef = "/pricing"
+weight = 3
 
 [[main]]
 name = "Blog"
 pageRef = "/blog"
-weight = 3
-
+weight = 4
 
 [[main]]
-name= "Documentation"
+name = "Documentation"
 pageRef = "/documentation"
-weight = 3
+weight = 5
 [main.params]
 hasChildren = false
 
-
 [[main]]
-name= "Guides"
+name = "Guides"
 pageRef = "/guides"
-weight = 3
+weight = 6
 
 
 # footer menu left
 [[footer_01]]
-name = "Live Interactive Demo"
-url = "https://finance.demo.jobrunr.io/storyline"
+name = "Take the Guided Tour"
+url = "https://finance.demo.jobrunr.io/tour"
 weight = 0
 
 [[footer_01]]
