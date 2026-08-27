@@ -1,0 +1,21 @@
+{{- /*
+  Renders the <li> items of a table of contents from a heading tree
+  (page.Fragments.Headings). Recursive.
+  Context: dict with
+    Headings  - slice of headings to render
+    Collapse  - heading IDs whose subheadings are omitted
+    Start/End - heading levels to include
+*/ -}}
+{{- $ctx := . -}}
+{{- range .Headings -}}
+  {{- if lt .Level $ctx.Start -}}
+    {{- /* placeholder for a skipped level, or a heading above Start: render its children at this level */ -}}
+    {{- partial "documentation/toc-list.html" (merge $ctx (dict "Headings" .Headings)) -}}
+  {{- else if le .Level $ctx.End -}}
+    <li><a href="#{{ .ID }}">{{ .Title | safeHTML }}</a>
+    {{- if and .Headings (not (in $ctx.Collapse .ID)) -}}
+      {{- with partial "documentation/toc-list.html" (merge $ctx (dict "Headings" .Headings)) -}}<ol>{{ . }}</ol>{{- end -}}
+    {{- end -}}
+    </li>
+  {{- end -}}
+{{- end -}}

@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="562" viewBox="0 0 920 562" style="max-width:100%;height:auto;" role="img" aria-label="Cyber Resilience Act scope decision tree for Java teams. Question 1: do you sell or distribute software in the EU? If no, you are not directly in scope. Question 2: is it exclusively for your own internal use? If yes, out of scope. Question 3: is it software as a service that you host? If yes, generally out of scope. Question 4: is it open source with no paid tier, support or hosting? If yes, out of scope. Question 5: is it custom software built for one client? If yes, in scope. If you answer no to all five, you are a manufacturer under the CRA.">
+<rect x="10" y="12" width="900" height="538" rx="16" fill="#FFFFFF" stroke="#E4E7EC" stroke-width="1.5"/>
+<text x="460" y="42" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="16.5" font-weight="800" fill="#101828">Does the Cyber Resilience Act apply to you?</text>
+<text x="460" y="62" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="12.5" font-weight="600" fill="#667085">Answer each question in order. Stop at the first one that decides your case.</text>
+
+<!-- Q1 -->
+<rect x="44" y="82" width="420" height="54" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="68" y="114" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">1. Do you sell or distribute software in the EU?</text>
+<line x1="464" y1="109" x2="548" y2="109" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 548 105 L 548 113 L 556 109 Z" fill="#98A2B3"/>
+<text x="506" y="102" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">No</text>
+<rect x="556" y="82" width="320" height="54" rx="10" fill="#E7F8F0" stroke="#12B886" stroke-width="1.8"/>
+<text x="578" y="105" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13" font-weight="800" fill="#0B7A55">Not directly in scope</text>
+<text x="578" y="123" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#0B7A55">Customer due diligence still reaches you</text>
+<line x1="254" y1="136" x2="254" y2="154" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 250 154 L 258 154 L 254 162 Z" fill="#98A2B3"/>
+<text x="266" y="152" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">Yes</text>
+
+<!-- Q2 -->
+<rect x="44" y="162" width="420" height="54" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="68" y="194" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">2. Is it exclusively for your own internal use?</text>
+<line x1="464" y1="189" x2="548" y2="189" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 548 185 L 548 193 L 556 189 Z" fill="#98A2B3"/>
+<text x="506" y="182" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">Yes</text>
+<rect x="556" y="162" width="320" height="54" rx="10" fill="#E7F8F0" stroke="#12B886" stroke-width="1.8"/>
+<text x="578" y="185" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13" font-weight="800" fill="#0B7A55">Out of scope</text>
+<text x="578" y="203" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#0B7A55">Never placed on the market</text>
+<line x1="254" y1="216" x2="254" y2="234" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 250 234 L 258 234 L 254 242 Z" fill="#98A2B3"/>
+<text x="266" y="232" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">No</text>
+
+<!-- Q3 -->
+<rect x="44" y="242" width="420" height="54" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="68" y="274" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">3. Is it software as a service that you host?</text>
+<line x1="464" y1="269" x2="548" y2="269" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 548 265 L 548 273 L 556 269 Z" fill="#98A2B3"/>
+<text x="506" y="262" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">Yes</text>
+<rect x="556" y="242" width="320" height="54" rx="10" fill="#E7F8F0" stroke="#12B886" stroke-width="1.8"/>
+<text x="578" y="265" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13" font-weight="800" fill="#0B7A55">Generally out of scope</text>
+<text x="578" y="283" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#0B7A55">Unless it is remote data processing (Art. 3(2))</text>
+<line x1="254" y1="296" x2="254" y2="314" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 250 314 L 258 314 L 254 322 Z" fill="#98A2B3"/>
+<text x="266" y="312" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">No</text>
+
+<!-- Q4 -->
+<rect x="44" y="322" width="420" height="54" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="68" y="346" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">4. Is it open source with nothing paid</text>
+<text x="68" y="364" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">around it?</text>
+<line x1="464" y1="349" x2="548" y2="349" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 548 345 L 548 353 L 556 349 Z" fill="#98A2B3"/>
+<text x="506" y="342" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">Yes</text>
+<rect x="556" y="322" width="320" height="54" rx="10" fill="#E7F8F0" stroke="#12B886" stroke-width="1.8"/>
+<text x="578" y="345" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13" font-weight="800" fill="#0B7A55">Out of scope</text>
+<text x="578" y="363" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#0B7A55">Not a commercial activity (Recitals 15, 18)</text>
+<line x1="254" y1="376" x2="254" y2="394" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 250 394 L 258 394 L 254 402 Z" fill="#98A2B3"/>
+<text x="266" y="392" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">No</text>
+
+<!-- Q5 -->
+<rect x="44" y="402" width="420" height="54" rx="10" fill="#F9FAFB" stroke="#D0D5DD" stroke-width="1.5"/>
+<text x="68" y="434" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="14" font-weight="700" fill="#101828">5. Is it custom software built for one client?</text>
+<line x1="464" y1="429" x2="548" y2="429" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 548 425 L 548 433 L 556 429 Z" fill="#98A2B3"/>
+<text x="506" y="422" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">Yes</text>
+<rect x="556" y="402" width="320" height="54" rx="10" fill="#FEF3E6" stroke="#F79009" stroke-width="1.8"/>
+<text x="578" y="425" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13" font-weight="800" fill="#B54708">In scope</text>
+<text x="578" y="443" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#B54708">Commercial supply, with contractual flexibility</text>
+<line x1="254" y1="456" x2="254" y2="474" stroke="#98A2B3" stroke-width="2"/>
+<path d="M 250 474 L 258 474 L 254 482 Z" fill="#98A2B3"/>
+<text x="266" y="472" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="800" fill="#667085">No</text>
+
+<!-- Terminal -->
+<rect x="44" y="482" width="832" height="52" rx="10" fill="#FEF3E6" stroke="#F79009" stroke-width="1.8"/>
+<text x="460" y="505" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="13.5" font-weight="800" fill="#B54708">You are a manufacturer under the CRA</text>
+<text x="460" y="523" text-anchor="middle" font-family='Satoshi, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif' font-size="11.5" font-weight="600" fill="#B54708">Annex I essential requirements, SBOM, vulnerability handling and Art. 14 reporting all apply to you.</text>
+</svg>

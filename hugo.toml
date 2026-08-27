@@ -30,6 +30,10 @@ enableTrialButton = true
 [params.codetabs]
 allowedCategories = ["dependency", "language", "framework", "job-definition", "config-style", "ide"]
 
+[params.toc]
+# Headings (by anchor id) whose subheadings are left out of "On this page". Override per page with `toc.collapse` in front matter.
+collapse = ["faq", "frequently-asked-questions"]
+
 ########################### Services #############################
 [services]
 [services.googleAnalytics]

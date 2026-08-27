@@ -2,6 +2,7 @@
 meta_title: "JobRunr MCP Server | Live JobRunr docs in Claude, Cursor, Copilot"
 title: "Use JobRunr from inside your AI assistant"
 description: "The JobRunr MCP server gives Claude Code, Cursor, VS Code, Windsurf, and any Model Context Protocol client live access to JobRunr documentation. Add one URL and your assistant stops making things up."
+aliases: ["/mcp"]
 date: 2026-05-18
 image: /blog/mcp-server.webp
 ---

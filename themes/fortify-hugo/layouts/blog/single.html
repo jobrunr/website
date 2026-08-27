@@ -12,7 +12,9 @@
           <ul class="mb-4 flex items-center justify-center gap-4" data-pagefind-ignore>
             <li class="text-lg ">
               <span class="flex flex-wrap gap-2 font-medium">
-                {{ partial "image" (dict "Src" .Params.author_image "Alt" .Params.author_name "Class" "h-8 w-8") }}
+                {{ with .Params.author_image }}
+                  {{ partial "image" (dict "Src" . "Alt" $.Params.author_name "Class" "h-8 w-8") }}
+                {{ end }}
                 {{ .Params.author | markdownify }}
               </span>
             </li>
@@ -39,12 +41,16 @@
         </div>
         <article class="lg:col-8" data-aos="fade-up-sm">
           <div class="content">
+            <!-- Table of Contents - inline, collapsible (small/medium screens) -->
+            {{ partial "documentation/toc.html" "inline" }}
             {{ .Content }}
           </div>
           <!-- comments -->
           
         </article>
-        
+
+        <!-- Table of Contents - sticky right rail (large screens) -->
+        {{ partial "documentation/toc.html" "rail" }}
       </div>
     </div>
   </section>

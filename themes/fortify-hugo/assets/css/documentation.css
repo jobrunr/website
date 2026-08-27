@@ -62,8 +62,9 @@
   @apply m-0;
 }
 
-/* Hide the TOC chrome on pages without headings (empty nav) */
-.docs-toc:has(#TableOfContents:empty) {
+/* Hide the TOC chrome (and its rail column) on pages without headings (empty nav) */
+.docs-toc:has(#TableOfContents:empty),
+aside:has(> .docs-toc #TableOfContents:empty) {
   @apply hidden;
 }
 

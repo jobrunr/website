@@ -5,6 +5,19 @@
 */ -}}
 {{- $variant := . -}}
 
+{{- /*
+  Built from page.Fragments.Headings instead of page.TableOfContents so that
+  subheadings of collapsed sections (e.g. FAQ questions) can be left out.
+  Collapsed heading IDs: site.Params.toc.collapse, overridable per page with
+  `toc.collapse` in front matter. Levels mirror [markup.tableOfContents].
+*/ -}}
+{{- $collapse := site.Params.toc.collapse | default slice -}}
+{{- with page.Params.toc -}}{{- if isset . "collapse" -}}{{- $collapse = .collapse -}}{{- end -}}{{- end -}}
+{{- $items := partial "documentation/toc-list.html" (dict "Headings" page.Fragments.Headings "Collapse" $collapse "Start" 2 "End" 5) -}}
+{{- $list := "" -}}
+{{- with $items -}}{{- $list = printf "<ol>%s</ol>" . -}}{{- end -}}
+{{- $toc := printf "<nav id=\"TableOfContents\">%s</nav>" $list | safeHTML -}}
+
 {{- if eq $variant "inline" -}}
 <details class="docs-toc xl:hidden mb-8 rounded-lg border border-border bg-light" data-pagefind-ignore>
   <summary class="flex cursor-pointer select-none items-center justify-between gap-2 px-4 py-2 text-sm font-semibold uppercase text-text/60">
@@ -15,7 +28,7 @@
     <i class="fa-solid fa-chevron-down toc-chevron text-xs text-text/60"></i>
   </summary>
   <div class="toc-content text-sm">
-    {{ page.TableOfContents }}
+    {{ $toc }}
   </div>
 </details>
 
@@ -24,7 +37,7 @@
   <div class="docs-toc sticky top-1 max-h-[calc(100vh-153px)] overflow-y-auto">
     <h4 class="mb-3 text-xs font-semibold uppercase tracking-wide text-text/60">On this page</h4>
     <div class="toc-content text-sm">
-      {{ page.TableOfContents }}
+      {{ $toc }}
     </div>
   </div>
 </aside>
