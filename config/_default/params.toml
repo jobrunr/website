@@ -32,6 +32,10 @@ footer_description = "The ultimate library for background processing in Java. Di
 # config/development/params.toml overrides this so `hugo server` never posts to the live pipeline.
 n8n_webhook_url = "https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-b534-e014ff6b80fe"
 
+# Microsoft Clarity project id. Loaded site-wide from partials/essentials/clarity.html,
+# production builds only. Empty string disables Clarity everywhere.
+clarity_project_id = "x1pw19d1of"
+
 # background pattern
 [header]
 bg_image = "/images/header-bg.jpg"

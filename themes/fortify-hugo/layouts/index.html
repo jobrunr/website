@@ -17,6 +17,7 @@
           <li data-aos="fade-up-sm" data-aos-delay="100">
             <a
               class="btn-primary btn"
+              id="homepage-cta"
               href="{{ .get_started.link }}"
               target="_self"
               rel="noopener"
@@ -59,6 +60,19 @@
           </li>
           {{ end }}
         </ul>
+
+        <script>
+          (function () {
+            var cta = document.getElementById('homepage-cta');
+            if (!cta) return;
+            cta.addEventListener('click', function () {
+              (window.dataLayer = window.dataLayer || []).push({
+                event: 'cta_start_free_clicked',
+                location: 'homepage'
+              });
+            });
+          })();
+        </script>
         {{ end }}
       </div>
 

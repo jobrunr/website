@@ -38,6 +38,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 
 
+<!-- Microsoft Clarity (site-wide) -->
+{{ partialCached "essentials/clarity.html" . }}
+
+
 <!-- n8n forms endpoint, bridged to JS. Single source of truth is site.Params.n8n_webhook_url,
      which config/development/params.toml overrides so local work never posts to the live pipeline. -->
 <script>
