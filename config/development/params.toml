@@ -1,6 +1,11 @@
-# Development-only overrides. `hugo server` runs the development environment, CI runs production,
-# so every form on the site is automatically sandboxed while working locally.
+# Development-only overrides. `hugo server` runs the development environment, CI runs production.
 #
-# Point this at a request bin (https://webhook.site, https://pipedream.com/requestbin, ...) before
-# testing forms, and assert the payloads there. Never copy a bin URL into config/_default/params.toml.
-n8n_webhook_url = "https://webhook.site/00000000-0000-0000-0000-000000000000"
+# `n8n_webhook_url` is deliberately NOT overridden here, so the local server posts to the same live
+# n8n endpoint as production and the full form flow can be tested end to end. Anything submitted
+# while developing is a real lead in the pipeline: use an email address you can recognise and
+# clean up afterwards.
+#
+# To sandbox a session instead, uncomment the line below and point it at a request bin
+# (https://webhook.site, https://pipedream.com/requestbin, ...), then assert the payloads there.
+# Never copy a bin URL into config/_default/params.toml.
+# n8n_webhook_url = "https://webhook.site/00000000-0000-0000-0000-000000000000"

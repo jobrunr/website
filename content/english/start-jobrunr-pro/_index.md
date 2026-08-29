@@ -1,7 +1,7 @@
 ---
 meta_title: "Start using JobRunr Pro"
 title: "Start using JobRunr Pro"
-description: "Tell us where to send your JobRunr Pro license and answer five quick questions so we send the right one."
+description: "Tell us where to send your JobRunr Pro license and answer four quick questions so we send the right one."
 
 step1:
   heading: "Start using JobRunr Pro"
@@ -15,22 +15,14 @@ step1:
 
 step2:
   heading: "Our team is preparing your JobRunr Pro license."
-  lead: "To make sure we send the right one, five quick questions."
+  lead: "To make sure we send the right one, four quick questions."
   submit: "Send answers"
   skip: "I would rather answer these by email"
   questions:
-    - name: "usage_type"
-      type: "radio"
-      label: "Do you plan to integrate JobRunr into software you develop, or will you be reselling JobRunr's services to other end clients?"
-      options:
-        - value: "integrate"
-          label: "We integrate JobRunr into software we develop"
-        - value: "resell"
-          label: "We resell JobRunr's services to end clients"
     - name: "jvm_stack"
       type: "select"
       label: "What is the JVM language and framework that you will be using?"
-      # Two selects, one numbered question, so the count still matches "five quick questions".
+      # Two selects, one numbered question, so the count still matches "four quick questions".
       fields:
         - name: "jvm_language"
           label: "Language"

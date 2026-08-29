@@ -89,9 +89,12 @@
             <!-- Step 2 -->
             <div id="flow-step-2" class="hidden">
               {{ partial "components/flow-step-indicator.html" (dict "current" 2) }}
-              <h2 class="h3 mb-3">{{ $s2.heading | markdownify }}</h2>
-              <p class="mb-2 text-lg">{{ $s2.lead | markdownify }}</p>
-              <p id="flow-signed-in" class="mb-4 hidden text-lg font-medium text-tertiary"></p>
+              <h2 class="h3 mb-2">{{ $s2.heading | markdownify }}</h2>
+              {{/*  The lead belongs to the title block, so keep it tight under the heading and
+                    let its margin-bottom carry the whole gap down to the first question. The
+                    `.row` gutter below cancels its own negative margin, so this value is the gap.  */}}
+              <p class="mb-8 text-lg">{{ $s2.lead | markdownify }}</p>
+              <p id="flow-signed-in" class="mb-8 hidden text-lg font-medium text-tertiary"></p>
 
               <form id="flow-form-2" class="row g-4" action="#" method="POST" novalidate>
                 <div id="flow-gh-company-row" class="col-12 hidden">
@@ -106,7 +109,11 @@
 
                 {{ range $index, $q := $s2.questions }}
                   <div class="col-12">
-                    <p class="form-label">{{ add $index 1 }}. {{ $q.label | markdownify }}</p>
+                    {{/*  Not `form-label`: the question heads a group of `text-lg` options, so it
+                          needs to be at least as large as them and heavier.  */}}
+                    <p class="mb-3 block text-lg font-medium text-text-dark">
+                      {{ add $index 1 }}. {{ $q.label | markdownify }}
+                    </p>
 
                     {{ if eq $q.type "radio" }}
                       <div class="flex flex-col gap-2">
@@ -441,7 +448,7 @@
         showStep(3);
       });
 
-      // People abandon halfway through five questions. Send whatever is filled in when they leave,
+      // People abandon halfway through the questions. Send whatever is filled in when they leave,
       // flagged `partial` so n8n knows never to let it overwrite a complete set.
       // `keepalive` is used rather than sendBeacon so the payload stays application/json like every
       // other form on the site, which is what lets it reuse the `trial-details` branch unchanged.
