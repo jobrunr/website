@@ -1,0 +1,336 @@
+{{ define "main" }}
+  {{/*  Comparison landing page for paid search (SEA plan, Aug 2026). One layout for every
+        /why-jobrunr/ competitor page; all copy and data live in the page front matter so the
+        Hangfire and Temporal pages only need a new content file.  */}}
+
+  <!-- Hero -->
+  {{ with .Params.hero }}
+    <section class="section pb-0">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="mx-auto text-center lg:col-9" data-aos="fade-up-sm">
+            {{ with .badge }}
+              <span class="mb-4 inline-block rounded-full bg-light px-3 py-1 text-sm font-semibold text-tertiary">
+                {{ . }}
+              </span>
+            {{ end }}
+            <h1 class="h2 mb-4">{{ .title | markdownify }}</h1>
+            <p class="mx-auto mb-8 max-w-3xl text-xl">{{ .subtitle | markdownify }}</p>
+            <ul class="flex flex-wrap justify-center gap-4">
+              {{ with .cta_primary }}
+                <li data-aos="fade-up-sm" data-aos-delay="100">
+                  <a
+                    class="btn btn-primary btn-even-padding"
+                    href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                    {{ if .external }}target="_blank" rel="noopener"{{ end }}>{{ .label }}</a>
+                </li>
+              {{ end }}
+              {{ with .cta_secondary }}
+                <li data-aos="fade-up-sm" data-aos-delay="150">
+                  <a
+                    class="btn btn-outline-primary btn-even-padding"
+                    href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                    {{ if .external }}target="_blank" rel="noopener"{{ end }}>{{ .label }}</a>
+                </li>
+              {{ end }}
+            </ul>
+            {{ with .note }}
+              <p class="mt-4 text-base opacity-70">{{ . | markdownify }}</p>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Stats strip -->
+  {{ with .Params.stats }}
+    <section class="section">
+      <div class="container">
+        <div class="row g-4 justify-center">
+          {{ range $index, $stat := . }}
+            <div class="md:col-4" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 50 }}">
+              <div class="flex min-h-full flex-col rounded-2xl border border-border p-6 text-center">
+                <p class="h3 mb-2 text-tertiary">{{ $stat.value }}</p>
+                <p class="text-lg">{{ $stat.text | markdownify }}</p>
+                {{ with $stat.url }}
+                  <a class="mt-2 inline-block text-base font-medium text-tertiary hover:underline" href="{{ . | relLangURL }}">
+                    See the numbers →
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Code comparison -->
+  {{ with .Params.code_compare }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="mx-auto mb-10 text-center lg:col-8" data-aos="fade-up-sm">
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            <p class="text-lg">{{ .text | markdownify }}</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          {{ range $panel := slice .left .right }}
+            <div class="lg:col-6" data-aos="fade-up-sm">
+              <div class="min-h-full overflow-hidden rounded-2xl border border-border">
+                <div class="border-b border-border bg-light px-5 py-3">
+                  <span class="font-medium text-text-dark">{{ $panel.label }}</span>
+                </div>
+                <div class="overflow-x-auto p-5 text-sm">
+                  {{ highlight (trim $panel.code "\n") $panel.language "" }}
+                </div>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+        {{ with .footer }}
+          <div class="row justify-center">
+            <div class="mx-auto pt-6 text-center lg:col-8">
+              <p class="text-lg">{{ . | markdownify }}</p>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Dashboard -->
+  {{ with .Params.dashboard }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="rounded-2xl bg-light p-6 md:p-10">
+          <div class="row items-center g-5">
+            <div class="lg:col-5" data-aos="fade-up-sm">
+              <h2 class="h3 mb-4">{{ .title | markdownify }}</h2>
+              {{ range .paragraphs }}
+                <p class="mb-4 text-lg">{{ . | markdownify }}</p>
+              {{ end }}
+              {{ with .link }}
+                <a class="inline-block text-lg font-medium text-tertiary hover:underline" href="{{ .url }}">
+                  {{ .label }} →
+                </a>
+              {{ end }}
+            </div>
+            <div class="lg:col-7" data-aos="fade-up-sm" data-aos-delay="100">
+              {{ partial "image" (dict "Src" .image "Alt" .image_alt "Class" "w-full rounded-xl border border-border shadow-lg") }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Feature comparison table -->
+  {{ with .Params.comparison }}
+    <section class="section bg-gray-50" id="comparison">
+      <div class="container">
+        <div class="mb-12 text-center">
+          <h2 class="h2 mb-4 text-gray-900" data-aos="fade-up-sm">{{ .title | markdownify }}</h2>
+          <p class="mx-auto max-w-3xl text-lg text-gray-600" data-aos="fade-up-sm" data-aos-delay="100">
+            {{ .text | markdownify }}
+          </p>
+        </div>
+        <div class="relative overflow-x-auto shadow-lg sm:rounded-lg">
+          <table class="w-full text-left text-sm text-gray-500 md:table-fixed">
+            <thead class="border-b border-gray-300 bg-gray-200 text-xs uppercase">
+              <tr>
+                <th scope="col" class="w-1/3 px-6 py-3 text-gray-900"></th>
+                <th scope="col" class="bg-black px-6 py-3 text-center text-white">{{ .jobrunr_label }}</th>
+                <th scope="col" class="bg-[#FAFAFA] px-6 py-3 text-center text-gray-900">{{ .competitor_label }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{ range .rows }}
+                <tr class="border-b border-gray-100 bg-white">
+                  <th scope="row" class="px-6 py-4 font-medium text-gray-900">
+                    {{ if .url }}
+                      <a class="dashed-underline" href="{{ .url }}">{{ .feature }}</a>
+                    {{ else }}
+                      {{ .feature }}
+                    {{ end }}
+                  </th>
+                  <td class="bg-black px-6 py-4 text-center text-white">{{ .jobrunr | markdownify }}</td>
+                  <td class="bg-[#FAFAFA] px-6 py-4 text-center text-gray-900">{{ .competitor | markdownify }}</td>
+                </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Benchmark -->
+  {{ with .Params.benchmark }}
+    <section class="section">
+      <div class="container">
+        <div class="row g-5 items-center">
+          <div class="lg:col-7" data-aos="fade-up-sm">
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            {{ range .paragraphs }}
+              <p class="mb-4 text-lg">{{ . | markdownify }}</p>
+            {{ end }}
+            <div class="flex flex-wrap gap-x-6 gap-y-2 pt-2">
+              {{ range .links }}
+                <a
+                  class="text-lg font-medium text-tertiary hover:underline"
+                  href="{{ .url }}"
+                  {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                  {{ .label }} →
+                </a>
+              {{ end }}
+            </div>
+          </div>
+          <div class="lg:col-5" data-aos="fade-up-sm" data-aos-delay="100">
+            <div class="flex flex-col gap-4">
+              {{ range .numbers }}
+                <div class="rounded-2xl border border-border p-6 text-center">
+                  <p class="mb-1 text-sm font-medium tracking-wide text-tertiary uppercase">{{ .label }}</p>
+                  <p class="h2 text-text-dark">{{ .value }}</p>
+                  <p class="text-lg">{{ .unit }}</p>
+                </div>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Proof -->
+  {{ with .Params.proof }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="rounded-[40px] bg-dark px-10 py-14 text-center" data-aos="fade-up-sm">
+          <p class="h3 mb-4 text-light">&ldquo;{{ .quote | markdownify }}&rdquo;</p>
+          {{ with .link }}
+            <a class="text-lg font-medium text-light underline" href="{{ .url | relLangURL }}">{{ .label }} →</a>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Choose when -->
+  {{ with .Params.choose }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row g-4">
+          {{ with .left }}
+            <div class="lg:col-6" data-aos="fade-up-sm">
+              <div class="min-h-full rounded-2xl border border-border p-6 md:p-10">
+                <h2 class="h4 mb-4">{{ .title | markdownify }}</h2>
+                <ul class="list list-tertiary">
+                  {{ range .items }}
+                    <li class="mb-3 text-lg">{{ . | markdownify }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+          {{ end }}
+          {{ with .right }}
+            <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="100">
+              <div class="min-h-full rounded-2xl border border-tertiary p-6 md:p-10">
+                <h2 class="h4 mb-4">{{ .title | markdownify }}</h2>
+                <ul class="list list-tertiary">
+                  {{ range .items }}
+                    <li class="mb-3 text-lg">{{ . | markdownify }}</li>
+                  {{ end }}
+                </ul>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Migration -->
+  {{ with .Params.migration }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="mx-auto mb-10 text-center lg:col-8" data-aos="fade-up-sm">
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            <p class="text-lg">{{ .text | markdownify }}</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          {{ range $index, $step := .steps }}
+            <div class="md:col-4" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 50 }}">
+              <div class="min-h-full rounded-2xl border border-border p-6">
+                <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">Step {{ add $index 1 }}</p>
+                <h3 class="h5 mb-3">{{ $step.title | markdownify }}</h3>
+                <p class="text-lg">{{ $step.text | markdownify }}</p>
+              </div>
+            </div>
+          {{ end }}
+        </div>
+        <div class="row justify-center">
+          <div class="mx-auto pt-8 text-center lg:col-8">
+            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              {{ range .links }}
+                <a
+                  class="text-lg font-medium text-tertiary hover:underline"
+                  href="{{ .url }}"
+                  {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                  {{ .label }} →
+                </a>
+              {{ end }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <!-- Pricing, both sides -->
+  {{ with .Params.pricing }}
+    <section class="section pt-0">
+      <div class="container">
+        <div class="row justify-center">
+          <div class="mx-auto mb-10 text-center lg:col-8" data-aos="fade-up-sm">
+            <h2 class="mb-4">{{ .title | markdownify }}</h2>
+            <p class="text-lg">{{ .text | markdownify }}</p>
+          </div>
+        </div>
+        <div class="row g-4">
+          {{ with .competitor_card }}
+            <div class="lg:col-6" data-aos="fade-up-sm">
+              <div class="min-h-full rounded-2xl border border-border p-6 md:p-10">
+                <h3 class="h4 mb-4">{{ .title | markdownify }}</h3>
+                <p class="text-lg">{{ .text | markdownify }}</p>
+              </div>
+            </div>
+          {{ end }}
+          {{ with .jobrunr_card }}
+            <div class="lg:col-6" data-aos="fade-up-sm" data-aos-delay="100">
+              <div class="flex min-h-full flex-col items-start rounded-2xl border border-tertiary p-6 md:p-10">
+                <h3 class="h4 mb-4">{{ .title | markdownify }}</h3>
+                <p class="mb-4 text-lg">{{ .text | markdownify }}</p>
+                {{ with .link }}
+                  <a class="mt-auto inline-block text-lg font-medium text-tertiary hover:underline" href="{{ .url | relLangURL }}">
+                    {{ .label }} →
+                  </a>
+                {{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  {{ partial "components/brand-logo.html" . }}
+
+  {{ partial "components/accordion.html" . }}
+
+  {{ partial "call-to-action.html" . }}
+{{ end }}
