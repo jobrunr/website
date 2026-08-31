@@ -1,10 +1,18 @@
-{{/*  Wraps a pricing line in a focusable tooltip. Falls back to the plain text when there is no tip.
-      Params: text (string, markdownified by the caller's context is not assumed), tip (string, optional).  */}}
+{{/*  Wraps a pricing line in a focusable tooltip and, when a url is given, a link to the docs.
+      Falls back to the plain text when there is neither.
+      Params: text (string), tip (string, optional), url (string, optional).  */}}
+{{ $label := .text | markdownify }}
+{{ with .url }}
+  {{ $external := or (hasPrefix . "http") (hasPrefix . "//") }}
+  {{ $href := cond $external . (. | relLangURL) }}
+  {{ $attrs := cond $external (printf ` target="_blank" rel="noopener"`) "" }}
+  {{ $label = printf `<a class="dashed-underline" href="%s"%s>%s</a>` $href $attrs $label | safeHTML }}
+{{ end }}
 {{ if .tip }}
-  <span class="pricing-tip" tabindex="0" role="button" aria-label="{{ .text }}. {{ .tip }}">
-    {{ .text | markdownify }}
+  <span class="pricing-tip{{ with .url }} pricing-tip-linked{{ end }}" tabindex="0" role="button" aria-label="{{ .text }}. {{ .tip }}">
+    {{ $label }}
     <span class="pricing-tip-bubble" role="tooltip">{{ .tip }}</span>
   </span>
 {{ else }}
-  {{ .text | markdownify }}
+  {{ $label }}
 {{ end }}

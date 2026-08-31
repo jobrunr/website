@@ -216,6 +216,8 @@
       var openTip = null;
       document.querySelectorAll('.pricing-tip').forEach(function (tip) {
         tip.addEventListener('click', function (event) {
+          // A linked line navigates; only the rest of the line toggles the tooltip.
+          if (event.target.closest('a')) return;
           event.preventDefault();
           if (openTip && openTip !== tip) openTip.classList.remove('is-open');
           var nowOpen = !tip.classList.contains('is-open');

@@ -51,7 +51,7 @@
           <ul class="list list-tertiary">
             {{ range .list }}
               <li class="mb-2 text-lg">
-                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip "url" .url) }}
               </li>
             {{ end }}
           </ul>
@@ -127,7 +127,7 @@
           <ul class="list list-tertiary">
             {{ range $index, $item := .list }}
               <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">
-                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip "url" .url) }}
               </li>
             {{ end }}
           </ul>
@@ -199,7 +199,7 @@
           <ul class="list list-tertiary">
             {{ range $index, $item := .list }}
               <li class="mb-2 text-lg {{ if eq $index 0 }}list-none{{ end }}">
-                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip) }}
+                {{ partial "components/pricing-tip.html" (dict "text" .item "tip" .tip "url" .url) }}
               </li>
             {{ end }}
           </ul>

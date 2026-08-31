@@ -187,6 +187,11 @@
   @apply relative cursor-help border-b border-dotted border-current outline-none;
 }
 
+/* The link inside already carries the dashed underline, so drop the dotted one. */
+.pricing-tip-linked {
+  @apply cursor-pointer border-b-0;
+}
+
 .pricing-tip-bubble {
   @apply pointer-events-none invisible absolute bottom-full left-0 z-30 mb-2 w-64 rounded-lg border border-border bg-white px-4 py-3 text-base leading-snug text-text-dark opacity-0 shadow-lg transition-opacity duration-200;
 }
