@@ -142,8 +142,8 @@
             <thead class="border-b border-gray-300 bg-gray-200 text-xs uppercase">
               <tr>
                 <th scope="col" class="w-1/3 px-6 py-3 text-gray-900"></th>
-                <th scope="col" class="bg-black px-6 py-3 text-center text-white">{{ .jobrunr_label }}</th>
                 <th scope="col" class="bg-[#FAFAFA] px-6 py-3 text-center text-gray-900">{{ .competitor_label }}</th>
+                <th scope="col" class="bg-black px-6 py-3 text-center text-white">{{ .jobrunr_label }}</th>
               </tr>
             </thead>
             <tbody>
@@ -156,8 +156,8 @@
                       {{ .feature }}
                     {{ end }}
                   </th>
-                  <td class="bg-black px-6 py-4 text-center text-white">{{ .jobrunr | markdownify }}</td>
                   <td class="bg-[#FAFAFA] px-6 py-4 text-center text-gray-900">{{ .competitor | markdownify }}</td>
+                  <td class="bg-black px-6 py-4 text-center text-white">{{ .jobrunr | markdownify }}</td>
                 </tr>
               {{ end }}
             </tbody>
