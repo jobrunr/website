@@ -12,7 +12,8 @@
     {{- /* placeholder for a skipped level, or a heading above Start: render its children at this level */ -}}
     {{- partial "documentation/toc-list.html" (merge $ctx (dict "Headings" .Headings)) -}}
   {{- else if le .Level $ctx.End -}}
-    <li><a href="#{{ .ID }}">{{ .Title | safeHTML }}</a>
+    {{- /* Fragments titles keep shortcodes (e.g. the Pro badge) as unrendered placeholders: drop them */ -}}
+    <li><a href="#{{ .ID }}">{{ .Title | replaceRE `HAHAHUGOSHORTCODE\w+HBHB\s*` "" | strings.TrimSpace | safeHTML }}</a>
     {{- if and .Headings (not (in $ctx.Collapse .ID)) -}}
       {{- with partial "documentation/toc-list.html" (merge $ctx (dict "Headings" .Headings)) -}}<ol>{{ . }}</ol>{{- end -}}
     {{- end -}}

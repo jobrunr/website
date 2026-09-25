@@ -4,6 +4,11 @@ summary: "Help shape the future of JobRunr and contribute to open-source softwar
 translationKey: "java-developer"
 skip_meta: true
 date: 2025-12-04T11:12:23+02:00
+lastmod: 2026-09-04T00:00:00+02:00
+draft: true
+build:
+  render: "never"
+  list: "never"
 ---
 
 ## Job Description
