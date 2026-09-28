@@ -5,7 +5,7 @@ keywords: ["cyber resilience act java", "cyber resilience act requirements", "cr
 images:
   - /blog/cyber-resilience-act-java.webp
 image: /blog/cyber-resilience-act-java.webp
-date: 2026-08-12T08:00:00+02:00
+date: 2026-09-11T08:00:00+02:00
 author: "Nicholas D'hondt"
 draft: false
 tags:
