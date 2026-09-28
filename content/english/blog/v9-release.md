@@ -29,6 +29,9 @@ You probably know how many jobs sit in your queue right now. Which one is failin
 
 The Chart is part of the free version. JobRunr 9 also ships on the same day as Quarkus 3.40 LTS and supports it from day one, and Micronaut 5, Kotlin Exposed v1 and a faster Pro dashboard are in too. To upgrade from JobRunr `v8.x`, follow the [JobRunr v9 migration guide]({{< ref "guides/migration/v9.md" >}}) and **review the breaking changes** further down. Most applications only need the version bump. The one thing to plan for is the first start of JobRunr Pro on a very large jobs table, because it builds new indexes.
 
+> [!TIP] Watch v9 live on Thursday 1 October
+> The day after the release, on **Thursday 1 October from 12:30 to 13:30 CEST**, we celebrate v9 in a free launch webinar. Ronald live-codes durable jobs with `runStepOnce`, the job history Chart and pausing a batch in JobRunr Pro. Join on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0). If you cannot watch at that moment, you can always watch the replay, because the YouTube livestream magically transforms into the recording as soon as the stream ends.
+
 ## The Example: One Broken Invoice Run
 
 Our demo application sends the monthly invoices for 600 customers. Every invoice is a [durable job]({{< ref "guides/advanced/durable-executions.md" >}}), which is a job that remembers which of its steps already finished. You get that by wrapping each step in `runStepOnce`, an API we introduced during v8. When the job is retried, a step that completed is not executed again.
@@ -256,6 +259,8 @@ Upgrade to v9, open the job that worries you most and switch its history to `Cha
 Job Analytics, pausing a batch and instant processing on Postgres need JobRunr Pro. Ask for a trial license and rehearse this incident in a test environment with one of your own batch runs.
 
 {{< trial-button >}}
+
+Want to see all of this live first? Join the launch webinar on Thursday 1 October at 12:30 CEST on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0). If that time does not work for you, the replay stays available on YouTube.
 
 Thanks to all our contributors, and thanks to you for trying out the new version.
 
