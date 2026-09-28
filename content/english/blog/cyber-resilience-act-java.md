@@ -5,9 +5,9 @@ keywords: ["cyber resilience act java", "cyber resilience act requirements", "cr
 images:
   - /blog/cyber-resilience-act-java.webp
 image: /blog/cyber-resilience-act-java.webp
-date: 2026-08-12T08:00:00+02:00
+date: 2026-09-11T08:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
+draft: false
 tags:
   - blog
   - compliance
@@ -29,6 +29,10 @@ Since JobRunr has a commercial Pro edition, we’re officially "manufacturers" u
 > However, the rules change the moment your code **becomes part of something you sell**, if you **make money from an open-source project**, or if you **build custom software for a client**. Even if your work is technically out of scope, keep in mind that your customers are still required to perform **due diligence on every component they ship** (Art. 13(5)). This means you’ll likely still have to deal with their security questionnaires.
 
 One quick thing before we start: we’re engineers, not lawyers. This guide is meant to help you get ready from a technical standpoint, but we've linked the official articles and recitals for every point so your legal team can double-check the fine print.
+
+Prefer to hear it from actual lawyers? In our CRA webinar we put the most common claims about the Cyber Resilience Act to Axel Desmet and Aida Kaloci, tech lawyers at [Cresco](https://www.crescolaw.com/). The recording covers who is in scope, which popular claims are wrong and what we did to make JobRunr CRA ready.
+
+{{< youtube VI1Okw1P3K8 >}}
 
 ## What the Cyber Resilience Act is, in three sentences
 
