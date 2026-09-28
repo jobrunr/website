@@ -4,6 +4,11 @@ description: "JobRunr v9 draws every attempt and every durable step of a job on 
 keywords: ["jobrunr v9", "jobrunr 9", "java background jobs", "job analytics", "durable execution java", "pause batch job", "postgres listen notify"]
 image: "/blog/thubm-jr-v-900.webp"
 date: 2026-09-30T09:00:00+02:00
+# Pre-launch: reachable by direct URL, hidden from lists, feeds, sitemap and search. Remove these 4 lines on launch day.
+publishDate: 2026-09-28T00:00:00+02:00
+build:
+  list: never
+noindex: true
 author: "The JobRunr Team"
 draft: false
 tags:
