@@ -77,21 +77,21 @@ When Prometheus shows the queue slowing down, Job Analytics is where you look up
 
 It lives on the home page of the JobRunr Pro dashboard. Our invoice run was over in less than four minutes, which is too short to draw a trend, so the screenshots in this section come from a test application that one of our developers had been running for a week. You pick a time period, here the last 7 days, and get six numbers. Each of them comes with a small sparkline and a comparison with the previous period:
 
-![](/blog/jobrunr-v9-job-analytics-kpis.webp "The top of Job Analytics for the last 7 days: 2,125 jobs, a success ratio of 99.67% and 7 failed jobs.")
+![](/blog/jobrunr-v9-job-analytics-kpis.webp "The top of Job Analytics for the last 7 days: 83,442 jobs, a success ratio of 95.33% and 3.7K failed jobs.")
 
-2,125 jobs ran that week and 7 of them failed. Seven is not a lot, but the arrow tells you it is 54% up on the previous period, and the average queue latency went up by the same amount. Those are the arrows you want to notice before your users do.
+83,442 jobs ran that week and 3.7K of them failed. The failures went down by 5% compared to the previous period, but the retries went up by 11%. Those are the arrows you want to notice before your users do.
 
 Below the numbers, the trend shows how many jobs succeeded and failed over the period, and the breakdown splits them by state, by server or by job signature:
 
 ![](/blog/jobrunr-v9-job-analytics-trend.webp "The job processing trend over a week, next to the processing breakdown per server.")
 
-In the server view the outer ring shows succeeded against failed, and the inner ring shows how the work was spread over the servers. The three servers in the legend are three runs of the same application on one laptop.
+You can spot the weekend right away: about 12,000 jobs a day during the week and about 5,000 on Saturday and Sunday. In the server view the outer ring shows succeeded against failed, and the inner ring shows how the work was spread over the servers. Here `server-1` picked up far less work than the other two.
 
 The table at the bottom answers the question you came for:
 
-![](/blog/jobrunr-v9-job-analytics-signatures.webp "Detailed analytics per job signature. All 7 failures come from one method.")
+![](/blog/jobrunr-v9-job-analytics-signatures.webp "Detailed analytics per job signature. One method never succeeds, another one causes the most failures.")
 
-All 7 failures come from one method, `TestService.doWorkThatFails()`, which failed every time it ran. The other job ran 2,118 times without a single failure, at 4.48 seconds on average. Click a job signature and you get a page for that job alone, with processing time split into succeeded and failed attempts, the fastest and the slowest run one click away from the actual job, and a tab with the exceptions that were thrown, how often and when last.
+`TestService.doWorkThatFails()` did not succeed once in 869 executions, so that one is easy to spot. The table also shows the one that is easy to miss. `TestService.doWorkThatTakesLong(int)` fails only 4.41% of the time, but over 41,945 executions that adds up to 1,849 failures, more than the other two methods together. Click a job signature and you get a page for that job alone, with processing time split into succeeded and failed attempts, the fastest and the slowest run one click away from the actual job, and a tab with the exceptions that were thrown, how often and when last.
 
 Some practical notes:
 
@@ -149,7 +149,7 @@ batchJobManager.pauseBatchJob(batchJobId);   // unstarted invoices wait, running
 batchJobManager.resumeBatchJob(batchJobId);
 ```
 
-Pausing has two limits. It does not interrupt child jobs that are already processing, and a batch job can only be paused once it has created all of its child jobs.
+Pausing does not interrupt child jobs that are already processing. If you press Pause while the batch job is still creating its child jobs, the dashboard tells you the job will be paused, and JobRunr pauses it as soon as all child jobs are enqueued.
 
 ### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Jobs Start Within Milliseconds on Postgres, With Nothing to Configure
 
