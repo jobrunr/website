@@ -1,0 +1,25 @@
+<style>
+  .image-grid > figure {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .image-grid img {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 640px) {
+    .image-grid[data-cols] {
+      grid-template-columns: var(--ig-cols);
+    }
+    .image-grid:not([data-cols]) {
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .image-grid:not([data-cols]) > figure {
+      grid-column: span var(--span, 6) / span var(--span, 6);
+    }
+  }
+</style>
+<div class="image-grid grid grid-cols-1 gap-2 mb-10"{{ with .Get "cols" }} data-cols="{{ . }}" style="--ig-cols: {{ . }}"{{ end }}>
+  {{ .Inner }}
+</div>

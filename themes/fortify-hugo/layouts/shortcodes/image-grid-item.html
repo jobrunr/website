@@ -1,0 +1,13 @@
+{{- $u := urls.Parse (.Get "src") -}}
+{{- $src := $u.String -}}
+{{- if not $u.IsAbs -}}
+  {{- with or (.Page.Resources.Get $u.Path) (resources.Get $u.Path) -}}
+    {{- $src = .Permalink -}}
+  {{- end -}}
+{{- end -}}
+<figure{{ with .Get "span" }} style="--span: {{ . }}"{{ end }}>
+  <a href="{{ $src }}">
+    <img src="{{ $src }}" class="kg-image" alt="{{ .Get "alt" }}" />
+  </a>
+  {{ with .Get "caption" }}<figcaption class="mt-3">{{ . }}</figcaption>{{ end }}
+</figure>
