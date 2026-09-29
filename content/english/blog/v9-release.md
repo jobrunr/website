@@ -151,6 +151,8 @@ batchJobManager.resumeBatchJob(batchJobId);
 
 Pausing does not interrupt child jobs that are already processing. If you press Pause while the batch job is still creating its child jobs, the dashboard tells you the job will be paused, and JobRunr pauses it as soon as all child jobs are enqueued.
 
+![](/guides/migration/v9/pause-with-buttons.gif "Pausing a batch job while it is still enqueuing its child jobs. JobRunr pauses it once all child jobs are enqueued, and Resume picks the work back up.")
+
 ### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Jobs Start Within Milliseconds on Postgres, With Nothing to Configure
 
 Take another look at the first Chart. The long blue bar is the invoice for `CUST-0042` sitting in `Enqueued` for 10 seconds, on a server that had nothing else to do. It was waiting for the next poll.
