@@ -13,23 +13,23 @@ tags:
   - durable execution
   - postgres
 ---
-JobRunr and JobRunr Pro `v9` have arrived! To show you what is in it, we broke a monthly invoice run for 600 customers on purpose. A quarter of the way into the run the payment provider stopped answering. The JobRunr Pro v9 dashboard showed us which job was in trouble and at which step, let us pause the run without killing the invoices that were already in progress, and after the fix all 600 customers were charged exactly once.
+JobRunr and JobRunr Pro `v9` have arrived!
 
-You probably know how many jobs sit in your queue right now. Which one is failing, at which step, and how to stop it safely are harder questions, and v9 is built around them:
+Background jobs are often a black box, with v9 we want to open the box for you.
 
 - **See which step failed.** The new job history Chart draws every attempt of a job on a timeline, down to the individual steps of a durable job.
 - **Find the job behind a slowdown.** Job Analytics in JobRunr Pro shows volume, retries and processing time per job type, server and exception.
 - **Stop a run without losing work.** JobRunr Pro can now pause a batch job halfway and resume it later.
 - **Start jobs within milliseconds.** On Postgres, JobRunr Pro now does this with zero configuration and without UDP multicast.
 
-The Chart is part of the free version. JobRunr 9 also ships on the same day as Quarkus 3.40 LTS and supports it from day one, and Micronaut 5, Kotlin Exposed v1 and a faster Pro dashboard are in too. To upgrade from JobRunr `v8.x`, follow the [JobRunr v9 migration guide]({{< ref "guides/migration/v9.md" >}}) and **review the breaking changes** further down. Most applications only need the version bump. The one thing to plan for is the first start of JobRunr Pro on a very large jobs table, because it builds new indexes.
+To upgrade from JobRunr `v8.x`, follow the [JobRunr v9 migration guide]({{< ref "guides/migration/v9.md" >}}) and **review the breaking changes** further down. Most applications only need the version bump.
 
 > [!TIP] Watch v9 live on Thursday 1 October
-> The day after the release, on **Thursday 1 October from 12:30 to 13:30 CEST**, we celebrate v9 in a free launch webinar. Ronald live-codes durable jobs with `runStepOnce`, the job history Chart and pausing a batch in JobRunr Pro. Join on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0). If you cannot watch at that moment, you can always watch the replay, because the YouTube livestream magically transforms into the recording as soon as the stream ends.
+> The day after the release, on **Thursday 1 October from 12:30 to 13:30 CEST**, we celebrate v9 in a free launch webinar. Ronald live-codes durable jobs with `runStepOnce`, the job history Chart and pausing a batch in JobRunr Pro. Join on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0).
 
-## The Example: One Broken Invoice Run
+## The Example: A Monthly Invoice Run
 
-Our demo application sends the monthly invoices for 600 customers. Every invoice is a [durable job]({{< ref "guides/advanced/durable-executions.md" >}}), which is a job that remembers which of its steps already finished. You get that by wrapping each step in `runStepOnce`, an API we introduced during v8. When the job is retried, a step that completed is not executed again.
+Our demo application sends the monthly invoices for 600 customers. Every invoice is a [durable job]({{< ref "guides/advanced/durable-executions.md" >}}), which is a job that remembers which of its steps already finished. You get that by wrapping each step in `runStepOnce`. When the job is retried, a step that completed is not executed again.
 
 ```java
 @Job(name = "Invoice %1 for %0", retries = 5)
@@ -43,19 +43,17 @@ public void generateInvoice(String customerId, String period, JobContext jobCont
 }
 ```
 
-The payment provider in the demo has a switch that makes every charge time out after 2 seconds. Everything below ran on a developer laptop with Spring Boot 4, Java 26, 20 workers and the in-memory H2 database the example ships with. The single invoice and the batch run are separate runs on that setup. Only the Postgres half of the latency test further down ran against Postgres 17 in Docker. All numbers are measured, not estimated.
-
 ## JobRunr v9 Features
 
 ### See Which Step Failed With the Job History Chart
 
-Open a job in the dashboard and the History section now has two modes. `Timeline` is the list of states you already know. `Chart` is new and draws the life of the job as a Gantt chart, with a row per state and a row per durable step.
+Open a job in the dashboard and the History section now has two modes. `Timeline` is the list of states you already know. `Chart` is new and shows the life of the job as a Gantt chart, with a row per state and a row per durable step.
 
 To get a clean picture we first ran a single invoice, for customer `CUST-0042`, while the payment provider was down:
 
 ![](/blog/jobrunr-v9-job-history-chart.webp "The Chart mode for a durable job. The first attempt fails on charge-card, and the retry skips the two steps that had already finished.")
 
-Read it from left to right. On the first attempt `calculate-usage` took 218 ms and `generate-pdf` a second. Then `charge-card` hit the timeout after 2 seconds and the attempt failed, which is the red bar. JobRunr scheduled retry 1 of 5, and in the meantime we switched the provider back on. On the retry the two hollow diamonds tell you that `calculate-usage` and `generate-pdf` were skipped. `charge-card` went through in 697 ms according to the step log, `send-email` took 290 ms, and the retry needed less than a second of processing in total. The customer got one PDF and one charge. The job log agrees, because on the retry its first line is `Step 'charge-card' started`.
+Read it from left to right. On the first attempt `calculate-usage` took 218 ms and `generate-pdf` a second. Then `charge-card` hit the timeout after 2 seconds and the attempt failed, which is the red bar. JobRunr scheduled retry 1 of 5, and in the meantime we switched the provider back on. On the retry the two hollow diamonds tell you that `calculate-usage` and `generate-pdf` were skipped. `charge-card` went through in 697 ms according to the step log, `send-email` took 290 ms, and the retry needed less than a second of processing in total. The customer got one PDF and one charge.
 
 What else you should know about the Chart:
 
@@ -70,13 +68,13 @@ The Chart is available in JobRunr OSS and JobRunr Pro, and there is nothing to c
 
 When Prometheus shows the queue slowing down, Job Analytics is where you look up which job causes it.
 
-It lives on the home page of the JobRunr Pro dashboard. Our invoice run was over in less than four minutes, which is too short to draw a trend, so the screenshots in this section come from a test application that one of our developers had been running for a week. You pick a time period, here the last 7 days, and get six numbers. Each of them comes with a small sparkline and a comparison with the previous period:
+It lives on the home page of the [JobRunr Pro dashboard]({{< ref "documentation/pro/jobrunr-pro-dashboard.md" >}}). You pick a time period, here the last 7 days, and get six numbers. Each of them comes with a small sparkline and a comparison with the previous period:
 
 ![](/blog/jobrunr-v9-job-analytics-kpis.webp "The top of Job Analytics for the last 7 days: 83,442 jobs, a success ratio of 95.33% and 3.7K failed jobs.")
 
 83,442 jobs ran that week and 3.7K of them failed. The failures went down by 5% compared to the previous period, but the retries went up by 11%. Those are the arrows you want to notice before your users do.
 
-Below the numbers, the trend shows how many jobs succeeded and failed over the period, and the breakdown splits them by state, by server or by job signature:
+Below the numbers, the Job processing trend shows how many jobs succeeded and failed over the period, and the breakdown splits them by state, by server or by job signature:
 
 ![](/blog/jobrunr-v9-job-analytics-trend.webp "The job processing trend over a week, next to the processing breakdown per server.")
 
@@ -86,32 +84,17 @@ The table at the bottom answers the question you came for:
 
 ![](/blog/jobrunr-v9-job-analytics-signatures.webp "Detailed analytics per job signature. One method never succeeds, another one causes the most failures.")
 
-`TestService.doWorkThatFails()` did not succeed once in 869 executions, so that one is easy to spot. The table also shows the one that is easy to miss. `TestService.doWorkThatTakesLong(int)` fails only 4.41% of the time, but over 41,945 executions that adds up to 1,849 failures, more than the other two methods together. Click a job signature and you get a page for that job alone, with processing time split into succeeded and failed attempts, the fastest and the slowest run one click away from the actual job, and a tab with the exceptions that were thrown, how often and when last.
+`TestService.doWorkThatFails()` did not succeed once in 869 executions, so that one is easy to spot. The table also shows the one that is easy to miss. `TestService.doWorkThatTakesLong(int)` fails only 4.41% of the time, but over 41,945 executions that adds up to 1,849 failures, more than the other two methods together.
 
-Some practical notes:
-
-- In our invoice run `Total jobs failed` stayed at 0 the whole time, because JobRunr only marks a job as failed once its retries are used up and ours never got that far. During an incident, watch the retry counter and the success ratio instead.
-- You get averages plus the fastest and the slowest run. There are no percentiles, so keep your Micrometer metrics for p95 and p99.
-- There is nothing to set up. Every background job server collects the numbers by default and stores them aggregated per period, not per job.
-- Job Analytics replaces the realtime graph that used to sit on the dashboard home page.
+Click a job signature and you get a page for that job alone, with processing time split into succeeded and failed attempts, the fastest and the slowest run one click away from the actual job, and a tab with the exceptions that were thrown, how often and when last.
 
 ### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Pause and Resume a Batch Job Without Losing Work
 
-With the provider down, 440 invoices were still lined up to call it. Until v9 you could let the run burn through its retries, or delete it and clean up by hand afterwards. Most teams end up writing their own kill switch and a cleanup script for this.
+Until v9, a batch job that started going wrong left you two options: let it burn through its retries, or delete it and clean up by hand afterwards. Most teams end up writing their own kill switch and a cleanup script for this.
 
-In JobRunr Pro v9 a [batch job]({{< ref "documentation/pro/batches.md" >}}) has a **Pause** button. We pressed it 15 seconds after the payment provider went down:
+In JobRunr Pro v9 a [batch job]({{< ref "documentation/pro/batches.md" >}}) has a **Pause** button, and a **Resume** button next to it:
 
-![](/blog/jobrunr-v9-batch-paused.webp "The paused invoice run. 160 invoices are done, the other 440 wait until someone presses Resume, and nothing is calling the broken provider.")
-
-At that point 160 invoices were done. The invoices that were processing were allowed to finish their attempt. The 340 invoices that had not started yet and the 100 that were waiting for a retry moved to `Pending`, where they stay until you press Resume. A few seconds later the last running attempts were done and no job called the provider anymore. If you check the counters in the screenshot, `Pending` shows 441 because the batch job itself waits there too, and `Succeeded` shows 162 because the recurring job had run twice.
-
-We fixed the provider and pressed **Resume** 1 minute and 41 seconds later. All 600 invoices succeeded, each of them exactly once, and 100 of them needed a second attempt. The whole run took 3 minutes and 27 seconds, the pause included.
-
-The Chart of one of those 100 invoices shows the complete incident in one picture:
-
-![](/blog/jobrunr-v9-job-history-chart-paused.webp "An invoice from the paused run. It fails on charge-card, waits out the pause, and finishes after the resume while skipping the two steps that were already done.")
-
-Compact mode has no row for `Pending`, so most of the pause hides in the compressed gap that ends at +2m 15s.
+![](/guides/migration/v9/pause-with-buttons.gif "Pause stops the batch from handing out new work. Child jobs that had not started yet wait until someone presses Resume.")
 
 The run itself is an ordinary batch with one child job per customer:
 
@@ -146,17 +129,15 @@ batchJobManager.resumeBatchJob(batchJobId);
 
 Pausing does not interrupt child jobs that are already processing. If you press Pause while the batch job is still creating its child jobs, the dashboard tells you the job will be paused, and JobRunr pauses it as soon as all child jobs are enqueued.
 
-![](/guides/migration/v9/pause-with-buttons.gif "Pausing a batch job while it is still enqueuing its child jobs. JobRunr pauses it once all child jobs are enqueued, and Resume picks the work back up.")
+![](/blog/jobrunr-v9-batch-paused.webp "Pause was pressed while the invoice run was still enqueueing its child jobs, so the dashboard says the job will be paused rather than pausing it right away.")
 
 ### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Jobs Start Within Milliseconds on Postgres, With Nothing to Configure
 
-Take another look at the first Chart. The long blue bar is the invoice for `CUST-0042` sitting in `Enqueued` for 10 seconds, on a server that had nothing else to do. It was waiting for the next poll.
-
-JobRunr Pro has offered [instant job processing]({{< ref "documentation/pro/instant-job-processing.md" >}}) for a while through UDP multicast. That works well where multicast is allowed, but plenty of cloud networks and Kubernetes clusters block it, and several of you told us that your servers quietly fell back to polling. Our own laptop did exactly that in the run above, which used H2 and the default multicast transport.
+JobRunr Pro has offered [instant job processing]({{< ref "documentation/pro/instant-job-processing.md" >}}) for a while through UDP multicast. That works well where multicast is allowed, but plenty of cloud networks and Kubernetes clusters block it, and several of you told us that your servers quietly fell back to polling.
 
 For v9 we rebuilt this part as an **EventBus** with pluggable transports. UDP multicast is still there and PostgreSQL `LISTEN/NOTIFY` is new. If your `StorageProvider` runs on Postgres, JobRunr Pro picks it automatically. You do not need a bean, a property or a firewall ticket for your platform team, because the notification travels through the database you already have.
 
-On Postgres a job now starts a few milliseconds after it is created, instead of somewhere in the next 15 seconds. We measured the time between `ENQUEUED` and `PROCESSING` for 20 empty jobs, enqueued 1.5 seconds apart on an idle server:
+On Postgres a job now starts a few milliseconds after it is created, instead of somewhere in the next poll interval. We measured the time between `ENQUEUED` and `PROCESSING` for 20 empty jobs, enqueued 1.5 seconds apart on an idle server:
 
 | Setup | Median | Max |
 |---|---|---|
@@ -204,6 +185,10 @@ The `jobrunr.multicast-group-address` property is gone. If you used it, configur
 | Faster dashboard on large job tables | | ✅ |
 | Custom views in the dashboard | | ✅ |
 
+{{< pro-cta title="Want the Pro half on your own jobs?" label="Get a JobRunr Pro license" >}}
+Swap `jobrunr` for `jobrunr-pro`, add your license key and the code in this post stays the same. A good first exercise in a test environment: break one of your own batch runs on purpose, pause it from the dashboard, fix the cause and resume.
+{{< /pro-cta >}}
+
 ---
 
 ## Upgrading to JobRunr v9
@@ -249,8 +234,6 @@ The most common ones are below. The [v9 migration guide: Breaking Changes]({{< r
 JobRunr Pro users, the new dashboard indexes are created by database migrations the first time v9 starts. As with 8.8.0, that takes time and I/O on a very large jobs table, so plan the first boot of a busy production cluster accordingly.
 
 ## Try It on Your Own Jobs
-
-In our run we paused the batch 15 seconds after the payment provider went down, the last running attempts failed a few seconds later, and all 600 customers were still charged exactly once.
 
 Upgrade to v9, open the job that worries you most and switch its history to `Chart`. It is free, and we would love to hear what you find via [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions).
 

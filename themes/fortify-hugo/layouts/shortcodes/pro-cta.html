@@ -1,0 +1,12 @@
+{{- $title := .Get "title" | default "This one needs JobRunr Pro" -}}
+{{- $label := .Get "label" | default "Start using JobRunr Pro" -}}
+{{- $url := .Get "url" | default "/en/start-jobrunr-pro/" -}}
+{{- $demo := .Get "demo" -}}
+<div style="border: 1px solid var(--color-border, #e0e0e0); border-left: 4px solid var(--color-primary, #744cbf); background: var(--color-light, #fafafa); padding: 1.25rem 1.5rem; margin: 2rem 0; border-radius: 0 8px 8px 0;">
+  <p style="margin: 0 0 0.4rem; font-weight: 600; color: var(--color-dark, #1d1d1d);">{{ $title }}</p>
+  <div style="margin: 0 0 1rem;">{{ .Inner | markdownify }}</div>
+  <a class="btn btn-primary btn-sm text-white hover:text-black" style="text-decoration: none;" href="{{ $url }}">{{ $label }}</a>
+  {{ with $demo }}
+  <a href="{{ . }}" target="_blank" rel="noopener" style="margin-left: 1rem; font-weight: 600; white-space: nowrap;">or click through the hosted demo &rarr;</a>
+  {{ end }}
+</div>
