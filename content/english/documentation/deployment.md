@@ -3,8 +3,8 @@ title: "Deployment"
 subtitle: "JobRunr ships inside your application - here is what to think about when you take it to production."
 description: "What to configure and watch out for when deploying a JobRunr application: processing topology, storage, clustering, graceful shutdown, rolling deploys and observability."
 keywords: ["deployment", "production", "kubernetes", "docker", "cluster", "rolling deploy", "scaling", "high availability", "deploy java application", "background job server"]
-date: 2026-08-10T10:00:00+02:00
-lastmod: 2026-09-21T10:00:00+02:00
+date: 2026-08-30T10:00:00+02:00
+lastmod: 2026-09-30T10:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:
