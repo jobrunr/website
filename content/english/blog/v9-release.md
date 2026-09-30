@@ -4,11 +4,6 @@ description: "JobRunr v9 draws every attempt and every durable step of a job on 
 keywords: ["jobrunr v9", "jobrunr 9", "java background jobs", "job analytics", "durable execution java", "pause batch job", "postgres listen notify"]
 image: "/blog/thubm-jr-v-900.webp"
 date: 2026-09-30T09:00:00+02:00
-# Pre-launch: reachable by direct URL, hidden from lists, feeds, sitemap and search. Remove these 4 lines on launch day.
-publishDate: 2026-09-28T00:00:00+02:00
-build:
-  list: never
-noindex: true
 author: "The JobRunr Team"
 draft: false
 tags:
@@ -248,7 +243,8 @@ The most common ones are below. The [v9 migration guide: Breaking Changes]({{< r
 - {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} The property `jobrunr.multicast-group-address` and the method `useMulticastAddress` are gone. Configure an `EventTransport` instead, or nothing at all when you run on Postgres.
 - {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Several constructors now accept an `EventTransport` or an `EventBus`. This only matters when you create a `BackgroundJobServer`, `JobScheduler`, `JobRequestScheduler` or `JobRunrDashboardWebServer` by hand.
 - {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Kotlin Exposed needs to be on v1.
-- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} `SmartQueue` is renamed to `JobPrefetchQueue`, and `ConcurrentJobModificationPolicy` is removed without a replacement.- {{< badge version="enterprise" >}}JobRunr Pro{{< /badge >}} Upgrade the Multi-Cluster Dashboard together with your clusters, unless they already run 8.7 or higher.
+- {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} `SmartQueue` is renamed to `JobPrefetchQueue`, and `ConcurrentJobModificationPolicy` is removed without a replacement.
+- {{< badge version="enterprise" >}}JobRunr Pro{{< /badge >}} Upgrade the Multi-Cluster Dashboard together with your clusters, unless they already run 8.7 or higher.
 
 JobRunr Pro users, the new dashboard indexes are created by database migrations the first time v9 starts. As with 8.8.0, that takes time and I/O on a very large jobs table, so plan the first boot of a busy production cluster accordingly.
 
@@ -256,7 +252,7 @@ JobRunr Pro users, the new dashboard indexes are created by database migrations 
 
 In our run we paused the batch 15 seconds after the payment provider went down, the last running attempts failed a few seconds later, and all 600 customers were still charged exactly once.
 
-Upgrade to v9, open the job that worries you most and switch its history to `Chart`. It is free, and we would love to hear what you find via [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions). The invoice run from this post is in the [example-java-mag](https://github.com/jobrunr/example-java-mag) repository, with a script that replays the whole incident.
+Upgrade to v9, open the job that worries you most and switch its history to `Chart`. It is free, and we would love to hear what you find via [GitHub Discussions](https://github.com/jobrunr/jobrunr/discussions).
 
 Job Analytics, pausing a batch and instant processing on Postgres need JobRunr Pro. Ask for a trial license and rehearse this incident in a test environment with one of your own batch runs.
 
