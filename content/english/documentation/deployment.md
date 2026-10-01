@@ -4,7 +4,7 @@ subtitle: "JobRunr ships inside your application - here is what to think about w
 description: "What to configure and watch out for when deploying a JobRunr application: processing topology, storage, clustering, graceful shutdown, rolling deploys and observability."
 keywords: ["deployment", "production", "kubernetes", "docker", "cluster", "rolling deploy", "scaling", "high availability", "deploy java application", "background job server"]
 date: 2026-08-30T10:00:00+02:00
-lastmod: 2026-09-30T10:00:00+02:00
+lastmod: 2026-10-01T10:00:00+02:00
 layout: "documentation"
 menu:
   sidebar:
@@ -40,6 +40,9 @@ This shouldn't be overlooked. There are applications where JobRunr compete for t
 2. Avoid `@Transactional`, though convenient, it makes it too easy to overlook long running transactions.
 
 Would providing JobRunr with its own datasource help? Maybe. But be aware that this setting does not change the datasource used by your jobs. Additionally, ensure that your database is configured to handle the maximum number of concurrent connections required by your workload.
+
+> [!PRO]
+> JobRunr Pro v9 introduced the `SelfLearningWorkerCapacityStrategy`, which automatically determines the optimal number of worker threads based on the number of database connections your application uses. Enable this strategy if you're experiencing database connection issues. See the [v9 migration guide]({{< ref "guides/migration/v9.md#introduce-selflearningworkercapacitypolicy" >}}) for how to configure it.
 
 ### Match retention to your throughput
 
@@ -130,6 +133,9 @@ Properly sizing your worker nodes ensures that you maximize your hardware capabi
 The `jobrunr.background-job-server.worker-count` property determines how many jobs one instance runs in parallel. By default, this is set to the number of available processors multiplied by 8 (or 16 if using virtual threads), as JobRunr assumes most workloads are I/O-bound.
 
 If your jobs are strictly CPU-bound (e.g., heavy computation, image processing), consider lowering this value to match your core count to avoid excessive context switching. Conversely, if your jobs are heavily I/O-bound and you are using [virtual threads]({{< ref "documentation/configuration/virtual-threads" >}}) (available in JobRunr 7+ on JDK 21+), you can increase the worker count to handle thousands of concurrent jobs on a single node.
+
+> [!PRO]
+> Rather than picking a fixed worker count yourself, JobRunr Pro can tune it to your actual workload. When the `SelfLearningWorkerCapacityPolicy` is enabled, it continuously evaluates memory, CPU and database usage and scales the number of workers up or down to keep your node stable. See the [v9 migration guide]({{< ref "guides/migration/v9.md#introduce-selflearningworkercapacitypolicy" >}}) for how to enable it.
 
 ### Poll Interval
 

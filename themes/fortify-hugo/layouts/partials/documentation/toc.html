@@ -19,7 +19,7 @@
 {{- $toc := printf "<nav id=\"TableOfContents\">%s</nav>" $list | safeHTML -}}
 
 {{- if eq $variant "inline" -}}
-<details class="docs-toc xl:hidden mb-8 rounded-lg border border-border bg-light" data-pagefind-ignore>
+<details class="toc xl:hidden mb-8 rounded-lg border border-border bg-light" data-pagefind-ignore>
   <summary class="flex cursor-pointer select-none items-center justify-between gap-2 px-4 py-2 text-sm font-semibold uppercase text-text/60">
     <span class="flex items-center gap-2">
       <i class="fa-solid fa-list-ul text-text/60"></i>
@@ -34,15 +34,17 @@
 
 {{- else if eq $variant "rail" -}}
 <aside class="hidden xl:col-3 xl:block xl:max-w-75" data-pagefind-ignore>
-  <div class="docs-toc sticky top-1 max-h-[calc(100vh-153px)] overflow-y-auto">
-    <h4 class="mb-3 text-xs font-semibold uppercase tracking-wide text-text/60">On this page</h4>
-    <div class="toc-content text-sm">
+  <div class="toc sticky top-1 flex max-h-[calc(100vh-153px)] flex-col">
+    <h4 class="mb-3 shrink-0 text-xs font-semibold uppercase tracking-wide text-text/60">On this page</h4>
+    <div class="toc-content min-h-0 overflow-y-auto text-sm">
       {{ $toc }}
     </div>
   </div>
 </aside>
 <script>
 (() => {
+  const scroller = document.querySelector("aside .toc-content");
+  const content = scroller.closest("aside").previousElementSibling;
   const links = new Map(
     [...document.querySelectorAll("aside .toc-content a[href^='#']")].map((a) => [
       decodeURIComponent(a.hash.slice(1)),
@@ -66,6 +68,12 @@
     const h = document.getElementById(id);
     if (h) observer.observe(h);
   });
+  addEventListener("scroll", () => {
+    if (!scroller.offsetParent || scroller.matches(":hover")) return;
+    const { top, height } = content.getBoundingClientRect();
+    const progress = Math.min(Math.max(-top / (height - innerHeight), 0), 1);
+    scroller.scrollTop = progress * (scroller.scrollHeight - scroller.clientHeight);
+  }, { passive: true });
 })();
 </script>
 {{- end -}}

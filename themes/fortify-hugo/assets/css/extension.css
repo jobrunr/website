@@ -194,3 +194,70 @@
     @apply px-3;
   }
 }
+
+/* Table of Contents styling */
+
+.content .toc nav a {
+  @apply font-normal;
+}
+
+.content .toc nav li {
+  @apply m-0;
+}
+
+/* Hide the TOC chrome (and its rail column) on pages without headings (empty nav) */
+.toc:has(#TableOfContents:empty),
+aside:has(> .toc #TableOfContents:empty) {
+  @apply hidden;
+}
+
+.toc-content ol,
+.toc-content ul {
+  @apply m-0 list-none p-0;
+}
+
+.toc-content ol ol,
+.toc-content ul ul {
+  @apply mt-0.5 ml-3;
+}
+
+.toc-content li {
+  @apply mb-0;
+}
+
+.toc-content a {
+  @apply block py-1 pl-2 pr-2;
+  @apply border-l-2 border-transparent hover:border-l-[var(--color-border)];
+  @apply text-text/85 no-underline transition-colors hover:text-text-dark;
+}
+
+.toc-content a.active {
+  @apply border-l-[var(--color-primary)] font-medium text-text-dark;
+}
+
+/* Rail: a left "track" */
+.toc .toc-content nav {
+  @apply border-l border-border;
+}
+
+details.toc .toc-content nav {
+  @apply border-0;
+  @apply py-3;
+}
+
+/* Inline collapsible variant (small/medium screens) */
+details.toc > summary {
+  @apply list-none;
+}
+
+details.toc > summary::-webkit-details-marker {
+  @apply hidden;
+}
+
+details.toc .toc-chevron {
+  @apply transition-transform duration-200;
+}
+
+details.toc[open] .toc-chevron {
+  @apply rotate-180;
+}
