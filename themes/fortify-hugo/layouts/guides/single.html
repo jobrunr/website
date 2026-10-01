@@ -6,7 +6,7 @@
   <section class="section article-page">
     <div class="container">
       <div class="row justify-center">
-        <div class="lg:col-10">
+        <div class="lg:col-10 xl:col-9">
           {{ if and (eq .Section "guides") (not (eq $.Params.hideFrameworkSelector true)) }}
           <div class="framework-container mb-6">
             <div class="flex items-center justify-end gap-3 rounded-lg bg-light/50 border border-border/30 px-4 py-3">
@@ -22,9 +22,14 @@
           {{ end }}
           <div class="content" data-pagefind-body>
               {{ partial "pagefind-filters.html" . }}
+              <!-- Table of Contents - inline, collapsible (small/medium screens) -->
+              {{ partial "documentation/toc.html" "inline" }}
               {{ .Content }}
           </div>
         </div>
+
+        <!-- Table of Contents - sticky right rail (large screens) -->
+        {{ partial "documentation/toc.html" "rail" }}
       </div>
     </div>
   </section>
