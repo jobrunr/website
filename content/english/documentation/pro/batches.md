@@ -146,7 +146,7 @@ public void step1() {
 ```
 
 ## Pausing
-You can now pause your batch jobs while they are in progress. When a batch job is paused, all child jobs in the **Enqueued**, **Scheduled**, or **Pending** state are paused and will not execute until the batch job is resumed. Child jobs that are already **Processing** continue running to completion.
+You can also pause your batch jobs while they are in progress. When a batch job is paused, all child jobs in the **Enqueued**, **Scheduled**, or **Pending** state are paused and will not execute until the batch job is resumed. Child jobs that are already **Processing** continue running to completion.
 
 > [!NOTE]
 > If you pause a batch job after all of its child jobs have entered the **Processing** state, the batch job will continue
@@ -167,12 +167,12 @@ JobSearchRequestBuilder
 
 You can pause a BatchJob in 3 different ways as listed below.
 
-### Dashboard
+### Using the dashboard
 You can use the **Pause** and **Resume** buttons in the JobRunr dashboard.
 
 ![](/guides/migration/v9/pause-with-buttons.gif "Usage of Pause and Resume button on dashboard.")
 
-### Rest Endpoints
+### Using rest endpoints
 You can call the following REST API endpoints to pause and resume a batch job respectively.
 * `POST /jobs/{batchJobId}/pause`
 * `POST /jobs/{batchJobId}/resume`

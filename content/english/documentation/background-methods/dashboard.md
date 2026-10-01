@@ -10,6 +10,9 @@ menu:
     parent: 'background-methods'
     weight: 1
 ---
+
+Processing visualization
+
 JobRunr includes a built-in dashboard which gives helpful insights into your background job methods. The dashboard allows you to see and control any aspect of background job processing - you have a detailed view on any exception that occurred and you can see the complete background job history.
 
 By default, it is available on the following url: [http://localhost:8000](http://localhost:8000). Of course, this is configurable:
@@ -63,6 +66,12 @@ jobScheduler.create(aJob()
 <figcaption>We can use the JobBuilder pattern to provide the dashboard with a readable Job name and some labels.</figcaption>
 </figure>
 
+
+## Visualizing your jobs progress
+
+Once you have created your jobs, you may want to see how a job has progressed over time, and there are two ways to do this. You can use the traditional history timeline view, where each state is listed as a card in a list, or the Gantt chart view. The Gantt chart view shows the states that a job went through sequentially through time, which makes it easier to identify which steps fail more often, for example when using [durable executions](https://www.jobrunr.io/en/guides/advanced/durable-executions/).
+
+![](/guides/migration/v9/timeline-visualization.png "An example of what the new visualization looks like for a job that leverages durable executions with 2 retries.")
 
 ## Screenshots
 

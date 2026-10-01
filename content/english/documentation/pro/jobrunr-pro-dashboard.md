@@ -18,6 +18,7 @@ The JobRunr Pro dashboard offers a lot of improvements that save your engineerin
 - [Find any Job using the search functionality](#find-any-job-using-the-search-functionality)
 - [Save time thanks to usability improvements](#save-time-thanks-to-some-usability-improvements)
 - [Use analytics to get an overview of your jobs](#use-analytics-to-get-an-overview-of-your-jobs)
+- [Use custom views to save your prefills](#use-custom-views-to-save-your-previous-selections)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Restrict access using Single Sign On authentication](/en/documentation/pro/sso-authentication)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
@@ -62,9 +63,20 @@ The JobRunr Pro dashboard gives you an overview of how your servers and jobs are
 
 You can select a signature from the table at the bottom of the page to get more details about what happened with that specific signature as well. 
 
-The time range is fully adjustable, so you can focus on the period that matters to you.
+The time range is fully adjustable, so you can focus on the period that matters to you, be it yesterday or 2 weeks ago.
 
 ![](/guides/migration/v9/new-dashboard.png "Dashboard page featuring server and job type analytics.")
+
+## Use custom views to save your previous selections
+
+Thanks to custom views, you are able to save your currently applied job filters to be able to easily use them later, without having to manually copy the URL. When using custom views you can not only select any of the existing job filters to apply, but also opt to show multiple different states in the same view. 
+
+Meaning you could as an example select all jobs where the signature is `org.jobrunr.TestService.doWork()` and that are in either the **Enqueued** or **Processing** states.
+
+{{< image-grid cols="1.17fr 4.84fr" >}}
+{{< image-grid-item src="/guides/migration/v9/custom-view-in-sidebar.png" alt="Dashboard sidebar with the Custom Views navigation" >}}
+{{< image-grid-item src="/guides/migration/v9/custom-view.png" alt="Dashboard showing a custom job view" >}}
+{{< /image-grid >}}
 
 ## Easier support to Proxy with a custom context-path
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.
