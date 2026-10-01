@@ -24,8 +24,8 @@ Background jobs are often a black box, with v9 we want to open the box for you.
 
 To upgrade from JobRunr `v8.x`, follow the [JobRunr v9 migration guide]({{< ref "guides/migration/v9.md" >}}) and **review the breaking changes** further down. Most applications only need the version bump.
 
-> [!TIP] Watch v9 live on Thursday 1 October
-> The day after the release, on **Thursday 1 October from 12:30 to 13:30 CEST**, we celebrate v9 in a free launch webinar. Ronald live-codes durable jobs with `runStepOnce`, the job history Chart and pausing a batch in JobRunr Pro. Join on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0).
+> [!TIP]
+> The day after the release, we celebrated v9 in a free launch webinar. Ronald live-codes durable jobs with `runStepOnce`, the job history Chart and pausing a batch in JobRunr Pro. Watch the replay on [LinkedIn](https://www.linkedin.com/events/7508498741159608320/) or [YouTube](https://www.youtube.com/watch?v=bVNeB-ePdn0).
 
 ## The Example: A Monthly Invoice Run
 
@@ -113,12 +113,34 @@ public void createInvoiceJobs(String period, int customers) {
 
 Besides the buttons in the dashboard there is a REST API, with `POST /jobs/{batchJobId}/pause` and `POST /jobs/{batchJobId}/resume`, and you can pause from your own code. That is handy when your monitoring already knows the payment provider is down. Create a `BatchJobManager` once:
 
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
 ```java
-@Bean
-public BatchJobManager batchJobManager(StorageProvider storageProvider, EventTransport eventTransport) {
-    return new BatchJobManager(storageProvider, eventTransport);
-}
+var batchJobManager = new BatchJobManager(storageProvider);
 ```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
+```java
+@Autowired
+private BatchJobManager batchJobManager;
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+@Inject
+BatchJobManager batchJobManager;
+```
+{{< /codetab >}}
+
+{{< codetab label="Micronaut" >}}
+```java
+@Inject
+private BatchJobManager batchJobManager;
+```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 And use it wherever you need it:
 
@@ -130,6 +152,106 @@ batchJobManager.resumeBatchJob(batchJobId);
 Pausing does not interrupt child jobs that are already processing. If you press Pause while the batch job is still creating its child jobs, the dashboard tells you the job will be paused, and JobRunr pauses it as soon as all child jobs are enqueued.
 
 ![](/blog/jobrunr-v9-batch-paused.webp "Pause was pressed while the invoice run was still enqueueing its child jobs, so the dashboard says the job will be paused rather than pausing it right away.")
+
+### Reduce Worker Downtime With the PrefetchQueue {.pro}
+
+When a worker finishes a job, the next one still has to come from the database, and the worker waits for that round trip. `JobPrefetchQueue`, called `SmartQueue` before v9, takes that wait away. JobRunr fetches jobs in chunks, before the workers ask for them, so a worker that just finished picks up its next job right away. Your database sees fewer, larger queries instead of one per job, and a worker no longer sits idle waiting for a slow database connection. For a run like the invoice run, where 600 similar child jobs finish one after the other, that adds up.
+
+To use it, set the `jobrunr.background-job-server.work-distribution-strategy` property to `prefetch-queue`. The default is `basic`. Or provide a `PrefetchQueueBackgroundJobServerWorkerPolicy` yourself:
+
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
+```java
+JobRunrPro
+    .configure()
+    .useBackgroundJobServer(
+        usingStandardBackgroundJobServerConfiguration()
+        .andBackgroundJobServerWorkerPolicy(new PrefetchQueueBackgroundJobServerWorkerPolicy())
+    );
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
+```java
+@Bean
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+@Produces
+@Singleton
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy();
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Micronaut" >}}
+```java
+@Singleton
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy();
+}
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
+### Let JobRunr Determine Your Optimal Worker Count {.pro}
+
+The worker count used to be a number you picked up front, and JobRunr would put all of those workers to work all the time, whether the database and the CPU could keep up or not. With the new `SelfLearningWorkerCapacityPolicy`, JobRunr works that number out by itself while your jobs run.
+
+JobRunr keeps measuring how long it takes to get a database connection, how much memory and CPU the server uses, and how healthy the server is overall. When one of those gets out of hand, JobRunr lowers the worker count. When everything is healthy again, it raises the count until it reaches the limit, and then it holds steady.
+
+The result is more throughput from the same server, without pushing the database or the CPU until things break. Combined with the prefetch queue above, the two policies cover both sides of throughput: how quickly a worker picks up its next job, and how many workers there are.
+
+Configuration follows the same pattern. Set the `jobrunr.background-job-server.worker-capacity-policy` property to `self-learning` instead of the default `fixed-size`, or provide the policy yourself:
+
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
+```java
+JobRunrPro
+    .configure()
+    .useBackgroundJobServer(
+        usingStandardBackgroundJobServerConfiguration()
+        .andBackgroundJobServerWorkerPolicy(
+            new PrefetchQueueBackgroundJobServerWorkerPolicy(new SelfLearningWorkerCapacityPolicy())
+        )
+    );
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
+```java
+@Bean
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy(new SelfLearningWorkerCapacityPolicy());
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+@Produces
+@Singleton
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy(new SelfLearningWorkerCapacityPolicy());
+}
+```
+{{< /codetab >}}
+
+{{< codetab label="Micronaut" >}}
+```java
+@Singleton
+public BackgroundJobServerWorkerPolicy backgroundJobServerWorkerPolicy() {
+    return new PrefetchQueueBackgroundJobServerWorkerPolicy(new SelfLearningWorkerCapacityPolicy());
+}
+```
+{{< /codetab >}}
+{{< /codetabs >}}
 
 ### Jobs Start Within Milliseconds on Postgres, With Nothing to Configure {.pro}
 
