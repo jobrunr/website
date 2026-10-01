@@ -261,3 +261,21 @@ details.toc .toc-chevron {
 details.toc[open] .toc-chevron {
   @apply rotate-180;
 }
+
+/* Sticky side panels (sidebar menu, TOC): grow max-height while scrolling to the point where they stick,
+   so their bottom stays at the viewport bottom. Keep 153px/149px in sync with max-h-[calc(100vh-153px)]. */
+.sticky-fill {
+  @variant lg {
+    @supports (animation-timeline: scroll()) {
+      animation: sticky-fill linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 149px;
+    }
+  }
+}
+
+@keyframes sticky-fill {
+  to {
+    max-height: calc(100vh - 0.5rem);
+  }
+}

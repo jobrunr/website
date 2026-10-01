@@ -197,7 +197,7 @@ input[name="username"] {
 }
 
 .heading-anchor i {
-  @apply ml-2 text-gray-400 no-underline opacity-0 hover:opacity-100 focus:opacity-100 text-[0.7em];
+  @apply relative left-2 inline-block w-0 text-gray-400 no-underline opacity-0 hover:opacity-100 focus:opacity-100 text-[0.7em];
 }
 
 

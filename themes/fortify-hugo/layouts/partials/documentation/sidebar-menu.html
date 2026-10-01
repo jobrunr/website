@@ -3,7 +3,7 @@
 {{ $currentPage := . }}
 
 <aside class="lg:sticky lg:top-1">
-  <nav class="docs-nav lg:max-h-[calc(100vh-153px)] lg:overflow-y-auto lg:overscroll-contain">
+  <nav class="docs-nav sticky-fill lg:max-h-[calc(100vh-153px)] lg:overflow-y-auto lg:overscroll-contain">
     <div class="px-2 py-3 relative">
       {{/* Get top-level menu items (items without a parent) */}}
       {{ range site.Menus.sidebar }}
