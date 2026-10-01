@@ -145,6 +145,81 @@ public void step1() {
 
 ```
 
+## Pausing
+You can now pause your batch jobs while they are in progress. When a batch job is paused, all child jobs in the **Enqueued**, **Scheduled**, or **Pending** state are paused and will not execute until the batch job is resumed. Child jobs that are already **Processing** continue running to completion.
+
+> [!NOTE]
+> If you pause a batch job after all of its child jobs have entered the **Processing** state, the batch job will continue
+> to completion because there are no remaining child jobs that can be paused.
+>
+> If you pause a batch job while it is still enqueuing child jobs, it will finish enqueuing the child jobs and then pause.
+
+If you need to fetch all paused batch jobs, you can use the static `JobSearchRequestBuilder` method in order to create a `JobSearchRequest` that will fetch all the paused batch jobs.
+
+```java
+JobSearchRequestBuilder
+    .aJobSearchRequest()
+    .withOnlyPausedBatchJobs()
+    .build();
+```
+
+![](/guides/migration/v9/batch-job-ready-to-pause.png "Pause batch job button visible on job view.")
+
+You can pause a BatchJob in 3 different ways as listed below.
+
+### Dashboard
+You can use the **Pause** and **Resume** buttons in the JobRunr dashboard.
+
+![](/guides/migration/v9/pause-with-buttons.gif "Usage of Pause and Resume button on dashboard.")
+
+### Rest Endpoints
+You can call the following REST API endpoints to pause and resume a batch job respectively.
+* `POST /jobs/{batchJobId}/pause`
+* `POST /jobs/{batchJobId}/resume`
+
+### Using `BatchJobManager`
+You can use the `BatchJobManager` to programmatically pause or resume a batch job.
+
+{{< codetabs category="framework" >}}
+{{< codetab label="Fluent API" >}}
+```java
+var batchJobManager = new BatchJobManager(storageProvider);
+batchJobManager.pauseBatchJob("batchJobId");
+batchJobManager.resumeBatchJob("batchJobId");
+```
+{{< /codetab >}}
+
+{{< codetab label="Spring" >}}
+```java
+@Autowired
+private BatchJobManager batchJobManager;
+
+batchJobManager.pauseBatchJob("batchJobId");
+batchJobManager.resumeBatchJob("batchJobId");
+```
+{{< /codetab >}}
+
+{{< codetab label="Quarkus" >}}
+```java
+@Inject
+BatchJobManager batchJobManager;
+
+batchJobManager.pauseBatchJob("batchJobId");
+batchJobManager.resumeBatchJob("batchJobId");
+```
+{{< /codetab >}}
+
+{{< codetab label="Micronaut" >}}
+```java
+@Inject
+private BatchJobManager batchJobManager;
+
+batchJobManager.pauseBatchJob("batchJobId");
+batchJobManager.resumeBatchJob("batchJobId");
+```
+{{< /codetab >}}
+{{< /codetabs >}}
+
 ## Dashboard
 
 Thanks to the Pro dashboard’s advanced search, you can easily filter batch jobs from other job types. The video below demonstrates how to search for batch jobs and view the details of their child jobs.

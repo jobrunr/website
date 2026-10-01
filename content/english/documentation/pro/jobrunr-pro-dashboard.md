@@ -17,6 +17,7 @@ menu:
 The JobRunr Pro dashboard offers a lot of improvements that save your engineering teams a lot of time:
 - [Find any Job using the search functionality](#find-any-job-using-the-search-functionality)
 - [Save time thanks to usability improvements](#save-time-thanks-to-some-usability-improvements)
+- [Use analytics to get an overview of your jobs](#use-analytics-to-get-an-overview-of-your-jobs)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Restrict access using Single Sign On authentication](/en/documentation/pro/sso-authentication)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [Embed the dashboard within Spring Server](#embed-the-dashboard-within-spring-application-server)
 - {{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}} [GDPR compliant Dashboard](#gdpr-and-hipaa-compliant-dashboard)
@@ -55,6 +56,15 @@ The JobRunr Pro dashboard includes a confirmation dialog when attempting to exec
 
 ![](/documentation/jobrunr-pro-destructive-action.webp "To prevent misclicks, the UI shows a confirmation dialog for all destructive actions.")
 
+## Use analytics to get an overview of your jobs
+
+The JobRunr Pro dashboard gives you an overview of how your servers and jobs are performing. The Job Analytics show how many jobs succeeded, how many failed, how many retries have happened and more. This page also makes it easy to spot a server that's failing more jobs than the rest, or one that isn't picking up its share of the workload. The Job Analytics also help you to identify what exceptions are happening most often to be able to detect a pattern of failures.
+
+You can select a signature from the table at the bottom of the page to get more details about what happened with that specific signature as well. 
+
+The time range is fully adjustable, so you can focus on the period that matters to you.
+
+![](/guides/migration/v9/new-dashboard.png "Dashboard page featuring server and job type analytics.")
 
 ## Easier support to Proxy with a custom context-path
 Are you running multiple instances of JobRunr inside your organization? Do you want to proxy them? Then a custom context path per JobRunr instance can make life easy. This can be enabled both using the fluent api or the application configuration of the JobRunr Spring Boot Starter, the Micronaut integration or the Quarkus Extension.
