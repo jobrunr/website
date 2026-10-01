@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Batches"
 subtitle: "Batches allow you to create a bunch of background jobs atomically"
 keywords: ["batches", "complex workflows", "batch chain"]

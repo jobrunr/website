@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Transaction plugin"
 subtitle: "Enjoy support for @Transactional out of the box in your preferred development framework"
 keywords: ["Transactional", "database transaction", "transaction it", "transaction in a database", "transaction sql"]

@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Database Migrations"
 subtitle: "Use Flyway or Liquibase to migrate your JobRunr related tables"
 keywords: ["database migrations", "flyway", "liquibase", "ddl", "flyway migrations", "liquibase migrations", "sql server migration", "sql migration", "flyway database migration", "migrating data from one database to another", "sql database migration", "flyway data migration", "flyway liquibase", "data migrator", "database migration flyway", "database migration java", "java database migrations"]

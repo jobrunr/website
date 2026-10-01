@@ -186,7 +186,7 @@ This configuration adds instrumentation at to the `StorageProvider` (for framewo
 > [!WARNING]
 > Be careful with enabling `StorageProvider` job stats metrics as this generates more database load. Ideally, only enable it on the same server running the dashboard.
 
-#### {{< badge version="professional" >}}JobRunr Pro {{< /badge >}} Job Timings {#job-timings}
+#### Job Timings {#job-timings .pro}
 
 In addition to `StorageProvider` and `BackgroundJobServer` metrics, JobRunr Pro can instrument job executions to export processing times and other metrics like job failure count per job type. For the specific metrics, see the documentation page: [Micrometer job timings]({{< ref "documentation/pro/observability.md#micrometer-job-timings" >}}).
 

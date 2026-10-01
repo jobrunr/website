@@ -64,6 +64,35 @@ menu:
     weight: 95
 ```
 
+#### Pro badges
+
+Pages and headings about JobRunr Pro features get a badge. Blue is Pro, orange is Enterprise.
+
+##### Pages
+
+Set `plan` in the front matter. The sidebar menu shows a compact `Pro` badge next to the page name (hidden inside the JobRunr Pro section).
+
+```yaml
+plan: "pro" # or "enterprise"
+```
+
+##### Headings
+
+Add the `{.pro}` or `{.pro-enterprise}` attribute at the end of the heading. Don't put the `badge` shortcode in a heading: it leaks a placeholder into the heading anchor and can't be shown in the table of contents.
+
+```markdown
+### Find the Job Behind a Slowdown With Job Analytics {.pro}
+### Multi-Cluster Dashboard {.pro-enterprise}
+#### Job Timings {#job-timings .pro}
+```
+
+The heading gets the full `JobRunr Pro` badge and its table of contents entry gets the compact `Pro` badge.
+
+How it works:
+- `layouts/_markup/render-heading.html` renders the heading badge and records the anchor in `page.Store` (`headingBadges`).
+- `themes/fortify-hugo/layouts/partials/documentation/toc-list.html` reads `headingBadges` to badge the matching entries.
+- `layouts/partials/heading-badge.html` is the full badge. `layouts/partials/tier-badge-sm.html` is the compact one, shared by the sidebar and the table of contents.
+
 #### Code tabs
 
 Display code examples in multiple formats with synchronized tabs across the page.

@@ -205,6 +205,10 @@ input[name="username"] {
   @apply opacity-100;
 }
 
+.heading-anchor .badge {
+  @apply align-middle;
+}
+
 /* ERROR CONTAINER */
 .error-container {
   @apply flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800;

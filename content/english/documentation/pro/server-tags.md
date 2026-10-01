@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Server Tags"
 subtitle: "Server Tags allow you to filter jobs by certain tags so that they are only run on specific servers."
 keywords: ["server tags", "filter jobs", "spring configuration", "tag server", "spring config"]

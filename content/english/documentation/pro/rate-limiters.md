@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Rate Limiters"
 subtitle: "Control the number of executions of your jobs by using JobRunr's builtin concurrent or window rate limiters."
 date: 2024-02-05T14:19:23+02:00

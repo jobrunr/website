@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Database Fault Tolerance"
 subtitle: "Keep your jobs running - even in a volatile infrastructure landscape."
 keywords: ["database fault tolerance", "fault tolerance", "master node", "zombie jobs", "fault tolerance server", "availability and fault tolerance", database fault"]

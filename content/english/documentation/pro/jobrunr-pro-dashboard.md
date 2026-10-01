@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "JobRunr Pro Dashboard"
 subtitle: "The backoffice to your code!"
 keywords: ["proxy", "set proxy in spring boot application", "spring boot set proxy", "dashboard server", "gdpr compliant", "openid authentication"]
@@ -69,8 +69,7 @@ For Quarkus, you need to prefix this with `quarkus.`.
 
 Once configured, JobRunr will work with the context path configured by you - e.g. `http://localhost:8000/my-context-path/dashboard`.
 
-## Embed the dashboard within Spring Application Server
-{{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}}&nbsp;
+## Embed the dashboard within Spring Application Server {.pro-enterprise}
 
 Using JobRunr Pro Enterprise, you can also embed the dashboard within your existing Spring Application. This means that the JobRunr dashboard will be hosted by Spring and you can add your own authentication and authorization using Spring Security.
 
@@ -82,8 +81,7 @@ jobrunr.dashboard.type=embedded
 
 For Quarkus, you need to prefix this with `quarkus.`.
 
-## GDPR and HIPAA compliant dashboard
-{{< badge version="enterprise" >}}JobRunr Pro Enterprise{{< /badge >}}&nbsp;
+## GDPR and HIPAA compliant dashboard {.pro-enterprise}
 
 Is your company operating in the medical or financial world and is your dashboard showing sensitive information? Do you still want your developers to quickly resolve any bugs and provide great support? 
 

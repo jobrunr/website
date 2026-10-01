@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Custom delete policy"
 subtitle: "You probably like clean code - then you also like a clean JobRunr Dashboard."
 keywords: ["clean code", "job trigger", "job duration", "clean code c", "custom delete policy", "clean jobrunr dashboard", "huge amount of succeeded and deleted jobs"]

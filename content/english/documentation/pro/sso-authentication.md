@@ -1,5 +1,5 @@
 ---
-version: "enterprise"
+plan: "enterprise"
 title: "Single Sign On"
 subtitle: "JobRunr Pro's dashboard integrates seamlessly with OpenID"
 date: 2025-10-10T10:00:00+02:00

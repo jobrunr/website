@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "CI / CD & Job Migrations"
 subtitle: "Easier continuous delivery thanks to job migrations "
 keywords: ["ci", "cd", "continuous delivery", "refactoring", "cd ci", "continuous integration and continuous delivery", "continuous integration", "ci and cd", "continuous integration continuous delivery", "ci & cd", "continuous integration and delivery", "continuous integration pipeline", "ci deployment", "ci cd continuous integration continuous deployment", "ci cd", "cd s", "cd deployment", "ci ou cd", "cicd it", "continuous integration is", "integration delivery"]

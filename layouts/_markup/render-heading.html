@@ -1,7 +1,14 @@
 {{- /* Custom heading render hook with permalink support */ -}}
+{{- /* {.pro} / {.pro-enterprise} add a Pro badge; the anchor is stored so the TOC can show it too */ -}}
+{{- $classes := split (.Attributes.class | default "") " " -}}
+{{- $plan := "" -}}
+{{- if in $classes "pro-enterprise" -}}{{- $plan = "enterprise" -}}
+{{- else if in $classes "pro" -}}{{- $plan = "professional" -}}
+{{- end -}}
+{{- with $plan -}}{{- $.Page.Store.SetInMap "headingBadges" $.Anchor . -}}{{- end -}}
 
 <h{{ .Level }} id="{{ .Anchor }}" {{- with .Attributes.class }} class="{{ . }}" {{- end }}>
   <a href="#{{ .Anchor }}" class="heading-anchor">
-    {{ .Text }}<i class="fa-solid fa-link"></i>
+    {{ with $plan }}{{ partial "heading-badge.html" . }}{{ end }}{{ .Text }}<i class="fa-solid fa-link"></i>
   </a>
 </h{{ .Level }}>

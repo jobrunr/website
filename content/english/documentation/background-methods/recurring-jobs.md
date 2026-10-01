@@ -199,13 +199,11 @@ Recurring jobs are saved to the `StorageProvider`, so removing the code that reg
 - **`@Recurring` annotated methods**: as of JobRunr v8, removing an annotated method, or the `@Recurring` annotation from the method, also removes the corresponding recurring job from the `StorageProvider` on the next startup.
 - **Programmatically registered jobs** (`scheduleRecurrently` or `createRecurrently`): these are *not* cleaned up automatically. Deleting the code that registered one leaves the recurring job in the `StorageProvider` and it keeps scheduling jobs, and changing its id registers a second recurring job instead of renaming the first. Delete these explicitly, via the dashboard or `BackgroundJob.deleteRecurringJob(id)`.
 
-## Pause and Resume recurring jobs
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
+## Pause and Resume recurring jobs {.pro}
 
 Using JobRunr Pro, you can pause and resume recurring jobs from the dashboard and using the API.
 
-## Recurring jobs with limited lifetime
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
+## Recurring jobs with limited lifetime {.pro}
 
 By default, a `RecurringJob` is active for the entire lifetime of an application (unless [paused](#pause-and-resume-recurring-jobs)).
 
@@ -236,8 +234,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 ```
 </figure>
 
-## Advanced CRON Expressions
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
+## Advanced CRON Expressions {.pro}
 
 Do you need to run recurring jobs on some special moments like the first business day of the month or the last business day of the month? JobRunr Pro has a CRON expression parser on steroids and supports your really complex schedule requirements.
 
@@ -266,8 +263,7 @@ __Some examples:__
 - `0 0 1W+2 * *`: midnight 2 days after the first Monday of each month
 - `0 0 20W * *`: midnight on the 20th or the closest workday to the 20th
 
-## Custom Recurring Job Schedules
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
+## Custom Recurring Job Schedules {.pro}
 
 Do you have really complex recurring job schedule? Just extend the class `org.jobrunr.scheduling.custom.CustomSchedule` and implement one method where you provide the next `java.time.Instant` your job should run. For example, suppose you have a recurring job to run that needs to run once a day but can run every half hour during weekends:
 
@@ -308,8 +304,7 @@ JobRunr Pro will instantiate the class com.project.services.MySchedule and pass 
 
 > ⚠️ Your `CustomSchedule` implementation must not throw an exception as this will result in an unexpected behavior, and in the worst case will kill the JobRunr background job processing server. 
 
-## Recurring jobs missed during downtime
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}} 
+## Recurring jobs missed during downtime {.pro}
 
 If for some reason all of your servers are down (e.g. deploying a new version / scheduled down time / ...), JobRunr OSS skips these recurring jobs: as there is no background job server running, it will not be able to schedule these recurring jobs.
 
@@ -342,8 +337,7 @@ BackgroundJob.createRecurrently(aRecurringJob()
 </figure>
 
 
-## Concurrent recurring jobs
-{{< badge version="professional" >}}JobRunr Pro{{< /badge >}}
+## Concurrent recurring jobs {.pro}
 
 JobRunr by default does not allow concurrent recurring jobs - the reason being is that if your recurring jobs for some reason take longer than the given CRON expression or interval, you may create more jobs than you can process.
 So, if a job instance created by a recurring job is still in state `SCHEDULED`, `ENQUEUED` or `PROCESSING` and it's time to again queue a new instance of the recurring job then this last instance will not be created.

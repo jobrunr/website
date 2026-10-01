@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Job time-outs"
 subtitle: "Cancel your jobs automatically if they take too long to complete"
 keywords: ["job timeout", "job time out", "job configuration", "configuration job", "configurator jobs", "long complete time jobs", "3th party libraries", "job execution stuck", "jobs fail automatically", "failed state automatically", "automatically retry job"]

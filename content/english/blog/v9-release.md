@@ -64,7 +64,7 @@ What else you should know about the Chart:
 
 The Chart is available in JobRunr OSS and JobRunr Pro, and there is nothing to configure.
 
-### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Find the Job Behind a Slowdown With Job Analytics
+### Find the Job Behind a Slowdown With Job Analytics {.pro}
 
 When Prometheus shows the queue slowing down, Job Analytics is where you look up which job causes it.
 
@@ -88,7 +88,7 @@ The table at the bottom answers the question you came for:
 
 Click a job signature and you get a page for that job alone, with processing time split into succeeded and failed attempts, the fastest and the slowest run one click away from the actual job, and a tab with the exceptions that were thrown, how often and when last.
 
-### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Pause and Resume a Batch Job Without Losing Work
+### Pause and Resume a Batch Job Without Losing Work {.pro}
 
 Until v9, a batch job that started going wrong left you two options: let it burn through its retries, or delete it and clean up by hand afterwards. Most teams end up writing their own kill switch and a cleanup script for this.
 
@@ -131,7 +131,7 @@ Pausing does not interrupt child jobs that are already processing. If you press 
 
 ![](/blog/jobrunr-v9-batch-paused.webp "Pause was pressed while the invoice run was still enqueueing its child jobs, so the dashboard says the job will be paused rather than pausing it right away.")
 
-### {{< badge version="professional" >}}JobRunr Pro{{< /badge >}} Jobs Start Within Milliseconds on Postgres, With Nothing to Configure
+### Jobs Start Within Milliseconds on Postgres, With Nothing to Configure {.pro}
 
 JobRunr Pro has offered [instant job processing]({{< ref "documentation/pro/instant-job-processing.md" >}}) for a while through UDP multicast. That works well where multicast is allowed, but plenty of cloud networks and Kubernetes clusters block it, and several of you told us that your servers quietly fell back to polling.
 

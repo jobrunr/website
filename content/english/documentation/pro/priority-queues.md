@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Priority Queues"
 subtitle: "Priority Queues will make sure your critical business processes finish on-time."
 keywords: ["priority queues", "critical business processes", "job builder", "fluent api", "framework configuration", "property file", "beans", "priority queue java", "java priority queue example"]

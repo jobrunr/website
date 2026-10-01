@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Installation"
 subtitle: "Getting Started With JobRunr Pro"
 date: 2025-10-23T11:40:00+02:00

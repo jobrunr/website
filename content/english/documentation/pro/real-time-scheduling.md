@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Real-time scheduling and enqueueing"
 subtitle: "Do you have strict timing requirements? JobRunr Pro has you covered!"
 keywords: ["real time scheduling", "scheduling", "real time enqueueing", "enqueueing", "strict timing requirements", "fetch jobs", "fetch all jobs"]

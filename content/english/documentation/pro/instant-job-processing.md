@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Instant Job Processing"
 lastmod: 2026-10-01
 subtitle: "Are you in a hurry? JobRunr Pro starts processing your enqueued jobs instantly!"

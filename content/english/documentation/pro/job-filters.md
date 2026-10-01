@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Job Filters"
 subtitle: "Extend JobRunr with extra business processes using Job Filter Beans"
 keywords: ["job filters", "filters", "job filter beans", "sprig job filter", "micronaut job filter", "quarkus job filter"]

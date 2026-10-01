@@ -1,0 +1,4 @@
+{{- /* Compact Pro badge for the sidebar and TOC; the color shows the tier. Context: dict with Plan ("enterprise" or any Pro plan) and optional Class. */ -}}
+{{- $enterprise := eq .Plan "enterprise" -}}
+{{- $label := cond $enterprise "Available in JobRunr Pro Enterprise" "Available in JobRunr Pro" -}}
+<span title="{{ $label }}" class="badge-sm{{ if $enterprise }} enterprise{{ end }}{{ with .Class }} {{ . }}{{ end }}"><span aria-hidden="true">Pro</span><span class="sr-only">{{ $label }}</span></span>

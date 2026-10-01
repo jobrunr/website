@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Mutexes"
 subtitle: "Mutexes in JobRunr will postpone jobs until a shared mutex is free"
 keywords: ["mutexes", "shared mutex", "shared mutexes", "mutex", "mutex in os", "postpone jobs", "mutexes job parameters"]

@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "Observability"
 subtitle: "JobRunr Pro integrates with your observability platform to make sure all your jobs keep running like clockwork"
 keywords: ["observability", "configuration", "observability metrics", "observability in it", "define observability", "metrics observability", "real time observability", "it observability", "observability it", "micrometer job timings", "integrates with observability platform", "jobs keep running", "observability in micrnaut", "observability in spring boot", "observability in quarkus"]

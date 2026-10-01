@@ -1,5 +1,5 @@
 ---
-version: "pro"
+plan: "pro"
 title: "CockroachDB"
 description: "Use CockroachDB as the JobRunr StorageProvider - driver dependency, configuration, and version requirements."
 date: 2026-07-31
