@@ -30,6 +30,9 @@ where `log` is now an SL4J logger which will still continue to log to the origin
 
 The last logger will make sure that all info, warn and error statement will be shown in the dashboard for each job. Debug logging is not supported as I want to prevent to spam the various browsers.
 
+> [!IMPORTANT]
+> Similarly to job arguments, you should also keep the logs as small as possible. Only log what's essential and helpful when displayed on the dashboard.
+
 ### Mapped Diagnostic Context (MDC)
 JobRunr also supports the mapped diagnostic context or MDC of SLF4J. This means that any variables you have put in the MDC will also be available when the actual job is being processed and if you log from your job, this will thus also include the variables from your MDC. This is ideal in a distributed system where you have a correlation id generated when the request comes in and you can thus track everything (including your jobs) using this correlation id.
 
