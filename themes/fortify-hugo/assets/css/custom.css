@@ -205,8 +205,8 @@ input[name="username"] {
   @apply opacity-100;
 }
 
-.heading-anchor .badge {
-  @apply align-middle;
+:is(h1, h2, h3, h4, h5, h6) > .badge {
+  @apply mt-2 block w-fit;
 }
 
 /* ERROR CONTAINER */

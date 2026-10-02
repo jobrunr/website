@@ -9,6 +9,7 @@
 
 <h{{ .Level }} id="{{ .Anchor }}" {{- with .Attributes.class }} class="{{ . }}" {{- end }}>
   <a href="#{{ .Anchor }}" class="heading-anchor">
-    {{ with $plan }}{{ partial "heading-badge.html" . }}{{ end }}{{ .Text }}<i class="fa-solid fa-link"></i>
+    {{ .Text }}<i class="fa-solid fa-link"></i>
   </a>
+  {{- with $plan }}{{ partial "heading-badge.html" . }}{{ end }}
 </h{{ .Level }}>
