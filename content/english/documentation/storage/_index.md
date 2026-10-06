@@ -2,7 +2,7 @@
 title: "Storage"
 description: "Make background jobs durable by persisting them to your existing database. JobRunr works with all major SQL and NoSQL databases."
 date: 2020-04-30T11:12:23+02:00
-lastmod: 2026-07-31
+lastmod: 2026-10-06
 layout: "documentation"
 menu:
   sidebar:
@@ -18,6 +18,9 @@ aliases: ["/documentation/installation/storage"]
 A `StorageProvider` is where JobRunr keeps everything related to background job processing - the job type, method, arguments, state, and metadata are [serialized to JSON]({{< ref "documentation/serialization" >}}) and stored in your database. Nothing is kept in process memory: this is what makes your jobs durable, resilient to crashes. Because every job lives in the database, JobRunr can distribute work across multiple servers and pick jobs back up after a restart or crash, so nothing is lost.
 
 JobRunr supports all major **SQL** and document-based **NoSQL** databases out of the box. Pick yours below to get the dependency and configuration you need.
+
+> [!NOTE]
+> Each `StorageProvider` enforces a minimum [poll interval]({{< ref "documentation/deployment#poll-interval" >}}). In-memory storage accepts values as low as 200ms, or 1 second when configured through properties. In JobRunr Pro, H2 has the same limits. All other databases require at least 5 seconds.
 
 > [!IMPORTANT]
 > You need to add the correct driver dependency (JDBC driver or database client) for the database you choose. Each page below lists the one it needs.
