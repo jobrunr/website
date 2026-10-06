@@ -78,7 +78,7 @@
     @apply px-1 rounded text-light text-center inline-block font-semibold;
     font-size: 0.6rem;
     line-height: 1.5;
-    vertical-align: middle;
+    vertical-align: 0.1em;
     background: linear-gradient(135deg, #337ab7 0%, #2868a0 100%);
     box-shadow: 0 1px 2px rgb(0 0 0 / 0.25), inset 0 1px 0 rgb(255 255 255 / 0.15);
 }
