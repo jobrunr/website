@@ -73,7 +73,7 @@ Add them to as test dependencies:
 {{< /codetab >}}
 {{< codetab label="Gradle" >}}
 ```groovy
-testImplementation testFixtures('org.jobrunr:jobrunr:{{< param "JobRunrVersion" >}}')
+testImplementation 'org.jobrunr:jobrunr:{{< param "JobRunrVersion" >}}:test-fixtures'
 ```
 {{< /codetab >}}
 {{< /codetabs >}}
