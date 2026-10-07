@@ -21,7 +21,7 @@ defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 
 [params]
-jobRunrVersion = "9.0.0"
+jobRunrVersion = "9.0.1"
 github_url = "https://github.com/jobrunr/jobrunr"
 github_website_url = "https://github.com/jobrunr/website"
 github_website_raw_url = "https://raw.githubusercontent.com/jobrunr/website"
