@@ -1,13 +1,13 @@
 ---
 meta_title: "Free live JobRunr trainings"
 title: "JobRunr Trainings"
-description: "Free one-hour live JobRunr trainings. Learn how to run JobRunr in production, leave with a checklist and the session code, and get your own job design reviewed afterwards."
+description: "Free one-hour live JobRunr trainings. Learn how to run JobRunr in production, leave with a checklist and the session code, and get the software architecture around your jobs reviewed for free afterwards."
 
 hero:
   badge: "Free live sessions"
   title_start: "Run JobRunr in production"
   title_highlight: "without the surprises"
-  description: "One hour, live, on the part of JobRunr that is about to bite you: your first production setup, the database under load, or a retry that does damage twice. You leave with a checklist you can hand to your team, the code from the session, and the option to have your own job design reviewed for free."
+  description: "One hour, live, on the part of JobRunr that is about to bite you: your first production setup, the database under load, or a retry that does damage twice. You leave with a checklist you can hand to your team, the code from the session, and the option to have the software architecture around your jobs reviewed for free."
 
 sessions_section:
   title: "Upcoming sessions"
@@ -25,8 +25,8 @@ how_section:
       text: "One question on the form: what are you trying to do with background jobs right now? The examples in the session come from those answers, so there is a fair chance your case ends up on screen."
     - title: "Watch it built live"
       text: "Fifty minutes of live coding in a real application, ten minutes for your questions. Miss it and the recording is in your inbox the next morning."
-    - title: "Get your own design reviewed"
-      text: "Afterwards you can book thirty minutes on one real job from your codebase. You get a written one-pager with what to change, which you can forward to your team or your architects."
+    - title: "Get your job architecture reviewed, free"
+      text: "Afterwards you can book thirty minutes on the software architecture around one real job from your codebase. You get a written one-pager with what to change, which you can forward to your team or your architects."
 
 review_section:
   title: "After the training: the Architecture Review"
