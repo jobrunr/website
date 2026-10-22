@@ -34,6 +34,11 @@ name = "Guides"
 pageRef = "/guides"
 weight = 6
 
+[[main]]
+name = "Training"
+pageRef = "/training"
+weight = 7
+
 
 # footer menu left
 [[footer_01]]

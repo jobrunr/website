@@ -1,0 +1,338 @@
+{{ define "main" }}
+{{ $upcoming := slice }}
+{{ range .Params.sessions }}
+  {{ if ge (time .start) now }}{{ $upcoming = $upcoming | append . }}{{ end }}
+{{ end }}
+{{ $registered := (site.GetPage "training/registered").RelPermalink }}
+
+<!-- Hero -->
+<section class="section pt-16 pb-10 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <p class="mb-4"><a class="text-sm opacity-70 hover:opacity-100" href="{{ "training/" | relLangURL }}">&larr; All trainings</a></p>
+        <div class="mb-4 flex flex-wrap items-center gap-3">
+          {{ partial "training/level-badge.html" (dict "level" .Params.level "color" .Params.level_color) }}
+          <span class="text-sm text-gray-500">{{ .Params.duration }}</span>
+          <span class="text-sm text-gray-500">Free</span>
+        </div>
+        <h1 class="h1 mb-4 text-gray-900">{{ .Title }}</h1>
+        <p class="text-xl text-gray-600 mb-6">{{ .Params.tagline }}</p>
+
+        <div class="rounded-2xl bg-light p-5 md:p-6">
+          {{ if $upcoming }}
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-gray-500">{{ if gt (len $upcoming) 1 }}Next sessions{{ else }}Next session{{ end }}</p>
+            <div data-sessions-list class="flex flex-col gap-1">
+              {{ range $upcoming }}
+                <p data-session="{{ (time .start).Format "2006-01-02T15:04:05Z07:00" }}" class="text-lg font-medium text-text-dark">
+                  {{ partial "training/session-time.html" (dict "start" .start "tz" .tz) }}
+                </p>
+              {{ end }}
+            </div>
+            <p data-sessions-empty class="hidden text-lg font-medium text-text-dark">Next date to be announced</p>
+          {{ else }}
+            <p class="text-lg font-medium text-text-dark">Next date to be announced</p>
+          {{ end }}
+          <p class="mt-3 text-sm opacity-80">Online, private to registrants. Recording the next day.</p>
+          <a class="btn btn-primary btn-even-padding mt-4" href="#register">{{ if $upcoming }}Register{{ else }}Tell me the next date{{ end }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who it is for -->
+<section class="section pt-6 pb-10 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <div class="grid gap-6 md:grid-cols-2">
+          <div class="rounded-xl border border-border p-6">
+            <h2 class="h5 mb-2">Who it is for</h2>
+            <p class="text-gray-600">{{ .Params.audience }}</p>
+          </div>
+          <div class="rounded-xl border border-border p-6">
+            <h2 class="h5 mb-2">What we assume</h2>
+            <p class="text-gray-600">{{ .Params.assumes }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Agenda -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <h2 class="h2 mb-8">The hour, minute by minute</h2>
+        <ol class="flex flex-col divide-y divide-border rounded-2xl border border-border bg-white">
+          {{ range .Params.agenda }}
+            <li class="flex gap-5 p-5 md:p-6">
+              <span class="w-12 shrink-0 font-mono text-sm text-gray-500 pt-1">{{ .time }}</span>
+              <div>
+                <h3 class="h6 mb-1">{{ .title }}</h3>
+                <p class="text-gray-600">{{ .text | markdownify }}</p>
+              </div>
+            </li>
+          {{ end }}
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Prerequisites and takeaways -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <div class="grid gap-8 md:grid-cols-2">
+          <div>
+            <h2 class="h4 mb-4">Before the session</h2>
+            <ul class="space-y-3">
+              {{ range .Params.prerequisites }}
+                <li class="flex items-start text-gray-700">
+                  <span class="mr-3 mt-1 h-2 w-2 shrink-0 rounded-full bg-primary"></span>
+                  <span>{{ . | markdownify }}</span>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+          <div>
+            <h2 class="h4 mb-4">What you leave with</h2>
+            <ul class="space-y-3">
+              {{ range .Params.takeaways }}
+                <li class="flex items-start text-gray-700">
+                  <span class="mr-3 mt-0.5 text-green-500">&#10003;</span>
+                  <span>{{ . | markdownify }}</span>
+                </li>
+              {{ end }}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Trainers -->
+<section class="section pt-0 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <h2 class="h4 mb-4">Your trainers</h2>
+        <div class="grid gap-4 sm:grid-cols-2">
+          {{ range .Params.trainers }}
+            <div class="rounded-xl bg-light p-5">
+              <p class="font-medium text-text-dark">{{ .name }}</p>
+              <p class="text-sm text-gray-600">{{ .role }}</p>
+            </div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Registration -->
+<section id="register" class="section bg-gray-50">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-7" data-aos="fade-up-sm">
+        <div class="rounded-2xl bg-white border border-border p-6 md:p-10">
+          <h2 class="h3 mb-2">{{ .Params.form.title }}</h2>
+          <p class="mb-8 text-lg opacity-80">{{ .Params.form.intro }}</p>
+
+          <form id="training-form" class="row g-4" action="#" method="POST" novalidate>
+            {{ if gt (len $upcoming) 1 }}
+              <div class="col-12">
+                <label for="training-session" class="form-label">Which session? <span class="text-red-500">*</span></label>
+                <select id="training-session" name="session" class="form-input" required>
+                  {{ range $upcoming }}
+                    <option value="{{ (time .start).Format "2006-01-02T15:04:05Z07:00" }}">{{ (time .start).Format "Monday 2 January 2006, 15:04" }} {{ .tz }}</option>
+                  {{ end }}
+                </select>
+              </div>
+            {{ else if eq (len $upcoming) 1 }}
+              {{ $s := index $upcoming 0 }}
+              <input type="hidden" name="session" value="{{ (time $s.start).Format "2006-01-02T15:04:05Z07:00" }}" />
+            {{ else }}
+              <input type="hidden" name="session" value="" />
+            {{ end }}
+
+            <div class="col-12 md:col-6">
+              <label for="training-name" class="form-label">Your name <span class="text-red-500">*</span></label>
+              <input id="training-name" name="name" type="text" class="form-input" placeholder="First and last name" autocomplete="name" required />
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="training-email" class="form-label">Work email <span class="text-red-500">*</span></label>
+              <input id="training-email" name="email" type="email" class="form-input" placeholder="you@yourcompany.com" autocomplete="email" required />
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="training-company" class="form-label">Company <span class="text-red-500">*</span></label>
+              <input id="training-company" name="company" type="text" class="form-input" placeholder="Your company name" autocomplete="organization" required />
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="training-role" class="form-label">Your role <span class="text-red-500">*</span></label>
+              <select id="training-role" name="role" class="form-input" required>
+                <option value="" disabled selected>Pick one</option>
+                <option value="developer">Developer</option>
+                <option value="tech-lead">Tech lead</option>
+                <option value="architect">Architect</option>
+                <option value="engineering-manager">Engineering manager</option>
+                <option value="dba-ops">DBA or operations</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="training-status" class="form-label">JobRunr today <span class="text-red-500">*</span></label>
+              <select id="training-status" name="jobrunr_status" class="form-input" required>
+                <option value="" disabled selected>Pick one</option>
+                <option value="evaluating">Evaluating it</option>
+                <option value="oss-dev">JobRunr OSS, not in production yet</option>
+                <option value="oss-production">JobRunr OSS in production</option>
+                <option value="pro-customer">JobRunr Pro customer</option>
+                <option value="none">Not using it, curious</option>
+              </select>
+            </div>
+            <div class="col-12 md:col-6">
+              <label for="training-framework" class="form-label">Framework</label>
+              <select id="training-framework" name="framework" class="form-input">
+                <option value="" selected>Pick one (optional)</option>
+                <option value="spring-boot">Spring Boot</option>
+                <option value="quarkus">Quarkus</option>
+                <option value="micronaut">Micronaut</option>
+                <option value="plain-java">Plain Java</option>
+                <option value="kotlin">Kotlin</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <label for="training-problem" class="form-label">What are you trying to do with background jobs right now? <span class="text-red-500">*</span></label>
+              <textarea id="training-problem" name="problem" class="form-input" rows="4" placeholder="One or two sentences. The more specific, the better the session." required></textarea>
+              <p class="mt-2 text-sm opacity-70">We read every answer and use them to pick the examples for the session.</p>
+            </div>
+            <!-- Honeypot. Positioned off-screen rather than display:none, which bots skip. -->
+            <input id="training-username" name="username" type="text" placeholder="Your username" tabindex="-1" aria-hidden="true" autocomplete="new-username"
+              style="position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0;" />
+            <div class="col-12">
+              <p id="training-error" class="mb-3 hidden text-sm text-red-500"></p>
+              <button type="submit" id="training-submit" class="btn btn-primary btn-even-padding">{{ .Params.form.button }}</button>
+              <p class="mt-4 text-sm opacity-70">{{ .Params.form.note | markdownify }}</p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var form = document.getElementById('training-form');
+    if (!form) return;
+    var submit = document.getElementById('training-submit');
+    var error = document.getElementById('training-error');
+    var TRAINING = {{ .File.ContentBaseName }};
+    var TRAINING_TITLE = {{ .Title }};
+    var REGISTERED_URL = {{ $registered }};
+
+    function push(payload) {
+      (window.dataLayer = window.dataLayer || []).push(payload);
+    }
+
+    // UTM values captured site-wide in partials/essentials/head.html (30-day TTL, last touch).
+    function getStoredUtm() {
+      try {
+        var raw = localStorage.getItem('jr_utm');
+        if (!raw) return {};
+        var data = JSON.parse(raw);
+        if (!data || !data.ts || !data.params) return {};
+        if (Date.now() - data.ts > 30 * 24 * 60 * 60 * 1000) {
+          localStorage.removeItem('jr_utm');
+          return {};
+        }
+        return data.params;
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function showError(message) {
+      error.textContent = message;
+      error.classList.remove('hidden');
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+      error.classList.add('hidden');
+
+      // Honeypot: a filled `username` is a bot, so drop the submission silently.
+      if (form.elements.username.value) return;
+
+      var required = ['name', 'email', 'company', 'role', 'jobrunr_status', 'problem'];
+      for (var i = 0; i < required.length; i++) {
+        var field = form.elements[required[i]];
+        if (!field || !field.value || !field.value.trim()) {
+          showError('Please fill in every required field, including the question about your background jobs.');
+          field && field.focus();
+          return;
+        }
+      }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.elements.email.value.trim())) {
+        showError('That email address does not look right.');
+        form.elements.email.focus();
+        return;
+      }
+
+      var session = form.elements.session ? form.elements.session.value : '';
+      var payload = Object.assign(
+        {
+          form: 'training_registration',
+          training: TRAINING,
+          training_title: TRAINING_TITLE,
+          session_start: session,
+          name: form.elements.name.value.trim(),
+          email: form.elements.email.value.trim(),
+          company: form.elements.company.value.trim(),
+          role: form.elements.role.value,
+          jobrunr_status: form.elements.jobrunr_status.value,
+          framework: form.elements.framework.value,
+          problem: form.elements.problem.value.trim(),
+          username: form.elements.username.value,
+          source: 'training-page',
+          page: location.pathname
+        },
+        getStoredUtm()
+      );
+
+      var label = submit.textContent;
+      submit.disabled = true;
+      submit.textContent = 'Sending...';
+
+      fetch(window.JR_N8N_WEBHOOK, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Webhook returned a non-success status.');
+          push({ event: 'training_registered', training: TRAINING, role: payload.role, jobrunr_status: payload.jobrunr_status });
+          var params = new URLSearchParams({ t: TRAINING });
+          if (session) params.set('s', session);
+          location.assign(REGISTERED_URL + '?' + params.toString());
+        })
+        .catch(function (err) {
+          console.error('Error submitting registration:', err);
+          submit.disabled = false;
+          submit.textContent = label;
+          showError('There was an error sending your registration. Please try again or email nicholas@jobrunr.io with the training name.');
+        });
+    });
+  })();
+</script>
+
+{{ partial "training/local-time.html" . }}
+{{ end }}

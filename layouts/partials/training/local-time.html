@@ -1,0 +1,38 @@
+{{/*
+  Site-wide helpers for the training pages:
+  1. Fills every `[data-local-time]` next to a `[data-session-start]` with the visitor's local time,
+     unless the visitor already sits in the Brussels zone.
+  2. Hides every `[data-session]` whose start lies in the past. Hugo filters past sessions at build
+     time, but the site is only rebuilt on deploy, so a session that ended yesterday would otherwise
+     stay on the page until the next push.
+*/}}
+<script>
+  (function () {
+    var zone = '';
+    try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    var brussels = zone === 'Europe/Brussels' || zone === 'Europe/Amsterdam' || zone === 'Europe/Paris' || zone === 'Europe/Berlin';
+
+    document.querySelectorAll('[data-session-start]').forEach(function (el) {
+      var start = new Date(el.getAttribute('data-session-start'));
+      if (isNaN(start.getTime())) return;
+      var target = el.nextElementSibling;
+      if (!brussels && target && target.hasAttribute('data-local-time')) {
+        try {
+          target.textContent = ' (' + start.toLocaleString(undefined, {
+            weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          }) + ' your time)';
+        } catch (e) {}
+      }
+    });
+
+    var now = Date.now();
+    document.querySelectorAll('[data-session]').forEach(function (el) {
+      var start = new Date(el.getAttribute('data-session'));
+      if (!isNaN(start.getTime()) && start.getTime() < now) el.remove();
+    });
+    document.querySelectorAll('[data-sessions-empty]').forEach(function (el) {
+      var list = el.parentElement.querySelector('[data-sessions-list]');
+      if (list && !list.querySelector('[data-session]')) el.classList.remove('hidden');
+    });
+  })();
+</script>

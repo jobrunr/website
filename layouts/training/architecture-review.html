@@ -1,0 +1,90 @@
+{{ define "main" }}
+<!-- Hero -->
+<section class="section pt-16 pb-12 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="text-center lg:col-9" data-aos="fade-up-sm">
+        <span class="inline-block py-1 px-3 rounded-full bg-purple-50 text-purple-700 text-sm font-semibold mb-4">
+          {{ .Params.hero.badge }}
+        </span>
+        <h1 class="h1 mb-6 text-gray-900">
+          {{ .Params.hero.title_start }}
+          <span class="text-primary">{{ .Params.hero.title_highlight }}</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ .Params.hero.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Format -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-12" data-aos="fade-up-sm">
+      <h2 class="h2">{{ .Params.format_section.title }}</h2>
+    </div>
+    <div class="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+      {{ range $index, $step := .Params.format_section.steps }}
+        <div class="flex flex-col rounded-xl bg-white border border-gray-100 p-6 shadow-sm" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+          <span class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-semibold">{{ add $index 1 }}</span>
+          <h3 class="h5 mb-2">{{ $step.title }}</h3>
+          <p class="text-gray-600">{{ $step.text }}</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Ask / never -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm">
+        <h2 class="h5 mb-6 flex items-center">
+          <span class="w-8 h-8 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mr-3">&#10003;</span>
+          {{ .Params.what_we_ask.title }}
+        </h2>
+        <ul class="space-y-4">
+          {{ range .Params.what_we_ask.items }}
+            <li class="flex items-start text-sm text-gray-700">
+              <span class="text-green-500 mr-2 mt-0.5">&#10003;</span>
+              <span>{{ . }}</span>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+      <div class="bg-gray-50 p-8 rounded-xl border border-gray-100" data-aos="fade-up-sm" data-aos-delay="100">
+        <h2 class="h5 mb-6 flex items-center">
+          <span class="w-8 h-8 bg-red-100 text-red-500 rounded-lg flex items-center justify-center mr-3">&#10007;</span>
+          {{ .Params.what_we_never.title }}
+        </h2>
+        <ul class="space-y-4">
+          {{ range .Params.what_we_never.items }}
+            <li class="flex items-start text-sm text-gray-700">
+              <span class="text-red-400 mr-2 mt-0.5">&#10007;</span>
+              <span>{{ . }}</span>
+            </li>
+          {{ end }}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Who + booking -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-8" data-aos="fade-up-sm">
+        <h2 class="h3 mb-3">{{ .Params.who_section.title }}</h2>
+        <p class="text-lg text-gray-600 mb-10">{{ .Params.who_section.text }}</p>
+        <div class="rounded-2xl bg-white border border-border p-6 md:p-8">
+          <h2 class="h4 mb-2">{{ .Params.booking_section.title }}</h2>
+          <p class="text-gray-600 mb-6">{{ .Params.booking_section.text }}</p>
+          <a class="btn btn-primary btn-even-padding" href="{{ .Params.booking_section.cta_link | relLangURL }}">{{ .Params.booking_section.cta_label }}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
