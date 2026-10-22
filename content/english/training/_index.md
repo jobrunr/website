@@ -4,7 +4,7 @@ title: "JobRunr Trainings"
 description: "Free one-hour live JobRunr trainings. Learn how to run JobRunr in production, leave with a checklist and the session code, and get the software architecture around your jobs reviewed for free afterwards."
 
 hero:
-  badge: "Free live sessions"
+  badge: "Free live training sessions"
   title_start: "Run JobRunr in production"
   title_highlight: "without the surprises"
   description: "One hour, live, on the part of JobRunr that is about to bite you: your first production setup, the database under load, or a retry that does damage twice. You leave with a checklist you can hand to your team, the code from the session, and the option to have the software architecture around your jobs reviewed for free."
