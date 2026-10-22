@@ -1,36 +1,36 @@
 ---
 meta_title: "Free live JobRunr trainings"
 title: "JobRunr Trainings"
-description: "Free, live, one-hour JobRunr trainings given by the people who build it. Register, attend, then book an Architecture Review of your own job design."
+description: "Free one-hour live JobRunr trainings, given by the people who build it. Register, attend, then book an Architecture Review of your own job design."
 
 hero:
-  badge: "Free, live, one hour"
-  title_start: "Learn JobRunr from the"
-  title_highlight: "people who build it"
-  description: "Three live trainings, each one hour, each repeated every month. Ronald Dehuysser, the creator of JobRunr, codes. Nicholas D'hondt hosts and asks the questions you are thinking. No slides to sit through and no sales pitch. Registration is required because the stream is private to the people who signed up."
+  badge: "Free live sessions"
+  title_start: "An hour of live JobRunr with"
+  title_highlight: "the people who build it"
+  description: "Ronald wrote JobRunr. Once a month he spends an hour live-coding one topic from it, with Nicholas next to him asking the questions you would ask if you were in the room. You register, a private link lands in your inbox the day before, and afterwards you can book half an hour to go through your own jobs with us."
 
 sessions_section:
   title: "Upcoming sessions"
-  description: "All sessions are live. Every registrant gets the recording the next day, so register even if you cannot make it."
-  empty: "New dates are being planned. Register your interest on a training page and we will email you the next date."
+  description: "Can't make it live? Register anyway. The recording goes out to everyone who signed up the next morning."
+  empty: "No dates on the calendar right now. Register on a training page and you get the next one by email."
 
 catalogue_section:
   title: "Pick your training"
-  description: "Start with Foundations if JobRunr is new to you. The other two assume you already run JobRunr in at least one application."
+  description: "New to JobRunr? Start with Foundations. The other two assume JobRunr already runs somewhere in your stack, because we spend that hour on what breaks in production."
 
 how_section:
   title: "How it works"
   steps:
     - title: "Register and tell us your problem"
-      text: "One form, one honest question: what are you trying to do with background jobs right now? Your answer shapes the examples we bring to the session."
-    - title: "Attend live, one hour"
-      text: "Live coding on a real application, a few questions at the end. The link arrives by email the day before. The recording follows the next day."
+      text: "The form has one question that matters: what are you trying to do with background jobs right now? We read every answer before the session and build the examples around them."
+    - title: "Attend live"
+      text: "Ronald codes in a real application for about fifty minutes, then we take questions. The link arrives the day before. If you miss it, the recording is in your inbox the next morning."
     - title: "Book your Architecture Review"
-      text: "Every attendee can book a free 30-minute Architecture Review afterwards. You bring one real job design, we go through it together and you get a written one-page recommendation."
+      text: "Afterwards you can book thirty minutes with us on one real job design from your codebase. We talk it through and send you a written one-pager you can forward to your team or your architects."
 
 review_section:
   title: "After the training: the Architecture Review"
-  text: "The training teaches the mechanics. The Architecture Review is where we look at your actual design: your jobs, your database, your failure modes. Thirty minutes, one problem, a written recommendation afterwards that you can share with your team or your architects."
+  text: "The training covers how JobRunr works. The Architecture Review is about your system: the nightly run that keeps growing, or the retry that once charged somebody twice. Thirty minutes on one problem, then a one-page write-up you can put in front of your team or your architects."
   link_label: "What happens in an Architecture Review"
   link: "training/architecture-review/"
 
@@ -40,15 +40,15 @@ accordion:
   description: ""
   list:
     - title: "Is it really free?"
-      description: "Yes. No credit card, no trial, nothing to buy afterwards. We run these trainings because people who understand JobRunr well build better systems with it, and some of them become customers on their own terms."
+      description: "Yes. There is nothing to buy afterwards. We do these because people who understand JobRunr properly build systems that hold up, and a few of them end up on JobRunr Pro later. That is a fine trade for an hour of Ronald's time."
     - title: "Why do I have to register?"
-      description: "The stream is private to registrants and the recording goes to registrants only. Registering also tells us what you are working on, which is how we pick the examples for the session and how we prepare if you book an Architecture Review afterwards."
+      description: "The link is private and the recording goes to registrants only, so we need an address to send it to. Your answer about what you are working on is what we prepare the session with, and it is the first thing we read before an Architecture Review."
     - title: "Do I need JobRunr Pro?"
-      description: "No. Everything in Foundations runs on JobRunr OSS. The other two trainings spend most of the hour on OSS and show where JobRunr Pro picks up, clearly labelled as such."
+      description: "No. Foundations runs on JobRunr OSS from start to finish. The other two spend most of the hour on OSS too, and when something is Pro only we say so on screen."
     - title: "Will there be a recording?"
-      description: "Yes. Every registrant receives the recording by email the day after the session. It is not published anywhere else."
+      description: "Yes, by email the morning after, to the people who registered. We do not put it on YouTube."
     - title: "Can my whole team join?"
-      description: "Yes, each person registers individually so everyone gets the link and the recording. If you want a private session for a team of ten or more, email nicholas@jobrunr.io."
+      description: "Sure. Each person registers so everyone gets the link and the recording. For a private session with ten or more people from one company, email nicholas@jobrunr.io and we will set one up."
     - title: "What time zone are the sessions in?"
-      description: "Brussels time (CET). Every session page shows the start in your own time zone as well."
+      description: "Brussels time, CET. Each page shows the start in your own time zone next to it."
 ---
