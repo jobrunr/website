@@ -28,6 +28,17 @@ how_section:
     - title: "Get your job architecture reviewed, free"
       text: "Afterwards you can book thirty minutes on the software architecture around one real job from your codebase. You get a written one-pager with what to change, which you can forward to your team or your architects."
 
+architects_section:
+  title: "If you set the standard for background jobs"
+  text: "You are not the one who attends. Your tech leads are. What you get is the paper trail."
+  points:
+    - title: "Send the tech leads"
+      text: "Each one registers, picks the training that matches the system they own, and gets the recording and the checklist. Nothing to procure, nothing to approve."
+    - title: "Get the review in writing"
+      text: "After the training they book an Architecture Review on one real job design. The one-page recommendation that comes back is written for the review board: situation, issues, what to change, and whether the fix is in the design or in a product."
+    - title: "Turn the checklist into your pattern"
+      text: "The production checklist from Foundations is the start of an approved pattern for background jobs: one way to run them, across every team, including the contractors."
+
 review_section:
   title: "After the training: the Architecture Review"
   text: "The training covers how JobRunr works. The review is about your system: the nightly run that keeps growing, or the retry that once charged somebody twice. Thirty minutes on one problem, then a one-page write-up with what we would change. Free for everyone who attended a training."

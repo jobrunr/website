@@ -119,6 +119,30 @@
   </div>
 </section>
 
+<!-- For architects -->
+{{ with .Params.architects_section }}
+<section class="section bg-white pt-0">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10" data-aos="fade-up-sm">
+        <div class="rounded-2xl border border-border p-6 md:p-10">
+          <h2 class="h3 mb-2">{{ .title }}</h2>
+          <p class="text-lg text-gray-600 mb-8">{{ .text }}</p>
+          <div class="grid gap-8 md:grid-cols-3">
+            {{ range .points }}
+              <div>
+                <h3 class="h6 mb-2">{{ .title }}</h3>
+                <p class="text-gray-600">{{ .text }}</p>
+              </div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
+
 <!-- Architecture Review -->
 <section class="section bg-gray-50">
   <div class="container">

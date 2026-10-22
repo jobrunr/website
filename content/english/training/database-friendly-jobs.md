@@ -8,7 +8,7 @@ tagline: "Throughput without a 3 a.m. call from the DBA."
 level: "Performance"
 level_color: "blue"
 duration: "60 minutes, live"
-audience: "Developers and architects running JobRunr in production, or about to. DBAs who want to know what that jobs table is doing. Anyone who has watched a batch of jobs take the database with it."
+audience: "Developers running JobRunr in production, or about to. Architects who have to answer for the batch window and the database it shares with the online channel. DBAs who want to know what that jobs table is doing."
 assumes: "You run JobRunr in at least one application, or you attended Foundations. This one is about protecting the database. Getting more jobs through is the Scaling Under Load session the week after."
 
 sessions:

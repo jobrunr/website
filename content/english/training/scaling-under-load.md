@@ -8,7 +8,7 @@ tagline: "From one server to a fleet, without rewriting a single job."
 level: "Scale"
 level_color: "amber"
 duration: "60 minutes, live"
-audience: "Teams whose job volume is growing faster than their servers. Anyone who has been asked 'can it handle ten times this?' and wants a real answer before Black Friday, the month-end run or the next big customer."
+audience: "Teams whose job volume is growing faster than their servers. Architects who have been asked 'can it handle ten times this?' and want a real answer before Black Friday, the month-end run or the next big customer."
 assumes: "You run JobRunr in at least one application, or you attended Foundations."
 
 sessions:
