@@ -1,13 +1,13 @@
 ---
 meta_title: "Free live JobRunr trainings"
 title: "JobRunr Trainings"
-description: "Free one-hour live JobRunr trainings, given by the people who build it. Register, attend, then book an Architecture Review of your own job design."
+description: "Free one-hour live JobRunr trainings. Learn how to run JobRunr in production, leave with a checklist and the session code, and get your own job design reviewed afterwards."
 
 hero:
   badge: "Free live sessions"
-  title_start: "An hour of live JobRunr with"
-  title_highlight: "the people who build it"
-  description: "Ronald wrote JobRunr. Once a month he spends an hour live-coding one topic from it, with Nicholas next to him asking the questions you would ask if you were in the room. You register, a private link lands in your inbox the day before, and afterwards you can book half an hour to go through your own jobs with us."
+  title_start: "Run JobRunr in production"
+  title_highlight: "without the surprises"
+  description: "One hour, live, on the part of JobRunr that is about to bite you: your first production setup, the database under load, or a retry that does damage twice. You leave with a checklist you can hand to your team, the code from the session, and the option to have your own job design reviewed for free."
 
 sessions_section:
   title: "Upcoming sessions"
@@ -16,21 +16,21 @@ sessions_section:
 
 catalogue_section:
   title: "Pick your training"
-  description: "New to JobRunr? Start with Foundations. The other two assume JobRunr already runs somewhere in your stack, because we spend that hour on what breaks in production."
+  description: "Start with Foundations if JobRunr is new to you. The other two are for teams that already run it and want fewer incidents."
 
 how_section:
   title: "How it works"
   steps:
-    - title: "Register and tell us your problem"
-      text: "The form has one question that matters: what are you trying to do with background jobs right now? We read every answer before the session and build the examples around them."
-    - title: "Attend live"
-      text: "Ronald codes in a real application for about fifty minutes, then we take questions. The link arrives the day before. If you miss it, the recording is in your inbox the next morning."
-    - title: "Book your Architecture Review"
-      text: "Afterwards you can book thirty minutes with us on one real job design from your codebase. We talk it through and send you a written one-pager you can forward to your team or your architects."
+    - title: "Tell us your problem when you register"
+      text: "One question on the form: what are you trying to do with background jobs right now? The examples in the session come from those answers, so there is a fair chance your case ends up on screen."
+    - title: "Watch it built live"
+      text: "Fifty minutes of live coding in a real application, ten minutes for your questions. Miss it and the recording is in your inbox the next morning."
+    - title: "Get your own design reviewed"
+      text: "Afterwards you can book thirty minutes on one real job from your codebase. You get a written one-pager with what to change, which you can forward to your team or your architects."
 
 review_section:
   title: "After the training: the Architecture Review"
-  text: "The training covers how JobRunr works. The Architecture Review is about your system: the nightly run that keeps growing, or the retry that once charged somebody twice. Thirty minutes on one problem, then a one-page write-up you can put in front of your team or your architects."
+  text: "The training covers how JobRunr works. The review is about your system: the nightly run that keeps growing, or the retry that once charged somebody twice. Thirty minutes on one problem, then a one-page write-up with what we would change. Free for everyone who attended a training."
   link_label: "What happens in an Architecture Review"
   link: "training/architecture-review/"
 
@@ -40,7 +40,7 @@ accordion:
   description: ""
   list:
     - title: "Is it really free?"
-      description: "Yes. There is nothing to buy afterwards. We do these because people who understand JobRunr properly build systems that hold up, and a few of them end up on JobRunr Pro later. That is a fine trade for an hour of Ronald's time."
+      description: "Yes. There is nothing to buy afterwards. People who understand JobRunr properly build systems that hold up, and some of them pick JobRunr Pro later. That is why we do it."
     - title: "Why do I have to register?"
       description: "The link is private and the recording goes to registrants only, so we need an address to send it to. Your answer about what you are working on is what we prepare the session with, and it is the first thing we read before an Architecture Review."
     - title: "Do I need JobRunr Pro?"
