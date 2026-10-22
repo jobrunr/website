@@ -1,6 +1,6 @@
 ---
 training: true
-weight: 3
+weight: 4
 title: "Durable Jobs You Can Trust"
 meta_title: "Durable jobs you can trust: free live JobRunr training"
 description: "Free one-hour live training on jobs that survive failure without doing damage twice: idempotency, runStepOnce, the job progress Chart view, and batches you can pause in JobRunr Pro."

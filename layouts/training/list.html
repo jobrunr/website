@@ -76,7 +76,7 @@
       <h2 class="h2 mb-4">{{ .Params.catalogue_section.title }}</h2>
       <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.catalogue_section.description }}</p>
     </div>
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
       {{ range $index, $t := $trainings }}
         {{ $next := "" }}
         {{ $nextTz := "" }}

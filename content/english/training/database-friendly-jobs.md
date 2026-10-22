@@ -9,7 +9,7 @@ level: "Performance"
 level_color: "blue"
 duration: "60 minutes, live"
 audience: "Developers and architects running JobRunr in production, or about to. DBAs who want to know what that jobs table is doing. Anyone who has watched a batch of jobs take the database with it."
-assumes: "You run JobRunr in at least one application, or you attended Foundations."
+assumes: "You run JobRunr in at least one application, or you attended Foundations. This one is about protecting the database. Getting more jobs through is the Scaling Under Load session the week after."
 
 sessions:
   - start: 2026-12-03T12:30:00+01:00

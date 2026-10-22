@@ -16,7 +16,7 @@ sessions_section:
 
 catalogue_section:
   title: "Pick your training"
-  description: "Start with Foundations if JobRunr is new to you. The other two are for teams that already run it and want fewer incidents."
+  description: "Start with Foundations if JobRunr is new to you. The others are for teams that already run it: one on keeping the database alive, one on scaling when the load goes up, one on retries that never do damage twice."
 
 how_section:
   title: "How it works"
@@ -44,7 +44,7 @@ accordion:
     - title: "Why do I have to register?"
       description: "The link is private and the recording goes to registrants only, so we need an address to send it to. Your answer about what you are working on is what we prepare the session with, and it is the first thing we read before an Architecture Review."
     - title: "Do I need JobRunr Pro?"
-      description: "No. Foundations runs on JobRunr OSS from start to finish. The other two spend most of the hour on OSS too, and when something is Pro only we say so on screen."
+      description: "No. Foundations runs on JobRunr OSS from start to finish. The others spend most of the hour on OSS too, and when something is Pro only we say so on screen."
     - title: "Will there be a recording?"
       description: "Yes, by email the morning after, to the people who registered. We do not put it on YouTube."
     - title: "Can my whole team join?"
