@@ -50,7 +50,7 @@
               <div data-session="{{ (time .start).Format "2006-01-02T15:04:05Z07:00" }}" class="flex flex-col gap-2 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
                   <p class="font-medium text-text-dark">
-                    {{ partial "training/session-time.html" (dict "start" .start "tz" .tz) }}
+                    {{ partial "training/session-time.html" (dict "start" .start "tz" .tz "strip" true) }}
                   </p>
                   <p class="text-sm opacity-80">
                     {{ .page.Title }}

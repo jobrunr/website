@@ -50,5 +50,5 @@ accordion:
     - title: "Can my whole team join?"
       description: "Sure. Each person registers so everyone gets the link and the recording. For a private session with ten or more people from one company, email nicholas@jobrunr.io and we will set one up."
     - title: "What time zone are the sessions in?"
-      description: "Brussels time, CET. Each page shows the start in your own time zone next to it."
+      description: "Brussels time, CET. Every session shows the start in London, New York, San Francisco and Bengaluru underneath, and your own time zone in bold."
 ---
