@@ -1,32 +1,67 @@
 {{ define "main" }}
-  {{/*  Tight top padding on purpose: the three choices, the numbers and the logo strip
-        all have to land above the fold on a laptop.  */}}
+  {{/*  Tight top padding on purpose: the two blocks, the tour line, the numbers and the logo strip
+        all have to land above the fold on a laptop.
+
+        Visual hierarchy, following app.aikido.dev/login: one filled primary block, one outlined
+        secondary block, one text link. The filled block uses the same colours as the header
+        "Start for free" button, so the click that brought the visitor here continues visually.
+        Class names are written out literally per branch so Tailwind's scan keeps them.  */}}
   <section class="section pt-4 md:pt-6">
     <div class="container">
       <div class="row g-4">
-        <!-- Left: the three paths -->
+        <!-- Left: the paths -->
         <div class="lg:col-6" data-aos="fade-up-sm">
           <div class="bg-light rounded-2xl p-5 md:p-8">
             <h1 class="h3 mb-5">{{ .Title | markdownify }}</h1>
+            {{ with .Params.lead }}
+              <p class="-mt-3 mb-5 text-lg">{{ . | markdownify }}</p>
+            {{ end }}
 
             <div class="flex flex-col gap-3">
               {{ range .Params.options }}
-                <a
-                  id="{{ .id }}"
-                  data-choice="{{ .choice }}"
-                  class="block rounded-xl border border-border bg-white p-4 transition-colors hover:border-tertiary md:p-5"
-                  href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
-                  {{ if .external }}target="_blank" rel="noopener"{{ end }}>
-                  <span class="mb-1 flex items-center gap-2 text-lg font-medium text-text-dark">
-                    {{ .title | markdownify }}
-                    {{ if .external }}
-                      <svg class="h-4 w-4 shrink-0 opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                      </svg>
-                    {{ end }}
-                  </span>
-                  <span class="block">{{ .text | markdownify }}</span>
-                </a>
+                {{ if eq .style "link" }}
+                  <p class="mt-3 text-base">
+                    <span class="font-medium text-text-dark">{{ .title | markdownify }}</span>
+                    <a
+                      id="{{ .id }}"
+                      data-choice="{{ .choice }}"
+                      class="font-medium text-primary hover:underline"
+                      href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                      {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                      {{ .text | markdownify }} &rarr;
+                    </a>
+                  </p>
+                {{ else if eq .style "primary" }}
+                  <a
+                    id="{{ .id }}"
+                    data-choice="{{ .choice }}"
+                    class="group flex items-center gap-4 rounded-xl border border-primary bg-primary p-4 text-white transition-colors hover:border-secondary hover:bg-secondary hover:text-text-dark md:p-5"
+                    href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                    {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                    <span class="flex-1">
+                      <span class="mb-1 block text-lg font-semibold">{{ .title | markdownify }}</span>
+                      <span class="block opacity-90">{{ .text | markdownify }}</span>
+                    </span>
+                    <svg class="h-6 w-6 shrink-0 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                {{ else }}
+                  <a
+                    id="{{ .id }}"
+                    data-choice="{{ .choice }}"
+                    class="group flex items-center gap-4 rounded-xl border border-border bg-white p-4 transition-colors hover:border-tertiary md:p-5"
+                    href="{{ if .external }}{{ .link }}{{ else }}{{ .link | relLangURL }}{{ end }}"
+                    {{ if .external }}target="_blank" rel="noopener"{{ end }}>
+                    <span class="flex-1">
+                      <span class="mb-1 block text-lg font-medium text-text-dark">{{ .title | markdownify }}</span>
+                      <span class="block">{{ .text | markdownify }}</span>
+                    </span>
+                    <svg class="h-6 w-6 shrink-0 text-text-dark opacity-60 transition-transform group-hover:translate-x-1 group-hover:text-tertiary group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </a>
+                {{ end }}
               {{ end }}
             </div>
           </div>

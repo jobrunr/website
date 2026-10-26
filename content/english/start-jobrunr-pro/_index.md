@@ -1,20 +1,22 @@
 ---
-meta_title: "Start using JobRunr Pro"
-title: "Start using JobRunr Pro"
-description: "Tell us where to send your JobRunr Pro license and answer four quick questions so we send the right one."
+meta_title: "Start your free JobRunr Pro trial"
+title: "Start your free JobRunr Pro trial"
+description: "Get a free 30 day JobRunr Pro trial license. Tell us where to send it and answer four quick questions so we send the right one."
 
 step1:
-  heading: "Start using JobRunr Pro"
-  lead: "Tell us where to send your license and we will get it ready."
+  heading: "Start your free JobRunr Pro trial"
+  lead: "30 days of JobRunr Pro, free. Tell us where to send the trial license and we will get it ready."
   email_label: "Business email"
   email_hint: "Corporate domains are pre-approved."
   company_label: "Company name"
-  submit: "Get my license"
+  submit: "Get my free trial license"
+  # Under the button. The trial license simply expires, so there is nothing to cancel.
+  reassurance: "No credit card. The trial ends by itself after 30 days, nothing to cancel."
   divider: "or"
   github_label: "Continue with GitHub"
 
 step2:
-  heading: "Our team is preparing your JobRunr Pro license."
+  heading: "Our team is preparing your free JobRunr Pro trial license."
   lead: "To make sure we send the right one, four quick questions."
   submit: "Send answers"
   skip: "I would rather answer these by email"
@@ -74,7 +76,7 @@ step2:
 
 step3:
   heading: "Thanks, this looks really good."
-  body: "Our team is preparing your license and you can expect it in your inbox very soon. While you wait, see JobRunr Pro at work."
+  body: "Our team is preparing your trial license and you can expect it in your inbox very soon. While you wait, see JobRunr Pro at work."
   cta_label: "Take the guided tour"
   cta_link: "https://finance.demo.jobrunr.io/tour"
   trust_label: "Read our security and compliance documentation"

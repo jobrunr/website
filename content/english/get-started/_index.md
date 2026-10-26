@@ -1,26 +1,34 @@
 ---
 meta_title: "Get started with JobRunr"
 title: "How do you want to start?"
-description: "Start with JobRunr OSS, get a JobRunr Pro license prepared for you, or take the guided tour of JobRunr Pro running live."
+description: "Try JobRunr Pro for free, start with JobRunr OSS, or take the guided tour of JobRunr Pro running live."
 
-# The three paths. Copy edits live here, never in the layout.
+# No background pattern on this page: it competes with the choice blocks.
+hide_header_bg: true
+
+# The three paths, in visual order. Copy edits live here, never in the layout.
+# `style` sets the weight: one `primary` (filled), one `secondary` (outlined), one `link` (a text line
+# under the two blocks). The page needs exactly one anchor, so keep one primary.
 options:
+  - id: "chooser-pro"
+    choice: "pro"
+    style: "primary"
+    title: "Try JobRunr Pro for free"
+    text: "Answer four quick questions and you'll receive a free 30 day trial license. Priority queues, workflows, rate limiting and the full dashboard."
+    link: "start-jobrunr-pro/"
+    external: false
   - id: "chooser-oss"
     choice: "oss"
+    style: "secondary"
     title: "Start with JobRunr OSS"
     text: "Free forever, for everyone including companies. Add the dependency and schedule your first job in minutes."
     link: "documentation/getting-started/"
     external: false
-  - id: "chooser-pro"
-    choice: "pro"
-    title: "Start with JobRunr Pro"
-    text: "Answer a few quick questions and our team prepares your license. You get the best job scheduler in your application, with priority queues, workflows and rate limiting."
-    link: "start-jobrunr-pro/"
-    external: false
   - id: "chooser-tour"
     choice: "tour"
-    title: "Take the guided tour"
-    text: "See JobRunr Pro running live in a real application. Twenty-one steps, one click each, no login walls."
+    style: "link"
+    title: "Just want to look first?"
+    text: "Take the guided tour of JobRunr Pro"
     link: "https://finance.demo.jobrunr.io/tour"
     external: true
 ---

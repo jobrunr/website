@@ -136,7 +136,11 @@
     </script>
 
   </header>
-  <div aria-hidden="true">
-    {{ partial "image.html" (dict "Src" site.Params.header.bg_image "Alt" "Background Pattern" "Class" `pointer-events-none absolute top-0 -z-10 !h-full !w-full !object-cover object-[center_top]` "Resize" false) }}
-  </div>
+  {{/*  A page can opt out of the background pattern with `hide_header_bg: true` in its front
+        matter. The get-started chooser does, so nothing competes with the choice blocks.  */}}
+  {{ if not .Params.hide_header_bg }}
+    <div aria-hidden="true">
+      {{ partial "image.html" (dict "Src" site.Params.header.bg_image "Alt" "Background Pattern" "Class" `pointer-events-none absolute top-0 -z-10 !h-full !w-full !object-cover object-[center_top]` "Resize" false) }}
+    </div>
+  {{ end }}
 </div>

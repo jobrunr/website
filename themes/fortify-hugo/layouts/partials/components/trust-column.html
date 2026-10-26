@@ -1,10 +1,12 @@
-<!-- Trust column, shown next to the funnel forms.
+<!-- Trust column, shown next to the funnel forms and the get-started chooser.
      Order matters: proof, then the numbers, then the logo strip, all three meant to sit above the
-     fold on a laptop. The quote is the one thing that can afford to be scrolled to. -->
+     fold on a laptop. The quote is the one thing that can afford to be scrolled to.
+     Deliberately no boxes: the blocks sit on the page background with thin dividers, so they read
+     as things to glance at, while the bordered blocks on the left read as things to click.  -->
 {{ with site.GetPage "sections/trust-column" }}
-  <div class="flex flex-col gap-4">
+  <div class="flex flex-col lg:pl-4">
     {{ with .Params.proof }}
-      <div class="rounded-2xl border border-border p-5 md:p-6">
+      <div class="pb-5 md:pb-6">
         <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
           {{ .title | markdownify }}
         </p>
@@ -18,7 +20,7 @@
     {{ end }}
 
     {{ with .Params.stats }}
-      <div class="rounded-2xl border border-border p-5 md:p-6">
+      <div class="border-t border-border py-5 md:py-6">
         <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
           {{ .title | markdownify }}
         </p>
@@ -45,13 +47,13 @@
 
     {{ with site.GetPage "sections/brand-logo" }}
       {{ with .Params.brand }}
-        <div class="rounded-2xl border border-border p-5 md:p-6">
+        <div class="border-t border-border py-5 md:py-6">
           <p class="mb-4 text-sm font-medium tracking-wide text-tertiary uppercase">
             {{ .title | markdownify }}
           </p>
-          {{/*  Sized so all six logos hold one row inside the column, which keeps the card short
+          {{/*  Sized so all six logos hold one row inside the column, which keeps the block short
                 enough for the whole trust stack to stay above the fold.  */}}
-          <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-3 opacity-60 grayscale">
+          <div class="flex flex-wrap items-center gap-x-4 gap-y-3 opacity-60 grayscale">
             {{ range .logo }}
               <div class="flex aspect-[3.125/1] w-20 items-center">
                 {{ partial "image" (dict "Src" .image "Alt" "Brand Logo" "Class" "!h-6 object-contain") }}
@@ -63,7 +65,7 @@
     {{ end }}
 
     {{ with .Params.quote }}
-      <div class="rounded-2xl border border-border p-5 md:p-6">
+      <div class="border-t border-border pt-5 md:pt-6">
         <p class="mb-2 text-sm font-medium tracking-wide text-tertiary uppercase">
           {{ .title | markdownify }}
         </p>

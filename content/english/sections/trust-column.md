@@ -6,13 +6,13 @@ proof:
   title: "Running where it counts"
   quote: "Decathlon processes 50 million scans a day on JobRunr"
   link:
-    label: "Read the Decathlon case"
-    url: "/en/use-case/jobrunr-pro-decathlon/"
+    label: "See how other companies use JobRunr"
+    url: "/en/use-case/"
 
 stats:
   title: "Used by Java teams everywhere"
   list:
-    - item: "300,000 downloads per month"
+    - item: "1 million downloads per month"
     # Both claims are already made publicly on the finance and insurance pages.
     - item: "Penetration tested by an outside party, every year"
     # `page` rather than `url`: the CRA page is still draft: true, so it does not exist in a
