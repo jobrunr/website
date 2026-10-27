@@ -64,6 +64,13 @@
                 {{ end }}
               {{ end }}
             </div>
+
+            {{ with .Params.footnote }}
+              <p class="mt-5 text-sm opacity-80">
+                {{ .text }}
+                <a class="font-medium text-primary" href="{{ .link | relLangURL }}">{{ .link_label }} &rarr;</a>
+              </p>
+            {{ end }}
           </div>
         </div>
 

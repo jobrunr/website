@@ -1,0 +1,7 @@
+{{/* Small pill for the training level. Takes a dict: level, color (green | blue | amber | purple). */}}
+{{ $classes := "bg-gray-100 text-gray-700" }}
+{{ if eq .color "green" }}{{ $classes = "bg-green-50 text-green-700" }}{{ end }}
+{{ if eq .color "blue" }}{{ $classes = "bg-blue-50 text-blue-700" }}{{ end }}
+{{ if eq .color "amber" }}{{ $classes = "bg-amber-50 text-amber-700" }}{{ end }}
+{{ if eq .color "purple" }}{{ $classes = "bg-purple-50 text-purple-700" }}{{ end }}
+<span class="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider {{ $classes }}">{{ .level }}</span>

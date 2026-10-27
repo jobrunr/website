@@ -31,4 +31,10 @@ options:
     text: "Take the guided tour of JobRunr Pro"
     link: "https://finance.demo.jobrunr.io/tour"
     external: true
+
+# One line under the three cards, deliberately not a fourth card: the chooser has to stay above the fold.
+footnote:
+  text: "Prefer to learn live? Join a free one-hour training given by the people who build JobRunr."
+  link_label: "See upcoming trainings"
+  link: "training/"
 ---

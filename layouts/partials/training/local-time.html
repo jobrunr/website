@@ -1,0 +1,92 @@
+{{/*
+  Site-wide helpers for the training pages:
+  1. Fills every `[data-tz-strip]` after a `[data-session-start]` with the start time in a fixed
+     set of cities, so a visitor can scan whether the slot fits before reading anything else.
+     The visitor's own zone is bolded when it is one of the cities, or appended as "you" when not.
+  2. Fills every `[data-local-time]` (compact variant) with the visitor's local time, unless the
+     visitor already sits in the Brussels zone.
+  3. Hides every `[data-session]` whose start lies in the past. Hugo filters past sessions at
+     build time, but the site is only rebuilt on deploy, so a session that ended yesterday would
+     otherwise stay on the page until the next push.
+*/}}
+<script>
+  (function () {
+    var CITIES = [
+      { label: 'Brussels', zone: 'Europe/Brussels' },
+      { label: 'London', zone: 'Europe/London' },
+      { label: 'New York', zone: 'America/New_York' },
+      { label: 'San Francisco', zone: 'America/Los_Angeles' },
+      { label: 'Bengaluru', zone: 'Asia/Kolkata' }
+    ];
+    var CENTRAL_EUROPE = ['Europe/Brussels', 'Europe/Amsterdam', 'Europe/Paris', 'Europe/Berlin', 'Europe/Madrid', 'Europe/Rome', 'Europe/Vienna', 'Europe/Zurich', 'Europe/Stockholm', 'Europe/Oslo', 'Europe/Copenhagen', 'Europe/Warsaw', 'Europe/Prague', 'Europe/Budapest', 'Europe/Luxembourg'];
+
+    var zone = '';
+    try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    var inCentralEurope = CENTRAL_EUROPE.indexOf(zone) !== -1;
+
+    function clock(date, tz) {
+      try {
+        return date.toLocaleTimeString('en-GB', { timeZone: tz, hour: '2-digit', minute: '2-digit' });
+      } catch (e) {
+        return '';
+      }
+    }
+
+    // A session that lands on a different calendar day in a city gets a short day marker.
+    function dayMarker(date, tz) {
+      try {
+        var there = date.toLocaleDateString('en-GB', { timeZone: tz, weekday: 'short' });
+        var home = date.toLocaleDateString('en-GB', { timeZone: 'Europe/Brussels', weekday: 'short' });
+        return there === home ? '' : ' ' + there;
+      } catch (e) {
+        return '';
+      }
+    }
+
+    document.querySelectorAll('[data-session-start]').forEach(function (el) {
+      var start = new Date(el.getAttribute('data-session-start'));
+      if (isNaN(start.getTime())) return;
+      var target = el.nextElementSibling;
+      if (!target) return;
+
+      if (target.hasAttribute('data-tz-strip')) {
+        var visitorListed = false;
+        CITIES.forEach(function (city) {
+          var t = clock(start, city.zone);
+          if (!t) return;
+          var mine = zone === city.zone || (city.zone === 'Europe/Brussels' && inCentralEurope);
+          if (mine) visitorListed = true;
+          var chip = document.createElement('span');
+          chip.className = mine ? 'font-semibold text-text-dark' : '';
+          chip.textContent = city.label + ' ' + t + dayMarker(start, city.zone);
+          target.appendChild(chip);
+        });
+        if (zone && !visitorListed) {
+          var t2 = clock(start, zone);
+          if (t2) {
+            var mineChip = document.createElement('span');
+            mineChip.className = 'font-semibold text-text-dark';
+            mineChip.textContent = 'You ' + t2 + dayMarker(start, zone);
+            target.appendChild(mineChip);
+          }
+        }
+      } else if (target.hasAttribute('data-local-time') && !inCentralEurope) {
+        try {
+          target.textContent = ' (' + start.toLocaleString(undefined, {
+            weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          }) + ' your time)';
+        } catch (e) {}
+      }
+    });
+
+    var now = Date.now();
+    document.querySelectorAll('[data-session]').forEach(function (el) {
+      var start = new Date(el.getAttribute('data-session'));
+      if (!isNaN(start.getTime()) && start.getTime() < now) el.remove();
+    });
+    document.querySelectorAll('[data-sessions-empty]').forEach(function (el) {
+      var list = el.parentElement.querySelector('[data-sessions-list]');
+      if (list && !list.querySelector('[data-session]')) el.classList.remove('hidden');
+    });
+  })();
+</script>

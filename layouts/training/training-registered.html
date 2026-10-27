@@ -1,0 +1,138 @@
+{{ define "main" }}
+{{/*  Every training with its sessions and prerequisites, so the page can confirm the exact
+      session from the `?t=<slug>&s=<start>` query without a backend.  */}}
+{{ $catalogue := slice }}
+{{ range where (site.GetPage "training").Pages "Params.training" true }}
+  {{ $sessions := slice }}
+  {{ range .Params.sessions }}
+    {{ $sessions = $sessions | append (dict "start" ((time .start).Format "2006-01-02T15:04:05Z07:00") "end" ((time .end).Format "2006-01-02T15:04:05Z07:00") "label" (printf "%s %s" ((time .start).Format "Monday 2 January 2006, 15:04") .tz)) }}
+  {{ end }}
+  {{ $prereqs := slice }}
+  {{ range .Params.prerequisites }}{{ $prereqs = $prereqs | append (. | markdownify | string) }}{{ end }}
+  {{ $catalogue = $catalogue | append (dict "slug" .File.ContentBaseName "title" .Title "url" .Permalink "sessions" $sessions "prerequisites" $prereqs) }}
+{{ end }}
+
+<section class="section">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-7" data-aos="fade-up-sm">
+        <div class="rounded-2xl bg-light p-8 md:p-12">
+          <div class="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-tertiary">
+            <svg class="h-7 w-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h1 class="h3 mb-2 text-center">{{ .Title | markdownify }}</h1>
+          <p id="reg-training" class="mb-6 text-center text-lg font-medium text-text-dark"></p>
+
+          <div id="reg-session" class="hidden mb-6 rounded-xl bg-white border border-border p-5 text-center">
+            <p class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-1">Your session</p>
+            <p class="text-lg font-medium text-text-dark"><span id="reg-session-label"></span><span id="reg-session-local" class="text-sm opacity-70"></span></p>
+            <div class="mt-4 flex flex-wrap justify-center gap-3">
+              <a id="reg-ics" class="btn btn-primary btn-even-padding" href="#" download>{{ .Params.calendar_label }}</a>
+              <a id="reg-gcal" class="btn btn-outline-primary btn-even-padding" href="#" target="_blank" rel="noopener">Google Calendar</a>
+            </div>
+          </div>
+
+          <p id="reg-body" class="mb-8 text-lg">{{ .Params.body | markdownify }}</p>
+
+          <div id="reg-checklist" class="hidden mb-8">
+            <h2 class="h5 mb-3">{{ .Params.checklist_title }}</h2>
+            <ul id="reg-checklist-items" class="space-y-2"></ul>
+          </div>
+
+          <div class="mb-8">
+            <h2 class="h5 mb-2">{{ .Params.next_title }}</h2>
+            <p class="opacity-80">{{ .Params.next_text }}</p>
+            <a class="mt-2 inline-block font-medium text-primary" href="{{ .Params.next_link | relLangURL }}">{{ .Params.next_link_label }} &rarr;</a>
+          </div>
+
+          <p class="text-center"><a class="text-sm opacity-70 hover:opacity-100" href="{{ .Params.back_link | relLangURL }}">{{ .Params.back_label }}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var CATALOGUE = {{ $catalogue | jsonify | safeJS }};
+    var FALLBACK = {{ .Params.fallback_body }};
+    var params = new URLSearchParams(location.search);
+    var slug = params.get('t');
+    var start = params.get('s');
+
+    var training = null;
+    for (var i = 0; i < CATALOGUE.length; i++) {
+      if (CATALOGUE[i].slug === slug) training = CATALOGUE[i];
+    }
+    if (!training) {
+      document.getElementById('reg-body').textContent = FALLBACK;
+      return;
+    }
+    document.getElementById('reg-training').textContent = training.title;
+
+    var session = null;
+    for (var j = 0; j < training.sessions.length; j++) {
+      if (training.sessions[j].start === start) session = training.sessions[j];
+    }
+
+    if (training.prerequisites.length) {
+      var list = document.getElementById('reg-checklist-items');
+      training.prerequisites.forEach(function (html) {
+        var li = document.createElement('li');
+        li.className = 'flex items-start';
+        li.innerHTML = '<span class="mr-3 mt-1 h-2 w-2 shrink-0 rounded-full bg-primary"></span><span>' + html + '</span>';
+        list.appendChild(li);
+      });
+      document.getElementById('reg-checklist').classList.remove('hidden');
+    }
+
+    if (!session) return;
+
+    document.getElementById('reg-session-label').textContent = session.label;
+    var startDate = new Date(session.start);
+    var endDate = new Date(session.end);
+    try {
+      var zone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if (zone && zone !== 'Europe/Brussels') {
+        document.getElementById('reg-session-local').textContent = ' (' + startDate.toLocaleString(undefined, {
+          weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+        }) + ' your time)';
+      }
+    } catch (e) {}
+
+    function utc(d) {
+      return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+    }
+    var summary = 'JobRunr training: ' + training.title;
+    var description = 'Free live JobRunr training. The link to the private session arrives by email the day before and one hour before the start. ' + training.url;
+    var ics = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//JobRunr//Trainings//EN',
+      'BEGIN:VEVENT',
+      'UID:training-' + training.slug + '-' + utc(startDate) + '@jobrunr.io',
+      'DTSTAMP:' + utc(new Date()),
+      'DTSTART:' + utc(startDate),
+      'DTEND:' + utc(endDate),
+      'SUMMARY:' + summary,
+      'DESCRIPTION:' + description.replace(/,/g, '\\,'),
+      'URL:' + training.url,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+    var icsLink = document.getElementById('reg-ics');
+    icsLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+    icsLink.setAttribute('download', 'jobrunr-training-' + training.slug + '.ics');
+
+    var gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
+      + '&text=' + encodeURIComponent(summary)
+      + '&dates=' + utc(startDate) + '/' + utc(endDate)
+      + '&details=' + encodeURIComponent(description);
+    document.getElementById('reg-gcal').href = gcal;
+
+    document.getElementById('reg-session').classList.remove('hidden');
+  })();
+</script>
+{{ end }}
