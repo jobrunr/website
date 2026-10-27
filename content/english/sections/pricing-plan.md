@@ -40,7 +40,7 @@ basic_plan:
   monthly_price_usd: "Free"
 
 premium_plan:
-  title: "Business"
+  title: "Pro Business"
   description: "Streamline your workflows and background jobs."
   recommended: "Most popular"
   currency: "€"
@@ -77,7 +77,7 @@ premium_plan:
   yearly_price_usd: "10000"
 
 enterprise_plan:
-  title: "Enterprise"
+  title: "Pro Enterprise"
   description: "Built for critical scale. Includes unlimited PRD clusters."
   currency: ""
   monthly_price: "Custom"

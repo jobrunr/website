@@ -8,7 +8,7 @@ pageRef = "/"
 weight = 1
 
 [[main]]
-name = "JobRunr Pro"
+name = "Pro"
 pageRef = "/pro"
 weight = 2
 
@@ -20,7 +20,7 @@ weight = 3
 [[main]]
 name = "Blog"
 pageRef = "/blog"
-weight = 4
+weight = 8
 
 [[main]]
 name = "Documentation"
