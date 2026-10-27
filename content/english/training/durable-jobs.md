@@ -12,8 +12,8 @@ audience: "Developers who own jobs that call payment providers, send emails, mov
 assumes: "You run JobRunr in at least one application, or you attended Foundations."
 
 sessions:
-  - start: 2027-01-14T12:30:00+01:00
-    end: 2027-01-14T13:30:00+01:00
+  - start: 2027-01-28T12:30:00+01:00
+    end: 2027-01-28T13:30:00+01:00
     tz: "CET"
 
 trainers:
