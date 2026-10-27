@@ -3,7 +3,7 @@ training: true
 weight: 4
 title: "Durable Jobs You Can Trust"
 meta_title: "Durable jobs you can trust: free live JobRunr training"
-description: "Free one-hour live training on jobs that survive failure without doing damage twice: idempotency, runStepOnce, the job progress Chart view, and batches you can pause in JobRunr Pro."
+description: "Free one-hour live training on jobs that survive failure without doing damage twice: what a retry really does, runStepOnce and idempotent steps, servers that die in the middle of a job, and where JobRunr Pro picks up with retry policies, transactions, timeouts and batches."
 tagline: "Retries that never charge a customer twice."
 level: "Reliability"
 level_color: "purple"
@@ -25,29 +25,33 @@ trainers:
 agenda:
   - time: "0:00"
     title: "What a retry really does"
-    text: "An invoice run with 600 customers, a payment provider that times out at customer 161, and a retry that starts from the top. Where the damage happens, and why 'just add retries' is not a reliability strategy."
-  - time: "0:12"
+    text: "An invoice run with 600 customers, a payment provider that times out at customer 161, and a retry that starts from the top. How often JobRunr retries and how far apart, which exceptions deserve a retry, and what should happen after the last one fails: a `JobFilter` that tells somebody, instead of a red row in the dashboard that nobody looks at."
+  - time: "0:10"
     title: "Durable jobs with runStepOnce"
     text: "Splitting a job into steps with `JobContext.runStepOnce()`. What JobRunr records per step, how a retried job skips the steps that already succeeded, and watching it happen in the job progress Chart view in JobRunr 9."
-  - time: "0:28"
+  - time: "0:20"
     title: "Designing idempotent steps"
     text: "Returning values between steps, external calls that are not idempotent by nature, idempotency keys, and the step boundaries that make a job safe to run twice. What belongs in one step and what does not."
-  - time: "0:42"
+  - time: "0:30"
+    title: "When the server dies, not the job"
+    text: "We kill a server halfway through the invoice run. How JobRunr notices the missing heartbeat and hands the orphaned job to another server, what graceful shutdown buys you on every deploy, and why the Kubernetes grace period has to be at least as long as the one JobRunr waits for. With steps, the job carries on from the last one that finished."
+  - time: "0:40"
     title: "Where JobRunr Pro picks up"
-    text: "Batches: hundreds of child jobs as one run. Pausing a batch halfway through a failing run, letting running jobs finish, fixing the cause, resuming. Job chaining and job timeouts. Labelled as Pro, shown briefly."
-  - time: "0:52"
+    text: "A retry policy per exception, and the `DoNotRetryPolicy` for failures no retry will fix. The `@Transactional` plugin, so a job is saved in the same transaction as your own data and disappears with it on a rollback. Job timeouts for the call that hangs forever. Batches you pause halfway through a failing run, fix and resume. Labelled as Pro on screen."
+  - time: "0:50"
     title: "Your questions"
-    text: "Bring the job you worry about. We will talk through where its step boundaries should be."
+    text: "Ten minutes. Bring the job you worry about and we talk through where its step boundaries should be."
 
 prerequisites:
   - "JobRunr 9 or later running locally, so you can see the Chart view yourself. Earlier versions have `runStepOnce` too, but not the Chart."
-  - "Read the [durable executions guide](/en/guides/advanced/durable-executions/) if you have fifteen minutes. Not required, but the hour goes further if you did."
   - "One multi-step job from your own codebase in mind, ideally one that touches money, email or an external API."
+  - "Your shutdown settings at hand, such as `terminationGracePeriodSeconds` if you run on Kubernetes. You will want to check them afterwards."
 
 takeaways:
-  - "A step-design checklist for idempotent, resumable jobs"
-  - "The invoice-run demo application, failures included"
+  - "A step-design checklist for idempotent, resumable jobs, including the shutdown settings to check"
+  - "The invoice-run demo application, failures and the server crash included"
   - "The recording, the next day"
+  - "The [durable executions guide](/en/guides/advanced/durable-executions/) as the written reference for `runStepOnce`, for when you build your own"
   - "A free Architecture Review of your own multi-step job"
 
 form:
