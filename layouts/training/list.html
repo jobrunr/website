@@ -18,31 +18,97 @@
 {{ $upcoming = sort $upcoming "start" }}
 
 <!-- Hero -->
-<section class="section pt-16 pb-12 bg-white">
+<section class="section pt-16 pb-4 bg-white">
   <div class="container">
     <div class="row justify-center">
       <div class="text-center lg:col-9" data-aos="fade-up-sm">
         <span class="inline-block py-1 px-3 rounded-full bg-green-50 text-green-700 text-sm font-semibold mb-4">
           {{ .Params.hero.badge }}
         </span>
-        <h1 class="h1 mb-6 text-gray-900">
+        <h1 class="h1 text-gray-900">
           {{ .Params.hero.title_start }}
           <span class="text-primary">{{ .Params.hero.title_highlight }}</span>
         </h1>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          {{ .Params.hero.description | markdownify }}
-        </p>
+        {{ with .Params.hero.description }}
+          <p class="mt-6 text-xl text-gray-600 max-w-3xl mx-auto">{{ . | markdownify }}</p>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Catalogue -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="text-center mb-12" data-aos="fade-up-sm">
+      <h2 class="h2 mb-4">{{ .Params.catalogue_section.title }}</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.catalogue_section.description }}</p>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      {{ range $index, $t := $trainings }}
+        {{ $next := "" }}
+        {{ $nextTz := "" }}
+        {{ range $t.Params.sessions }}
+          {{ if and (eq $next "") (ge (time .start) now) }}{{ $next = .start }}{{ $nextTz = .tz }}{{ end }}
+        {{ end }}
+        <a href="{{ $t.RelPermalink }}" class="flex flex-col rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:border-tertiary hover:shadow-md" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+          <div class="mb-3">{{ partial "training/level-badge.html" (dict "level" $t.Params.level "color" $t.Params.level_color) }}</div>
+          <h3 class="h5 mb-2 text-text-dark">{{ $t.Title }}</h3>
+          <p class="mb-6 text-gray-600">{{ $t.Params.tagline }}</p>
+          <div class="mt-auto border-t border-gray-100 pt-4">
+            <p class="mb-1 text-xs font-semibold uppercase tracking-wider text-gray-500">Next session</p>
+            {{ if $next }}
+              <p class="font-medium text-text-dark">
+                {{ partial "training/session-time.html" (dict "start" $next "tz" $nextTz "strip" "compact" "year" false) }}
+              </p>
+            {{ else }}
+              <p class="font-medium text-text-dark">Date to be announced</p>
+            {{ end }}
+          </div>
+          <span class="mt-5 font-medium text-primary">See the agenda and register &rarr;</span>
+        </a>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- What can you expect? -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-12" data-aos="fade-up-sm">
+      <h2 class="h2">{{ .Params.how_section.title }}</h2>
+    </div>
+    <div class="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
+      {{ range $index, $step := .Params.how_section.steps }}
+        <div class="flex flex-col" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
+          <span class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-semibold">{{ add $index 1 }}</span>
+          <h3 class="h5 mb-2">{{ $step.title }}</h3>
+          <p class="text-gray-600">{{ $step.text }}</p>
+        </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+
+<!-- Architecture Review -->
+<section class="section bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9 text-center" data-aos="fade-up-sm">
+        <h2 class="h2 mb-4">{{ .Params.review_section.title }}</h2>
+        <p class="text-lg text-gray-600 mb-6">{{ .Params.review_section.text }}</p>
+        <a class="font-medium text-primary" href="{{ .Params.review_section.link | relLangURL }}">{{ .Params.review_section.link_label }} &rarr;</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Upcoming sessions -->
-<section class="section pt-0 pb-16 bg-white">
+<section class="section bg-gray-50">
   <div class="container">
     <div class="row justify-center">
       <div class="lg:col-9" data-aos="fade-up-sm">
-        <div class="rounded-2xl bg-light p-6 md:p-8">
+        <div class="rounded-2xl bg-white border border-border p-6 md:p-8">
           <h2 class="h4 mb-2">{{ .Params.sessions_section.title }}</h2>
           <p class="mb-6 opacity-80">{{ .Params.sessions_section.description }}</p>
           <div data-sessions-list class="flex flex-col divide-y divide-border">
@@ -64,93 +130,6 @@
           </div>
           <p data-sessions-empty class="{{ if $upcoming }}hidden{{ end }} text-sm opacity-80">{{ .Params.sessions_section.empty }}</p>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Catalogue -->
-<section class="section bg-gray-50">
-  <div class="container">
-    <div class="text-center mb-12" data-aos="fade-up-sm">
-      <h2 class="h2 mb-4">{{ .Params.catalogue_section.title }}</h2>
-      <p class="text-lg text-gray-600 max-w-3xl mx-auto">{{ .Params.catalogue_section.description }}</p>
-    </div>
-    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-      {{ range $index, $t := $trainings }}
-        {{ $next := "" }}
-        {{ $nextTz := "" }}
-        {{ range $t.Params.sessions }}
-          {{ if and (eq $next "") (ge (time .start) now) }}{{ $next = .start }}{{ $nextTz = .tz }}{{ end }}
-        {{ end }}
-        <a href="{{ $t.RelPermalink }}" class="flex flex-col rounded-xl border border-gray-100 bg-white p-6 shadow-sm transition hover:border-tertiary hover:shadow-md" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
-          <div class="mb-3">{{ partial "training/level-badge.html" (dict "level" $t.Params.level "color" $t.Params.level_color) }}</div>
-          <h3 class="h5 mb-2 text-text-dark">{{ $t.Title }}</h3>
-          <p class="mb-4 text-gray-600">{{ $t.Params.tagline }}</p>
-          <p class="mt-auto text-sm text-gray-500">
-            {{ if $next }}
-              Next: {{ partial "training/session-time.html" (dict "start" $next "tz" $nextTz) }}
-            {{ else }}
-              Next date to be announced
-            {{ end }}
-          </p>
-          <span class="mt-4 font-medium text-primary">See the agenda and register &rarr;</span>
-        </a>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
-<!-- How it works -->
-<section class="section bg-white">
-  <div class="container">
-    <div class="text-center mb-12" data-aos="fade-up-sm">
-      <h2 class="h2">{{ .Params.how_section.title }}</h2>
-    </div>
-    <div class="grid gap-8 md:grid-cols-3 max-w-5xl mx-auto">
-      {{ range $index, $step := .Params.how_section.steps }}
-        <div class="flex flex-col" data-aos="fade-up-sm" data-aos-delay="{{ mul $index 100 }}">
-          <span class="mb-4 flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-semibold">{{ add $index 1 }}</span>
-          <h3 class="h5 mb-2">{{ $step.title }}</h3>
-          <p class="text-gray-600">{{ $step.text }}</p>
-        </div>
-      {{ end }}
-    </div>
-  </div>
-</section>
-
-<!-- For architects -->
-{{ with .Params.architects_section }}
-<section class="section bg-white pt-0">
-  <div class="container">
-    <div class="row justify-center">
-      <div class="lg:col-10" data-aos="fade-up-sm">
-        <div class="rounded-2xl border border-border p-6 md:p-10">
-          <h2 class="h3 mb-2">{{ .title }}</h2>
-          <p class="text-lg text-gray-600 mb-8">{{ .text }}</p>
-          <div class="grid gap-8 md:grid-cols-3">
-            {{ range .points }}
-              <div>
-                <h3 class="h6 mb-2">{{ .title }}</h3>
-                <p class="text-gray-600">{{ .text }}</p>
-              </div>
-            {{ end }}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{{ end }}
-
-<!-- Architecture Review -->
-<section class="section bg-gray-50">
-  <div class="container">
-    <div class="row justify-center">
-      <div class="lg:col-9 text-center" data-aos="fade-up-sm">
-        <h2 class="h2 mb-4">{{ .Params.review_section.title }}</h2>
-        <p class="text-lg text-gray-600 mb-6">{{ .Params.review_section.text }}</p>
-        <a class="font-medium text-primary" href="{{ .Params.review_section.link | relLangURL }}">{{ .Params.review_section.link_label }} &rarr;</a>
       </div>
     </div>
   </div>

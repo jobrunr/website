@@ -66,11 +66,11 @@
   <div class="container">
     <div class="row justify-center">
       <div class="lg:col-9" data-aos="fade-up-sm">
-        <h2 class="h2 mb-8">The hour, minute by minute</h2>
+        <h2 class="h2 mb-8">Agenda</h2>
         <ol class="flex flex-col divide-y divide-border rounded-2xl border border-border bg-white">
-          {{ range .Params.agenda }}
+          {{ range $index, $item := .Params.agenda }}
             <li class="flex gap-5 p-5 md:p-6">
-              <span class="w-12 shrink-0 font-mono text-sm text-gray-500 pt-1">{{ .time }}</span>
+              <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">{{ add $index 1 }}</span>
               <div>
                 <h3 class="h6 mb-1">{{ .title }}</h3>
                 <p class="text-gray-600">{{ .text | markdownify }}</p>
@@ -210,8 +210,8 @@
               </select>
             </div>
             <div class="col-12">
-              <label for="training-problem" class="form-label">What are you trying to do with background jobs right now? <span class="text-red-500">*</span></label>
-              <textarea id="training-problem" name="problem" class="form-input" rows="4" placeholder="One or two sentences. The more specific, the better the session." required></textarea>
+              <label for="training-problem" class="form-label">What are you trying to do with background jobs right now?</label>
+              <textarea id="training-problem" name="problem" class="form-input" rows="4" placeholder="Optional. One or two sentences, or leave it empty if you are still exploring."></textarea>
               <p class="mt-2 text-sm opacity-70">We read every answer and use them to pick the examples for the session.</p>
             </div>
             <!-- Honeypot. Positioned off-screen rather than display:none, which bots skip. -->
@@ -272,11 +272,11 @@
       // Honeypot: a filled `username` is a bot, so drop the submission silently.
       if (form.elements.username.value) return;
 
-      var required = ['name', 'email', 'company', 'role', 'jobrunr_status', 'problem'];
+      var required = ['name', 'email', 'company', 'role', 'jobrunr_status'];
       for (var i = 0; i < required.length; i++) {
         var field = form.elements[required[i]];
         if (!field || !field.value || !field.value.trim()) {
-          showError('Please fill in every required field, including the question about your background jobs.');
+          showError('Please fill in every required field.');
           field && field.focus();
           return;
         }

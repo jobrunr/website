@@ -1,11 +1,15 @@
 {{/*
   Renders one training session start as Brussels time.
-  Takes a dict: start (time string from front matter), tz (label, e.g. CET), strip (bool).
-  With strip=true a row of city times is added underneath, filled in by
-  partials/training/local-time.html, which also bolds the visitor's own zone or appends it.
+  Takes a dict: start (time string from front matter), tz (label, e.g. CET),
+  strip (true | "compact" | absent), year (false hides the year).
+  strip=true adds a row of city times underneath (Brussels, London, New York, San Francisco,
+  Bengaluru); strip="compact" adds only New York and San Francisco. Both are filled in by
+  partials/training/local-time.html, which bolds the visitor's own zone or appends it.
   Without strip, a small "(... your time)" suffix is filled in for visitors outside Brussels.
 */}}
 {{ $start := time .start }}
+{{ $layout := "Monday 2 January 2006, 15:04" }}
+{{ if eq .year false }}{{ $layout = "Mon 2 Jan, 15:04" }}{{ end }}
 <time datetime="{{ $start.Format "2006-01-02T15:04:05Z07:00" }}" data-session-start="{{ $start.Format "2006-01-02T15:04:05Z07:00" }}">
-  {{ $start.Format "Monday 2 January 2006, 15:04" }} {{ .tz }}
-</time>{{ if .strip }}<span class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm font-normal opacity-70" data-tz-strip></span>{{ else }}<span class="text-sm font-normal opacity-70" data-local-time></span>{{ end }}
+  {{ $start.Format $layout }} {{ .tz }}
+</time>{{ if eq .strip "compact" }}<span class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm font-normal text-gray-500" data-tz-strip="compact"></span>{{ else if .strip }}<span class="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-sm font-normal opacity-70" data-tz-strip></span>{{ else }}<span class="text-sm font-normal opacity-70" data-local-time></span>{{ end }}

@@ -2,6 +2,8 @@
   Site-wide helpers for the training pages:
   1. Fills every `[data-tz-strip]` after a `[data-session-start]` with the start time in a fixed
      set of cities, so a visitor can scan whether the slot fits before reading anything else.
+     The compact variant (`data-tz-strip="compact"`, used on the catalogue cards) shows only
+     New York and San Francisco, since the Brussels time is already on the line above.
      The visitor's own zone is bolded when it is one of the cities, or appended as "you" when not.
   2. Fills every `[data-local-time]` (compact variant) with the visitor's local time, unless the
      visitor already sits in the Brussels zone.
@@ -17,6 +19,10 @@
       { label: 'New York', zone: 'America/New_York' },
       { label: 'San Francisco', zone: 'America/Los_Angeles' },
       { label: 'Bengaluru', zone: 'Asia/Kolkata' }
+    ];
+    var COMPACT_CITIES = [
+      { label: 'New York', zone: 'America/New_York' },
+      { label: 'San Francisco', zone: 'America/Los_Angeles' }
     ];
     var CENTRAL_EUROPE = ['Europe/Brussels', 'Europe/Amsterdam', 'Europe/Paris', 'Europe/Berlin', 'Europe/Madrid', 'Europe/Rome', 'Europe/Vienna', 'Europe/Zurich', 'Europe/Stockholm', 'Europe/Oslo', 'Europe/Copenhagen', 'Europe/Warsaw', 'Europe/Prague', 'Europe/Budapest', 'Europe/Luxembourg'];
 
@@ -50,8 +56,9 @@
       if (!target) return;
 
       if (target.hasAttribute('data-tz-strip')) {
-        var visitorListed = false;
-        CITIES.forEach(function (city) {
+        var compact = target.getAttribute('data-tz-strip') === 'compact';
+        var visitorListed = compact && inCentralEurope;
+        (compact ? COMPACT_CITIES : CITIES).forEach(function (city) {
           var t = clock(start, city.zone);
           if (!t) return;
           var mine = zone === city.zone || (city.zone === 'Europe/Brussels' && inCentralEurope);
