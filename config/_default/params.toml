@@ -36,6 +36,10 @@ n8n_webhook_url = "https://n8n.srv851199.hstgr.cloud/webhook/f7a5e38e-4b1d-4f5b-
 # production builds only. Empty string disables Clarity everywhere.
 clarity_project_id = "x1pw19d1of"
 
+# Reo.dev client id. Loaded site-wide from partials/essentials/reo.html,
+# production builds only. Empty string disables Reo everywhere.
+reo_client_id = "499276d801a9bbf"
+
 # background pattern
 [header]
 bg_image = "/images/header-bg.jpg"
