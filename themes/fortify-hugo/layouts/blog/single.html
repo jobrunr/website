@@ -24,6 +24,14 @@
                 {{ time.Format ":date_long" .Date }}
               </p>
             </li>
+            {{ if gt (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}
+              <li class="flex items-center gap-x-2">
+                <i class="fa-solid fa-rotate w-5 text-tertiary"></i>
+                <p class="inline-block font-medium text-tertiary">
+                  Updated {{ time.Format ":date_long" .Lastmod }}
+                </p>
+              </li>
+            {{ end }}
           </ul>
         </div>
         <div
