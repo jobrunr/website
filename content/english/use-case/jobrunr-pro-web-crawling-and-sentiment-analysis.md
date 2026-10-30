@@ -1,16 +1,12 @@
 ---
-title: "How JobRunr Pro Empowers Brand Protection through Parallel Web Crawling and Sentiment Analysis"
+title: "How to Crawl the Web in Parallel to Catch Brand Sentiment Early"
 author: "Ronald Dehuysser"
-image: /use-case/jobrunr-pro-web-crawling-and-sentiment-analysis.jpg
+image: /use-case/case-study-brand.webp
 summary: "Brand protection is more crucial than ever. JobRunr Pro, an advanced job scheduling platform, has emerged as a powerful tool for distributed web crawling and sentiment analysis by businesses that want to improve their brand protection strategy, leveraging parallel processing and monitoring tools to maximize efficiency and effectiveness."
 date: 2022-04-09T11:12:23+02:00
 tags:
   - use-case
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
 ## Introduction
 In today's competitive business environment, protecting a brand's reputation is more crucial than ever. The internet, with its vast troves of data and user-generated content, has created both opportunities and challenges for companies seeking to monitor their brand's image. Swift response to negative sentiment can help mitigate potential damage to a brand's reputation, while positive sentiment can be leveraged for marketing and promotional purposes.
 

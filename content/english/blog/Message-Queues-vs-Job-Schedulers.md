@@ -104,7 +104,7 @@ Automatic retries on failure and clear visibility into job status mean developer
 
 {{< /image-text-left >}}
 
-➡️ Read the story: [Job Scheduling at Scale: How Prophia’s Team Runs Thousands of Jobs Reliably]({{< ref "use-case/jobrunr-pro-prophia.md" >}})
+➡️ Read the story: [From Vanishing Cron Jobs to 25,000 Leases Processed Every Night]({{< ref "use-case/jobrunr-pro-prophia.md" >}})
 
 
 
@@ -114,7 +114,7 @@ Aligning digital and physical inventory for a global retailer like **Decathlon**
 
 They use job scheduling to reliably process this vast amount of data in the background, ensuring their inventory systems are always in sync.
 
-➡️ Read the story: [Global inventory at Scale - How Decathlon manages stock worldwide using JobRunr]({{< ref "use-case/jobrunr-pro-decathlon.md" >}})
+➡️ Read the story: [From 50 Million Daily Scans to Accurate Stock: How Decathlon Syncs Inventory Across 1,700 Stores]({{< ref "use-case/jobrunr-pro-decathlon.md" >}})
 {{< /image-text-right >}}
 
 
@@ -126,7 +126,7 @@ Telecom providers often face a simple but frustrating problem: the VoIP hardware
 
 A job scheduler with automatic retries provides an elegant solution. It attempts to program the hardware and, if it fails because the device is offline, it automatically retries later until the job succeeds.
 
-➡️ Read the story: [JobRunr Pro Streamlines VoIP Deployment for Telecom Solution Providers]({{< ref "use-case/jobrunr-pro-hardware-programming.md" >}})
+➡️ Read the story: [How to Program VoIP Hardware That Isn't Online Yet]({{< ref "use-case/jobrunr-pro-hardware-programming.md" >}})
 {{< /image-text-left >}}
 
 

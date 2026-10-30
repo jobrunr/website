@@ -1,20 +1,14 @@
 ---
-title: "How Juvare Optimizes Emergency Management with JobRunr Pro"
+title: "From 20 Minutes to Seconds: How Juvare Speeds Up Emergency Notifications"
 author: "Nicholas D'hondt"
 images:
-  - /use-case/jobrunr-pro-juvare.webp
-image: /use-case/jobrunr-pro-juvare.webp
+  - /use-case/case-study-juvare.webp
+image: /use-case/case-study-juvare.webp
 summary: "In high-pressure emergency management scenarios, Juvare’s software ensures readiness and rapid response. By implementing JobRunr Pro, Juvare streamlined task handling, delivering instant notifications and scaling effortlessly to handle hundreds of thousands of tasks daily."
 date: 2024-12-16T11:12:23+02:00
 tags:
   - use-case
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
-## How Juvare Optimizes Emergency Management with JobRunr Pro
-
 When managing public health and emergency preparedness, every second counts. Juvare, a leader in emergency management software, ensures that hospitals, governments, and first responders have the tools they need when it matters most. To maintain seamless operations in high-pressure scenarios, Juvare strategically implemented <a href="/en/pricing">JobRunr Pro</a>—a solution that has become an invaluable resource for their developers, streamlining workloads and enhancing efficiency.
 
 ## The Opportunity for Growth

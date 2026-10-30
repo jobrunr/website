@@ -1,9 +1,9 @@
 ---
-title: "Job Scheduling at Scale: How Prophia’s Team Runs Thousands of Jobs Reliably"
+title: "From Vanishing Cron Jobs to 25,000 Leases Processed Every Night"
 author: "Nicholas D'hondt"
 images:
-  - /use-case/jobrunr-pro-prophia.webp
-image: /use-case/jobrunr-pro-prophia.webp
+  - /use-case/case-study-prophia.webp
+image: /use-case/case-study-prophia.webp
 summary: "Prophia processes thousands of commercial leases every night, requiring speed, scale, and reliability.
 By switching to JobRunr Pro, they simplified job scheduling and cut cloud costs.
 Now their developers focus on features, not firefighting failing tasks."

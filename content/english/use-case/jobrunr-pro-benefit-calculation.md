@@ -1,16 +1,12 @@
 ---
-title: "Efficient Calculation of Extra Legal Benefits for Construction Workers with JobRunr Pro"
+title: "How to Calculate Benefits for Every Construction Worker Across Multiple Servers"
 author: "Ronald Dehuysser"
-image: /use-case/jobrunr-pro-construction-worker.jpg
+image: /use-case/case-study-benefits.webp
 summary: "Social Security Funds are responsible for calculating and disbursing extra legal benefits for construction workers, taking into account a lot of data. With JobRunr Pro's distributed nature and workflow feature, a Social Security Fund has significantly sped up the process, resulting in accurate and efficient calculations, document generation, and reporting."
 date: 2021-08-10T11:12:23+02:00
 tags:
   - use-case
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
 ## Introduction:
 Social Security Funds are responsible for calculating and disbursing extra legal benefits for construction workers, taking into account various factors such as the weather, age, sick days, and holidays. The calculations were previously time-consuming, but with JobRunr Pro's distributed nature and workflow feature, a Social Security Fund in Belgium has significantly sped up the process, resulting in accurate and efficient calculations, document generation, and reporting.
 

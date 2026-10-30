@@ -1,16 +1,12 @@
 ---
-title: "Global inventory at Scale - How Decathlon manages stock worldwide using JobRunr"
+title: "From 50 Million Daily Scans to Accurate Stock: How Decathlon Syncs Inventory Across 1,700 Stores"
 author: "Ronald Dehuysser"
-image: /use-case/jobrunr-pro-decathlon.jpg
+image: /use-case/case-study-decathlon.webp
 summary: "In the dynamic retail sector, aligning physical and digital inventories is challenging, especially for Decathlon, which runs 1700 stores and handles millions of scans daily. Reliable, robust technology is crucial for managing this vast data. JobRunr stands out as the ideal tool, efficiently streamlining background task management."
 date: 2024-03-10T11:12:23+02:00
 tags:
   - use-case
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
 In the fast-paced world of retail, synchronizing physical inventory with digital stock records presents a colossal challenge, particularly for a global giant like Decathlon. With 1700 stores worldwide and the daunting task of managing daily scans in the millions, the need for robust, reliable technology to handle such vast data is critical. This is where JobRunr proves to be not just a solution, but a revolution in managing background jobs in the Java ecosystem.
 
 ## Why JobRunr?

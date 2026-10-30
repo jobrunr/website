@@ -1,16 +1,12 @@
 ---
-title: "Leveraging JobRunr Pro for Efficient Medical Image Analysis in Med-Tech"
+title: "From Bottleneck to 10x Throughput: Medical Image Analysis That Keeps Patient Data In-House"
 author: "Ronald Dehuysser"
-image: /use-case/jobrunr-pro-healthcare.jpg
+image: /use-case/case-study-medtech.webp
 summary: "Medical image analysis plays a critical role in the diagnosis, monitoring, and treatment of various diseases. By implementing JobRunr Pro, a powerful background job SDK, to manage and distribute the medical image analysis over multiple servers, a med-tech company has increased throughput by a whopping 1000% while ensuring data privacy."
 date: 2022-03-10T11:12:23+02:00
 tags:
   - use-case
 ---
-<div style="text-align: center;margin: -2em 0 2em;">
-<small style="font-size: 70%;"><a href='https://www.freepik.com/vectors/cartoon-astronaut'>Cartoon astronaut vector created by catalyststuff - www.freepik.com</a></small>
-</div>
-
 ## Introduction
 Medical image analysis plays a critical role in the diagnosis, monitoring, and treatment of various diseases. With the rapid growth of medical imaging data, the need for efficient and secure processing has become paramount. In this article, we will explore how a med-tech company successfully implemented JobRunr Pro, a powerful background job library, to manage its medical image analysis process. We will discuss how the SDK allowed for secure grouping, batch processing, and monitoring of sensitive image data, while ensuring data privacy.
 
