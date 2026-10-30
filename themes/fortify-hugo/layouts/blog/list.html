@@ -1,6 +1,19 @@
 {{ define "main" }}
-  {{/* Paginate all regular pages */}}
-  {{ $paginator := .Paginate .RegularPages }}
+  {{/* Paginate all regular pages, newest first. A post with `sort_by_lastmod: true`
+    in its front matter is sorted by its lastmod instead of its date. */}}
+  {{ $items := slice }}
+  {{ range .RegularPages }}
+    {{ $sortDate := .Date }}
+    {{ if and .Params.sort_by_lastmod (gt .Lastmod .Date) }}
+      {{ $sortDate = .Lastmod }}
+    {{ end }}
+    {{ $items = $items | append (dict "sortKey" $sortDate.Unix "page" .) }}
+  {{ end }}
+  {{ $pages := slice }}
+  {{ range sort $items "sortKey" "desc" }}
+    {{ $pages = $pages | append .page }}
+  {{ end }}
+  {{ $paginator := .Paginate $pages }}
 
   <section class="section overflow-hidden">
     <div class="container">
