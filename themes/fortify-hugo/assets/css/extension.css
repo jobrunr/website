@@ -221,8 +221,10 @@ aside:has(> .toc #TableOfContents:empty) {
   @apply mt-0.5 ml-3;
 }
 
+/* Inherit the TOC's text-sm instead of the article's prose-li:text-lg */
 .toc-content li {
   @apply mb-0;
+  font-size: inherit;
 }
 
 .toc-content a {

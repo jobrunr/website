@@ -45,7 +45,7 @@
 }
 
 .docs-content li {
-  @apply mb-2;
+  @apply text-base mb-2;
 }
 
 .docs-content pre {

@@ -165,7 +165,7 @@
   @apply prose-blockquote:px-4 prose-blockquote:py-3 prose-blockquote:my-5 prose-blockquote:text-base prose-blockquote:not-italic prose-blockquote:text-text prose-blockquote:font-normal;
   @apply prose-strong:text-text-dark;
   @apply prose-a:text-primary prose-a:underline hover:prose-a:text-primary;
-  @apply prose-li:text-text;
+  @apply prose-li:text-lg prose-li:text-text;
   @apply prose-table:relative prose-table:block prose-table:overflow-auto prose-table:whitespace-nowrap;
   @apply prose-thead:border-border prose-thead:bg-light;
   @apply prose-th:relative prose-th:z-10 prose-th:px-4 prose-th:py-[18px] prose-th:text-text-dark;
