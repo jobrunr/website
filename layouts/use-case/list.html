@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{/* Project override of the theme's use-case list: one long list, no pagination */}}
+  {{/* Project override of the theme's use-case list: one long list, no pagination, no dates (use cases are timeless) */}}
 
   <section class="section overflow-hidden">
     <div class="container">
@@ -33,7 +33,7 @@
           <div class="row gx-4 gy-5 justify-start md:gx-5">
             {{ range .RegularPages }}
               <div class="md:col-6 xl:col-4">
-                {{ partial "components/blog-card" (dict "Context" .) }}
+                {{ partial "components/blog-card" (dict "Context" . "HideDate" true) }}
               </div>
             {{ end }}
           </div>

@@ -15,12 +15,6 @@
                 {{ .Params.author | markdownify }}
               </span>
             </li>
-            <li class="flex items-center gap-x-2">
-              <i class="fa-solid fa-calendar-days w-5 text-tertiary"></i>
-              <p class="inline-block font-medium text-tertiary">
-                {{ time.Format ":date_long" .PublishDate }}
-              </p>
-            </li>
           </ul>
         </div>
         <div

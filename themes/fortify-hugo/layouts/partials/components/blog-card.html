@@ -1,5 +1,6 @@
 {{ $context := .Context }}
 {{ $isBlogSingle := .IsBlogSingle }}
+{{ $hideDate := .HideDate }}
 
 {{ with $context }}
   <div class="bg-body">
@@ -24,6 +25,7 @@
         <a href="{{ .RelPermalink }}">{{ partial "image" (dict "Src" .Params.image "Alt" "blog image" "Class" "w-full aspect-[16/9] mb-6 rounded-3xl object-cover") }}</a>
       </div>
     {{ end }}
+    {{ if not $hideDate }}
     <div class="mb-4 flex items-center gap-x-2">
       {{ if and .Params.sort_by_lastmod (gt (.Lastmod.Format "2006-01-02") (.PublishDate.Format "2006-01-02")) }}
         <i class="fa-solid fa-rotate w-5 text-tertiary"></i>
@@ -37,6 +39,7 @@
         </p>
       {{ end }}
     </div>
+    {{ end }}
     <h3 class="h5 mb-3">
       <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
     </h3>
