@@ -17,7 +17,7 @@ sessions:
   - start: 2026-11-19T12:30:00+01:00
     end: 2026-11-19T13:30:00+01:00
     tz: "CET"
-    meet_url: ""
+    meet_url: "https://meet.google.com/svy-ituf-rry"
 
 trainers:
   - name: "Ronald Dehuysser"
@@ -43,19 +43,19 @@ agenda:
     text: "Ten minutes. Anything you asked on the registration form gets answered here if it did not come up earlier."
 
 prerequisites:
-  - "The starter project for your framework: Spring Boot, Quarkus or Micronaut. The link is in your confirmation email. It already runs JobRunr with the dashboard on port 8000, so you skip the setup and start where the session starts."
+  - "JobRunr running in a project of your own, set up with the configuration guide for your framework (Spring Boot, Quarkus or Micronaut). The link is in your confirmation email. Once the dashboard opens on port 8000 you start where the session starts."
   - "Your IDE open, so you can try things during the session."
   - "One real background task from your own codebase in mind. If it runs on another scheduler today, even better. We will use it in the Q&A."
 
 takeaways:
   - "The production checklist as a document you can hand to your team"
-  - "The starter project and the code from the session, in a public repository"
+  - "The code from the session, in a public repository"
   - "The recording, the next day"
   - "A free Architecture Review of one of your own job designs, if you want it"
 
 form:
   title: "Register for JobRunr Foundations"
-  intro: "Free. The link arrives by email the day before the session."
+  intro: "Free. Your calendar invite with the join link arrives right after you register."
   button: "Register"
   note: "We use your answers to prepare the session and to send you the link and the recording. Nothing else. See our [privacy policy](/en/privacy/)."
 ---

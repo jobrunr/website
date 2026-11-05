@@ -59,7 +59,7 @@ takeaways:
 
 form:
   title: "Register for this training"
-  intro: "Free. The link arrives by email the day before the session."
+  intro: "Free. Your calendar invite with the join link arrives right after you register."
   button: "Register"
   note: "We use your answers to prepare the session and to send you the link and the recording. Nothing else. See our [privacy policy](/en/privacy/)."
 ---
