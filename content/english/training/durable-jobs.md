@@ -11,10 +11,13 @@ duration: "60 minutes, live"
 audience: "Developers who own jobs that call payment providers, send emails, move money or talk to anything that cannot be undone. Architects who have to sign off on how a retry behaves."
 assumes: "You run JobRunr in at least one application, or you attended Foundations."
 
+# meet_url: the Google Meet link for that session. Only used by the join page
+# (/en/training/join/<slug>/), which redirects there from 15 minutes before the start.
 sessions:
   - start: 2027-01-28T12:30:00+01:00
     end: 2027-01-28T13:30:00+01:00
     tz: "CET"
+    meet_url: ""
 
 trainers:
   - name: "Ronald Dehuysser"

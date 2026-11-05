@@ -28,10 +28,6 @@
           <div id="reg-session" class="hidden mb-6 rounded-xl bg-white border border-border p-5 text-center">
             <p class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-1">Your session</p>
             <p class="text-lg font-medium text-text-dark"><span id="reg-session-label"></span><span id="reg-session-local" class="text-sm opacity-70"></span></p>
-            <div class="mt-4 flex flex-wrap justify-center gap-3">
-              <a id="reg-ics" class="btn btn-primary btn-even-padding" href="#" download>{{ .Params.calendar_label }}</a>
-              <a id="reg-gcal" class="btn btn-outline-primary btn-even-padding" href="#" target="_blank" rel="noopener">Google Calendar</a>
-            </div>
           </div>
 
           <p id="reg-body" class="mb-8 text-lg">{{ .Params.body | markdownify }}</p>
@@ -92,7 +88,6 @@
 
     document.getElementById('reg-session-label').textContent = session.label;
     var startDate = new Date(session.start);
-    var endDate = new Date(session.end);
     try {
       var zone = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
       if (zone && zone !== 'Europe/Brussels') {
@@ -101,36 +96,6 @@
         }) + ' your time)';
       }
     } catch (e) {}
-
-    function utc(d) {
-      return d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-    }
-    var summary = 'JobRunr training: ' + training.title;
-    var description = 'Free live JobRunr training. The link to the private session arrives by email the day before and one hour before the start. ' + training.url;
-    var ics = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//JobRunr//Trainings//EN',
-      'BEGIN:VEVENT',
-      'UID:training-' + training.slug + '-' + utc(startDate) + '@jobrunr.io',
-      'DTSTAMP:' + utc(new Date()),
-      'DTSTART:' + utc(startDate),
-      'DTEND:' + utc(endDate),
-      'SUMMARY:' + summary,
-      'DESCRIPTION:' + description.replace(/,/g, '\\,'),
-      'URL:' + training.url,
-      'END:VEVENT',
-      'END:VCALENDAR'
-    ].join('\r\n');
-    var icsLink = document.getElementById('reg-ics');
-    icsLink.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
-    icsLink.setAttribute('download', 'jobrunr-training-' + training.slug + '.ics');
-
-    var gcal = 'https://calendar.google.com/calendar/render?action=TEMPLATE'
-      + '&text=' + encodeURIComponent(summary)
-      + '&dates=' + utc(startDate) + '/' + utc(endDate)
-      + '&details=' + encodeURIComponent(description);
-    document.getElementById('reg-gcal').href = gcal;
 
     document.getElementById('reg-session').classList.remove('hidden');
   })();

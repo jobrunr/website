@@ -11,10 +11,13 @@ duration: "60 minutes, live"
 audience: "Teams whose job volume is growing faster than their servers. Architects who have been asked 'can it handle ten times this?' and want a real answer before the next seasonal peak, the month-end run or the next big customer."
 assumes: "You run JobRunr in at least one application, or you attended Foundations."
 
+# meet_url: the Google Meet link for that session. Only used by the join page
+# (/en/training/join/<slug>/), which redirects there from 15 minutes before the start.
 sessions:
   - start: 2027-01-14T12:30:00+01:00
     end: 2027-01-14T13:30:00+01:00
     tz: "CET"
+    meet_url: ""
 
 trainers:
   - name: "Ronald Dehuysser"

@@ -11,10 +11,13 @@ duration: "60 minutes, live"
 audience: "Java developers evaluating JobRunr or running JobRunr OSS in a first application. Team leads who need to decide whether JobRunr becomes the standard for background work."
 assumes: "Java and your build tool of choice. No JobRunr knowledge needed."
 
+# meet_url: the Google Meet link for that session. Only used by the join page
+# (/en/training/join/<slug>/), which redirects there from 15 minutes before the start.
 sessions:
   - start: 2026-11-19T12:30:00+01:00
     end: 2026-11-19T13:30:00+01:00
     tz: "CET"
+    meet_url: ""
 
 trainers:
   - name: "Ronald Dehuysser"

@@ -1,0 +1,118 @@
+{{ define "main" }}
+{{/*  The join link from the calendar invite: /en/training/join/<slug>/.
+      Every session of the training is rendered (hidden); the script below picks the current one,
+      i.e. the first session whose end + 30 minutes still lies in the future, and shows one of three states:
+        1. waiting:  more than 15 minutes before the start, countdown + times
+        2. live:     15 minutes before the start until 30 minutes after the end, redirect to `meet_url`
+        3. ended:    no current session left
+      The Meet link lives in the `meet_url` of the session in the training's own front matter
+      (content/english/training/<slug>.md). It is decided in the browser because the site only
+      rebuilds on deploy.  */}}
+{{ $training := site.GetPage (printf "training/%s" .Params.join) }}
+{{ $sessions := slice }}
+{{ range $training.Params.sessions }}
+  {{ $sessions = $sessions | append (dict "start" ((time .start).Format "2006-01-02T15:04:05Z07:00") "end" ((time .end).Format "2006-01-02T15:04:05Z07:00") "tz" .tz "meet_url" (.meet_url | default "")) }}
+{{ end }}
+
+<script>document.head.querySelector('meta[name="robots"]') || document.head.insertAdjacentHTML('beforeend', '<meta name="robots" content="noindex, nofollow">');</script>
+
+<section class="section">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-7" data-aos="fade-up-sm">
+        <div class="rounded-2xl bg-light p-8 md:p-12 text-center">
+          <p class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-2">Free live training</p>
+          <h1 class="h3 mb-6">{{ $training.Title }}</h1>
+
+          {{ range $sessions }}
+            <div data-join-session="{{ .start }}" class="hidden mb-6 rounded-xl bg-white border border-border p-5">
+              <p class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-1">Your session</p>
+              <p class="text-lg font-medium text-text-dark">
+                {{ partial "training/session-time.html" (dict "start" .start "tz" .tz "strip" true) }}
+              </p>
+            </div>
+          {{ end }}
+
+          <!-- State 1: waiting -->
+          <div id="join-waiting" class="hidden">
+            <p class="text-sm font-semibold uppercase tracking-wider text-gray-500 mb-1">Starts in</p>
+            <p id="join-countdown" class="h2 mb-6 text-text-dark" aria-live="polite"></p>
+            <p class="text-lg">This page takes you into the live session 15 minutes before the start. Keep the link from your calendar invite.</p>
+          </div>
+
+          <!-- State 2: live -->
+          <div id="join-live" class="hidden">
+            <p class="text-lg font-medium text-text-dark mb-6">We are live. Taking you into the session now.</p>
+            <a id="join-button" class="btn btn-primary btn-even-padding" href="#">Join the live session</a>
+          </div>
+          <div id="join-pending" class="hidden">
+            <p class="text-lg">The link appears here in a moment, refresh this page.</p>
+          </div>
+
+          <!-- State 3: ended -->
+          <div id="join-ended" class="hidden">
+            <p class="text-lg mb-6">This session has ended. The recording follows by email.</p>
+            <div class="flex flex-wrap justify-center gap-3">
+              <a class="btn btn-primary btn-even-padding" href="{{ "training/architecture-review/" | relLangURL }}">Book an Architecture Review</a>
+              <a class="btn btn-outline-primary btn-even-padding" href="{{ "training/" | relLangURL }}">See all trainings</a>
+            </div>
+          </div>
+
+          <noscript><p class="text-lg">This page needs JavaScript to take you into the live session.</p></noscript>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ partial "training/local-time.html" . }}
+
+<script>
+  (function () {
+    var SESSIONS = {{ $sessions | jsonify | safeJS }};
+    var BEFORE_MS = 15 * 60 * 1000;
+    var AFTER_MS = 30 * 60 * 1000;
+
+    function show(id) { document.getElementById(id).classList.remove('hidden'); }
+
+    var now = Date.now();
+    var session = null;
+    for (var i = 0; i < SESSIONS.length; i++) {
+      if (new Date(SESSIONS[i].end).getTime() + AFTER_MS > now) { session = SESSIONS[i]; break; }
+    }
+    if (!session) { show('join-ended'); return; }
+
+    var start = new Date(session.start).getTime();
+    var card = document.querySelector('[data-join-session="' + session.start + '"]');
+    if (card) card.classList.remove('hidden');
+
+    if (now >= start - BEFORE_MS) {
+      if (session.meet_url) {
+        document.getElementById('join-button').href = session.meet_url;
+        show('join-live');
+        location.replace(session.meet_url);
+      } else {
+        show('join-pending');
+        setTimeout(function () { location.reload(); }, 30 * 1000);
+      }
+      return;
+    }
+
+    show('join-waiting');
+    var countdown = document.getElementById('join-countdown');
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+    function tick() {
+      var left = start - BEFORE_MS - Date.now();
+      if (left <= 0) { location.reload(); return; }
+      // Count down to the start, not to the moment the page opens the session.
+      var s = Math.max(0, Math.floor((start - Date.now()) / 1000));
+      var d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600), m = Math.floor(s % 3600 / 60), sec = s % 60;
+      countdown.textContent = d > 0
+        ? d + (d === 1 ? ' day ' : ' days ') + h + ' h ' + pad(m) + ' min'
+        : (h > 0 ? h + ' h ' : '') + pad(m) + ' min ' + pad(sec) + ' s';
+    }
+    tick();
+    setInterval(tick, 1000);
+  })();
+</script>
+{{ end }}

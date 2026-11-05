@@ -13,9 +13,8 @@ build:
   list: never
   render: always
 
-body: "The link to the live session arrives by email the day before, and again one hour before we start. The recording follows the day after."
-fallback_body: "Thanks for registering. The link to the live session arrives by email the day before, and again one hour before we start."
-calendar_label: "Add to your calendar"
+body: "A calendar invite for this session is on its way to your inbox. It holds the link to join, and we send a reminder the day before and one hour before we start. The recording follows the day after."
+fallback_body: "Thanks for registering. A calendar invite is on its way to your inbox. It holds the link to join, and we send a reminder the day before and one hour before we start."
 checklist_title: "Before the session"
 next_title: "What happens after"
 next_text: "In the last five minutes of the training we open the booking for the Architecture Review: thirty minutes with us on one real job design of yours, followed by a written recommendation. The booking link is also in the email with the recording."
