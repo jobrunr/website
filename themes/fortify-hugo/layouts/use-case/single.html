@@ -7,15 +7,8 @@
           class="text-center lg:col-9"
           data-aos="fade-up-sm">
           <h1 class="h2 mb-4">{{ .Title | markdownify }}</h1>
-          <p class="mb-6 text-lg">{{ .Params.description | markdownify }}</p>
-          <ul class="mb-4 flex items-center justify-center gap-4">
-            <li class="text-lg ">
-              <span class="flex flex-wrap gap-2 font-medium">
-                {{ partial "image" (dict "Src" .Params.author_image "Alt" .Params.author_name "Class" "h-8 w-8") }}
-                {{ .Params.author | markdownify }}
-              </span>
-            </li>
-          </ul>
+          {{ with .Params.description }}<p class="mb-6 text-lg">{{ . | markdownify }}</p>{{ end }}
+          {{/* Author is deliberately not shown on use cases. */}}
         </div>
         <div
           class="col-12 pt-8"
@@ -31,7 +24,7 @@
           </div>
         </div>
         <article class="lg:col-8" data-aos="fade-up-sm">
-          <div class="content">
+          <div class="content wrap-tables">
             {{ .Content }}
           </div>
           <!-- comments -->
