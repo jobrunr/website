@@ -17,13 +17,15 @@ Sometimes the sentence sounds different. "I need a scheduling engine inside my p
 
 ## Why it is hard
 
-A scheduled thread pool in the JVM works for ten fixed tasks. So does `@Scheduled` in Spring. Both stop working for this problem, for the same reasons:
+A scheduled thread pool in the JVM works well for tasks you know when you write the code. So does `@Scheduled` in Spring. The number of tasks is not the limit. Both stop working when the schedules belong to your customers, each in its own way:
 
-- The schedules live in the code. A customer cannot add one at runtime.
-- The schedules live in memory. When the server dies, they are gone, and every customer has to register theirs again. Nobody notices until the fridges were not defrosted.
-- A scheduled thread pool only knows fixed rates and delays. It has no cron expressions.
+- A scheduled thread pool accepts new tasks at runtime, but it only knows fixed rates and delays. It has no cron expressions and no time zones, so "every day at 9 for a customer in Sydney" is math you write yourself, and daylight saving time breaks it twice a year.
+- `@Scheduled` does support cron expressions and a time zone, but both are written on an annotation in your code. A customer cannot add a schedule at runtime. You can register tasks programmatically with Spring's `TaskScheduler`, and then you are back to keeping the schedules yourself.
+
+The rest they share:
+
+- The schedules live in memory. When the server dies, they are gone, and something has to register them again. Nobody notices until the fridges were not defrosted.
 - Every instance runs every schedule. With three instances, the customer gets three text messages.
-- Time zones and daylight saving time turn "every day at 9" into a support ticket twice a year.
 
 ## What goes wrong when you build it yourself
 
@@ -39,9 +41,9 @@ If you need more than a scheduled thread pool, use a library that already handle
 2. **The master plans.** The longest-running instance is elected master automatically. On every poll interval it looks up the schedules that are due and creates one normal job per run.
 3. **Every instance works.** All instances, the master included, claim jobs and run your code. A job is claimed by exactly one worker, so a run never happens twice at the same time.
 
-Every instance writes a heartbeat every 15 seconds. When the master stops, the next longest-running instance takes over the planning. You do not configure this, and no extra coordination service is involved. The database is the only shared component.
+Every instance writes a heartbeat, every 15 seconds by default. When the master stops, the next longest-running instance takes over the planning. You do not set up the election or the failover, and no extra coordination service is involved. The database is the only shared component.
 
-When a customer changes a schedule, the master notices on its next poll, removes the run it had already planned and plans the new one.
+When a customer changes or deletes a schedule, the run that was already planned is the part to watch. JobRunr Pro detects the change, removes that run and plans the new one. JobRunr OSS makes no promise here: the planned run stays where it is, so a change may not apply right away. A schedule that goes from monthly to hourly can keep waiting for the monthly run that was already planned. In OSS, the most predictable way to change a schedule is to delete it and create it again under a new id. The run that was already planned for the old one is [yours to clean up]({{< ref "documentation/background-methods/recurring-jobs.md#deleting-recurring-jobs" >}}), through the `StorageProvider` or the dashboard.
 
 ```java
 public void saveSchedule(String customerId, String cron, ZoneId zone) {
@@ -62,7 +64,8 @@ Because every run is a normal job, it gets the rest for free: retries, a history
 
 | You need | JobRunr OSS | JobRunr Pro |
 |---|---|---|
-| Schedules created, changed and deleted at runtime | Yes | Yes |
+| Schedules created at runtime | Yes | Yes |
+| Schedules changed and deleted at runtime | Yes, but a change may not apply right away. Delete the schedule and create it again, and clean up the run that was already planned | Yes, the change is detected and the planned run is replaced |
 | One instance plans, all instances work, automatic takeover | Yes | Yes |
 | No overlapping runs of the same schedule | Yes | Yes |
 | Dashboard with every schedule and every run | Yes | Yes |
@@ -85,7 +88,7 @@ Because every run is a normal job, it gets the rest for free: retries, a history
 
 **How do workers avoid running the same job twice?** A worker claims a job by updating it in the database. On PostgreSQL, MySQL and MariaDB that claim uses `SELECT ... FOR UPDATE SKIP LOCKED`, so workers do not wait on each other. On other databases it falls back to optimistic locking.
 
-**Does this scale to a million schedules?** The limit is the memory of the master, because it loads the schedules that are due. So it depends on how many are due at the same moment, much more than on how many exist. We tested one million recurring jobs with the same schedule on a single machine. If a million things really have to happen at the same second, use one schedule that fans out into a batch of jobs.
+**Does this scale to a million schedules?** The limit is the memory of the master, because it loads the schedules that are due. So it depends on how many are due at the same moment, much more than on how many exist. We tested one million recurring jobs with the same schedule on a single machine. Alternatively, if a million things really have to happen at the same second, use one recurring job that create a job for each task.
 
 **What if a run is still busy when a server dies?** While a job runs, its worker keeps updating it in the database. When the updates stop, the master marks the job as orphaned and another instance picks it up.
 
