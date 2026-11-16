@@ -1,0 +1,22 @@
+{{ define "main" }}
+  {{/* Tool pages: compact header so the tool itself sits above the fold. */}}
+  <section>
+    <div class="container text-center" data-aos="fade-up-sm">
+      <div class="rounded-2xl px-8 pt-6">
+        <h1 class="h2 md:h1 mb-0">{{ .Title | markdownify }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="pt-6 pb-10 md:pb-14">
+    <div class="container">
+      <div class="row justify-center">
+        <div class="lg:col-10">
+          <div class="content">
+            {{ .Content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}

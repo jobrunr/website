@@ -1,7 +1,7 @@
 ---
 title: "Cron Expression Generator for Java"
-description: "Build and validate cron expressions for JobRunr, Quartz, and Spring. See next execution times instantly. Free online tool."
-keywords: ["cron expression generator", "cron builder", "java cron expression", "crontab generator", "quartz cron expression", "spring cron expression"]
+description: "Build and validate cron expressions for JobRunr, Quartz, and Spring, or convert a Quartz cron expression to a JobRunr cron. See next execution times instantly. Free online tool."
+keywords: ["cron expression generator", "cron builder", "java cron expression", "crontab generator", "quartz cron expression", "spring cron expression", "quartz cron converter", "convert quartz cron", "quartz to jobrunr cron"]
 image: /blog/thumb-cron-generator.jpg
 skip_meta: true
 ---
@@ -173,9 +173,238 @@ skip_meta: true
     margin-top: 0.5rem;
     text-align: center;
 }
+.quartz-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid #d9cdfb;
+    border-radius: 12px;
+    background: #f5f1ff;
+    color: #24292f;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.quartz-banner:hover {
+    border-color: #7c4ddb;
+    background: #efe8ff;
+}
+.quartz-banner-cta {
+    color: #6b3fd4;
+    font-weight: 600;
+    white-space: nowrap;
+}
+.quartz-panel {
+    border: 1px solid #d9cdfb;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: #fff;
+}
+.quartz-panel[hidden] {
+    display: none;
+}
+.quartz-panel h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.5rem;
+}
+.quartz-panel p {
+    margin: 0 0 1rem 0;
+    color: #57606a;
+    font-size: 0.95rem;
+}
+.quartz-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0.75rem;
+    align-items: end;
+}
+.quartz-grid label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #57606a;
+    margin-bottom: 0.35rem;
+}
+.quartz-arrow {
+    font-size: 1.5rem;
+    color: #7c4ddb;
+    padding-bottom: 0.6rem;
+}
+.quartz-input,
+.quartz-output {
+    width: 100%;
+    font-size: 1.15rem;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    text-align: center;
+    padding: 0.75rem;
+    border: 2px solid #4a5568;
+    border-radius: 8px;
+    background: #0d1117;
+    color: #58a6ff;
+    height: 3.25rem;
+    line-height: 1.2;
+    box-sizing: border-box;
+}
+.quartz-input:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.3);
+}
+.quartz-output {
+    color: #7ee787;
+    white-space: nowrap;
+    overflow-x: auto;
+}
+.quartz-examples {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: #57606a;
+}
+.quartz-example {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid #d0d7de;
+    border-radius: 999px;
+    background: #fff;
+    color: #24292f;
+    cursor: pointer;
+}
+.quartz-example:hover {
+    border-color: #7c4ddb;
+}
+.quartz-tier {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.quartz-tier.oss {
+    background: #dafbe1;
+    color: #116329;
+}
+.quartz-tier.pro {
+    background: #ede5ff;
+    color: #5a32b8;
+}
+.quartz-tier.error {
+    background: #ffebe9;
+    color: #b42318;
+}
+.quartz-notes {
+    list-style: none;
+    padding: 0;
+    margin: 0.75rem 0 0 0;
+}
+.quartz-notes li {
+    padding: 0.5rem 0 0.5rem 0.9rem;
+    margin: 0 0 0.4rem 0;
+    border-left: 3px solid #d0d7de;
+    font-size: 0.9rem;
+    color: #24292f;
+}
+.quartz-notes li.pro {
+    border-left-color: #7c4ddb;
+}
+.quartz-notes li.warn {
+    border-left-color: #d4a72c;
+    background: #fff8c5;
+}
+.quartz-notes li.error {
+    border-left-color: #f85149;
+    background: #ffebe9;
+}
+.quartz-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+.quartz-actions .copy-btn {
+    margin-top: 0.5rem;
+}
+.quartz-secondary-btn {
+    padding: 0.5rem 1rem;
+    margin-top: 0.5rem;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    background: #fff;
+    color: #24292f;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.quartz-secondary-btn:hover {
+    border-color: #7c4ddb;
+}
+.quartz-secondary-btn[hidden] {
+    display: none;
+}
+.quartz-guide {
+    margin: 1rem 0 0 0 !important;
+    font-size: 0.85rem !important;
+}
+@media (max-width: 700px) {
+    .quartz-grid {
+        grid-template-columns: 1fr;
+    }
+    .quartz-arrow {
+        display: none;
+    }
+    .cron-input {
+        font-size: 1.4rem;
+    }
+}
 </style>
 
 <div class="cron-tool">
+    <button type="button" class="quartz-banner" id="quartzToggle" aria-expanded="false" aria-controls="quartz-converter" onclick="toggleQuartzConverter()">
+        <span>Looking to convert a Quartz cron to a JobRunr cron?</span>
+        <span class="quartz-banner-cta" id="quartzToggleCta">Convert it here &rarr;</span>
+    </button>
+    <div class="quartz-panel" id="quartz-converter" hidden>
+        <h3>Quartz to JobRunr cron converter</h3>
+        <p>Paste a Quartz cron expression. You get the JobRunr cron, what changed, and whether it runs on JobRunr OSS or needs the advanced cron expressions of JobRunr Pro.</p>
+        <div class="quartz-grid">
+            <div>
+                <label for="quartzInput">Quartz cron</label>
+                <input type="text" id="quartzInput" class="quartz-input" value="0 0 9 ? * 2-6" placeholder="0 0 9 ? * 2-6" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="quartz-arrow" aria-hidden="true">&rarr;</div>
+            <div>
+                <label for="quartzOutput">JobRunr cron</label>
+                <output id="quartzOutput" class="quartz-output" for="quartzInput" style="display:block"></output>
+            </div>
+        </div>
+        <div class="quartz-examples">
+            <span>Try:</span>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('0 0 9 ? * 2-6')">0 0 9 ? * 2-6</button>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('0 0/15 * * * ?')">0 0/15 * * * ?</button>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('30 0 2 1 * ? *')">30 0 2 1 * ? *</button>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('0 0 0 L * ?')">0 0 0 L * ?</button>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('0 0 10 ? * 6#3')">0 0 10 ? * 6#3</button>
+            <button type="button" class="quartz-example" onclick="setQuartzExample('0 30 8 15W * ?')">0 30 8 15W * ?</button>
+        </div>
+        <div><span class="quartz-tier" id="quartzTier"></span></div>
+        <ul class="quartz-notes" id="quartzNotes"></ul>
+        <div class="quartz-actions">
+            <button type="button" class="copy-btn" id="quartzCopy" onclick="copyQuartzResult()">Copy JobRunr cron</button>
+            <button type="button" class="quartz-secondary-btn" id="quartzUse" onclick="useQuartzResult()" hidden>See the next runs in the generator</button>
+        </div>
+        <p class="quartz-guide">Moving the whole scheduler and not just one expression? Read <a href="/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/">how to move from Quartz to JobRunr</a>.</p>
+    </div>
     <div class="cron-input-container">
         <input type="text" id="cronInput" class="cron-input" value="0 9 * * *" placeholder="* * * * *" autocomplete="off" spellcheck="false">
         <div id="cronDescription" class="cron-description">Every day at 9:00 AM</div>
@@ -585,11 +814,7 @@ function updateDisplay() {
         // Update code examples
         document.getElementById('code-cron-1').textContent = expr;
         document.getElementById('code-cron-2').textContent = '0 ' + expr; // Spring adds seconds
-        document.getElementById('code-cron-3').textContent = '0 ' + expr.replace(/\*(?=\s|$)/g, (m, i) => {
-            // Replace * with ? for day of month or day of week in Quartz
-            const fieldIndex = expr.substring(0, expr.indexOf(m)).split(/\s+/).length;
-            return (fieldIndex === 2 || fieldIndex === 4) ? '?' : '*';
-        });
+        document.getElementById('code-cron-3').textContent = toQuartzCron(cron);
         
         // Update Cron helper values
         const h = parseInt(cron.hour) || 0;
@@ -620,7 +845,259 @@ function copyToClipboard() {
     });
 }
 
+// Standard cron to Quartz, for the Quartz code example.
+// Quartz needs ? in one of the day fields and counts weekdays 1-7 from Sunday.
+function toQuartzCron(cron) {
+    let dayOfMonth = cron.dayOfMonth;
+    let dayOfWeek = cron.dayOfWeek;
+    if (dayOfWeek === '*') {
+        dayOfWeek = '?';
+    } else {
+        dayOfWeek = dayOfWeek.replace(/(?<![\/\d])([0-6])(?!\d)/g, d => String(parseInt(d) + 1));
+        if (dayOfMonth === '*') dayOfMonth = '?';
+    }
+    return ['0', cron.minute, cron.hour, dayOfMonth, cron.month, dayOfWeek].join(' ');
+}
+
+// ---- Quartz to JobRunr converter ----
+const DOW_ABBR = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+const MONTH_ABBR = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+const ORDINALS = ['', 'first', 'second', 'third', 'fourth', 'fifth'];
+const ADVANCED_CRON_DOCS = '/en/documentation/background-methods/recurring-jobs/#advanced-cron-expressions';
+const CUSTOM_SCHEDULE_DOCS = '/en/documentation/background-methods/recurring-jobs/#custom-recurring-job-schedules';
+const LIMITED_LIFETIME_DOCS = '/en/documentation/background-methods/recurring-jobs/#recurring-jobs-with-limited-lifetime';
+
+function quartzError(text, link) {
+    const error = new Error(text);
+    error.link = link;
+    return error;
+}
+
+// Quartz accepts ranges that wrap around (FRI-MON, 22-2). JobRunr wants the lower value first.
+function unwrapRanges(field, min, max, names) {
+    const toNumber = v => (names && names.includes(v)) ? names.indexOf(v) + min : (/^\d+$/.test(v) ? parseInt(v) : NaN);
+    return field.split(',').map(part => {
+        const range = part.match(/^([A-Z0-9]+)-([A-Z0-9]+)$/);
+        if (!range) return part;
+        const start = toNumber(range[1]), end = toNumber(range[2]);
+        if (isNaN(start) || isNaN(end) || start <= end) return part;
+        return (start === max ? max : start + '-' + max) + ',' + (end === min ? min : min + '-' + end);
+    }).join(',');
+}
+
+function convertQuartzCron(expr) {
+    const fields = expr.trim().split(/\s+/);
+    if (expr.trim() === '') {
+        throw quartzError('Paste a Quartz cron expression to convert it.');
+    }
+    if (fields.length === 5) {
+        throw quartzError('This has 5 fields, so it is a standard cron expression already. JobRunr takes it as is, and you can check it in the generator below.');
+    }
+    if (fields.length < 6 || fields.length > 7) {
+        throw quartzError('A Quartz cron expression has 6 or 7 fields: second, minute, hour, day of month, month, day of week and an optional year.');
+    }
+    if (!fields.every(f => /^[0-9A-Za-z*?,\-\/#]+$/.test(f))) {
+        throw quartzError('This contains characters that are not valid in a Quartz cron expression.');
+    }
+
+    const notes = [];
+    let pro = false;
+    const year = fields[6];
+    let sec = fields[0], min = fields[1], hour = fields[2], month = fields[4].toUpperCase();
+    let dom = fields[3].toUpperCase();
+    let dow = fields[5].toUpperCase();
+
+    // Day of month
+    const hadQuestionMark = dom === '?' || dow === '?';
+    if (dom === '?') {
+        dom = '*';
+    } else if (dom === 'L') {
+        pro = true;
+        notes.push({ type: 'pro', text: 'L in the day-of-month field (the last day of the month) is a JobRunr Pro advanced cron expression.' });
+    } else if (/^\d+W$/.test(dom)) {
+        pro = true;
+        notes.push({ type: 'pro', text: dom + ' (the weekday nearest to day ' + parseInt(dom) + ') is a JobRunr Pro advanced cron expression.' });
+        if (parseInt(dom) > 28) {
+            notes.push({ type: 'warn', text: 'Not every month has a day ' + parseInt(dom) + '. Quartz skips the months that do not, so test this expression on your JobRunr Pro version before you rely on it.' });
+        }
+    } else if (/[LW]/.test(dom)) {
+        throw quartzError(dom + ' in the day-of-month field has no JobRunr cron equivalent. Use a custom schedule in JobRunr Pro, or schedule the job daily and check the date inside the job.',
+            { label: 'Custom schedules', href: CUSTOM_SCHEDULE_DOCS });
+    }
+
+    // Day of week
+    if (dow === '?') {
+        dow = '*';
+    } else if (dow === 'L') {
+        dow = '6';
+        notes.push({ type: 'change', text: 'A lone L in the Quartz day-of-week field means Saturday, which is 6 in JobRunr.' });
+    } else {
+        const named = dow.match(/^([A-Z]{3})(L|#\d)$/);
+        if (named && DOW_ABBR.includes(named[1])) {
+            dow = DOW_ABBR.indexOf(named[1]) + named[2];
+        } else {
+            const shifted = dow.replace(/(?<![\/#\d])([1-7])(?!\d)/g, d => String(parseInt(d) - 1));
+            if (shifted !== dow) {
+                notes.push({ type: 'change', text: 'Day-of-week numbers moved down by one: ' + dow + ' became ' + shifted + '. Quartz counts 1 to 7 starting on Sunday, JobRunr counts 0 to 6. Copy the numbers unchanged and the job silently runs a day late.' });
+            }
+            const unwrapped = unwrapRanges(shifted, 0, 6, DOW_ABBR);
+            if (unwrapped !== shifted) {
+                notes.push({ type: 'change', text: 'The day-of-week range ' + fields[5].toUpperCase() + ' wraps around the end of the week. JobRunr wants the lower value first, so it became ' + unwrapped + '.' });
+            }
+            dow = unwrapped;
+        }
+        const last = dow.match(/^([0-6])L$/);
+        const nth = dow.match(/^([0-6])#(\d)$/);
+        if (last) {
+            pro = true;
+            notes.push({ type: 'pro', text: dow + ' (the last ' + DAYS[last[1]] + ' of the month) is a JobRunr Pro advanced cron expression.' });
+        } else if (nth && nth[2] >= 1 && nth[2] <= 5) {
+            pro = true;
+            notes.push({ type: 'pro', text: dow + ' (the ' + ORDINALS[nth[2]] + ' ' + DAYS[nth[1]] + ' of the month) is a JobRunr Pro advanced cron expression.' });
+        } else if (/[L#]/.test(dow)) {
+            throw quartzError(fields[5] + ' is not a valid Quartz day-of-week value.');
+        }
+    }
+    // Wrap-around ranges in the other fields
+    const wraps = [];
+    const unwrap = (label, value, min, max, names) => {
+        const unwrapped = unwrapRanges(value, min, max, names);
+        if (unwrapped !== value) wraps.push(label + ' ' + value + ' became ' + unwrapped);
+        return unwrapped;
+    };
+    sec = unwrap('second', sec, 0, 59);
+    min = unwrap('minute', min, 0, 59);
+    hour = unwrap('hour', hour, 0, 23);
+    month = unwrap('month', month, 1, 12, MONTH_ABBR);
+    if (wraps.length) {
+        notes.push({ type: 'change', text: 'A range wraps around, and JobRunr wants the lower value first: ' + wraps.join(', ') + '.' });
+    }
+    if (hadQuestionMark) {
+        notes.unshift({ type: 'change', text: 'Replaced ? with *. JobRunr does not use the ? placeholder.' });
+    }
+    if (dom !== '*' && dow !== '*') {
+        notes.push({ type: 'warn', text: 'Both day fields are set. JobRunr runs the job when either one matches, like Unix cron.' });
+    }
+
+    // Year
+    if (year !== undefined) {
+        if (year === '*' || year === '?') {
+            notes.push({ type: 'change', text: 'Dropped the year field. A JobRunr cron expression has no year.' });
+        } else {
+            notes.push({ type: 'warn', text: 'Dropped the year ' + year + '. A JobRunr cron expression has no year, so this job keeps running every year. Delete the recurring job when it should stop, or give it a limited lifetime in JobRunr Pro.',
+                link: { label: 'Limited lifetime', href: LIMITED_LIFETIME_DOCS } });
+        }
+    }
+
+    // Seconds
+    let result;
+    if (sec === '0') {
+        result = [min, hour, dom, month, dow];
+        notes.push({ type: 'change', text: 'Dropped the seconds field because it is 0. JobRunr reads 5 fields as minute, hour, day, month and weekday.' });
+    } else {
+        result = [sec, min, hour, dom, month, dow];
+        notes.push({ type: 'change', text: 'Kept the seconds field. JobRunr reads 6 fields with the seconds first.' });
+        const step = sec.match(/\/(\d+)$/);
+        if (sec === '*' || (step && parseInt(step[1]) < 5)) {
+            notes.push({ type: 'warn', text: 'This runs more often than every 5 seconds. A JobRunr recurring job needs at least 5 seconds between runs, and ideally more than the poll interval (15 seconds by default).' });
+        }
+    }
+
+    return { cron: result.join(' '), notes, pro };
+}
+
+function renderQuartzNote(note) {
+    const li = document.createElement('li');
+    li.className = note.type;
+    li.textContent = note.text;
+    if (note.link) {
+        const a = document.createElement('a');
+        a.href = note.link.href;
+        a.textContent = note.link.label;
+        li.append(' ', a);
+    }
+    return li;
+}
+
+function updateQuartzConverter() {
+    const outputEl = document.getElementById('quartzOutput');
+    const tierEl = document.getElementById('quartzTier');
+    const notesEl = document.getElementById('quartzNotes');
+    const copyEl = document.getElementById('quartzCopy');
+    const useEl = document.getElementById('quartzUse');
+    notesEl.innerHTML = '';
+    tierEl.innerHTML = '';
+
+    try {
+        const converted = convertQuartzCron(document.getElementById('quartzInput').value);
+        outputEl.textContent = converted.cron;
+        copyEl.hidden = false;
+        if (converted.pro) {
+            tierEl.className = 'quartz-tier pro';
+            const a = document.createElement('a');
+            a.href = ADVANCED_CRON_DOCS;
+            a.textContent = 'advanced cron expressions';
+            tierEl.append('Needs JobRunr Pro: ', a);
+        } else {
+            tierEl.className = 'quartz-tier oss';
+            tierEl.textContent = 'Works in JobRunr OSS and Pro';
+        }
+        converted.notes.forEach(note => notesEl.appendChild(renderQuartzNote(note)));
+
+        // The generator below handles plain 5-field numeric expressions.
+        let fitsGenerator = true;
+        try { parseCronExpression(converted.cron); } catch (e) { fitsGenerator = false; }
+        useEl.hidden = !fitsGenerator;
+    } catch (e) {
+        outputEl.textContent = '';
+        copyEl.hidden = true;
+        useEl.hidden = true;
+        tierEl.className = 'quartz-tier error';
+        tierEl.textContent = 'Not converted';
+        notesEl.appendChild(renderQuartzNote({ type: 'error', text: e.message, link: e.link }));
+    }
+}
+
+function toggleQuartzConverter(forceOpen) {
+    const panel = document.getElementById('quartz-converter');
+    const toggle = document.getElementById('quartzToggle');
+    const open = forceOpen === true ? true : panel.hidden;
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    document.getElementById('quartzToggleCta').innerHTML = open ? 'Hide the converter' : 'Convert it here &rarr;';
+    if (open) {
+        updateQuartzConverter();
+        document.getElementById('quartzInput').focus({ preventScroll: true });
+    }
+}
+
+function setQuartzExample(expr) {
+    document.getElementById('quartzInput').value = expr;
+    updateQuartzConverter();
+}
+
+function copyQuartzResult() {
+    const btn = document.getElementById('quartzCopy');
+    navigator.clipboard.writeText(document.getElementById('quartzOutput').textContent).then(() => {
+        btn.textContent = '✓ Copied!';
+        setTimeout(() => btn.textContent = 'Copy JobRunr cron', 2000);
+    });
+}
+
+function useQuartzResult() {
+    setPreset(document.getElementById('quartzOutput').textContent);
+    document.getElementById('cronInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 // Initialize
 document.getElementById('cronInput').addEventListener('input', updateDisplay);
+document.getElementById('quartzInput').addEventListener('input', updateQuartzConverter);
 updateDisplay();
+// Deep link: /cron-expression-generator/#quartz opens the converter.
+if (window.location.hash === '#quartz') {
+    toggleQuartzConverter(true);
+}
+window.addEventListener('hashchange', () => {
+    if (window.location.hash === '#quartz') toggleQuartzConverter(true);
+});
 </script>

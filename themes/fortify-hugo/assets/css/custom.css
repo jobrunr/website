@@ -363,3 +363,15 @@ input[name="username"] {
   @apply pointer-events-none absolute inset-x-0 bottom-0 z-10 h-32 sm:h-56;
   @apply bg-linear-to-t from-white via-white/80 to-transparent;
 }
+/* Opt-in: let long text in a markdown table wrap instead of scrolling.
+   Usage in a post: <div class="table-wrap"> + blank line + table + blank line + </div> */
+.content .table-wrap table {
+  white-space: normal;
+}
+
+/* Small label above a code block, e.g. "Quartz:" / "JobRunr:" in before/after pairs.
+   Extra space above separates it from the previous code block, little space below ties it to its own. */
+.content .code-label {
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+}
