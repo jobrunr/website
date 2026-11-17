@@ -1,0 +1,10 @@
+{{- /* Extended Support banner for the security pages. Context: the security section page. */ -}}
+{{ $section := . }}
+{{ with .Params.extended_support }}
+  <div class="bg-dark text-white">
+    <div class="container py-3 text-center text-sm">
+      {{ .banner }}
+      <a class="ml-1 font-semibold text-secondary underline" href="{{ $section.RelPermalink }}#extended-support">Learn more</a>
+    </div>
+  </div>
+{{ end }}
