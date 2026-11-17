@@ -76,7 +76,7 @@ history:
 
 ## Description
 
-The JobRunr dashboard serves its frontend files from the classpath. `StaticFileHttpHandler` builds the classpath resource name by appending the decoded request path to the dashboard root (`org/jobrunr/dashboard/frontend/build/`) without rejecting `..` segments. A client can therefore read arbitrary resources from the application classpath, for example `application.properties` containing database credentials.
+The JobRunr dashboard serves its frontend files from the classpath. `StaticFileHttpHandler` builds the classpath resource name by appending the decoded request path to the dashboard root (`org/jobrunr/dashboard/frontend/build/`) without rejecting `..` segments. A client can therefore read arbitrary resources from the application classpath, for example `service-account.json `.
 
 Who can exploit it depends on the edition:
 
