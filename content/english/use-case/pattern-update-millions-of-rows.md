@@ -1,25 +1,30 @@
 ---
-title: "How to Update Millions of Database Rows Without Timeouts"
+title: "Fan Out, Fan In: Millions of Operations in Small, Durable Chunks"
 author: "Nicholas D'hondt"
 image: /use-case/pattern-chunked-database-update.webp
 summary: "One big UPDATE locks tables, hits the statement timeout and rolls back at 80%. This pattern splits the work into small durable chunks that run in parallel, retry on their own and survive a crashed server."
 description: "An architecture pattern for large data migrations and bulk updates in Java: split the work into small durable jobs, run them in parallel, retry each chunk on its own and continue only when all of them succeeded."
 date: 2026-11-12T16:00:00+01:00
 draft: true
-# TODO before publish: get permission to name the two customers behind [Customer A] and [Customer B] in "Who runs this", flip draft.
+# TODO before publish: flip draft.
 tags:
   - use-case
   - pattern
 ---
 > "I need to update millions of rows in a database without the database timing out."
 
-The classic case: you deploy a new version of your software and the JSON stored in every row needs a new structure. You may know the problem in another shape too. A backfill after a schema change. A recalculation for every customer at the end of the month. Billions of small transactions every week that all have to land.
+The classic case: you deploy a new version of your software and the JSON stored in every row needs a new structure. You may know the problem in another shape too. A backfill after a schema change. A recalculation for every customer at the end of the month. Billions of small transactions every week that all have to land. It does not have to be rows either. Millions of devices to update, files to convert or messages to send follow the same shape: too much for one go, and all of it has to finish.
 
-## The Challenge
+## The challenge
 
 One big statement is the obvious first try, and it fails in a predictable way. The transaction holds its locks for minutes, the statement timeout kicks in, and the database rolls back everything it did so far. Your live traffic waits behind those locks in the meantime.
 
-So you split the work and run it on a few threads. That works until the server restarts halfway. Now part of the table is in the new shape, part is in the old shape, and no way to tell where it stopped. 
+Splitting the work into smaller pieces is the obvious answer. It only works when:
+
+- **It has to stay out of the way.** Locks are held for milliseconds, not minutes, so live traffic keeps moving while the work runs.
+- **It has to remember progress.** After a restart, something has to know which pieces are done. Otherwise part of the table is in the new shape, part is in the old shape, and nothing tells you where it stopped.
+- **It has to redo only what failed.** A deadlock in one piece must not roll back the rest.
+- **It has to know when it is finished.** The next step, such as verifying the counts or dropping the old column, may only run when every piece succeeded.
 
 ## The pattern
 
@@ -29,7 +34,7 @@ So you split the work and run it on a few threads. That works until the server r
 2. **Fan out.** Every instance of your application picks up chunk jobs and runs them in parallel. Each chunk is one short transaction, so locks are held for milliseconds. A job is claimed by exactly one worker thread.
 3. **Fan in.** A follow-up job runs once, after all chunks succeeded. This is where you verify the counts, switch the feature flag or drop the old column.
 
-The state of every chunk is stored in your own SQL database, next to your business data. If a chunk fails halfway, its transaction rolls back and only that chunk retries, with exponential back-off. The amount of work you redo after a failure is one chunk, never the whole table. If an instance dies, another instance picks up its chunks. If you need it done sooner, you start another instance.
+The state of every chunk is stored in your own SQL database, next to your business data. If a chunk fails halfway, its transaction rolls back and only that chunk is done again. The amount of work you redo after a failure is one chunk, never the whole table.
 
 ```java
 public void migrateOrders() {
@@ -50,14 +55,58 @@ public void migrate(long fromId, long toId) {
 }
 ```
 
+Every chunk is a normal job, so each one comes with more than its id range:
+
+- **Retries per chunk.** A chunk that throws an exception is retried automatically, 10 times by default, with exponential back-off. You can [configure the number of retries]({{< ref "documentation/background-methods/dealing-with-exceptions.md#how-to-configure-the-amount-of-retries" >}}).
+- **A dashboard that shows what happened.** JobRunr ships with a [built-in dashboard]({{< ref "documentation/background-methods/dashboard.md" >}}). It lists every chunk with its state, its attempts and its exceptions. You open the dashboard and see how far along the work is, which chunks failed and why. A chunk that is out of retries stays in the dashboard as failed until someone retries or deletes it from there.
+- **Recovery after a crash.** If an instance dies, another instance picks up its chunks. Nobody has to find out by hand which ranges were in progress.
+- **More speed by adding instances.** If you need it done sooner, you start another instance. It claims chunks like the others, without any configuration.
+
 ## What goes wrong when you build it yourself
 
-The first version is a loop with a thread pool. Then the list of extras starts to grow:
+Most teams get here in three steps. Each one fixes the previous problem and exposes the next.
 
-- a progress table, so a restart knows where to continue
+### One big statement
+
+```sql
+UPDATE orders SET details = migrate_details(details);
+```
+
+One transaction for the whole table. It holds its locks until it is done, live traffic queues up behind it, and when the statement timeout hits at 80%, the database rolls all of it back.
+
+### A loop with a thread pool
+
+So you split the work and run it on a few threads:
+
+```java
+ExecutorService pool = Executors.newFixedThreadPool(8);
+for (IdRange range : orderRepository.idRangesOf(10_000)) {
+    pool.submit(() -> orderRepository.migrateRange(range.from(), range.to()));
+}
+```
+
+The transactions are short now. That works until the server restarts halfway. The queue of the thread pool lived in memory, so part of the table is migrated, part is not, and there is no way to tell where it stopped.
+
+### Your own progress table
+
+So you record every chunk:
+
+```java
+for (MigrationChunk chunk : chunkRepository.findByStatus(PENDING)) {
+    pool.submit(() -> {
+        orderRepository.migrateRange(chunk.getFromId(), chunk.getToId());
+        chunk.setStatus(DONE);
+        chunkRepository.save(chunk);
+    });
+}
+```
+
+A restart now knows where to continue. The list of extras starts to grow:
+
 - retry logic for the chunk that hit a deadlock
 - a way to spread the work over more than one server without two servers taking the same chunk
 - a way to slow down when the database is busy
+- a way to know that all chunks are done, so the next step can start
 - a screen that shows how far along it is, because someone will ask every hour
 
 Each item is a small project. Together they are a job scheduler that only your team maintains.

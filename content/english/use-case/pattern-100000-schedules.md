@@ -1,5 +1,5 @@
 ---
-title: "How to Run 100,000 Customer Schedules That Survive a Server Crash"
+title: "Customer-Defined Recurring Jobs, Created at Runtime"
 author: "Nicholas D'hondt"
 image: /use-case/pattern-recurring-schedules.webp
 summary: "Your customers want their own schedules: a firmware check every hour, a maintenance run every Monday. This pattern stores every schedule in your database, lets one instance plan and all instances work, and keeps going when a server dies."
@@ -11,22 +11,22 @@ tags:
   - use-case
   - pattern
 ---
-> "I need to have 100,000 different schedules for things to happen at regular intervals."
+> "Customer-Defined Recurring Jobs, Created at Runtime"
 
 Sometimes the sentence sounds different. "I need a scheduling engine inside my product for my customers' maintenance schedules." "I need to push firmware and security updates to millions of devices." "I need to defrost the fridges at midnight." In each case, the schedule is data that changes while the application runs.
 
-## The Challenge
+## The challenge
 
-A scheduled thread pool in the JVM works well for tasks you know when you write the code. So does `@Scheduled` in Spring. The number of tasks is not the limit. Both stop working when the schedules belong to your customers, each in its own way:
+A schedule in your code is a fixed thing. You write it once, it ships with the release, and it is the same on every server. A schedule that belongs to a customer is data. Someone creates it on a Tuesday afternoon, changes it a week later and deletes it when the contract ends, all while the application keeps running.
 
-- A scheduled thread pool accepts new tasks at runtime, but it only understands fixed rates and delays. There's no cron syntax and no time zones, so "every day at 9 for a customer in Sydney" is math you do yourself, and daylight saving time breaks it twice a year anyway.
-- Spring's `@Scheduled` supports cron expressions and a time zone, but both are written on an annotation in your code. Your customers can't add a schedule at runtime. You can register tasks with `TaskScheduler` instead, and then you're back to keeping the schedules yourself.
+That changes what the scheduler has to do:
 
-The rest they share:
+- **It has to remember.** A schedule that only lives in memory is gone after a restart or a deployment. Nobody notices until the fridges were not defrosted.
+- **It has to run once.** You run more than one instance, and every instance knows every schedule. With three instances, the customer gets three text messages unless something decides who goes first.
+- **It has to survive crashes.** When an instance crashes, another instance has to pick up its work. Only the run that was interrupted should be done again, not everything else that was handled in the same loop.
+- **It has to understand local time.** "Every day at 9" means 9 in Sydney for one customer and 9 in Brussels for the next, and both shift when daylight saving time starts or ends.
 
-- The schedules live in memory. When the server dies, they are gone, and something has to register them again. Nobody notices until the fridges were not defrosted.
-- Every instance runs every schedule. With three instances, the customer gets three text messages.
-
+Each of these is solvable. The hard part is that they have to hold at the same time, for every schedule, while customers keep changing them.
 
 ## The pattern
 
@@ -53,11 +53,72 @@ public void removeSchedule(String customerId) {
 }
 ```
 
-Because every run is a normal job, it gets the rest for free: retries, a history, and a place in the dashboard. A run that has to reach a million devices can use the [fan out pattern]({{< ref "use-case/pattern-update-millions-of-rows.md" >}}) to split the work.
+A scheduler that only fires a trigger leaves the rest to you. Here every run is a normal job, so each one comes with more than a start time:
+
+- **Retries.** A run that throws an exception is retried automatically, 10 times by default, with exponential back-off. You can [configure the number of retries]({{< ref "documentation/background-methods/dealing-with-exceptions.md#how-to-configure-the-amount-of-retries" >}}).
+- **A dashboard that shows what happened.** JobRunr ships with a [built-in dashboard]({{< ref "documentation/background-methods/dashboard.md" >}}). It lists every schedule and every run, and for each run its state, its attempts and its exceptions. When a firmware update fails, or a server crashes halfway, you open the dashboard and see that the update never happened, for which customer, and why. A run that is out of retries stays in the dashboard as failed until someone retries or deletes it from there. With Pro you can also send job traces to your observability platform through [OpenTelemetry]({{< ref "guides/advanced/observability-tracing.md" >}}) and alert on failures there.
+- **Recovery after a crash.** A run that was busy on an instance that died is picked up by another instance. Nobody has to find out by hand what was running at that moment.
+- **Resuming where it stopped.** A plain loop over a million devices has no memory. When the server crashes at device 600,000, nothing knows where it stopped, so you run the whole loop again or you guess. With the [fan out pattern]({{< ref "use-case/pattern-update-millions-of-rows.md" >}}) the run creates one small job per chunk of devices, and only the chunks that were interrupted are done again. Inside a single job, [durable steps]({{< ref "use-case/pattern-never-charge-twice.md" >}}) skip the steps that already finished.
 
 ## What goes wrong when you build it yourself
 
-You move the schedules to a table and write a loop that checks what is due. Now you need to decide which instance runs that loop, and what happens when that instance disappears. You need to make sure a run is never started twice. You need to decide what happens when a run takes longer than its interval. The architecture works on the whiteboard and then needs a lot of tuning in production.
+Most teams start with what the JVM or the framework already offers. Each option solves one part and leaves the rest to you.
+
+### A scheduled thread pool
+
+```java
+executor.scheduleAtFixedRate(
+    () -> firmwareService.checkAndPush(customerId),
+    delayUntilNineInSydney(), 24, TimeUnit.HOURS);
+```
+
+A `ScheduledExecutorService` accepts new tasks at runtime, and the number of tasks is not the limit. But it only understands fixed rates and delays. There is no cron syntax and no time zone, so "every day at 9 for a customer in Sydney" is math you do yourself. A fixed period of 24 hours also drifts: after a daylight saving change the task runs at 8 or at 10.
+
+### Spring's `@Scheduled`
+
+```java
+@Scheduled(cron = "0 0 9 * * *", zone = "Australia/Sydney")
+public void checkFirmware() {
+    firmwareService.checkAndPush("customer-42");
+}
+```
+
+`@Scheduled` gives you cron expressions and a time zone. Both are written on an annotation, so they are fixed when the application starts. A customer cannot add a schedule from your product, and you cannot write one method per customer.
+
+### `TaskScheduler` and a map
+
+```java
+ScheduledFuture<?> future = taskScheduler.schedule(
+    () -> firmwareService.checkAndPush(customerId),
+    new CronTrigger(cron, zone));
+schedules.put(customerId, future);
+```
+
+With Spring's `TaskScheduler` you get cron, time zones and registration at runtime. Now you are keeping the schedules yourself. The map lives in memory, so after a restart something has to register every schedule again. And every instance holds the same map, so every instance runs every schedule.
+
+### A table and a polling loop
+
+So you move the schedules to a table and write a loop that checks what is due:
+
+```java
+@Scheduled(fixedDelay = 5000)
+public void runDueSchedules() {
+    for (Schedule schedule : scheduleRepository.findDue(Instant.now())) {
+        firmwareService.checkAndPush(schedule.getCustomerId());
+        schedule.setNextRun(nextRunOf(schedule));
+        scheduleRepository.save(schedule);
+    }
+}
+```
+
+The schedules now survive a restart. The loop raises new questions:
+
+- Which instance runs the loop? If all of them do, two instances find the same due schedule and both run it.
+- What happens when that instance disappears? If only one runs the loop, nothing is planned until someone notices.
+- What if the server dies between the work and the `save`? After the restart the schedule is still due, so it runs again.
+- What if one run takes ten minutes? Every schedule behind it in the loop waits, and the next tick may pick up the same schedule while it is still busy.
+
+The architecture works on the whiteboard and then needs a lot of tuning in production.
 
 If you need more than a scheduled thread pool, use a library that already handled those cases.
 
