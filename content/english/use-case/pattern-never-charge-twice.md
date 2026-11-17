@@ -5,7 +5,6 @@ image: /use-case/pattern-crash-recovery.webp
 summary: "A payment job charges the customer, then the server dies before the next step. This pattern stores every completed step in your own database, so another server resumes the job at the step that did not finish."
 description: "An architecture pattern for crash recovery in Java: durable jobs with steps that are stored in your database, so work resumes after an outage without repeating what already succeeded."
 date: 2026-11-12T16:10:00+01:00
-draft: true
 # TODO before publish: flip draft.
 tags:
   - use-case

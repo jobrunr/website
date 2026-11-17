@@ -5,7 +5,6 @@ image: /use-case/pattern-chunked-database-update.webp
 summary: "One big UPDATE locks tables, hits the statement timeout and rolls back at 80%. This pattern splits the work into small durable chunks that run in parallel, retry on their own and survive a crashed server."
 description: "An architecture pattern for large data migrations and bulk updates in Java: split the work into small durable jobs, run them in parallel, retry each chunk on its own and continue only when all of them succeeded."
 date: 2026-11-12T16:00:00+01:00
-draft: true
 # TODO before publish: flip draft.
 tags:
   - use-case

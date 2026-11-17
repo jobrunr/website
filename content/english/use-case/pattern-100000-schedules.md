@@ -5,7 +5,6 @@ image: /use-case/pattern-recurring-schedules.webp
 summary: "Your customers want their own schedules: a firmware check every hour, a maintenance run every Monday. This pattern stores every schedule in your database, lets one instance plan and all instances work, and keeps going when a server dies."
 description: "An architecture pattern for a scheduling engine inside your Java product: schedules created at runtime, stored in your database and executed across all your instances without a single point of failure."
 date: 2026-11-12T16:20:00+01:00
-draft: true
 # TODO before publish: get permission to name the two customers behind [Customer A] and [Customer B] in "Who runs this", Ronald confirms the scale numbers (1 million tested, 64 GB machine), flip draft.
 tags:
   - use-case
