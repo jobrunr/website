@@ -15,9 +15,9 @@ tags:
 
 The same problem shows up outside payments. After an outage, the system has to recover quickly and continue processing. Work that was running on the server that died has to be picked up by another one. And nobody should have to check by hand what did and did not happen.
 
-## Why it is hard
+## The Challenge
 
-A real job does more than one thing. It charges the customer, updates the ledger and pays out the merchant. A crash never waits for the end of the job. It happens between two steps.
+A real job does more than one thing. It charges the customer, updates the ledger and pays out the merchant. As Murphy's law dictates, the crash will not happen once all your steps are done. It will happen somewhere between charging the customer and paying out the merchant.
 
 A plain background thread makes it worse. Its lifetime is tied to the application, so when the application crashes, the work is gone and nothing remembers it existed.
 
@@ -44,17 +44,19 @@ That is the whole change to your code. These are [durable jobs]({{< ref "guides/
 
 ## What goes wrong when you build it yourself
 
-It is expensive to write, and the first version is the cheap part. You need a table that records which steps are done. You need retries that work across servers. You need a way to see which jobs are processing, and a way to notice that the server running a job is gone, so the work is picked up elsewhere. Then you need to maintain all of that every time your framework or your database gets a new version.
+It is expensive to write and maintain. You start with a table that records which steps are done. Then you need retries that work across servers. A way to see which jobs are processing. A way to notice when the server running one of them has gone quiet, so the work can be picked up somewhere else.
+
+And none of that is free to keep. Every time your framework or your database gets a new version, you have to think about all of it again.
 
 Most teams discover the edge cases one incident at a time.
 
-### The honest part
+### Is this always 100% safe?
 
-Is this always 100% safe? No. A completed step never runs again. But there is a small window between the moment a step did its work and the moment the marker is saved. If the crash lands in that window, the step runs a second time. Every distributed system has this window, a workflow engine included.
+ No. A completed step never runs again. But there is a small window between the moment a step did its work and the moment the marker is saved. If the crash happens in that window, the step runs a second time. Every distributed system has this window, a workflow engine included.
 
 You close it yourself in one of two ways. Give the external call an idempotency key, so the payment provider recognises the second attempt. Or record the result in your own tables and check it first: was this transaction already processed? [This article explains how to design for it]({{< ref "blog/Idempotence-in-java-job-scheduling.md" >}}).
 
-## What is open source and what is Pro
+## What is available in JobRunr?
 
 | You need | JobRunr OSS | JobRunr Pro |
 |---|---|---|

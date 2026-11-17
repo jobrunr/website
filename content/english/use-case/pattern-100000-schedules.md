@@ -13,25 +13,20 @@ tags:
 ---
 > "I need to have 100,000 different schedules for things to happen at regular intervals."
 
-Sometimes the sentence sounds different. "I need a scheduling engine inside my product for my customers' maintenance schedules." "I need to push firmware and security updates to millions of devices." "I need to defrost every fridge in every store at night." "I need to send my crew a text message before every shift." In each case, the schedule is data that changes while the application runs.
+Sometimes the sentence sounds different. "I need a scheduling engine inside my product for my customers' maintenance schedules." "I need to push firmware and security updates to millions of devices." "I need to defrost the fridges at midnight." In each case, the schedule is data that changes while the application runs.
 
-## Why it is hard
+## The Challenge
 
 A scheduled thread pool in the JVM works well for tasks you know when you write the code. So does `@Scheduled` in Spring. The number of tasks is not the limit. Both stop working when the schedules belong to your customers, each in its own way:
 
-- A scheduled thread pool accepts new tasks at runtime, but it only knows fixed rates and delays. It has no cron expressions and no time zones, so "every day at 9 for a customer in Sydney" is math you write yourself, and daylight saving time breaks it twice a year.
-- `@Scheduled` does support cron expressions and a time zone, but both are written on an annotation in your code. A customer cannot add a schedule at runtime. You can register tasks programmatically with Spring's `TaskScheduler`, and then you are back to keeping the schedules yourself.
+- A scheduled thread pool accepts new tasks at runtime, but it only understands fixed rates and delays. There's no cron syntax and no time zones, so "every day at 9 for a customer in Sydney" is math you do yourself, and daylight saving time breaks it twice a year anyway.
+- Spring's `@Scheduled` supports cron expressions and a time zone, but both are written on an annotation in your code. Your customers can't add a schedule at runtime. You can register tasks with `TaskScheduler` instead, and then you're back to keeping the schedules yourself.
 
 The rest they share:
 
 - The schedules live in memory. When the server dies, they are gone, and something has to register them again. Nobody notices until the fridges were not defrosted.
 - Every instance runs every schedule. With three instances, the customer gets three text messages.
 
-## What goes wrong when you build it yourself
-
-You move the schedules to a table and write a loop that checks what is due. Now you need to decide which instance runs that loop, and what happens when that instance disappears. You need to make sure a run is never started twice. You need to decide what happens when a run takes longer than its interval. The architecture works on the whiteboard and then needs a lot of tuning in production.
-
-If you need more than a scheduled thread pool, use a library that already handled those cases.
 
 ## The pattern
 
@@ -60,7 +55,13 @@ public void removeSchedule(String customerId) {
 
 Because every run is a normal job, it gets the rest for free: retries, a history, and a place in the dashboard. A run that has to reach a million devices can use the [fan out pattern]({{< ref "use-case/pattern-update-millions-of-rows.md" >}}) to split the work.
 
-## What is open source and what is Pro
+## What goes wrong when you build it yourself
+
+You move the schedules to a table and write a loop that checks what is due. Now you need to decide which instance runs that loop, and what happens when that instance disappears. You need to make sure a run is never started twice. You need to decide what happens when a run takes longer than its interval. The architecture works on the whiteboard and then needs a lot of tuning in production.
+
+If you need more than a scheduled thread pool, use a library that already handled those cases.
+
+## What is available in JobRunr?
 
 | You need | JobRunr OSS | JobRunr Pro |
 |---|---|---|
@@ -88,15 +89,13 @@ Because every run is a normal job, it gets the rest for free: retries, a history
 
 **How do workers avoid running the same job twice?** A worker claims a job by updating it in the database. On PostgreSQL, MySQL and MariaDB that claim uses `SELECT ... FOR UPDATE SKIP LOCKED`, so workers do not wait on each other. On other databases it falls back to optimistic locking.
 
-**Does this scale to a million schedules?** The limit is the memory of the master, because it loads the schedules that are due. So it depends on how many are due at the same moment, much more than on how many exist. We tested one million recurring jobs with the same schedule on a single machine. Alternatively, if a million things really have to happen at the same second, use one recurring job that create a job for each task.
+**Does this scale to a million schedules?** The limit is the memory of the master, because it loads the schedules that are due. So it depends on how many are due at the same moment, much more than on how many exist. We used JobRunr Pro to test one million recurring jobs with the same schedule on a single machine. And all jobs fired on time. 
+
+ Alternatively, if a million things really have to happen at the same second, you can use one recurring job that create a job for each task.
 
 **What if a run is still busy when a server dies?** While a job runs, its worker keeps updating it in the database. When the updates stop, the master marks the job as orphaned and another instance picks it up.
 
 **What if a run takes longer than its interval?** The next run is skipped while the previous one is still active. Pro can allow a set number of concurrent runs per schedule.
-
-## Who runs this
-
-[Customer A], Decathlon and [Customer B] run this pattern. Prophia moved [from vanishing cron jobs to 25,000 leases processed every night]({{< ref "use-case/jobrunr-pro-prophia.md" >}}).
 
 ## Not a fit when
 

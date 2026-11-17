@@ -15,23 +15,11 @@ tags:
 
 The classic case: you deploy a new version of your software and the JSON stored in every row needs a new structure. You may know the problem in another shape too. A backfill after a schema change. A recalculation for every customer at the end of the month. Billions of small transactions every week that all have to land.
 
-## Why it is hard
+## The Challenge
 
 One big statement is the obvious first try, and it fails in a predictable way. The transaction holds its locks for minutes, the statement timeout kicks in, and the database rolls back everything it did so far. Your live traffic waits behind those locks in the meantime.
 
-So you split the work and run it on a few threads. That works until the server restarts halfway. Now part of the table is in the new shape, part is in the old shape, and nothing tells you where it stopped.
-
-## What goes wrong when you build it yourself
-
-The first version is a loop with a thread pool. Then the list of extras starts to grow:
-
-- a progress table, so a restart knows where to continue
-- retry logic for the chunk that hit a deadlock
-- a way to spread the work over more than one server without two servers taking the same chunk
-- a way to slow down when the database is busy
-- a screen that shows how far along it is, because someone will ask every hour
-
-Each item is a small project. Together they are a job scheduler that only your team maintains.
+So you split the work and run it on a few threads. That works until the server restarts halfway. Now part of the table is in the new shape, part is in the old shape, and no way to tell where it stopped. 
 
 ## The pattern
 
@@ -62,7 +50,19 @@ public void migrate(long fromId, long toId) {
 }
 ```
 
-## What is open source and what is Pro
+## What goes wrong when you build it yourself
+
+The first version is a loop with a thread pool. Then the list of extras starts to grow:
+
+- a progress table, so a restart knows where to continue
+- retry logic for the chunk that hit a deadlock
+- a way to spread the work over more than one server without two servers taking the same chunk
+- a way to slow down when the database is busy
+- a screen that shows how far along it is, because someone will ask every hour
+
+Each item is a small project. Together they are a job scheduler that only your team maintains.
+
+## What is available in JobRunr?
 
 | You need | JobRunr OSS | JobRunr Pro |
 |---|---|---|
@@ -97,10 +97,6 @@ With OSS you can build the fan out today. The fan in is the part you would have 
 **How do I know when to step in?** The dashboard shows every chunk with its state and its exceptions. With Pro you can also send job traces to your observability platform through [OpenTelemetry]({{< ref "guides/advanced/observability-tracing.md" >}}) and alert on failures there.
 
 **What does it cost my database?** Every chunk is a row in the JobRunr tables and a few small writes. Keep chunks big enough that the real work dominates. A chunk that takes two seconds is a good size. A chunk of one row is not.
-
-## Who runs this
-
-[Customer A] and [Customer B] run this pattern. Decathlon uses the same shape to process [50 million scans a day across 1,700 stores]({{< ref "use-case/jobrunr-pro-decathlon.md" >}}).
 
 ## Not a fit when
 
