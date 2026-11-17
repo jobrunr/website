@@ -1,0 +1,97 @@
+---
+meta_title: "Empieza tu prueba gratuita de JobRunr Pro"
+title: "Empieza tu prueba gratuita de JobRunr Pro"
+description: "Consigue una licencia de prueba gratuita de JobRunr Pro de 30 días. Dinos dónde enviarla y responde a cuatro preguntas rápidas para que te mandemos la adecuada."
+
+step1:
+  heading: "Empieza tu prueba gratuita de JobRunr Pro"
+  lead: "30 días de JobRunr Pro, gratis. Dinos dónde enviar la licencia de prueba y la preparamos."
+  email_label: "Email de empresa"
+  email_hint: "Los dominios corporativos están preaprobados."
+  company_label: "Nombre de la empresa"
+  submit: "Quiero mi licencia de prueba gratuita"
+  # Under the button. The trial license simply expires, so there is nothing to cancel.
+  reassurance: "Sin tarjeta de crédito. La prueba termina sola a los 30 días, no hay nada que cancelar."
+  divider: "o"
+  github_label: "Continuar con GitHub"
+
+step2:
+  heading: "Nuestro equipo está preparando tu licencia de prueba gratuita de JobRunr Pro."
+  lead: "Para asegurarnos de enviarte la adecuada, cuatro preguntas rápidas."
+  submit: "Enviar respuestas"
+  skip: "Prefiero responder por email"
+  questions:
+    - name: "jvm_stack"
+      type: "select"
+      label: "¿Qué lenguaje de la JVM y qué framework vas a usar?"
+      # `value` is what gets posted and stays in English; `label` is what the visitor sees.
+      # Two selects, one numbered question, so the count still matches "four quick questions".
+      fields:
+        - name: "jvm_language"
+          label: "Lenguaje"
+          options:
+            - value: "Java"
+            - value: "Kotlin"
+            - value: "Scala"
+            - value: "Groovy"
+            - value: "Other"
+              label: "Otro"
+        - name: "framework"
+          label: "Framework"
+          options:
+            - value: "Spring Boot"
+            - value: "Quarkus"
+            - value: "Micronaut"
+            - value: "Plain Java"
+              label: "Java puro"
+            - value: "Other"
+              label: "Otro"
+    - name: "pro_features"
+      type: "checkbox"
+      label: "¿Qué funcionalidades de JobRunr Pro son más relevantes para tu proyecto?"
+      other_field: "pro_features_other"
+      other_placeholder: "¿Algo más? Cuéntanoslo aquí"
+      options:
+        - value: "Multi-tenant support (dynamic queues)"
+          label: "Soporte multitenant (colas dinámicas)"
+        - value: "Advanced dashboard"
+          label: "Dashboard avanzado"
+        - value: "Rate limiting"
+          label: "Rate limiting"
+        - value: "Batches and workflows"
+          label: "Batches y workflows"
+        - value: "Priority queues"
+          label: "Colas de prioridad"
+        - value: "SSO and compliance"
+          label: "SSO y cumplimiento normativo"
+        - value: "Other"
+          label: "Otro"
+    - name: "used_before"
+      type: "radio"
+      label: "¿Has usado JobRunr antes?"
+      extra_field: "heard_from"
+      extra_label: "¿Cómo conociste JobRunr?"
+      options:
+        - value: "yes"
+          label: "Sí"
+        - value: "no"
+          label: "No"
+    - name: "project_count"
+      type: "select"
+      label: "¿En cuántos proyectos vas a usar JobRunr Pro?"
+      options:
+        - value: "1"
+        - value: "2 to 5"
+          label: "2 a 5"
+        - value: "6 to 10"
+          label: "6 a 10"
+        - value: "More than 10"
+          label: "Más de 10"
+
+step3:
+  heading: "Gracias, esto tiene muy buena pinta."
+  body: "Nuestro equipo está preparando tu licencia de prueba y la recibirás muy pronto en tu bandeja de entrada. Mientras esperas, mira JobRunr Pro en acción."
+  cta_label: "Haz la visita guiada"
+  cta_link: "https://finance.demo.jobrunr.io/tour"
+  trust_label: "Lee nuestra documentación de seguridad y cumplimiento (en inglés)"
+---

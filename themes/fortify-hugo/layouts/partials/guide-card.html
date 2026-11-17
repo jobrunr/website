@@ -1,10 +1,11 @@
-<a href="{{ .context.Permalink }}"
+<a href="{{ .context.RelPermalink }}"
     class="block h-full flex flex-col rounded-md bg-body border border-border p-6 hover:shadow">
 
     <header class="mb-4">
         <h2 class="h5 font-bold">
             {{ .context.Title }}
         </h2>
+        {{ partial "lang-badge.html" .context }}
     </header>
 
     <section class="mb-6">

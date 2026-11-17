@@ -14,3 +14,169 @@ subject: Subject
 write_message: What do you want to share with us?
 send_message: Send Message
 back_to_home: Back to home
+
+# Interface text used directly in layouts
+pro_demo_title: "See JobRunr Pro at work, before you commit"
+pro_demo_text: "Walk through 21 hands-on scenarios in our hosted neobank demo. Priority queues, batches, dynamic queues, the dashboard. All running live, no install needed."
+take_guided_tour: "Take the guided tour"
+pro_ready_title: "Ready to run JobRunr Pro in production?"
+start_using_pro_now: "Start using JobRunr Pro now"
+see_pricing: "See pricing"
+request_quote: "Or get in touch to request a quote"
+pricing_switcher: "Pricing Switcher"
+ph_company_name: "Your Company Name"
+ph_email: "youremail@email.com"
+ph_message: "Write Your Message Here"
+sending: "Sending..."
+contact_success: "We received your message and will get in touch!"
+contact_error: "An error occurred. Please try again."
+ph_work_email: "you@yourcompany.com"
+ph_company_name_lc: "Your company name"
+close: "Close"
+startup_err_required: "Please fill in your email and company name."
+startup_err_eligibility: "Please confirm you meet the eligibility rule."
+startup_err_send: "There was an error sending your application. Please try again or email us at nicholas@jobrunr.io."
+checkout_opening: "Opening checkout..."
+checkout_error: "We could not open the checkout. Please try again or email us at nicholas@jobrunr.io."
+no_credit_card: "No Credit Card required"
+read_full_case: "Read the full case →"
+see_the_numbers: "See the numbers →"
+step: "Step"
+on_this_page: "On this page"
+edit_on_github: "Edit this page on GitHub"
+newsletter_docs_title: "Keep up with JobRunr"
+newsletter_docs_text: "Subscribe to \"Inside JobRunr\" for new releases, features, and the occasional deep-dive."
+newsletter_success: "Your registration was successful!"
+ph_enter_email: "Enter your email"
+subscribe: "Subscribe"
+toggle_section: "Toggle section"
+choose_framework: "Choose a framework:"
+updated: "Updated"
+details: "Details"
+previous: "Previous"
+next: "Next"
+language: "Language"
+
+# Pricing comparison table (partials/components/comparison-table.html)
+ct_detailed_feature_comparison: "Detailed feature comparison"
+ct_compare_the_features_across_jobrunr_open: "Compare the features across JobRunr Open Source, Pro Business, and Pro Enterprise tiers to choose the right fit for your organization."
+ct_feature: "Feature"
+ct_open_source_oss: "Open Source (OSS)"
+ct_pro_business: "Pro Business"
+ct_pro_enterprise: "Pro Enterprise"
+ct_job_execution_scheduling: "Job Execution & Scheduling"
+ct_enqueueing_scheduling_jobs_fire_and_forg: "Enqueueing & Scheduling Jobs (Fire and Forget)"
+ct_carbon_aware_job_scheduling: "Carbon Aware Job Scheduling"
+ct_realtime_scheduling_enqueueing_instant_e: "Realtime Scheduling & Enqueueing (Instant execution)"
+ct_max_recurring_jobs: "Max Recurring Jobs"
+ct_100_db_dependent: "~100 (DB dependent)"
+ct_up_to_5_000: "Up to 5,000"
+ct_unlimited: "Unlimited"
+ct_automatic_retry_handling_exponential_bac: "Automatic Retry Handling (Exponential Backoff)"
+ct_schedule_missed_recurring_jobs_after_dow: "Schedule Missed Recurring Jobs (After Downtime)"
+ct_job_timeouts: "Job Timeouts"
+ct_thread_support_e_g_project_loom_virtual: "Thread Support (e.g., Project Loom / Virtual Threads)"
+ct_advanced_workflow_control: "Advanced Workflow & Control"
+ct_workflow_management_job_chaining: "Workflow Management (Job Chaining)"
+ct_batch_processing_atomic_batches: "Batch Processing (Atomic Batches)"
+ct_priority_queues_up_to_5_levels: "Priority Queues (Up to 5 Levels)"
+ct_dynamic_queues_fair_usage_multitenancy: "Dynamic Queues (Fair Usage Multitenancy)"
+ct_rate_limiting: "Rate Limiting"
+ct_mutexes_resource_locking: "Mutexes (Resource Locking)"
+ct_server_tags_run_jobs_on_specific_servers: "Server Tags (Run jobs on specific servers)"
+ct_transaction_plugin_spring_micronaut_quar: "Transaction Plugin (Spring, Micronaut, Quarkus)"
+ct_observability_monitoring: "Observability & Monitoring"
+ct_dashboard_features: "Dashboard Features"
+ct_simple_overview: "Simple Overview"
+ct_enhanced_search_filters_labels_observabi: "Enhanced Search, Filters, Labels, Observability Integration (Micrometer)"
+ct_all_pro_business_features_dashboard_sso: "All Pro Business features + Dashboard SSO, GDPR/HIPAA Redaction"
+ct_multicluster_dashboard: "Multicluster Dashboard"
+ct_k8s_autoscaling_support: "K8s Autoscaling Support"
+ct_enterprise_readiness_support: "Enterprise Readiness & Support"
+ct_dashboard_security_sso_openid_connect: "Dashboard Security (SSO / OpenID Connect)"
+ct_enterprise_hardened_releases: "Enterprise Hardened Releases"
+ct_standard: "Standard"
+ct_stress_tested_benchmarked_external_secur: "Stress-tested, benchmarked, external security auditing"
+ct_panic_button_direct_notification_for_cri: "Panic Button (Direct notification for critical issues)"
+ct_1_year: "1 / Year"
+ct_software_bill_of_materials_sbom: "Software Bill of Materials (SBOM)"
+ct_commercial_license: "Commercial License"
+ct_lgpl_3_0: "LGPL 3.0"
+ct_standard_eula: "Standard EULA"
+ct_flexible_support_for_custom_procurement: "Flexible support for custom procurement processes"
+ct_payment: "Payment"
+ct_credit_card: "Credit Card"
+ct_invoice_or_credit_card: "Invoice or Credit Card"
+ct_cluster_installation_limit: "Cluster / Installation Limit"
+ct_single_cluster_implied: "Single Cluster (Implied)"
+ct_one_prd_cluster: "One PRD Cluster"
+ct_priority_support_escalation: "Priority Support Escalation"
+ct_community_support: "Community Support"
+ct_email_helpdesk_priority_bug_handling: "Email / HelpDesk, Priority Bug Handling"
+ct_all_pro_business_options_video_call_for: "All Pro Business options + Video Call for Critical Issues"
+ct_start_using_jobrunr_pro_now: "Start using JobRunr Pro now"
+ct_get_in_touch: "Get In Touch"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_ask_ai: "Ask AI"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_ask_jobrunr_assistant: "Ask JobRunr Assistant"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_answers_grounded_in_the_jobrunr_document: "Answers grounded in the JobRunr documentation"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_copy_page_as_markdown: "Copy page as Markdown"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_paste_this_page_into_any_ai_tool_as_cont: "Paste this page into any AI tool as context"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_open_in_chatgpt: "Open in ChatGPT"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_ask_chatgpt_about_this_page: "Ask ChatGPT about this page"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_open_in_claude: "Open in Claude"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_ask_claude_about_this_page: "Ask Claude about this page"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_open_in_vs_code: "Open in VS Code"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_install_the_jobrunr_docs_mcp_server_in_v: "Install the JobRunr docs MCP server in VS Code"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_open_in_cursor: "Open in Cursor"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_install_the_jobrunr_docs_mcp_server_in_c: "Install the JobRunr docs MCP server in Cursor"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_copy_mcp_server_url: "Copy MCP server URL"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_paste_into_claude_code_or_any_other_mcp: "Paste into Claude Code or any other MCP client"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_ask_ai_about_this_documentation: "Ask AI about this documentation"
+
+# Docs "Ask AI" menu (partials/documentation/read-with-ai.html)
+ai_more_ai_options: "More AI options"
+in_language: "In {{ . }}"
+
+# Trial flow (start-jobrunr-pro)
+trial_already_requested: "Already requested. Continue to the questions below."
+ph_heard_from: "Conference, blog post, a colleague, ..."
+choose_one: "Choose one"
+trial_err_request: "There was an error sending your request. Please try again or email us at nicholas@jobrunr.io."
+trial_err_answers: "There was an error sending your answers. Please try again, or continue and we will ask you by email."
+signed_in_as: "Signed in as"
+step_of: "Step {{ .current }} of {{ .total }}"
+start_using_pro_excl: "Start using JobRunr Pro!"
+start_using_pro: "Start using JobRunr Pro"
+pro_cta_title: "This one needs JobRunr Pro"

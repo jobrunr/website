@@ -1,6 +1,34 @@
 ################ English language ##################
 [en]
-label = "En"
+label = "English"
 locale = "en-us"
 contentDir = "content/english"
 weight = 1
+
+################ Spanish language ##################
+[es]
+label = "Español"
+locale = "es"
+contentDir = "content/spanish"
+weight = 2
+
+[es.params]
+footer_description = "La librería definitiva para el procesamiento en segundo plano en Java. Planificación de jobs distribuida, persistente y fiable."
+
+[es.params.navigation_button]
+enable = true
+label = "Empieza gratis"
+link = "get-started/"
+
+[es.params.quote_form]
+title = "¡Suscríbete a nuestra newsletter!"
+description = "Mantente al día de las nuevas versiones, funcionalidades y artículos técnicos de JobRunr."
+submit_button_label = "Suscribirme"
+placeholder = "Introduce tu email"
+action = "#"
+
+[es.params.metadata]
+keywords = ["JobRunr", "Java", "Procesamiento en segundo plano", "Planificación de jobs", "Ejecución de tareas", "Open Source", "Sistemas distribuidos", "Microservicios", "Cloud Computing"]
+description = "La librería open source y sencilla para el procesamiento fiable en segundo plano en Java. No vuelvas a perder un job. Dashboard completo, reintentos automáticos y planificación duradera de jobs sobre tu base de datos actual."
+author = "JobRunr"
+image = "images/og-image.png"

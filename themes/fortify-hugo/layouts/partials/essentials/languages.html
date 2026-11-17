@@ -1,0 +1,47 @@
+{{/*  hreflang alternates, rendered only when the page exists in more than one language.
+      x-default points at the default-language version.  */}}
+{{ if .IsTranslated }}
+  {{ $default := (index hugo.Sites 0).Language.Lang }}
+  {{ range .AllTranslations }}
+    <link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" />
+    {{ if eq .Language.Lang $default }}
+      <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+    {{ end }}
+  {{ end }}
+
+  {{/*  Spanish redirect. English stays the default for everyone; a visitor is sent to the
+        Spanish version of this page only when
+          1. the browser's first language is Spanish,
+          2. the browser's time zone is in a Spanish-speaking country, and
+          3. they have not picked a language with the footer switcher (stored in `jr_lang`).
+        It is only emitted on English pages that have a Spanish translation, so it can never
+        lead to a 404. The site is static (GitHub Pages), which is why this runs in the browser.
+        Country list: ES, MX, AR, CO, CL, PE, VE, EC, GT, CU, BO, DO, HN, PY, SV, NI, CR, PA, UY.  */}}
+  {{ if eq site.Language.Lang $default }}
+    {{ range .Translations }}
+      {{ if eq .Language.Lang "es" }}
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('jr_lang')) return;
+    var lang = ((navigator.languages && navigator.languages[0]) || navigator.language || '').toLowerCase();
+    if (lang !== 'es' && lang.indexOf('es-') !== 0) return;
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    var zones = ['Europe/Madrid', 'Africa/Ceuta', 'Atlantic/Canary',
+      'America/Mexico_City', 'America/Cancun', 'America/Merida', 'America/Monterrey', 'America/Matamoros',
+      'America/Chihuahua', 'America/Ciudad_Juarez', 'America/Ojinaga', 'America/Mazatlan',
+      'America/Bahia_Banderas', 'America/Hermosillo', 'America/Tijuana',
+      'America/Buenos_Aires', 'America/Cordoba', 'America/Mendoza', 'America/Jujuy', 'America/Catamarca',
+      'America/Bogota', 'America/Santiago', 'America/Punta_Arenas', 'America/Coyhaique', 'Pacific/Easter',
+      'America/Lima', 'America/Caracas', 'America/Guayaquil', 'Pacific/Galapagos', 'America/Guatemala',
+      'America/Havana', 'America/La_Paz', 'America/Santo_Domingo', 'America/Tegucigalpa', 'America/Asuncion',
+      'America/El_Salvador', 'America/Managua', 'America/Costa_Rica', 'America/Panama', 'America/Montevideo'];
+    if (zones.indexOf(tz) === -1 && tz.indexOf('America/Argentina/') !== 0) return;
+    window.location.replace({{ .RelPermalink }} + window.location.search + window.location.hash);
+  } catch (e) {}
+})();
+</script>
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}

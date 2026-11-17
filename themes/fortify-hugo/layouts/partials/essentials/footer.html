@@ -46,7 +46,7 @@
                 <li>
                   <a
                     class="font-medium transition hover:text-tertiary"
-                    href="{{ .URL | relLangURL }}"
+                    href="{{ partial "lang-url.html" .URL }}"
                     >{{ .Name }}</a
                   >
                 </li>
@@ -62,7 +62,7 @@
                 <li>
                   <a
                     class="font-medium transition hover:text-tertiary"
-                    href="{{ .URL | relLangURL }}"
+                    href="{{ partial "lang-url.html" .URL }}"
                     >{{ .Name }}</a
                   >
                 </li>
@@ -76,7 +76,7 @@
         <div data-newsletter>
           <h3 class="mb-4 text-xl font-normal text-text-dark">{{ site.Params.quote_form.title | markdownify }}</h3>
           <p class="mb-6">{{ site.Params.quote_form.description | markdownify }}</p>
-          <p data-newsletter-field="success" class="hidden m-0 text-green-600">Your registration was successful!</p>
+          <p data-newsletter-field="success" class="hidden m-0 text-green-600">{{ T "newsletter_success" }}</p>
           <p data-newsletter-field="error" class="hidden m-0 text-red-600"></p>
           <form data-newsletter-field="form" class="flex justify-between rounded-full bg-white px-3 py-2" method="post">
             <input type="email" data-newsletter-field="email" class="form-input w-full rounded-full border-none! py-2! pl-2! placeholder:opacity-100" placeholder="{{ site.Params.quote_form.placeholder }}" required />
@@ -85,6 +85,7 @@
           </form>
         </div>
         </div>
+        {{ partial "essentials/language-switcher.html" . }}
         <div class="copyright mt-5 lg:mt-14">
           {{ site.Params.copyright | markdownify }}
         </div>

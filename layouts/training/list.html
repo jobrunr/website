@@ -97,7 +97,7 @@
       <div class="lg:col-9 text-center" data-aos="fade-up-sm">
         <h2 class="h2 mb-4">{{ .Params.review_section.title }}</h2>
         <p class="text-lg text-gray-600 mb-6">{{ .Params.review_section.text }}</p>
-        <a class="font-medium text-primary" href="{{ .Params.review_section.link | relLangURL }}">{{ .Params.review_section.link_label }} &rarr;</a>
+        <a class="font-medium text-primary" href="{{ partial "lang-url.html" .Params.review_section.link }}">{{ .Params.review_section.link_label }} &rarr;</a>
       </div>
     </div>
   </div>

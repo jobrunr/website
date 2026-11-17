@@ -81,7 +81,7 @@
         <div class="rounded-2xl bg-white border border-border p-6 md:p-8">
           <h2 class="h4 mb-2">{{ .Params.booking_section.title }}</h2>
           <p class="text-gray-600 mb-6">{{ .Params.booking_section.text }}</p>
-          <a class="btn btn-primary btn-even-padding" href="{{ .Params.booking_section.cta_link | relLangURL }}">{{ .Params.booking_section.cta_label }}</a>
+          <a class="btn btn-primary btn-even-padding" href="{{ partial "lang-url.html" .Params.booking_section.cta_link }}">{{ .Params.booking_section.cta_label }}</a>
         </div>
       </div>
     </div>

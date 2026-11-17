@@ -23,10 +23,10 @@
                     <a
                       class="btn-primary btn"
                       target="_self"
-                      href="{{ .get_started.link | relLangURL }}"
+                      href="{{ partial "lang-url.html" .get_started.link }}"
                       rel="noopener">
                       {{ .get_started.label | markdownify }}
-                      <span class="sr-only">Details</span>
+                      <span class="sr-only">{{ T "details" }}</span>
                       <span class="icon-wrapper"
                         ><span class="icon">
                           <svg
@@ -95,7 +95,7 @@
                   </li>
                 {{ end }}
               </ul>
-              <span><i>No Credit Card required</i></span>
+              <span><i>{{ T "no_credit_card" }}</i></span>
             {{ end }}
         </div>
 
@@ -122,7 +122,7 @@
             {{ with .button }}
               {{ if .enable }}
                 <div class="text-center mt-12">
-                  <a class="btn btn-primary btn-even-padding" href="{{ .link | relLangURL }}">
+                  <a class="btn btn-primary btn-even-padding" href="{{ partial "lang-url.html" .link }}">
                     {{ .label | markdownify }}
                   </a>
                 </div>
@@ -162,7 +162,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" href="{{ .button.link | relLangURL }}">
+                  <a class="btn btn-primary mt-12" href="{{ partial "lang-url.html" .button.link }}">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"
@@ -288,7 +288,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" href="{{ .button.link | relLangURL }}">
+                  <a class="btn btn-primary mt-12" href="{{ partial "lang-url.html" .button.link }}">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"
@@ -351,7 +351,7 @@
                   {{ end }}
                 </ul>
                 {{ if .button.enable }}
-                  <a class="btn btn-primary mt-12" target="_self" href="{{ .button.link | relLangURL }}" rel="noopener">
+                  <a class="btn btn-primary mt-12" target="_self" href="{{ partial "lang-url.html" .button.link }}" rel="noopener">
                     {{ .button.label | markdownify }}
                     <span class="icon-wrapper"
                       ><span class="icon"

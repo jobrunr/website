@@ -18,7 +18,7 @@
               <p class="mb-6 text-lg">{{ $s1.lead | markdownify }}</p>
 
               <p id="flow-already-requested" class="mb-6 hidden text-lg font-medium text-tertiary">
-                Already requested. Continue to the questions below.
+                {{ T "trial_already_requested" }}
               </p>
 
               <form id="flow-form-1" class="row g-4" action="#" method="POST" novalidate>
@@ -31,7 +31,7 @@
                     name="email"
                     type="email"
                     class="form-input"
-                    placeholder="you@yourcompany.com"
+                    placeholder="{{ T "ph_work_email" }}"
                     autocomplete="email"
                     required />
                   <p class="mt-2 text-sm opacity-70">{{ $s1.email_hint }}</p>
@@ -45,7 +45,7 @@
                     name="company"
                     type="text"
                     class="form-input"
-                    placeholder="Your company name"
+                    placeholder="{{ T "ph_company_name_lc" }}"
                     autocomplete="organization"
                     required />
                   <!-- Honeypot. Positioned off-screen rather than display:none, which bots skip. -->
@@ -106,7 +106,7 @@
                     id="flow-gh-company"
                     type="text"
                     class="form-input"
-                    placeholder="Your company name"
+                    placeholder="{{ T "ph_company_name_lc" }}"
                     autocomplete="organization" />
                 </div>
 
@@ -139,7 +139,7 @@
                           type="text"
                           data-answer="{{ . }}"
                           class="form-input"
-                          placeholder="Conference, blog post, a colleague, ..." />
+                          placeholder="{{ T "ph_heard_from" }}" />
                       {{ end }}
 
                     {{ else if eq $q.type "select" }}
@@ -152,7 +152,7 @@
                               <label for="flow-{{ $field.name }}" class="mb-1 block text-base opacity-80">{{ . }}</label>
                             {{ end }}
                             <select id="flow-{{ .name }}" data-answer="{{ .name }}" class="form-input">
-                              <option value="">Choose one</option>
+                              <option value="">{{ T "choose_one" }}</option>
                               {{ range .options }}
                                 <option value="{{ .value }}">{{ .label | default .value }}</option>
                               {{ end }}
@@ -232,7 +232,7 @@
 
   <script>
     (function () {
-      var BASE = "{{ "start-jobrunr-pro/" | relLangURL }}";
+      var BASE = "{{ partial "lang-url.html" "start-jobrunr-pro/" }}";
       var STORAGE_KEY = 'jr_start_flow';
 
       var steps = {
@@ -371,13 +371,13 @@
         var email = form1.elements.email.value.trim();
         var company = form1.elements.company.value.trim();
         if (!email || !company) {
-          showError(error1, 'Please fill in your email and company name.');
+          showError(error1, {{ T "startup_err_required" }});
           return;
         }
 
         var label = submit1.textContent;
         submit1.disabled = true;
-        submit1.textContent = 'Sending...';
+        submit1.textContent = {{ T "sending" }};
 
         var payload = Object.assign(
           {
@@ -408,7 +408,7 @@
             console.error('Error submitting form:', err);
             submit1.disabled = false;
             submit1.textContent = label;
-            showError(error1, 'There was an error sending your request. Please try again or email us at nicholas@jobrunr.io.');
+            showError(error1, {{ T "trial_err_request" }});
           });
       });
 
@@ -425,7 +425,7 @@
 
         var label = submit2.textContent;
         submit2.disabled = true;
-        submit2.textContent = 'Sending...';
+        submit2.textContent = {{ T "sending" }};
 
         fetch(window.JR_N8N_WEBHOOK, {
           method: 'POST',
@@ -442,7 +442,7 @@
             console.error('Error submitting answers:', err);
             submit2.disabled = false;
             submit2.textContent = label;
-            showError(error2, 'There was an error sending your answers. Please try again, or continue and we will ask you by email.');
+            showError(error2, {{ T "trial_err_answers" }});
           });
       });
 
@@ -506,7 +506,7 @@
             state.company = '';
             state.posted = true;
             saveState(state);
-            signedIn.textContent = 'Signed in as ' + claims.email;
+            signedIn.textContent = {{ T "signed_in_as" }} + ' ' + claims.email;
             signedIn.classList.remove('hidden');
             ghCompanyRow.classList.remove('hidden');
             showStep(2);

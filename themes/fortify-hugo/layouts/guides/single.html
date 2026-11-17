@@ -10,7 +10,7 @@
           {{ if and (eq .Section "guides") (not (eq $.Params.hideFrameworkSelector true)) }}
           <div class="framework-container mb-6">
             <div class="flex items-center justify-end gap-3 rounded-lg bg-light/50 border border-border/30 px-4 py-3">
-              <span class="text-sm font-medium text-text-dark">Choose a framework:</span>
+              <span class="text-sm font-medium text-text-dark">{{ T "choose_framework" }}</span>
               <ul class="nav-tabs flex gap-2">
                 <li class="framework-button active" data-type="fluent-api">Fluent API</li>
                 <li class="framework-button" data-type="spring-boot">Spring Boot</li>

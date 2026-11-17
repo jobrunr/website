@@ -1,0 +1,4 @@
+{{/*  Small label for a card that links to a page in another language than the current site.  */}}
+{{ if ne .Language.Lang site.Language.Lang }}
+  <span class="inline-block rounded-md bg-light px-2 py-0.5 text-xs font-medium text-text" lang="{{ site.Language.Lang }}">{{ T "in_language" .Language.Label }}</span>
+{{ end }}

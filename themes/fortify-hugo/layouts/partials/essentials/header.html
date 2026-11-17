@@ -55,7 +55,7 @@
                       {{- end }}
                       {{- .URL -}}
                     {{- else -}}
-                      {{- .URL | relLangURL -}}
+                      {{- partial "lang-url.html" .URL -}}
                     {{- end -}}">
                 {{ .Name }}
               </a>
@@ -71,7 +71,7 @@
                   {{- site.Home.RelPermalink -}}
                 {{- end }}{{- .URL -}}
               {{- else -}}
-                {{- .URL | relLangURL -}}
+                {{- partial "lang-url.html" .URL -}}
               {{- end -}}">{{ .Name }}</a>
         </li>
         {{ end }}
@@ -111,7 +111,7 @@
         {{ with site.Params.navigation_button }}
           {{ if .enable }}
             <a
-              href="{{ .link | relLangURL }}"
+              href="{{ partial "lang-url.html" .link }}"
               id="header-cta"
               class="flex items-center rounded-md border border-primary bg-primary px-3 py-1.5 text-sm font-medium text-white transition-colors hover:border-secondary hover:bg-secondary hover:text-text-dark"
             >

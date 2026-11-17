@@ -40,10 +40,10 @@
           <div class="mb-8">
             <h2 class="h5 mb-2">{{ .Params.next_title }}</h2>
             <p class="opacity-80">{{ .Params.next_text }}</p>
-            <a class="mt-2 inline-block font-medium text-primary" href="{{ .Params.next_link | relLangURL }}">{{ .Params.next_link_label }} &rarr;</a>
+            <a class="mt-2 inline-block font-medium text-primary" href="{{ partial "lang-url.html" .Params.next_link }}">{{ .Params.next_link_label }} &rarr;</a>
           </div>
 
-          <p class="text-center"><a class="text-sm opacity-70 hover:opacity-100" href="{{ .Params.back_link | relLangURL }}">{{ .Params.back_label }}</a></p>
+          <p class="text-center"><a class="text-sm opacity-70 hover:opacity-100" href="{{ partial "lang-url.html" .Params.back_link }}">{{ .Params.back_label }}</a></p>
         </div>
       </div>
     </div>

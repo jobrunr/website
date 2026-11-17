@@ -34,21 +34,21 @@
                 {{ T "email" }} <span class="text-red-500">*</span>
             </label>
             <input id="contact-email" name="email"
-                class="form-input" placeholder="youremail@email.com" required="" type="email" />
+                class="form-input" placeholder="{{ T "ph_email" }}" required="" type="email" />
         </div>
         <div class="col-12">
             <label for="company-name" class="form-label">
                 {{ T "company_name" }} <span class="text-red-500">*</span>
             </label>
             <input id="company-name"
-                name="company-name" class="form-input" placeholder="Your Company Name" required="" type="text" />
+                name="company-name" class="form-input" placeholder="{{ T "ph_company_name" }}" required="" type="text" />
         </div>
         <div class="col-12">
             <label for="message" class="form-label">
                 {{ T "write_message" }} <span class="text-red-500">*</span>
             </label>
             <textarea id="message" name="message"
-                class="form-input" placeholder="Write Your Message Here" required="" rows="3"></textarea>
+                class="form-input" placeholder="{{ T "ph_message" }}" required="" rows="3"></textarea>
             <input type="text" id= "username" name="username" placeholder="Your username" tabindex="-1" autocomplete="new-username">
         </div>
         <div class="col-12">
@@ -94,7 +94,7 @@ document.getElementById('n8n-contact-form').addEventListener('submit', function(
 
     // 5. Disable the form to prevent multiple submissions
     submitButton.disabled = true;
-    submitButton.innerHTML = 'Sending...'; // Use innerHTML to match your T "send_message"
+    submitButton.innerHTML = {{ T "sending" }}; // Use innerHTML to match your T "send_message"
     emailInput.disabled = true;
     companyInput.disabled = true;
     messageInput.disabled = true;
@@ -112,7 +112,7 @@ document.getElementById('n8n-contact-form').addEventListener('submit', function(
         // 7. Check if the submission was successful
         if (response.ok) {
             // SUCCESS: Replace the form with the success message
-            formContainer.innerHTML = '<p>We received your message and will get in touch!</p>';
+            formContainer.innerHTML = '<p>' + {{ T "contact_success" }} + '</p>';
         } else {
             // ERROR: Show an error message
             throw new Error('Submission failed. Server returned an error.');
@@ -121,7 +121,7 @@ document.getElementById('n8n-contact-form').addEventListener('submit', function(
     .catch(error => {
         // 8. Handle any network errors
         console.error('Form Submission Error:', error);
-        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.textContent = {{ T "contact_error" }};
         errorMessage.style.display = 'block';
 
         // Re-enable the form so the user can try again
