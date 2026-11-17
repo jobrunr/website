@@ -18,6 +18,17 @@
   @apply rounded border border-border;
 }
 
+/* Use cases: on desktop, table cells wrap so the table fits the article column without horizontal scrolling */
+@media (min-width: 768px) {
+  .content.wrap-tables table:not(.datatable) {
+    white-space: normal;
+  }
+  .content.wrap-tables table:not(.datatable) th:not(:first-child),
+  .content.wrap-tables table:not(.datatable) td:not(:first-child) {
+    min-width: 8rem;
+  }
+}
+
 /* TABULATOR */
 
 /* Tabulator container */
