@@ -2,17 +2,24 @@
   {{/* Paginate all regular pages, newest first. A post with `sort_by_lastmod: true`
     in its front matter is sorted by its lastmod instead of its date. */}}
   {{ $items := slice }}
-  {{ range .RegularPages }}
+  {{ range partial "lang-pages.html" (dict "page" . "regular" true) }}
     {{ $sortDate := .Date }}
     {{ if and .Params.sort_by_lastmod (gt .Lastmod .Date) }}
       {{ $sortDate = .Lastmod }}
     {{ end }}
     {{ $items = $items | append (dict "sortKey" $sortDate.Unix "page" .) }}
   {{ end }}
+  {{/* Posts in the current language come first, then the untranslated ones (see lang-pages.html). */}}
   {{ $pages := slice }}
+  {{ $others := slice }}
   {{ range sort $items "sortKey" "desc" }}
-    {{ $pages = $pages | append .page }}
+    {{ if eq .page.Language.Lang site.Language.Lang }}
+      {{ $pages = $pages | append .page }}
+    {{ else }}
+      {{ $others = $others | append .page }}
+    {{ end }}
   {{ end }}
+  {{ $pages = $pages | append $others }}
   {{ $paginator := .Paginate $pages }}
 
   <section class="section overflow-hidden">

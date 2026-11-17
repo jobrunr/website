@@ -1,0 +1,110 @@
+############# Spanish navigation ##############
+# Entries with `pageRef` point to a translated page. Entries with a `/en/` url have no
+# Spanish version yet and link to the English page. Switch an entry to `pageRef` once
+# its page is translated.
+
+# main menu
+
+[[main]]
+name = "Inicio"
+pageRef = "/"
+weight = 1
+
+[[main]]
+name = "Pro"
+pageRef = "/pro"
+weight = 2
+
+[[main]]
+name = "Precios"
+pageRef = "/pricing"
+weight = 3
+
+[[main]]
+name = "Documentación"
+pageRef = "/documentation"
+weight = 5
+[main.params]
+hasChildren = false
+
+[[main]]
+name = "Guías"
+pageRef = "/guides"
+weight = 6
+
+[[main]]
+name = "Formación"
+url = "/en/training/"
+weight = 7
+
+[[main]]
+name = "Blog"
+pageRef = "/blog"
+weight = 8
+
+[[main]]
+name = "Casos de uso"
+url = "/en/use-case/"
+weight = 9
+
+
+# footer menu left
+[[footer_01]]
+name = "Haz la visita guiada"
+url = "https://finance.demo.jobrunr.io/tour"
+weight = 0
+
+[[footer_01]]
+name = "Generador de Cron"
+url = "/en/tools/cron-expression-generator/"
+weight = 1
+
+[[footer_01]]
+name = "JobRunr para finanzas"
+url = "/en/finance/"
+weight = 2
+
+[[footer_01]]
+name = "JobRunr para seguros"
+url = "/en/insurance/"
+weight = 3
+
+[[footer_01]]
+name = "JobRunr para IA"
+url = "/en/ai/"
+weight = 4
+
+[[footer_01]]
+name = "Nuestro modelo de licencias"
+url = "/en/understanding-your-license/"
+weight = 4
+
+[[footer_01]]
+name = "Contacto"
+pageRef = "/contact"
+weight = 6
+
+[[footer_02]]
+name = "Términos"
+url = "/en/licensing/info/"
+weight = 1
+
+[[footer_02]]
+name = "Política de privacidad"
+url = "/en/privacy"
+weight = 2
+
+[[footer_02]]
+name = "Avisos de seguridad"
+url = "/en/security/"
+weight = 3
+
+[[footer_02]]
+name = "Sobre JobRunr"
+url = "/en/about/"
+weight = 4
+
+[[footer_02]]
+name = "Empleo en JobRunr"
+url = "/en/jobs/"
+weight = 4

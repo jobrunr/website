@@ -1,4 +1,5 @@
 window.addEventListener("load", () => {
+  const spanish = (document.documentElement.lang || "").toLowerCase().startsWith("es");
   // cookieconsent can be blocked in which case this crashes.
   window.cookieconsent?.initialise({
     "palette": {
@@ -11,7 +12,11 @@ window.addEventListener("load", () => {
         "text": "#fff"
       }
     },
-    "content": {
+    "content": spanish ? {
+      "message": "Este sitio web utiliza cookies para ofrecerte la mejor experiencia.",
+      "dismiss": "¡Entendido!",
+      "link": "Más información sobre las cookies"
+    } : {
       "link": "Learn more about cookies"
     }
   });

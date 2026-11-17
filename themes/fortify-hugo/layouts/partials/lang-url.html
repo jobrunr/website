@@ -1,0 +1,27 @@
+{{/*  Language-aware internal link, a drop-in for `relLangURL`.
+      In the default language it is exactly `relLangURL`. In any other language it returns the
+      translated page when one exists and falls back to the default-language URL when it does not,
+      so a partly translated site never links to a page that was not built.
+      External links, anchors and URLs that already carry a language prefix pass through.  */}}
+{{ $url := . | string }}
+{{ $out := $url }}
+{{ $default := (index hugo.Sites 0).Language.Lang }}
+{{ if eq site.Language.Lang $default }}
+  {{ $out = relLangURL $url }}
+{{ else if not (findRE `^(https?:|mailto:|tel:|//|#)` $url) }}
+  {{ $prefixed := false }}
+  {{ range hugo.Sites }}
+    {{ if hasPrefix $url (printf "/%s/" .Language.Lang) }}{{ $prefixed = true }}{{ end }}
+  {{ end }}
+  {{ if not $prefixed }}
+    {{ $path := replaceRE `[?#].*$` "" $url }}
+    {{ $suffix := strings.TrimPrefix $path $url }}
+    {{ $page := site.GetPage (printf "/%s" (strings.Trim $path "/")) }}
+    {{ if and $page $page.RelPermalink }}
+      {{ $out = printf "%s%s" $page.RelPermalink $suffix }}
+    {{ else }}
+      {{ $out = printf "/%s/%s%s" $default (strings.TrimPrefix "/" $path) $suffix }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $out }}

@@ -1,0 +1,24 @@
+{{/*  Child pages of a section for the current language, topped up with the default-language
+      pages that have no translation yet. A partly translated language then lists the full
+      catalogue instead of an almost empty page; the untranslated entries link to the
+      default-language page and the cards label them (see `lang-badge.html`).
+      In the default language this returns the section's own pages untouched.
+      Params: page (the section), regular (bool: RegularPages instead of Pages).  */}}
+{{ $section := .page }}
+{{ $regular := .regular }}
+{{ $pages := cond $regular $section.RegularPages $section.Pages }}
+{{ $default := (index hugo.Sites 0).Language.Lang }}
+{{ if ne site.Language.Lang $default }}
+  {{ range $section.Translations }}
+    {{ if eq .Language.Lang $default }}
+      {{ range (cond $regular .RegularPages .Pages) }}
+        {{ $translated := false }}
+        {{ range .Translations }}
+          {{ if eq .Language.Lang site.Language.Lang }}{{ $translated = true }}{{ end }}
+        {{ end }}
+        {{ if not $translated }}{{ $pages = $pages | append . }}{{ end }}
+      {{ end }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return $pages }}

@@ -1,0 +1,15 @@
+{{/*  Resolves a sidebar menu entry for the current language. The sidebar always lists the full
+      default-language documentation tree, so in another language an entry shows the translated
+      page (url and name) when it exists and the default-language page when it does not.
+      Returns a dict with `url` and `name`.  */}}
+{{ $url := partial "lang-url.html" .URL }}
+{{ $name := .Name }}
+{{ with .Page }}
+  {{ range .Translations }}
+    {{ if eq .Language.Lang site.Language.Lang }}
+      {{ $url = .RelPermalink }}
+      {{ $name = .Params.menu.sidebar.name | default .LinkTitle }}
+    {{ end }}
+  {{ end }}
+{{ end }}
+{{ return (dict "url" $url "name" $name) }}

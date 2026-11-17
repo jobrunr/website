@@ -49,11 +49,12 @@
         (function() {
             var currentPath = window.location.pathname;
             
-            // Check if the path is missing the '/en/' prefix
+            // Check if the path is missing the '/en/' prefix. A page that does not exist in
+            // another language (e.g. /es/...) falls back to its English version.
             if (!currentPath.startsWith("/en/") && !["/404", "/404.html"].includes(currentPath)) {
                 
                 // Construct the new URL
-                var newPath = "/en" + currentPath;
+                var newPath = "/en" + currentPath.replace(/^\/es(\/|$)/, "/");
                 
                 // Optional: You can log this to console to see it happening
                 console.log("Redirecting from " + currentPath + " to " + newPath);

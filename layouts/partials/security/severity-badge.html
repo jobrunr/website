@@ -1,0 +1,9 @@
+{{- /* Severity pill for security advisories. Context: the severity string (critical, high, medium, low). */ -}}
+{{- $s := lower . -}}
+{{- $class := "bg-gray-100 text-gray-700" -}}
+{{- if eq $s "critical" }}{{ $class = "bg-red-100 text-red-800" }}
+{{- else if eq $s "high" }}{{ $class = "bg-orange-100 text-orange-800" }}
+{{- else if eq $s "medium" }}{{ $class = "bg-amber-100 text-amber-800" }}
+{{- else if eq $s "low" }}{{ $class = "bg-green-50 text-green-700" }}
+{{- end -}}
+<span class="inline-block rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wider {{ $class }}">{{ $s }}</span>

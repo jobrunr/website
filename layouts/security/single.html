@@ -1,0 +1,104 @@
+{{ define "main" }}
+{{ $section := .Parent }}
+{{ $id := or .Params.cve .Params.ghsa }}
+
+{{ partial "security/banner.html" $section }}
+
+<section class="section pt-16 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9">
+        <p class="mb-4"><a class="font-medium text-primary" href="{{ $section.RelPermalink }}">&larr; All security advisories</a></p>
+        <h1 class="h2 mb-4">{{ .Title }}</h1>
+        <div class="mb-10 flex flex-wrap items-center gap-3 text-sm font-semibold uppercase tracking-wider text-gray-500">
+          {{ partial "security/severity-badge.html" .Params.severity }}
+          <span>{{ .Date.Format "January 2, 2006" }}</span>
+          <span>{{ $id }}</span>
+          {{ with .Params.cvss_score }}<span>CVSS {{ . }}</span>{{ end }}
+        </div>
+
+        <div class="content">
+          {{ .Content }}
+        </div>
+
+        <h2 class="h4 mt-10 mb-4">Affected versions</h2>
+        <div class="content">
+          {{ range .Params.affected }}
+            <p><strong>{{ .product }}</strong></p>
+            <ul>
+              {{ range .versions }}<li>{{ . }}</li>{{ end }}
+            </ul>
+          {{ end }}
+        </div>
+
+        <h2 class="h4 mt-10 mb-4">Fixed versions</h2>
+        <p class="mb-4 text-gray-600">Find the version you run in the first column, then read across to your edition.</p>
+        <div class="overflow-x-auto rounded-2xl border border-border">
+          <table class="w-full text-left">
+            <thead class="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <tr>
+                <th class="px-4 py-3">You run</th>
+                <th class="px-4 py-3">JobRunr OSS</th>
+                <th class="px-4 py-3">JobRunr Pro</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              {{ $ctx := . }}
+              {{ range .Params.fixes }}
+                <tr>
+                  <td class="px-4 py-4 align-top font-semibold whitespace-nowrap">{{ .runs }}</td>
+                  <td class="px-4 py-4 align-top">{{ partial "security/fix-cell.html" (dict "cell" .oss "page" $ctx "section" $section) }}</td>
+                  <td class="px-4 py-4 align-top">{{ partial "security/fix-cell.html" (dict "cell" .pro "page" $ctx "section" $section) }}</td>
+                </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </div>
+        {{ with .Params.fixes_note }}
+          <div class="mt-4 rounded-2xl border border-border bg-gray-50 p-5">
+            <p>{{ . }} <a class="font-medium text-primary" href="{{ $section.RelPermalink }}#extended-support">About Extended Support &rarr;</a></p>
+          </div>
+        {{ end }}
+
+        {{ with .Params.credit }}
+          <h2 class="h4 mt-10 mb-4">Credit</h2>
+          <div class="content">{{ . | markdownify }}</div>
+        {{ end }}
+
+        {{ with .Params.references }}
+          <h2 class="h4 mt-10 mb-4">References</h2>
+          <div class="content">
+            <ul>
+              {{ range . }}<li><a href="{{ .url }}">{{ .label }}</a></li>{{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+        {{ with .Params.history }}
+          <h2 class="h4 mt-10 mb-4">History</h2>
+          <div class="content">
+            <ul>
+              {{ range . }}<li>{{ (time .date).Format "2006-01-02" }}: {{ .text }}</li>{{ end }}
+            </ul>
+          </div>
+        {{ end }}
+
+        {{ with $section.Params.reporting }}
+          <h2 class="h4 mt-10 mb-4">{{ .title }}</h2>
+          <div class="content">{{ .text | markdownify }}</div>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section pt-0 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9">
+        {{ partial "security/extended-support.html" $section }}
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

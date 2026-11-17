@@ -4,7 +4,7 @@
 {{ $label := .text | markdownify }}
 {{ with .url }}
   {{ $external := or (hasPrefix . "http") (hasPrefix . "//") }}
-  {{ $href := cond $external . (. | relLangURL) }}
+  {{ $href := cond $external . (partial "lang-url.html" .) }}
   {{ $attrs := cond $external (printf ` target="_blank" rel="noopener"`) "" }}
   {{ $label = printf `<a class="dashed-underline" href="%s"%s>%s</a>` $href $attrs $label | safeHTML }}
 {{ end }}

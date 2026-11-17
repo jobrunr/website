@@ -76,7 +76,7 @@
             <div class="flex min-h-full flex-col items-start gap-4 rounded-2xl border border-border p-6 md:p-10">
               <h2 class="h5">{{ .title | markdownify }}</h2>
               <p class="text-lg">{{ .text | markdownify }}</p>
-              <a class="btn btn-primary btn-even-padding mt-auto" href="{{ .link | relLangURL }}">{{ .button }}</a>
+              <a class="btn btn-primary btn-even-padding mt-auto" href="{{ partial "lang-url.html" .link }}">{{ .button }}</a>
             </div>
           </div>
         {{ end }}
@@ -127,7 +127,7 @@
             <button
               type="button"
               id="startup-close"
-              aria-label="Close"
+              aria-label="{{ T "close" }}"
               class="ml-auto inline-flex items-center rounded-lg bg-transparent p-1.5 text-gray-500 hover:bg-gray-100 hover:text-gray-900">
               <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
@@ -143,13 +143,13 @@
                 <label for="startup-email" class="form-label">
                   {{ .email_label }} <span class="text-red-500">*</span>
                 </label>
-                <input id="startup-email" name="email" type="email" class="form-input" placeholder="you@yourcompany.com" required />
+                <input id="startup-email" name="email" type="email" class="form-input" placeholder="{{ T "ph_work_email" }}" required />
               </div>
               <div class="mb-4">
                 <label for="startup-company" class="form-label">
                   {{ .company_label }} <span class="text-red-500">*</span>
                 </label>
-                <input id="startup-company" name="company" type="text" class="form-input" placeholder="Your company name" required />
+                <input id="startup-company" name="company" type="text" class="form-input" placeholder="{{ T "ph_company_name_lc" }}" required />
               </div>
               <div class="mb-4">
                 <label for="startup-team-size" class="form-label">{{ .team_size_label }}</label>
@@ -282,19 +282,19 @@
           var company = document.getElementById('startup-company').value.trim();
           var eligible = document.getElementById('startup-eligibility').checked;
           if (!email || !company) {
-            errorEl.textContent = 'Please fill in your email and company name.';
+            errorEl.textContent = {{ T "startup_err_required" }};
             errorEl.classList.remove('hidden');
             return;
           }
           if (!eligible) {
-            errorEl.textContent = 'Please confirm you meet the eligibility rule.';
+            errorEl.textContent = {{ T "startup_err_eligibility" }};
             errorEl.classList.remove('hidden');
             return;
           }
 
           var label = submit.textContent;
           submit.disabled = true;
-          submit.textContent = 'Sending...';
+          submit.textContent = {{ T "sending" }};
 
           var payload = Object.assign(
             {
@@ -323,7 +323,7 @@
               console.error('Error submitting startup application:', err);
               submit.disabled = false;
               submit.textContent = label;
-              errorEl.textContent = 'There was an error sending your application. Please try again or email us at nicholas@jobrunr.io.';
+              errorEl.textContent = {{ T "startup_err_send" }};
               errorEl.classList.remove('hidden');
             });
         });
@@ -338,7 +338,7 @@
           buyError.classList.add('hidden');
           var label = buyNow.textContent;
           buyNow.disabled = true;
-          buyNow.textContent = 'Opening checkout...';
+          buyNow.textContent = {{ T "checkout_opening" }};
           push({ event: 'checkout_started', quantity: quantity });
 
           fetch('{{ site.Params.start_api.base_url }}/checkout', {
@@ -358,7 +358,7 @@
               console.error('Error starting checkout:', err);
               buyNow.disabled = false;
               buyNow.textContent = label;
-              buyError.textContent = 'We could not open the checkout. Please try again or email us at nicholas@jobrunr.io.';
+              buyError.textContent = {{ T "checkout_error" }};
               buyError.classList.remove('hidden');
             });
         });

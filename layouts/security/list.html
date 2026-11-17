@@ -1,0 +1,144 @@
+{{ define "main" }}
+{{ $advisories := .RegularPages.ByDate.Reverse }}
+{{ $policy := site.GetPage "/pages/support-policy" }}
+
+<!-- Extended Support banner -->
+{{ partial "security/banner.html" . }}
+
+<!-- Header -->
+<section class="section pt-16 pb-4 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        <h1 class="h2 md:h1 mb-4">{{ .Title }}</h1>
+        <p class="text-xl text-gray-600">{{ .Params.intro }}</p>
+        <p class="mt-4">
+          <a class="font-medium text-primary" href="{{ with .OutputFormats.Get "rss" }}{{ .RelPermalink }}{{ end }}">RSS feed</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reporting -->
+<section class="section pt-8 pb-4 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        <div class="rounded-2xl border border-border bg-gray-50 p-6 md:p-8">
+          <h2 class="h4 mb-2">{{ .Params.reporting.title }}</h2>
+          <div class="content">{{ .Params.reporting.text | markdownify }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Advisories -->
+<section class="section pt-8 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        <h2 class="h3 mb-6">{{ .Params.advisories_section.title }}</h2>
+        {{ if $advisories }}
+          <div class="overflow-x-auto rounded-2xl border border-border">
+            <table class="w-full text-left">
+              <thead class="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                <tr>
+                  <th class="px-4 py-3">Severity</th>
+                  <th class="px-4 py-3">Advisory</th>
+                  <th class="px-4 py-3">Component</th>
+                  <th class="px-4 py-3">Published</th>
+                  <th class="px-4 py-3">Fix versions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                {{ range $advisories }}
+                  <tr>
+                    <td class="px-4 py-4 align-top">{{ partial "security/severity-badge.html" .Params.severity }}</td>
+                    <td class="px-4 py-4 align-top">
+                      <a class="font-semibold text-primary" href="{{ .RelPermalink }}">{{ or .Params.cve .Params.ghsa }}</a>
+                      <p class="text-sm text-gray-600">{{ .Title }}</p>
+                    </td>
+                    <td class="px-4 py-4 align-top">{{ .Params.component }}</td>
+                    <td class="px-4 py-4 align-top whitespace-nowrap">{{ .Date.Format "January 2, 2006" }}</td>
+                    <td class="px-4 py-4 align-top whitespace-nowrap">
+                      {{ with .Params.fix_versions }}{{ delimit . ", " }}{{ else }}Release pending{{ end }}
+                    </td>
+                  </tr>
+                {{ end }}
+              </tbody>
+            </table>
+          </div>
+        {{ else }}
+          <p class="text-gray-600">{{ .Params.advisories_section.empty }}</p>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Supported versions -->
+<section class="section bg-gray-50">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        <h2 class="h3 mb-4">{{ .Params.versions_section.title }}</h2>
+        <p class="mb-6 text-lg text-gray-600">{{ .Params.versions_section.text }}</p>
+        <div class="overflow-x-auto rounded-2xl border border-border bg-white">
+          <table class="w-full text-left">
+            <thead class="bg-gray-50 text-xs font-semibold uppercase tracking-wider text-gray-500">
+              <tr>
+                <th class="px-4 py-3">Edition</th>
+                <th class="px-4 py-3">Gets security fixes</th>
+                <th class="px-4 py-3">On an older version</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border">
+              {{ range .Params.versions_section.rows }}
+                <tr>
+                  <td class="px-4 py-4 align-top font-semibold whitespace-nowrap">{{ .edition }}</td>
+                  <td class="px-4 py-4 align-top">{{ .supported }}</td>
+                  <td class="px-4 py-4 align-top">{{ .older }}</td>
+                </tr>
+              {{ end }}
+            </tbody>
+          </table>
+        </div>
+        {{ with $policy }}
+          <p class="mt-4"><a class="font-medium text-primary" href="{{ .RelPermalink }}">Read the full support policy &rarr;</a></p>
+        {{ end }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Extended Support -->
+<section id="extended-support" class="section bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        {{ partial "security/extended-support.html" . }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stay informed -->
+<section class="section pt-0 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-10">
+        <h2 class="h3 mb-4">{{ .Params.follow_section.title }}</h2>
+        <div class="content">
+          <ul>
+            {{ range .Params.follow_section.items }}
+              <li>{{ . | markdownify }}</li>
+            {{ end }}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}

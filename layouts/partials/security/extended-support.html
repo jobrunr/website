@@ -1,0 +1,22 @@
+{{- /* Extended Support block for the security pages. Context: the security section page. */ -}}
+{{ with .Params.extended_support }}
+  <div class="rounded-2xl bg-dark p-6 md:p-10 text-white">
+    <div class="grid gap-8 md:grid-cols-2 md:items-center">
+      <div>
+        <h2 class="h3 mb-4 text-white">{{ .title }}</h2>
+        <p class="text-white/80">{{ .text }}</p>
+      </div>
+      <div>
+        <ul class="mb-6 flex flex-col gap-3">
+          {{ range .points }}
+            <li class="flex gap-3 text-white/90">
+              <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-secondary"></span>
+              <span>{{ . }}</span>
+            </li>
+          {{ end }}
+        </ul>
+        <a class="btn btn-primary btn-even-padding" href="{{ partial "lang-url.html" .button_link }}">{{ .button_label }}</a>
+      </div>
+    </div>
+  </div>
+{{ end }}

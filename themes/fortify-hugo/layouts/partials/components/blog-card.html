@@ -30,7 +30,7 @@
       {{ if and .Params.sort_by_lastmod (gt (.Lastmod.Format "2006-01-02") (.PublishDate.Format "2006-01-02")) }}
         <i class="fa-solid fa-rotate w-5 text-tertiary"></i>
         <p class="inline-block font-medium text-tertiary">
-          Updated {{ time.Format ":date_long" .Lastmod }}
+          {{ T "updated" }} {{ time.Format ":date_long" .Lastmod }}
         </p>
       {{ else }}
         <i class="fa-solid fa-calendar-days w-5 text-tertiary"></i>
@@ -43,9 +43,10 @@
     <h3 class="h5 mb-3">
       <a href="{{ .RelPermalink }}">{{ .Title | markdownify }}</a>
     </h3>
+    {{ with partial "lang-badge.html" . }}<p class="mb-3">{{ . }}</p>{{ end }}
     <p class="mb-6">{{ .Params.description | markdownify }}</p>
     <a class="btn btn-text" href="{{ .RelPermalink }}">
-      {{ T "read_more" }} <span class="sr-only">Details</span>
+      {{ T "read_more" }} <span class="sr-only">{{ T "details" }}</span>
       <div class="icon-wrapper">
         <span class="icon">
           <svg

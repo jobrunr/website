@@ -10,7 +10,7 @@
   <div class="container">
     <div class="row justify-center">
       <div class="lg:col-9" data-aos="fade-up-sm">
-        <p class="mb-4"><a class="text-sm opacity-70 hover:opacity-100" href="{{ "training/" | relLangURL }}">&larr; All trainings</a></p>
+        <p class="mb-4"><a class="text-sm opacity-70 hover:opacity-100" href="{{ partial "lang-url.html" "training/" }}">&larr; All trainings</a></p>
         <div class="mb-4 flex flex-wrap items-center gap-3">
           {{ partial "training/level-badge.html" (dict "level" .Params.level "color" .Params.level_color) }}
           <span class="text-sm text-gray-500">{{ .Params.duration }}</span>

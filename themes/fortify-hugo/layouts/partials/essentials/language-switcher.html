@@ -1,0 +1,35 @@
+{{/*  Footer language switcher. Links to the same page in the other language when a translation
+      exists, and to that language's home page when it does not. A click is remembered in
+      `jr_lang`, which switches off the Spanish redirect in partials/essentials/languages.html.  */}}
+{{ if hugo.IsMultilingual }}
+  {{ $page := . }}
+  <nav class="mt-6 flex items-center gap-2 text-sm" aria-label="{{ T "language" }}" data-pagefind-ignore>
+    <i class="fa-solid fa-globe text-text" aria-hidden="true"></i>
+    <span class="sr-only">{{ T "language" }}:</span>
+    {{ range $index, $site := hugo.Sites }}
+      {{ $lang := $site.Language.Lang }}
+      {{ if $index }}<span class="text-text/50" aria-hidden="true">|</span>{{ end }}
+      {{ if eq $lang $page.Language.Lang }}
+        <span class="font-semibold text-text-dark" aria-current="true">{{ $site.Language.Label }}</span>
+      {{ else }}
+        {{ $target := $site.Home.RelPermalink }}
+        {{ range $page.Translations }}
+          {{ if eq .Language.Lang $lang }}{{ $target = .RelPermalink }}{{ end }}
+        {{ end }}
+        <a
+          class="font-medium transition hover:text-tertiary"
+          href="{{ $target }}"
+          lang="{{ $lang }}"
+          hreflang="{{ $lang }}"
+          data-lang-switch="{{ $lang }}">{{ $site.Language.Label }}</a>
+      {{ end }}
+    {{ end }}
+  </nav>
+  <script>
+    document.querySelectorAll('[data-lang-switch]').forEach(function (link) {
+      link.addEventListener('click', function () {
+        try { localStorage.setItem('jr_lang', link.getAttribute('data-lang-switch')); } catch (e) {}
+      });
+    });
+  </script>
+{{ end }}

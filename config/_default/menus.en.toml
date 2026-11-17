@@ -87,6 +87,11 @@ url = "/privacy"
 weight = 2
 
 [[footer_02]]
+name = "Security Advisories"
+url = "/security/"
+weight = 3
+
+[[footer_02]]
 name = "About JobRunr"
 pageRef = "/about"
 weight = 4

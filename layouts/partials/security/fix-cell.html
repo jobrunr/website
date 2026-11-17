@@ -1,0 +1,17 @@
+{{- /* One cell of the "Fixed versions" table. Context: dict with cell (access, version), page (the advisory) and section. */ -}}
+{{- $access := .cell.access -}}
+{{- $latest := .page.Params.latest_fix -}}
+{{- $es := printf "%s#extended-support" .section.RelPermalink -}}
+{{ if eq $access "free" }}
+  <p class="font-semibold">Upgrade to {{ .cell.version }}</p>
+  <p class="text-sm text-gray-600">Free</p>
+{{ else if eq $access "included" }}
+  <p class="font-semibold">Upgrade to {{ .cell.version }}</p>
+  <p class="text-sm text-gray-600">Included in your subscription</p>
+{{ else if eq $access "extended" }}
+  <p class="font-semibold">{{ with .cell.version }}{{ . }}, with{{ else }}Backport to your version, with{{ end }} <a class="text-primary" href="{{ $es }}">Extended Support</a></p>
+  <p class="text-sm text-gray-600">Or upgrade to {{ $latest }}</p>
+{{ else }}
+  <p class="font-semibold">Upgrade to {{ $latest }}</p>
+  <p class="text-sm text-gray-600">No fix for this version</p>
+{{ end }}
