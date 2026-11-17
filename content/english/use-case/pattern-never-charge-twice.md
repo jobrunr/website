@@ -23,12 +23,6 @@ A plain background thread makes it worse. Its lifetime is tied to the applicatio
 
 After the crash you have two bad options. If you run the job again from the top, the customer pays twice. If you do not run it again, the merchant never gets paid.
 
-## What goes wrong when you build it yourself
-
-It is expensive to write, and the first version is the cheap part. You need a table that records which steps are done. You need retries that work across servers. You need a way to see which jobs are processing, and a way to notice that the server running a job is gone, so the work is picked up elsewhere. Then you need to maintain all of that every time your framework or your database gets a new version.
-
-Most teams discover the edge cases one incident at a time.
-
 ## The pattern
 
 {{< svg "assets/use-case/pattern-crash-recovery.svg" >}}
@@ -46,7 +40,13 @@ public void payOut(String orderId, JobContext jobContext) {
 }
 ```
 
-That is the whole change to your code. These are [durable jobs]({{< ref "guides/advanced/durable-executions.md" >}}): there is no workflow server to run and no second system to keep in sync. If a step throws an exception, the job is retried up to 10 times with exponential back-off and resumes at that step. If it still fails, it stays visible in the dashboard with its full history until someone decides what to do.
+That is the whole change to your code. These are [durable jobs]({{< ref "guides/advanced/durable-executions.md" >}}): there is no workflow server to run and no second system to keep in sync. If a step throws an exception, the job is retried up to the [amount of times that you configure]({{< ref "documentation/background-methods/dealing-with-exceptions.md#how-to-configure-the-amount-of-retries" >}}) with exponential back-off and resumes at that step. If it still fails, it stays visible in the dashboard with its full history until someone decides what to do.
+
+## What goes wrong when you build it yourself
+
+It is expensive to write, and the first version is the cheap part. You need a table that records which steps are done. You need retries that work across servers. You need a way to see which jobs are processing, and a way to notice that the server running a job is gone, so the work is picked up elsewhere. Then you need to maintain all of that every time your framework or your database gets a new version.
+
+Most teams discover the edge cases one incident at a time.
 
 ### The honest part
 
