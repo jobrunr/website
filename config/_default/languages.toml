@@ -29,6 +29,6 @@ action = "#"
 
 [es.params.metadata]
 keywords = ["JobRunr", "Java", "Procesamiento en segundo plano", "Planificación de jobs", "Ejecución de tareas", "Open Source", "Sistemas distribuidos", "Microservicios", "Cloud Computing"]
-description = "La librería open source y sencilla para el procesamiento fiable en segundo plano en Java. No vuelvas a perder un job. Dashboard completo, reintentos automáticos y planificación duradera de jobs sobre tu base de datos actual."
+description = "Librería open source y fácil de usar para procesar background jobs en Java de forma fiable. No vuelvas a perder un job. Dashboard completo, reintentos automáticos y planificación persistente de jobs sobre tu base de datos actual."
 author = "JobRunr"
 image = "images/og-image.png"
