@@ -1,7 +1,7 @@
 ---
 enable: true
 title: "Prueba JobRunr tú mismo, sin instalar nada"
-description: "Recorre 21 escenarios prácticos en nuestra demo alojada y comprueba cómo JobRunr gestiona workflows reales. Ábrela en el navegador, sin configuración ni registro."
+description: "Recorre 21 escenarios prácticos en nuestra demo online y comprueba cómo JobRunr gestiona workflows reales. Ábrela en el navegador, sin configuración ni registro."
 image: "/images/cta-bg.png"
 button:
   enable: true

@@ -50,12 +50,12 @@ weight = 9
 
 # footer menu left
 [[footer_01]]
-name = "Haz la visita guiada"
+name = "Haz el tour guiado"
 url = "https://finance.demo.jobrunr.io/tour"
 weight = 0
 
 [[footer_01]]
-name = "Generador de Cron"
+name = "Generador de expresiones cron"
 url = "/en/tools/cron-expression-generator/"
 weight = 1
 
@@ -85,7 +85,7 @@ pageRef = "/contact"
 weight = 6
 
 [[footer_02]]
-name = "Términos"
+name = "Términos y condiciones"
 url = "/en/licensing/info/"
 weight = 1
 
@@ -105,6 +105,6 @@ url = "/en/about/"
 weight = 4
 
 [[footer_02]]
-name = "Empleo en JobRunr"
+name = "Trabaja en JobRunr"
 url = "/en/jobs/"
 weight = 4

@@ -7,12 +7,12 @@ list:
     content: |
       **En una emergencia, avisos como la disponibilidad de camas de hospital no pueden esperar 20 minutos.**
 
-      Con JobRunr Pro entregamos esas actualizaciones en segundos, lo que marca una diferencia real para nuestros clientes.
+      Con JobRunr Pro enviamos esas actualizaciones en segundos, lo que marca una diferencia real para nuestros clientes.
   - name: "Peter Davidson"
     designation: "Tracer.ai"
     avatar: "/images/avatar/peter.jpeg"
     content: |
-      **Hemos visto un aumento del 20% en la productividad de los desarrolladores.**
+      **La productividad de nuestros desarrolladores ha subido un 20%.**
 
       Como nuestro soporte de primera línea usa el dashboard para diagnosticar incidencias y ayudar a nuestros clientes, el equipo de ingeniería puede centrarse en lo importante.
   - name: "Brent Young"
@@ -21,7 +21,7 @@ list:
     content: |
       **JobRunr Pro nos ha ahorrado tiempo y dinero.**
 
-      Es raro encontrar una herramienta que tenga tanto impacto sin generarnos más trabajo. Es de esas herramientas que te gustaría haber descubierto antes.
+      No es habitual encontrar una herramienta con tanto impacto que no nos dé más trabajo. Es de esas que te gustaría haber descubierto antes.
 
 # don't create a separate page
 build:

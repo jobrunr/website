@@ -1,7 +1,7 @@
 ---
 # Brand Logo
 brand:
-  title: "Con la confianza de miles de empresas en todo el mundo"
+  title: "Miles de empresas de todo el mundo confían en JobRunr"
   logo:
     - image: "/images/brand-logo/Amazon-Logo.webp"
     - image: "/images/brand-logo/Thoughtworks-logo.webp"
