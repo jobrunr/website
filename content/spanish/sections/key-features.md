@@ -1,10 +1,10 @@
 ---
-title: "Pasa del dolor operativo a un control claro."
+title: "Del caos operativo al control total."
 subtitle: "Impacto en el negocio"
-description: "JobRunr ayuda a los equipos a ahorrar tiempo de depuración y a reducir costes de infraestructura."
+description: "JobRunr ayuda a los equipos a dedicar menos tiempo a depurar y a reducir los costes de infraestructura."
 features:
-  - title: "Deja de perder tiempo con escalados de soporte."
-    description: "El dashboard da a tu equipo de soporte de primera línea visibilidad completa del historial y los fallos de los jobs. Pueden diagnosticar y reintentar jobs por sí mismos. Así tu equipo de ingeniería puede centrarse en crear funcionalidades y no en depurar jobs."
+  - title: "Deja de perder tiempo escalando incidencias de soporte."
+    description: "El dashboard da a tu equipo de soporte de primera línea visibilidad completa del historial y los fallos de los jobs. Pueden diagnosticar y reintentar jobs por sí mismos. Así tu equipo de ingeniería puede centrarse en crear funcionalidades en lugar de depurar jobs."
     image: "/images/key-features/2.webp"
   - title: "Deja de pagar por servidores inactivos.<br/><br/>"
     description: "JobRunr está diseñado para escalar de forma dinámica. Te ahorra costes al autoescalar tus workers según la carga real de jobs. Puedes gestionar millones de jobs al día sin sobredimensionar tu infraestructura."
