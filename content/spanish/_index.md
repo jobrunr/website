@@ -5,7 +5,7 @@ title: "JobRunr - Scheduler distribuido de background jobs para Java"
 # Banner
 banner:
   title: "No vuelvas a perder un background job."
-  description: "Una librería Java fácil de usar para background jobs duraderos.<br /> Sobre tu base de datos actual. Open source y gratuita para uso comercial."
+  description: "Una librería Java fácil de usar para background jobs persistentes.<br /> Funciona sobre tu base de datos actual. Open source y gratuita para uso comercial."
   image:
     bg_image: "/images/bg-pattern.png"
   button:
@@ -22,7 +22,7 @@ banner:
     - id: "fire-and-forget"
       filename: "Durable.java"
       title: "Ejecuta jobs al instante"
-      description: "Los jobs fire-and-forget se ejecutan una sola vez, casi de inmediato. Perfectos para delegar tareas no críticas."
+      description: "Los jobs fire-and-forget se ejecutan una sola vez, casi de inmediato. Perfectos para sacar del flujo principal las tareas no críticas."
       code: |
         BackgroundJob.enqueue(() -> processOrder(orderId, JobContext.Null));
 
@@ -33,11 +33,11 @@ banner:
         }
       language: "java"
       dashboard_image: "/dashboard/succeeded-jobs-oss.webp"
-      dashboard_alt: "Dashboard de JobRunr mostrando jobs encolados en proceso"
+      dashboard_alt: "Dashboard de JobRunr mostrando el procesamiento de jobs encolados"
       dashboard_url: "localhost:8000/dashboard/jobs?state=SUCCEEDED"
     - id: "scheduled"
       filename: "Delayed.java"
-      title: "Planifica la ejecución para más tarde"
+      title: "Planifica jobs para más tarde"
       description: "Planifica jobs para que se ejecuten en un momento concreto. JobRunr garantiza la ejecución incluso tras reiniciar el servidor."
       code: |
         BackgroundJob.schedule(
@@ -64,7 +64,7 @@ banner:
     - id: "workflow"
       filename: "Workflow.java"
       title: "Encadena jobs en workflows"
-      description: "Encadena jobs con JobRunr Pro: ejecuta un job de continuación cuando uno termina bien y uno alternativo cuando falla."
+      description: "Encadena jobs con JobRunr Pro: lanza un job de seguimiento si uno se completa con éxito y un fallback si falla."
       code: |
         BackgroundJob.enqueue(() -> orderService.process(orderId))
           .continueWith(
@@ -81,11 +81,11 @@ banner:
 #How it Works
 how_it_works:
   subtitle: "Pasa de scripts frágiles a workflows resilientes"
-  title: "Planifica jobs con simples métodos Java"
+  title: "Planifica jobs con métodos Java sencillos"
   description: "Añade JobRunr con tu herramienta de build favorita, como Maven o Gradle, y empieza a planificar jobs en minutos."
   features:
     - title: "Jobs fire-and-forget"
-      description: "Ejecuta jobs una sola vez y casi de inmediato. Perfectos para delegar tareas no críticas."
+      description: "Ejecuta jobs una sola vez y casi de inmediato. Perfectos para sacar del flujo principal las tareas no críticas."
       icon: "fa-solid fa-rocket" 
       link: "/en/documentation/background-methods/enqueueing-jobs/"
     - title: "Jobs planificados y diferidos"
@@ -93,15 +93,15 @@ how_it_works:
       icon: "fa-solid fa-clock" 
       link: "/en/documentation/background-methods/scheduling-jobs/"
     - title: "Jobs CRON recurrentes"
-      description: "Los jobs se lanzan cada vez que se cumple una expresión CRON. Ideales para informes diarios o tareas de limpieza."
+      description: "Los jobs se lanzan cada vez que se dispara el trigger CRON que definas. Ideales para informes diarios o tareas de limpieza."
       icon: "fa-solid fa-repeat" 
       link: "/en/documentation/background-methods/recurring-jobs/"
     - title: "Jobs carbon aware"
-      description: "Usa el procesamiento de jobs carbon aware para reducir la huella de CO2 de tus servidores."
+      description: "Usa el procesamiento de jobs carbon aware para reducir la huella de carbono de tus servidores."
       icon: "fa-solid fa-leaf"
       link: "/en/documentation/configuration/carbon-aware/"
     - title: "Colas (Pro)"
-      description: "Asegúrate de que tus jobs más críticos se ejecutan primero. Evita que las tareas de baja prioridad bloqueen a las de alta prioridad."
+      description: "Asegúrate de que tus jobs más críticos se ejecuten primero. Evita que las tareas de baja prioridad bloqueen a los jobs de alta prioridad."
       icon: "fa-solid fa-list-ol"
       link: "/en/documentation/pro/priority-queues/"
     - title: "Batches (Pro)"
@@ -109,7 +109,7 @@ how_it_works:
       icon: "fa-solid fa-layer-group"
       link: "/en/documentation/pro/batches/"
     - title: "Workflows (Pro)"
-      description: "Encadena jobs en workflows claros y secuenciales, de modo que cada paso solo se ejecute cuando el anterior haya terminado bien."
+      description: "Encadena jobs en workflows claros y secuenciales, de modo que cada paso solo se ejecute cuando el anterior se haya completado con éxito."
       icon: "fa-solid fa-diagram-project"
       link: "/en/documentation/pro/job-chaining/"
     - title: "Jobs externos (Pro)"
@@ -123,18 +123,18 @@ how_it_works:
 pricing:
   title: "Encuentra el plan adecuado para ti"
   subtitle: "Precios y planes"
-  description: "Empieza gratis con nuestra versión Open Source. O consigue funcionalidades avanzadas como colas de prioridad, <br /> batches y gestión de workflows con JobRunr Pro."
+  description: "Empieza gratis con la versión open source o consigue funcionalidades avanzadas como colas de prioridad, <br /> batches y gestión de workflows con JobRunr Pro."
 
 # Customers Review
 customer_reviews:
   title: "Con la confianza de desarrolladores de todo el mundo"
-  subtitle: "Más de 1.000.000 de descargas al mes"
-  description: "No te fíes solo de nuestra palabra. Lee lo que dicen de JobRunr estos líderes del sector"
+  subtitle: "Más de 1 millón de descargas al mes"
+  description: "No lo decimos solo nosotros. Esto es lo que opinan de JobRunr algunos líderes del sector"
 
 # JobRunr for AI
 jobrunr_for_ai:
   badge: "JobRunr para IA"
-  title: "Ejecuta tus cargas de IA en Java en segundo plano"
+  title: "Ejecuta en segundo plano tus cargas de trabajo de IA en Java"
   description: "La generación de embeddings, la sincronización de RAG y los pipelines de ML se ejecutan de forma fiable en segundo plano, sobre tu base de datos actual. Funciona con Spring AI, LangChain4j y cualquier LLM."
   tags:
     - "Sincronización de embeddings para RAG"
@@ -150,7 +150,7 @@ spot_cta:
   enable: true
   badge: "Beta privada en AWS"
   title: "Workers bajo demanda para tu cola de jobs, a precios spot."
-  description: "Cuando la cola se acumula, JobRunr arranca workers en tu propia cuenta de AWS entre un 62 y un 69% por debajo del precio on-demand, según nuestras mediciones. Tus servidores actuales siguen funcionando como hasta ahora."
+  description: "Cuando se acumulan jobs en la cola, JobRunr arranca workers en tu propia cuenta de AWS entre un 62 y un 69% por debajo del precio on-demand, según nuestras mediciones. Tus servidores actuales siguen funcionando como hasta ahora."
   button:
     label: "Únete a la beta privada"
     link: "/en/spot/"
