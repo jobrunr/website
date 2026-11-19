@@ -17,7 +17,7 @@ main_feature:
   button:
     enable: true
     label: "Try JobRunr Pro for free"
-    link: "pro"
+    link: "/en/pro/"
 # don't create a separate page
 build:
   render: "never"

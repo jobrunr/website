@@ -1,5 +1,6 @@
 ---
 title: "You're All Set!"
+lastmod: 2026-11-19T10:00:00+01:00
 summary: "Thank you for registering for the JobRunr v8 Live-Coding Webinar. We look forward to seeing you there!"
 skip_meta: true
 slug: "webinar-v8-thank-you"
@@ -85,7 +86,7 @@ slug: "webinar-v8-thank-you"
         <p>Thanks for registering for the JobRunr v8 Live-Coding Webinar. You'll receive a confirmation email with your calendar invite shortly.</p>
         <p class="redirect-message" style="margin-top: 2rem;">Returning to the previous page in...</p>
         <div id="countdown" class="countdown-timer">10</div>
-        <a href="https://www.jobrunr.io/en/blog/webinar-v8/" class="btn btn-black">Go Back Now</a>
+        <a href="{{< ref "blog/webinar-v8" >}}" class="btn btn-black">Go Back Now</a>
     </div>
 </div>
 
@@ -93,7 +94,7 @@ slug: "webinar-v8-thank-you"
     (function() {
         var countdownElement = document.getElementById('countdown');
         var seconds = 10;
-        var redirectUrl = 'https://www.jobrunr.io/en/blog/webinar-v8/';
+        var redirectUrl = '{{< ref "blog/webinar-v8" >}}';
 
         var interval = setInterval(function() {
             seconds--;

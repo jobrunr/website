@@ -3,6 +3,7 @@ title: "Launching a developer product - how hard is it?"
 description: "Is it worthwhile to start a freemium product for developers in the Java eco-system?"
 image: /blog/2020-09-04-my-own-product.webp
 date: 2020-09-04T11:12:23+02:00
+lastmod: 2026-11-19T10:00:00+01:00
 author: "Ronald Dehuysser"
 tags:
   - blog
@@ -67,7 +68,7 @@ When publishing a Jar on Maven Central, you can also see some basic statistics a
 
 ## June, July and August 2020
 I continued improving JobRunr and added support for all kinds of SQL and NoSQL databases. I blogged about how to use it with [Kubernetes]({{< ref "2020-05-06-jobrunr-kubrnetes-terraform.md" >}}) and how I took (testing seriously)[2020-06-01-testing-against-12-jvms]. I tried to get the word out using [Reddit](https://www.reddit.com/r/java/comments/h8ymvd/jobrunr_v098_available_in_maven_central/), LinkedIn and Twitter and saw a small but steady increase of happy users. I also continued to work on the Pro version of JobRunr adding extra features which I loved myself in the past and which were requested by end-users.
-The number of visitors always increased when I blogged about JobRunr on either [DZone](https://dzone.com/articles/jobrunr-project-loom-and-virtual-threads) or [Medium](https://medium.com/@ronald.dehuysser/a-hands-on-tutorial-on-how-to-test-against-12-different-jvms-using-testcontainers-by-google-bcb2ceaeaa69) but on a typical day, I have about 5 to 15 unique visitors. The number of unique downloads of JobRunr also continues to rise according to the Maven Central statistics.
+The number of visitors always increased when I blogged about JobRunr on either [DZone](https://web.archive.org/web/20230610234055/https://dzone.com/articles/jobrunr-project-loom-and-virtual-threads) or [Medium](https://medium.com/@ronald.dehuysser/a-hands-on-tutorial-on-how-to-test-against-12-different-jvms-using-testcontainers-by-google-bcb2ceaeaa69) but on a typical day, I have about 5 to 15 unique visitors. The number of unique downloads of JobRunr also continues to rise according to the Maven Central statistics.
 
 ## Where are we in September 2020
 Currently, I feel quite confident that there are no major bugs present anymore in JobRunr. I did thorough testing (unit, integration and end-to-end with Cypress.io and I also test JobRunr against 12 different JVM's.) I still want to add support for [ElasticSearch](https://www.elastic.co/), which allows me to support the top 9 most used databases with JobRunr, including Oracle, DB2, SQL Server, MySql, MariaDB and also NoSQL databases like MongoDB and Redis. 

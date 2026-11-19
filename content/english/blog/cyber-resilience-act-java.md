@@ -6,6 +6,7 @@ images:
   - /blog/cyber-resilience-act-java.webp
 image: /blog/cyber-resilience-act-java.webp
 date: 2026-09-11T08:00:00+02:00
+lastmod: 2026-11-19T10:00:00+01:00
 author: "Nicholas D'hondt"
 draft: false
 tags:
@@ -105,7 +106,7 @@ If you are a manufacturer, the essential requirements in Annex I and the manufac
 
 Nearly every requirement on that list resolves to an artifact (the SBOM, the advisory, the support statement, the technical documentation), and the CRA rewards teams who can produce that evidence on demand. Build the pipeline so it emits those artifacts on its own, and December 2027 turns into a documentation exercise.
 
-> Do you think you are ready? Fill in the  [Cyber Resilience Act readiness checklist for Java teams](/en/cyber-resilience-act-checklist/).
+> Do you think you are ready? Fill in the  [Cyber Resilience Act readiness checklist for Java teams]({{< ref "pages/cyber-resilience-act-checklist" >}}).
 
 ## What about the dependencies in your software?
 
@@ -175,4 +176,4 @@ Compliance experts have spent two years warning Java teams that the Cyber Resili
 
 Knowing this makes readiness much more manageable than the headlines suggest. Be honest about your scope first, then start producing the necessary artifacts: an SBOM, a disclosure policy, a support window, a recent penetration test report, and a reporting path with a specific owner.
 
-Here are three ways to move forward based on your role. If you need a structured to-do list, the [readiness checklist](/en/cyber-resilience-act-checklist/) provides ten items in order. If you are currently filling out a due diligence questionnaire, [what JobRunr provides under the Cyber Resilience Act](/en/cyber-resilience-act/) is already formatted for you to attach to your file.
+Here are three ways to move forward based on your role. If you need a structured to-do list, the [readiness checklist]({{< ref "pages/cyber-resilience-act-checklist" >}}) provides ten items in order. If you are currently filling out a due diligence questionnaire, [what JobRunr provides under the Cyber Resilience Act](/en/cyber-resilience-act/) is already formatted for you to attach to your file.

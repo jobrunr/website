@@ -3,6 +3,7 @@ title: "Axon Framework + JobRunr Pro Eliminates Silent Failures in Distributed J
 description: "Axon Framework handles event sourcing and long-running workflows. JobRunr Pro enforces time boundaries on every step. Together, they build distributed Java systems that recover, and prove it."
 image: /blog/axon_jobrunr_header.webp
 date: 2026-05-12T00:00:00+02:00
+lastmod: 2026-11-19T10:00:00+01:00
 draft: false
 author: "AxonIQ"
 slug: "axon-framework-jobrunr-pro-eliminate-silent-failures-java"
@@ -153,7 +154,7 @@ public void onDeadline(CommandGateway gateway) {
 }
 ```
 
-For full configuration options, see the [JobRunr Pro Extension reference documentation](https://docs.axoniq.io/jobrunrpro-extension-reference/4.11/) and the [Axon Framework deadline managers reference](https://docs.axoniq.io/axon-framework-reference/4.11/deadlines/deadline-managers/).
+For full configuration options, see the [JobRunr Pro Extension reference documentation](https://docs.axoniq.io/jobrunr-pro-extension-reference/4.11/) and the [Axon Framework deadline managers reference](https://docs.axoniq.io/axon-framework-reference/4.11/deadlines/deadline-managers/).
 
 ## Why this matters beyond the happy path
 
@@ -177,7 +178,7 @@ That's the design goal worth chasing. Not systems that look correct in monitorin
 
 ---
 
-*Ready to add deadline management to your Axon application? Start with the [JobRunr Pro Extension guide](https://docs.axoniq.io/jobrunrpro-extension-reference/4.13/) or explore [Axon Server](https://www.axoniq.io/products/axon-server) as your event store and message router.*
+*Ready to add deadline management to your Axon application? Start with the [JobRunr Pro Extension guide](https://docs.axoniq.io/jobrunr-pro-extension-reference/4.12/) or explore [Axon Server](https://www.axoniq.io/products/axon-server) as your event store and message router.*
 
 > [!NOTE]
 > Sagas as a theoretical concept will remain with Axon Framework, however sagas will not remain as a technical concept as it has been from AF1 to AF4. Workflows will replace sagas for the complex scenarios, [Dynamic Consistency Boundary](https://www.axoniq.io/blog/dcb-in-af-5) replaces sagas for the simple paths.

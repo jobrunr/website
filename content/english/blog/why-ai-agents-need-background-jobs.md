@@ -4,6 +4,7 @@ description: "The hard part of building an AI agent is not the model. It is ever
 keywords: ["ai agents java", "background jobs ai agents", "llm background processing", "jobrunr ai agent", "java ai agent runtime"]
 image: "/blog/why-ai-agents-need-background-jobs.png"
 date: 2026-06-04T10:00:00+02:00
+lastmod: 2026-11-19T10:00:00+01:00
 author: "Nicholas D'hondt"
 slug: "why-ai-agents-need-background-jobs"
 tags:
@@ -127,7 +128,7 @@ JobRunr ships with a [dashboard](https://www.jobrunr.io/en/documentation/backgro
 
 ![A recurring agent job in the JobRunr dashboard](/blog/clawRunr-RecuringJob.png)
 
-All of this runs on the database you already have, with no message broker, no separate queue, and no cron daemon to babysit. And it scales the way agent work wants to: agent jobs spend almost all their time waiting on the model, a vector store, or an API, and on JDK 21 and up JobRunr runs them on [virtual threads](https://www.jobrunr.io/en/blog/virtual-threads-background-jobs-java/) by default, so a worker waiting on a three-second LLM call releases its carrier thread instead of hogging it. Hundreds of concurrent agent jobs cost you very little.
+All of this runs on the database you already have, with no message broker, no separate queue, and no cron daemon to babysit. And it scales the way agent work wants to: agent jobs spend almost all their time waiting on the model, a vector store, or an API, and on JDK 21 and up JobRunr runs them on [virtual threads]({{< ref "blog/virtual-threads-background-jobs-java" >}}) by default, so a worker waiting on a three-second LLM call releases its carrier thread instead of hogging it. Hundreds of concurrent agent jobs cost you very little.
 
 ## Try it
 

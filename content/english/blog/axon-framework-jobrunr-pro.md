@@ -3,6 +3,7 @@ title: "Axon Framework + JobRunr Pro: Saga Deadlines Done Right"
 description: "Banks and fintechs are combining Axon Framework's event-driven architecture with JobRunr Pro's deadline management. Here's why this combination is so powerful for building resilient financial systems."
 image: /blog/thumb-Axon.png
 date: 2026-02-05T10:00:00+02:00
+lastmod: 2026-11-19T10:00:00+01:00
 draft: false
 author: "Nicholas D'hondt"
 tags:
@@ -66,7 +67,7 @@ _Table: Regulatory drivers for event sourcing in financial services_
 
 This is exactly why **[Nets](https://www.axoniq.io/use-cases/nets-payments)**, a major European payment processor, built their platform on Axon Framework. As they put it: event sourcing produces an _"out-of-the-box audit trail essential for compliance and regulatory purposes in financial services."_
 
-It's why a **[Global Bank](https://www.axoniq.io/hubfs/collateral/cb-gb-2022-01.pdf)** built its Keystone Customer Lifecycle Management system, handling KYC, AML, and due diligence, on Axon with a 5-node cluster in Kubernetes.
+It's why a **[Global Bank](https://web.archive.org/web/20240706153234/https://www.axoniq.io/hubfs/collateral/cb-gb-2022-01.pdf)** built its Keystone Customer Lifecycle Management system, handling KYC, AML, and due diligence, on Axon with a 5-node cluster in Kubernetes.
 
 And it's why **[The world's top banks](https://www.axoniq.io/blog/why-top-banks-choose-axoniq)** process billions of domain events daily on Axon Server Enterprise.
 

@@ -5,7 +5,6 @@ keywords: ["virtual threads java", "java 21 virtual threads", "project loom", "v
 image: /blog/virtual-threads-background-jobs.webp
 date: 2026-04-03T12:00:00+02:00
 author: "Nicholas D'hondt"
-draft: true
 tags:
   - blog
   - virtual threads

@@ -4,12 +4,11 @@ meta_title: "Cyber Resilience Act Readiness Checklist for Java Teams | JobRunr"
 description: "A ten-point CRA readiness checklist for Java teams: seven items if you place software on the EU market, three if you never do. Every item cites the article of Regulation (EU) 2024/2847 it comes from."
 keywords: ["cyber resilience act checklist", "cra readiness checklist", "cra compliance checklist", "cyber resilience act requirements", "cra sbom requirements", "cyber resilience act java", "cra deadline"]
 date: 2026-08-18
-draft: true
 ---
 
 _Last reviewed: 18 August 2026_
 
-This checklist is part of our [Cyber Resilience Act guide for Java teams](/en/blog/cyber-resilience-act/), which explains who the regulation reaches, the key dates, and what the obligations look like in a Java build pipeline. If you haven't figured out your scope yet, start there. Every item below assumes you already know which side of the line you fall on.
+This checklist is part of our [Cyber Resilience Act guide for Java teams]({{< ref "blog/cyber-resilience-act-java" >}}), which explains who the regulation reaches, the key dates, and what the obligations look like in a Java build pipeline. If you haven't figured out your scope yet, start there. Every item below assumes you already know which side of the line you fall on.
 
 Readiness depends entirely on where you land. The first list is for teams placing software on the EU market. The second is for everyone else, because being "out of scope" does not mean you have nothing to do.
 

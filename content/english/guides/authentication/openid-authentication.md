@@ -1,5 +1,6 @@
 ---
 title: Secure your JobRunr Dashboard with your OpenID Provider   
+lastmod: 2026-11-19T10:00:00+01:00
 description: This guide will help you enhance the security of your JobRunr dashboard by setting up an OpenID authentication provider. Perfect for enterprise grade access control.
 weight: 15
 tags:
@@ -28,7 +29,7 @@ In this guide, we’ll start by configuring JobRunr to use an OpenID Provider, w
 > - [Okta](https://www.okta.com/) / [Auth0](https://auth0.com/)
 > - [Microsoft Entra ID](https://www.microsoft.com/en-us/security/business/microsoft-entra) ([requires extra configuration to be OIDC compliant](https://xsreality.medium.com/making-azure-ad-oidc-compliant-5734b70c43ff)). 
 > - [Google OIDC](https://cloud.google.com/security/products/identity-platform?hl=en) (uses opaque tokens)
-> - [Spring Authorization Server](https://spring.io/projects/spring-authorization-server)
+> - [Spring Authorization Server](https://docs.spring.io/spring-authorization-server/reference/)
 > - [Ping Identity](https://www.pingidentity.com/en.html)
 
 ## What is OpenID Connect
