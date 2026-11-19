@@ -6,7 +6,7 @@ description: "¿Buscas una alternativa a Quartz Scheduler? Compara JobRunr y Qua
 hero:
   badge: "Quartz vs JobRunr"
   title: "La alternativa a Quartz para equipos Java modernos"
-  subtitle: "JobRunr ejecuta tus jobs en segundo plano de Java sobre la base de datos que ya tienes. Obtienes un dashboard de verdad, reintentos automáticos y mucho más rendimiento. Y como los dos schedulers funcionan en paralelo, puedes migrar job a job."
+  subtitle: "JobRunr ejecuta los background jobs de tu aplicación Java sobre la base de datos que ya tienes. Obtienes un dashboard de verdad, reintentos automáticos y mucho más rendimiento. Y como los dos schedulers funcionan en paralelo, puedes migrar job a job."
   cta_primary:
     label: "Empieza gratis"
     link: "get-started/"
@@ -77,7 +77,7 @@ dashboard:
   title: "¿Buscas una UI para Quartz Scheduler? No existe."
   paragraphs:
     - "Busca una UI para Quartz Scheduler y acabarás en un laberinto de proyectos de la comunidad medio abandonados. Quartz no incluye ninguna interfaz, así que la mayoría de los equipos terminan consultando las tablas QRTZ_ a mano para averiguar qué jobs se ejecutaron y cuáles desaparecieron."
-    - "JobRunr trae un dashboard de serie. Ves en tiempo real cada job encolado, programado, completado y fallido, y cuando algo se rompe tienes el stack trace completo y puedes volver a encolar el job con un clic."
+    - "JobRunr trae un dashboard de serie. Ves en tiempo real cada job encolado, planificado, completado y fallido, y cuando algo se rompe tienes el stack trace completo y puedes volver a encolar el job con un clic."
   image: "/documentation/jobs-enqueued.webp"
   image_alt: "El dashboard de JobRunr mostrando un resumen de los jobs encolados"
   link:
@@ -86,7 +86,7 @@ dashboard:
 
 comparison:
   title: "JobRunr vs Quartz, funcionalidad por funcionalidad"
-  text: "Quartz se ha ganado dos décadas de confianza y sigue ganando en calendarios laborales. El resto, lado a lado."
+  text: "Quartz se ha ganado dos décadas de confianza y sigue siendo mejor en calendarios laborales. Aquí tienes el resto, cara a cara."
   jobrunr_label: "JobRunr"
   competitor_label: "Quartz"
   rows:
@@ -97,8 +97,8 @@ comparison:
       jobrunr: "Integrado, para cada job y cada servidor"
       competitor: "Ninguno, solo proyectos de la comunidad"
     - feature: "Reintentos automáticos"
-      jobrunr: "10 reintentos con back-off inteligente, de serie"
-      competitor: "Lógica de reejecución que escribes tú"
+      jobrunr: "10 reintentos con backoff inteligente, de serie"
+      competitor: "Lógica de reintentos que tienes que escribir tú"
     - feature: "Clustering"
       jobrunr: "Activado por defecto, los servidores se coordinan a través de tu base de datos"
       competitor: "Opcional, requiere configuración adicional"
@@ -122,7 +122,7 @@ comparison:
       jobrunr: "LGPL 3.0, gratis para uso comercial"
       competitor: "Apache 2.0, gratis"
     - feature: "Opción comercial"
-      jobrunr: "JobRunr Pro añade colas con prioridad, workflows y soporte"
+      jobrunr: "JobRunr Pro añade colas de prioridad, workflows y soporte"
       competitor: "Sin edición comercial ni contrato de soporte"
       url: "/es/pricing/"
     - feature: "Mantenimiento"
@@ -133,7 +133,7 @@ benchmark:
   title: "De dónde sale el 18x"
   paragraphs:
     - "Encolamos 500.000 jobs en el mismo servidor dedicado de Hetzner y la misma base de datos Postgres 18, una vez con Quartz y otra con JobRunr Pro, con pools de threads y de conexiones idénticos. Quartz procesó 145 jobs por segundo. JobRunr Pro procesó 2.732."
-    - "Quartz coordina su clúster mediante bloqueos de fila en una tabla aparte, QRTZ_LOCKS, así que cada job cuesta viajes adicionales de ida y vuelta a la base de datos. El equipo de ingeniería de eBay documentó este mismo cuello de botella bajo carga elevada. JobRunr toma el bloqueo dentro de la propia consulta de lectura, usando FOR UPDATE SKIP LOCKED en Postgres, de modo que tu base de datos dedica su tiempo a procesar jobs en lugar de gestionar bloqueos."
+    - "Quartz coordina su clúster mediante bloqueos de fila en una tabla aparte, QRTZ_LOCKS, así que cada job necesita más viajes de ida y vuelta a la base de datos. El equipo de ingeniería de eBay documentó este mismo cuello de botella bajo carga elevada. JobRunr toma el bloqueo dentro de la propia consulta de lectura, usando FOR UPDATE SKIP LOCKED en Postgres, de modo que tu base de datos dedica su tiempo a procesar jobs en lugar de gestionar bloqueos."
     - "Para ser justos con Quartz, el benchmark usa jobs que terminan al instante, que es el peor caso para la sobrecarga del scheduler. Si tus jobs tardan medio segundo cada uno, la diferencia se reduce porque tu propio código pasa a ser el cuello de botella. La carga extra que Quartz añade a la base de datos con cada job se mantiene en ambos casos."
   numbers:
     - label: "Quartz"
@@ -159,7 +159,7 @@ choose:
   left:
     title: "Quédate con Quartz cuando"
     items:
-      - "Mantienes un sistema legacy que apenas cambia, donde cualquier migración conlleva más riesgo que las molestias que elimina."
+      - "Mantienes un sistema legacy que apenas cambia, donde migrar supone más riesgo que las molestias que te ahorra."
       - "Has construido durante años listeners y plugins a medida alrededor de los internals de Quartz y te siguen funcionando bien."
   right:
     title: "Pásate a JobRunr cuando"
@@ -191,7 +191,7 @@ pricing:
   text: "Sin sorpresas por ninguna de las dos partes."
   competitor_card:
     title: "Quartz"
-    text: "Gratis bajo Apache 2.0. Todo lo que lo rodea lo construyes y lo operas tú, lo que en la práctica significa una UI propia, tu propia lógica de reintentos, tus propias alertas y el tiempo de desarrollo que consume todo eso."
+    text: "Gratis bajo Apache 2.0. Todo lo que lo rodea lo construyes y lo mantienes tú, lo que en la práctica significa una UI propia, tu propia lógica de reintentos, tus propias alertas y el tiempo de desarrollo que consume todo eso."
   jobrunr_card:
     title: "JobRunr"
     text: "JobRunr OSS es gratis para siempre bajo LGPL 3.0, también para empresas. JobRunr Pro cuesta 850 € al mes por clúster de producción, o 9.000 € al año. Las startups con menos de 10 personas pueden solicitar el plan de 1.200 € al año."
@@ -202,14 +202,14 @@ pricing:
 accordion:
   subtitle: "FAQ"
   title: "Preguntas que nos hacen los usuarios de Quartz"
-  description: "Lo que los equipos quieren saber antes de cambiar, respondido sin filtro comercial."
+  description: "Lo que los equipos quieren saber antes de cambiar, sin rodeos comerciales."
   list:
     - title: "¿Cuánto tarda una migración de Quartz a JobRunr?"
-      description: "En la mayoría de las aplicaciones, el primer job se ejecuta en JobRunr en una tarde. Una migración completa depende de cuántas clases Job tengas, pero no hay un momento big bang porque los dos schedulers funcionan en paralelo. Los equipos suelen migrar unos cuantos jobs por sprint y eliminan Quartz cuando ya no queda ninguno. La [guía de migración](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/) recorre cada paso con código."
+      description: "En la mayoría de las aplicaciones, el primer job se ejecuta en JobRunr en una tarde. Una migración completa depende de cuántas clases Job tengas, pero no hace falta migrarlo todo de golpe porque los dos schedulers funcionan en paralelo. Los equipos suelen migrar unos cuantos jobs por sprint y eliminan Quartz cuando ya no queda ninguno. La [guía de migración](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/) recorre cada paso con código."
     - title: "¿Pueden JobRunr y Quartz ejecutarse en la misma aplicación?"
       description: "Sí. Usan tablas separadas y no comparten estado, así que no hay conflictos. Así es como migra la mayoría de los equipos: trasladan los jobs poco a poco mientras Quartz sigue ejecutando el resto."
     - title: "¿De verdad JobRunr es gratis para uso comercial?"
-      description: "Sí. JobRunr OSS se distribuye bajo la licencia LGPL 3.0 y es gratis para todo el mundo, incluidas empresas de cualquier tamaño. [JobRunr Pro](/es/pro/) es la versión de pago, que añade colas con prioridad, workflows, un dashboard mejorado y soporte prioritario."
+      description: "Sí. JobRunr OSS se distribuye bajo la licencia LGPL 3.0 y es gratis para todo el mundo, incluidas empresas de cualquier tamaño. [JobRunr Pro](/es/pro/) es la versión de pago, que añade colas de prioridad, workflows, un dashboard mejorado y soporte prioritario."
     - title: "¿Funciona JobRunr con Spring Boot, Quarkus y Micronaut?"
       description: "Sí, hay integraciones oficiales para los tres. Incluso puedes añadir JobRunr directamente desde start.spring.io o code.quarkus.io. La configuración se hace a través de las propiedades habituales de tu aplicación."
     - title: "¿Qué bases de datos soporta JobRunr?"
@@ -217,11 +217,11 @@ accordion:
     - title: "¿Necesito Redis o un message broker?"
       description: "No. Tu base de datos es la única infraestructura que JobRunr necesita, exactamente igual que Quartz en ese aspecto. No hay ningún broker que instalar, monitorizar ni pagar."
     - title: "¿Qué pasa cuando un job falla?"
-      description: "JobRunr lo reintenta automáticamente, hasta 10 veces con una política de back-off inteligente. Si el job sigue fallando, ves el stack trace completo en el dashboard y puedes volver a encolarlo o eliminarlo con un clic. Con Quartz, el comportamiento de los reintentos es algo que escribes y mantienes tú."
+      description: "JobRunr lo reintenta automáticamente, hasta 10 veces con una política de backoff inteligente. Si el job sigue fallando, ves el stack trace completo en el dashboard y puedes volver a encolarlo o eliminarlo con un clic. Con Quartz, el comportamiento de los reintentos es algo que escribes y mantienes tú."
     - title: "¿Cómo gestiona JobRunr el clustering y varios servidores?"
       description: "Cada servidor que arranca JobRunr se registra en la base de datos y los servidores se coordinan a partir de ahí. No hay nada que configurar: escalas arrancando más instancias. Quartz también puede funcionar en clúster, pero es opcional y depende del esquema de bloqueo de filas que, según nuestro benchmark, se convierte en el cuello de botella bajo carga."
     - title: "¿Cuánto cuesta JobRunr Pro?"
-      description: "850 € al mes por clúster de producción, o 9.000 € al año. Un clúster de producción es el conjunto de aplicaciones o microservicios que hablan con una misma base de datos de JobRunr en producción, y los entornos de desarrollo, test y staging son gratis. Las startups que cumplan los requisitos pueden solicitar el plan de 1.200 € al año. Todos los detalles están en la [página de precios](/es/pricing/)."
+      description: "850 € al mes por clúster de producción, o 9.000 € al año. Un clúster de producción es el conjunto de aplicaciones o microservicios que se conectan a una misma base de datos de JobRunr en producción, y los entornos de desarrollo, test y staging son gratis. Las startups que cumplan los requisitos pueden solicitar el plan de 1.200 € al año. Todos los detalles están en la [página de precios](/es/pricing/)."
     - title: "¿Quartz sigue manteniéndose?"
-      description: "Sí. Tras una etapa tranquila entre 2019 y 2023, la adquisición por parte de IBM trajo nueva actividad y la comunidad ha ido cerrando issues que llevaban mucho tiempo abiertos. Los equipos que aun así se pasan a JobRunr lo hacen por motivos de arquitectura. El esquema de 11 tablas, la contención en la tabla de bloqueos y la ausencia de dashboard son decisiones de diseño que una nueva versión no cambia."
+      description: "Sí. Tras unos años con poca actividad entre 2019 y 2023, la adquisición por parte de IBM trajo nueva actividad y la comunidad ha ido cerrando issues que llevaban mucho tiempo abiertos. Los equipos que aun así se pasan a JobRunr lo hacen por motivos de arquitectura. El esquema de 11 tablas, la contención en la tabla de bloqueos y la ausencia de dashboard son decisiones de diseño que una nueva versión no cambia."
 ---
