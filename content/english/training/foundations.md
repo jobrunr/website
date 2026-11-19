@@ -19,6 +19,12 @@ sessions:
     tz: "CET"
     meet_url: "https://meet.google.com/svy-ituf-rry"
 
+# Replay of the last session: shown on this page and flagged on the training hub.
+replay:
+  youtube: "wFxDKC_DzJ8"
+  repo: "https://github.com/rdehuyss/shop"
+  date: 2026-11-19T12:30:00+01:00
+
 trainers:
   - name: "Ronald Dehuysser"
     role: "Creator of JobRunr, codes the whole hour"
@@ -49,7 +55,7 @@ prerequisites:
 
 takeaways:
   - "The production checklist as a document you can hand to your team"
-  - "The code from the session, in a public repository"
+  - "The code from the session, in a [public repository](https://github.com/rdehuyss/shop)"
   - "The recording, the next day"
   - "A free Architecture Review of one of your own job designs, if you want it"
 

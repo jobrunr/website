@@ -64,8 +64,9 @@
             {{ else }}
               <p class="font-medium text-text-dark">Date to be announced</p>
             {{ end }}
+            {{ if $t.Params.replay }}<p class="mt-1 text-sm text-gray-500">Replay available now</p>{{ end }}
           </div>
-          <span class="mt-5 font-medium text-primary">See the agenda and register &rarr;</span>
+          <span class="mt-5 font-medium text-primary">{{ if and $t.Params.replay (not $next) }}Watch the replay &rarr;{{ else }}See the agenda and register &rarr;{{ end }}</span>
         </a>
       {{ end }}
     </div>

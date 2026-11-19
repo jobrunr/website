@@ -4,6 +4,8 @@
   {{ if ge (time .start) now }}{{ $upcoming = $upcoming | append . }}{{ end }}
 {{ end }}
 {{ $registered := (site.GetPage "training/registered").RelPermalink }}
+{{/*  replay (optional front matter): youtube (video id), repo (demo project URL), date (session date).  */}}
+{{ $replay := .Params.replay }}
 
 <!-- Hero -->
 <section class="section pt-16 pb-10 bg-white">
@@ -30,16 +32,50 @@
               {{ end }}
             </div>
             <p data-sessions-empty class="hidden text-lg font-medium text-text-dark">Next date to be announced</p>
+            <p class="mt-3 text-sm opacity-80">Online, private to registrants. Recording the next day.</p>
+            <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a class="btn btn-primary btn-even-padding" href="#register">Register</a>
+              {{ if $replay }}<a class="font-medium text-primary" href="#replay">Or watch the replay of the last session &rarr;</a>{{ end }}
+            </div>
+          {{ else if $replay }}
+            <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-gray-500">Replay available</p>
+            <p class="text-lg font-medium text-text-dark">Missed the live session? Watch the full hour now.</p>
+            {{ with $replay.repo }}<p class="mt-3 text-sm opacity-80">The demo project is on GitHub, so you can code along.</p>{{ end }}
+            <div class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <a class="btn btn-primary btn-even-padding" href="#replay">Watch the replay</a>
+              <a class="font-medium text-primary" href="#register">Tell me the next live date &rarr;</a>
+            </div>
           {{ else }}
             <p class="text-lg font-medium text-text-dark">Next date to be announced</p>
+            <p class="mt-3 text-sm opacity-80">Online, private to registrants. Recording the next day.</p>
+            <a class="btn btn-primary btn-even-padding mt-4" href="#register">Tell me the next date</a>
           {{ end }}
-          <p class="mt-3 text-sm opacity-80">Online, private to registrants. Recording the next day.</p>
-          <a class="btn btn-primary btn-even-padding mt-4" href="#register">{{ if $upcoming }}Register{{ else }}Tell me the next date{{ end }}</a>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+{{ with $replay }}
+<!-- Replay of the last session -->
+<section id="replay" class="section pt-0 pb-10 bg-white">
+  <div class="container">
+    <div class="row justify-center">
+      <div class="lg:col-9" data-aos="fade-up-sm">
+        <h2 class="h3 mb-2">Watch the replay</h2>
+        <p class="mb-6 text-gray-600">{{ with .date }}Recorded live on {{ (time .).Format "2 January 2006" }}. {{ end }}{{ with .repo }}Clone the demo project and code along while you watch.{{ end }}</p>
+        <div class="overflow-hidden rounded-2xl border border-border bg-black" style="aspect-ratio: 16 / 9;">
+          <iframe class="h-full w-full" src="https://www.youtube.com/embed/{{ .youtube }}" title="{{ $.Title }}: replay" loading="lazy" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+          {{ with .repo }}<a class="btn btn-primary btn-even-padding" href="{{ . }}" target="_blank" rel="noopener">Get the demo project on GitHub</a>{{ end }}
+          <a class="font-medium text-primary" href="https://youtu.be/{{ .youtube }}" target="_blank" rel="noopener">Watch on YouTube &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{ end }}
 
 <!-- Who it is for -->
 <section class="section pt-6 pb-10 bg-white">
