@@ -5,12 +5,12 @@ list:
     link: "/en/use-case/jobrunr-pro-prophia/"
     avatar: "/images/avatar/person-3.png"
     content: |
-      Recortamos drásticamente nuestros costes de infraestructura y escalamos a más de 25.000 contratos de arrendamiento cada noche sin problemas.
+      Recortamos drásticamente nuestros costes de infraestructura y procesamos sin problemas más de 25.000 contratos de arrendamiento cada noche.
 
   - name: "Tracer.ai"
     avatar: "/images/avatar/person-3.png"
     content: |
-      Vimos un aumento del 20% en la productividad de desarrollo, y nuestro soporte de primera línea resuelve ahora el 80% de las incidencias con jobs.
+      La productividad de nuestros desarrolladores subió un 20%, y nuestro soporte de primera línea ya resuelve el 80% de las incidencias con jobs.
 
   - name: "Decathlon"
     link: "/en/use-case/jobrunr-pro-decathlon/"
