@@ -7,17 +7,17 @@ step1:
   heading: "Empieza tu prueba gratuita de JobRunr Pro"
   lead: "30 días de JobRunr Pro, gratis. Dinos dónde enviar la licencia de prueba y la preparamos."
   email_label: "Email de empresa"
-  email_hint: "Los dominios corporativos están preaprobados."
+  email_hint: "Los dominios de empresa se aprueban automáticamente."
   company_label: "Nombre de la empresa"
   submit: "Quiero mi licencia de prueba gratuita"
   # Under the button. The trial license simply expires, so there is nothing to cancel.
-  reassurance: "Sin tarjeta de crédito. La prueba termina sola a los 30 días, no hay nada que cancelar."
+  reassurance: "Sin tarjeta de crédito. La prueba caduca sola a los 30 días: no tienes que cancelar nada."
   divider: "o"
   github_label: "Continuar con GitHub"
 
 step2:
   heading: "Nuestro equipo está preparando tu licencia de prueba gratuita de JobRunr Pro."
-  lead: "Para asegurarnos de enviarte la adecuada, cuatro preguntas rápidas."
+  lead: "Para enviarte la que mejor encaja, responde a cuatro preguntas rápidas."
   submit: "Enviar respuestas"
   skip: "Prefiero responder por email"
   questions:
@@ -89,9 +89,9 @@ step2:
           label: "Más de 10"
 
 step3:
-  heading: "Gracias, esto tiene muy buena pinta."
+  heading: "Gracias, ¡esto se ve muy bien!"
   body: "Nuestro equipo está preparando tu licencia de prueba y la recibirás muy pronto en tu bandeja de entrada. Mientras esperas, mira JobRunr Pro en acción."
-  cta_label: "Haz la visita guiada"
+  cta_label: "Haz el tour guiado"
   cta_link: "https://finance.demo.jobrunr.io/tour"
   trust_label: "Lee nuestra documentación de seguridad y cumplimiento (en inglés)"
 ---

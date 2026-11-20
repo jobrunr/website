@@ -37,5 +37,5 @@ startup_modal:
     - "6 a 9"
   confirm_label: "Somos menos de 10 personas y facturamos menos de 1 M€ al año"
   submit: "Enviar mi solicitud"
-  success: "Gracias, tu solicitud está en camino. Te responderemos en un día laborable."
+  success: "Gracias, tu solicitud está en camino. Te responderemos en un plazo de un día laborable."
 ---

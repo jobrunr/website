@@ -1,7 +1,7 @@
 ---
 meta_title: "Empieza con JobRunr"
 title: "¿Cómo quieres empezar?"
-description: "Prueba JobRunr Pro gratis, empieza con JobRunr OSS o haz la visita guiada de JobRunr Pro funcionando en vivo."
+description: "Prueba JobRunr Pro gratis, empieza con JobRunr OSS o haz el tour guiado por JobRunr Pro funcionando en vivo."
 
 # No background pattern on this page: it competes with the choice blocks.
 hide_header_bg: true
@@ -28,13 +28,13 @@ options:
     choice: "tour"
     style: "link"
     title: "¿Prefieres echar un vistazo primero?"
-    text: "Haz la visita guiada de JobRunr Pro"
+    text: "Haz el tour guiado por JobRunr Pro"
     link: "https://finance.demo.jobrunr.io/tour"
     external: true
 
 # One line under the three cards, deliberately not a fourth card: the chooser has to stay above the fold.
 footnote:
   text: "¿Prefieres aprender en directo? Apúntate a una formación gratuita de una hora (en inglés), impartida por el equipo que desarrolla JobRunr."
-  link_label: "Ver próximas formaciones"
+  link_label: "Ver las próximas formaciones"
   link: "training/"
 ---

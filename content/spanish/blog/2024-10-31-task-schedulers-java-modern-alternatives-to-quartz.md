@@ -18,11 +18,11 @@ Durante mucho tiempo, Quartz, también conocido como Quartz Scheduler, fue el ú
 
 > ¿Solo te interesa JobRunr frente a Quartz? Lee nuestro [benchmark de JobRunr frente a Quartz sobre Postgres](/en/blog/quartz-vs-jobrunr/) para ver las cifras cara a cara, y [cómo pasar de Quartz a JobRunr](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/) para una migración paso a paso.
 
-## Quartz Scheduler: ¿qué tan bueno es en realidad?
+## Quartz Scheduler: ¿es tan bueno como parece?
 
-Igual que sus alternativas, **Quartz Scheduler se puede integrar en casi cualquier aplicación Java para programar y procesar cualquier tarea implementada en Java**. En sus décadas de existencia, Quartz ha evolucionado hasta convertirse en un framework con muchas funciones: persistir el estado de las tareas, gestionar misfires y volver a disparar tareas fallidas, definir planificaciones complejas, priorizar tareas, lograr procesamiento distribuido y más.
+Igual que sus alternativas, **Quartz Scheduler se puede integrar en casi cualquier aplicación Java para planificar y procesar cualquier tarea implementada en Java**. En sus décadas de existencia, Quartz ha evolucionado hasta convertirse en un framework con muchas funciones: persistir el estado de las tareas, gestionar misfires y relanzar tareas fallidas, definir planificaciones complejas, priorizar tareas, distribuir el procesamiento y más.
 
-Que Quartz lleve tanto tiempo entre nosotros tiene dos grandes ventajas: **la librería está probada en batalla y tiene una comunidad grande**, lo que facilita encontrar ayuda. Todo esto junto la convierte en la librería de planificación de jobs más popular en Java. A pesar de todos estos puntos fuertes, **elegir Quartz ya no es tan obvio por algunos problemas muy visibles**.
+Que Quartz lleve tanto tiempo entre nosotros tiene dos grandes ventajas: **la librería está más que probada en producción y tiene una comunidad grande**, lo que facilita encontrar ayuda. Todo esto junto la convierte en la librería de planificación de jobs más popular en Java. A pesar de todos estos puntos fuertes, **elegir Quartz ya no es tan obvio por algunos problemas muy visibles**.
 
 ### Limitaciones de Quartz
 
@@ -30,15 +30,15 @@ Que Quartz lleve tanto tiempo entre nosotros tiene dos grandes ventajas: **la li
 
 Quartz Scheduler tiene varios problemas que lo hacen una opción menos obvia, sobre todo cuando **[hay varias alternativas realmente buenas](#modern-alternatives-to-quartz-scheduler)**.
 
-La edad de Quartz, aunque es una ventaja, también es una desventaja, porque **la API y la arquitectura de Quartz también se están quedando viejas**. La API de Quartz se puede considerar verbosa para los estándares actuales: cada tarea necesita una clase `Job`, un `JobDetail` y un `Trigger` antes de poder ejecutarse. Puede que no parezca gran cosa, pero para una librería o un lenguaje es importante seguir siendo atractivo para la siguiente generación de desarrolladores. La menor verbosidad es uno de los factores principales de la popularidad de Kotlin, y el propio Java avanza hacia [ser más amigable para principiantes](https://www.infoq.com/news/2024/05/jep477-implicit-classes-main/).
+La edad de Quartz, aunque es una ventaja, también juega en su contra, porque **su API y su arquitectura se están quedando anticuadas**. La API de Quartz se puede considerar verbosa para los estándares actuales: cada tarea necesita una clase `Job`, un `JobDetail` y un `Trigger` antes de poder ejecutarse. Puede que no parezca gran cosa, pero para una librería o un lenguaje es importante seguir siendo atractivo para la siguiente generación de desarrolladores. Ser menos verboso es uno de los motivos principales de la popularidad de Kotlin, y el propio Java avanza para [ponérselo más fácil a los principiantes](https://www.infoq.com/news/2024/05/jep477-implicit-classes-main/).
 
 Otro sitio donde a Quartz se le notan los años es su arquitectura. Cuando se usa un RDBMS, **el scheduler requiere crear 11 tablas**, lo que probablemente es excesivo para la mayoría de aplicaciones, donde la lógica de negocio real necesita menos tablas.
 
-Hemos escrito un artículo que [explica por qué algunas personas pasan de Quartz a JobRunr y cómo hacerlo.](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). Ese artículo **da una idea de lo complejo y verboso que resulta usar Quartz**.
+Hemos escrito un artículo que [explica por qué algunos equipos pasan de Quartz a JobRunr y cómo hacerlo](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/). Ese artículo **da una idea de lo complejo y verboso que resulta usar Quartz**.
 
 #### Rinde peor que las alternativas modernas
 
-Comparado con alternativas más modernas, **de Quartz se reporta un rendimiento significativamente menor**. Este problema de rendimiento puede deberse al uso de row level locks y a la complejidad de la configuración, que hace que Quartz Scheduler sea más difícil de afinar.
+Comparado con alternativas más modernas, **muchos usuarios cuentan que Quartz rinde bastante peor**. Este problema de rendimiento puede deberse al uso de bloqueos a nivel de fila y a la complejidad de la configuración, que hace que Quartz Scheduler sea más difícil de afinar.
 
 Lo medimos nosotros mismos: en el mismo hardware y con la misma base de datos Postgres, Quartz procesó 145 jobs por segundo mientras que JobRunr Pro procesó 2.732 jobs por segundo, unas 18 veces más. La configuración, el código y los datos en bruto están en nuestro [benchmark de JobRunr frente a Quartz](/en/blog/quartz-vs-jobrunr/).
 
@@ -48,9 +48,9 @@ A Quartz Scheduler **le falta un dashboard o una UI intuitiva para seguir y moni
 
 El endpoint `quartz` de Spring Boot Actuator lista jobs y triggers como JSON, pero eso sigue sin ser una vista de qué se ejecutó, qué falló y por qué.
 
-#### La planificación distribuida es opt-in
+#### La planificación distribuida es opcional
 
-Quartz puede gestionar las tareas de forma distribuida, pero esta función es opt-in: necesitas el job store JDBC con `org.quartz.jobStore.isClustered=true` en cada nodo. Ahora que herramientas como [Kubernetes](https://kubernetes.io/) permiten levantar un pod bajo demanda, una función así no debería ser un añadido de última hora, sino el comportamiento por defecto.
+Quartz puede gestionar las tareas de forma distribuida, pero hay que activarlo expresamente: necesitas el job store JDBC con `org.quartz.jobStore.isClustered=true` en cada nodo. Ahora que herramientas como [Kubernetes](https://kubernetes.io/) permiten levantar un pod bajo demanda, una función así no debería ser un añadido de última hora, sino el comportamiento por defecto.
 
 #### Mantenimiento esporádico
 
@@ -77,13 +77,13 @@ Aquí va un resumen rápido antes de entrar en cada uno:
 | **Quartz** | Librería Java | 11 tablas en tu RDBMS, o en memoria | Ninguna integrada | Apache 2.0 |
 | **JobRunr** | Librería Java | Tu base de datos SQL o MongoDB, o en memoria | Dashboard integrado | LGPL v3 (Pro es comercial) |
 | **db-scheduler** | Librería Java | Una tabla en tu base de datos relacional | Complemento de la comunidad ([db-scheduler-ui](https://github.com/bekk/db-scheduler-ui)) | Apache 2.0 |
-| **Spring `@Scheduled` + ShedLock** | Lock para tareas programadas en memoria | Un registro de lock (JDBC, MongoDB, Redis, ...) | Ninguna | Apache 2.0 |
+| **Spring `@Scheduled` + ShedLock** | Lock para tareas planificadas en memoria | Un registro de lock (JDBC, MongoDB, Redis, ...) | Ninguna | Apache 2.0 |
 | **Kestra** | Plataforma de workflows independiente | El backend propio de Kestra | UI integrada | Apache 2.0 (Enterprise es comercial) |
 | **Temporal** | Motor de workflows independiente | La persistencia propia de Temporal | Web UI integrada | MIT (servidor), Apache 2.0 (Java SDK) |
 
 ### Alternativas a Quartz en Java {#alternatives-to-quartz-in-java}
 
-Hay dos grandes alternativas a Quartz para programar jobs en Java: [JobRunr](#jobrunr) y [db-scheduler](#db-scheduler). Se pueden añadir como dependencia a cualquier aplicación Java. Si solo necesitas evitar que una tarea `@Scheduled` de Spring se ejecute en todos los nodos a la vez, un lock como [ShedLock](https://github.com/lukas-krecan/ShedLock) es una opción más ligera, sin estado de jobs, reintentos ni dashboard. Nuestra [guía de cron jobs en Java](/en/blog/java-cron-jobs-guide/) compara `@Scheduled`, Quartz y JobRunr para tareas recurrentes.
+Hay dos grandes alternativas a Quartz para planificar jobs en Java: [JobRunr](#jobrunr) y [db-scheduler](#db-scheduler). Se pueden añadir como dependencia a cualquier aplicación Java. Si solo necesitas evitar que una tarea `@Scheduled` de Spring se ejecute en todos los nodos a la vez, un lock como [ShedLock](https://github.com/lukas-krecan/ShedLock) es una opción más ligera, sin estado de jobs, reintentos ni dashboard. Nuestra [guía de cron jobs en Java](/en/blog/java-cron-jobs-guide/) compara `@Scheduled`, Quartz y JobRunr para tareas recurrentes.
 
 Estas librerías mantienen al mínimo el número de dependencias de terceros, lo que ofrece mejores garantías de seguridad. Están disponibles como jars Java estándar en Maven Central.
 
@@ -91,16 +91,16 @@ Estas librerías mantienen al mínimo el número de dependencias de terceros, lo
 
 [JobRunr](https://github.com/jobrunr/jobrunr) es una librería Java moderna, open source y mantenida de forma activa, diseñada para el procesamiento de jobs en segundo plano. JobRunr ofrece una **API fácil de usar que simplifica la planificación de jobs**. A diferencia de Quartz, JobRunr se diseñó pensando en aplicaciones cloud-native y soporta la planificación distribuida de jobs.
 
-JobRunr busca ser **cómodo para el desarrollador** con una API simple, flexible y directa, reintentos automáticos cuando algo falla y una integración fluida con tu infraestructura existente. De hecho, lo único que necesitas para crear un job en segundo plano es una lambda de Java. JobRunr también soporta las principales bases de datos SQL y bases de datos NoSQL populares.
+JobRunr busca ser **cómodo para el desarrollador** con una API simple, flexible y directa, reintentos automáticos cuando algo falla y una integración fluida con tu infraestructura actual. De hecho, lo único que necesitas para crear un background job es una lambda de Java. JobRunr también soporta las principales bases de datos SQL y bases de datos NoSQL populares.
 
 Una función de JobRunr que ni Quartz ni db-scheduler ofrecen de serie es un dashboard. Gracias al dashboard integrado, es **fácil monitorizar el sistema** para ver por qué falló un job o para realizar acciones como volver a encolar o eliminar un job.
 
-Usada por líderes del sector, que confían en ella, la versión open source de **JobRunr ofrece las funciones esenciales que necesitas para programar tareas en Java**. Puedes esperar funciones parecidas a las de Quartz Scheduler, pero mucho más fáciles de usar. El equipo de JobRunr también desarrolla y mantiene JobRunr Pro, que ofrece funciones de nivel Enterprise y hace de JobRunr Pro la mejor librería de planificación de jobs en Java.
+Líderes del sector confían en ella y la usan: la versión open source de **JobRunr ofrece las funciones esenciales que necesitas para planificar tareas en Java**. Puedes esperar funciones parecidas a las de Quartz Scheduler, pero mucho más fáciles de usar. El equipo de JobRunr también desarrolla y mantiene JobRunr Pro, que ofrece funciones de nivel empresarial y hace de JobRunr Pro la mejor librería de planificación de jobs en Java.
 
 Algunas cosas que no encontrarás en Quartz:
 
 - **Virtual threads.** En JDK 21 y posteriores, JobRunr ejecuta tus jobs en [virtual threads](/en/documentation/configuration/virtual-threads/) por defecto, lo que da un throughput significativamente mayor en jobs limitados por E/S. Nuestro post sobre [opciones de threading para jobs en Java](/en/blog/java-job-threading-options/) explica cuándo ayudan y cuándo perjudican.
-- **Jobs durables.** Envuelve cada paso de un job en `jobContext.runStepOnce("charge-card", () -> ...)` y un reintento se salta todos los pasos que ya se completaron, de modo que un servidor de correo que falla no le cobra dos veces al cliente. Mantén [idempotente](/en/blog/idempotence-in-java-job-scheduling/) el efecto secundario dentro de un paso, y lee la [guía de durable executions](/en/guides/advanced/durable-executions/) para los detalles.
+- **Jobs durables.** Envuelve cada paso de un job en `jobContext.runStepOnce("charge-card", () -> ...)` y un reintento se salta todos los pasos que ya se completaron, de modo que un fallo del servidor de correo no hace que se le cobre dos veces al cliente. Mantén [idempotente](/en/blog/idempotence-in-java-job-scheduling/) el efecto secundario dentro de un paso, y lee la [guía de ejecuciones durables](/en/guides/advanced/durable-executions/) para los detalles.
 - **Un Chart del historial del job.** El dashboard dibuja cada intento de un job, hasta los pasos durables individuales, para que veas qué paso falló y qué pasos se saltaron en el reintento.
 - **Starters para Spring Boot 3 y 4, Quarkus y Micronaut**, así que JobRunr sigue las actualizaciones de framework que ya ibas a hacer de todos modos.
 
@@ -108,16 +108,16 @@ Algunas cosas que no encontrarás en Quartz:
 
 <figure>
 <img src="/documentation/jobs-enqueued.webp" class="kg-image" style="height: 400px">
-<figcaption>Un Dashboard de monitorización listo para usar que ofrece JobRunr</figcaption>
+<figcaption>El dashboard de monitorización que JobRunr ofrece listo para usar</figcaption>
 </figure>
 
 #### DB Scheduler
 
 Otra buena alternativa a Quartz es [db-scheduler](https://github.com/kagkarlsson/db-scheduler). La librería se diseñó en origen para ser **una alternativa más simple a Quartz**. Este diseño reduce a una el número de tablas necesarias (una única tabla `scheduled_tasks`, frente a las 11 tablas de Quartz) y ofrece una API mucho más simple.
 
-Igual que JobRunr, db-scheduler es **distribuido por defecto** y garantiza que el mismo job no se ejecutará de forma concurrente. Esta garantía se consigue usando la misma base de datos centralizada; en el caso de db-scheduler, hace falta una base de datos relacional.
+Igual que JobRunr, db-scheduler es **distribuido por defecto** y garantiza que el mismo job no se ejecute de forma concurrente. Esta garantía se consigue usando la misma base de datos centralizada; en el caso de db-scheduler, hace falta una base de datos relacional.
 
-DB Scheduler **ofrece todas las funciones esenciales para programar jobs en segundo plano**: puede gestionar jobs fire-and-forget, además de jobs programados (o aplazados) y recurrentes. La librería ofrece algo de monitorización sencilla a través de Micrometer. También puede reintentar automáticamente una tarea si falla, con back-off exponencial configurado mediante un `FailureHandler`.
+DB Scheduler **ofrece todas las funciones esenciales para planificar background jobs**: puede gestionar jobs fire-and-forget, además de jobs planificados (o diferidos) y recurrentes. La librería ofrece algo de monitorización sencilla a través de Micrometer. También puede reintentar automáticamente una tarea si falla, con backoff exponencial configurado mediante un `FailureHandler`.
 
 La librería está bien mantenida y va ganando funciones para igualar las capacidades de Quartz Scheduler, sin la complejidad extra. Requiere Java 17 o posterior e incluye un starter para Spring Boot. El proyecto en sí no tiene dashboard, pero [db-scheduler-ui](https://github.com/bekk/db-scheduler-ui), creado por la comunidad, te da una UI de administración básica que añades por separado.
 
@@ -145,7 +145,7 @@ De forma muy parecida a soluciones puramente Java como JobRunr o Quartz, Tempora
 
 Además de ofrecer funciones como reintentos, escalabilidad y ejecuciones aplazadas y recurrentes, Temporal también ofrece una interfaz de usuario que **te permite monitorizar la ejecución de los workflows** para detectar tareas fallidas.
 
-Temporal brilla en workflows de larga duración que esperan días a un temporizador o a una aprobación humana. El precio es un clúster aparte que hay que operar y un modelo de programación con sus propias reglas. Si tu trabajo durable cabe en un solo job con unos pocos pasos, `runStepOnce` en JobRunr te da la misma garantía a nivel de paso sin esa infraestructura extra.
+Temporal brilla en workflows de larga duración que esperan días a un temporizador o a una aprobación humana. El precio es un clúster aparte que hay que mantener y un modelo de programación con sus propias reglas. Si tu trabajo durable cabe en un solo job con unos pocos pasos, `runStepOnce` en JobRunr te da la misma garantía a nivel de paso sin esa infraestructura extra.
 
 ## Conclusión
 
@@ -155,6 +155,6 @@ Puede que busques una librería de planificación de tareas persistente que se i
 
 También puedes echar un vistazo a motores de workflows como Kestra o Temporal. Son especialmente útiles si tus tareas están escritas en distintos lenguajes de programación, se disparan con eventos externos a tu aplicación o se ejecutan como workflows de larga duración.
 
-Quartz sigue manteniéndose, así que quedarse con él es una opción válida para una aplicación estable que hoy funciona. Para código nuevo, o cuando te topes con sus límites en monitorización, throughput o virtual threads, merece la pena comparar.
+Quartz sigue manteniéndose, así que quedarse con él es una opción válida para una aplicación estable que hoy funciona. Para código nuevo, o cuando te topes con sus límites en monitorización, throughput o virtual threads, merece la pena comparar opciones.
 
 Con estas herramientas tan diversas a su disposición, los desarrolladores Java pueden elegir ahora la que mejor responda a sus necesidades, en lugar de depender de una única opción. Si JobRunr está en tu lista de candidatos, lee a continuación la [guía de migración de Quartz a JobRunr](/en/blog/2023-02-20-moving-from-quartz-scheduler-to-jobrunr/).

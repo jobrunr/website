@@ -5,7 +5,7 @@ description: "¿Quieres dejar de perder jobs críticos en producción? Colas de 
 
 # Customers Review
 customer_reviews:
-  title: "Cómo usan otros JobRunr Pro"
+  title: "Cómo usan JobRunr Pro otros equipos"
   subtitle: "Nuestra comunidad de JobRunr Pro"
-  description: "No te fíes solo de nuestra palabra. Lee lo que dicen de JobRunr estos líderes del sector"
+  description: "No lo decimos solo nosotros. Esto es lo que opinan de JobRunr algunos líderes del sector"
 ---

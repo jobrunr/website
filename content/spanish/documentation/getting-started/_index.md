@@ -1,6 +1,6 @@
 ---
 title: "Primeros pasos"
-description: "Guías de inicio rápido para añadir la programación de jobs en segundo plano a cualquier aplicación JVM."
+description: "Guías de inicio rápido para añadir background jobs a cualquier aplicación de la JVM."
 keywords: ["primeros pasos", "inicio rápido", "java", "spring boot", "quarkus", "micronaut", "kotlin", "configuración"]
 date: 2026-06-16T00:00:00+02:00
 layout: "documentation"
@@ -14,7 +14,7 @@ sitemap:
   changeFreq: monthly
 ---
 
-Las guías de inicio rápido te muestran cómo incorporar la programación de jobs en segundo plano a tu aplicación JVM. Elige tu stack para empezar: lo tendrás funcionando en menos de 5 minutos.
+Estas guías de inicio rápido te enseñan a añadir background jobs a tu aplicación de la JVM. Elige tu stack y lo tendrás funcionando en menos de 5 minutos.
 
 ## Lenguajes
 
@@ -29,7 +29,7 @@ Las guías de inicio rápido te muestran cómo incorporar la programación de jo
   </a>
 </div>
 
-> ¿Tu lenguaje no aparece en la lista? Consulta la [guía para otros stacks de la JVM]({{< ref path="documentation/getting-started/other#scheduling-jobs-in-jvm-languages-other-than-java-and-kotlin-using-jobrunr" lang="en" >}}) para ver cómo integrar JobRunr en Scala, Groovy y más.
+> ¿Tu lenguaje no aparece en la lista? Consulta la [guía para otros stacks de la JVM]({{< ref path="documentation/getting-started/other#scheduling-jobs-in-jvm-languages-other-than-java-and-kotlin-using-jobrunr" lang="en" >}}) para ver cómo integrar JobRunr en Scala, Groovy y otros lenguajes.
 
 ## Frameworks
 
@@ -48,4 +48,4 @@ Las guías de inicio rápido te muestran cómo incorporar la programación de jo
   </a>
 </div>
 
-> ¿Tu framework no aparece en la lista? Consulta la [guía para otros stacks de la JVM]({{< ref path="documentation/getting-started/other#integrating-jobrunr-in-other-jvm-frameworks" lang="en" >}}) para ver cómo integrar JobRunr en Grails, Play, Open Liberty y más.
+> ¿Tu framework no aparece en la lista? Consulta la [guía para otros stacks de la JVM]({{< ref path="documentation/getting-started/other#integrating-jobrunr-in-other-jvm-frameworks" lang="en" >}}) para ver cómo integrar JobRunr en Grails, Play, Open Liberty y otros frameworks.

@@ -3,17 +3,17 @@
 enable: true
 
 proof:
-  title: "En marcha donde importa"
+  title: "En producción donde de verdad importa"
   quote: "Decathlon procesa 50 millones de escaneos al día con JobRunr"
   link:
     label: "Mira cómo usan JobRunr otras empresas"
     url: "/en/use-case/"
 
 stats:
-  title: "Usado por equipos Java en todas partes"
+  title: "Equipos Java de todo el mundo lo usan"
   list:
     - item: "1 millón de descargas al mes"
-    - item: "Pruebas de penetración anuales realizadas por un tercero"
+    - item: "Pentest anual realizado por una empresa externa"
     - item: "Preparado para CRA y DORA"
       page: "/pages/cyber-resilience-act"
 
