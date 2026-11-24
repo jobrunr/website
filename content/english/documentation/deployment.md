@@ -34,7 +34,7 @@ JobRunr must read from the same node it writes to. A read replica, a MongoDB sec
 
 ### Size your connection pool for the extra load
 
-This shouldn't be overlooked. There are applications where JobRunr compete for the same connections as the rest of the application (e.g., your web requests or jobs hitting the same database). If the connection pool is under high contention, job processing will slow down. It may also prevent JobRunr's maintenance tasks from running (including servers coordination, job scheduling, ...). General recommendations applicable wether you're using JobRunr or not:
+This shouldn't be overlooked. There are applications where JobRunr compete for the same connections as the rest of the application (e.g., your web requests or jobs hitting the same database). If the connection pool is under high contention, job processing will slow down. It may also prevent JobRunr's maintenance tasks from running (including servers coordination, job scheduling, ...). General recommendations applicable whether you're using JobRunr or not:
 
 1. Avoid long running transactions or keep their number as small as possible (e.g., with rate-limiting).
 2. Avoid `@Transactional`, though convenient, it makes it too easy to overlook long running transactions.
