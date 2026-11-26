@@ -17,7 +17,7 @@ sessions:
   - start: 2026-12-10T12:30:00+01:00
     end: 2026-12-10T13:30:00+01:00
     tz: "CET"
-    meet_url: ""
+    meet_url: "https://meet.google.com/cpo-swzc-vgi"
 
 trainers:
   - name: "Ronald Dehuysser"
