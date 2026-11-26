@@ -17,7 +17,7 @@ sessions:
   - start: 2027-01-28T12:30:00+01:00
     end: 2027-01-28T13:30:00+01:00
     tz: "CET"
-    meet_url: ""
+    meet_url: "https://meet.google.com/nwg-eoab-vwo"
 
 trainers:
   - name: "Ronald Dehuysser"
